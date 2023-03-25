@@ -1,0 +1,55 @@
+name: Issue Template
+description: Blueprint for creating task issues.
+body:        
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Please write a clear and detailed description.
+      placeholder: ex. As we work together using GitHub issues, we need a clear way to organize and track our work. To achieve this, we have decided on a set of labels that we can use to better manage our issues in our meeting #1.
+    validations:
+      required: true
+  - type: dropdown
+    id: reviewer
+    attributes:
+      label: 👮‍♀️ Reviewer
+      description: "Who will review this issue?"
+      options:
+        -  Ali Başaran
+        -  Alperen Bırçak
+        -  Arda Kabadayı
+        -  Bilal Atım
+        -  Can Uzduran
+        -  Çişel Zümbül
+        -  Deniz Ünal
+        -  Ege Ekşi
+        -  Halis Bal
+        -  Harun Sami Çelik
+        -  Mehmet Said Yolcu
+        -  Zeynep Baydemir
+  - type: input
+    id: issue-deadline
+    attributes:
+      label: ⏰ Deadline 
+      description: Provide a deadline for the issue. 
+      value: No deadline
+      placeholder: "01.01.2023 - Monday - 23:59"
+  - type: markdown
+    attributes:
+      value: |
+       <br> 
+       
+       ⚠️ All the words in the title should start with an **uppercase** letter! ⚠️
+       
+       ⚠️ Do not forget to add **at least one assignee**! ⚠️
+        
+       ⚠️ Do not forget to add **Priority**, **Status** and **Type** labels! ⚠️  
+        
+       ⚠️ Before closing the issue, do not forget to write what you have done regarding the issue! ⚠️
+        
+       ⚠️ Before closing the issue, do not forget to add **Done(or Cancel)** label! ⚠️
+      
+   
+ 
+        
+       
