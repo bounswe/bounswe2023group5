@@ -10,6 +10,34 @@ import MainContainer from './Containers/MainContainer/MainContainer';
 import Test from './Pages/Test/Test';
 import FormBuilder from './Components/FormBuilder/FormBuilder';
 
+const testForm = [
+  {
+    type: "text",
+    name: "test",
+    label: "Test",
+  },
+  {
+    type: "text",
+    name: "test2",
+    label: "Test2"
+  },
+  {
+    type: "select",
+    name: "selecttest",
+    label: "select    test",
+
+    options: [
+      {
+        name: "option1asdads",
+        value: "value1"
+      },
+      {
+        name: "option2",
+        value: "value2"
+      }
+    ]
+  }
+]
 
 const router = createBrowserRouter([
   {
@@ -22,7 +50,7 @@ const router = createBrowserRouter([
       },
       {
         path: "formtest",
-        element: <FormBuilder />
+        element: <FormBuilder form={testForm} buttonText="Submit"/>
       }
     ]
   },

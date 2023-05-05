@@ -8,7 +8,8 @@ import { FormControl } from '@mui/base';
 import "./FormBuilder.scss";
 
 
-function FormBuilder({ }) {
+function FormBuilder({form, buttonText }) {
+  /*
   const form = [
     {
       type: "text",
@@ -36,7 +37,7 @@ function FormBuilder({ }) {
         }
       ]
     }
-  ]
+  ]*/
 
   const { register, handleSubmit } = useForm();
   const onSubmit = data => console.log(data);
@@ -92,7 +93,7 @@ function FormBuilder({ }) {
         </div>
 
         <div className='button-container'>
-          <Button variant="outlined" size="large" label="Submit" type="submit"> Submit </Button>
+          <Button variant="outlined" size="large" label="Submit" type="submit"> {buttonText} </Button>
         </div>
 
       </form>
