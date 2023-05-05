@@ -1,0 +1,36 @@
+.form-builder {
+    .form {
+
+        .form-items {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+
+            .form-item {
+                padding: 10px;
+                flex: 0 0 50%;
+
+                @media only screen and (max-width: 900px) {
+                    flex: 0 0 100%;
+
+                }
+            }
+        }
+
+        .button-container {
+            padding: 10px;
+
+            display: flex;
+            justify-content: right;
+
+            @media only screen and (max-width: 900px) {
+                justify-content: stretch;
+                button {
+                    width: 100%;
+                }
+            }
+
+        }
+    }
+}
