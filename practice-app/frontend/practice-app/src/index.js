@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import MainContainer from './Containers/MainContainer/MainContainer';
 import Test from './Pages/Test/Test';
+import FormBuilder from './Components/FormBuilder/FormBuilder';
 
 
 const router = createBrowserRouter([
@@ -18,9 +19,14 @@ const router = createBrowserRouter([
       {
         path: "test",
         element: <Test />
+      },
+      {
+        path: "formtest",
+        element: <FormBuilder />
       }
     ]
   },
+  
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
