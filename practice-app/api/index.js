@@ -15,8 +15,15 @@ const baseUrl = process.env.BASE_URL || "/api/v1";
 //global error handler
 app.use((err, _req, res, _next) => {
   console.log(err);
+
+  if (err instanceof Error) {
+    const { id, statusText, statusCode, reason } = err;
+    res.status(statusCode).json({ id, status: statusText, message: reason });
+    return;
+  }
+
   res.status(400).json({
-    id: 0,
+    id: errorConst.UnknownError,
     status: "Error",
     message: "An error occured!",
   });
