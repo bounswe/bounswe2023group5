@@ -1,0 +1,27 @@
+import dotenv from "dotenv";
+dotenv.config();
+import express from "express";
+import bodyParser from "body-parser";
+import cors from "cors";
+
+const app = express();
+
+app.use(cors());
+app.use(bodyParser.json({ limit: "10mb" }));
+app.use(bodyParser.urlencoded({ extended: true, limit: "10mb" }));
+
+const baseUrl = process.env.BASE_URL || "/api/v1";
+
+//global error handler
+app.use((err, _req, res, _next) => {
+  console.log(err);
+  res.status(400).json({
+    id: 0,
+    status: "Error",
+    message: "An error occured!",
+  });
+});
+
+app.listen(process.env.PORT, () => {
+  console.log(`Api is running on port: ${process.env.PORT}`);
+});
