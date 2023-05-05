@@ -5,12 +5,15 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import errorConst from "./src/shared/errors/const.js";
 import Error from "./src/shared/errors/Error.js";
+import startDatabaseConnection from "./database.js";
 
 const app = express();
 
 app.use(cors());
 app.use(bodyParser.json({ limit: "10mb" }));
 app.use(bodyParser.urlencoded({ extended: true, limit: "10mb" }));
+
+await startDatabaseConnection();
 
 const baseUrl = process.env.BASE_URL || "/api/v1";
 
