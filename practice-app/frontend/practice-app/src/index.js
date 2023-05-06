@@ -4,6 +4,7 @@ import './index.scss';
 import reportWebVitals from './reportWebVitals';
 import {
   createBrowserRouter,
+  matchPath,
   redirect,
   RouterProvider,
 } from "react-router-dom";
@@ -20,7 +21,14 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <MainContainer />,
+    loader: ({ request }) => {
+      if (new URL(request.url).pathname == "/") {
+        return redirect("/api")
+      } else {
+        return null
 
+      }
+    },
     children: [
       {
         path: "test",
