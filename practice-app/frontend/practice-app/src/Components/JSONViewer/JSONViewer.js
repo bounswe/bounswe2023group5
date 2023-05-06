@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './JSONViewer.css';
+import './JSONViewer.scss';
 
 function JsonViewer() {
     const [json, setJson] = useState(null);

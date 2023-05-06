@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import "./MainContainer.scss";
-import JSONViewer from "../JSONViewer/JSONViewer.js"
+import JSONViewer from "../../Components/JSONViewer/JSONViewer.js"
 
 function MainContainer() {
     return <div className="main-container">
