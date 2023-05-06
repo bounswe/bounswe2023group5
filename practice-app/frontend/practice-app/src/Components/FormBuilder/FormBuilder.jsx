@@ -8,7 +8,7 @@ import { FormControl } from '@mui/base';
 import "./FormBuilder.scss";
 
 
-function FormBuilder({form, buttonText }) {
+function FormBuilder({inputs, buttonText, onSubmit }) {
   /*
   const form = [
     {
@@ -40,10 +40,9 @@ function FormBuilder({form, buttonText }) {
   ]*/
 
   const { register, handleSubmit } = useForm();
-  const onSubmit = data => console.log(data);
 
-  function buildForm(form) {
-    return form.map(item => {
+  function buildForm(inputs) {
+    return inputs.map(item => {
       if (item.type == "text") {
         return <div className='form-item'>
           <TextField
@@ -70,7 +69,7 @@ function FormBuilder({form, buttonText }) {
             {...register(item.name)}
           >
 
-            <option value="">
+            <option value="not-selected">
 
             </option>
             {item.options?.map(option =>
@@ -88,7 +87,7 @@ function FormBuilder({form, buttonText }) {
       <form className='form' onSubmit={handleSubmit(onSubmit)}>
         <div className='form-items'>
           {
-            buildForm(form)
+            buildForm(inputs)
           }
         </div>
 
