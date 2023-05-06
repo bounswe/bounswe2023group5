@@ -43,10 +43,6 @@ const apidata = {
 
       ]
     }
-  },
-  "get": {
-    name: "Get",
-    jsonUrl: "https://jsonplaceholder.typicode.com/todos"
   }
 }
 

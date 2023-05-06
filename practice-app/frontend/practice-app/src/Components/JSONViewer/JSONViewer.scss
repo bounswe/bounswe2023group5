@@ -1,7 +1,7 @@
 .JsonViewer {
     max-height: 400px;
     overflow: auto;
-    background-color: #78AF64;
+    background-color: #b7d7e8;
     border: 1px solid #ddd;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
@@ -14,9 +14,9 @@
     border: 1px solid;
     box-shadow: 1px 2px 10px 0px rgba(0,0,0,0.3);
     background: rgb(155,198,53); /* Old browsers */
-    background: -moz-linear-gradient(45deg, rgba(155,198,53,1) 0%, rgba(192,234,103,1) 99%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(45deg, rgba(155,198,53,1) 0%,rgba(192,234,103,1) 99%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(45deg, rgba(155,198,53,1) 0%,rgba(192,234,103,1) 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background: -moz-linear-gradient(45deg, #d5f4e6 0%, #cfe0e8 99%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(45deg, #d5f4e6 0%,#cfe0e8 99%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(45deg, #d5f4e6 0%,#cfe0e8 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9bc635', endColorstr='#c0ea67',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
@@ -38,7 +38,7 @@
 }
 
 .JsonViewer::-webkit-scrollbar-track {
-    background: rgb(192,234,103);
+    background: #cfe0e8;
 }
 
 .JsonViewer::-webkit-scrollbar-thumb {
@@ -51,9 +51,19 @@
 }
 
 .JsonViewer-button{
-    background-color: #58A4B0;
-    width: 12rem;
-    height: 3rem;
-    border-radius: 8px;
+    background: -moz-linear-gradient(45deg, #d5f4e6 0%, #cfe0e8 99%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(45deg, #d5f4e6 0%,#cfe0e8 99%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(45deg, #d5f4e6 0%,#cfe0e8 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+
+    padding: 10px;
+
+    display: flex;
+
+    @media only screen and (max-width: 900px) {
+        justify-content: stretch;
+        button {
+            width: 100%;
+        }
+    }
 
 }

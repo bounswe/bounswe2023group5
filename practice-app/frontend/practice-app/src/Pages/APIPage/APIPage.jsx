@@ -3,6 +3,7 @@ import { useLoaderData } from 'react-router-dom';
 import FormBuilder from '../../Components/FormBuilder/FormBuilder';
 import JsonViewer from '../../Components/JSONViewer/JSONViewer';
 import { useState, useEffect } from 'react';
+import Button from '@mui/material/Button';
 
 function APIPage({ }) {
     const apiData = useLoaderData();
@@ -25,13 +26,14 @@ function APIPage({ }) {
 
     return <div>
         <FormBuilder inputs={apiData.form.inputs} buttonText={apiData.form.buttonText} onSubmit={onSubmit} />
-        <button
-            className="JsonViewer-button"
-            type="button"
-            onClick={() => setRefreshData(!refreshData)}
-        >
-            Refresh
-        </button>
+        <div className='JsonViewer-button'>
+            <Button
+                variant="outlined" size="large" label="Submit" type="button"
+                onClick={() => setRefreshData(!refreshData)}
+            >
+                Refresh
+            </Button>
+        </div>
         <JsonViewer json={json} />
     </div>;
 }

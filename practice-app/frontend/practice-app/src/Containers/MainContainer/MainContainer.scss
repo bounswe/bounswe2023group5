@@ -9,7 +9,9 @@
     justify-content: center;
 
     .center-box {
-        background-color: $light-color;
+        background: -moz-linear-gradient(45deg, #d5f4e6 0%, #cfe0e8 99%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(45deg, #d5f4e6 0%,#cfe0e8 99%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(45deg, #d5f4e6 0%,#cfe0e8 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
         width: 100%;
         margin: 50px;
         max-width: 1200px;
