@@ -25,12 +25,12 @@ const router = createBrowserRouter([
       },
       {
         path: "api/:name",
-        loader: ({params})=> apidata[params.name],
-        element: <APIPage/>
+        loader: ({ params }) => apidata[params.name],
+        element: <APIPage />
       }
     ]
   },
-  
+
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
