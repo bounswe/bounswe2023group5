@@ -1,0 +1,43 @@
+.JsonViewer {
+    max-height: 400px;
+    overflow: auto;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.JsonViewer-box {
+    border: 1px solid black;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    padding: 8px;
+}
+
+.JsonViewer-key {
+    font-weight: bold;
+    margin-right: 4px;
+    color: #555;
+}
+
+.JsonViewer-value {
+    display: inline-block;
+    margin-top: 8px;
+    color: #888;
+}
+
+.JsonViewer::-webkit-scrollbar {
+    width: 8px;
+}
+
+.JsonViewer::-webkit-scrollbar-track {
+    background: #f5f5f5;
+}
+
+.JsonViewer::-webkit-scrollbar-thumb {
+    background: #ddd;
+    border-radius: 5px;
+}
+
+.JsonViewer::-webkit-scrollbar-thumb:hover {
+    background: #ccc;
+}
