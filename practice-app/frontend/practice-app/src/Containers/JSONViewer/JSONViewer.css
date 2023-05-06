@@ -1,16 +1,23 @@
 .JsonViewer {
     max-height: 400px;
     overflow: auto;
-    background-color: #f5f5f5;
+    background-color: #78AF64;
     border: 1px solid #ddd;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
 }
 
 .JsonViewer-box {
-    border: 1px solid black;
-    margin-top: 8px;
-    margin-bottom: 16px;
-    padding: 8px;
+    padding: 10px;
+    margin: 0.5rem auto;
+    border-radius:8px;
+    border: 1px solid;
+    box-shadow: 1px 2px 10px 0px rgba(0,0,0,0.3);
+    background: rgb(155,198,53); /* Old browsers */
+    background: -moz-linear-gradient(45deg, rgba(155,198,53,1) 0%, rgba(192,234,103,1) 99%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(45deg, rgba(155,198,53,1) 0%,rgba(192,234,103,1) 99%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(45deg, rgba(155,198,53,1) 0%,rgba(192,234,103,1) 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9bc635', endColorstr='#c0ea67',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
 .JsonViewer-key {
@@ -21,8 +28,9 @@
 
 .JsonViewer-value {
     display: inline-block;
-    margin-top: 8px;
-    color: #888;
+    margin-top: 0.3rem;
+    margin-bottom: 0.5rem;
+    color: #615367;
 }
 
 .JsonViewer::-webkit-scrollbar {
@@ -30,14 +38,22 @@
 }
 
 .JsonViewer::-webkit-scrollbar-track {
-    background: #f5f5f5;
+    background: rgb(192,234,103);
 }
 
 .JsonViewer::-webkit-scrollbar-thumb {
-    background: #ddd;
+    background: #615367;
     border-radius: 5px;
 }
 
 .JsonViewer::-webkit-scrollbar-thumb:hover {
-    background: #ccc;
+    background: #555;
+}
+
+.JsonViewer-button{
+    background-color: #58A4B0;
+    width: 12rem;
+    height: 3rem;
+    border-radius: 8px;
+
 }
