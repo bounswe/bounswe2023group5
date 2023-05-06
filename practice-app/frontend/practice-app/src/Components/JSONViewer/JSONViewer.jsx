@@ -1,20 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './JSONViewer.scss';
 
-function JsonViewer() {
-    const [json, setJson] = useState(null);
-    const [loadingData, setLoadingData] = useState(true);
-    const [refreshData, setRefreshData] = useState(false);
-
-    const getData = async () => {
-        const response = await fetch('https://jsonplaceholder.typicode.com/todos')
-        setJson(await response.json())
-        setLoadingData(false);
-    }
-
-    useEffect(() => {
-        getData()
-    }, [refreshData])
+function JsonViewer({ json }) {
 
     function renderJson(json) {
         if (typeof json === 'string') {
@@ -65,13 +52,6 @@ function JsonViewer() {
 
     return (
         <div className="JsonViewer">
-            <button
-                className="JsonViewer-button"
-                type="button"
-                onClick={() => setRefreshData(!refreshData)}
-            >
-                Refresh
-            </button>
             {renderJson(json)}
         </div>
     );
