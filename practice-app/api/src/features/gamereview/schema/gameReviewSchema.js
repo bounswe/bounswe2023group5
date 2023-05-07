@@ -16,7 +16,7 @@ const gameByCategorySchema = new Schema(
       required: [true, "GameId field is required!"],
     },
     reviews: [{
-        review : String, 
+        review_text : String, 
         publish_date: String
     }],
   },
