@@ -69,11 +69,11 @@ function FormBuilder({inputs, buttonText, onSubmit }) {
             {...register(item.name)}
           >
 
-            <option value="not-selected">
+            <option value="not-selected" key="not-selected-123123">
 
             </option>
             {item.options?.map(option =>
-              <option value={option.value}>{option.name}</option>
+              <option key={option.value} value={option.value}>{option.name}</option>
             )}
           </TextField>
         </div>

@@ -4,6 +4,8 @@ import './index.scss';
 import reportWebVitals from './reportWebVitals';
 import {
   createBrowserRouter,
+  matchPath,
+  redirect,
   RouterProvider,
 } from "react-router-dom";
 import MainContainer from './Containers/MainContainer/MainContainer';
@@ -11,6 +13,7 @@ import Test from './Pages/Test/Test';
 import FormBuilder from './Components/FormBuilder/FormBuilder';
 import APIPage from './Pages/APIPage/APIPage';
 import apidata from './apidata';
+import LoginPage from './Pages/LoginPage/LoginPage';
 import NavBar from './Components/NavBar/NavBar';
 
 
@@ -19,15 +22,41 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <MainContainer />,
+    loader: ({ request }) => {
+      if (new URL(request.url).pathname == "/") {
+        return redirect("/api")
+      } else {
+        return null
+
+      }
+    },
     children: [
       {
         path: "test",
         element: <Test />
       },
       {
+        path: "api",
+        loader: () => redirect(`/api/${Object.keys(apidata)[0]}`)
+      }
+      ,
+      {
         path: "api/:name",
-        loader: ({params})=> apidata[params.name],
-        element: <APIPage/>
+        loader: async ({ params }) => {
+          const email = await localStorage.getItem("email");
+          if (!email) {
+            return redirect("/login");
+          } else {
+            return apidata[params.name]
+
+          }
+        }
+        ,
+        element: <APIPage />
+      },
+      {
+        path: "login",
+        element: <LoginPage />
       },
       {
         path: "NavBar",
@@ -35,7 +64,7 @@ const router = createBrowserRouter([
       }
     ]
   },
-  
+
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
