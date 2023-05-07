@@ -7,7 +7,11 @@
     width: 100%;
     display: flex;
     justify-content: center;
-
+    .logout-container {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
     .center-box {
         background: -moz-linear-gradient(45deg, #d5f4e6 0%, #cfe0e8 99%); /* FF3.6-15 */
         background: -webkit-linear-gradient(45deg, #d5f4e6 0%,#cfe0e8 99%); /* Chrome10-25,Safari5.1-6 */
