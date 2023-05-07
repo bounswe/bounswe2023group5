@@ -11,6 +11,7 @@ import Test from './Pages/Test/Test';
 import FormBuilder from './Components/FormBuilder/FormBuilder';
 import APIPage from './Pages/APIPage/APIPage';
 import apidata from './apidata';
+import NavBar from './Components/NavBar/NavBar';
 
 
 
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
         path: "api/:name",
         loader: ({params})=> apidata[params.name],
         element: <APIPage/>
+      },
+      {
+        path: "NavBar",
+        element: <NavBar />
       }
     ]
   },
