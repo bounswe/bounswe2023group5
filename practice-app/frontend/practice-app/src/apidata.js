@@ -1,7 +1,11 @@
+import { MockPOST } from "./APIFunctions/MockAPI";
+
 const apidata = {
   "test": {
     name: "Test",
     jsonUrl: "https://jsonplaceholder.typicode.com/todos",
+    postFunction: MockPOST,
+
     form: {
       buttonText: "Submit",
       inputs: [
@@ -39,6 +43,7 @@ const apidata = {
           type: "text",
           name: "gameName",
           label: "Name of the Game",
+
         }
 
       ]
