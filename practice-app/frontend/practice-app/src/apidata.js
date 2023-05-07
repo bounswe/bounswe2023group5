@@ -1,5 +1,4 @@
 const apidata = {
-  "options":["test","jest"],
     "test": {
         name: "Test",
         path: "/Test",
