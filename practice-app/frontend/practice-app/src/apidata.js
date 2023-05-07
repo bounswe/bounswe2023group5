@@ -1,6 +1,9 @@
+import { MockPOST } from "./APIFunctions/MockAPI";
+
 const apidata = {
     "test": {
         name: "Test",
+        postFunction: MockPOST,
         form: {
             buttonText: "Submit",
             inputs: [
