@@ -56,6 +56,7 @@ function FormBuilder({inputs, buttonText, onSubmit }) {
         </div>
       }
       if (item.type == "select") {
+        
         return <div className='form-item'>
           <TextField
             fullWidth
