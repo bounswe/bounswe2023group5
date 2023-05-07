@@ -25,7 +25,7 @@ class CardByNameController {
       // send a get request to external url and wait(by using await keyword) until the response is returned
       const response = await axios.get(url,{headers:{
         'content-type': 'application/octet-stream',
-        'X-RapidAPI-Key': '0207b20c50mshd56493d52f8e2fep1804e1jsn0e9267e405fd',
+        'X-RapidAPI-Key': process.env.HEARTHSTONE_API_SINGLE_CARD_KEY,
         'X-RapidAPI-Host': 'omgvamp-hearthstone-v1.p.rapidapi.com'}
       });
 
