@@ -32,28 +32,14 @@ class CardByNameController {
       // maps from response to database fields
       const rowValues = response.data.map((card) => {
         const {
-          cardID,
+          cardId,
           name,
           cardSet,
-          type,
-          rarity,
-          cost,
-          attack,
-          health,
-          race,
-          img
         } = card;
         return {
-          card_id: cardID,
+          card_id: cardId,
           card_name: name,
           card_set : cardSet,
-          type : type,
-          rarity : rarity,
-          cost : cost,
-          attack_point : attack,
-          health_point : health,
-          race : race,
-          card_image : img,
           user_email : userEmail
         };
       });
