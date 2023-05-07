@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Outlet, redirect, useNavigate } from "react-router-dom";
 import "./MainContainer.scss";
 import Button from '@mui/material/Button'
+import JSONViewer from "../../Components/JSONViewer/JSONViewer.js"
 
 function MainContainer() {
     const [logged, setLogged] = useState(!!localStorage.getItem("email"));
@@ -35,6 +36,7 @@ function MainContainer() {
 
         <main className="center-box">
             <Outlet />
+            <JSONViewer json={JSON.stringify({ key: 'value' })} />
         </main>
     </div>
 }
