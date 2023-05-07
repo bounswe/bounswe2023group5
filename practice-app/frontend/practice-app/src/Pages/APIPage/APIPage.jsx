@@ -18,13 +18,11 @@ function APIPage({ }) {
     }
 
     const [json, setJson] = useState(null);
-    const [loadingData, setLoadingData] = useState(true);
     const [refreshData, setRefreshData] = useState(false);
 
     const getJSONData = async () => {
-        const response = await fetch(apiData.jsonUrl)
-        setJson(await response.json())
-        setLoadingData(false);
+        const response = await apiData.getFunction()
+        setJson(response)
     }
 
     useEffect(() => {
