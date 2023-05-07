@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
-const gameByCategorySchema = new Schema(
+const gameReviewSchema = new Schema(
   {
     user_email: {
         type: String,
