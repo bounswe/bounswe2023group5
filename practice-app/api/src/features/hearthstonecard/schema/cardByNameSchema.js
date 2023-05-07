@@ -14,6 +14,10 @@ const cardByNameSchema = new Schema(
     card_set: {
       type: String,
       required: [true, "Card set field is required!"],
+    },
+    user_email: {
+      type: String,
+      required: [true, "Email field is required!"],
     }
   },
   { timestamps: true }
