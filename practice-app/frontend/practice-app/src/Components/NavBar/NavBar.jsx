@@ -27,7 +27,7 @@ function NavBar(){
 export default NavBar;
   */
   
-import * as React from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
@@ -37,19 +37,18 @@ import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
+import apidata from '../../apidata';
 
-const options = ['/api/test', '/api/jest', '/Test'];
 
 export default function NavBar() {
   const navigate = useNavigate();
-  const [open, setOpen] = React.useState(false);
-  const anchorRef = React.useRef(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const [open, setOpen] = useState(false);
+  const anchorRef = useRef(null);
+  const [selectedPage, setSelectedPage] = useState("");
+  
 
-  const handleClick = (page) => navigate(page);
-
-  const handleMenuItemClick = (event, index) => {
-    setSelectedIndex(index);
+  const handleMenuItemClick = (page, index) => {
+    setSelectedPage(page);
     setOpen(false);
   };
 
@@ -68,7 +67,7 @@ export default function NavBar() {
   return (
     <React.Fragment>
       <ButtonGroup variant="contained" ref={anchorRef} aria-label="split button">
-        <Button onClick={()=>navigate(options[selectedIndex])}>{options[selectedIndex]}</Button>
+        <Button onClick={()=>navigate(`/api/${selectedPage}`)}>{selectedPage}</Button>
         <Button
           size="small"
           aria-controls={open ? 'split-button-menu' : undefined}
@@ -100,14 +99,13 @@ export default function NavBar() {
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList id="split-button-menu" autoFocusItem>
-                  {options.map((option, index) => (
+                  {Object.keys(apidata).map((key, index) => (
                     <MenuItem
-                      key={option}
-                      disabled={index === 2}
-                      selected={index === selectedIndex}
-                      onClick={(event) => handleMenuItemClick(event, index)}
+                      key={key}
+                      selected={key === selectedPage}
+                      onClick={() => handleMenuItemClick(key, index)}
                     >
-                      {option}
+                      {apidata[key].name}
                     </MenuItem>
                   ))}
                 </MenuList>
