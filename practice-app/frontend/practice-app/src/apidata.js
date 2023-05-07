@@ -1,6 +1,8 @@
 const apidata = {
+  "options":["test","jest"],
     "test": {
         name: "Test",
+        path: "/Test",
         form: {
             buttonText: "Submit",
             inputs: [
@@ -30,6 +32,7 @@ const apidata = {
     },
     "jest": {
         name: "Jest",
+        path: "/Jest",
         form: {
             buttonText: "Simit",
             inputs: [
