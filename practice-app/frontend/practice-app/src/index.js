@@ -14,6 +14,7 @@ import FormBuilder from './Components/FormBuilder/FormBuilder';
 import APIPage from './Pages/APIPage/APIPage';
 import apidata from './apidata';
 import LoginPage from './Pages/LoginPage/LoginPage';
+import NavBar from './Components/NavBar/NavBar';
 
 
 
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <LoginPage />
+      },
+      {
+        path: "NavBar",
+        element: <NavBar />
       }
     ]
   },
