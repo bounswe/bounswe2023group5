@@ -1,11 +1,11 @@
-import { MockPOST } from "./APIFunctions/MockAPI";
+import { MockGET, MockPOST } from "./APIFunctions/MockAPI";
 
 const apidata = {
   "test": {
     name: "Test",
-    jsonUrl: "https://jsonplaceholder.typicode.com/todos",
+    //jsonUrl: "https://jsonplaceholder.typicode.com/todos",
     postFunction: MockPOST,
-
+    getFunction: MockGET,
     form: {
       buttonText: "Submit",
       inputs: [
@@ -35,7 +35,6 @@ const apidata = {
   },
   "jest": {
     name: "Jest",
-    jsonUrl: "https://jsonplaceholder.typicode.com/todos",
     form: {
       buttonText: "Simit",
       inputs: [
