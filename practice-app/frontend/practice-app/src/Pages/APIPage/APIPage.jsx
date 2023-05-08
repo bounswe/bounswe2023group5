@@ -33,15 +33,17 @@ function APIPage({ }) {
 
 
     return <div className='apipage'>
-        <nav>
-            <NavBar></NavBar>
-        </nav>
-        <h1 className='apipage-title'>
-            {apiData.name}
-        </h1>
-        <Divider/>
-        <div className='form-box'>
-            <FormBuilder inputs={apiData.form.inputs} buttonText={apiData.form.buttonText} onSubmit={onSubmit} />
+        <div className='top-box'>
+            <nav>
+                <NavBar></NavBar>
+            </nav>
+            <h1 className='apipage-title'>
+                {apiData.name}
+            </h1>
+            <Divider />
+            <div className='form-box'>
+                <FormBuilder inputs={apiData.form.inputs} buttonText={apiData.form.buttonText} onSubmit={onSubmit} />
+            </div>
         </div>
         <div className='json-box'>
             <div className='refresh-btn'>
