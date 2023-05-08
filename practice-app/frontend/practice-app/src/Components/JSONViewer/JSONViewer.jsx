@@ -5,7 +5,10 @@ import './JSONViewer.scss';
 function JsonViewer({ json }) {
 
     function renderJson(json) {
-        if (typeof json === 'string') {
+        if(!json) {
+            return "";
+        }
+        else if (typeof json === 'string') {
             return json;
         }
 
