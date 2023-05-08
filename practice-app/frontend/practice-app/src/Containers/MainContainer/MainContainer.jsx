@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Outlet, redirect, useNavigate } from "react-router-dom";
 import "./MainContainer.scss";
 import Button from '@mui/material/Button'
-import JSONViewer from "../../Components/JSONViewer/JSONViewer.jsx"
 
 function MainContainer() {
     const [logged, setLogged] = useState(!!localStorage.getItem("email"));
