@@ -1,57 +1,52 @@
+import { Paper } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import './JSONViewer.scss';
 
 function JsonViewer({ json }) {
 
     function renderJson(json) {
+        console.log(json);
         if (typeof json === 'string') {
-            return <div>{json}</div>;
+            return json;
         }
 
-        if (Array.isArray(json)) {
-            return (
-                <div>
-                    {json.map((value, index) => (
-                        <div className="JsonViewer-box" key={index}>
-                            {renderJson(value)}
-                        </div>
-                    ))}
-                </div>
-            );
+        else if (Array.isArray(json)) {
+            return <div className="jsonviewer-array-box">
+                {json.map((value, index) =>
+                    renderJson(value)
+                )}
+            </div>
+                ;
         }
 
-        if (typeof json === 'object') {
-            return (
-                <div>
+        else if (typeof json === 'object') {
+            return <Paper elevation={4}>
+                <div className="jsonviewer-object-box">
+
                     {Object.entries(json).map(([key, value], index) => (
-                        <div>
-                            <div key={index}>
-                                <span className="JsonViewer-key">{key}:</span>
-                            </div>
-                            <div>
-                                <span className="JsonViewer-value">{renderJson(value)}</span>
-                            </div>
+                        <div className="jsonviewer-value-box">
+                            <div className="jsonviewer-key">{key}:</div>
+                            <div className="jsonviewer-value">{renderJson(value)}</div>
                         </div>
                     ))}
                 </div>
-            );
+            </Paper>
+                ;
         }
 
-        if (typeof json === 'number' || typeof json === 'boolean') {
-            return <span>{String(json)}</span>;
+        else if (typeof json === 'number' || typeof json === 'boolean') {
+            return String(json);
+        } else {
+            return "Data type not supported"
         }
-
-
-
-
     }
 
     if (!json) {
-        return <div>Loading...</div>;
+        return <div className='jsonviewer-loading'>Loading...</div>;
     }
 
     return (
-        <div className="JsonViewer">
+        <div className="jsonviewer">
             {renderJson(json)}
         </div>
     );
