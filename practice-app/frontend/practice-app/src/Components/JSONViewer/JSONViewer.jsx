@@ -5,7 +5,6 @@ import './JSONViewer.scss';
 function JsonViewer({ json }) {
 
     function renderJson(json) {
-        console.log(json);
         if (typeof json === 'string') {
             return json;
         }
