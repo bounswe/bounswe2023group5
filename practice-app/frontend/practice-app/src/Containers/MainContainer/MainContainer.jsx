@@ -26,7 +26,7 @@ function MainContainer() {
     return <div className="main-container">
         {logged &&
             <div className="logout-container">
-                <Button onClick={logout} variant="contained" color="error">
+                <Button onClick={logout} variant="outlined" color="error">
                     Log out
                 </Button>
             </div>

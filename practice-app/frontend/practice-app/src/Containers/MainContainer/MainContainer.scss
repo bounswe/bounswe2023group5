@@ -7,20 +7,22 @@
     width: 100%;
     display: flex;
     justify-content: center;
+
     .logout-container {
         position: absolute;
         top: 10px;
         left: 10px;
     }
+
     .center-box {
-        background: -moz-linear-gradient(45deg, #d5f4e6 0%, #cfe0e8 99%); /* FF3.6-15 */
-        background: -webkit-linear-gradient(45deg, #d5f4e6 0%,#cfe0e8 99%); /* Chrome10-25,Safari5.1-6 */
-        background: linear-gradient(45deg, #d5f4e6 0%,#cfe0e8 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        background-color: $light-color;
         width: 100%;
         margin: 50px;
         max-width: 1200px;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-        align-items: center;
+       
+
+
         @media only screen and (max-width: 900px) {
             margin: 10px;
         }
