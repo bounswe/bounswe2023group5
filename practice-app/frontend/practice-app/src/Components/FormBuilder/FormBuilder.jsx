@@ -56,6 +56,7 @@ function FormBuilder({inputs, buttonText, onSubmit }) {
         </div>
       }
       if (item.type == "select") {
+        
         return <div className='form-item'>
           <TextField
             fullWidth
@@ -69,11 +70,8 @@ function FormBuilder({inputs, buttonText, onSubmit }) {
             {...register(item.name)}
           >
 
-            <option value="not-selected">
-
-            </option>
             {item.options?.map(option =>
-              <option value={option.value}>{option.name}</option>
+              <option key={option.value} value={option.value}>{option.name}</option>
             )}
           </TextField>
         </div>

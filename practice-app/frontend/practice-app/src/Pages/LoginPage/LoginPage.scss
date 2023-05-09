@@ -1,0 +1,20 @@
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    flex-direction: column;
+    gap: 30px;
+    .login-text {
+        font-size: 2.5em;
+        margin: 50px;
+        font-style: italic;
+        opacity: 50%;
+        @media only screen and (max-width: 900px) {
+            font-size: 1.5em;
+        }
+    }
+    form {
+        display: contents;
+    }
+}
