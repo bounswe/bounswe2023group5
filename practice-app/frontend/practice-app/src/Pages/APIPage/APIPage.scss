@@ -1,0 +1,17 @@
+.apipage{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    .json-box {
+        .refresh-btn {
+            margin: 10px;
+        }
+    }
+    .form-box {
+        margin: 10px;
+    }
+    .apipage-title {
+        margin-left: 10px;
+    }
+}
