@@ -42,9 +42,9 @@ function FormBuilder({inputs, buttonText, onSubmit }) {
   const { register, handleSubmit } = useForm();
 
   function buildForm(inputs) {
-    return inputs.map(item => {
+    return inputs.map((item,index) => {
       if (item.type == "text") {
-        return <div className='form-item'>
+        return <div className='form-item' key={index}>
           <TextField
             fullWidth
 
@@ -56,7 +56,8 @@ function FormBuilder({inputs, buttonText, onSubmit }) {
         </div>
       }
       if (item.type == "select") {
-        return <div className='form-item'>
+        
+        return <div className='form-item' key={index}>
           <TextField
             fullWidth
             select
@@ -69,9 +70,6 @@ function FormBuilder({inputs, buttonText, onSubmit }) {
             {...register(item.name)}
           >
 
-            <option value="not-selected" key="not-selected-123123">
-
-            </option>
             {item.options?.map(option =>
               <option key={option.value} value={option.value}>{option.name}</option>
             )}
@@ -82,7 +80,7 @@ function FormBuilder({inputs, buttonText, onSubmit }) {
     )
   }
   return (
-    <div className='form-builder'>
+    <div className='form-builder' key='form-builder'>
 
       <form className='form' onSubmit={handleSubmit(onSubmit)}>
         <div className='form-items'>

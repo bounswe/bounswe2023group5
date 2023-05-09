@@ -42,6 +42,7 @@ const router = createBrowserRouter([
       ,
       {
         path: "api/:name",
+
         loader: async ({ params }) => {
           const email = await localStorage.getItem("email");
           if (!email) {
