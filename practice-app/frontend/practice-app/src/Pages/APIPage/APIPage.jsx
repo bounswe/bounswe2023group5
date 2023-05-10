@@ -22,14 +22,15 @@ function APIPage({ }) {
     const [json, setJson] = useState(null);
     const [refreshData, setRefreshData] = useState(false);
 
-    const getJSONData = async () => {
-        const response = await apiData.getFunction()
-        setJson(response)
-    }
 
     useEffect(() => {
-        getJSONData()
-    }, [refreshData])
+        const getJSONData = async () => {
+            const response = await apiData.getFunction();
+            setJson(response);
+        };
+    
+        getJSONData();
+    }, [apiData, refreshData]);
 
 
     return <div className='apipage'>
