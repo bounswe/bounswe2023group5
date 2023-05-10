@@ -42,6 +42,6 @@ const achievementByGameIdSchema = new Schema({
     }
 })
 
-const AchievementByGameId = mongoose.model("achievementByGameId", achievementByGameIdSchema);
+const AchievementByGameId = mongoose.model("achievementsByGameId", achievementByGameIdSchema);
 
 export default AchievementByGameId;
