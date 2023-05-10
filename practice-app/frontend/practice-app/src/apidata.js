@@ -1,4 +1,4 @@
-import { MockGET, MockPOST } from "./APIFunctions/MockAPI";
+import { MockGET, MockPOST, MockGET2 } from "./APIFunctions/MockAPI";
 
 const apidata = {
   "test": {
@@ -34,6 +34,8 @@ const apidata = {
     }
   },
   "jest": {
+    postFunction: MockPOST,
+    getFunction: MockGET2,
     name: "Jest",
     form: {
       buttonText: "Simit",
