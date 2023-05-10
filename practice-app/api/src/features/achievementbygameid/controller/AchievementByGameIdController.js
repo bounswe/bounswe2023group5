@@ -2,7 +2,7 @@ import axios from "axios";
 import EmptyFieldError from "../../../shared/errors/EmptyField.js";
 import successfulResponse from "../../../shared/response/successfulResponse.js";
 import ExternalApiError from "../../../shared/errors/ExternalApi.js";
-import AchievementByGameId from "../schema/AchievementByGameIdSchema.js"
+import AchievementByGameId from "../schema/achievementByGameIdSchema.js";
 
 
 class AchievementByGameIdController {
@@ -68,7 +68,27 @@ class AchievementByGameIdController {
     }
   }
 
-
-
-
+  
+  async getAchievementsByEmail(req, res, next) {
+    try {
+      //get the user email from query parameter
+      const userEmail = req.query.userEmail;
+      //check whether the email field is empty. If it is, then give a empty field error. (You can check errors folder)
+      if (!userEmail) {
+        next(new EmptyFieldError());
+        return;
+      }
+      // retrieve the values based on the user email and sort them according to their created times.
+      const achievements= await AchievementByGameId.find(
+        { user_email: userEmail },
+        { _id: 0, __v: 0, updatedAt: 0 }
+      ).sort({ createdAt: -1 });
+      res.status(200).json(achievements);
+    } catch (error) {}
+  }
+  
 }
+
+const achievementByGameIdController = new AchievementByGameIdController();
+
+export default achievementByGameIdController;
