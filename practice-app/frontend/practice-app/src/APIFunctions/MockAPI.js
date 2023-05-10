@@ -2,8 +2,8 @@ import axios from "axios"
 
 export async function MockPOST(body) {
     try {
-        const response = await axios.post('https://httpbin.org/post', body);
-        console.log(response.data);
+        //const response = await axios.post('https://httpbin.org/post', body);
+        console.log(body);
     } catch (error) {
         console.error(error);
     }
