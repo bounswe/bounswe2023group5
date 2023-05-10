@@ -15,6 +15,16 @@ const apidata = {
           label: "Name of the Game",
         },
         {
+          type: "number",
+          name: "gameNumber",
+          label: "Number test",
+        },
+        {
+          type: "bool",
+          name: "gameBool",
+          label: "Bol test",
+        },
+        {
           type: "select",
           name: "sort",
           label: "Sort By",
