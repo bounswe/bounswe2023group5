@@ -21,10 +21,18 @@ class GameByUserController {
       let url = `http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${process.env.STEAM_API_KEY}&steamid=${steamid}&format=json`
 
       // send a get request to external url and wait(by using await keyword) until the response is returned
-      const get_result = await axios.get(url);
+      const response = await axios.get(url);
+
+      // filters the games that will not be added to the database
+      const filtered_result = response.data.response.games.filter(game => {
+        const {
+          playtime_windows_forever,
+        } = game;
+        return playtime_windows_forever > 0;
+      })
 
       // maps from response to database fields
-      const insertedValues = get_result.data.response.games.map((game) => {
+      const insertedValues = filtered_result.map((game) => {
         const {
           appid,
           playtime_forever,
