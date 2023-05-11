@@ -4,6 +4,7 @@ import gameByCategoryController from "./gamebycategory/controller/GameByCategory
 import cardByNameController from "./hearthstonecard/controller/CardByNameController.js";
 import gameByUserController from "./gamebyuser/controller/GameByUserController.js";
 import gameSuggestionController from "./gamesuggestion/controller/GameSuggestionController.js";
+import yugiohCardByNameController from "./yugiohcard/controller/YugiohCardByNameController.js";
 
 router.get("/category", gameByCategoryController.getGamesByEmail);
 router.post("/category", gameByCategoryController.insertGames);
@@ -16,5 +17,8 @@ router.post("/user", gameByUserController.insertGames);
 
 router.get("/suggestion", gameSuggestionController.getGameSuggestionsByEmail);
 router.post("/suggestion", gameSuggestionController.insertGameSuggestions);
+
+router.get("/yugiohcard", yugiohCardByNameController.getCardsByEmail);
+router.post("/yugiohcard", yugiohCardByNameController.insertYugiohCardInfo);
 
 export default router;
