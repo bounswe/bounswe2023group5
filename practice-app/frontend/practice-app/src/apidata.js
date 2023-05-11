@@ -1,10 +1,7 @@
-
-
-
 import { DealGET, DealPOST } from "./APIFunctions/DealApi";
 import { MockGET, MockGET2, MockPOST } from "./APIFunctions/MockAPI";
 import { AchievementGET, AchievementPOST } from "./APIFunctions/AchievementApi";
-
+import { GameReviewGET, GameReviewPOST } from "./APIFunctions/GameReviewApi";
 
 const apidata = {
   "deal": {
@@ -125,6 +122,48 @@ const apidata = {
 
       ]
     }
+  },
+  "review": {
+    name: "Game Reviews",
+    form: {
+      buttonText : "Search Reviews",
+      inputs: [
+        {
+          type: "text",
+          name: "gameNameCriteria",
+          label: "Name of the Game",
+        },
+        {
+          type: "select",
+          name: "sort",
+          label: "Sort By",
+          options: [
+            {
+              name: "Newest",
+              value: "newest"
+            },
+            {
+              name: "Oldest",
+              value: "oldest"
+            },
+            {
+              name: "Popularity",
+              value: "popularity"
+            },
+            {
+              name: "Highest Score",
+              value: "score-high"
+            },
+            {
+              name: "Lowest Score",
+              value: "score-low"
+            }
+          ]
+        }
+      ] 
+    },
+    postFunction: GameReviewPOST,
+    getFunction: GameReviewGET
   }
 }
 
