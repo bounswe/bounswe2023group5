@@ -7,17 +7,20 @@ import GameByUser from "../schema/gameByUserSchema.js";
 class GameByUserController {
   async insertGames(req, res, next) {
     try {
-      // get the category from the body of the request
+      // get the steamid from the body of the request
       const { steamid, userEmail } = req.body;
 
-      //check whether the category or email field is empty. If it is, then give a empty field error. (You can check errors folder)
+      var minPlaytime = 0;
+      var { minPlaytime } = req.body;
+
+      //check whether the steamid or email field is empty. If it is, then give a empty field error. (You can check errors folder)
       if (!(steamid && userEmail)) {
         next(new EmptyFieldError());
         return;
       }
 
       // external api url
-      // this external api returns the games based on the given category
+      // this external api returns the games based on the given steamid
       let url = `http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${process.env.STEAM_API_KEY}&steamid=${steamid}&format=json`
 
       // send a get request to external url and wait(by using await keyword) until the response is returned
@@ -28,7 +31,7 @@ class GameByUserController {
         const {
           playtime_windows_forever,
         } = game;
-        return playtime_windows_forever > 0;
+        return playtime_windows_forever > minPlaytime * 60;
       })
 
       // maps from response to database fields
@@ -41,8 +44,8 @@ class GameByUserController {
         return {
           game_id: appid,
           user_email: userEmail,
-          playtime: playtime_forever,
-          playtime_on_windows: playtime_windows_forever,
+          playtime: ~~(playtime_forever / 60),
+          playtime_on_windows: ~~(playtime_windows_forever / 60),
         };
       });
 
