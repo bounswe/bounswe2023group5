@@ -23,6 +23,7 @@ chrome-user-data
 .vscode
 *.swp
 *.swo
+*.env
 
 packages/react-devtools-core/dist
 packages/react-devtools-extensions/chrome/build
@@ -50,6 +51,7 @@ packages/react-devtools-timeline/dist
 /build
 
 # misc
+.env
 .DS_Store
 .env.local
 .env.development.local
