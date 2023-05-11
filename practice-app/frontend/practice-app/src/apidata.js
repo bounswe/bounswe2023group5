@@ -3,6 +3,7 @@
 
 import { DealGET, DealPOST } from "./APIFunctions/DealApi";
 import { SuggestionGet, SuggestionPost } from "./APIFunctions/SuggestionApi";
+import { HearthstoneCardGet, HearthstoneCardPost } from "./APIFunctions/HearthstoneApi";
 import { MockGET, MockGET2, MockPOST } from "./APIFunctions/MockAPI";
 
 
@@ -108,6 +109,21 @@ const apidata = {
               value: "MMORPG"
             }
           ]
+        }
+      ]
+    }
+  },
+  "card": {
+    name: "Hearthstone Cards",
+    postFunction: HearthstoneCardPost,
+    getFunction: HearthstoneCardGet,
+    form: {
+      buttonText: "Submit",
+      inputs: [
+        {
+          type: "text",
+          name: "name",
+          label: "Please enter the name of the card you want to add your collection.",
         }
       ]
     }
