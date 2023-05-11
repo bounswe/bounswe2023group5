@@ -3,6 +3,7 @@
 
 import { DealGET, DealPOST } from "./APIFunctions/DealApi";
 import { MockGET, MockGET2, MockPOST } from "./APIFunctions/MockAPI";
+import { AchievementGET, AchievementPOST } from "./APIFunctions/AchievementApi";
 
 
 const apidata = {
@@ -101,6 +102,25 @@ const apidata = {
           name: "gameName",
           label: "Name of the Game",
 
+        }
+
+      ]
+    }
+  },
+  "achievement": {
+
+    postFunction: AchievementPOST,
+    getFunction: AchievementGET,
+
+    name: "Achievement",
+    form: {
+
+      buttonText: "POST GAME'S LEAST COMPLETED ACHIEVEMENTS",
+      inputs: [
+        {
+          type: "number",
+          name: "gameid",
+          label: "Steam Id of the Game (Please provide a valid id)",
         }
 
       ]
