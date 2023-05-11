@@ -7,6 +7,7 @@ import gameSuggestionController from "./gamesuggestion/controller/GameSuggestion
 
 import achievementByGameIdController from "./achievementbygameid/controller/AchievementByGameIdController.js";
 import topGamesController from "./topgames/controller/TopGamesController.js";
+import gameByDealController from "./gameByDeal/controller/gameByDealController.js";
 
 
 router.get("/category", gameByCategoryController.getGamesByEmail);
@@ -28,6 +29,9 @@ router.post("/achievement", achievementByGameIdController.insertAchievements);
 
 router.get("/topgames", topGamesController.getTopGamesByEmail);
 router.post("/topgames", topGamesController.insertTopGames);
+
+router.get("/deal", gameByDealController.getDeals);
+router.post("/deal", gameByDealController.getHistory);
 
 
 export default router;
