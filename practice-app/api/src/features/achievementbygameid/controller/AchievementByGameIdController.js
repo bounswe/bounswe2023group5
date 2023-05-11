@@ -31,7 +31,9 @@ class AchievementByGameIdController {
 
       // send a get request to external url and wait(by using await keyword) until the response is returned
       const response = await axios.get(url);
-
+      
+        console.log("deneme")
+      
       //get achievements from response
       const achievements = response.data.achievementpercentages.achievements;
       // take least completed 3 achievements
@@ -63,15 +65,14 @@ class AchievementByGameIdController {
       res
         .status(201)
         .json(
-          successfulResponse("Achievements are inserted to database successfully")
+          successfulResponse("Least completed achievements are inserted to database successfully")
         );
     } catch (error) {
-      console.log(error);
 
       // if this condition is true, then it means that external api has returned an error.
       if (error.response) {
-        if (error.response.data.status_message) {
-          next(new ExternalApiError(error.response.data.status_message));
+        if (error.response.status==403) {
+          next(new ExternalApiError(error.response.reason));
           return;
         }
       }
