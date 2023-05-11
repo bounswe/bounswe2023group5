@@ -2,7 +2,7 @@
 
 
 import { DealGET, DealPOST } from "./APIFunctions/DealApi";
-import { MockGET, MockPOST } from "./APIFunctions/MockAPI";
+import { MockGET, MockGET2, MockPOST } from "./APIFunctions/MockAPI";
 
 
 const apidata = {
