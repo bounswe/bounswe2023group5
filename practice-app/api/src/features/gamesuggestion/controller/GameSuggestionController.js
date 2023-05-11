@@ -8,27 +8,30 @@ class GameSuggestionController {
   async insertGameSuggestions(req, res, next) {
     try {
       // parse category from the body of the request
-      const { userPrompt, userEmail } = req.body;
+      const { enjoyedGames, preferredGameType, userEmail } = req.body;
 
       // validates if userPrompt and userEmail is given in the request body properly
-      if (!(userPrompt && userEmail)) {
+      if (!(enjoyedGames && preferredGameType && userEmail)) {
         next(new EmptyFieldError());
         return;
       }
 
       // external api url, which takes the API key from environment variables
       let url = `https://api.retool.com/v1/workflows/e405ad45-1b1f-4365-bacb-fd0eedb25a5d/startTrigger?workflowApiKey=${process.env.RETOOL_API_KEY}`;
-      var systemPrompt = "As a game recommendation program, I would like you to suggest five games based on a user's input, which may include their interests or games they have enjoyed in the past. Please provide the best recommendations possible based on the information provided in English. Here is the input: "
+      var systemPrompt = "As a game recommendation program, I would like you to suggest five games based on a user's input, which will include their preferred type of games and games they have enjoyed in the past. Please provide the best recommendations possible based on the information provided in English. "
+      systemPrompt += `User prefers ${preferredGameType} type of games. `
+      systemPrompt += `We asked the user about some examples of games he/she enjoyed. Here is the response: ${enjoyedGames}.`
 
-      var body = { "prompt": systemPrompt + userPrompt }
+      var body = { "prompt": systemPrompt}
 
       // send a post request to third party url
       const response = await axios.post(url, body);
-
+      console.log(response.data.data);
       // creating data object to write into database
       const data_to_insert = {
         user_email: userEmail,
-        user_prompt: userPrompt,
+        enjoyed_games: enjoyedGames,
+        preferred_game_type: preferredGameType,
         ai_suggestion: response.data.data
       }
 
@@ -68,7 +71,7 @@ class GameSuggestionController {
       // query the values from MongoDB gamesuggestions collection based on the user email and sort them according to their created times.
       const suggestions = await GameSuggestions.find(
         { user_email: userEmail },
-        { user_prompt: 1, ai_suggestion:1, createdAt: 1 }
+        { enjoyed_games: 1, preferred_game_type: 1, ai_suggestion:1, createdAt: 1 }
       ).sort({ createdAt: -1 });
       
       // reeturn the MongoDB data as response to the get request
