@@ -40,7 +40,9 @@ const achievementByGameIdSchema = new Schema({
             required: [true, "Success Rate field is required!"],
         }
     }
-})
+},
+{ timestamps: true }
+)
 
 const AchievementByGameId = mongoose.model("achievementsByGameId", achievementByGameIdSchema);
 
