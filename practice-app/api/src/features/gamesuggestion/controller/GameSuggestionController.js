@@ -10,7 +10,7 @@ class GameSuggestionController {
       // parse category from the body of the request
       const { enjoyedGames, preferredGameType, userEmail } = req.body;
 
-      // validates if userPrompt and userEmail is given in the request body properly
+      // validates if enjoyedGames, preferredGameType and userEmail is given in the request body properly
       if (!(enjoyedGames && preferredGameType && userEmail)) {
         next(new EmptyFieldError());
         return;
@@ -26,7 +26,7 @@ class GameSuggestionController {
 
       // send a post request to third party url
       const response = await axios.post(url, body);
-      console.log(response.data.data);
+
       // creating data object to write into database
       const data_to_insert = {
         user_email: userEmail,
