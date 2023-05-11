@@ -115,7 +115,7 @@ const apidata = {
     name: "Achievement",
     form: {
 
-      buttonText: "Simit",
+      buttonText: "POST GAME'S LEAST COMPLETED ACHIEVEMENTS",
       inputs: [
         {
           type: "number",
