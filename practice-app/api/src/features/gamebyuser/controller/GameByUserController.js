@@ -9,7 +9,6 @@ class GameByUserController {
     try {
       // get the category from the body of the request
       const { steamid, userEmail } = req.body;
-      const key = "7CCE50D6D5D4929E15BF3108C3436CB0";
 
       //check whether the category or email field is empty. If it is, then give a empty field error. (You can check errors folder)
       if (!(steamid && userEmail)) {
@@ -19,7 +18,7 @@ class GameByUserController {
 
       // external api url
       // this external api returns the games based on the given category
-      let url = `http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${key}&steamid=${steamid}&format=json`
+      let url = `http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${process.env.STEAM_API_KEY}&steamid=${steamid}&format=json`
 
       // send a get request to external url and wait(by using await keyword) until the response is returned
       const get_result = await axios.get(url);
