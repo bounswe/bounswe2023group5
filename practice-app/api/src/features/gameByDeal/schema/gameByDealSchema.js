@@ -20,7 +20,9 @@ const gameByDealSchema = new Schema(
             title: String,
             salePrice: String,
             normalPrice: String,
-            steamRatingText: String
+            steamRatingText: String,
+            rating: String,
+            isOnSale: Boolean
         }
     ]
   },
