@@ -1,5 +1,9 @@
+
+
+
 import { DealGET, DealPOST } from "./APIFunctions/DealApi";
-import { MockGET, MockPOST } from "./APIFunctions/MockAPI";
+import { MockGET, MockGET2, MockPOST } from "./APIFunctions/MockAPI";
+
 
 const apidata = {
   "deal": {
@@ -15,6 +19,7 @@ const apidata = {
           label: "Game Title"
         }, 
         {
+
           type: "number",
           name: "upperPrice",
           label: "Upper Price",          
@@ -25,6 +30,7 @@ const apidata = {
           label: "Deal Count",          
         },
         {
+
           type: "number",
           name: "minimumRating",
           label: "Minimum Steam Rating",          
@@ -34,6 +40,69 @@ const apidata = {
           name: "onSale",
           label: "Only Include Games On Sale",          
         }
+      ]
+    }
+  },
+  "test": {
+    name: "Test",
+    //jsonUrl: "https://jsonplaceholder.typicode.com/todos",
+    postFunction: MockPOST,
+    getFunction: MockGET,
+    form: {
+      buttonText: "Submit",
+      inputs: [
+        {
+          type: "text",
+          name: "gameName",
+          label: "Name of the Game",
+        },
+        {
+
+          type: "number",
+          name: "gameNumber",
+          label: "Number test",
+        },
+        {
+          type: "bool",
+          name: "gameBool",
+          label: "Bol test",
+        },
+        {
+
+          type: "select",
+          name: "sort",
+          label: "Sort By",
+
+          options: [
+            {
+              name: "Newest",
+              value: "newest"
+            },
+            {
+              name: "Most Popular",
+              value: "popularity"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "jest": {
+
+    postFunction: MockPOST,
+    getFunction: MockGET2,
+
+    name: "Jest",
+    form: {
+      buttonText: "Simit",
+      inputs: [
+        {
+          type: "text",
+          name: "gameName",
+          label: "Name of the Game",
+
+        }
+
       ]
     }
   }

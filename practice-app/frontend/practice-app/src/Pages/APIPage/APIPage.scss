@@ -3,6 +3,11 @@
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
+  
+    .top-box {
+        margin: 30px;
+    }
+
     .json-box {
         .refresh-btn {
             margin: 10px;
