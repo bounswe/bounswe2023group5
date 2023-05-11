@@ -1,8 +1,64 @@
-import { MockGET, MockPOST } from "./APIFunctions/MockAPI";
 import { CategoryGET, CategoryPOST } from "./APIFunctions/GameByCategoryApi";
+import { DealGET, DealPOST } from "./APIFunctions/DealApi";
+import { UserGET, UserPOST } from "./APIFunctions/UserApi";
+import { MockGET, MockGET2, MockPOST } from "./APIFunctions/MockAPI";
+import { AchievementGET, AchievementPOST } from "./APIFunctions/AchievementApi";
+
 
 const apidata = {
-  test: {
+  "deal": {
+    name: "Deals",
+    postFunction: DealPOST,
+    getFunction: DealGET,
+    form: {
+      buttonText: "Search Deals",
+      inputs: [
+        {
+          type: "text",
+          name: "title",
+          label: "Game Title"
+        },
+        {
+
+          type: "number",
+          name: "upperPrice",
+          label: "Upper Price",
+        },
+        {
+          type: "number",
+          name: "dealCount",
+          label: "Deal Count",
+        },
+        {
+
+          type: "number",
+          name: "minimumRating",
+          label: "Minimum Steam Rating",
+        },
+        {
+          type: "bool",
+          name: "onSale",
+          label: "Only Include Games On Sale",
+        }
+      ]
+    }
+  },
+  "user": {
+    name: "Games Played On Windows",
+    postFunction: UserPOST,
+    getFunction: UserGET,
+    form: {
+      buttonText: "Search Games",
+      inputs: [
+        {
+          type: "text",
+          name: "steamid",
+          label: "Steam ID"
+        }
+      ]
+    }
+  },
+  "test": {
     name: "Test",
     //jsonUrl: "https://jsonplaceholder.typicode.com/todos",
     postFunction: MockPOST,
@@ -16,6 +72,18 @@ const apidata = {
           label: "Name of the Game",
         },
         {
+
+          type: "number",
+          name: "gameNumber",
+          label: "Number test",
+        },
+        {
+          type: "bool",
+          name: "gameBool",
+          label: "Bol test",
+        },
+        {
+
           type: "select",
           name: "sort",
           label: "Sort By",
@@ -34,7 +102,10 @@ const apidata = {
       ],
     },
   },
-  jest: {
+
+  "jest": {
+    postFunction: MockPOST,
+    getFunction: MockGET2,
     name: "Jest",
 
     form: {
@@ -59,7 +130,6 @@ const apidata = {
           type: "select",
           name: "category",
           label: "Category of the Game",
-
           options: [
             {
               name: "Action",
@@ -110,6 +180,26 @@ const apidata = {
       ],
     },
   },
-};
+  "achievement": {
+
+    postFunction: AchievementPOST,
+    getFunction: AchievementGET,
+
+    name: "Achievement",
+    form: {
+
+      buttonText: "POST GAME'S LEAST COMPLETED ACHIEVEMENTS",
+      inputs: [
+        {
+          type: "number",
+          name: "gameid",
+          label: "Steam Id of the Game (Please provide a valid id)",
+        }
+
+      ]
+    }
+  }
+}
+
 
 export default apidata;
