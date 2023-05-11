@@ -2,6 +2,7 @@
 
 
 import { DealGET, DealPOST } from "./APIFunctions/DealApi";
+import { UserGET, UserPOST } from "./APIFunctions/UserApi";
 import { MockGET, MockGET2, MockPOST } from "./APIFunctions/MockAPI";
 import { AchievementGET, AchievementPOST } from "./APIFunctions/AchievementApi";
 
@@ -10,7 +11,7 @@ const apidata = {
   "deal": {
     name: "Deals",
     postFunction: DealPOST,
-    getFunction: DealGET, 
+    getFunction: DealGET,
     form: {
       buttonText: "Search Deals",
       inputs: [
@@ -18,28 +19,43 @@ const apidata = {
           type: "text",
           name: "title",
           label: "Game Title"
-        }, 
+        },
         {
 
           type: "number",
           name: "upperPrice",
-          label: "Upper Price",          
+          label: "Upper Price",
         },
         {
           type: "number",
           name: "dealCount",
-          label: "Deal Count",          
+          label: "Deal Count",
         },
         {
 
           type: "number",
           name: "minimumRating",
-          label: "Minimum Steam Rating",          
+          label: "Minimum Steam Rating",
         },
         {
           type: "bool",
           name: "onSale",
-          label: "Only Include Games On Sale",          
+          label: "Only Include Games On Sale",
+        }
+      ]
+    }
+  },
+  "user": {
+    name: "Games Played On Windows",
+    postFunction: UserPOST,
+    getFunction: UserGET,
+    form: {
+      buttonText: "Search Games",
+      inputs: [
+        {
+          type: "text",
+          name: "steamid",
+          label: "Steam ID"
         }
       ]
     }
