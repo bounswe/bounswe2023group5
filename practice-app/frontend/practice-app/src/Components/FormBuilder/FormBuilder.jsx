@@ -3,12 +3,12 @@ import React, { useRef } from 'react';
 import { useForm } from "react-hook-form";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField'
-import { InputLabel, Select } from '@mui/material';
+import { FormControlLabel, InputLabel, Select, Switch } from '@mui/material';
 import { FormControl } from '@mui/base';
 import "./FormBuilder.scss";
 
 
-function FormBuilder({inputs, buttonText, onSubmit }) {
+function FormBuilder({ inputs, buttonText, onSubmit }) {
   /*
   const form = [
     {
@@ -42,7 +42,8 @@ function FormBuilder({inputs, buttonText, onSubmit }) {
   const { register, handleSubmit } = useForm();
 
   function buildForm(inputs) {
-    return inputs.map((item,index) => {
+
+    return inputs.map((item, index) => {
       if (item.type == "text") {
         return <div className='form-item' key={index}>
           <TextField
@@ -55,8 +56,35 @@ function FormBuilder({inputs, buttonText, onSubmit }) {
           />
         </div>
       }
+      if (item.type == "number") {
+        return <div className='form-item' key={index}>
+          <TextField
+            fullWidth
+            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+            key={item.name}
+            id={item.name}
+            label={item.label}
+            helperText="Please only input numbers."
+            {...register(item.name)}
+          />
+        </div>
+      }
+      if (item.type == "bool") {
+        return <div className='form-item' key={index}>
+          <FormControlLabel
+            key={item.name}
+
+            control={<Switch
+              id={item.name}
+              {...register(item.name)}
+            />}
+            label={item.label}
+          />
+          
+        </div>
+      }
       if (item.type == "select") {
-        
+
         return <div className='form-item' key={index}>
           <TextField
             fullWidth

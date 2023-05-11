@@ -1,4 +1,5 @@
-import { MockGET, MockPOST } from "./APIFunctions/MockAPI";
+
+import { MockGET, MockPOST, MockGET2 } from "./APIFunctions/MockAPI";
 
 const apidata = {
   "test": {
@@ -15,6 +16,18 @@ const apidata = {
           label: "Name of the Game",
         },
         {
+
+          type: "number",
+          name: "gameNumber",
+          label: "Number test",
+        },
+        {
+          type: "bool",
+          name: "gameBool",
+          label: "Bol test",
+        },
+        {
+
           type: "select",
           name: "sort",
           label: "Sort By",
@@ -34,6 +47,10 @@ const apidata = {
     }
   },
   "jest": {
+
+    postFunction: MockPOST,
+    getFunction: MockGET2,
+
     name: "Jest",
     form: {
       buttonText: "Simit",
