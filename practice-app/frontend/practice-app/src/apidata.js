@@ -55,7 +55,7 @@ const apidata = {
         {
           type: "number",
           name: "steamid",
-          label: "Steam ID"
+          label: "Steam ID (Please provide a valid id.)"
         },
         {
           type: "number",
