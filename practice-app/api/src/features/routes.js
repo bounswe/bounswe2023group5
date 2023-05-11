@@ -30,8 +30,8 @@ router.post("/achievement", achievementByGameIdController.insertAchievements);
 router.get("/topgames", topGamesController.getTopGamesByEmail);
 router.post("/topgames", topGamesController.insertTopGames);
 
-router.get("/deal", gameByDealController.getDeals);
-router.post("/deal", gameByDealController.getHistory);
+router.get("/deal", gameByDealController.getHistory);
+router.post("/deal", gameByDealController.getDeals);
 
 
 export default router;
