@@ -120,7 +120,7 @@ const apidata = {
         {
           type: "number",
           name: "gameid",
-          label: "Steam Id of the Game",
+          label: "Steam Id of the Game (Please provide a valid id)",
         }
 
       ]
