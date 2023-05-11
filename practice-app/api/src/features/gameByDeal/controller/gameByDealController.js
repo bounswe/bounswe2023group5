@@ -7,7 +7,7 @@ import GameByDeal from "../schema/gameByDealSchema.js";
 class GameByDealController {
     async getDeals(req, res, next) {
         try {
-            const { userEmail, upperPrice, title } = req.body;
+            const { userEmail, upperPrice, title, dealCount, minimumRating, onSale } = req.body;
             if (!(userEmail)) {
                 next(new EmptyFieldError());
                 return;
@@ -18,7 +18,10 @@ class GameByDealController {
                     storeID: 1,
                     pageSize: 10,
                     upperPrice: upperPrice,
-                    title: title
+                    title: title,
+                    pageSize: dealCount,
+                    steamRating: minimumRating,
+                    onSale: onSale
                 }
             })
 
@@ -30,7 +33,9 @@ class GameByDealController {
                     title: item.title,
                     salePrice: item.salePrice,
                     normalPrice: item.normalPrice,
-                    steamRatingText: item.steamRatingText
+                    steamRatingText: item.steamRatingText,
+                    rating: item.stemRatingPercent+"%",
+                    isOnSale: item.isOnSale
                 }))
             })
 
