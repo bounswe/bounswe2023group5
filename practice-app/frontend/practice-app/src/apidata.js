@@ -1,47 +1,147 @@
+
+
+
+import { DealGET, DealPOST } from "./APIFunctions/DealApi";
+import { UserGET, UserPOST } from "./APIFunctions/UserApi";
+import { MockGET, MockGET2, MockPOST } from "./APIFunctions/MockAPI";
+import { AchievementGET, AchievementPOST } from "./APIFunctions/AchievementApi";
+
+
 const apidata = {
-    "test": {
-        name: "Test",
-        form: {
-            buttonText: "Submit",
-            inputs: [
-                {
-                  type: "text",
-                  name: "gameName",
-                  label: "Name of the Game",
-                },
-                {
-                  type: "select",
-                  name: "sort",
-                  label: "Sort By",
-              
-                  options: [
-                    {
-                      name: "Newest",
-                      value: "newest"
-                    },
-                    {
-                      name: "Most Popular",
-                      value: "popularity"
-                    }
-                  ]
-                }
-              ]
+  "deal": {
+    name: "Deals",
+    postFunction: DealPOST,
+    getFunction: DealGET,
+    form: {
+      buttonText: "Search Deals",
+      inputs: [
+        {
+          type: "text",
+          name: "title",
+          label: "Game Title"
+        },
+        {
+
+          type: "number",
+          name: "upperPrice",
+          label: "Upper Price",
+        },
+        {
+          type: "number",
+          name: "dealCount",
+          label: "Deal Count",
+        },
+        {
+
+          type: "number",
+          name: "minimumRating",
+          label: "Minimum Steam Rating",
+        },
+        {
+          type: "bool",
+          name: "onSale",
+          label: "Only Include Games On Sale",
         }
-    },
-    "jest": {
-        name: "Jest",
-        form: {
-            buttonText: "Simit",
-            inputs: [
-                {
-                  type: "text",
-                  name: "gameName",
-                  label: "Name of the Game",
-                }
-                
-              ]
-        }
+      ]
     }
+  },
+  "user": {
+    name: "Games Played On Windows",
+    postFunction: UserPOST,
+    getFunction: UserGET,
+    form: {
+      buttonText: "Search Games",
+      inputs: [
+        {
+          type: "text",
+          name: "steamid",
+          label: "Steam ID"
+        }
+      ]
+    }
+  },
+  "test": {
+    name: "Test",
+    //jsonUrl: "https://jsonplaceholder.typicode.com/todos",
+    postFunction: MockPOST,
+    getFunction: MockGET,
+    form: {
+      buttonText: "Submit",
+      inputs: [
+        {
+          type: "text",
+          name: "gameName",
+          label: "Name of the Game",
+        },
+        {
+
+          type: "number",
+          name: "gameNumber",
+          label: "Number test",
+        },
+        {
+          type: "bool",
+          name: "gameBool",
+          label: "Bol test",
+        },
+        {
+
+          type: "select",
+          name: "sort",
+          label: "Sort By",
+
+          options: [
+            {
+              name: "Newest",
+              value: "newest"
+            },
+            {
+              name: "Most Popular",
+              value: "popularity"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "jest": {
+
+    postFunction: MockPOST,
+    getFunction: MockGET2,
+
+    name: "Jest",
+    form: {
+      buttonText: "Simit",
+      inputs: [
+        {
+          type: "text",
+          name: "gameName",
+          label: "Name of the Game",
+
+        }
+
+      ]
+    }
+  },
+  "achievement": {
+
+    postFunction: AchievementPOST,
+    getFunction: AchievementGET,
+
+    name: "Achievement",
+    form: {
+
+      buttonText: "POST GAME'S LEAST COMPLETED ACHIEVEMENTS",
+      inputs: [
+        {
+          type: "number",
+          name: "gameid",
+          label: "Steam Id of the Game (Please provide a valid id)",
+        }
+
+      ]
+    }
+  }
 }
 
 export default apidata;
