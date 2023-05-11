@@ -37,18 +37,12 @@ class GameByUserController {
           appid,
           playtime_forever,
           playtime_windows_forever,
-          playtime_mac_forever,
-          playtime_linux_forever,
-          rtime_last_played,
         } = game;
         return {
           game_id: appid,
           user_email: userEmail,
-          playtime_forever,
-          playtime_windows_forever,
-          playtime_mac_forever,
-          playtime_linux_forever,
-          rtime_last_played,
+          playtime: playtime_forever,
+          playtime_on_windows: playtime_windows_forever,
         };
       });
 
