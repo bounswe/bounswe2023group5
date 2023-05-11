@@ -148,7 +148,7 @@ class GameReviewController {
                 resp.status(200).json(reviews);
             }
             else {
-                next(new NotFoundError("There is no game you've searched for its reviews before"));
+                next(new NotFoundError("There is no game that you've searched for its reviews before"));
                 return;
             }
         }
