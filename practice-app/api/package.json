@@ -21,6 +21,7 @@
     "mongoose": "^7.1.0"
   },
   "devDependencies": {
+    "appid": "^1.0.3",
     "jest": "^29.5.0",
     "supertest": "^6.3.3"
   }
