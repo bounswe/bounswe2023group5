@@ -34,23 +34,18 @@ class GameByUserController {
         return playtime_windows_forever > minPlaytime * 60;
       })
 
-      // maps from response to database fields
-      const insertedValues = filtered_result.map((game) => {
-        const {
-          appid,
-          playtime_forever,
-          playtime_windows_forever,
-        } = game;
-        return {
-          game_id: appid,
-          user_email: userEmail,
-          playtime: ~~(playtime_forever / 60),
-          playtime_on_windows: ~~(playtime_windows_forever / 60),
-        };
-      });
+      // maps from response to related db fields
+      const newGameByUser = new GameByUser({
+        user_email: userEmail,
+        games: filtered_result.map(game => ({
+          game_id: game.appid,
+          playtime: parseInt(game.playtime_forever / 60),
+          playtime_on_windows: parseInt(game.playtime_windows_forever / 60),
+        }))
+      })
 
       // insert the values to mongodb database
-      await GameByUser.insertMany(insertedValues);
+      await newGameByUser.save();
 
       // return a response with status code 201
       res
