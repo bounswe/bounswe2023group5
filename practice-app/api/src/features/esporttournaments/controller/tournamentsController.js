@@ -2,60 +2,50 @@ import axios from "axios";
 import EmptyFieldError from "../../../shared/errors/EmptyField.js";
 import successfulResponse from "../../../shared/response/successfulResponse.js";
 import ExternalApiError from "../../../shared/errors/ExternalApi.js";
-import GameByCategory from "../schema/gameByCategorySchema.js";
+import Tournaments from "../schema/tournaments.js";
 
-class GameByCategoryController {
-  async insertGames(req, res, next) {
+class TournamentsController {
+  async insertTournaments(req, res, next) {
     try {
-      // get the category from the body of the request
-      const { category, userEmail } = req.body;
+      const {userEmail } = req.body;
 
       //check whether the category or email field is empty. If it is, then give a empty field error. (You can check errors folder)
-      if (!(category && userEmail)) {
+      if (!(userEmail)) {
         next(new EmptyFieldError());
         return;
       }
 
       // external api url
       // this external api returns the games based on the given category
-      let url = `https://www.freetogame.com/api/games?category=${category}`;
+      let url = 'https://esportapi1.p.rapidapi.com/api/esport/tournament/categories';
 
       // send a get request to external url and wait(by using await keyword) until the response is returned
-      const response = await axios.get(url);
-
+      const response = await axios.get(url,{headers:{
+        'X-RapidAPI-Key': process.env.apikey,
+        'X-RapidAPI-Host': 'esportapi1.p.rapidapi.com'}
+      });      
       // maps from response to database fields
-      const insertedValues = response.data.map((game) => {
+      const categories = response.data.categories.map((category) => {
         const {
+          flag,
           id,
-          title,
-          thumbnail,
-          short_description,
-          platform,
-          publisher,
-          developer,
-          release_date,
-        } = game;
+          name
+        } = category;
         return {
-          game_id: id,
           user_email: userEmail,
-          name: title,
-          thumbnail,
-          short_description,
-          platform,
-          publisher,
-          developer,
-          release_date,
+          flag: flag,
+          id: id,
+          name: name
         };
       });
-
       // insert the values to mongodb database
-      await GameByCategory.insertMany(insertedValues);
-
+      await Tournaments.insertMany(categories);
+      
       // return a response with status code 201
       res
         .status(201)
         .json(
-          successfulResponse("Games are inserted to database successfully")
+          successfulResponse("tournaments are inserted to database successfully")
         );
     } catch (error) {
       console.log(error);
@@ -70,7 +60,7 @@ class GameByCategoryController {
     }
   }
 
-  async getGamesByEmail(req, res, next) {
+  async getTournamentsByEmail(req, res, next) {
     try {
       //get the user email from query parameter
       const userEmail = req.query.userEmail;
@@ -82,16 +72,16 @@ class GameByCategoryController {
       }
 
       // retrieve the values based on the user email and sort them according to their created times.
-      const games = await GameByCategory.find(
+      const tournaments = await Tournaments.find(
         { user_email: userEmail },
         { _id: 0, __v: 0, updatedAt: 0 }
       ).sort({ createdAt: -1 });
 
-      res.status(200).json(games);
+      res.status(200).json(tournaments);
     } catch (error) {}
   }
 }
 
-const gameByCategoryController = new GameByCategoryController();
+const tournamentsController = new TournamentsController();
 
-export default gameByCategoryController;
+export default tournamentsController;

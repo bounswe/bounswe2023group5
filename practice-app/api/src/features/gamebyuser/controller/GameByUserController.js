@@ -2,54 +2,52 @@ import axios from "axios";
 import EmptyFieldError from "../../../shared/errors/EmptyField.js";
 import successfulResponse from "../../../shared/response/successfulResponse.js";
 import ExternalApiError from "../../../shared/errors/ExternalApi.js";
-import GameByCategory from "../schema/gameByCategorySchema.js";
+import GameByUser from "../schema/gameByUserSchema.js";
 
-class GameByCategoryController {
+class GameByUserController {
   async insertGames(req, res, next) {
     try {
       // get the category from the body of the request
-      const { category, userEmail } = req.body;
+      const { steamid, userEmail } = req.body;
 
       //check whether the category or email field is empty. If it is, then give a empty field error. (You can check errors folder)
-      if (!(category && userEmail)) {
+      if (!(steamid && userEmail)) {
         next(new EmptyFieldError());
         return;
       }
 
       // external api url
       // this external api returns the games based on the given category
-      let url = `https://www.freetogame.com/api/games?category=${category}`;
+      let url = `http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${process.env.STEAM_API_KEY}&steamid=${steamid}&format=json`
 
       // send a get request to external url and wait(by using await keyword) until the response is returned
       const response = await axios.get(url);
 
-      // maps from response to database fields
-      const insertedValues = response.data.map((game) => {
+      // filters the games that will not be added to the database
+      const filtered_result = response.data.response.games.filter(game => {
         const {
-          id,
-          title,
-          thumbnail,
-          short_description,
-          platform,
-          publisher,
-          developer,
-          release_date,
+          playtime_windows_forever,
+        } = game;
+        return playtime_windows_forever > 0;
+      })
+
+      // maps from response to database fields
+      const insertedValues = filtered_result.map((game) => {
+        const {
+          appid,
+          playtime_forever,
+          playtime_windows_forever,
         } = game;
         return {
-          game_id: id,
+          game_id: appid,
           user_email: userEmail,
-          name: title,
-          thumbnail,
-          short_description,
-          platform,
-          publisher,
-          developer,
-          release_date,
+          playtime: playtime_forever,
+          playtime_on_windows: playtime_windows_forever,
         };
       });
 
       // insert the values to mongodb database
-      await GameByCategory.insertMany(insertedValues);
+      await GameByUser.insertMany(insertedValues);
 
       // return a response with status code 201
       res
@@ -82,16 +80,16 @@ class GameByCategoryController {
       }
 
       // retrieve the values based on the user email and sort them according to their created times.
-      const games = await GameByCategory.find(
+      const games = await GameByUser.find(
         { user_email: userEmail },
         { _id: 0, __v: 0, updatedAt: 0 }
       ).sort({ createdAt: -1 });
 
       res.status(200).json(games);
-    } catch (error) {}
+    } catch (error) { }
   }
 }
 
-const gameByCategoryController = new GameByCategoryController();
+const gameByUserController = new GameByUserController();
 
-export default gameByCategoryController;
+export default gameByUserController;
