@@ -42,7 +42,7 @@ const apidata = {
         }
       ]
     }
-  }
+  },
   "test": {
     name: "Test",
     //jsonUrl: "https://jsonplaceholder.typicode.com/todos",
