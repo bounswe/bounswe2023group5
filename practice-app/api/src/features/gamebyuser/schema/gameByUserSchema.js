@@ -11,25 +11,13 @@ const gameByUserSchema = new Schema(
       type: String,
       required: [true, "Email field is required!"],
     },
-    playtime_forever: {
+    playtime: {
       type: Number,
       required: [true, "Playtime field is required!"],
     },
-    playtime_windows_forever: {
+    playtime_on_windows: {
       type: Number,
       required: [true, "Short description field is required!"],
-    },
-    playtime_mac_forever: {
-      type: Number,
-      required: [true, "Genre field is required!"],
-    },
-    playtime_linux_forever: {
-      type: Number,
-      required: [true, "Platform field is required!"],
-    },
-    rtime_last_played: {
-      type: Number,
-      required: [true, "Publisher field is required!"],
     },
   },
   { timestamps: true }

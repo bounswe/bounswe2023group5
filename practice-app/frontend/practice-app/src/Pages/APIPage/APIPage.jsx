@@ -11,25 +11,28 @@ import { Divider } from '@mui/material';
 
 function APIPage({ }) {
     const apiData = useLoaderData();
-    const onSubmit = async (data) => {
-        if (apiData.postFunction) {
-            await apiData.postFunction(data)
-        } else {
-            console.log(`You tried to post but dont have a post function set, heres what you posted \n ${JSON.stringify(data)}`)
-        }
-    }
 
     const [json, setJson] = useState(null);
     const [refreshData, setRefreshData] = useState(false);
 
     const getJSONData = async () => {
-        const response = await apiData.getFunction()
-        setJson(response)
+        const response = await apiData.getFunction();
+        setJson(response);
+    };
+    const onSubmit = async (data) => {
+        if (apiData.postFunction) {
+            await apiData.postFunction(data);
+            await getJSONData();
+        } else {
+            console.log(`You tried to post but dont have a post function set, heres what you posted \n ${JSON.stringify(data)}`)
+        }
     }
 
+
     useEffect(() => {
-        getJSONData()
-    }, [refreshData])
+        getJSONData();
+    }, [apiData, refreshData]);
+
 
 
     return <div className='apipage'>

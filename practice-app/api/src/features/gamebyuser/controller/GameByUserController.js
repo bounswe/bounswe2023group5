@@ -9,7 +9,6 @@ class GameByUserController {
     try {
       // get the category from the body of the request
       const { steamid, userEmail } = req.body;
-      const key = "7CCE50D6D5D4929E15BF3108C3436CB0";
 
       //check whether the category or email field is empty. If it is, then give a empty field error. (You can check errors folder)
       if (!(steamid && userEmail)) {
@@ -19,29 +18,31 @@ class GameByUserController {
 
       // external api url
       // this external api returns the games based on the given category
-      let url = `http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${key}&steamid=${steamid}&format=json`
+      let url = `http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${process.env.STEAM_API_KEY}&steamid=${steamid}&format=json`
 
       // send a get request to external url and wait(by using await keyword) until the response is returned
-      const get_result = await axios.get(url);
+      const response = await axios.get(url);
+
+      // filters the games that will not be added to the database
+      const filtered_result = response.data.response.games.filter(game => {
+        const {
+          playtime_windows_forever,
+        } = game;
+        return playtime_windows_forever > 0;
+      })
 
       // maps from response to database fields
-      const insertedValues = get_result.data.response.games.map((game) => {
+      const insertedValues = filtered_result.map((game) => {
         const {
           appid,
           playtime_forever,
           playtime_windows_forever,
-          playtime_mac_forever,
-          playtime_linux_forever,
-          rtime_last_played,
         } = game;
         return {
           game_id: appid,
           user_email: userEmail,
-          playtime_forever,
-          playtime_windows_forever,
-          playtime_mac_forever,
-          playtime_linux_forever,
-          rtime_last_played,
+          playtime: playtime_forever,
+          playtime_on_windows: playtime_windows_forever,
         };
       });
 

@@ -1,0 +1,27 @@
+version: "0.1"
+
+services:
+  frontend:
+    build: frontend/practice-app
+    image: unaldenizzz/practice-app-frontend:0.1
+    ports:
+      - 80:3000
+    stdin_open: true
+    restart: always
+    environment:
+      REACT_APP_BASE_URL: "${REACT_APP_BASE_URL}"
+      REACT_APP_API_URL: "${REACT_APP_API_URL}"
+
+  backend:
+    restart: always
+    build: api
+    image: unaldenizzz/practice-app-backend:0.1
+    expose: 
+      - 3001
+    ports:
+      - 3001:3001
+    environment:
+      PORT: "${PORT}"
+      BASE_URL: "${BASE_URL}"
+      DATABASE_URL: "${DATABASE_URL}"
+      STEAM_API_KEY: "${STEAM_API_KEY}"
