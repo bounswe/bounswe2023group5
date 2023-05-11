@@ -25,6 +25,8 @@ class GameByDealController {
                 }
             })
 
+            console.log(externalResponse)
+
             const newGameByDeal = new GameByDeal({
                 userEmail: userEmail,
                 title: title,
@@ -34,7 +36,7 @@ class GameByDealController {
                     salePrice: item.salePrice,
                     normalPrice: item.normalPrice,
                     steamRatingText: item.steamRatingText,
-                    rating: item.stemRatingPercent+"%",
+                    rating: item.steamRatingPercent+"%",
                     isOnSale: item.isOnSale
                 }))
             })
