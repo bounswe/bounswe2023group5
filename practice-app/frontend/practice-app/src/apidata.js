@@ -2,6 +2,7 @@
 
 
 import { DealGET, DealPOST } from "./APIFunctions/DealApi";
+import { SuggestionGet, SuggestionPost } from "./APIFunctions/SuggestionApi";
 import { MockGET, MockGET2, MockPOST } from "./APIFunctions/MockAPI";
 
 
@@ -39,6 +40,74 @@ const apidata = {
           type: "bool",
           name: "onSale",
           label: "Only Include Games On Sale",          
+        }
+      ]
+    }
+  },
+  "suggestion": {
+    name: "Game Suggestion",
+    postFunction: SuggestionPost,
+    getFunction: SuggestionGet,
+    form: {
+      buttonText: "Submit",
+      inputs: [
+        {
+          type: "text",
+          name: "enjoyedGames",
+          label: "Please type some examples of games you have enjoyed.",
+        },
+        {
+
+          type: "select",
+          name: "preferredGameType",
+          label: "Preferred Game Type",
+
+          options: [
+            {
+              name: "Role-Playing Games (RPG)",
+              value: "Role-Playing Games (RPG)"
+            },
+            {
+              name: "Sandbox",
+              value: "Sandbox"
+            },
+            {
+              name: "Action-Adventure",
+              value: "Action-Adventure"
+            },
+            {
+              name: "First-Person Shooter (FPS)",
+              value: "First-Person Shooter (FPS)"
+            },
+            {
+              name: "Open World",
+              value: "Open World"
+            },
+            {
+              name: "Platformer",
+              value: "Platformer"
+            },
+            {
+              name: "Fighting",
+              value: "Fighting"
+            },
+            {
+              name: "Real-Time Strategy (RTS)",
+              value: "Real-Time Strategy (RTS)"
+            },
+            {
+              name: "Survival Horror",
+              value: "Survival Horror"
+            },
+            {
+              name: "Racing",
+              value: "Racing"
+            },
+            {
+              name: "MMORPG",
+              value: "MMORPG"
+            }
+          ]
         }
       ]
     }
