@@ -3,7 +3,9 @@ import dotenv from "dotenv";
 dotenv.config();
 import GameReview from "../schema/gameReviewSchema.js";
 import EmptyFieldError from "../../../shared/errors/EmptyField.js";
+import NotFoundError from "../../../shared/errors/NotFound.js";
 import successfulResponse from "../../../shared/response/successfulResponse.js";
+import Error from  "../../../shared/errors/Error.js";
 import ExternalApiError from "../../../shared/errors/ExternalApi.js";
 
 class GameReviewController {
@@ -73,7 +75,7 @@ class GameReviewController {
                     }
 
                 } else {
-                    next(new Error);
+                    next(new Error());
                 }
 
             }
@@ -84,7 +86,41 @@ class GameReviewController {
         }
 
     }
+
+    async getGameReviewsByEmail(req, resp, next) {
+
+         // read the user email from query parameters
+         const userEmail = req.query.userEmail;
+    
+         // check if userEmail field is given properly via url parameter. If not, returns an error
+         if (!userEmail) {
+           next(new EmptyFieldError());
+           return;
+         }
+
+         try {
+            const reviews = await GameReview.find(
+                { user_email: userEmail }
+              ).sort({ createdAt: -1 });
+            
+            if (typeof reviews !== 'undefined' && reviews.length > 0) {
+                // return the MongoDB data as response to the get request
+                resp.status(200).json(reviews);
+            }
+            else {
+                next(new NotFoundError("There is no game that you've searched for its reviews before"));
+                return;
+            }
+        } 
+         
+        catch (error) {
+            next(new Error());
+        }
+
+    }
+
 }
+
 
 const gameReviewController = new GameReviewController();
 
