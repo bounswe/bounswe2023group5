@@ -4,13 +4,14 @@
 import { DealGET, DealPOST } from "./APIFunctions/DealApi";
 import { MockGET, MockGET2, MockPOST } from "./APIFunctions/MockAPI";
 import { AchievementGET, AchievementPOST } from "./APIFunctions/AchievementApi";
+import { YugiohcardGET, YugiohcardPOST } from "./APIFunctions/YugiohcardApi";
 
 
 const apidata = {
   "deal": {
     name: "Deals",
     postFunction: DealPOST,
-    getFunction: DealGET, 
+    getFunction: DealGET,
     form: {
       buttonText: "Search Deals",
       inputs: [
@@ -18,28 +19,28 @@ const apidata = {
           type: "text",
           name: "title",
           label: "Game Title"
-        }, 
+        },
         {
 
           type: "number",
           name: "upperPrice",
-          label: "Upper Price",          
+          label: "Upper Price",
         },
         {
           type: "number",
           name: "dealCount",
-          label: "Deal Count",          
+          label: "Deal Count",
         },
         {
 
           type: "number",
           name: "minimumRating",
-          label: "Minimum Steam Rating",          
+          label: "Minimum Steam Rating",
         },
         {
           type: "bool",
           name: "onSale",
-          label: "Only Include Games On Sale",          
+          label: "Only Include Games On Sale",
         }
       ]
     }
@@ -121,6 +122,25 @@ const apidata = {
           type: "number",
           name: "gameid",
           label: "Steam Id of the Game (Please provide a valid id)",
+        }
+
+      ]
+    }
+  },
+  "yugiohcard": {
+
+    postFunction: YugiohcardPOST,
+    getFunction: YugiohcardGET,
+
+    name: "Yugioh Card",
+    form: {
+
+      buttonText: "Search Card",
+      inputs: [
+        {
+          type: "text",
+          name: "card_name",
+          label: "Card Name"
         }
 
       ]
