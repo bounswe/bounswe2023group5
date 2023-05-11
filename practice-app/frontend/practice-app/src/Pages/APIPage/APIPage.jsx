@@ -11,6 +11,7 @@ import { Divider } from '@mui/material';
 
 function APIPage({ }) {
     const apiData = useLoaderData();
+
     const [json, setJson] = useState(null);
     const [refreshData, setRefreshData] = useState(false);
 
@@ -28,11 +29,10 @@ function APIPage({ }) {
     }
 
 
-
-
     useEffect(() => {
         getJSONData();
     }, [apiData, refreshData]);
+
 
 
     return <div className='apipage'>
