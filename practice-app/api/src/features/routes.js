@@ -4,7 +4,10 @@ import gameByCategoryController from "./gamebycategory/controller/GameByCategory
 import cardByNameController from "./hearthstonecard/controller/CardByNameController.js";
 import gameByUserController from "./gamebyuser/controller/GameByUserController.js";
 import gameSuggestionController from "./gamesuggestion/controller/GameSuggestionController.js";
+
+import achievementByGameIdController from "./achievementbygameid/controller/AchievementByGameIdController.js";
 import topGamesController from "./topgames/controller/TopGamesController.js";
+
 
 router.get("/category", gameByCategoryController.getGamesByEmail);
 router.post("/category", gameByCategoryController.insertGames);
@@ -18,7 +21,13 @@ router.post("/user", gameByUserController.insertGames);
 router.get("/suggestion", gameSuggestionController.getGameSuggestionsByEmail);
 router.post("/suggestion", gameSuggestionController.insertGameSuggestions);
 
+
+router.get("/achievement", achievementByGameIdController.getAchievementsByEmail)
+router.post("/achievement", achievementByGameIdController.insertAchievements);
+
+
 router.get("/topgames", topGamesController.getTopGamesByEmail);
 router.post("/topgames", topGamesController.insertTopGames);
+
 
 export default router;
