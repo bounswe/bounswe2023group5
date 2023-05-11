@@ -21,7 +21,7 @@ class TournamentsController {
 
       // send a get request to external url and wait(by using await keyword) until the response is returned
       const response = await axios.get(url,{headers:{
-        'X-RapidAPI-Key': 'cf86df8a20mshe61315b2a9707edp19ef91jsnef4d80f0ecca',
+        'X-RapidAPI-Key': process.env.apikey,
         'X-RapidAPI-Host': 'esportapi1.p.rapidapi.com'}
       });      
       // maps from response to database fields
