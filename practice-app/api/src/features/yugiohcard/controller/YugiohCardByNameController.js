@@ -19,9 +19,6 @@ class YugiohCardByNameController {
                 return;
             }
 
-            console.log(card_name);
-            console.log(userEmail);
-
             // external api url
             let url = `https://db.ygoprodeck.com/api/v7/cardinfo.php?name=${card_name}`;
 
@@ -69,8 +66,6 @@ class YugiohCardByNameController {
                 next(new EmptyFieldError());
                 return;
             }
-
-            console.log(userEmail);
 
             // retrieve the values based on the user email and sort them according to their created times.
             const addedCards = await YugiohCardByName.find(
