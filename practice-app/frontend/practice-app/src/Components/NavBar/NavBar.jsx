@@ -1,32 +1,3 @@
-/* import React from "react";
-import { Link } from "react-router-dom";
-import "./NavBar.scss";
-import {navItems} from "./NavItems";
-import apidata from '../../apidata';
-
-
-function NavBar(){
-    return(
-        <>
-            <nav className="navbar">
-                <ul className="nav-items">
-                    {navItems.map(item => {
-                        return (
-                        <li key={item.id} className={item.cName}>
-                            <Link to={item.path}>{item.title}</Link>
-                        </li>
-                        );
-                    })}
-                </ul>
-            </nav>
-        </>
-    )
-
-  }
-
-export default NavBar;
-  */
-  
 import React, { useRef, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';
@@ -44,10 +15,11 @@ export default function NavBar() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
-  const [selectedPage, setSelectedPage] = useState("");
+  const [selectedPage, setSelectedPage] = useState("Please Select A Page");
   
 
   const handleMenuItemClick = (page, index) => {
+    navigate(`/api/${page}`)
     setSelectedPage(page);
     setOpen(false);
   };
@@ -66,16 +38,15 @@ export default function NavBar() {
 
   return (
     <React.Fragment>
-      <ButtonGroup variant="contained" ref={anchorRef} aria-label="split button">
-        <Button onClick={()=>navigate(`/api/${selectedPage}`)}>{selectedPage}</Button>
+      <ButtonGroup fullWidth sx={{ height: '60px' }} variant="contained" ref={anchorRef} aria-label="split button">
         <Button
-          size="small"
+          size="large"
           aria-controls={open ? 'split-button-menu' : undefined}
           aria-expanded={open ? 'true' : undefined}
           aria-label="select merge strategy"
           aria-haspopup="menu"
           onClick={handleToggle}
-        >
+        > {selectedPage}
         </Button>
       </ButtonGroup>
       <Popper
@@ -89,18 +60,20 @@ export default function NavBar() {
         disablePortal
       >
         {({ TransitionProps, placement }) => (
-          <Grow
+          <Grow 
             {...TransitionProps}
             style={{
+              
               transformOrigin:
                 placement === 'bottom' ? 'center top' : 'center bottom',
             }}
           >
-            <Paper>
-              <ClickAwayListener onClickAway={handleClose}>
-                <MenuList id="split-button-menu" autoFocusItem>
+            <Paper sx={{ width: 250 }}>
+              <ClickAwayListener  onClickAway={handleClose}>
+                <MenuList  id="split-button-menu" autoFocusItem>
                   {Object.keys(apidata).map((key, index) => (
                     <MenuItem
+                      sx={{ justifyContent: 'center' }}
                       key={key}
                       selected={key === selectedPage}
                       onClick={() => handleMenuItemClick(key, index)}
@@ -116,4 +89,4 @@ export default function NavBar() {
       </Popper>
     </React.Fragment>
   );
-}
+} 
