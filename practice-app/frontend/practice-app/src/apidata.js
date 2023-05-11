@@ -4,6 +4,7 @@
 import { DealGET, DealPOST } from "./APIFunctions/DealApi";
 import { MockGET, MockGET2, MockPOST } from "./APIFunctions/MockAPI";
 import { AchievementGET, AchievementPOST } from "./APIFunctions/AchievementApi";
+import { GenreGET, GenrePOST } from "./APIFunctions/GenreApi";
 
 
 const apidata = {
@@ -121,6 +122,85 @@ const apidata = {
           type: "number",
           name: "gameid",
           label: "Steam Id of the Game (Please provide a valid id)",
+        }
+
+      ]
+    }
+  },
+  "genre": {
+
+    postFunction: GenrePOST,
+    getFunction: GenreGET,
+
+    name: "Genre",
+    form: {
+
+      buttonText: "POST GENRE'S INFO",
+      inputs: [
+        {
+
+          type: "select",
+          name: "genreID",
+          label: "Genre ID",
+
+          options: [
+            {
+              name: "Action",
+              value: 4
+            },
+            {
+              name: "Indie",
+              value: 51
+            },
+            {
+              name: "Adventure",
+              value: 3
+            },
+            {
+              name: "RPG",
+              value: 5
+            },
+            {
+              name: "Strategy",
+              value: 10
+            },
+            {
+              name: "Shooter",
+              value: 2
+            },
+            {
+              name: "Casual",
+              value: 40
+            },
+            {
+              name: "Simulation",
+              value: 14
+            },
+            {
+              name: "Puzzle",
+              value: 7
+            },
+            {
+              name: "Arcade",
+              value: 11
+            },
+            {
+              name: "Platformer",
+              value: 83
+            },
+            {
+              name: "Massively Multiplayer",
+              value: 59
+            },
+            {
+              name: "Racing",
+              value: 1
+            },
+            {
+              name: "Sports",
+              value: 15
+            }
+          ]
         }
 
       ]
