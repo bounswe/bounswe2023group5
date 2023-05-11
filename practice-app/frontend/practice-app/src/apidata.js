@@ -53,9 +53,14 @@ const apidata = {
       buttonText: "Search Games",
       inputs: [
         {
-          type: "text",
+          type: "number",
           name: "steamid",
-          label: "Steam ID"
+          label: "Steam ID (Please provide a valid id.)"
+        },
+        {
+          type: "number",
+          name: "minPlaytime",
+          label: "Minimum Playtime"
         }
       ]
     }
