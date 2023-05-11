@@ -122,7 +122,7 @@ const apidata = {
       inputs: [
         {
           type: "text",
-          name: "name",
+          name: "card_name",
           label: "Please enter the name of the card you want to add your collection.",
         }
       ]
