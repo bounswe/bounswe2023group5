@@ -2,7 +2,7 @@ import axios from "axios";
 import EmptyFieldError from "../../../shared/errors/EmptyField.js";
 import successfulResponse from "../../../shared/response/successfulResponse.js";
 import ExternalApiError from "../../../shared/errors/ExternalApi.js";
-import Tournaments from "../schema/tournaments.js";
+import Tournaments from "../schema/tournamentsSchema.js";
 
 class TournamentsController {
   async insertTournaments(req, res, next) {
@@ -21,7 +21,7 @@ class TournamentsController {
 
       // send a get request to external url and wait(by using await keyword) until the response is returned
       const response = await axios.get(url,{headers:{
-        'X-RapidAPI-Key': process.env.apikey,
+        'X-RapidAPI-Key': process.env.API_KEY,
         'X-RapidAPI-Host': 'esportapi1.p.rapidapi.com'}
       });      
       // maps from response to database fields
@@ -45,7 +45,7 @@ class TournamentsController {
       res
         .status(201)
         .json(
-          successfulResponse("free games are inserted to database successfully")
+          successfulResponse("tournaments for esports are inserted to database successfully")
         );
     } catch (error) {
       console.log(error);

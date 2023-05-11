@@ -8,7 +8,7 @@ import errorConst from "./src/shared/errors/const.js";
 import Error from "./src/shared/errors/Error.js";
 import startDatabaseConnection from "./database.js";
 
-const app = express();
+export const app = express();
 
 app.use(cors());
 app.use(bodyParser.json({ limit: "10mb" }));

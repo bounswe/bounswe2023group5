@@ -2,7 +2,7 @@ import axios from "axios";
 import EmptyFieldError from "../../../shared/errors/EmptyField.js";
 import successfulResponse from "../../../shared/response/successfulResponse.js";
 import ExternalApiError from "../../../shared/errors/ExternalApi.js";
-import Tournaments from "../schema/tournaments.js";
+import Tournaments from "../schema/tournamentsSchema.js";
 
 class TournamentsController {
   async insertTournaments(req, res, next) {
