@@ -18,7 +18,7 @@ class RockPaperScissorsController{
         }
   
         // external api url
-        let url = `https://rock-paper-scissors13.p.rapidapi.com/?choice=${choice}`;
+        let url = 'https://rock-paper-scissors13.p.rapidapi.com/';
   
         // send a get request to external url and wait(by using await keyword) until the response is returned
         const response = await axios.get(url,{headers:{
