@@ -3,6 +3,7 @@ import { SuggestionGet, SuggestionPost } from "./APIFunctions/SuggestionApi";
 import { UserGET, UserPOST } from "./APIFunctions/UserApi";
 import { MockGET, MockGET2, MockPOST } from "./APIFunctions/MockAPI";
 import { AchievementGET, AchievementPOST } from "./APIFunctions/AchievementApi";
+import { GameReviewGET, GameReviewPOST } from "./APIFunctions/GameReviewApi";
 import { YugiohcardGET, YugiohcardPOST } from "./APIFunctions/YugiohcardApi";
 
 
@@ -212,6 +213,49 @@ const apidata = {
         }
 
       ]
+    }
+  },
+  "review": {
+    postFunction: GameReviewPOST,
+    getFunction: GameReviewGET,
+    
+    name: "Game Reviews",
+    form: {
+      buttonText : "Search Reviews",
+      inputs: [
+        {
+          type: "text",
+          name: "gameNameCriteria",
+          label: "Name of the Game",
+        },
+        {
+          type: "select",
+          name: "sort",
+          label: "Sort By",
+          options: [
+            {
+              name: "Newest",
+              value: "newest"
+            },
+            {
+              name: "Oldest",
+              value: "oldest"
+            },
+            {
+              name: "Popularity",
+              value: "popularity"
+            },
+            {
+              name: "Highest Score",
+              value: "score-high"
+            },
+            {
+              name: "Lowest Score",
+              value: "score-low"
+            }
+          ]
+        }
+      ] 
     }
   },
   "yugiohcard": {
