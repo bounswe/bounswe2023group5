@@ -202,7 +202,7 @@ describe("GET /games/category", function () {
     expect(response.body.length).toEqual(0);
   });
 
-  test("should respond with status code 400 and a a error message in json with bad request", async function () {
+  test("should respond with status code 400 and a a error message in json with no email", async function () {
     const response = await request(app).get(noEmail);
 
     expect(response.status).toEqual(400);
