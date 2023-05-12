@@ -3,7 +3,6 @@ import { DealGET, DealPOST } from "./APIFunctions/DealApi";
 import { SuggestionGet, SuggestionPost } from "./APIFunctions/SuggestionApi";
 import { HearthstoneCardGet, HearthstoneCardPost } from "./APIFunctions/HearthstoneApi";
 import { UserGET, UserPOST } from "./APIFunctions/UserApi";
-import { MockGET, MockGET2, MockPOST } from "./APIFunctions/MockAPI";
 import { AchievementGET, AchievementPOST } from "./APIFunctions/AchievementApi";
 import { GenreGET, GenrePOST } from "./APIFunctions/GenreApi";
 import { GameReviewGET, GameReviewPOST } from "./APIFunctions/GameReviewApi";
@@ -154,68 +153,7 @@ const apidata = {
       ]
     }
   },
-  "test": {
-    name: "Test",
-    //jsonUrl: "https://jsonplaceholder.typicode.com/todos",
-    postFunction: MockPOST,
-    getFunction: MockGET,
-    form: {
-      buttonText: "Submit",
-      inputs: [
-        {
-          type: "text",
-          name: "gameName",
-          label: "Name of the Game",
-        },
-        {
-
-          type: "number",
-          name: "gameNumber",
-          label: "Number test",
-        },
-        {
-          type: "bool",
-          name: "gameBool",
-          label: "Bol test",
-        },
-        {
-
-          type: "select",
-          name: "sort",
-          label: "Sort By",
-
-          options: [
-            {
-              name: "Newest",
-              value: "newest",
-            },
-            {
-              name: "Most Popular",
-              value: "popularity",
-            },
-          ],
-        },
-      ],
-    },
-  },
-
-  "jest": {
-    postFunction: MockPOST,
-    getFunction: MockGET2,
-    name: "Jest",
-
-    form: {
-      buttonText: "Simit",
-      inputs: [
-        {
-          type: "text",
-          name: "gameName",
-          label: "Name of the Game",
-        },
-      ],
-    },
-  },
-  gamebycategory: {
+  "gamebycategory": {
     name: "Game By Category",
     postFunction: CategoryPOST,
     getFunction: CategoryGET,
@@ -505,7 +443,7 @@ const apidata = {
       },
     ],
   },
-},
+}
 
 }
 
