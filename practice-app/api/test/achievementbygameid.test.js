@@ -103,7 +103,7 @@ describe("POST /games/achievement", function () {
     );
   },60000);
 
-  test("should respond with status code 400 and a error message in json with missing email and game id", async function () {
+  test("should respond with status code 401 and a error message in json with missing email and game id", async function () {
     const response = await request(app).post(url).send(emptyData);
 
     expect(response.status).toEqual(401);
@@ -156,6 +156,7 @@ describe("GET /games/category", function () {
     const response = await request(app).get(registeredUserUrl);
     expect(response.status).toEqual(200);
     expect(response.headers["content-type"]).toMatch(/json/);
+    expect(response.body.length).toEqual(3);
     expect(response.body[0].user_email).toBeDefined();
     expect(response.body[0].game_id).toBeDefined();
     expect(response.body[0].achievement_1).toBeDefined();
@@ -168,6 +169,7 @@ describe("GET /games/category", function () {
     const response = await request(app).get(registeredUserUrl);
     expect(response.status).toEqual(200);
     expect(response.headers["content-type"]).toMatch(/json/);
+    expect(response.body.length).toEqual(3);
     expect(response.body[1].user_email).toBeDefined();
     expect(response.body[1].game_id).toBeDefined();
     expect(response.body[1].achievement_1).toBeDefined();
@@ -180,6 +182,7 @@ describe("GET /games/category", function () {
     const response = await request(app).get(registeredUserUrl);
     expect(response.status).toEqual(200);
     expect(response.headers["content-type"]).toMatch(/json/);
+    expect(response.body.length).toEqual(3);
     expect(response.body[2].user_email).toBeDefined();
     expect(response.body[2].game_id).toBeDefined();
     expect(response.body[2].achievement_1).toBeDefined();
