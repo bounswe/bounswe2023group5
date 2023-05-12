@@ -143,7 +143,7 @@ describe("POST /games/achievement", function () {
   afterAll(removeData);
 });
 
-describe("GET /games/category", function () {
+describe("GET /games/achievement", function () {
   beforeAll(seedData);
 
   const registeredUserUrl = "/api/v1/games/achievement?userEmail=test@email.com";
