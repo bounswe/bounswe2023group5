@@ -79,7 +79,7 @@ describe("POST /games/achievement", function () {
 
   }
   const correctPostData = {
-    userEmail: "test@email.com",
+    userEmail: "test@eail.com",
     gameid: "440",
   };
   const missingEmailData = {
