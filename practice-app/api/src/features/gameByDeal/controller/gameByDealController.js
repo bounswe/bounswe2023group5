@@ -25,19 +25,18 @@ class GameByDealController {
                 }
             })
 
-            console.log(externalResponse)
 
             const newGameByDeal = new GameByDeal({
-                userEmail: userEmail,
+                user_email: userEmail,
                 title: title,
-                upperPrice: upperPrice,
+                upper_price: upperPrice,
                 deals: externalResponse.data.map(item => ({
                     title: item.title,
-                    salePrice: item.salePrice,
-                    normalPrice: item.normalPrice,
-                    steamRatingText: item.steamRatingText,
+                    sale_price: item.salePrice,
+                    normal_price: item.normalPrice,
+                    steam_rating_text: item.steamRatingText,
                     rating: item.steamRatingPercent+"%",
-                    isOnSale: item.isOnSale
+                    mon_sale: item.isOnSale
                 }))
             })
 
@@ -71,7 +70,7 @@ class GameByDealController {
 
             
             const games = await GameByDeal.find(
-                { userEmail: userEmail }
+                { user_email: userEmail }
               ).sort({ createdAt: -1 });
         
               res.status(200).json(games);
