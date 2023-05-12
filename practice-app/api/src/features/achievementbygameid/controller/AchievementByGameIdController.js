@@ -3,11 +3,8 @@ import EmptyFieldError from "../../../shared/errors/EmptyField.js";
 import successfulResponse from "../../../shared/response/successfulResponse.js";
 import ExternalApiError from "../../../shared/errors/ExternalApi.js";
 import AchievementByGameId from "../schema/achievementByGameIdSchema.js";
+import NotFoundError from "../../../shared/errors/NotFound.js"
 import appid from "appid"
-async function findGame(id){
-  const name = await appid(parseInt(id));
-  return name;
-}
 
 class AchievementByGameIdController {
 
@@ -16,12 +13,26 @@ class AchievementByGameIdController {
       // get the gameid from the body of the request
       const { gameid, userEmail } = req.body;
       //check whether the gameid or email field is empty. If it is, then give a empty field error. (You can check errors folder)
-      if (!(gameid && userEmail)) {
-        next(new EmptyFieldError());
+      if (!(userEmail)) {
+        const error = new EmptyFieldError();
+        error.status_message = "Please provide a valid email"
+        res.status(401)
+        error.statusCode = 401
+        next(error);
         return;
       }
 
-      let gameName = await findGame(gameid)
+      if (!(gameid)) {
+        const error = new EmptyFieldError();
+        error.status_message = "Please provide a valid game id"
+        res.status(400)
+        error.statusCode = 400
+        next(error);
+        return;
+      }
+
+  
+      let gameName = await appid(parseInt(gameid));
 
       // external api url
       // this external api returns the achievements based on the given game
