@@ -9,6 +9,7 @@ import { GameReviewGET, GameReviewPOST } from "./APIFunctions/GameReviewApi";
 import { YugiohcardGET, YugiohcardPOST } from "./APIFunctions/YugiohcardApi";
 import { ChoiceGET, ChoicePOST } from "./APIFunctions/RockPaperScissorsApi";
 import { TopGamesGET, TopGamesPOST } from "./APIFunctions/TopGamesApi";
+import { TournamentsGET, TournamentsPOST } from "./APIFunctions/TournamentsApi";
 
 
 const apidata = {
@@ -465,7 +466,31 @@ const apidata = {
 
       ]
     }
-  }
+  },
+  "tournaments":{
+  name: "Tournaments",
+  postFunction: TournamentsPOST,
+  getFunction: TournamentsGET,
+  form: {
+    buttonText: "Search Tournaments",
+    inputs: [
+     {
+
+        type: "select",
+        name: "category",
+        label: "Category",
+
+        options: [
+          {
+            name: "Esport",
+            value: "esport",
+          },
+        ],
+      },
+    ],
+  },
+},
+
 }
 
 
