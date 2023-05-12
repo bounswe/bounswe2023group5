@@ -47,6 +47,12 @@ function APIPage({ }) {
             <div className='form-box'>
                 <FormBuilder inputs={apiData.form.inputs} buttonText={apiData.form.buttonText} onSubmit={onSubmit} />
             </div>
+            {apiData.dataTitle ?
+                <><h2 className='apipage-title'>
+                    {apiData.dataTitle}
+                </h2>
+                    <Divider /> </> : null
+            }
         </div>
         <div className='json-box'>
             <div className='refresh-btn'>
