@@ -6,6 +6,7 @@ import { MockGET, MockGET2, MockPOST } from "./APIFunctions/MockAPI";
 import { AchievementGET, AchievementPOST } from "./APIFunctions/AchievementApi";
 import { GameReviewGET, GameReviewPOST } from "./APIFunctions/GameReviewApi";
 import { YugiohcardGET, YugiohcardPOST } from "./APIFunctions/YugiohcardApi";
+import { TopGamesGET, TopGamesPOST } from "./APIFunctions/TopGamesApi";
 
 
 const apidata = {
@@ -334,6 +335,21 @@ const apidata = {
           label: "Card Name"
         }
 
+      ]
+    }
+  },
+  "topgames": {
+    name: "Top Games",
+    postFunction: TopGamesPOST,
+    getFunction: TopGamesGET,
+    form: {
+      buttonText: "Get Top Games",
+      inputs: [
+        {
+          type: "number",
+          name: "number",
+          label: "Number of Games"
+        }
       ]
     }
   }
