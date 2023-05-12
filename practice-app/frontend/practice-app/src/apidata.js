@@ -7,6 +7,7 @@ import { AchievementGET, AchievementPOST } from "./APIFunctions/AchievementApi";
 import { GenreGET, GenrePOST } from "./APIFunctions/GenreApi";
 import { GameReviewGET, GameReviewPOST } from "./APIFunctions/GameReviewApi";
 import { YugiohcardGET, YugiohcardPOST } from "./APIFunctions/YugiohcardApi";
+import { TopGamesGET, TopGamesPOST } from "./APIFunctions/TopGamesApi";
 
 
 
@@ -413,6 +414,21 @@ const apidata = {
           type: "text",
           name: "card_name",
           label: "Card Name"
+        }
+      ]
+    }
+  },
+  "topgames": {
+    name: "Top Games",
+    postFunction: TopGamesPOST,
+    getFunction: TopGamesGET,
+    form: {
+      buttonText: "Get Top Games",
+      inputs: [
+        {
+          type: "number",
+          name: "number",
+          label: "Number of Games"
         }
       ]
     }

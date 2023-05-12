@@ -4,18 +4,24 @@ import successfulResponse from "../../../shared/response/successfulResponse.js";
 import ExternalApiError from "../../../shared/errors/ExternalApi.js";
 import TopGames from "../schema/topGamesSchema.js";
 
+const theMap = new Map();
+
+
 class TopGamesController {
     async insertTopGames(req, res, next) {
         try {
             // Get the user email from request
-            const { userEmail } = req.body;
+            const { userEmail, number } = req.body;
 
             // Check whether the user email field is empty
-            if (!userEmail) {
+            if (!userEmail || !number) {
                 // Send error to the next middleware
                 next(new EmptyFieldError());
                 return;
             }
+
+            // Put the number into the map
+            theMap.set(userEmail, number);
 
             // Url of the external API
             let url = `https://www.steamspy.com/api.php?request=top100forever`;
@@ -99,6 +105,15 @@ class TopGamesController {
                 return;
             }
 
+            // Get the number
+            const number = theMap.get(userEmail);
+
+            // If the number field is empty, return error
+            if (!number) {
+                next(new EmptyFieldError());
+                return;
+            }
+
             // Get the games (last 100 created )
             const games = await TopGames.find(
                 { user_email: userEmail },
@@ -109,10 +124,15 @@ class TopGamesController {
             // Sort them descendingly acc. to their average_forever values
             games.sort((a, b) => b.average_forever - a.average_forever);
 
+            // response json
+            let resJson = {
+                games: games.slice(0, number)
+            }
+
             // Respond successfully with games
             res
                 .status(200)
-                .json(games);
+                .json(resJson);
         }
         catch (error) { }
     }
