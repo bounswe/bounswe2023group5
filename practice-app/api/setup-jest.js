@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
 afterAll(async () => {
-    console.log("Closing connection to DB");
+    console.log("Disconnecting to DB");
     await mongoose.connection.close();
 });
