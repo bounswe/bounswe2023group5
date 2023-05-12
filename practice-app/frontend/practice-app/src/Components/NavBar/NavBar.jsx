@@ -51,7 +51,7 @@ export default function NavBar() {
       </ButtonGroup>
       <Popper
         sx={{
-          zIndex: 1,
+          zIndex: 2,
         }}
         open={open}
         anchorEl={anchorRef.current}

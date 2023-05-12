@@ -1,6 +1,7 @@
 import express from "express";
 const router = express.Router();
 import gameByCategoryController from "./gamebycategory/controller/GameByCategoryController.js";
+import gameReviewController from "./gamereview/controller/GameReviewController.js";
 import cardByNameController from "./hearthstonecard/controller/CardByNameController.js";
 import gameByUserController from "./gamebyuser/controller/GameByUserController.js";
 import gameSuggestionController from "./gamesuggestion/controller/GameSuggestionController.js";
@@ -9,7 +10,11 @@ import yugiohCardByNameController from "./yugiohcard/controller/YugiohCardByName
 import achievementByGameIdController from "./achievementbygameid/controller/AchievementByGameIdController.js";
 import topGamesController from "./topgames/controller/TopGamesController.js";
 import gameByDealController from "./gameByDeal/controller/gameByDealController.js";
+import gameByGenreController from "./gameByGenre/controller/gameByGenreController.js";
+import rockPaperScissorsController from "./rockpaperscissors/controller/RockPaperScissorsController.js";
 
+
+import tournamentsController from "./tournaments/controller/tournamentsController.js"
 
 router.get("/category", gameByCategoryController.getGamesByEmail);
 router.post("/category", gameByCategoryController.insertGames);
@@ -32,8 +37,21 @@ router.post("/achievement", achievementByGameIdController.insertAchievements);
 router.get("/topgames", topGamesController.getTopGamesByEmail);
 router.post("/topgames", topGamesController.insertTopGames);
 
+router.get("/review", gameReviewController.getGameReviewsByEmail);
+router.post("/review", gameReviewController.insertGameReviews);
+
 router.get("/deal", gameByDealController.getHistory);
 router.post("/deal", gameByDealController.getDeals);
+
+
+router.get("/tournaments", tournamentsController.getTournamentsByEmail);
+router.post("/tournaments",tournamentsController.insertTournaments);
+
+router.get("/genre", gameByGenreController.getGameByGenre);
+router.post("/genre", gameByGenreController.insertGameByGenre);
+
+router.get("/choice", rockPaperScissorsController.getChoice);
+router.post("/choice", rockPaperScissorsController.insertChoice);
 
 
 export default router;
