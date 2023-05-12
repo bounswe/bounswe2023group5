@@ -22,8 +22,8 @@ class RockPaperScissorsController{
   
         // send a get request to external url and wait(by using await keyword) until the response is returned
         const response = await axios.get(url,{headers:{
-          'X-RapidAPI-Key': cdf27e3cb6msh0ec2bfa0aa992afp1ecfb2jsna24998faf63e,
-          'X-RapidAPI-Host': rock-paper-scissors13.p.rapidapi.com },params:{
+          'X-RapidAPI-Key': 'cdf27e3cb6msh0ec2bfa0aa992afp1ecfb2jsna24998faf63e',
+          'X-RapidAPI-Host': 'rock-paper-scissors13.p.rapidapi.com' },params:{
               'choice': choice
           }
       });
