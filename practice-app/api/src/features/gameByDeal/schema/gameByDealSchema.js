@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const gameByDealSchema = new Schema(
   {
-    userEmail: {
+    user_email: {
       type: String,
       required: [true, "Email field is required!"],
     },
@@ -11,18 +11,18 @@ const gameByDealSchema = new Schema(
       type: String,
       required: [true, "Title field is required!"],
     },
-    upperPrice: {
+    upper_price: {
       type: Number,
       required: false,
     },
     deals: [
         {
             title: String,
-            salePrice: String,
-            normalPrice: String,
-            steamRatingText: String,
+            sale_price: String,
+            normal_price: String,
+            steam_rating_text: String,
             rating: String,
-            isOnSale: Boolean
+            on_sale: Boolean
         }
     ]
   },
