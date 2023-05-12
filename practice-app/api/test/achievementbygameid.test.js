@@ -151,6 +151,8 @@ describe("GET /games/category", function () {
   const nonRegisteredUserUrl =
     "/api/v1/games/achievement?userEmail=random@email.com";
 
+  const noEmail ="/api/v1/games/achievement?userEmail"
+
   //test whether the data comes with correct order and correct data
   test("should respond with status code 200 and a success message in json with correct data  ", async function () {
     const response = await request(app).get(registeredUserUrl);
@@ -199,6 +201,15 @@ describe("GET /games/category", function () {
     expect(response.headers["content-type"]).toMatch(/json/);
     expect(response.body.length).toEqual(0);
   });
+
+  test("should respond with status code 400 and a a error message in json with bad request", async function () {
+    const response = await request(app).get(noEmail);
+
+    expect(response.status).toEqual(400);
+    expect(response.headers["content-type"]).toMatch(/json/);
+    expect(response.body.status).toEqual("Error");
+  });
+
 
   afterAll(removeData);
 });
