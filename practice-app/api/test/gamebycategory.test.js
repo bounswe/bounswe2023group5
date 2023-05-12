@@ -1,52 +1,77 @@
 import request from "supertest";
 import jest from "jest";
-import { app } from "../index.js";
+import  app  from "../app.js";
 import GameByCategory from "../src/features/gamebycategory/schema/gameByCategorySchema.js";
 import mongoose from "mongoose";
 
 const seedData = async () => {
-  await GameByCategory.insertMany([
-    {
-      _id: new mongoose.Types.ObjectId(),
-      user_email: "test@email.com",
-      game_id: 380,
-      name: "Dark Orbit Reloaded",
-      thumbnail: "https://www.freetogame.com/g/430/thumbnail.jpg",
-      short_description:
-        "A browser-based 3D space-combat MMO with a massive playerbase!",
-      platform: "Web Browser",
-      publisher: "Bigpoint",
-      developer: "Bigpoint",
-      release_date: "2006-12-11",
-    },
-
-    {
-      _id: new mongoose.Types.ObjectId(),
-      user_email: "test@email.com",
-      game_id: 515,
-      name: "Halo Infinite",
-      thumbnail: "https://www.freetogame.com/g/200/thumbnail.jpg",
-      short_description:
-        "For the first time ever, a free-to-play Halo experience is available i…",
-      platform: "PC (Windows)",
-      publisher: "Xbox Game Studios",
-      developer: "343 Industries",
-      release_date: "2021-11-15",
-    },
-
-    {
-      _id: new mongoose.Types.ObjectId(),
-      user_email: "test@email.com",
-      game_id: 5,
-      name: "Crossout",
-      thumbnail: "https://www.freetogame.com/g/204/thumbnail.jpg",
-      short_description: "A post-apocalyptic MMO vehicle combat game! ",
-      platform: "PC (Windows)",
-      publisher: "Targem",
-      developer: "Gaijin",
-      release_date: "2017-05-30",
-    },
-  ]);
+  await GameByCategory.insertMany({
+    _id: new mongoose.Types.ObjectId(),
+    user_email: "test@email.com",
+    category: "superhero",
+    games: [
+      {
+        game_id: 525,
+        name: "MultiVersus",
+        short_description:
+          "The Warner Bros lineup meets Smash in Player First Games’ MultiVersus.",
+        platform: "PC (Windows)",
+        publisher: "Warner Bros. Games",
+        developer: "Player First Games",
+        release_date: "2022-07-19",
+      },
+      {
+        game_id: 541,
+        name: "Marvel Snap",
+        short_description:
+          "A fast paced strategy card game set in the Marvel universe.",
+        platform: "PC (Windows)",
+        publisher: "Nuverse",
+        developer: "Second Dinner Studios, Inc.",
+        release_date: "2022-10-18",
+      },
+      {
+        game_id: 453,
+        name: "Gotham City Impostors",
+        short_description:
+          "A free to play multiplayer FPS that pits vigilantes dressed up like Batman against criminals dressed up like the Joker",
+        platform: "PC (Windows)",
+        publisher: "Warner Bros. Interactive Entertainment",
+        developer: "Monolith Productions, Inc.",
+        release_date: "2012-08-31",
+      },
+      {
+        game_id: 260,
+        name: "DC Universe Online",
+        short_description:
+          "A free-to-play, comics based MMORPG set in the popular DC Comics universe.",
+        platform: "PC (Windows)",
+        publisher: "Daybreak Games",
+        developer: "Daybreak Games",
+        release_date: "2011-01-11",
+      },
+      {
+        game_id: 288,
+        name: "Champions Online",
+        short_description:
+          "A superhero MMORPG created by the same studio behind City of Heroes.",
+        platform: "PC (Windows)",
+        publisher: "Perfect World Entertainment",
+        developer: "Cryptic Studios",
+        release_date: "2009-09-01",
+      },
+      {
+        game_id: 430,
+        name: "Urban Rivals",
+        short_description:
+          "A free to play browser based card-game with a high player base and comic-book inspired world!",
+        platform: "Web Browser",
+        publisher: "Boostr ",
+        developer: "Acute Mobile",
+        release_date: "2006-01-17",
+      },
+    ],
+  });
 };
 
 const removeData = async () => {
@@ -126,19 +151,22 @@ describe("GET /games/category", function () {
 
   test("should respond with status code 200 and a success message in json with correct data  ", async function () {
     const response = await request(app).get(registeredUserUrl);
+    const body = response.body[0];
+    const games = body.games;
     expect(response.status).toEqual(200);
     expect(response.headers["content-type"]).toMatch(/json/);
-    expect(response.body.length).toEqual(3);
-    expect(response.body[0].user_email).toBeDefined();
-    expect(response.body[0].game_id).toBeDefined();
-    expect(response.body[0].name).toBeDefined();
-    expect(response.body[0].thumbnail).toBeDefined();
-    expect(response.body[0].short_description).toBeDefined();
-    expect(response.body[0].platform).toBeDefined();
-    expect(response.body[0].publisher).toBeDefined();
-    expect(response.body[0].developer).toBeDefined();
-    expect(response.body[0].release_date).toBeDefined();
-    expect(response.body[0].createdAt).toBeDefined();
+    expect(games).toBeDefined();
+    expect(games.length).toEqual(6);
+    expect(body.user_email).toBeDefined();
+    expect(body.category).toBeDefined();
+    expect(body.createdAt).toBeDefined();
+    expect(games[0].name).toBeDefined();
+    expect(games[0].game_id).toBeDefined();
+    expect(games[0].short_description).toBeDefined();
+    expect(games[0].platform).toBeDefined();
+    expect(games[0].publisher).toBeDefined();
+    expect(games[0].developer).toBeDefined();
+    expect(games[0].release_date).toBeDefined();
   });
 
   test("should return an empty array with a non registered user email ", async function () {

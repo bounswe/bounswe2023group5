@@ -3,35 +3,42 @@ import EmptyFieldError from "../../../shared/errors/EmptyField.js";
 import successfulResponse from "../../../shared/response/successfulResponse.js";
 import ExternalApiError from "../../../shared/errors/ExternalApi.js";
 import AchievementByGameId from "../schema/achievementByGameIdSchema.js";
+import NotFoundError from "../../../shared/errors/NotFound.js"
 import appid from "appid"
 
-async function findGame(id){
-  const name = await appid(parseInt(id));
-  return name;
-}
-
 class AchievementByGameIdController {
- 
+
   async insertAchievements(req, res, next) {
     try {
       // get the gameid from the body of the request
       const { gameid, userEmail } = req.body;
-
       //check whether the gameid or email field is empty. If it is, then give a empty field error. (You can check errors folder)
-      if (!(gameid && userEmail)) {
-        next(new EmptyFieldError());
+      if (!(userEmail)) {
+        const error = new EmptyFieldError();
+        error.status_message = "Please provide a valid email"
+        res.status(401)
+        error.statusCode = 401
+        next(error);
         return;
       }
 
-      let gameName = await findGame(gameid)
+      if (!(gameid)) {
+        const error = new EmptyFieldError();
+        error.status_message = "Please provide a valid game id"
+        res.status(400)
+        error.statusCode = 400
+        next(error);
+        return;
+      }
+
+  
+      let gameName = await appid(parseInt(gameid));
 
       // external api url
       // this external api returns the achievements based on the given game
       let url = `http://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=${gameid}`;
-
       // send a get request to external url and wait(by using await keyword) until the response is returned
       const response = await axios.get(url);
-
       //get achievements from response
       const achievements = response.data.achievementpercentages.achievements;
       // take least completed 3 achievements
@@ -55,19 +62,16 @@ class AchievementByGameIdController {
             success_rate: leastCompletedAchievements[0].percent,
           }
       }
-
       //insert the values to the database and wait until they are all inserted
       await AchievementByGameId.insertMany(insertedValues);
-
       // return a response with status code 201
       res
         .status(201)
         .json(
-          successfulResponse("Achievements are inserted to database successfully")
+          successfulResponse("Least completed achievements are inserted to database successfully")
         );
     } catch (error) {
       console.log(error);
-
       // if this condition is true, then it means that external api has returned an error.
       if (error.response) {
         if (error.response.data.status_message) {
@@ -78,31 +82,25 @@ class AchievementByGameIdController {
       next(error);
     }
   }
-
   
   async getAchievementsByEmail(req, res, next) {
     try {
       //get the user email from query parameter
       const userEmail = req.query.userEmail;
-
       //check whether the email field is empty. If it is, then give a empty field error. (You can check errors folder)
       if (!userEmail) {
         next(new EmptyFieldError());
         return;
       }
-
       // retrieve the values based on the user email and sort them according to their created times.
       const achievements= await AchievementByGameId.find(
         { user_email: userEmail },
         { _id: 0, __v: 0, updatedAt: 0 }
       ).sort({ createdAt: -1 });
-
       res.status(200).json(achievements);
     } catch (error) {}
   }
   
 }
-
 const achievementByGameIdController = new AchievementByGameIdController();
-
 export default achievementByGameIdController;
