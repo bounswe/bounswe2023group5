@@ -4,6 +4,18 @@ import './JSONViewer.scss';
 
 function JsonViewer({ json }) {
 
+    const formatKey = (str) => {
+        if (str.includes('_')) {
+          const words = str.split('_');
+          for (let i = 0; i < words.length; i++) {
+            words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
+          }
+          return words.join(' ');
+        } else {
+          return str;
+        }
+      }
+
     function renderJson(json) {
         if (!json) {
             return "";
@@ -29,7 +41,7 @@ function JsonViewer({ json }) {
                         {Object.entries(json).map(([key, value], index) => (
                             key === "createdAt" || key==="updatedAt" || key==="__v" || key==="_id" ? <div></div>:
                             <div className="jsonviewer-value-box" key={index}>
-                                <div className="jsonviewer-key">{key}:</div>
+                                <div className="jsonviewer-key">{formatKey(key)}:</div>
                                 <div className="jsonviewer-value">{renderJson(value)}</div>
                             </div>
                         ))}
