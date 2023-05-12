@@ -75,6 +75,9 @@ const removeData = async () => {
 
 describe("POST /games/achievement", function () {
   const url = "/api/v1/games/achievement";
+  const emptyData = {
+
+  }
   const correctPostData = {
     userEmail: "test@email.com",
     gameid: "440",
@@ -98,6 +101,17 @@ describe("POST /games/achievement", function () {
     expect(response.body.status).toEqual("success");
     expect(response.body.message).toEqual(
       "Least completed achievements are inserted to database successfully"
+    );
+  });
+
+  test("should respond with status code 400 and a error message in json with missing email and game id", async function () {
+    const response = await request(app).post(url).send(emptyData);
+
+    expect(response.status).toEqual(400);
+    expect(response.headers["content-type"]).toMatch(/json/);
+    expect(response.body.status).toEqual("Error");
+    expect(response.body.message).toEqual(
+      "You should provide all the necessary fields"
     );
   });
 
