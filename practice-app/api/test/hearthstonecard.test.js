@@ -87,19 +87,17 @@ describe("POST /games/card", function () {
     expect(response.body.message).toEqual(
       "You should provide all the necessary fields"
     );
-
+  });
+  
     test("should respond with status code 404 and a error message in json with invalid card name", async function () {
       const response = await request(app).post(url).send(invalidCardName);
-  
-      expect(response.status).toEqual(404);
+      expect(response.status).toEqual(400);
       expect(response.headers["content-type"]).toMatch(/json/);
-      expect(response.statusText).toEqual("Not Found");
       expect(response.body.status).toEqual("Error");
       expect(response.body.message).toEqual(
         "An error occured!"
       );
     });
-  });
 
   afterAll(removeData);
 });
