@@ -8,6 +8,7 @@ import { AchievementGET, AchievementPOST } from "./APIFunctions/AchievementApi";
 const apidata = {
   "deal": {
     name: "Deals",
+    dataTitle: "Request History",
     postFunction: DealPOST,
     getFunction: DealGET,
     form: {

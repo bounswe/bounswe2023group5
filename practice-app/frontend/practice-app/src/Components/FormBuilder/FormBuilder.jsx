@@ -41,6 +41,9 @@ function FormBuilder({ inputs, buttonText, onSubmit }) {
 
   const { register, handleSubmit } = useForm();
 
+  
+  
+
   function buildForm(inputs) {
 
     return inputs.map((item, index) => {
