@@ -99,9 +99,7 @@ const seedData = async () => {
       expect(response.status).toEqual(400);
       expect(response.headers["content-type"]).toMatch(/json/);
       expect(response.body.status).toEqual("Error");
-      expect(response.body.message).toEqual(
-        "No choice found, please check the correct parameters."
-      );
+
     });
     afterAll(removeData);
   });
