@@ -3,9 +3,15 @@ import EmptyFieldError from "../../../shared/errors/EmptyField.js";
 import successfulResponse from "../../../shared/response/successfulResponse.js";
 import ExternalApiError from "../../../shared/errors/ExternalApi.js";
 import AchievementByGameId from "../schema/achievementByGameIdSchema.js";
+import appid from "appid"
 
+async function findGame(id){
+  const name = await appid(parseInt(id));
+  return name;
+}
 
 class AchievementByGameIdController {
+ 
   async insertAchievements(req, res, next) {
     try {
       // get the gameid from the body of the request
@@ -16,6 +22,8 @@ class AchievementByGameIdController {
         next(new EmptyFieldError());
         return;
       }
+
+      let gameName = await findGame(gameid)
 
       // external api url
       // this external api returns the achievements based on the given game
@@ -33,6 +41,7 @@ class AchievementByGameIdController {
       const insertedValues =  {
           game_id: gameid,
           user_email: userEmail,
+          game_name: gameName.name,
           achievement_1:{
             name: leastCompletedAchievements[2].name,
             success_rate: leastCompletedAchievements[2].percent,
