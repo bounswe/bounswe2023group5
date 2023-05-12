@@ -2,46 +2,48 @@ import axios from "axios";
 import EmptyFieldError from "../../../shared/errors/EmptyField.js";
 import successfulResponse from "../../../shared/response/successfulResponse.js";
 import ExternalApiError from "../../../shared/errors/ExternalApi.js";
-import YugiohCardByName from "../schema/yugiohCardByNameSchema.js";
+import gameByGenre from "../schema/gameByGenreSchema.js";
 
-class YugiohCardByNameController {
+class GameByGenreController {
 
     // defined function is basically retrieves the card information with the card name provided in url and insert desired values
     // into the desired schema that is provided by our database
-    async insertYugiohCardInfo(req, res, next) {
+    async insertGameByGenre(req, res, next) {
         try {
             // get the single card name
-            const { card_name, userEmail } = req.body;
+            const { genreID, userEmail } = req.body;
 
             // check whether the card name field is empty. If it is, then give an empty field error. (You can check errors folder)
-            if (!card_name || !userEmail) {
+            if (!genreID || !userEmail) {
                 next(new EmptyFieldError());
                 return;
             }
 
             // external api url
-            let url = `https://db.ygoprodeck.com/api/v7/cardinfo.php?name=${card_name}`;
+            let url = `https://api.rawg.io/api/genres/${genreID}?key=${process.env.RAWG_API_KEY}`;
 
             // send a get request to external url and wait(by using await keyword) until the response is returned
             const response = await axios.get(url);
 
             // format the response for database insertion
-            const cardData = response.data.data[0];
-            const formattedCardData = {
-                card_id: cardData.id,
-                card_name: cardData.name,
-                card_type: cardData.type,
+            const genreData = response.data;
+            const formattedGenreData = {
+                genre_id: genreData.id,
+                genre_name: genreData.name,
+                games_count: genreData.games_count,
+                image_background: genreData.image_background,
+                game_description: genreData.description.slice(3,-4),
                 user_email: userEmail
             };
 
             // insert the values to mongodb database
-            await YugiohCardByName.insertMany(formattedCardData);
+            await gameByGenre.insertMany(formattedGenreData);
 
             // return a response with status code 201
             res
                 .status(201)
                 .json(
-                    successfulResponse("Yugioh card info is inserted to database successfully")
+                    successfulResponse("Games by genre info is inserted into DB successfully")
                 );
         }
         catch (error) {
@@ -56,7 +58,7 @@ class YugiohCardByNameController {
         }
     }
 
-    async getCardsByEmail(req, res, next) {
+    async getGameByGenre(req, res, next) {
         try {
             //get the user email from query parameter
             const userEmail = req.query.userEmail;
@@ -68,17 +70,17 @@ class YugiohCardByNameController {
             }
 
             // retrieve the values based on the user email and sort them according to their created times.
-            const addedCards = await YugiohCardByName.find(
+            const addedGenres = await gameByGenre.find(
                 { user_email: userEmail },
                 { _id: 0, __v: 0, updatedAt: 0 }
             ).sort({ createdAt: -1 });
 
-            res.status(200).json(addedCards);
+            res.status(200).json(addedGenres);
         }
         catch (error) { }
     }
 }
 
-const yugiohCardByNameController = new YugiohCardByNameController();
+const gameByGenreController = new GameByGenreController();
 
-export default yugiohCardByNameController;
+export default gameByGenreController;
