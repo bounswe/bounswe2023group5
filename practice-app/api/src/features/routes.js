@@ -1,6 +1,7 @@
 import express from "express";
 const router = express.Router();
 import gameByCategoryController from "./gamebycategory/controller/GameByCategoryController.js";
+import gameReviewController from "./gamereview/controller/GameReviewController.js";
 import cardByNameController from "./hearthstonecard/controller/CardByNameController.js";
 import gameByUserController from "./gamebyuser/controller/GameByUserController.js";
 import gameSuggestionController from "./gamesuggestion/controller/GameSuggestionController.js";
@@ -31,6 +32,9 @@ router.post("/achievement", achievementByGameIdController.insertAchievements);
 
 router.get("/topgames", topGamesController.getTopGamesByEmail);
 router.post("/topgames", topGamesController.insertTopGames);
+
+router.get("/review", gameReviewController.getGameReviewsByEmail);
+router.post("/review", gameReviewController.insertGameReviews);
 
 router.get("/deal", gameByDealController.getHistory);
 router.post("/deal", gameByDealController.getDeals);
