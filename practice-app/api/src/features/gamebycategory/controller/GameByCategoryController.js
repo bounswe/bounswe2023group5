@@ -24,11 +24,10 @@ class GameByCategoryController {
       const response = await axios.get(url);
 
       // maps from response to database fields
-      const insertedValues = response.data.map((game) => {
+      const insertedGames = response.data.map((game) => {
         const {
           id,
           title,
-          thumbnail,
           short_description,
           platform,
           publisher,
@@ -37,9 +36,7 @@ class GameByCategoryController {
         } = game;
         return {
           game_id: id,
-          user_email: userEmail,
           name: title,
-          thumbnail,
           short_description,
           platform,
           publisher,
@@ -49,7 +46,13 @@ class GameByCategoryController {
       });
 
       // insert the values to mongodb database
-      await GameByCategory.insertMany(insertedValues);
+      const entry = new GameByCategory({
+        user_email: userEmail,
+        category,
+        games: insertedGames,
+      });
+
+      await entry.save();
 
       // return a response with status code 201
       res
