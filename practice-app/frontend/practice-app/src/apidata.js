@@ -7,8 +7,8 @@ import { AchievementGET, AchievementPOST } from "./APIFunctions/AchievementApi";
 import { GenreGET, GenrePOST } from "./APIFunctions/GenreApi";
 import { GameReviewGET, GameReviewPOST } from "./APIFunctions/GameReviewApi";
 import { YugiohcardGET, YugiohcardPOST } from "./APIFunctions/YugiohcardApi";
+import { ChoiceGET, ChoicePOST } from "./APIFunctions/RockPaperScissorsApi";
 import { TopGamesGET, TopGamesPOST } from "./APIFunctions/TopGamesApi";
-
 
 
 const apidata = {
@@ -430,6 +430,39 @@ const apidata = {
           name: "number",
           label: "Number of Games"
         }
+      ]
+    }
+  },
+  "choice": {
+
+    postFunction: ChoicePOST,
+    getFunction: ChoiceGET,
+
+    name: "Choice",
+    form: {
+
+      buttonText: "Send Choice",
+      inputs: [
+        {
+          type: "select",
+          name: "choice",
+          label: "Choices",
+          options: [
+            {
+              name: "Rock",
+              value: "rock"
+            },
+            {
+              name: "Paper",
+              value: "paper"
+            },
+            {
+              name: "Scissors",
+              value: "scissors"
+            }
+          ]
+        }
+
       ]
     }
   }
