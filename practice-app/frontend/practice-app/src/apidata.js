@@ -354,15 +354,15 @@ const apidata = {
           options: [
             {
               name: "Rock",
-              value: "Rock"
+              value: rock
             },
             {
               name: "Paper",
-              value: "Paper"
+              value: paper
             },
             {
               name: "Scissors",
-              value: "Scissors"
+              value: scissors
             }
           ]
         }
