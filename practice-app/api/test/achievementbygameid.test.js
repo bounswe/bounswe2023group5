@@ -144,6 +144,7 @@ describe("GET /games/category", function () {
   const nonRegisteredUserUrl =
     "/api/v1/games/achievement?userEmail=random@email.com";
 
+  //test whether the data comes with correct order and correct data
   test("should respond with status code 200 and a success message in json with correct data  ", async function () {
     const response = await request(app).get(registeredUserUrl);
     expect(response.status).toEqual(200);
