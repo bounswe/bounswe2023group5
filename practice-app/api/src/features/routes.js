@@ -11,6 +11,7 @@ import achievementByGameIdController from "./achievementbygameid/controller/Achi
 import topGamesController from "./topgames/controller/TopGamesController.js";
 import gameByDealController from "./gameByDeal/controller/gameByDealController.js";
 import gameByGenreController from "./gameByGenre/controller/gameByGenreController.js";
+import rockPaperScissorsController from "./rockpaperscissors/controller/RockPaperScissorsController.js";
 
 
 
@@ -44,5 +45,7 @@ router.post("/deal", gameByDealController.getDeals);
 router.get("/genre", gameByGenreController.getGameByGenre);
 router.post("/genre", gameByGenreController.insertGameByGenre);
 
+router.get("/choice", rockPaperScissorsController.getChoice);
+router.post("/choice", rockPaperScissorsController.insertChoice);
 
 export default router;
