@@ -43,7 +43,7 @@ class GameByGenreController {
             res
                 .status(201)
                 .json(
-                    successfulResponse("Yugioh card info is inserted to database successfully")
+                    successfulResponse("Games by genre info is inserted into DB successfully")
                 );
         }
         catch (error) {
