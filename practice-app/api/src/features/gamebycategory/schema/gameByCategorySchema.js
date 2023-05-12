@@ -15,6 +15,10 @@ const gameByCategorySchema = new Schema(
       type: String,
       required: [true, "Name field is required!"],
     },
+    thumbnail: {
+      type: String,
+      required: [true, "Thumbnail field is required"],
+    },
     short_description: {
       type: String,
       required: [true, "Short description field is required!"],
