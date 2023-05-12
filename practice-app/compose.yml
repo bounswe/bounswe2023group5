@@ -29,3 +29,4 @@ services:
       RETOOL_API_KEY: "${RETOOL_API_KEY}"
       API_KEY: "${API_KEY}"
       API_KEY_GAME_REVIEW: "${API_KEY_GAME_REVIEW}"
+      X-RapidAPI-Key: "${X-RapidAPI-Key}"
