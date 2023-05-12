@@ -103,7 +103,7 @@ describe("POST /games/achievement", function () {
     );
   },60000);
 
-  test("should respond with status code 400 and a error message in json with missing email and game id", async function () {
+  test("should respond with status code 401 and a error message in json with missing email and game id", async function () {
     const response = await request(app).post(url).send(emptyData);
 
     expect(response.status).toEqual(401);
