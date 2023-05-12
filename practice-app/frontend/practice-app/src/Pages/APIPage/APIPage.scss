@@ -3,20 +3,22 @@
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
+    padding: 20px;
   
     .top-box {
-        margin: 30px;
     }
 
     .json-box {
         .refresh-btn {
             margin: 10px;
+            margin-left: 30px;
+
         }
     }
     .form-box {
         margin: 10px;
     }
     .apipage-title {
-        margin-left: 10px;
+        margin-left: 40px;
     }
 }
