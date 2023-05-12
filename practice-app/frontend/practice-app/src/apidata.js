@@ -4,8 +4,10 @@ import { SuggestionGet, SuggestionPost } from "./APIFunctions/SuggestionApi";
 import { UserGET, UserPOST } from "./APIFunctions/UserApi";
 import { MockGET, MockGET2, MockPOST } from "./APIFunctions/MockAPI";
 import { AchievementGET, AchievementPOST } from "./APIFunctions/AchievementApi";
+import { GenreGET, GenrePOST } from "./APIFunctions/GenreApi";
 import { GameReviewGET, GameReviewPOST } from "./APIFunctions/GameReviewApi";
 import { YugiohcardGET, YugiohcardPOST } from "./APIFunctions/YugiohcardApi";
+
 
 
 const apidata = {
@@ -275,6 +277,85 @@ const apidata = {
       ]
     }
   },
+  "genre": {
+
+    postFunction: GenrePOST,
+    getFunction: GenreGET,
+
+    name: "Genre",
+    form: {
+
+      buttonText: "POST GENRE'S INFO",
+      inputs: [
+        {
+
+          type: "select",
+          name: "genreID",
+          label: "Genre ID",
+
+          options: [
+            {
+              name: "Action",
+              value: 4
+            },
+            {
+              name: "Indie",
+              value: 51
+            },
+            {
+              name: "Adventure",
+              value: 3
+            },
+            {
+              name: "RPG",
+              value: 5
+            },
+            {
+              name: "Strategy",
+              value: 10
+            },
+            {
+              name: "Shooter",
+              value: 2
+            },
+            {
+              name: "Casual",
+              value: 40
+            },
+            {
+              name: "Simulation",
+              value: 14
+            },
+            {
+              name: "Puzzle",
+              value: 7
+            },
+            {
+              name: "Arcade",
+              value: 11
+            },
+            {
+              name: "Platformer",
+              value: 83
+            },
+            {
+              name: "Massively Multiplayer",
+              value: 59
+            },
+            {
+              name: "Racing",
+              value: 1
+            },
+            {
+              name: "Sports",
+              value: 15
+            }
+          ]
+        }
+      ]
+    }
+  },
+
   "review": {
     postFunction: GameReviewPOST,
     getFunction: GameReviewGET,
@@ -333,7 +414,6 @@ const apidata = {
           name: "card_name",
           label: "Card Name"
         }
-
       ]
     }
   }
