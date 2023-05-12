@@ -1,6 +1,6 @@
 import request from "supertest";
 import jest from "jest";
-import { app } from "../index.js";
+import  app  from "../app.js";
 import mongoose from "mongoose";
 import GameSuggestions from "../src/features/gamesuggestion/schema/gameSuggestionsSchema.js";
 

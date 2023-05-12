@@ -1,6 +1,6 @@
 import request from "supertest";
 import jest from "jest";
-import { app } from "../index.js";
+import  app  from "../app.js";
 import GameReview from "../src/features/gamereview/schema/gameReviewSchema.js";
 import mongoose from "mongoose";
 
