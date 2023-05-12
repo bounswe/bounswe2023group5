@@ -6,7 +6,7 @@ import { MockGET, MockGET2, MockPOST } from "./APIFunctions/MockAPI";
 import { AchievementGET, AchievementPOST } from "./APIFunctions/AchievementApi";
 import { GameReviewGET, GameReviewPOST } from "./APIFunctions/GameReviewApi";
 import { YugiohcardGET, YugiohcardPOST } from "./APIFunctions/YugiohcardApi";
-
+import { ChoiceGET, ChoicePOST } from "./APIFunctions/RockPaperScissorsApi";
 
 const apidata = {
   "deal": {
@@ -332,6 +332,39 @@ const apidata = {
           type: "text",
           name: "card_name",
           label: "Card Name"
+        }
+
+      ]
+    }
+  },
+  "choice": {
+
+    postFunction: ChoicePOST,
+    getFunction: ChoiceGET,
+
+    name: "Choice",
+    form: {
+
+      buttonText: "Send Choice",
+      inputs: [
+        {
+          type: "select",
+          name: "choice",
+          label: "Choices",
+          options: [
+            {
+              name: "Rock",
+              value: "Rock"
+            },
+            {
+              name: "Paper",
+              value: "Paper"
+            },
+            {
+              name: "Scissors",
+              value: "Scissors"
+            }
+          ]
         }
 
       ]
