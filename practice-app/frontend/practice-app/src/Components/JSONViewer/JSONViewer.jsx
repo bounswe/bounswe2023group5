@@ -27,6 +27,7 @@ function JsonViewer({ json }) {
                 <Paper elevation={4} key="paper">
                     <div className="jsonviewer-object-box">
                         {Object.entries(json).map(([key, value], index) => (
+                            key === "createdAt" || key==="updatedAt" || key==="__v" || key==="_id" ? <div></div>:
                             <div className="jsonviewer-value-box" key={index}>
                                 <div className="jsonviewer-key">{key}:</div>
                                 <div className="jsonviewer-value">{renderJson(value)}</div>
