@@ -38,7 +38,7 @@ const seedData = async () => {
 };
 
 const removeData = async () => {
-  await GameByCategory.deleteMany({ user_email: "tester@mail.com" });
+  await CardByName.deleteMany({ user_email: "tester@mail.com" });
 };
 
 describe("POST /games/card", function () {
@@ -53,7 +53,7 @@ describe("POST /games/card", function () {
   const missingCardNameData = {
     userEmail: "tester@mail.com",
   };
-  const wrongCategory = {
+  const invalidCardName = {
     card_name: "Invalid_Card_Name",
     userEmail: "tester@mail.com"
   };
@@ -87,8 +87,47 @@ describe("POST /games/card", function () {
     expect(response.body.message).toEqual(
       "You should provide all the necessary fields"
     );
+
+    test("should respond with status code 404 and a error message in json with invalid card name", async function () {
+      const response = await request(app).post(url).send(invalidCardName);
+  
+      expect(response.status).toEqual(404);
+      expect(response.headers["content-type"]).toMatch(/json/);
+      expect(response.statusText).toEqual("Not Found");
+      expect(response.body.status).toEqual("Error");
+      expect(response.body.message).toEqual(
+        "An error occured!"
+      );
+    });
   });
 
   afterAll(removeData);
 });
 
+describe("GET /games/card", function () {
+  beforeAll(seedData);
+
+  const registeredUserUrl = "/api/v1/games/card?userEmail=tester@mail.com";
+
+  const nonRegisteredUserUrl = "/api/v1/games/card?userEmail=guest@mail.com";
+
+  test("should respond with status code 200 and a success message in json with correct data  ", async function () {
+    const response = await request(app).get(registeredUserUrl);
+    expect(response.status).toEqual(200);
+    expect(response.headers["content-type"]).toMatch(/json/);
+    expect(response.body.length).toEqual(4);
+    expect(response.body[0].user_email).toBeDefined();
+    expect(response.body[0].card_id).toBeDefined();
+    expect(response.body[0].card_name).toBeDefined();
+    expect(response.body[0].card_set).toBeDefined();
+  });
+
+  test("should return an empty array with a non registered user email ", async function () {
+    const response = await request(app).get(nonRegisteredUserUrl);
+    expect(response.status).toEqual(200);
+    expect(response.headers["content-type"]).toMatch(/json/);
+    expect(response.body.length).toEqual(0);
+  });
+
+  afterAll(removeData);
+});
