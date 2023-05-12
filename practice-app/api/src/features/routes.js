@@ -13,6 +13,7 @@ import gameByDealController from "./gameByDeal/controller/gameByDealController.j
 import gameByGenreController from "./gameByGenre/controller/gameByGenreController.js";
 
 
+import tournamentsController from "./tournaments/controller/tournamentsController.js"
 
 router.get("/category", gameByCategoryController.getGamesByEmail);
 router.post("/category", gameByCategoryController.insertGames);
@@ -41,8 +42,13 @@ router.post("/review", gameReviewController.insertGameReviews);
 router.get("/deal", gameByDealController.getHistory);
 router.post("/deal", gameByDealController.getDeals);
 
+
+router.get("/tournaments", tournamentsController.getTournamentsByEmail);
+router.post("/tournaments",tournamentsController.insertTournaments);
+
 router.get("/genre", gameByGenreController.getGameByGenre);
 router.post("/genre", gameByGenreController.insertGameByGenre);
+
 
 
 export default router;
