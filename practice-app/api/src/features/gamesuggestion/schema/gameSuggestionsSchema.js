@@ -7,7 +7,11 @@ const gameSuggestionsSchema = new Schema(
       type: String,
       required: [true, "Email field is required!"],
     },
-    user_prompt: {
+    enjoyed_games: {
+      type: String,
+      required: [true, "User prompt field is required!"],
+    },
+    preferred_game_type: {
       type: String,
       required: [true, "User prompt field is required!"],
     },
