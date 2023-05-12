@@ -1,6 +1,6 @@
 import request from "supertest";
 import jest from "jest";
-import { app } from "../index.js";
+import  app  from "../app.js";
 import CardByName from "../src/features/hearthstonecard/schema/cardByNameSchema.js";
 import mongoose from "mongoose";
 

@@ -1,5 +1,5 @@
 import request from "supertest";
-import { app } from "../index.js";
+import  app  from "../app.js";
 import GameByDeal from "../src/features/gameByDeal/schema/gameByDealSchema.js";
 
 const seedData = async () => {
