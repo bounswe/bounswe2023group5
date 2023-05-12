@@ -3,6 +3,7 @@ import { SuggestionGet, SuggestionPost } from "./APIFunctions/SuggestionApi";
 import { UserGET, UserPOST } from "./APIFunctions/UserApi";
 import { MockGET, MockGET2, MockPOST } from "./APIFunctions/MockAPI";
 import { AchievementGET, AchievementPOST } from "./APIFunctions/AchievementApi";
+import { YugiohcardGET, YugiohcardPOST } from "./APIFunctions/YugiohcardApi";
 
 
 const apidata = {
@@ -208,6 +209,25 @@ const apidata = {
           type: "number",
           name: "gameid",
           label: "Steam Id of the Game (Please provide a valid id)",
+        }
+
+      ]
+    }
+  },
+  "yugiohcard": {
+
+    postFunction: YugiohcardPOST,
+    getFunction: YugiohcardGET,
+
+    name: "Yugioh Card",
+    form: {
+
+      buttonText: "Search Card",
+      inputs: [
+        {
+          type: "text",
+          name: "card_name",
+          label: "Card Name"
         }
 
       ]
