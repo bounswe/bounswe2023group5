@@ -39,6 +39,10 @@ const achievementByGameIdSchema = new Schema({
             type: Number,
             required: [true, "Success Rate field is required!"],
         }
+    },
+    game_name:{
+        type:String,
+        required: [true, "Game name field is required!"],
     }
 },
 { timestamps: true }
