@@ -4,17 +4,17 @@ import GameByDeal from "../src/features/gameByDeal/schema/gameByDealSchema.js";
 
 const seedData = async () => {
   await GameByDeal.insertMany([{
-    "userEmail": "test@test.com",
+    "user_email": "test@test.com",
     "title": "al",
-    "upperPrice": 5,
+    "upper_price": 5,
     "deals": [
       {
         "title": "Making History: The Calm and the Storm",
-        "salePrice": "0.49",
-        "normalPrice": "4.99",
-        "steamRatingText": "Mostly Positive",
+        "sale_price": "0.49",
+        "normal_price": "4.99",
+        "steam_rating_text": "Mostly Positive",
         "rating": "50%",
-        "isOnSale": true,
+        "is_on_sale": true,
 
       }
     ]
@@ -68,21 +68,21 @@ describe("POST /games/deal", function () {
   afterAll(removeData);
 });
 
-describe("GET /games/category", function () {
+describe("GET /games/deal", function () {
   beforeAll(seedData);
 
   const registeredUserUrl = "/api/v1/games/deal?userEmail=test@test.com";
 
   const nonRegisteredUserUrl =
-    "/api/v1/games/category?userEmail=random@email.com";
+    "/api/v1/games/deal?userEmail=random@email.com";
 
   test("should respond with status code 200 and a success message in json with correct data  ", async function () {
     const response = await request(app).get(registeredUserUrl);
     expect(response.status).toEqual(200);
     expect(response.headers["content-type"]).toMatch(/json/);
-    expect(response.body[0].userEmail).toBeDefined();
+    expect(response.body[0].user_email).toBeDefined();
     expect(response.body[0].title).toBeDefined();
-    expect(response.body[0].upperPrice).toBeDefined();
+    expect(response.body[0].upper_price).toBeDefined();
     expect(response.body[0].deals).toBeDefined();
   });
 
