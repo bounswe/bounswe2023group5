@@ -188,6 +188,7 @@ describe("GET /games/category", function () {
     expect(response.body[2].game_name).toBeDefined();
     expect(response.body[2].user_email).toEqual("test@email.com")
   });
+  // if we have a real real authentiacation system it should return 401.
   test("should return an empty array with a non registered user email ", async function () {
     const response = await request(app).get(nonRegisteredUserUrl);
 
