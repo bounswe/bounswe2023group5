@@ -61,10 +61,11 @@ describe("POST /games/tournaments", function () {
   afterAll(removeData);
 });
 
-describe("GET /games/category", function () {
+describe("GET /games/tournaments", function () {
   beforeAll(seedData);
 
-  const registeredUserUrl = "/api/v1/games/tournaments?userEmail=test@email.com";
+  const registeredUserUrl =
+    "/api/v1/games/tournaments?userEmail=test@email.com";
 
   const nonRegisteredUserUrl =
     "/api/v1/games/tournaments?userEmail=random@email.com";
