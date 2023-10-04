@@ -32,7 +32,7 @@
 | Research sources and tools for mobile application development | [#NA](#) | Mobile Team | 10.10.2023 | 2hr |
 | Research sources and tools for back-end development | [#NA](#) | Backend Team | 10.10.2023 | 2hr |
 | Research sources and tools for front-end development | [#NA](#) | Frontend Team | 10.10.2023 | 2hr |
-| Deciding on a meeting time with Alper Hoca | [#NA](#) | Can | 05.10.2023 | 15mins |
+| Deciding on a meeting time with Alper Hoca | [#368](https://github.com/bounswe/bounswe2023group5/issues/368) | Can | 05.10.2023 | 15mins |
 
 
 
