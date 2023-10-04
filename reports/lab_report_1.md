@@ -21,10 +21,10 @@
 ## Your plans for the next week
 | Description | Issue | Assignee | Due | Estimated Duration |
 | --- | --- | --- | --- | --- |
-| Review repository and remember what we've done in CmpE 352 | [#NA](#) | Team | 10.10.2023 | 1hr |
-| Meet on the redesigning some of the requirements according to the specifications given at the lab session (domain specific) | [#NA](#) | Team | 10.10.2023 | 2hr |
-| Decide on the members of mobile, back-end and front-end teams | [#NA](#) | Team | 10.10.2023 | 3hr |
-| Fill the lab report | [#NA](#) | Team | 05.10.2023 | 15mins |
+| Review repository and remember what we've done in CmpE 352 | [#367](https://github.com/bounswe/bounswe2023group5/issues/367) ,  | Team | 10.10.2023 | 1hr |
+| Meet on the redesigning some of the requirements according to the specifications given at the lab session (domain specific) | [#370](https://github.com/bounswe/bounswe2023group5/issues/370) , | Team | 10.10.2023 | 2hr |
+| Decide on the members of mobile, back-end and front-end teams | [#372](https://github.com/bounswe/bounswe2023group5/issues/372) , | Team | 10.10.2023 | 3hr |
+| Fill the lab report | [#373](https://github.com/bounswe/bounswe2023group5/issues/373) , | Team | 05.10.2023 | 15mins |
 | Research for the domain-specific elements (e.g. Game) | [#NA](#) | Alperen, Deniz | 10.10.2023 | 2hr |
 | Decide on the list of weekly note takers and moderators of meetings | [#NA](#) | Halis | 10.10.2023 | 15mins |
 | Decide a meeting time in order to achieve synchronization between group members | [#NA](#) | Çisel | 10.10.2023 | 15mins |
