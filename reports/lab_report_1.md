@@ -27,7 +27,7 @@
 | Fill the lab report | [#373](https://github.com/bounswe/bounswe2023group5/issues/373) , | Team | 05.10.2023 | 15mins |
 | Research for the domain-specific elements (e.g. Game) | [#NA](#) | Alperen, Deniz | 10.10.2023 | 2hr |
 | Decide on the list of weekly note takers and moderators of meetings | [#384](https://github.com/bounswe/bounswe2023group5/issues/384) | Halis | 10.10.2023 | 15mins |
-| Decide a meeting time in order to achieve synchronization between group members | [#NA](#) | Çisel | 10.10.2023 | 15mins |
+| Decide a meeting time in order to achieve synchronization between group members | [#385](https://github.com/bounswe/bounswe2023group5/issues/385) | Çisel | 10.10.2023 | 15mins |
 | Sharing the feedback given at the lab on the group communication channels | [#374](https://github.com/bounswe/bounswe2023group5/issues/374) | Ali | 07.10.2023 | 30mins |
 | Research sources and tools for mobile application development | [#NA](#) | Mobile Team | 10.10.2023 | 2hr |
 | Research sources and tools for back-end development | [#383](https://github.com/bounswe/bounswe2023group5/issues/383) | Backend Team | 10.10.2023 | 2hr |
