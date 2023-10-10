@@ -48,7 +48,7 @@ We'd decided to agree on teams and necessary changes on our requirements and app
 | Decide on a component library for styling the front-end project | [#NA]() | Front-end Team | 13.10.2023 | 2hrs |
 | Create a dockerfile for the front-end project and initialize the container | [#NA]() | Front-end Team | 13.10.2023 | 2hrs |
 | Decide on the technologies that will be used in back-end development | [#421](https://github.com/bounswe/bounswe2023group5/issues/421) | Back-end Team | 13.10.2023 | 2hr |
-| Create a basis for a back-end project | [#NA]() | Back-end Team | 12.10.2023 | 2hr |
+| Create a basis for a back-end project | [#422](https://github.com/bounswe/bounswe2023group5/issues/422) | Back-end Team | 17.10.2023 | 2hr |
 | Create a dockerfile for the back-end project and initialize the container | [#417](https://github.com/bounswe/bounswe2023group5/issues/417) | Back-end Team | 13.10.2023 | 2hrs |
 | Create a basis for a mobile project | [#NA]() | Mobile Team | 12.10.2023 | 2hr |
 | Deciding the Mobile Technologies | [#411](https://github.com/bounswe/bounswe2023group5/issues/411) | Mobile Team | 11.10.2023  | 2 hr |
