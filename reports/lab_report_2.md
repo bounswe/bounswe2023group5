@@ -41,7 +41,7 @@ We'd decided to agree on teams and necessary changes on our requirements and app
 | Decide on which platform to use for our milestones | [#NA]()| Team | 11.10.2023 | 2hr |
 | Determine our roadmap for our milestones | [#NA]() | Team | 12.10.2023 | 2hr |
 | Update/Redesign our requirements | [#NA]() | Team | 12.10.2023 | 3hrs |
-| Update/Redesign our diagrams | [#NA]() | Team | 12.10.2023 | 2hrs |
+| Update/Redesign our diagrams | [#424](https://github.com/bounswe/bounswe2023group5/issues/424) | Team | 12.10.2023 | 2hrs |
 | Add extra labels that describes which team works on that corresponding issue | [#NA]() | Team | 12.10.2023 | 30mins |
 | Create an initial 'Hello World' application for a front-end project | [#418](https://github.com/bounswe/bounswe2023group5/issues/418) | Front-end Team | 17.10.2023 | 2hrs |
 | Decide on the technologies that will be used in front-end development | [#419](https://github.com/bounswe/bounswe2023group5/issues/419) | Front-end Team | 13.10.2023 | 1hr |
