@@ -44,7 +44,7 @@ We'd decided to agree on teams and necessary changes on our requirements and app
 | Update/Redesign our diagrams | [#NA]() | Team | 12.10.2023 | 2hrs |
 | Add extra labels that describes which team works on that corresponding issue | [#NA]() | Team | 12.10.2023 | 30mins |
 | Create an initial 'Hello World' application for a front-end project | [#418](https://github.com/bounswe/bounswe2023group5/issues/418) | Front-end Team | 17.10.2023 | 2hrs |
-| Decide on the technologies that will be used in front-end development | [#NA]() | Front-end Team | 13.10.2023 | 1hr |
+| Decide on the technologies that will be used in front-end development | [#419](https://github.com/bounswe/bounswe2023group5/issues/419) | Front-end Team | 13.10.2023 | 1hr |
 | Decide on a component library for styling the front-end project | [#NA]() | Front-end Team | 13.10.2023 | 2hrs |
 | Create a dockerfile for the front-end project and initialize the container | [#NA]() | Front-end Team | 13.10.2023 | 2hrs |
 | Decide on the technologies that will be used in back-end development | [#NA]() | Back-end Team | 13.10.2023 | 2hr |
