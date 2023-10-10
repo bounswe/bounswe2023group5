@@ -20,8 +20,8 @@
 | Decide on the list of weekly note takers and moderators of meetings | [#384](https://github.com/bounswe/bounswe2023group5/issues/384) | Halis | 10.10.2023 | --- | 15mins | 15mins
 | Decide a meeting time in order to achieve synchronization between group members | [#385](https://github.com/bounswe/bounswe2023group5/issues/385) | Çisel | 10.10.2023 | --- | 15mins | 15mins
 | Sharing the feedback given at the lab on the group communication channels | [#374](https://github.com/bounswe/bounswe2023group5/issues/374) | Ali | 07.10.2023 | --- | 30mins | 30mins
-| Research sources and tools for mobile application development | [#395](https://github.com/bounswe/bounswe2023group5/issues/395) , [#399](https://github.com/bounswe/bounswe2023group5/issues/399) | Mobile Team | 10.10.2023 | --- |2hr | 2hr
-| Research sources and tools for back-end development | [#383](https://github.com/bounswe/bounswe2023group5/issues/383) | Backend Team | 10.10.2023 | --- | 2hr | 1.5hr
+| Research sources and tools for mobile application development | [#395](https://github.com/bounswe/bounswe2023group5/issues/395) , [#399](https://github.com/bounswe/bounswe2023group5/issues/399) | Mobile Team | 10.10.2023 | [Mobile Research Page](https://github.com/bounswe/bounswe2023group5/wiki/Mobile-Tech-Research) |2hr | 2hr
+| Research sources and tools for back-end development | [#383](https://github.com/bounswe/bounswe2023group5/issues/383) | Backend Team | 10.10.2023 | [Backend Research Page](https://github.com/bounswe/bounswe2023group5/wiki/Backend-Tech-Research) | 2hr | 1.5hr
 | Research sources and tools for front-end development | [#380](https://github.com/bounswe/bounswe2023group5/issues/380), [#392](https://github.com/bounswe/bounswe2023group5/issues/392), [#404](https://github.com/bounswe/bounswe2023group5/issues/404) | Frontend Team | 10.10.2023 | [Frontend Research Page](https://github.com/bounswe/bounswe2023group5/wiki/Frontend-Tech-Research) | 2hr | 2hr
 | Deciding on a meeting time with Alper Hoca | [#368](https://github.com/bounswe/bounswe2023group5/issues/368) | Can | 05.10.2023 | --- | 15mins | 5mins
 
