@@ -54,6 +54,7 @@ We'd decided to agree on teams and necessary changes on our requirements and app
 | Researching Kotlin | [#405](https://github.com/bounswe/bounswe2023group5/issues/405) [#406](https://github.com/bounswe/bounswe2023group5/issues/406) [#408](https://github.com/bounswe/bounswe2023group5/issues/408) |  Mobile Team | 17.10.2023  | 5 hr | Researching Jetback Compose | [#407](https://github.com/bounswe/bounswe2023group5/issues/407)  [#409](https://github.com/bounswe/bounswe2023group5/issues/409) [#410](https://github.com/bounswe/bounswe2023group5/issues/410)  [#412](https://github.com/bounswe/bounswe2023group5/issues/412) | Mobile Team | 17.10.2023 | 3 hr |
 | Researching Retrofit and Ktor-client | [#413](https://github.com/bounswe/bounswe2023group5/issues/413)  | Ege | 17.10.2023 | 2 hr |
 | Making Setups for Mobile Development| [#414](https://github.com/bounswe/bounswe2023group5/issues/414) [#415](https://github.com/bounswe/bounswe2023group5/issues/415) [#416](https://github.com/bounswe/bounswe2023group5/issues/416) | Bilal, Said, Harun | 17.10.2023 | 2 hr |
+| Researching Jetback Compose | [#407](https://github.com/bounswe/bounswe2023group5/issues/407) [#409](https://github.com/bounswe/bounswe2023group5/issues/409) [#410](https://github.com/bounswe/bounswe2023group5/issues/410) [#412](https://github.com/bounswe/bounswe2023group5/issues/412) | Bilal, Ege, Said, Harun | 17.10.2023 | 3 hr |
 
 ## Risks
 - Not being able to decide on technologies for the front-end in a timely manner.
