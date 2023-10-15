@@ -9,9 +9,11 @@ public class CreateAccount : MonoBehaviour
     public TMP_InputField emailInputField;
     public TMP_InputField passwordInputField;
     public TMP_InputField confirmPasswordInputField;
+    [SerializeField] private CanvasManager canvasManager;
     private void Awake()
     {
         GetComponent<Button>().onClick.AddListener(OnClicedCreateAccount);
+        canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
     }
 
     private void OnClicedCreateAccount()
@@ -42,6 +44,11 @@ public class CreateAccount : MonoBehaviour
         userInfo.email = emailInputField.text;
         userInfo.password = passwordInputField.text;
         var isUserCreated = UserDataHelper.WriteNewUserData(userInfo);
+        if (isUserCreated)
+        {
+            canvasManager.ShowHomePage();
+            canvasManager.HideSignUpPage();
+        }
         Debug.Log(isUserCreated ? "Account created" : "Account not created");
     }
 }
