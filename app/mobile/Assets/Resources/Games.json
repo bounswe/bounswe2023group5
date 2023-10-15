@@ -1,0 +1,154 @@
+{
+  "games": [
+    {
+      "name": "Valorant",
+      "year": "2020",
+      "info": "Valorant is a free-to-play multiplayer tactical first-person shooter video game developed and published by Riot Games.",
+      "characters": [
+        {
+          "name": "Gekko",
+          "role": "INITIATOR",
+          "Q": "WINGMAN",
+          "E": "DIZZY",
+          "C": "MOSH PIT",
+          "X": "THRASH"
+        }
+      ]
+    },
+    {
+      "name": "Fortnite",
+      "year": "2017",
+      "info": "Fortnite is an online video game developed by Epic Games and released in 2017.",
+      "characters": [
+        {
+          "name": "Jonesy",
+          "role": "Soldier",
+          "ability1": "Shockwave Grenade",
+          "ability2": "Frag Grenade",
+          "ability3": "Going Commando",
+          "ability4": "Goin' Constructor"
+        }
+      ]
+    },
+    {
+      "name": "League of Legends",
+      "year": "2009",
+      "info": "League of Legends is a multiplayer online battle arena video game developed and published by Riot Games.",
+      "characters": [
+        {
+          "name": "Ahri",
+          "role": "Mage",
+          "ability1": "Orb of Deception",
+          "ability2": "Fox-Fire",
+          "ability3": "Charm",
+          "ability4": "Spirit Rush"
+        }
+      ]
+    },
+    {
+      "name": "Counter-Strike",
+      "year": "2012",
+      "info": "Counter-Strike: Global Offensive is a multiplayer first-person shooter video game developed by Valve and Hidden Path Entertainment.",
+      "characters": [
+        {
+          "name": "Terrorist",
+          "role": "Villain",
+          "ability1": "AK-47",
+          "ability2": "M4A4",
+          "ability3": "AWP",
+          "ability4": "P90"
+        }
+      ]
+    },
+    {
+      "name": "Minecraft",
+      "year": "2011",
+      "info": "Minecraft is a sandbox video game developed by Mojang.",
+      "characters": [
+        {
+          "name": "Steve",
+          "role": "Player",
+          "ability1": "Mining",
+          "ability2": "Building",
+          "ability3": "Crafting",
+          "ability4": "Surviving"
+        }
+      ]
+    },
+    {
+      "name": "Overwatch",
+      "year": "2016",
+      "info": "Overwatch is a team-based multiplayer first-person shooter developed and published by Blizzard Entertainment.",
+      "characters": [
+        {
+          "name": "Tracer",
+          "role": "Damage",
+          "ability1": "Pulse Pistols",
+          "ability2": "Blink",
+          "ability3": "Recall",
+          "ability4": "Pulse Bomb"
+        }
+      ]
+    },
+    {
+      "name": "World of Warcraft",
+      "year": "2004",
+      "info": "World of Warcraft is a massively multiplayer online role-playing game released by Blizzard Entertainment.",
+      "characters": [
+        {
+          "name": "Illidan Stormrage",
+          "role": "Demon Hunter",
+          "ability1": "Chaos Strike",
+          "ability2": "Eye Beam",
+          "ability3": "Metamorphosis",
+          "ability4": "Blur"
+        }
+      ]
+    },
+    {
+      "name": "Apex Legends",
+      "year": "2019",
+      "info": "Apex Legends is a free-to-play battle royale game developed by Respawn Entertainment and published by Electronic Arts.",
+      "characters": [
+        {
+          "name": "Wraith",
+          "role": "Interdimensional Skirmisher",
+          "ability1": "Into the Void",
+          "ability2": "Dimensional Rift",
+          "ability3": "Voices from the Void",
+          "ability4": "Dimensional Rift"
+        }
+      ]
+    },
+    {
+      "name": "FIFA 22",
+      "year": "2021",
+      "info": "FIFA 22 is a football simulation video game published by Electronic Arts as part of the FIFA series.",
+      "characters": [
+        {
+          "name": "Lionel Messi",
+          "role": "Forward",
+          "ability1": "Dribbling",
+          "ability2": "Shooting",
+          "ability3": "Passing",
+          "ability4": "Speed"
+        }
+      ]
+    },
+    {
+      "name": "Call of Duty",
+      "year": "2020",
+      "info": "Call of Duty: Warzone is a free-to-play battle royale video game released by Activision.",
+      "characters": [
+        {
+          "name": "Ghost",
+          "role": "Operator",
+          "ability1": "Dead Silence",
+          "ability2": "UAV",
+          "ability3": "Field Upgrade",
+          "ability4": "Killstreak"
+        }
+      ]
+    }
+  ]
+}
