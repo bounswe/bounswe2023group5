@@ -274,6 +274,7 @@ MonoBehaviour:
   emailInputField: {fileID: 190284391873000656}
   passwordInputField: {fileID: 3656364880902989386}
   confirmPasswordInputField: {fileID: 3656364880890050758}
+  canvasManager: {fileID: 0}
 --- !u!1 &190284390336542199
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,9 +443,9 @@ RectTransform:
   m_Father: {fileID: 190284391573740637}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -367, y: 839.48}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: -171.95, y: 732.78}
   m_SizeDelta: {x: 242.28, y: 95.034}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &190284390568454952
@@ -964,7 +965,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -263.90808, y: 746.7017}
+  m_AnchoredPosition: {x: -117, y: 690}
   m_SizeDelta: {x: 452.1839, y: 90.5295}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &190284391006580888
@@ -1029,7 +1030,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
