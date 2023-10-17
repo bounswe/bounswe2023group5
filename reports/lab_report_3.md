@@ -77,13 +77,13 @@
 | Creating a colors.scss file  | [#459](https://github.com/bounswe/bounswe2023group5/issues/459) | Alperen Bırçak | 24.10.2023 | 1 hr |
 | Reviewing Game Page Mockups  | [#460](https://github.com/bounswe/bounswe2023group5/issues/460) | Frontend Team | 24.10.2023 | 2 hr |
 | Deciding on Color Palette of the Application  | [#468](https://github.com/bounswe/bounswe2023group5/issues/468) | Frontend Team | 24.10.2023 | 2 hr |
-| Login Page Implementation - MOBILE  | [#NA](https://github.com/bounswe/bounswe2023group5/issues/)     |  Harun Sami Çelik | 24.10.2023 | 2 hr |
+| Login Page Implementation - MOBILE  | [#471](https://github.com/bounswe/bounswe2023group5/issues/471)     |  Harun Sami Çelik | 24.10.2023 | 2 hr |
 | Register Page Implementation - MOBILE  | [#452](https://github.com/bounswe/bounswe2023group5/issues/452) |  Bilal Atım | 24.10.2023 | 2 hr |
 | Initial Home Page Implementation - MOBILE  | [#453](https://github.com/bounswe/bounswe2023group5/issues/453) |  Bilal Atım | 24.10.2023 | 2 hr |
 | Logout Functionality - MOBILE  | [#463](https://github.com/bounswe/bounswe2023group5/issues/463) |  Said Yolcu | 24.10.2023 | 4 hr |
 | Change Password Page Implementation - MOBILE  | [#465](https://github.com/bounswe/bounswe2023group5/issues/465) |  Said Yolcu | 24.10.2023 | 5 hr |
 | Forgot Password Page and Functionality Implementation - MOBILE  | [#466](https://github.com/bounswe/bounswe2023group5/issues/466) |  Ege Ekşi | 24.10.2023 | 2 hr |
-| Delete Account Page Implementation - MOBILE  | [#NA](https://github.com/bounswe/bounswe2023group5/issues/)     |  Harun Sami Çelik | 24.10.2023 | 2 hr |
+| Delete Account Page Implementation - MOBILE  | [#472](https://github.com/bounswe/bounswe2023group5/issues/472)     |  Harun Sami Çelik | 24.10.2023 | 2 hr |
 | Main Layout of the Pages - MOBILE  | [#467](https://github.com/bounswe/bounswe2023group5/issues/467) |  Ege Ekşi | 24.10.2023 | 2 hr |
 | Game Page Mockup Review - MOBILE  | [#454](https://github.com/bounswe/bounswe2023group5/issues/454) | Mobile Team | 24.10.2023 | 2 hr |
 | Initializing README document for Mobile - MOBILE  | [#455](https://github.com/bounswe/bounswe2023group5/issues/455) | Mobile Team | 24.10.2023 | 2 hr |
