@@ -4,13 +4,20 @@
 **Date:** 17.10.2023
 
 ## Progress Summary
-* We determine our project plan and milestone dates
-* We update/redesign our requirements and class diagrams
-* We add extra labels which describe team works(frontend/backend/mobile etc)
-* We determine the technologies and libraries for each project
-* We create "Hello World application" for each project
-* Frontend and backend teams create docker file for frontend and backend respectively
-* Mobile team learn Unity
+* We determined our project plan and milestone dates
+* We updated/redesigned our requirements and class diagrams
+* We added extra labels which describe team works(frontend/backend/mobile etc)
+* We determined the technologies and libraries for each project
+* We created "Hello World application" for each project
+* Frontend and backend teams created docker file for frontend and backend respectively
+* Mobile team learned Unity
+* We will implement login, register, forgot password and delete account endpoints.
+* We will decide on a color palette for the application.
+* We will implement login, register, forgot password and delete account for web application.
+* We will implement the main layout for the web pages
+* We will implement login, register, forgot password and delete account for mobile application.
+* We will implement the main layout of the pages for mobile application.
+
 
 ## What was planned for the week? How did it go?
 | Description | Issue | Assignee | Due | PR | Estimated Duration | Actual Duration |
