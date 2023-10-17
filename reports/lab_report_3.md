@@ -69,6 +69,7 @@
 | Implementing the Main Layout for the Web Pages  | [#458](https://github.com/bounswe/bounswe2023group5/issues/458) | Alperen Bırçak | 24.10.2023 | 5 hr |
 | Creating a colors.scss file  | [#459](https://github.com/bounswe/bounswe2023group5/issues/459) | Alperen Bırçak | 24.10.2023 | 1 hr |
 | Reviewing Game Page Mockups  | [#460](https://github.com/bounswe/bounswe2023group5/issues/460) | Frontend Team | 24.10.2023 | 2 hr |
+| Deciding on Color Palette of the Application  | [#468](https://github.com/bounswe/bounswe2023group5/issues/468) | Frontend Team | 24.10.2023 | 2 hr |
 | Login Page Implementation - MOBILE  | [#NA](https://github.com/bounswe/bounswe2023group5/issues/)|  Harun Sami Çelik | 24.10.2023 | 2 hr |
 | Register Page Implementation - MOBILE  | [#452](https://github.com/bounswe/bounswe2023group5/issues/452)|  Bilal Atım | 24.10.2023 | 2 hr |
 | Initial Home Page Implementation - MOBILE  | [#453](https://github.com/bounswe/bounswe2023group5/issues/453)|  Bilal Atım | 24.10.2023 | 2 hr |
