@@ -59,14 +59,14 @@
 - Last week, we didn't decide anything about setting up our database yet, we've set up our MongoDb Server database for our project.
 
 ## Your plans for the next week
-| Description | Issue | Assignee | Due | Estimated Duration |
-| --- | --- | --- | --- | --- |
+| Description | Issue                                                           | Assignee | Due | Estimated Duration |
+| --- |-----------------------------------------------------------------| --- | --- | --- |
 | User Register Endpoint| [#440](https://github.com/bounswe/bounswe2023group5/issues/440) | Can Uzduran | 24.10.2023 | 3 hr |
 | User Login/Logout Endpoint| [#447](https://github.com/bounswe/bounswe2023group5/issues/447) | Zeynep Baydemir | 24.10.2023 | 5 hr |
 | Change Password Endpoint| [#448](https://github.com/bounswe/bounswe2023group5/issues/448) | Halis Bal | 24.10.2023 | 3 hr |
 | Forgot Password Endpoint| [#450](https://github.com/bounswe/bounswe2023group5/issues/450) | Deniz Ünal | 24.10.2023 | 3 hr |
-| Delete Account Implementation | [#NA](https://github.com/bounswe/bounswe2023group5/issues/) | Can Uzduran | 24.10.2023 | 3 hr |
-| Initializing the README Document for Backend  | [#NA](https://github.com/bounswe/bounswe2023group5/issues/) | Can Uzduran | 24.10.2023 | 2 hr |
+| Delete Account Implementation | [#469](https://github.com/bounswe/bounswe2023group5/issues/469) | Can Uzduran | 24.10.2023 | 3 hr |
+| Initializing the README Document for Backend  | [#470](https://github.com/bounswe/bounswe2023group5/issues/470) | Can Uzduran | 24.10.2023 | 2 hr |
 | Login Page Implementation | [#461](https://github.com/bounswe/bounswe2023group5/issues/461) | Arda Kabadayı | 24.10.2023 | 3 hr |
 | Register Page Implementation | [#464](https://github.com/bounswe/bounswe2023group5/issues/464) | Arda Kabadayı | 24.10.2023 | 1 hr |
 | Implementing the Frontend of Logout Functionality  | [#449](https://github.com/bounswe/bounswe2023group5/issues/449) | Ali Başaran | 24.10.2023 | 2 hr |
@@ -77,16 +77,16 @@
 | Creating a colors.scss file  | [#459](https://github.com/bounswe/bounswe2023group5/issues/459) | Alperen Bırçak | 24.10.2023 | 1 hr |
 | Reviewing Game Page Mockups  | [#460](https://github.com/bounswe/bounswe2023group5/issues/460) | Frontend Team | 24.10.2023 | 2 hr |
 | Deciding on Color Palette of the Application  | [#468](https://github.com/bounswe/bounswe2023group5/issues/468) | Frontend Team | 24.10.2023 | 2 hr |
-| Login Page Implementation - MOBILE  | [#NA](https://github.com/bounswe/bounswe2023group5/issues/)|  Harun Sami Çelik | 24.10.2023 | 2 hr |
-| Register Page Implementation - MOBILE  | [#452](https://github.com/bounswe/bounswe2023group5/issues/452)|  Bilal Atım | 24.10.2023 | 2 hr |
-| Initial Home Page Implementation - MOBILE  | [#453](https://github.com/bounswe/bounswe2023group5/issues/453)|  Bilal Atım | 24.10.2023 | 2 hr |
+| Login Page Implementation - MOBILE  | [#NA](https://github.com/bounswe/bounswe2023group5/issues/)     |  Harun Sami Çelik | 24.10.2023 | 2 hr |
+| Register Page Implementation - MOBILE  | [#452](https://github.com/bounswe/bounswe2023group5/issues/452) |  Bilal Atım | 24.10.2023 | 2 hr |
+| Initial Home Page Implementation - MOBILE  | [#453](https://github.com/bounswe/bounswe2023group5/issues/453) |  Bilal Atım | 24.10.2023 | 2 hr |
 | Logout Functionality - MOBILE  | [#463](https://github.com/bounswe/bounswe2023group5/issues/463) |  Said Yolcu | 24.10.2023 | 4 hr |
 | Change Password Page Implementation - MOBILE  | [#465](https://github.com/bounswe/bounswe2023group5/issues/465) |  Said Yolcu | 24.10.2023 | 5 hr |
-| Forgot Password Page and Functionality Implementation - MOBILE  | [#466](https://github.com/bounswe/bounswe2023group5/issues/466)|  Ege Ekşi | 24.10.2023 | 2 hr |
-| Delete Account Page Implementation - MOBILE  | [#NA](https://github.com/bounswe/bounswe2023group5/issues/)|  Harun Sami Çelik | 24.10.2023 | 2 hr |
-| Main Layout of the Pages - MOBILE  | [#467](https://github.com/bounswe/bounswe2023group5/issues/467)|  Ege Ekşi | 24.10.2023 | 2 hr |
-| Game Page Mockup Review - MOBILE  | [#454](https://github.com/bounswe/bounswe2023group5/issues/454)| Mobile Team | 24.10.2023 | 2 hr |
-| Initializing README document for Mobile - MOBILE  | [#455](https://github.com/bounswe/bounswe2023group5/issues/455)| Mobile Team | 24.10.2023 | 2 hr |
+| Forgot Password Page and Functionality Implementation - MOBILE  | [#466](https://github.com/bounswe/bounswe2023group5/issues/466) |  Ege Ekşi | 24.10.2023 | 2 hr |
+| Delete Account Page Implementation - MOBILE  | [#NA](https://github.com/bounswe/bounswe2023group5/issues/)     |  Harun Sami Çelik | 24.10.2023 | 2 hr |
+| Main Layout of the Pages - MOBILE  | [#467](https://github.com/bounswe/bounswe2023group5/issues/467) |  Ege Ekşi | 24.10.2023 | 2 hr |
+| Game Page Mockup Review - MOBILE  | [#454](https://github.com/bounswe/bounswe2023group5/issues/454) | Mobile Team | 24.10.2023 | 2 hr |
+| Initializing README document for Mobile - MOBILE  | [#455](https://github.com/bounswe/bounswe2023group5/issues/455) | Mobile Team | 24.10.2023 | 2 hr |
 
 
 
