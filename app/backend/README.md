@@ -1,4 +1,4 @@
-# Backend Folder Structure
+# Backend Project Documentation
 
 This README document provides an overview of the folder structure of our backend (Java/Spring) project, explaining the purpose and role of each layer/subfolder.
 
@@ -26,3 +26,10 @@ This README document provides an overview of the folder structure of our backend
 - MongoDB stores data in BSON (Binary JSON - which resembles a JSON structure visually) format and provides high availability and horizontal scalability.
 
 - Spring Data MongoDB is an extension of the Spring Data project that provides seamless integration between Spring applications and the MongoDB database. It offers a repository abstraction for interacting with MongoDB collections, making it easy to work with MongoDB in a Spring application.
+
+## Starting the project
+- One can use the `run` button in IntelliJ IDEA or simply use the command line via using below command (assuming user is in the root folder of backend) :
+
+      mvn spring-boot:run
+
+- Needless to say, one must have already installed Java 11 SDK and Maven into his/her system.
