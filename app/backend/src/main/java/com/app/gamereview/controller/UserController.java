@@ -1,8 +1,7 @@
 package com.app.gamereview.controller;
 
 
-import com.app.gamereview.dto.GetAllUsersFilterDto;
-import com.app.gamereview.dto.request.RegisterUserRequestDto;
+import com.app.gamereview.dto.request.GetAllUsersFilterRequestDto;
 import com.app.gamereview.model.User;
 import com.app.gamereview.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +23,18 @@ public class UserController {
 
     @GetMapping("/get-all")
     public ResponseEntity<List<User>> getUsers(
-            @RequestParam(value = "username", required = false) final String username,
-            @RequestParam(value = "isDeleted", required = false) final Boolean isDeleted){
-
-        GetAllUsersFilterDto filter = new GetAllUsersFilterDto();
-        filter.username = username;
-        filter.isDeleted = isDeleted;
-
+            GetAllUsersFilterRequestDto filter
+    ){
         List<User> users = userService.getAllUsers(filter);
         return ResponseEntity.ok(users);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Boolean> deleteUser(
+            @RequestParam(value = "id", required = true) final String id){
+        Boolean deleteResult =  userService.deleteUserById(id);
+
+        return ResponseEntity.ok(deleteResult);
     }
 
 }

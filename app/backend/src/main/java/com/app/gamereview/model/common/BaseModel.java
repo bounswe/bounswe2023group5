@@ -8,13 +8,37 @@ import java.util.UUID;
 
 public abstract class BaseModel {
     @Id
-    public String id;
+    private String id;
 
-    public LocalDateTime createdAt;
+    private LocalDateTime createdAt;
 
-    public Boolean isDeleted;
+    private Boolean isDeleted;
     @PersistenceConstructor
     public BaseModel() {
         this.id = UUID.randomUUID().toString(); // Generate a UUID during construction
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Boolean getDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
     }
 }
