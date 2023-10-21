@@ -6,6 +6,7 @@ import styles from "./ForgotPassword.module.scss";
 const ForgotPassword = () => {
   const [form] = Form.useForm();
   const [codeInputVisible, setCodeInputVisible] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
 
   const onFinish = () => {
     message.success("Submit success!");
@@ -38,7 +39,11 @@ const ForgotPassword = () => {
               placeholder="Email"
             />
           </Form.Item>
-          <Button type="primary" onClick={() => setCodeInputVisible(true)}>
+          <Button
+            disabled={codeInputVisible}
+            type="primary"
+            onClick={() => setCodeInputVisible(true)}
+          >
             Send Code
           </Button>
         </Space.Compact>
@@ -49,12 +54,28 @@ const ForgotPassword = () => {
         >
           <Input placeholder="Verification Code" />
         </Form.Item>
-
-        <Form.Item name="password" rules={[{ required: true, message: "" }]}>
+        <div
+          style={{ display: "flex", justifyContent: "flex-end ", gap: "10px" }}
+        >
+          <Form.Item hidden={!codeInputVisible || isVerified}>
+            <Button type="primary">Resend Code</Button>
+          </Form.Item>
+          <Form.Item hidden={!codeInputVisible || isVerified}>
+            <Button type="primary" onClick={() => setIsVerified(true)}>
+              Verify
+            </Button>
+          </Form.Item>
+        </div>
+        <Form.Item
+          name="password"
+          rules={[{ required: true, message: "" }]}
+          hidden={!isVerified}
+        >
           <Input.Password placeholder="Enter a new password" />
         </Form.Item>
         <Form.Item
           name="conf_password"
+          hidden={!isVerified}
           dependencies={["password"]}
           rules={[
             {
@@ -74,8 +95,12 @@ const ForgotPassword = () => {
         >
           <Input.Password placeholder="Confirm the new password" />
         </Form.Item>
-
-        <Button type="primary">Submit</Button>
+        <Form.Item
+          hidden={!isVerified}
+          style={{ display: "flex", justifyContent: "flex-end" }}
+        >
+          <Button type="primary">Submit</Button>
+        </Form.Item>
       </Form>
     </Card>
   );
