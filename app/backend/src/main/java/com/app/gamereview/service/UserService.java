@@ -74,17 +74,17 @@ public class UserService {
         Optional<User> optionalUser = userRepository.findById(passwordRequestDto.getUserId());
 
         if (optionalUser.isEmpty()) {
-            throw new RuntimeException("User not found with ID: " + passwordRequestDto.getUserId());
+            return false;
         }
 
         User user = optionalUser.get();
 
         if (user.getDeleted()) {
-            throw new RuntimeException("User is deleted and cannot change password.");
+            return false;
         }
 
         if (!Objects.equals(passwordRequestDto.getCurrentPassword(), user.getPassword())) {
-            throw new RuntimeException("Current password does not match.");
+            return false;
         }
 
         user.setPassword(passwordRequestDto.getNewPassword());
