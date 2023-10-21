@@ -1,6 +1,7 @@
 package com.app.gamereview.controller;
 
 
+import com.app.gamereview.dto.request.ChangeUserPasswordRequestDto;
 import com.app.gamereview.dto.request.GetAllUsersFilterRequestDto;
 import com.app.gamereview.model.User;
 import com.app.gamereview.service.UserService;
@@ -22,19 +23,22 @@ public class UserController {
     }
 
     @GetMapping("/get-all")
-    public ResponseEntity<List<User>> getUsers(
-            GetAllUsersFilterRequestDto filter
-    ){
+    public ResponseEntity<List<User>> getUsers(GetAllUsersFilterRequestDto filter) {
         List<User> users = userService.getAllUsers(filter);
         return ResponseEntity.ok(users);
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<Boolean> deleteUser(
-            @RequestParam(value = "id", required = true) final String id){
-        Boolean deleteResult =  userService.deleteUserById(id);
+    public ResponseEntity<Boolean> deleteUser(@RequestParam(value = "id", required = true) final String id) {
+        Boolean deleteResult = userService.deleteUserById(id);
 
         return ResponseEntity.ok(deleteResult);
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<Boolean> changePassword(@RequestBody ChangeUserPasswordRequestDto passwordRequestDto) {
+        Boolean changePasswordResult = userService.changeUserPassword(passwordRequestDto);
+        return ResponseEntity.ok(changePasswordResult);
     }
 
 }
