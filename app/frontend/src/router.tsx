@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import HelloWorld from "./Pages/HelloWorld/HelloWorld";
 import MainLayout from "./Layout/MainLayout/MainLayout";
+import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
 
 const router = createBrowserRouter([
   {
@@ -12,6 +13,10 @@ const router = createBrowserRouter([
         element: <HelloWorld />,
       },
     ],
+  },
+  {
+    path: "forgot",
+    element: <ForgotPassword />,
   },
 ]);
 
