@@ -25,11 +25,11 @@ public class AuthService {
     }
     public User registerUser(RegisterUserRequestDto registerUserRequestDto){
         User userToCreate = modelMapper.map(registerUserRequestDto, User.class);
-        userToCreate.isDeleted = false;
-        userToCreate.isVerified = false;
-        userToCreate.createdAt = LocalDateTime.now();
+        userToCreate.setDeleted(false);
+        userToCreate.setVerified(false);
+        userToCreate.setCreatedAt(LocalDateTime.now());
         // role assigning logic will change
-        userToCreate.role = "basic";
+        userToCreate.setRole("basic");
         return userRepository.save(userToCreate);
     }
 }
