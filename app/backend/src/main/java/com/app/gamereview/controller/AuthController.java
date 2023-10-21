@@ -15,13 +15,13 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @Autowired
-    private EmailService emailService;
+    private final EmailService emailService;
 
 
     @Autowired
-    public AuthController(AuthService authService) {
+    public AuthController(AuthService authService, EmailService emailService) {
         this.authService = authService;
+        this.emailService= emailService;
     }
 
     @PostMapping("/register")
