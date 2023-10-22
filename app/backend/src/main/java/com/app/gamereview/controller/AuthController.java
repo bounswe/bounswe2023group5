@@ -3,6 +3,7 @@ package com.app.gamereview.controller;
 import com.app.gamereview.dto.request.LoginUserRequestDto;
 import com.app.gamereview.dto.request.ChangeUserPasswordRequestDto;
 import com.app.gamereview.dto.request.RegisterUserRequestDto;
+import com.app.gamereview.dto.request.VerifyResetCodeRequestDto;
 import com.app.gamereview.dto.response.LoginUserResponseDto;
 import com.app.gamereview.model.ResetCode;
 import com.app.gamereview.model.User;
@@ -10,12 +11,14 @@ import com.app.gamereview.repository.ResetCodeRepository;
 import com.app.gamereview.service.AuthService;
 import com.app.gamereview.service.EmailService;
 import com.app.gamereview.service.UserService;
+import com.app.gamereview.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -71,6 +74,32 @@ public class AuthController {
         emailService.sendEmail(email, subject, message);
 
         return ResponseEntity.ok("Reset code sent successfully");
+    }
+
+    @PostMapping("/verify-reset-code")
+    public ResponseEntity<String> verifyResetCode(@RequestBody VerifyResetCodeRequestDto request) {
+        Optional<ResetCode> resetCodeOptional = resetCodeRepository.findByCode(request.getResetCode());
+        if (resetCodeOptional.isEmpty() || resetCodeOptional.get().getExpirationDate().before(new Date())) {
+            // Invalid or expired reset code
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid or expired reset code");
+        }
+
+        ResetCode resetCode = resetCodeOptional.get();
+
+        // Check if the reset code matches the user
+        String userEmail = userService.getUserById(resetCode.getUserId()).getEmail();
+        if (!userEmail.equals(request.getUserEmail())) {
+            // Reset code does not match the user
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(userEmail+ "  " + request.getUserEmail());
+        }
+
+        // Reset code is valid, generate a JWT token for the user
+        String token = JwtUtil.generateToken(userService.getUserById(resetCode.getUserId()).getEmail());
+
+        // Clear the reset code after generating the token
+        resetCodeRepository.deleteByUserId(resetCode.getUserId());
+
+        return ResponseEntity.ok(token);
     }
     private String generateResetCode(String userId) {
         // Check if a reset code exists for the user
