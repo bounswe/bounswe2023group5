@@ -1,3 +1,8 @@
+// The following SCSS variable declarations set up a color scheme based on a variable color name.
+// The base color is represented by $[variable-color-name].
+// Darker variants of this base color are named $[variable-color-name]-dark-[n], where [n] indicates the degree of darkness.
+// Lighter variants are named $[variable-color-name]-light-[n], where [n] indicates the degree of lightness.
+
 // Vanilla Colors
 $vanilla: #f5ee9e;
 $vanilla-dark-10: #ddd68e;
