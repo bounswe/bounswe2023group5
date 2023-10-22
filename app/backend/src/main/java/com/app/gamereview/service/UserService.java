@@ -9,11 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
+import com.app.gamereview.dto.request.LoginUserRequestDto;
+import com.app.gamereview.dto.response.LoginUserResponseDto;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+//import java.time.LocalDateTime;
+//import java.util.List;
+//import java.util.Optional;
+//import java.util.UUID;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -58,5 +61,10 @@ public class UserService {
     public Optional<User> getUserById(UUID userId) {
         return userRepository.findById(userId);
     }
+    // find user by email
+    public Optional<User> getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
 
 }

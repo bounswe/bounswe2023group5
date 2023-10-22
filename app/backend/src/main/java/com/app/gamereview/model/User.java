@@ -17,4 +17,13 @@ public class User extends BaseModel {
     public String role;
 
     public Boolean isVerified;
+
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
 }
