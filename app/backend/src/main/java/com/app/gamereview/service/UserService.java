@@ -57,6 +57,12 @@ public class UserService {
         return getResult.orElse(null);
     }
 
+    public User getUserByEmail(String email) {
+        Optional<User> getResult = userRepository.findByEmail(email);
+
+        return getResult.orElse(null);
+    }
+
     public Boolean deleteUserById(String id){
         Optional<User> findResult = userRepository.findById(id);
 

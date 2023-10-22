@@ -28,6 +28,13 @@ public class UserController {
         List<User> users = userService.getAllUsers(filter);
         return ResponseEntity.ok(users);
     }
+    @GetMapping("/deneme")
+    public ResponseEntity<User> deneme(
+            @RequestParam(value = "email", required = true) final String email){
+        User users = userService.getUserByEmail(email);
+        return ResponseEntity.ok((users));
+    }
+
 
     @DeleteMapping("/delete")
     public ResponseEntity<Boolean> deleteUser(
