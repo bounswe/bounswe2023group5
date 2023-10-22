@@ -1,6 +1,5 @@
 package com.app.gamereview.service;
 
-import com.app.gamereview.dto.request.ChangeUserPasswordRequestDto;
 import com.app.gamereview.dto.request.GetAllUsersFilterRequestDto;
 import com.app.gamereview.model.User;
 import com.app.gamereview.repository.UserRepository;
@@ -13,82 +12,61 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
 public class UserService {
-    private final UserRepository userRepository;
-    private final MongoTemplate mongoTemplate;
-    private final ModelMapper modelMapper;
 
-    @Autowired
-    public UserService(UserRepository userRepository, MongoTemplate mongoTemplate, ModelMapper modelMapper) {
-        this.userRepository = userRepository;
-        this.mongoTemplate = mongoTemplate;
-        this.modelMapper = modelMapper;
-    }
+	private final UserRepository userRepository;
 
+	private final MongoTemplate mongoTemplate;
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
+	private final ModelMapper modelMapper;
 
-    public List<User> getAllUsers(GetAllUsersFilterRequestDto filter) {
-        Query query = new Query();
-        if (filter.getId() != null) {
-            query.addCriteria(Criteria.where("_id").is(filter.getId()));
-        }
-        if (filter.getUsername() != null) {
-            query.addCriteria(Criteria.where("username").is(filter.getUsername()));
-        }
-        if (filter.getDeleted() != null) {
-            query.addCriteria(Criteria.where("isDeleted").is(filter.getDeleted()));
-        }
+	@Autowired
+	public UserService(UserRepository userRepository, MongoTemplate mongoTemplate, ModelMapper modelMapper) {
+		this.userRepository = userRepository;
+		this.mongoTemplate = mongoTemplate;
+		this.modelMapper = modelMapper;
+	}
 
-        return mongoTemplate.find(query, User.class);
-    }
+	public List<User> getAllUsers() {
+		return userRepository.findAll();
+	}
 
-    public User getUserById(String id) {
-        Optional<User> getResult = userRepository.findById(id);
+	public List<User> getAllUsers(GetAllUsersFilterRequestDto filter) {
+		Query query = new Query();
+		if (filter.getId() != null) {
+			query.addCriteria(Criteria.where("_id").is(filter.getId()));
+		}
+		if (filter.getUsername() != null) {
+			query.addCriteria(Criteria.where("username").is(filter.getUsername()));
+		}
+		if (filter.getDeleted() != null) {
+			query.addCriteria(Criteria.where("isDeleted").is(filter.getDeleted()));
+		}
 
-        return getResult.orElse(null);
-    }
+		return mongoTemplate.find(query, User.class);
+	}
 
-    public Boolean deleteUserById(String id) {
-        Optional<User> findResult = userRepository.findById(id);
+	public User getUserById(String id) {
+		Optional<User> getResult = userRepository.findById(id);
 
-        // TODO : Delete related data of the user such as profile, achievements etc.
+		return getResult.orElse(null);
+	}
 
-        if (findResult.isPresent() && !findResult.get().getDeleted()) {
-            Query query = new Query(Criteria.where("_id").is(id));
-            Update update = new Update().set("isDeleted", true);
-            mongoTemplate.updateFirst(query, update, User.class);
-            return true;
-        }
-        return false;
-    }
+	public Boolean deleteUserById(String id) {
+		Optional<User> findResult = userRepository.findById(id);
 
+		// TODO : Delete related data of the user such as profile, achievements etc.
 
-    public Boolean changeUserPassword(ChangeUserPasswordRequestDto passwordRequestDto) {
-        Optional<User> optionalUser = userRepository.findById(passwordRequestDto.getUserId());
+		if (findResult.isPresent() && !findResult.get().getDeleted()) {
+			Query query = new Query(Criteria.where("_id").is(id));
+			Update update = new Update().set("isDeleted", true);
+			mongoTemplate.updateFirst(query, update, User.class);
+			return true;
+		}
+		return false;
+	}
 
-        if (optionalUser.isEmpty()) {
-            return false;
-        }
-
-        User user = optionalUser.get();
-
-        if (user.getDeleted()) {
-            return false;
-        }
-
-        if (!Objects.equals(passwordRequestDto.getCurrentPassword(), user.getPassword())) {
-            return false;
-        }
-
-        user.setPassword(passwordRequestDto.getNewPassword());
-        userRepository.save(user);
-        return true;
-    }
 }
