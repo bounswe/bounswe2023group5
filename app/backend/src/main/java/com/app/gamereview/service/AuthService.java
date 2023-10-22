@@ -26,6 +26,15 @@ public class AuthService {
 	}
 
 	public User registerUser(RegisterUserRequestDto registerUserRequestDto) {
+		Optional<User> sameUsername = userRepository.findByUsernameAndIsDeletedFalse(
+				registerUserRequestDto.getUsername());
+		Optional<User> sameEmail = userRepository.findByEmailAndIsDeletedFalse(
+				registerUserRequestDto.getEmail());
+
+		if(sameUsername.isPresent() || sameEmail.isPresent()){
+			// TODO : will add exception handling mechanism and custom exceptions
+			return null;
+		}
 		User userToCreate = modelMapper.map(registerUserRequestDto, User.class);
 		userToCreate.setDeleted(false);
 		userToCreate.setVerified(false);

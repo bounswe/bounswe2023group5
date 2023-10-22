@@ -1,11 +1,14 @@
 package com.app.gamereview.dto.request;
 
+import lombok.Getter;
+
+@Getter
 public class RegisterUserRequestDto {
 
-	public String username;
+	private String username;
 
-	public String password;
+	private String password;
 
-	public String email;
+	private String email;
 
 }
