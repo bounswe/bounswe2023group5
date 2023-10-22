@@ -1,8 +1,9 @@
 package com.app.gamereview.controller;
 
-
+import com.app.gamereview.dto.request.ChangeUserPasswordRequestDto;
 import com.app.gamereview.dto.request.GetAllUsersFilterRequestDto;
 import com.app.gamereview.model.User;
+import com.app.gamereview.service.AuthService;
 import com.app.gamereview.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,20 +15,19 @@ import java.util.List;
 @RequestMapping("/api/user")
 public class UserController {
 
-    private final UserService userService;
+	private final UserService userService;
 
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+	@Autowired
+	public UserController(UserService userService) {
+		this.userService = userService;
+	}
 
-    @GetMapping("/get-all")
-    public ResponseEntity<List<User>> getUsers(
-            GetAllUsersFilterRequestDto filter
-    ){
-        List<User> users = userService.getAllUsers(filter);
-        return ResponseEntity.ok(users);
-    }
+	@GetMapping("/get-all")
+	public ResponseEntity<List<User>> getUsers(GetAllUsersFilterRequestDto filter) {
+		List<User> users = userService.getAllUsers(filter);
+		return ResponseEntity.ok(users);
+	}
+
     @GetMapping("/deneme")
     public ResponseEntity<User> deneme(
             @RequestParam(value = "email", required = true) final String email){
@@ -35,13 +35,11 @@ public class UserController {
         return ResponseEntity.ok((users));
     }
 
+	@DeleteMapping("/delete")
+	public ResponseEntity<Boolean> deleteUser(@RequestParam(value = "id", required = true) final String id) {
+		Boolean deleteResult = userService.deleteUserById(id);
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<Boolean> deleteUser(
-            @RequestParam(value = "id", required = true) final String id){
-        Boolean deleteResult =  userService.deleteUserById(id);
-
-        return ResponseEntity.ok(deleteResult);
-    }
+		return ResponseEntity.ok(deleteResult);
+	}
 
 }
