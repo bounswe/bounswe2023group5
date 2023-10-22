@@ -1,6 +1,8 @@
 package com.app.gamereview.util;
 
 import io.jsonwebtoken.*;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -9,14 +11,21 @@ import java.util.Map;
 
 @Component
 public class JwtUtil {
-    private static final String SECRET_KEY = "yourSecretKey"; // Change this to your own secret key
-    private static final long EXPIRATION_TIME = 864000000; // 1 hour
+    private static String SECRET_KEY;
+    @Value("${SECRET_KEY}")
+    private String secret_key; //
+    @PostConstruct
+    private void init() {
+        SECRET_KEY = secret_key;
+    }
+    private static final long EXPIRATION_TIME = 864000000; // 10 day
 
     public static String generateToken(String subject) {
         Date now = new Date();
         Date expiration = new Date(now.getTime() + EXPIRATION_TIME);
 
         Map<String, Object> claims = new HashMap<>();
+
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(subject)

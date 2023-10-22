@@ -1,9 +1,9 @@
 package com.app.gamereview.controller;
 
-
-import com.app.gamereview.dto.GetAllUsersFilterDto;
-import com.app.gamereview.dto.request.RegisterUserRequestDto;
+import com.app.gamereview.dto.request.ChangeUserPasswordRequestDto;
+import com.app.gamereview.dto.request.GetAllUsersFilterRequestDto;
 import com.app.gamereview.model.User;
+import com.app.gamereview.service.AuthService;
 import com.app.gamereview.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,24 +15,24 @@ import java.util.List;
 @RequestMapping("/api/user")
 public class UserController {
 
-    private final UserService userService;
+	private final UserService userService;
 
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+	@Autowired
+	public UserController(UserService userService) {
+		this.userService = userService;
+	}
 
-    @GetMapping("/get-all")
-    public ResponseEntity<List<User>> getUsers(
-            @RequestParam(value = "username", required = false) final String username,
-            @RequestParam(value = "isDeleted", required = false) final Boolean isDeleted){
+	@GetMapping("/get-all")
+	public ResponseEntity<List<User>> getUsers(GetAllUsersFilterRequestDto filter) {
+		List<User> users = userService.getAllUsers(filter);
+		return ResponseEntity.ok(users);
+	}
 
-        GetAllUsersFilterDto filter = new GetAllUsersFilterDto();
-        filter.username = username;
-        filter.isDeleted = isDeleted;
+	@DeleteMapping("/delete")
+	public ResponseEntity<Boolean> deleteUser(@RequestParam(value = "id", required = true) final String id) {
+		Boolean deleteResult = userService.deleteUserById(id);
 
-        List<User> users = userService.getAllUsers(filter);
-        return ResponseEntity.ok(users);
-    }
+		return ResponseEntity.ok(deleteResult);
+	}
 
 }

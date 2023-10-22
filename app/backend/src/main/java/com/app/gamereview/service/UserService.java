@@ -1,70 +1,71 @@
 package com.app.gamereview.service;
 
-import com.app.gamereview.dto.GetAllUsersFilterDto;
-import com.app.gamereview.dto.request.RegisterUserRequestDto;
+import com.app.gamereview.dto.request.GetAllUsersFilterRequestDto;
 import com.app.gamereview.model.User;
 import com.app.gamereview.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
-import com.app.gamereview.dto.request.LoginUserRequestDto;
-import com.app.gamereview.dto.response.LoginUserResponseDto;
 
-//import java.time.LocalDateTime;
-//import java.util.List;
-//import java.util.Optional;
-//import java.util.UUID;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
-    private final UserRepository userRepository;
-    private final ModelMapper modelMapper;
 
-    @Autowired
-    public UserService(
-            UserRepository userRepository,
-            ModelMapper modelMapper
-    )
-    {
-        this.userRepository = userRepository;
-        this.modelMapper = modelMapper;
-    }
+	private final UserRepository userRepository;
 
+	private final MongoTemplate mongoTemplate;
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
+	private final ModelMapper modelMapper;
 
-    public List<User> getAllUsers(GetAllUsersFilterDto filter) {
-        User exampleUser = new User();
+	@Autowired
+	public UserService(UserRepository userRepository, MongoTemplate mongoTemplate, ModelMapper modelMapper) {
+		this.userRepository = userRepository;
+		this.mongoTemplate = mongoTemplate;
+		this.modelMapper = modelMapper;
+	}
 
-        if (filter.username != null) {
-            exampleUser.username = filter.username;
-        }
+	public List<User> getAllUsers() {
+		return userRepository.findAll();
+	}
 
-        if (filter.isDeleted != null) {
-            exampleUser.isDeleted = filter.isDeleted;
-        }
+	public List<User> getAllUsers(GetAllUsersFilterRequestDto filter) {
+		Query query = new Query();
+		if (filter.getId() != null) {
+			query.addCriteria(Criteria.where("_id").is(filter.getId()));
+		}
+		if (filter.getUsername() != null) {
+			query.addCriteria(Criteria.where("username").is(filter.getUsername()));
+		}
+		if (filter.getDeleted() != null) {
+			query.addCriteria(Criteria.where("isDeleted").is(filter.getDeleted()));
+		}
 
-        ExampleMatcher matcher = ExampleMatcher.matching()
-                .withIgnoreNullValues()
-                .withIgnorePaths("id")
-                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+		return mongoTemplate.find(query, User.class);
+	}
 
-        Example<User> example = Example.of(exampleUser, matcher);
+	public User getUserById(String id) {
+		Optional<User> getResult = userRepository.findById(id);
 
-        return userRepository.findAll(example);
-    }
-    public Optional<User> getUserById(UUID userId) {
-        return userRepository.findById(userId);
-    }
-    // find user by email
-    public Optional<User> getUserByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
+		return getResult.orElse(null);
+	}
 
+	public Boolean deleteUserById(String id) {
+		Optional<User> findResult = userRepository.findById(id);
 
+		// TODO : Delete related data of the user such as profile, achievements etc.
+
+		if (findResult.isPresent() && !findResult.get().getDeleted()) {
+			Query query = new Query(Criteria.where("_id").is(id));
+			Update update = new Update().set("isDeleted", true);
+			mongoTemplate.updateFirst(query, update, User.class);
+			return true;
+		}
+		return false;
+	}
 }

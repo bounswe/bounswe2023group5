@@ -1,0 +1,40 @@
+.holyGrailLayout {
+  display: grid;
+  $column-size: clamp(0px, 20%, 300px);
+  grid-template-columns: $column-size 1fr $column-size;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header header header"
+    "leftColumn mainContent rightColumn"
+    "leftColumn footer rightColumn";
+  height: auto;
+  min-height: calc(100vh - 2px);
+}
+
+.header {
+  position: sticky;
+  top: 0;
+
+  grid-area: header;
+  background-color: #3498db; // Light Blue
+}
+
+.mainContent {
+  grid-area: mainContent;
+  background-color: #ecf0f1; // Light Gray
+}
+
+.leftColumn {
+  grid-area: leftColumn;
+  background-color: #f39c12; // Orange
+}
+
+.rightColumn {
+  grid-area: rightColumn;
+  background-color: #2ecc71; // Green
+}
+
+.footer {
+  grid-area: footer;
+  background-color: #e74c3c; // Red
+}

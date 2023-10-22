@@ -1,7 +1,7 @@
 package com.app.gamereview.controller;
 
-
 import com.app.gamereview.dto.request.LoginUserRequestDto;
+import com.app.gamereview.dto.request.ChangeUserPasswordRequestDto;
 import com.app.gamereview.dto.request.RegisterUserRequestDto;
 import com.app.gamereview.dto.response.LoginUserResponseDto;
 import com.app.gamereview.model.User;
@@ -17,8 +17,7 @@ import java.util.Optional;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    private final AuthService authService;
-
+	private final AuthService authService;
     @Autowired
     public AuthController(AuthService authService) {
         this.authService = authService;
@@ -31,11 +30,18 @@ public class AuthController {
         return ResponseEntity.ok(userToCreate);
     }
 
+	@PostMapping("/change-password")
+	public ResponseEntity<Boolean> changePassword(@RequestBody ChangeUserPasswordRequestDto passwordRequestDto) {
+		Boolean changePasswordResult = authService.changeUserPassword(passwordRequestDto);
+		return ResponseEntity.ok(changePasswordResult);
+	}
+
     @PostMapping("/login")
     public ResponseEntity<LoginUserResponseDto> login(@RequestBody LoginUserRequestDto loginRequest) {
         LoginUserResponseDto loginResponse = authService.loginUser(loginRequest);
         return ResponseEntity.ok(loginResponse);
     }
+
 
 }
 
