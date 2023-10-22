@@ -1,31 +1,35 @@
 package com.app.gamereview.dto.request;
 
 public class GetAllUsersFilterRequestDto {
-    private String id;
-    private String username;
-    private Boolean isDeleted;
 
-    public String getId() {
-        return id;
-    }
+	private String id;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	private String username;
 
-    public String getUsername() {
-        return username;
-    }
+	private Boolean isDeleted;
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public Boolean getDeleted() {
-        return isDeleted;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public void setDeleted(Boolean deleted) {
-        isDeleted = deleted;
-    }
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public Boolean getDeleted() {
+		return isDeleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		isDeleted = deleted;
+	}
+
 }

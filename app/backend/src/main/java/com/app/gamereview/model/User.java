@@ -8,55 +8,54 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @TypeAlias("User")
 public class User extends BaseModel {
 
-    private String username;
+	private String username;
 
-    private String password;
+	private String password;
 
-    private String email;
+	private String email;
 
-    private String role;
+	private String role;
 
-    private Boolean isVerified;
+	private Boolean isVerified;
 
-    public String getUsername() {
-        return username;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getRole() {
-        return role;
-    }
+	public String getRole() {
+		return role;
+	}
 
-    public void setRole(String role) {
-        this.role = role;
-    }
+	public void setRole(String role) {
+		this.role = role;
+	}
 
-    public Boolean getVerified() {
-        return isVerified;
-    }
+	public Boolean getVerified() {
+		return isVerified;
+	}
 
-    public void setVerified(Boolean verified) {
-        isVerified = verified;
-    }
+	public void setVerified(Boolean verified) {
+		isVerified = verified;
+	}
+
 }
-
-
