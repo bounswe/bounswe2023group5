@@ -29,12 +29,11 @@ public class AuthService {
 	}
 
 	public User registerUser(RegisterUserRequestDto registerUserRequestDto) {
-		Optional<User> sameUsername = userRepository.findByUsernameAndIsDeletedFalse(
-				registerUserRequestDto.getUsername());
-		Optional<User> sameEmail = userRepository.findByEmailAndIsDeletedFalse(
-				registerUserRequestDto.getEmail());
+		Optional<User> sameUsername = userRepository
+			.findByUsernameAndIsDeletedFalse(registerUserRequestDto.getUsername());
+		Optional<User> sameEmail = userRepository.findByEmailAndIsDeletedFalse(registerUserRequestDto.getEmail());
 
-		if(sameUsername.isPresent() || sameEmail.isPresent()){
+		if (sameUsername.isPresent() || sameEmail.isPresent()) {
 			// TODO : will add exception handling mechanism and custom exceptions
 			return null;
 		}
@@ -68,7 +67,8 @@ public class AuthService {
 		userRepository.save(user);
 		return true;
 	}
-	public LoginUserResponseDto loginUser(LoginUserRequestDto loginUserRequestDto){
+
+	public LoginUserResponseDto loginUser(LoginUserRequestDto loginUserRequestDto) {
 		Optional<User> userOptional = userRepository.findByEmailAndIsDeletedFalse(loginUserRequestDto.getEmail());
 
 		if (userOptional.isPresent()) {

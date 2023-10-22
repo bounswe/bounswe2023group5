@@ -18,17 +18,20 @@ import java.util.Optional;
 public class AuthController {
 
 	private final AuthService authService;
-    @Autowired
-    public AuthController(AuthService authService) {
-        this.authService = authService;
-    }
-    @Autowired
-    private JwtUtil jwtUtil;
-    @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@RequestBody RegisterUserRequestDto registerUserRequestDto){
-        User userToCreate = authService.registerUser(registerUserRequestDto);
-        return ResponseEntity.ok(userToCreate);
-    }
+
+	@Autowired
+	public AuthController(AuthService authService) {
+		this.authService = authService;
+	}
+
+	@Autowired
+	private JwtUtil jwtUtil;
+
+	@PostMapping("/register")
+	public ResponseEntity<User> registerUser(@RequestBody RegisterUserRequestDto registerUserRequestDto) {
+		User userToCreate = authService.registerUser(registerUserRequestDto);
+		return ResponseEntity.ok(userToCreate);
+	}
 
 	@PostMapping("/change-password")
 	public ResponseEntity<Boolean> changePassword(@RequestBody ChangeUserPasswordRequestDto passwordRequestDto) {
@@ -36,12 +39,10 @@ public class AuthController {
 		return ResponseEntity.ok(changePasswordResult);
 	}
 
-    @PostMapping("/login")
-    public ResponseEntity<LoginUserResponseDto> login(@RequestBody LoginUserRequestDto loginRequest) {
-        LoginUserResponseDto loginResponse = authService.loginUser(loginRequest);
-        return ResponseEntity.ok(loginResponse);
-    }
-
+	@PostMapping("/login")
+	public ResponseEntity<LoginUserResponseDto> login(@RequestBody LoginUserRequestDto loginRequest) {
+		LoginUserResponseDto loginResponse = authService.loginUser(loginRequest);
+		return ResponseEntity.ok(loginResponse);
+	}
 
 }
-
