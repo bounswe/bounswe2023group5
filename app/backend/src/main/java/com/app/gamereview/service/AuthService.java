@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class AuthService {
@@ -24,6 +25,16 @@ public class AuthService {
         this.modelMapper = modelMapper;
     }
     public User registerUser(RegisterUserRequestDto registerUserRequestDto){
+        Optional<User> sameUsername = userRepository.findByUsernameAndIsDeletedFalse(
+                registerUserRequestDto.getUsername());
+        Optional<User> sameEmail = userRepository.findByEmailAndIsDeletedFalse(
+                registerUserRequestDto.getEmail());
+
+        if(sameUsername.isPresent() || sameEmail.isPresent()){
+            // TODO : Add exception handling mechanism and custom exceptions
+            return null;
+        }
+
         User userToCreate = modelMapper.map(registerUserRequestDto, User.class);
         userToCreate.setDeleted(false);
         userToCreate.setVerified(false);

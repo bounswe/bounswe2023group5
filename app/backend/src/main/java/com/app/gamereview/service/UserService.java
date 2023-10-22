@@ -53,7 +53,7 @@ public class UserService {
     }
     public User getUserById(String id) {
         Optional<User> getResult = userRepository.findById(id);
-
+        // TODO : Add exception handling mechanism and custom exceptions
         return getResult.orElse(null);
     }
 
