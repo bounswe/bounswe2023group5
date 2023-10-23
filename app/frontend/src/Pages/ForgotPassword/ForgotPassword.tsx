@@ -101,7 +101,7 @@ const ForgotPassword = () => {
             justifyContent: "flex-end",
           }}
         >
-          <Button type="primary">Submit</Button>
+          <Button type="primary">Change Password</Button>
         </Form.Item>
       </Form>
     </Card>
