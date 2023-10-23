@@ -1,6 +1,7 @@
 package com.app.gamereview.service;
 
 import com.app.gamereview.dto.request.ChangeUserPasswordRequestDto;
+import com.app.gamereview.dto.request.ForgotChangeUserPasswordRequestDto;
 import com.app.gamereview.dto.request.RegisterUserRequestDto;
 import com.app.gamereview.model.User;
 import com.app.gamereview.repository.UserRepository;
@@ -49,6 +50,24 @@ public class AuthService {
 		}
 
 		if (!Objects.equals(passwordRequestDto.getCurrentPassword(), user.getPassword())) {
+			return false;
+		}
+
+		user.setPassword(passwordRequestDto.getNewPassword());
+		userRepository.save(user);
+		return true;
+	}
+
+	public Boolean changeForgotPassword(ForgotChangeUserPasswordRequestDto passwordRequestDto) {
+		Optional<User> optionalUser = userRepository.findById(passwordRequestDto.getUserId());
+
+		if (optionalUser.isEmpty()) {
+			return false;
+		}
+
+		User user = optionalUser.get();
+
+		if (user.getDeleted()) {
 			return false;
 		}
 

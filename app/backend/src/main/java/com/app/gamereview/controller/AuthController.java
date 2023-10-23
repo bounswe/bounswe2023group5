@@ -1,6 +1,7 @@
 package com.app.gamereview.controller;
 
 import com.app.gamereview.dto.request.ChangeUserPasswordRequestDto;
+import com.app.gamereview.dto.request.ForgotChangeUserPasswordRequestDto;
 import com.app.gamereview.dto.request.RegisterUserRequestDto;
 import com.app.gamereview.model.User;
 import com.app.gamereview.service.AuthService;
@@ -28,6 +29,13 @@ public class AuthController {
 	@PostMapping("/change-password")
 	public ResponseEntity<Boolean> changePassword(@RequestBody ChangeUserPasswordRequestDto passwordRequestDto) {
 		Boolean changePasswordResult = authService.changeUserPassword(passwordRequestDto);
+		return ResponseEntity.ok(changePasswordResult);
+	}
+
+	@PostMapping("/change-forgot-password")
+	public ResponseEntity<Boolean> changeForgotPassword(
+			@RequestBody ForgotChangeUserPasswordRequestDto passwordRequestDto) {
+		Boolean changePasswordResult = authService.changeForgotPassword(passwordRequestDto);
 		return ResponseEntity.ok(changePasswordResult);
 	}
 
