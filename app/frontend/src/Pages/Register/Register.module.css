@@ -1,0 +1,55 @@
+.outerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100vh;
+  background-color: #edf5fc;
+}
+
+.innerContainer {
+  padding: 2rem;
+  border: 1px solid gray;
+  border-radius: 10px;
+  margin-top: 10rem;
+  width: 30rem;
+  background-image: url("../../../assets/images/cs.png");
+}
+
+.registerHeader {
+  color: orange;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.registerInfo {
+  color: white;
+  font-weight: normal;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.registerForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.formElem {
+  margin-bottom: 1rem;
+  width: 100%;
+  padding: 0.4rem;
+  font-size: 14px;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.textError {
+  color: red;
+}
+
+.navigationLink {
+  color: white;
+}
