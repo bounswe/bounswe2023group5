@@ -1,5 +1,4 @@
 import { Button, Form, Input, Card, message } from "antd";
-import { MailOutlined } from "@ant-design/icons";
 import styles from "./ChangePassword.module.scss";
 
 const ChangePassword = () => {
@@ -9,7 +8,6 @@ const ChangePassword = () => {
     const values = form.getFieldsValue();
     const body = {
       email: values.email,
-      old_password: values.password,
       new_password: values.new_password,
     };
     message.success("Password is changed successfully!");
@@ -28,18 +26,6 @@ const ChangePassword = () => {
         onFinishFailed={onFinishFailed}
         size="large"
       >
-        <Form.Item
-          name="email"
-          rules={[
-            { required: true, message: "" },
-            { type: "email", message: "Please provide a valid email" },
-          ]}
-        >
-          <Input
-            prefix={<MailOutlined className="site-form-item-icon" />}
-            placeholder="Email"
-          />
-        </Form.Item>
         <Form.Item name="password" rules={[{ required: true, message: "" }]}>
           <Input placeholder="Password" />
         </Form.Item>
