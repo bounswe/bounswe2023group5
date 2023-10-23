@@ -1,1 +1,8 @@
-@import "node_modules/modern-normalize/modern-normalize.css";
+@import "../node_modules/modern-normalize/modern-normalize.css";
+
+body,
+html,
+#root {
+  height: 0px;
+  min-height: calc(100% - 0.5px);
+}
