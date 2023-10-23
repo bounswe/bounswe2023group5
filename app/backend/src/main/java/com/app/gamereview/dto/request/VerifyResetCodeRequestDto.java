@@ -5,8 +5,8 @@ import lombok.Getter;
 @Getter
 public class VerifyResetCodeRequestDto {
 
-    private String resetCode;
+	private String resetCode;
 
-    private String userEmail;
+	private String userEmail;
 
 }

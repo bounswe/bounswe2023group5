@@ -69,10 +69,10 @@ public class UserService {
 		return false;
 	}
 
-    public User getUserByEmail(String email) {
-        Optional<User> getResult = userRepository.findByEmail(email);
+	public User getUserByEmail(String email) {
+		Optional<User> getResult = userRepository.findByEmail(email);
 
-        return getResult.orElse(null);
-    }
+		return getResult.orElse(null);
+	}
 
 }

@@ -28,13 +28,6 @@ public class UserController {
 		return ResponseEntity.ok(users);
 	}
 
-    @GetMapping("/deneme")
-    public ResponseEntity<User> deneme(
-            @RequestParam(value = "email", required = true) final String email){
-        User users = userService.getUserByEmail(email);
-        return ResponseEntity.ok((users));
-    }
-
 	@DeleteMapping("/delete")
 	public ResponseEntity<Boolean> deleteUser(@RequestParam(value = "id", required = true) final String id) {
 		Boolean deleteResult = userService.deleteUserById(id);
