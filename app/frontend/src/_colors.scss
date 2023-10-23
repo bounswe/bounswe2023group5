@@ -1,0 +1,211 @@
+// The following SCSS variable declarations set up a color scheme based on a variable color name.
+// The base color is represented by $[variable-color-name].
+// Darker variants of this base color are named $[variable-color-name]-dark-[n], where [n] indicates the degree of darkness.
+// Lighter variants are named $[variable-color-name]-light-[n], where [n] indicates the degree of lightness.
+
+// Vanilla Colors
+$vanilla: #f5ee9e;
+$vanilla-dark-10: #ddd68e;
+$vanilla-dark-20: #c4be7e;
+$vanilla-dark-30: #aca76f;
+$vanilla-dark-40: #938f5f;
+$vanilla-dark-50: #7b774f;
+$vanilla-dark-60: #625f3f;
+$vanilla-dark-70: #49472f;
+$vanilla-dark-80: #313020;
+$vanilla-dark-90: #181810;
+
+// Vanilla Light Colors
+$vanilla-light-10: #f6f0a8;
+$vanilla-light-20: #f7f1b1;
+$vanilla-light-30: #f8f3bb;
+$vanilla-light-40: #f9f5c5;
+$vanilla-light-50: #faf7cf;
+$vanilla-light-60: #fbf8d8;
+$vanilla-light-70: #fcfae2;
+$vanilla-light-80: #fdfcec;
+$vanilla-light-90: #fefdf5;
+
+// Prussian Blue Colors
+$prussian-blue: #023047;
+$prussian-blue-dark-10: #022b40;
+$prussian-blue-dark-20: #022639;
+$prussian-blue-dark-30: #012232;
+$prussian-blue-dark-40: #011d2b;
+$prussian-blue-dark-50: #011824;
+$prussian-blue-dark-60: #01131c;
+$prussian-blue-dark-70: #010e15;
+$prussian-blue-dark-80: #000a0e;
+$prussian-blue-dark-90: #000507;
+
+// Prussian Blue Light Colors
+$prussian-blue-light-10: #1b4559;
+$prussian-blue-light-20: #35596c;
+$prussian-blue-light-30: #4e6e7e;
+$prussian-blue-light-40: #678391;
+$prussian-blue-light-50: #8198a3;
+$prussian-blue-light-60: #9aacb5;
+$prussian-blue-light-70: #b3c1c8;
+$prussian-blue-light-80: #ccd6da;
+$prussian-blue-light-90: #e6eaed;
+
+// Sky Blue Colors
+$sky-blue: #8ecae6;
+$sky-blue-dark-10: #80b6cf;
+$sky-blue-dark-20: #72a2b8;
+$sky-blue-dark-30: #638da1;
+$sky-blue-dark-40: #55798a;
+$sky-blue-dark-50: #476573;
+$sky-blue-dark-60: #39515c;
+$sky-blue-dark-70: #2b3d45;
+$sky-blue-dark-80: #1c282e;
+$sky-blue-dark-90: #0e1417;
+
+// Sky Blue Light Colors
+$sky-blue-light-10: #99cfe9;
+$sky-blue-light-20: #a5d5eb;
+$sky-blue-light-30: #b0daee;
+$sky-blue-light-40: #bbdff0;
+$sky-blue-light-50: #c7e5f3;
+$sky-blue-light-60: #d2eaf5;
+$sky-blue-light-70: #ddeff8;
+$sky-blue-light-80: #e8f4fa;
+$sky-blue-light-90: #f4fafd;
+
+// Blue Green Colors
+$blue-green: #219ebc;
+$blue-green-dark-10: #1e8ea9;
+$blue-green-dark-20: #1a7e96;
+$blue-green-dark-30: #176f84;
+$blue-green-dark-40: #145f71;
+$blue-green-dark-50: #114f5e;
+$blue-green-dark-60: #0d3f4b;
+$blue-green-dark-70: #0a2f38;
+$blue-green-dark-80: #072026;
+$blue-green-dark-90: #031013;
+
+// Blue Green Light Colors
+$blue-green-light-10: #37a8c3;
+$blue-green-light-20: #4db1c9;
+$blue-green-light-30: #64bbd0;
+$blue-green-light-40: #7ac5d7;
+$blue-green-light-50: #90cfde;
+$blue-green-light-60: #a6d8e4;
+$blue-green-light-70: #bce2eb;
+$blue-green-light-80: #d3ecf2;
+$blue-green-light-90: #e9f5f8;
+
+// Violet Colors
+$violet: #845a6d;
+$violet-dark-10: #775162;
+$violet-dark-20: #6a4857;
+$violet-dark-30: #5c3f4c;
+$violet-dark-40: #4f3641;
+$violet-dark-50: #422d37;
+$violet-dark-60: #35242c;
+$violet-dark-70: #281b21;
+$violet-dark-80: #1a1216;
+$violet-dark-90: #0d090b;
+
+// Violet Light Colors
+$violet-light-10: #906b7c;
+$violet-light-20: #9d7b8a;
+$violet-light-30: #a98b98;
+$violet-light-40: #b59ca7;
+$violet-light-50: #c2acb5;
+$violet-light-60: #cfbcc4;
+$violet-light-70: #dcccd3;
+$violet-light-80: #e9dbe1;
+$violet-light-90: #f6ebf0;
+
+// Yellow Colors
+$yellow: #ffcc00;
+$yellow-dark-10: #e6b300;
+$yellow-dark-20: #cc9900;
+$yellow-dark-30: #b28000;
+$yellow-dark-40: #996600;
+$yellow-dark-50: #804d00;
+$yellow-dark-60: #663300;
+$yellow-dark-70: #4d1a00;
+$yellow-dark-80: #330000;
+$yellow-dark-90: #190000;
+
+// Yellow Light Colors
+$yellow-light-10: #ffcc1a;
+$yellow-light-20: #ffcc33;
+$yellow-light-30: #ffcc4d;
+$yellow-light-40: #ffcc66;
+$yellow-light-50: #ffcc80;
+$yellow-light-60: #ffcc99;
+$yellow-light-70: #ffccb3;
+$yellow-light-80: #ffcccc;
+$yellow-light-90: #ffcce6;
+
+// Orange Colors
+$orange: #ff6600;
+$orange-dark-10: #e65c00;
+$orange-dark-20: #cc5200;
+$orange-dark-30: #b34700;
+$orange-dark-40: #993d00;
+$orange-dark-50: #803200;
+$orange-dark-60: #662800;
+$orange-dark-70: #4d1d00;
+$orange-dark-80: #331300;
+$orange-dark-90: #190800;
+
+// Orange Light Colors
+$orange-light-10: #ff6c1a;
+$orange-light-20: #ff7733;
+$orange-light-30: #ff824d;
+$orange-light-40: #ff8e66;
+$orange-light-50: #ff9980;
+$orange-light-60: #ffa599;
+$orange-light-70: #ffb0b3;
+$orange-light-80: #ffcccc;
+$orange-light-90: #ffe7e6;
+
+// Celadon Colors
+$celadon: #aacdbe;
+$celadon-dark-10: #9bb9af;
+$celadon-dark-20: #8ca4a0;
+$celadon-dark-30: #7e8f91;
+$celadon-dark-40: #707a82;
+$celadon-dark-50: #626573;
+$celadon-dark-60: #555064;
+$celadon-dark-70: #473b55;
+$celadon-dark-80: #392646;
+$celadon-dark-90: #2b1137;
+
+// Celadon Light Colors
+$celadon-light-10: #b2d5c5;
+$celadon-light-20: #badecd;
+$celadon-light-30: #c2e7d6;
+$celadon-light-40: #caf0df;
+$celadon-light-50: #d2f9e8;
+$celadon-light-60: #daf2f1;
+$celadon-light-70: #e2fbfa;
+$celadon-light-80: #eaf5ff;
+$celadon-light-90: #f2f9ff;
+
+// Gray Colors
+$gray: #808080;
+$gray-dark-10: #737373;
+$gray-dark-20: #666666;
+$gray-dark-30: #595959;
+$gray-dark-40: #4c4c4c;
+$gray-dark-50: #3f3f3f;
+$gray-dark-60: #323232;
+$gray-dark-70: #252525;
+$gray-dark-80: #181818;
+$gray-dark-90: #0b0b0b;
+
+// Gray Light Colors
+$gray-light-10: #8c8c8c;
+$gray-light-20: #999999;
+$gray-light-30: #a6a6a6;
+$gray-light-40: #b3b3b3;
+$gray-light-50: #c0c0c0;
+$gray-light-60: #cdcdcd;
+$gray-light-70: #dadada;
+$gray-light-80: #e7e7e7;
+$gray-light-90: #f4f4f4;
