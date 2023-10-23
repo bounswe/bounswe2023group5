@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
+
 /*
     @RestController annotation -> we ensure that Spring knows that this class is a controller class
     @RequestMapping() -> the string inside the annotation defines the base url of endpoints inside this controller class
@@ -18,12 +19,13 @@ import java.util.UUID;
 @RequestMapping("/api/sample")
 public class SampleController {
 
-    @GetMapping()
-    public SampleModel sampleGetEndpoint(@RequestParam String name){
-        SampleModel newModel = new SampleModel();
-        newModel.Id = UUID.randomUUID();
-        newModel.Name = name;
+	@GetMapping()
+	public SampleModel sampleGetEndpoint(@RequestParam String name) {
+		SampleModel newModel = new SampleModel();
+		newModel.Id = UUID.randomUUID();
+		newModel.Name = name;
 
-        return newModel;
-    }
+		return newModel;
+	}
+
 }

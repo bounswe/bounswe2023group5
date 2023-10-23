@@ -16,58 +16,63 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-    private final UserRepository userRepository;
-    private final MongoTemplate mongoTemplate;
-    private final ModelMapper modelMapper;
 
-    @Autowired
-    public UserService(
-            UserRepository userRepository,
-            MongoTemplate mongoTemplate,
-            ModelMapper modelMapper
-    )
-    {
-        this.userRepository = userRepository;
-        this.mongoTemplate = mongoTemplate;
-        this.modelMapper = modelMapper;
-    }
+	private final UserRepository userRepository;
 
+	private final MongoTemplate mongoTemplate;
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
+	private final ModelMapper modelMapper;
 
-    public List<User> getAllUsers(GetAllUsersFilterRequestDto filter) {
-        Query query = new Query();
-        if(filter.getId() != null){
-            query.addCriteria(Criteria.where("_id").is(filter.getId()));
-        }
-        if(filter.getUsername() != null){
-            query.addCriteria(Criteria.where("username").is(filter.getUsername()));
-        }
-        if(filter.getDeleted() != null){
-            query.addCriteria(Criteria.where("isDeleted").is(filter.getDeleted()));
-        }
+	@Autowired
+	public UserService(UserRepository userRepository, MongoTemplate mongoTemplate, ModelMapper modelMapper) {
+		this.userRepository = userRepository;
+		this.mongoTemplate = mongoTemplate;
+		this.modelMapper = modelMapper;
+	}
 
-        return mongoTemplate.find(query,User.class);
-    }
-    public User getUserById(String id) {
-        Optional<User> getResult = userRepository.findById(id);
+	public List<User> getAllUsers() {
+		return userRepository.findAll();
+	}
 
-        return getResult.orElse(null);
-    }
+	public List<User> getAllUsers(GetAllUsersFilterRequestDto filter) {
+		Query query = new Query();
+		if (filter.getId() != null) {
+			query.addCriteria(Criteria.where("_id").is(filter.getId()));
+		}
+		if (filter.getUsername() != null) {
+			query.addCriteria(Criteria.where("username").is(filter.getUsername()));
+		}
+		if (filter.getDeleted() != null) {
+			query.addCriteria(Criteria.where("isDeleted").is(filter.getDeleted()));
+		}
 
-    public Boolean deleteUserById(String id){
-        Optional<User> findResult = userRepository.findById(id);
+		return mongoTemplate.find(query, User.class);
+	}
 
-        // TODO : Delete related data of the user such as profile, achievements etc.
+	public User getUserById(String id) {
+		Optional<User> getResult = userRepository.findById(id);
 
-        if(findResult.isPresent() && !findResult.get().getDeleted()){
-            Query query = new Query(Criteria.where("_id").is(id));
-            Update update = new Update().set("isDeleted", true);
-            mongoTemplate.updateFirst(query, update, User.class);
-            return true;
-        }
-        return false;
-    }
+		return getResult.orElse(null);
+	}
+
+	public Boolean deleteUserById(String id) {
+		Optional<User> findResult = userRepository.findById(id);
+
+		// TODO : Delete related data of the user such as profile, achievements etc.
+
+		if (findResult.isPresent() && !findResult.get().getDeleted()) {
+			Query query = new Query(Criteria.where("_id").is(id));
+			Update update = new Update().set("isDeleted", true);
+			mongoTemplate.updateFirst(query, update, User.class);
+			return true;
+		}
+		return false;
+	}
+
+	public User getUserByEmail(String email) {
+		Optional<User> getResult = userRepository.findByEmail(email);
+
+		return getResult.orElse(null);
+	}
+
 }

@@ -1,3 +1,5 @@
+@import "../../colors";
+
 .holyGrailLayout {
   display: grid;
   $column-size: clamp(0px, 20%, 300px);
@@ -7,8 +9,7 @@
     "header header header"
     "leftColumn mainContent rightColumn"
     "leftColumn footer rightColumn";
-  height: auto;
-  min-height: calc(100vh - 2px);
+  height: 100%;
 }
 
 .header {
@@ -16,25 +17,25 @@
   top: 0;
 
   grid-area: header;
-  background-color: #3498db; // Light Blue
+  background-color: $sky-blue; // Light Blue
 }
 
 .mainContent {
   grid-area: mainContent;
-  background-color: #ecf0f1; // Light Gray
+  background-color: $violet; // Light Gray
 }
 
 .leftColumn {
   grid-area: leftColumn;
-  background-color: #f39c12; // Orange
+  background-color: $orange; // Orange
 }
 
 .rightColumn {
   grid-area: rightColumn;
-  background-color: #2ecc71; // Green
+  background-color: $blue-green; // Green
 }
 
 .footer {
   grid-area: footer;
-  background-color: #e74c3c; // Red
+  background-color: $yellow; // Red
 }
