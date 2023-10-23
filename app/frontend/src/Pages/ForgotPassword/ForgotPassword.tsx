@@ -96,8 +96,10 @@ const ForgotPassword = () => {
           <Input.Password placeholder="Confirm the new password" />
         </Form.Item>
         <Form.Item
-          hidden={!isVerified}
-          style={{ display: "flex", justifyContent: "flex-end" }}
+          style={{
+            display: isVerified ? "flex" : "none",
+            justifyContent: "flex-end",
+          }}
         >
           <Button type="primary">Submit</Button>
         </Form.Item>
