@@ -61,6 +61,11 @@ public class CanvasManager : MonoBehaviour
         gamesPage.SetActive(false);
         profilePage.SetActive(false);
     }
+
+    public void HideHomePage()
+    {
+        homePage.SetActive(false);
+    }
     
     
     public void ShowForumPage()
