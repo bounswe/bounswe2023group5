@@ -24,8 +24,8 @@
 | Forgot Password Endpoint| [#450](https://github.com/bounswe/bounswe2023group5/issues/450) | Deniz Ünal | 24.10.2023| [#486](https://github.com/bounswe/bounswe2023group5/pull/486) | 3 hr | 5 hr |
 | Delete Account Implementation | [#469](https://github.com/bounswe/bounswe2023group5/issues/469) | Can Uzduran | 24.10.2023 | [#477](https://github.com/bounswe/bounswe2023group5/pull/477) | 3 hr | 3hr
 | Initializing the README Document for Backend  | [#470](https://github.com/bounswe/bounswe2023group5/issues/470) | Can Uzduran |  24.10.2023 | - | 2 hr | 2hr
-| Login Page Implementation | [#461](https://github.com/bounswe/bounswe2023group5/issues/461) | Arda Kabadayı | 24.10.2023 | [#485](https://github.com/bounswe/bounswe2023group5/pull/485) | 3 hr |
-| Register Page Implementation | [#464](https://github.com/bounswe/bounswe2023group5/issues/464) | Arda Kabadayı | 24.10.2023 | [#485](https://github.com/bounswe/bounswe2023group5/pull/485) | 1 hr |
+| Login Page Implementation | [#461](https://github.com/bounswe/bounswe2023group5/issues/461) | Arda Kabadayı | 24.10.2023 | [#485](https://github.com/bounswe/bounswe2023group5/pull/485) | 3 hr | 4hr |
+| Register Page Implementation | [#464](https://github.com/bounswe/bounswe2023group5/issues/464) | Arda Kabadayı | 24.10.2023 | [#485](https://github.com/bounswe/bounswe2023group5/pull/485) | 1 hr | 1hr |
 | Implementing the Frontend of Logout Functionality  | [#449](https://github.com/bounswe/bounswe2023group5/issues/449) | Ali Başaran |  24.10.2023 | - |2 hr | 2 hr
 | Connecting Implemented Pages to Endpoints | [#451](https://github.com/bounswe/bounswe2023group5/issues/451) | Ali Başaran |  24.10.2023 | - | 2 hr | 6 hr
 | Implementing the Frontend of Change Password Functionality  | [#457](https://github.com/bounswe/bounswe2023group5/issues/457) | Çisel Zümbül  | 24.10.2023 | [#488](https://github.com/bounswe/bounswe2023group5/pull/488) |3 hr | 1 hr |
