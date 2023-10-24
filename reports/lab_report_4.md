@@ -50,7 +50,9 @@
 ## Completed tasks that were not planned for the week
 | Description | Issue | Assignee | Due | Duration
 | --- | --- | --- | --- | --- |
-| Fixing the CORS Error | --- | --- | --- | --- 
+| Fixing the CORS Error |[#491](https://github.com/bounswe/bounswe2023group5/issues/491) | Ali Başaran | 24.10.2023 | 1 hr |
+| Handling the Empty Submit in Forgot Password Route |[#492](https://github.com/bounswe/bounswe2023group5/issues/492) | Ali Başaran | 24.10.2023 | 2 hr |
+
 
 
 
