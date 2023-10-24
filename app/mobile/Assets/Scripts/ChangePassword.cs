@@ -17,6 +17,7 @@ public class ChangePassword : MonoBehaviour
 	// another page
 	private CanvasManager canvasManager;
 
+
 	private void Awake()
 	{
 		GetComponent<Button>().onClick.AddListener(SendPasswordChangeRequest);
@@ -61,8 +62,9 @@ public class ChangePassword : MonoBehaviour
 	    // Here I will normally put a function to make a password change
 	    // request to the back-end. And depending on the response, print
 	    // a message to the page
-
+	    
 	    var (isPasswordChanged, message) = ChangePasswordHelper.ChangeUserPassword(passwordChangeRequest);
+
 	    
 	    if (isPasswordChanged)
 	    {
