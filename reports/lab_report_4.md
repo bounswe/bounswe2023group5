@@ -29,6 +29,8 @@
 | Implementing the Frontend of Logout Functionality  | [#449](https://github.com/bounswe/bounswe2023group5/issues/449) | Ali Başaran |  24.10.2023 | |2 hr |
 | Connecting Implemented Pages to Endpoints | [#451](https://github.com/bounswe/bounswe2023group5/issues/451) | Ali Başaran |  24.10.2023 | | 2 hr |
 | Implementing the Frontend of Change Password Functionality  | [#457](https://github.com/bounswe/bounswe2023group5/issues/457) | Çisel Zümbül  | 24.10.2023 | |3 hr | 1 hr |
+| Game Page Mockup Review - FE  | [#460](https://github.com/bounswe/bounswe2023group5/issues/460) | Frontend Team | 24.10.2023 |  | 2 hr | 3 hr |
+
 | Implementing the Frontend of Forgot Password Functionality  | [#462](https://github.com/bounswe/bounswe2023group5/issues/462) | Çisel Zümbül | 24.10.2023 | | 1 hr | 4 hr |
 | Implementing the Main Layout for the Web Pages  | [#458](https://github.com/bounswe/bounswe2023group5/issues/458) | Alperen Bırçak | 24.10.2023 | | 5 hr |
 | Creating a colors.scss file  | [#459](https://github.com/bounswe/bounswe2023group5/issues/459) | Alperen Bırçak | 24.10.2023 | | 1 hr |
