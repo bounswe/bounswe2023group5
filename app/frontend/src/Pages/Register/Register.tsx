@@ -9,6 +9,8 @@ import {
 } from "@ant-design/icons";
 import { Button, Input } from "antd";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "react-query";
+
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -18,9 +20,37 @@ function Register() {
 
   const navigate = useNavigate();
 
+  const postLogin = async (formData:any) => {
+    return fetch(import.meta.env.VITE_APP_API_URL + "/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+  }
+  const registerMutation = useMutation(postLogin,{  
+    onSuccess: async() => {
+      alert("You registered successfully.")
+      console.log("Token is set");
+      navigate("/login");
+    },
+    onError: () => {
+      alert("You cannot be registered.")
+    },});
+    
+
+
   const handleRegister = (event: React.FormEvent<HTMLFormElement>) => {
     // check whether email is valid email address
     // check whether passwords are match
+    if (email.indexOf("@") === -1) {
+      alert("Please enter a valid email address!");
+    } else if(password !== confirmPassword) {
+      alert("Passwords do not match!");
+    } else {
+      registerMutation.mutate({ username, email, password });
+    }
     event.preventDefault();
   };
 
