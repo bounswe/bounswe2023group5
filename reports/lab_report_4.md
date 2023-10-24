@@ -73,7 +73,7 @@
 | Creating Me Endpoint |[#508](https://github.com/bounswe/bounswe2023group5/issues/508) | Zeynep Baydemir | 31.10.2023 | 1hr |
 | Implementing CI/CD for Backend | [#512](https://github.com/bounswe/bounswe2023group5/issues/512) | Halis Bal | 31.10.2023 | 5hr |
 | Deployment Backend to AWS | [#515](https://github.com/bounswe/bounswe2023group5/issues/515) | Deniz Ünal | 31.10.2023 | 3hr |
-| Adding Conventions to Wiki Page | | Alperen Bırçak | 31.10.2023 | 30 mins |
+| Adding Conventions to Wiki Page | [#517](https://github.com/bounswe/bounswe2023group5/issues/517) | Alperen Bırçak | 31.10.2023 | 30 mins |
 | Game Detail Endpoint | [#528](https://github.com/bounswe/bounswe2023group5/issues/528) | Backend | 31.10.2023 | 2 hr| 
 | get-games-list Endpoint | [#521](https://github.com/bounswe/bounswe2023group5/issues/521) | Deniz Ünal | 28.10.2023 | 1 hr |
 | Add filter functionality to /GET games Endpoint | [#524](https://github.com/bounswe/bounswe2023group5/issues/524) | Arda | 31.10.2023 | 2 hr| 
@@ -86,7 +86,6 @@
 | Preparing list and status of deliverables |  | | 31.10.2023 |  |
 | Preparing evaluation of the status of deliverables and its impact on your project plan (reflection)| | | 31.10.2023 |  |
 | Preparing evaluation of tools and processes you have used to manage your team project | | | 31.10.2023 |  |
-| Preparing evaluation of tools and processes you have used to manage your team project| | | 31.10.2023 |  |
 | Adding individual contributions | [#516](https://github.com/bounswe/bounswe2023group5/issues/516), [#527](https://github.com/bounswe/bounswe2023group5/issues/527) [#525](https://github.com/bounswe/bounswe2023group5/issues/525), [#530](https://github.com/bounswe/bounswe2023group5/issues/530) [#533](https://github.com/bounswe/bounswe2023group5/issues/533) | Team | 31.10.2023 | 20 mins |
 | Connecting Login Page to Backend - Mobile| | Harun Sami Çelik | 31.10.2023 | 2hr  |
 | Connecting Delete Account Page to Backend - Mobile | | Harun Sami Çelik | 31.10.2023 | 2hr  |
@@ -101,7 +100,7 @@
 | Determining the Primary, Secondary, Background, Text and Dark Text Colors| [#498](https://github.com/bounswe/bounswe2023group5/issues/498) | Ali Başaran| 31.10.2023 | 1 hr |
 | Adding My Individual Contributions to First Milestone Deliverables | [#531](https://github.com/bounswe/bounswe2023group5/issues/531) | Ali Başaran| 31.10.2023 | 2 hr |
 | Updating the RAM| [#535](https://github.com/bounswe/bounswe2023group5/issues/535) | Ali Başaran| 31.10.2023 | 2 hr |
-| Configuring AntD to Use Our Color Palette| [#NA](https://github.com/bounswe/bounswe2023group5/issues/) | Alperen | 31.10.2023 | 1 hr |
+| Configuring AntD to Use Our Color Palette| [#514](https://github.com/bounswe/bounswe2023group5/issues/514) | Alperen | 31.10.2023 | 1 hr |
 | AuthWrapper and useUser hook| [#500](https://github.com/bounswe/bounswe2023group5/issues/500) | Alperen | 31.10.2023 | 1.5 hr |
 | Adding a Toast Library and Global Error Handling on Queries | [#503](https://github.com/bounswe/bounswe2023group5/issues/503) | Alperen | 31.10.2023 | 1 hr |
 | Deploying Frontend to the AWS | [#495](https://github.com/bounswe/bounswe2023group5/issues/495) | Ali Başaran | 31.10.2023 | 2 hr |
