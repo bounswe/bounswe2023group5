@@ -91,8 +91,8 @@
 | Preparing evaluation of the status of deliverables and its impact on your project plan (reflection)| [#546](https://github.com/bounswe/bounswe2023group5/issues/546) | | 31.10.2023 |  |
 | Preparing evaluation of tools and processes you have used to manage your team project | [#547](https://github.com/bounswe/bounswe2023group5/issues/547) | | 31.10.2023 |  |
 | Adding individual contributions | [#516](https://github.com/bounswe/bounswe2023group5/issues/516), [#527](https://github.com/bounswe/bounswe2023group5/issues/527) [#525](https://github.com/bounswe/bounswe2023group5/issues/525), [#530](https://github.com/bounswe/bounswe2023group5/issues/530) [#533](https://github.com/bounswe/bounswe2023group5/issues/533), [#537](https://github.com/bounswe/bounswe2023group5/issues/537) | Team | 31.10.2023 | 20 mins |
-| Connecting Login Page to Backend - Mobile| | Harun Sami Çelik | 31.10.2023 | 2hr  |
-| Connecting Delete Account Page to Backend - Mobile | | Harun Sami Çelik | 31.10.2023 | 2hr  |
+| Connecting Login Page to Backend - Mobile| [#506](https://github.com/bounswe/bounswe2023group5/issues/506) | Harun Sami Çelik | 31.10.2023 | 2hr  |
+| Connecting Delete Account Page to Backend - Mobile | [#507](https://github.com/bounswe/bounswe2023group5/issues/507) | Harun Sami Çelik | 31.10.2023 | 2hr  |
 | Connecting Forget Password Page to Backend - Mobile |[#496](https://github.com/bounswe/bounswe2023group5/issues/496) | Ege Ekşi | 31.10.2023 | 2hr |
 | Connecting Change Password Page to Backend - Mobile | [#510](https://github.com/bounswe/bounswe2023group5/issues/510) | Said Yolcu | 31.10.2023 | 2hr |
 | Connecting Logout Functionality to Backend - Mobile | [#509](https://github.com/bounswe/bounswe2023group5/issues/509) | Said Yolcu | 31.10.2023 | 2hr |
