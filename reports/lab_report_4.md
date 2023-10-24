@@ -76,8 +76,7 @@
 | Adding Conventions to Wiki Page | | Alperen Bırçak | 31.10.2023 | 30 mins |
 | Games Page Implementation | | Backend | 31.10.2023 | 5 hr| 
 | get-games-list Endpoint | [#521](https://github.com/bounswe/bounswe2023group5/issues/521) | Deniz Ünal | 28.10.2023 | 1 hr |
-| Game Entity Implementation | [#523](https://github.com/bounswe/bounswe2023group5/issues/523) | Deniz Ünal | 31.10.2023 | 2 hr|
-
+| Game Entity Implementation | [#523](https://github.com/bounswe/bounswe2023group5/issues/523) | Deniz Ünal | 31.10.2023 | 2 hr |
 | Game Detail Implementation | | Backend | 31.10.2023 | 3 hr | 
 | Adding Conventions to Wiki Page| [#517](https://github.com/bounswe/bounswe2023group5/issues/517) | Alperen Bırçak | 31.10.2023 | 30 mins | 
 | Updating RAM | [#518](https://github.com/bounswe/bounswe2023group5/issues/518) | Team | 31.10.2023 | 30 mins |
