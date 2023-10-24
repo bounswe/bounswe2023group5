@@ -90,11 +90,11 @@
 | Connecting Forget Password Page to Backend - Mobile | | Ege Ekşi | 31.10.2023 | 2hr |
 | Connecting Change Password Page to Backend - Mobile | | Said Yolcu | 31.10.2023 | 2hr |
 | Connecting Logout Functionality to Backend - Mobile | | Said Yolcu | 31.10.2023 | 2hr |
-| Connecting Home Page to Backend - Mobile | | Bilal Atım | 31.10.2023 | 2hr |
-| Connecting Signup to Backend - Mobile | | Bilal Atım | 31.10.2023 | 2hr |
+| Connecting Home Page to Backend - Mobile | [#519](https://github.com/bounswe/bounswe2023group5/issues/519) | Bilal Atım | 31.10.2023 | 2hr |
+| Connecting Signup to Backend - Mobile | [#520](https://github.com/bounswe/bounswe2023group5/issues/520) | Bilal Atım | 31.10.2023 | 2hr |
 | Create Games Page - Mobile | | Ege Ekşi, Harun Sami Çelik | 31.10.2023 | 4hr |
-| Create Game Details Page - Mobile | | Bilal Atım, Said Yolcu | 31.10.2023 | 4hr |
-| Dockerizing the Mobile part - Mobile | | Bilal Atım | 31.10.2023 | 4 hr |
+| Create Game Details Page - Mobile | [#511](https://github.com/bounswe/bounswe2023group5/issues/511) | Bilal Atım, Said Yolcu | 31.10.2023 | 4hr |
+| Dockerizing the Mobile part - Mobile | [#522](https://github.com/bounswe/bounswe2023group5/issues/522) | Bilal Atım | 31.10.2023 | 4 hr |
 | Determining the Primary, Secondary, Background, Text and Dark Text Colors| [#498](https://github.com/bounswe/bounswe2023group5/issues/498) | Ali | 31.10.2023 | 1 hr |
 | Configuring AntD to Use Our Color Palette| [#NA](https://github.com/bounswe/bounswe2023group5/issues/) | Alperen | 31.10.2023 | 1 hr |
 | AuthWrapper and useUser hook| [#500](https://github.com/bounswe/bounswe2023group5/issues/500) | Alperen | 31.10.2023 | 1.5 hr |
