@@ -35,7 +35,7 @@ function Login() {
       localStorage.setItem("username", user.username);
       if(localStorage.getItem("token"))
         console.log("Token is set");
-        navigate("/");
+        navigate("/hello");
     },
     onError: () => {
       alert("Your email or password is incorrect.")
