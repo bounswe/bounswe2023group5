@@ -26,6 +26,14 @@ function Login() {
   }
   const loginMutation = useMutation(postLogin,{  
     onSuccess: async( data) => {
+      if(data.status === 404){
+        alert("Please enter a valid email address.")
+        return;
+      }else if(data.status === 500){
+        alert("Something went wrong.")
+        return;
+      }
+      console.log(data.status)
       const responseData: { token: string, user:any} = await data.json();
       const jwtToken:string = responseData.token;
       const user:any = responseData.user;

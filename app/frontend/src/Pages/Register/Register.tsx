@@ -30,7 +30,12 @@ function Register() {
     });
   }
   const registerMutation = useMutation(postLogin,{  
-    onSuccess: async() => {
+    onSuccess: async(data) => {
+      if(data.status === 500){
+        alert("Something went wrong.")
+        return;
+      }
+      console.log(data.status)
       alert("You registered successfully.")
       console.log("Token is set");
       navigate("/login");
