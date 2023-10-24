@@ -19,12 +19,11 @@
 | Description | Issue | Assignee | Due | PR | Estimated Duration | Actual Duration |
 | --- | --- | --- | --- | --- | --- | --- |
 | Decide on which platform to use for our milestones | [#426](https://github.com/bounswe/bounswe2023group5/issues/426)| Team | 17.10.2023 | | 2 hr | 30 min | | |
-| User Register Endpoint| [#440](https://github.com/bounswe/bounswe2023group5/issues/440) | Can Uzduran | 24.10.2023 | | 3 hr | 
-| User Login/Logout Endpoint| [#447](https://github.com/bounswe/bounswe2023group5/issues/447) | Zeynep Baydemir | 24.10.2023 | [#484](https://github.com/bounswe/bounswe2023group5/pull/484) | 5 hr | 5 hr |
+| User Register Endpoint| [#440](https://github.com/bounswe/bounswe2023group5/issues/440) | Can Uzduran | 24.10.2023 | [#483](https://github.com/bounswe/bounswe2023group5/pull/483) | 3 hr | 3hr || User Login/Logout Endpoint| [#447](https://github.com/bounswe/bounswe2023group5/issues/447) | Zeynep Baydemir | 24.10.2023 | [#484](https://github.com/bounswe/bounswe2023group5/pull/484) | 5 hr | 5 hr |
 | Change Password Endpoint| [#448](https://github.com/bounswe/bounswe2023group5/issues/448) | Halis Bal | 24.10.2023 | [#480](https://github.com/bounswe/bounswe2023group5/pull/480), [#487](https://github.com/bounswe/bounswe2023group5/pull/487) | 3 hr | 2.5 hr |
 | Forgot Password Endpoint| [#450](https://github.com/bounswe/bounswe2023group5/issues/450) | Deniz Ünal | 24.10.2023| [#486](https://github.com/bounswe/bounswe2023group5/pull/486) | 3 hr | 5 hr |
-| Delete Account Implementation | [#469](https://github.com/bounswe/bounswe2023group5/issues/469) | Can Uzduran | 24.10.2023 | | 3 hr |
-| Initializing the README Document for Backend  | [#470](https://github.com/bounswe/bounswe2023group5/issues/470) | Can Uzduran |  24.10.2023 | | 2 hr |
+| Delete Account Implementation | [#469](https://github.com/bounswe/bounswe2023group5/issues/469) | Can Uzduran | 24.10.2023 | [#477](https://github.com/bounswe/bounswe2023group5/pull/477) | 3 hr | 3hr
+| Initializing the README Document for Backend  | [#470](https://github.com/bounswe/bounswe2023group5/issues/470) | Can Uzduran |  24.10.2023 | - | 2 hr | 2hr
 | Login Page Implementation | [#461](https://github.com/bounswe/bounswe2023group5/issues/461) | Arda Kabadayı | 24.10.2023 | | 3 hr |
 | Register Page Implementation | [#464](https://github.com/bounswe/bounswe2023group5/issues/464) | Arda Kabadayı | 24.10.2023 | | 1 hr |
 | Implementing the Frontend of Logout Functionality  | [#449](https://github.com/bounswe/bounswe2023group5/issues/449) | Ali Başaran |  24.10.2023 | |2 hr |
@@ -79,6 +78,8 @@
 | Add filter functionality to /GET games Endpoint | [#524](https://github.com/bounswe/bounswe2023group5/issues/524) | Arda | 31.10.2023 | 2 hr| 
 | Game Entity Implementation | [#523](https://github.com/bounswe/bounswe2023group5/issues/523) | Deniz Ünal | 31.10.2023 | 2 hr |
 | Game Detail Implementation | [#528](https://github.com/bounswe/bounswe2023group5/issues/528)| Zeynep Baydemir | 31.10.2023 | 3 hr | 
+| Tag Implementation in Game  | [#538](https://github.com/bounswe/bounswe2023group5/issues/538)| Can Uzduran | 31.10.2023 | 4 hr | 
+| Vote Implementation | [#532](https://github.com/bounswe/bounswe2023group5/issues/532)| Can Uzduran | 31.10.2023 | 4 hr | 
 | Adding Conventions to Wiki Page| [#517](https://github.com/bounswe/bounswe2023group5/issues/517) | Alperen Bırçak | 31.10.2023 | 30 mins | 
 | Updating RAM | [#518](https://github.com/bounswe/bounswe2023group5/issues/518) [#526](https://github.com/bounswe/bounswe2023group5/issues/526), [#534](https://github.com/bounswe/bounswe2023group5/issues/534) [#536](https://github.com/bounswe/bounswe2023group5/issues/536) | Team | 31.10.2023 | 30 mins |
 | Preparing a summary of the project status and any changes that are planned for moving forward | | | 31.10.2023 |  |
@@ -86,7 +87,7 @@
 | Preparing list and status of deliverables |  | | 31.10.2023 |  |
 | Preparing evaluation of the status of deliverables and its impact on your project plan (reflection)| | | 31.10.2023 |  |
 | Preparing evaluation of tools and processes you have used to manage your team project | | | 31.10.2023 |  |
-| Adding individual contributions | [#516](https://github.com/bounswe/bounswe2023group5/issues/516), [#527](https://github.com/bounswe/bounswe2023group5/issues/527) [#525](https://github.com/bounswe/bounswe2023group5/issues/525), [#530](https://github.com/bounswe/bounswe2023group5/issues/530) [#533](https://github.com/bounswe/bounswe2023group5/issues/533) | Team | 31.10.2023 | 20 mins |
+| Adding individual contributions | [#516](https://github.com/bounswe/bounswe2023group5/issues/516), [#527](https://github.com/bounswe/bounswe2023group5/issues/527) [#525](https://github.com/bounswe/bounswe2023group5/issues/525), [#530](https://github.com/bounswe/bounswe2023group5/issues/530) [#533](https://github.com/bounswe/bounswe2023group5/issues/533), [#537](https://github.com/bounswe/bounswe2023group5/issues/537) | Team | 31.10.2023 | 20 mins |
 | Connecting Login Page to Backend - Mobile| | Harun Sami Çelik | 31.10.2023 | 2hr  |
 | Connecting Delete Account Page to Backend - Mobile | | Harun Sami Çelik | 31.10.2023 | 2hr  |
 | Connecting Forget Password Page to Backend - Mobile |[#496](https://github.com/bounswe/bounswe2023group5/issues/496) | Ege Ekşi | 31.10.2023 | 2hr |
