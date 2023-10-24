@@ -21,7 +21,7 @@
 | Decide on which platform to use for our milestones | [#426](https://github.com/bounswe/bounswe2023group5/issues/426)| Team | 17.10.2023 | | 2 hr | 30 min | | |
 | User Register Endpoint| [#440](https://github.com/bounswe/bounswe2023group5/issues/440) | Can Uzduran | 24.10.2023 | | 3 hr | 
 | User Login/Logout Endpoint| [#447](https://github.com/bounswe/bounswe2023group5/issues/447) | Zeynep Baydemir | 24.10.2023 | | 5 hr | 5 hr |
-| Change Password Endpoint| [#448](https://github.com/bounswe/bounswe2023group5/issues/448) | Halis Bal | 24.10.2023 | | 3 hr | 2.5 hr |
+| Change Password Endpoint| [#448](https://github.com/bounswe/bounswe2023group5/issues/448) | Halis Bal | 24.10.2023 | [#480](https://github.com/bounswe/bounswe2023group5/pull/480), [#487](https://github.com/bounswe/bounswe2023group5/pull/487) | 3 hr | 2.5 hr |
 | Forgot Password Endpoint| [#450](https://github.com/bounswe/bounswe2023group5/issues/450) | Deniz Ünal | 24.10.2023| | 3 hr | 5 hr |
 | Delete Account Implementation | [#469](https://github.com/bounswe/bounswe2023group5/issues/469) | Can Uzduran | 24.10.2023 | | 3 hr |
 | Initializing the README Document for Backend  | [#470](https://github.com/bounswe/bounswe2023group5/issues/470) | Can Uzduran |  24.10.2023 | | 2 hr |
