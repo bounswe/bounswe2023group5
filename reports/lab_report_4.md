@@ -67,9 +67,9 @@
 ## Your plans for the next week
 | Description | Issue                                                           | Assignee | Due | Estimated Duration |
 | --- |-----------------------------------------------------------------| --- | --- | --- |
-| Determining the Name of the Project |  | Team | 31.10.2023 | 15 mins |
-| Determining the Logo of the Project |  | Team | 31.10.2023 | 15 mins |
-| Determining the Branch Naming |    | Team | 31.10.2023 | 15 mins |
+| Determining the Name of the Project |  [#539](https://github.com/bounswe/bounswe2023group5/issues/539) | Team | 31.10.2023 | 15 mins |
+| Determining the Logo of the Project |  [#540](https://github.com/bounswe/bounswe2023group5/issues/540)  | Team | 31.10.2023 | 15 mins |
+| Determining the Branch Naming |  [#541](https://github.com/bounswe/bounswe2023group5/issues/541)   | Team | 31.10.2023 | 15 mins |
 | Error Handling in Backend | [#544](https://github.com/bounswe/bounswe2023group5/issues/544) | Backend  | 31.10.2023 | 2hr | 
 | Authorization Implementation | [#513](https://github.com/bounswe/bounswe2023group5/issues/513) | Halis Bal  | 31.10.2023 | 3hr | 
 | Creating Me Endpoint |[#508](https://github.com/bounswe/bounswe2023group5/issues/508) | Zeynep Baydemir | 31.10.2023 | 1hr |
@@ -85,11 +85,11 @@
 | Vote Implementation | [#532](https://github.com/bounswe/bounswe2023group5/issues/532)| Can Uzduran | 31.10.2023 | 4 hr | 
 | Adding Conventions to Wiki Page| [#517](https://github.com/bounswe/bounswe2023group5/issues/517) | Alperen Bırçak | 31.10.2023 | 30 mins | 
 | Updating RAM | [#518](https://github.com/bounswe/bounswe2023group5/issues/518) [#526](https://github.com/bounswe/bounswe2023group5/issues/526), [#534](https://github.com/bounswe/bounswe2023group5/issues/534) [#536](https://github.com/bounswe/bounswe2023group5/issues/536) | Team | 31.10.2023 | 30 mins |
-| Preparing a summary of the project status and any changes that are planned for moving forward | | | 31.10.2023 |  |
-| Preparing a summary of the customer feedback and reflections |  | | 31.10.2023 |  |
-| Preparing list and status of deliverables |  | | 31.10.2023 |  |
-| Preparing evaluation of the status of deliverables and its impact on your project plan (reflection)| | | 31.10.2023 |  |
-| Preparing evaluation of tools and processes you have used to manage your team project | | | 31.10.2023 |  |
+| Preparing a summary of the project status and any changes that are planned for moving forward |  [#542](https://github.com/bounswe/bounswe2023group5/issues/542) | | 31.10.2023 |  |
+| Preparing a summary of the customer feedback and reflections | [#543](https://github.com/bounswe/bounswe2023group5/issues/543)  | | 31.10.2023 |  |
+| Preparing list and status of deliverables | [#545](https://github.com/bounswe/bounswe2023group5/issues/545)  | | 31.10.2023 |  |
+| Preparing evaluation of the status of deliverables and its impact on your project plan (reflection)| [#546](https://github.com/bounswe/bounswe2023group5/issues/546) | | 31.10.2023 |  |
+| Preparing evaluation of tools and processes you have used to manage your team project | [#547](https://github.com/bounswe/bounswe2023group5/issues/547) | | 31.10.2023 |  |
 | Adding individual contributions | [#516](https://github.com/bounswe/bounswe2023group5/issues/516), [#527](https://github.com/bounswe/bounswe2023group5/issues/527) [#525](https://github.com/bounswe/bounswe2023group5/issues/525), [#530](https://github.com/bounswe/bounswe2023group5/issues/530) [#533](https://github.com/bounswe/bounswe2023group5/issues/533), [#537](https://github.com/bounswe/bounswe2023group5/issues/537) | Team | 31.10.2023 | 20 mins |
 | Connecting Login Page to Backend - Mobile| | Harun Sami Çelik | 31.10.2023 | 2hr  |
 | Connecting Delete Account Page to Backend - Mobile | | Harun Sami Çelik | 31.10.2023 | 2hr  |
