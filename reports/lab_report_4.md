@@ -68,7 +68,7 @@
 | Determining the Name of the Project |  | Team | 31.10.2023 | 15 mins |
 | Determining the Logo of the Project |  | Team | 31.10.2023 | 15 mins |
 | Determining the Branch Naming |    | Team | 31.10.2023 | 15 mins |
-| Error Handling in Backend |  | Backend  | 31.10.2023 | 1hr | 
+| Error Handling in Backend | [#544](https://github.com/bounswe/bounswe2023group5/issues/544) | Backend  | 31.10.2023 | 2hr | 
 | Authorization Implementation | [#513](https://github.com/bounswe/bounswe2023group5/issues/513) | Halis Bal  | 31.10.2023 | 3hr | 
 | Creating Me Endpoint |[#508](https://github.com/bounswe/bounswe2023group5/issues/508) | Zeynep Baydemir | 31.10.2023 | 1hr |
 | Implementing CI/CD for Backend | [#512](https://github.com/bounswe/bounswe2023group5/issues/512) | Halis Bal | 31.10.2023 | 5hr |
