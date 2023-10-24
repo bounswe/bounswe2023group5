@@ -28,4 +28,9 @@ public static class UserDataHelper
         System.IO.File.WriteAllText(Application.dataPath + "/Resources/SignUp.json", userJson);
         return true;
     }
+    public static bool DoesEmailExist(string email)
+    {
+        _userEmails = _userData.users.ConvertAll(x => x.email);
+        return _userEmails.Contains(email);
+    }
 }

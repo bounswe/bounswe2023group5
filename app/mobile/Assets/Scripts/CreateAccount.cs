@@ -9,14 +9,14 @@ public class CreateAccount : MonoBehaviour
     public TMP_InputField emailInputField;
     public TMP_InputField passwordInputField;
     public TMP_InputField confirmPasswordInputField;
-    [SerializeField] private CanvasManager canvasManager;
+    private CanvasManager canvasManager;
     private void Awake()
     {
-        GetComponent<Button>().onClick.AddListener(OnClicedCreateAccount);
+        GetComponent<Button>().onClick.AddListener(OnClickedCreateAccount);
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
     }
 
-    private void OnClicedCreateAccount()
+    private void OnClickedCreateAccount()
     {
         if (nameInputField.text == "" || emailInputField.text == "")
         {
