@@ -89,7 +89,7 @@
 | Preparing list and status of deliverables | [#545](https://github.com/bounswe/bounswe2023group5/issues/545)  | Ali Başaran | 31.10.2023 |  |
 | Preparing evaluation of the status of deliverables and its impact on your project plan (reflection)| [#546](https://github.com/bounswe/bounswe2023group5/issues/546) | Halis Bal | 31.10.2023 |  |
 | Preparing evaluation of tools and processes you have used to manage your team project | [#547](https://github.com/bounswe/bounswe2023group5/issues/547) | Can Uzduran | 31.10.2023 |  |
-| Adding individual contributions | [#516](https://github.com/bounswe/bounswe2023group5/issues/516), [#527](https://github.com/bounswe/bounswe2023group5/issues/527) [#525](https://github.com/bounswe/bounswe2023group5/issues/525), [#530](https://github.com/bounswe/bounswe2023group5/issues/530) [#533](https://github.com/bounswe/bounswe2023group5/issues/533), [#537](https://github.com/bounswe/bounswe2023group5/issues/537), [#549](https://github.com/bounswe/bounswe2023group5/issues/549) | Team | 31.10.2023 | 20 mins |
+| Adding individual contributions | [#516](https://github.com/bounswe/bounswe2023group5/issues/516), [#527](https://github.com/bounswe/bounswe2023group5/issues/527) [#525](https://github.com/bounswe/bounswe2023group5/issues/525), [#530](https://github.com/bounswe/bounswe2023group5/issues/530), [#531](https://github.com/bounswe/bounswe2023group5/issues/531), [#533](https://github.com/bounswe/bounswe2023group5/issues/533), [#537](https://github.com/bounswe/bounswe2023group5/issues/537), [#549](https://github.com/bounswe/bounswe2023group5/issues/549) | Team | 31.10.2023 | 20 mins |
 | Connecting Login Page to Backend - Mobile| [#506](https://github.com/bounswe/bounswe2023group5/issues/506) | Harun Sami Çelik | 31.10.2023 | 2hr  |
 | Connecting Delete Account Page to Backend - Mobile | [#507](https://github.com/bounswe/bounswe2023group5/issues/507) | Harun Sami Çelik | 31.10.2023 | 2hr  |
 | Connecting Forget Password Page to Backend - Mobile |[#496](https://github.com/bounswe/bounswe2023group5/issues/496) | Ege Ekşi | 31.10.2023 | 2hr |
@@ -101,7 +101,6 @@
 | Create Game Details Page - Mobile | [#511](https://github.com/bounswe/bounswe2023group5/issues/511) | Bilal Atım, Said Yolcu | 31.10.2023 | 4hr |
 | Dockerizing the Mobile part - Mobile | [#522](https://github.com/bounswe/bounswe2023group5/issues/522) | Bilal Atım | 31.10.2023 | 4 hr |
 | Determining the Primary, Secondary, Background, Text and Dark Text Colors| [#498](https://github.com/bounswe/bounswe2023group5/issues/498) | Ali Başaran| 31.10.2023 | 1 hr |
-| Adding My Individual Contributions to First Milestone Deliverables | [#531](https://github.com/bounswe/bounswe2023group5/issues/531) | Ali Başaran| 31.10.2023 | 2 hr |
 | Configuring AntD to Use Our Color Palette| [#514](https://github.com/bounswe/bounswe2023group5/issues/514) | Alperen | 31.10.2023 | 1 hr |
 | AuthWrapper and useUser hook| [#500](https://github.com/bounswe/bounswe2023group5/issues/500) | Alperen | 31.10.2023 | 1.5 hr |
 | Adding a Toast Library and Global Error Handling on Queries | [#503](https://github.com/bounswe/bounswe2023group5/issues/503) | Alperen | 31.10.2023 | 1 hr |
