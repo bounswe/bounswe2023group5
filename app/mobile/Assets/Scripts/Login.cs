@@ -7,17 +7,36 @@ public class Login : MonoBehaviour
 {
     public TMP_InputField usernameInputField;
     public TMP_InputField passwordInputField;
-    [SerializeField] private CanvasManager canvasManager;
+    private CanvasManager canvasManager;
+    [SerializeField] private Button loginButton;
+    [SerializeField] private Button forgetPasswordButton; 
+    [SerializeField] private Button signupButton;
     
     private void Awake()
     {
-        GetComponent<Button>().onClick.AddListener(OnClickedLogin);
+        loginButton.onClick.AddListener(OnClickedLogin);
+        forgetPasswordButton.onClick.AddListener(OnClickedForgetPassword);
+        signupButton.onClick.AddListener(OnClickedSignup);
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
     }
 
     private void OnClickedLogin()
     {
+        bool isEmail =  usernameInputField.text.Contains('@');
         
+       
     }
+
+    private void OnClickedForgetPassword()
+    {
+        canvasManager.ShowForgetPasswordPage();
+        canvasManager.HideLogInPage();
+    }
+    private void OnClickedSignup()
+    {
+        canvasManager.ShowSignUpPage();
+        canvasManager.HideLogInPage();
+    }
+    
 
 }
