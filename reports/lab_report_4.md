@@ -80,22 +80,22 @@
 | Game Entity Implementation | [#523](https://github.com/bounswe/bounswe2023group5/issues/523) | Deniz Ünal | 31.10.2023 | 2 hr |
 | Game Detail Implementation | [#528](https://github.com/bounswe/bounswe2023group5/issues/528)| Zeynep Baydemir | 31.10.2023 | 3 hr | 
 | Adding Conventions to Wiki Page| [#517](https://github.com/bounswe/bounswe2023group5/issues/517) | Alperen Bırçak | 31.10.2023 | 30 mins | 
-| Updating RAM | [#518](https://github.com/bounswe/bounswe2023group5/issues/518) [#526](https://github.com/bounswe/bounswe2023group5/issues/526), [#534](https://github.com/bounswe/bounswe2023group5/issues/534) | Team | 31.10.2023 | 30 mins |
+| Updating RAM | [#518](https://github.com/bounswe/bounswe2023group5/issues/518) [#526](https://github.com/bounswe/bounswe2023group5/issues/526), [#534](https://github.com/bounswe/bounswe2023group5/issues/534) [#536](https://github.com/bounswe/bounswe2023group5/issues/536) | Team | 31.10.2023 | 30 mins |
 | Preparing a summary of the project status and any changes that are planned for moving forward | | | 31.10.2023 |  |
 | Preparing a summary of the customer feedback and reflections |  | | 31.10.2023 |  |
 | Preparing list and status of deliverables |  | | 31.10.2023 |  |
 | Preparing evaluation of the status of deliverables and its impact on your project plan (reflection)| | | 31.10.2023 |  |
 | Preparing evaluation of tools and processes you have used to manage your team project | | | 31.10.2023 |  |
 | Preparing evaluation of tools and processes you have used to manage your team project| | | 31.10.2023 |  |
-| Adding individual contributions | [#516](https://github.com/bounswe/bounswe2023group5/issues/516), [#527](https://github.com/bounswe/bounswe2023group5/issues/527) [#525](https://github.com/bounswe/bounswe2023group5/issues/525), [#530](https://github.com/bounswe/bounswe2023group5/issues/530) | Team | 31.10.2023 | 20 mins |
+| Adding individual contributions | [#516](https://github.com/bounswe/bounswe2023group5/issues/516), [#527](https://github.com/bounswe/bounswe2023group5/issues/527) [#525](https://github.com/bounswe/bounswe2023group5/issues/525), [#530](https://github.com/bounswe/bounswe2023group5/issues/530) [#533](https://github.com/bounswe/bounswe2023group5/issues/533) | Team | 31.10.2023 | 20 mins |
 | Connecting Login Page to Backend - Mobile| | Harun Sami Çelik | 31.10.2023 | 2hr  |
 | Connecting Delete Account Page to Backend - Mobile | | Harun Sami Çelik | 31.10.2023 | 2hr  |
-| Connecting Forget Password Page to Backend - Mobile | | Ege Ekşi | 31.10.2023 | 2hr |
+| Connecting Forget Password Page to Backend - Mobile |[#496](https://github.com/bounswe/bounswe2023group5/issues/496) | Ege Ekşi | 31.10.2023 | 2hr |
 | Connecting Change Password Page to Backend - Mobile | [#510](https://github.com/bounswe/bounswe2023group5/issues/510) | Said Yolcu | 31.10.2023 | 2hr |
 | Connecting Logout Functionality to Backend - Mobile | [#509](https://github.com/bounswe/bounswe2023group5/issues/509) | Said Yolcu | 31.10.2023 | 2hr |
 | Connecting Home Page to Backend - Mobile | [#519](https://github.com/bounswe/bounswe2023group5/issues/519) | Bilal Atım | 31.10.2023 | 2hr |
 | Connecting Signup to Backend - Mobile | [#520](https://github.com/bounswe/bounswe2023group5/issues/520) | Bilal Atım | 31.10.2023 | 2hr |
-| Create Games Page - Mobile | | Ege Ekşi, Harun Sami Çelik | 31.10.2023 | 4hr |
+| Create Games Page - Mobile |[#497](https://github.com/bounswe/bounswe2023group5/issues/497) | Ege Ekşi, Harun Sami Çelik | 31.10.2023 | 4hr |
 | Create Game Details Page - Mobile | [#511](https://github.com/bounswe/bounswe2023group5/issues/511) | Bilal Atım, Said Yolcu | 31.10.2023 | 4hr |
 | Dockerizing the Mobile part - Mobile | [#522](https://github.com/bounswe/bounswe2023group5/issues/522) | Bilal Atım | 31.10.2023 | 4 hr |
 | Determining the Primary, Secondary, Background, Text and Dark Text Colors| [#498](https://github.com/bounswe/bounswe2023group5/issues/498) | Ali | 31.10.2023 | 1 hr |
