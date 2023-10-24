@@ -76,15 +76,15 @@
 | Adding Conventions to Wiki Page | | Alperen Bırçak | 31.10.2023 | 30 mins |
 | Games Page Implementation | | Backend | 31.10.2023 | 5 hr| 
 | Game Detail Implementation | | Backend | 31.10.2023 | 3 hr | 
-| Adding Conventions to Wiki Page| | Alperen Bırçak | 31.10.2023 | 30 mins | 
-| Updating RAM | | | 31.10.2023 | 30 mins |
+| Adding Conventions to Wiki Page| [#517](https://github.com/bounswe/bounswe2023group5/issues/517) | Alperen Bırçak | 31.10.2023 | 30 mins | 
+| Updating RAM | [#518](https://github.com/bounswe/bounswe2023group5/issues/518) | Team | 31.10.2023 | 30 mins |
 | Preparing a summary of the project status and any changes that are planned for moving forward | | | 31.10.2023 |  |
 | Preparing a summary of the customer feedback and reflections |  | | 31.10.2023 |  |
 | Preparing list and status of deliverables |  | | 31.10.2023 |  |
 | Preparing evaluation of the status of deliverables and its impact on your project plan (reflection)| | | 31.10.2023 |  |
 | Preparing evaluation of tools and processes you have used to manage your team project | | | 31.10.2023 |  |
 | Preparing evaluation of tools and processes you have used to manage your team project| | | 31.10.2023 |  |
-| Adding individual contributions | | Team | 31.10.2023 |  |
+| Adding individual contributions | [#516](https://github.com/bounswe/bounswe2023group5/issues/516) | Team | 31.10.2023 |  |
 | Connecting Login Page to Backend - Mobile| | Harun Sami Çelik | 31.10.2023 | 2hr  |
 | Connecting Delete Account Page to Backend - Mobile | | Harun Sami Çelik | 31.10.2023 | 2hr  |
 | Connecting Forget Password Page to Backend - Mobile | | Ege Ekşi | 31.10.2023 | 2hr |
