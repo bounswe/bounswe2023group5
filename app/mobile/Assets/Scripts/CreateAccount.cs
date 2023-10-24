@@ -5,14 +5,17 @@ using TMPro;
 
 public class CreateAccount : MonoBehaviour
 {
-    public TMP_InputField nameInputField;
-    public TMP_InputField emailInputField;
-    public TMP_InputField passwordInputField;
-    public TMP_InputField confirmPasswordInputField;
+    [SerializeField] private TMP_InputField nameInputField;
+    [SerializeField] private TMP_InputField emailInputField;
+    [SerializeField] private TMP_InputField passwordInputField;
+    [SerializeField] private TMP_InputField confirmPasswordInputField;
+    [SerializeField] private Button createAccountButton;
+    [SerializeField] private Button loginButton;
     private CanvasManager canvasManager;
     private void Awake()
     {
-        GetComponent<Button>().onClick.AddListener(OnClickedCreateAccount);
+        loginButton.onClick.AddListener(OnClickedLoginButton);
+        createAccountButton.onClick.AddListener(OnClickedCreateAccount);
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
     }
 
@@ -50,5 +53,11 @@ public class CreateAccount : MonoBehaviour
             canvasManager.HideSignUpPage();
         }
         Debug.Log(isUserCreated ? "Account created" : "Account not created");
+    }
+
+    private void OnClickedLoginButton()
+    {
+        canvasManager.ShowLogInPage();
+        canvasManager.HideLogInPage();
     }
 }

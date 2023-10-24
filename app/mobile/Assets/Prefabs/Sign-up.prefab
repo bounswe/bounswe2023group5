@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &190284390105677586
 RectTransform:
   m_ObjectHideFlags: 0
@@ -147,7 +147,6 @@ GameObject:
   - component: {fileID: 190284390312551745}
   - component: {fileID: 190284390312551750}
   - component: {fileID: 190284390312551751}
-  - component: {fileID: 190284390312551744}
   m_Layer: 5
   m_Name: Create Account Button
   m_TagString: Untagged
@@ -173,7 +172,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -5, y: -342}
+  m_AnchoredPosition: {x: -5, y: -393}
   m_SizeDelta: {x: 307.9827, y: 105.0637}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &190284390312551745
@@ -258,23 +257,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &190284390312551744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 190284390312551749}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e74dbac99f920d4dbd80e3bdb546b63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nameInputField: {fileID: 3656364880469168315}
-  emailInputField: {fileID: 190284391873000656}
-  passwordInputField: {fileID: 3656364880902989386}
-  confirmPasswordInputField: {fileID: 3656364880890050758}
-  canvasManager: {fileID: 0}
 --- !u!1 &190284390336542199
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,7 +292,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -48, y: -807}
+  m_AnchoredPosition: {x: -48, y: -697}
   m_SizeDelta: {x: 689.3447, y: 87.9831}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &190284390336542192
@@ -445,7 +427,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -171.95, y: 732.78}
+  m_AnchoredPosition: {x: -171.95, y: 681.78}
   m_SizeDelta: {x: 242.28, y: 95.034}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &190284390568454952
@@ -716,7 +698,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 34.496, y: -17.5}
+  m_AnchoredPosition: {x: 34.496, y: 92}
   m_SizeDelta: {x: 228.99, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &190284390657647827
@@ -770,31 +752,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CanvasManager, Assembly-CSharp
-        m_MethodName: ShowLogInPage
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CanvasManager, Assembly-CSharp
-        m_MethodName: HideSignUpPage
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &190284390765811762
 GameObject:
   m_ObjectHideFlags: 0
@@ -812,7 +770,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &190284390765811773
 RectTransform:
   m_ObjectHideFlags: 0
@@ -965,7 +923,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -117, y: 690}
+  m_AnchoredPosition: {x: -117, y: 639}
   m_SizeDelta: {x: 452.1839, y: 90.5295}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &190284391006580888
@@ -1076,6 +1034,7 @@ GameObject:
   - component: {fileID: 190284391029328454}
   - component: {fileID: 190284391029328448}
   - component: {fileID: 190284391029328449}
+  - component: {fileID: 7786932499896906109}
   m_Layer: 5
   m_Name: Sign-up
   m_TagString: Untagged
@@ -1150,6 +1109,24 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7786932499896906109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190284391029328455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e74dbac99f920d4dbd80e3bdb546b63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameInputField: {fileID: 3656364880469168315}
+  emailInputField: {fileID: 190284391873000656}
+  passwordInputField: {fileID: 3656364880902989386}
+  confirmPasswordInputField: {fileID: 3656364880890050758}
+  createAccountButton: {fileID: 190284390312551751}
+  loginButton: {fileID: 190284390657647824}
 --- !u!1 &190284391342825051
 GameObject:
   m_ObjectHideFlags: 0
@@ -1168,7 +1145,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &190284391342825050
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1736,7 +1713,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &190284392061368249
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1929,7 +1906,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3466085996475660109, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 500
+      value: 434
       objectReference: {fileID: 0}
     - target: {fileID: 3466085996475660109, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1954,6 +1931,10 @@ PrefabInstance:
     - target: {fileID: 3466085996630625213, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
       propertyPath: m_text
       value: Enter username
+      objectReference: {fileID: 0}
+    - target: {fileID: 6874090524766802231, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.19995117
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
@@ -2066,7 +2047,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3466085996475660109, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 100
+      value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 3466085996475660109, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2144,6 +2125,10 @@ PrefabInstance:
       propertyPath: m_SpriteState.m_PressedSprite
       value: 
       objectReference: {fileID: 21300000, guid: 92e22b0c9e45d424cb1817f794fd6e7c, type: 3}
+    - target: {fileID: 6874090524766802231, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.19995117
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
 --- !u!114 &3656364880902989386 stripped
@@ -2285,7 +2270,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3466085996475660109, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -100
+      value: -166
       objectReference: {fileID: 0}
     - target: {fileID: 3466085996475660109, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2363,6 +2348,10 @@ PrefabInstance:
       propertyPath: m_SpriteState.m_PressedSprite
       value: 
       objectReference: {fileID: 21300000, guid: 92e22b0c9e45d424cb1817f794fd6e7c, type: 3}
+    - target: {fileID: 6874090524766802231, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.19995117
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
 --- !u!114 &3656364880890050758 stripped
@@ -2418,6 +2407,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 190284391029328454}
     m_Modifications:
+    - target: {fileID: 3466085996453410677, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
+      propertyPath: m_text
+      value: Email Address
+      objectReference: {fileID: 0}
     - target: {fileID: 3466085996475660108, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
       propertyPath: m_Name
       value: Email
@@ -2492,7 +2485,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3466085996475660109, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 300
+      value: 234
       objectReference: {fileID: 0}
     - target: {fileID: 3466085996475660109, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2517,6 +2510,10 @@ PrefabInstance:
     - target: {fileID: 3466085996625158613, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
       propertyPath: m_CharacterValidation
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6874090524766802231, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.19995117
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
