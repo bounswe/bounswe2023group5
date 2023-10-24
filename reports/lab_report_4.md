@@ -37,8 +37,8 @@
 | Login Page Implementation - MOBILE  | [#471](https://github.com/bounswe/bounswe2023group5/issues/471)     |  Harun Sami Çelik | 24.10.2023| | 2 hr | 3 hr |
 | Register Page Implementation - MOBILE  | [#452](https://github.com/bounswe/bounswe2023group5/issues/452) |  Bilal Atım | 24.10.2023 | | 2 hr | 2 hr |
 | Initial Home Page Implementation - MOBILE  | [#453](https://github.com/bounswe/bounswe2023group5/issues/453) |  Bilal Atım | 24.10.2023 | | 2 hr | 2 hr |
-| Logout Functionality - MOBILE  | [#463](https://github.com/bounswe/bounswe2023group5/issues/463) |  Said Yolcu | 24.10.2023 | | 4 hr | 0.5 hr |
-| Change Password Page Implementation - MOBILE  | [#465](https://github.com/bounswe/bounswe2023group5/issues/465) |  Said Yolcu | 24.10.2023 | | 5 hr | 3 hr |
+| Logout Functionality - MOBILE  | [#463](https://github.com/bounswe/bounswe2023group5/issues/463) |  Said Yolcu | 24.10.2023 | [#502](https://github.com/bounswe/bounswe2023group5/pull/502) | 4 hr | 0.5 hr |
+| Change Password Page Implementation - MOBILE  | [#465](https://github.com/bounswe/bounswe2023group5/issues/465) |  Said Yolcu | 24.10.2023 | [#499](https://github.com/bounswe/bounswe2023group5/pull/499) | 5 hr | 3 hr |
 | Forgot Password Page and Functionality Implementation - MOBILE  | [#466](https://github.com/bounswe/bounswe2023group5/issues/466) |  Ege Ekşi | 24.10.2023 |  | 2 hr | 1.5 hr |
 | Delete Account Page Implementation - MOBILE  | [#472](https://github.com/bounswe/bounswe2023group5/issues/472)     |  Harun Sami Çelik | 24.10.2023 | | 2 hr | 1 hr |
 | Main Layout of the Pages - MOBILE  | [#467](https://github.com/bounswe/bounswe2023group5/issues/467) |  Ege Ekşi | 24.10.2023 | | 2 hr | 3 hr|
@@ -91,8 +91,8 @@
 | Connecting Login Page to Backend - Mobile| | Harun Sami Çelik | 31.10.2023 | 2hr  |
 | Connecting Delete Account Page to Backend - Mobile | | Harun Sami Çelik | 31.10.2023 | 2hr  |
 | Connecting Forget Password Page to Backend - Mobile | | Ege Ekşi | 31.10.2023 | 2hr |
-| Connecting Change Password Page to Backend - Mobile | | Said Yolcu | 31.10.2023 | 2hr |
-| Connecting Logout Functionality to Backend - Mobile | | Said Yolcu | 31.10.2023 | 2hr |
+| Connecting Change Password Page to Backend - Mobile | [#510](https://github.com/bounswe/bounswe2023group5/issues/510) | Said Yolcu | 31.10.2023 | 2hr |
+| Connecting Logout Functionality to Backend - Mobile | [#509](https://github.com/bounswe/bounswe2023group5/issues/509) | Said Yolcu | 31.10.2023 | 2hr |
 | Connecting Home Page to Backend - Mobile | [#519](https://github.com/bounswe/bounswe2023group5/issues/519) | Bilal Atım | 31.10.2023 | 2hr |
 | Connecting Signup to Backend - Mobile | [#520](https://github.com/bounswe/bounswe2023group5/issues/520) | Bilal Atım | 31.10.2023 | 2hr |
 | Create Games Page - Mobile | | Ege Ekşi, Harun Sami Çelik | 31.10.2023 | 4hr |
