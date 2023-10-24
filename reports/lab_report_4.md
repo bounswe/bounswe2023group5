@@ -75,7 +75,7 @@
 | Implementing CI/CD for Backend | [#512](https://github.com/bounswe/bounswe2023group5/issues/512) | Halis Bal | 31.10.2023 | 5hr |
 | Deployment Backend to AWS | [#515](https://github.com/bounswe/bounswe2023group5/issues/515) | Deniz Ünal | 31.10.2023 | 3hr |
 | Adding Conventions to Wiki Page | [#517](https://github.com/bounswe/bounswe2023group5/issues/517) | Alperen Bırçak | 31.10.2023 | 30 mins |
-| Game Detail Endpoint | [#528](https://github.com/bounswe/bounswe2023group5/issues/528) | Backend | 31.10.2023 | 2 hr| 
+| Game Detail Endpoint | [#528](https://github.com/bounswe/bounswe2023group5/issues/528) | Zeynep Baydemir | 31.10.2023 | 2 hr| 
 | get-games-list Endpoint | [#521](https://github.com/bounswe/bounswe2023group5/issues/521) | Deniz Ünal | 28.10.2023 | 1 hr |
 | Add filter functionality to /GET games Endpoint | [#524](https://github.com/bounswe/bounswe2023group5/issues/524) | Arda | 31.10.2023 | 2 hr| 
 | Game Entity Implementation | [#523](https://github.com/bounswe/bounswe2023group5/issues/523) | Deniz Ünal | 31.10.2023 | 2 hr |
