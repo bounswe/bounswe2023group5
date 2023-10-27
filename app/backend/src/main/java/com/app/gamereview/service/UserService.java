@@ -60,7 +60,7 @@ public class UserService {
 
 		// TODO : Delete related data of the user such as profile, achievements etc.
 
-		if (findResult.isPresent() && !findResult.get().getDeleted()) {
+		if (findResult.isPresent() && !findResult.get().getIsDeleted()) {
 			Query query = new Query(Criteria.where("_id").is(id));
 			Update update = new Update().set("isDeleted", true);
 			mongoTemplate.updateFirst(query, update, User.class);

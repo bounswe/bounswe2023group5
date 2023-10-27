@@ -39,7 +39,7 @@ public class AuthService {
 			return null;
 		}
 		User userToCreate = modelMapper.map(registerUserRequestDto, User.class);
-		userToCreate.setDeleted(false);
+		userToCreate.setIsDeleted(false);
 		userToCreate.setVerified(false);
 		userToCreate.setCreatedAt(LocalDateTime.now());
 		// role assigning logic will change
@@ -56,7 +56,7 @@ public class AuthService {
 
 		User user = optionalUser.get();
 
-		if (user.getDeleted()) {
+		if (user.getIsDeleted()) {
 			return false;
 		}
 
@@ -78,7 +78,7 @@ public class AuthService {
 
 		User user = optionalUser.get();
 
-		if (user.getDeleted()) {
+		if (user.getIsDeleted()) {
 			return false;
 		}
 

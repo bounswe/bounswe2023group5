@@ -12,6 +12,8 @@ import java.util.Date;
 @Setter
 public class Game extends BaseModel {
 
+    //TODO adding fields that depend on tag entity
+
     private String gameName;
 
     private String gameDescription;
