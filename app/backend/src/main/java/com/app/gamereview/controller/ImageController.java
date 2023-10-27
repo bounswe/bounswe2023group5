@@ -1,5 +1,6 @@
 package com.app.gamereview.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +15,13 @@ import java.io.File;
 @Controller
 public class ImageController {
 
-    private static final String IMAGE_DIRECTORY = "images/";
+    @Value("${image.base-directory}")
+    private String imageBaseDirectory;
 
     @GetMapping("/images/{folder}/{fileName:.+}")
     public ResponseEntity<Resource> serveImage(@PathVariable String folder, @PathVariable String fileName) {
         try {
-            File imageFile = new File(IMAGE_DIRECTORY + folder + File.separator + fileName);
+            File imageFile = new File(imageBaseDirectory + folder + File.separator + fileName);
 
             if (imageFile.exists() && imageFile.isFile()) {
                 Resource resource = new FileSystemResource(imageFile);
