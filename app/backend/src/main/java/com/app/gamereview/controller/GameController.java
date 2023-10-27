@@ -3,6 +3,7 @@ package com.app.gamereview.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +26,7 @@ public class GameController {
         this.gameService = gameService;
     }
 
-    @GetMapping("get-game-list")
+    @PostMapping("get-game-list")
     public ResponseEntity<List<GetGameListResponseDto>> getGames(@RequestBody GetGameListRequestDto filter) {
         List<GetGameListResponseDto> gameList = gameService.getAllGames(filter);
         return ResponseEntity.ok().body(gameList);

@@ -30,7 +30,9 @@ public class GameService {
     public List<GetGameListResponseDto> getAllGames(GetGameListRequestDto filter) {
         Query query = new Query();
 
-        if (filter.getFindDeleted() != true) {
+        if (filter.getFindDeleted() == null) {
+            query.addCriteria(Criteria.where("isDeleted").is(false));
+        } else if (filter.getFindDeleted() == false) {
             query.addCriteria(Criteria.where("isDeleted").is(false));
         }
 
