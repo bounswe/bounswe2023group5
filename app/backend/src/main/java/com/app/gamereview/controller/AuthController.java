@@ -3,6 +3,7 @@ package com.app.gamereview.controller;
 import com.app.gamereview.dto.request.LoginUserRequestDto;
 import com.app.gamereview.dto.request.ChangeUserPasswordRequestDto;
 import com.app.gamereview.dto.request.ForgotChangeUserPasswordRequestDto;
+import com.app.gamereview.dto.request.ForgotPasswordRequestDto;
 import com.app.gamereview.dto.request.RegisterUserRequestDto;
 import com.app.gamereview.dto.request.VerifyResetCodeRequestDto;
 import com.app.gamereview.dto.response.LoginUserResponseDto;
@@ -69,7 +70,8 @@ public class AuthController {
 	}
 
 	@PostMapping("/forgot-password")
-	public ResponseEntity<String> forgotPassword(@RequestParam String email) {
+	public ResponseEntity<String> forgotPassword(@RequestBody ForgotPasswordRequestDto forgotRequest) {
+		String email = forgotRequest.getEmail();
 		User user = userService.getUserByEmail(email);
 
 		if (user == null) {
@@ -85,7 +87,7 @@ public class AuthController {
 		message += "\n The reset code will expire after 24 hours.";
 		emailService.sendEmail(email, subject, message);
 
-		return ResponseEntity.ok("Reset code sent successfully");
+		return ResponseEntity.ok().body("Reset code sent successfully");
 	}
 
 	@PostMapping("/verify-reset-code")
@@ -111,7 +113,7 @@ public class AuthController {
 		// Clear the reset code after generating the token
 		resetCodeRepository.deleteByUserId(resetCode.getUserId());
 
-		return ResponseEntity.ok(token);
+		return ResponseEntity.ok().body(token);
 	}
 
 	private String generateResetCode(String userId) {
