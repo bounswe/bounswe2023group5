@@ -1,8 +1,13 @@
 package com.app.gamereview.dto.request;
 
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class GetGameListRequestDto {
     
     private Boolean findDeleted;
