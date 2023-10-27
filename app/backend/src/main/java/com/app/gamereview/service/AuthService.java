@@ -1,10 +1,8 @@
 package com.app.gamereview.service;
 
-import com.app.gamereview.dto.request.ChangeUserPasswordRequestDto;
-import com.app.gamereview.dto.request.ForgotChangeUserPasswordRequestDto;
-import com.app.gamereview.dto.request.RegisterUserRequestDto;
-import com.app.gamereview.dto.request.LoginUserRequestDto;
+import com.app.gamereview.dto.request.*;
 import com.app.gamereview.dto.response.LoginUserResponseDto;
+import com.app.gamereview.dto.response.UserResponseDto;
 import com.app.gamereview.model.User;
 import com.app.gamereview.repository.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -97,7 +95,7 @@ public class AuthService {
 			if (password.equals(loginUserRequestDto.getPassword())) {
 				String token = JwtUtil.generateToken(user.getEmail());
 				LoginUserResponseDto response = new LoginUserResponseDto();
-				response.setUser(user);
+				response.setUser(new UserResponseDto(user));
 				response.setToken(token);
 				return response;
 			}
@@ -105,5 +103,21 @@ public class AuthService {
 
 		return null;
 	}
+
+	public UserResponseDto me(MeRequestDto meRequestDto) {
+		String token = meRequestDto.getToken();
+		String email = JwtUtil.extractSubject(token);
+		Optional<User> userOptional = userRepository.findByEmailAndIsDeletedFalse(email);
+
+		if (userOptional.isPresent()) {
+			User user = userOptional.get();
+			UserResponseDto response = new UserResponseDto(user);
+			return response;
+		}
+		return null;
+
+	}
+
+
 
 }
