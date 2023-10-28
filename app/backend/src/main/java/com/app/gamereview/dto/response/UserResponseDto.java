@@ -7,20 +7,23 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserResponseDto {
-    private String username;
-    private String id;
 
-    private String email;
+	private String username;
 
-    private String role;
+	private String id;
 
-    private Boolean isVerified;
+	private String email;
 
-    public UserResponseDto(User user) {
-        this.email = user.getEmail();
-        this.username = user.getUsername();
-        this.role = user.getRole();
-        this.isVerified = user.getVerified();
-        this.id = user.getId();
-    }
+	private String role;
+
+	private Boolean isVerified;
+
+	public UserResponseDto(User user) {
+		this.email = user.getEmail();
+		this.username = user.getUsername();
+		this.role = user.getRole();
+		this.isVerified = user.getVerified();
+		this.id = user.getId();
+	}
+
 }

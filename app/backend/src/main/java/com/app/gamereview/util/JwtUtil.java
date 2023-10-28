@@ -60,16 +60,14 @@ public class JwtUtil {
 	}
 
 	public static String extractSubject(String token) {
-        try {
-            Claims claims = Jwts.parser()
-                    .setSigningKey(SECRET_KEY)
-                    .parseClaimsJws(token)
-                    .getBody();
+		try {
+			Claims claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
 
-            return claims.getSubject();
-        } catch (Exception e) {
-            return null;
-        }
-    }
+			return claims.getSubject();
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
 
 }

@@ -45,19 +45,7 @@ public class AuthService {
 		return userRepository.save(userToCreate);
 	}
 
-	public Boolean changeUserPassword(ChangeUserPasswordRequestDto passwordRequestDto) {
-		Optional<User> optionalUser = userRepository.findById(passwordRequestDto.getUserId());
-
-		if (optionalUser.isEmpty()) {
-			return false;
-		}
-
-		User user = optionalUser.get();
-
-		if (user.getIsDeleted()) {
-			return false;
-		}
-
+	public Boolean changeUserPassword(ChangeUserPasswordRequestDto passwordRequestDto, User user) {
 		if (!Objects.equals(passwordRequestDto.getCurrentPassword(), user.getPassword())) {
 			return false;
 		}
@@ -67,19 +55,7 @@ public class AuthService {
 		return true;
 	}
 
-	public Boolean changeForgotPassword(ForgotChangeUserPasswordRequestDto passwordRequestDto) {
-		Optional<User> optionalUser = userRepository.findById(passwordRequestDto.getUserId());
-
-		if (optionalUser.isEmpty()) {
-			return false;
-		}
-
-		User user = optionalUser.get();
-
-		if (user.getIsDeleted()) {
-			return false;
-		}
-
+	public Boolean changeForgotPassword(ForgotChangeUserPasswordRequestDto passwordRequestDto, User user) {
 		user.setPassword(passwordRequestDto.getNewPassword());
 		userRepository.save(user);
 		return true;
@@ -117,7 +93,5 @@ public class AuthService {
 		return null;
 
 	}
-
-
 
 }
