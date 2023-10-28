@@ -6,10 +6,6 @@ import GameController from "../../Components/Icons/GameController";
 
 const items1: MenuProps["items"] = [
   {
-    key: "nav-platform",
-    label: "GamerInsight",
-  },
-  {
     key: "nav-home",
     label: "Home",
     icon: <HomeTwoTone />,
@@ -33,15 +29,15 @@ const items1: MenuProps["items"] = [
 
 function TopBar() {
   return (
-    <Header style={{ display: "flex", justifyContent: "flex-start" }}>
+    <div>
+      <div className={styles.platform}>GamerInsight</div>
       <Menu
         className={styles.menu}
         theme="dark"
         mode="horizontal"
-        defaultSelectedKeys={["2"]}
         items={items1}
-      ></Menu>
-    </Header>
+      />
+    </div>
   );
 }
 
