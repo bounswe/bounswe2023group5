@@ -9,6 +9,7 @@ import {
 } from "@ant-design/icons";
 import { Button, Input } from "antd";
 import { useMutation } from "react-query";
+import axios from "axios";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -36,14 +37,10 @@ function Login() {
       console.log(data.status)
       const responseData: { token: string, user:any} = await data.json();
       const jwtToken:string = responseData.token;
-      const user:any = responseData.user;
-      localStorage.setItem("token", jwtToken);
-      localStorage.setItem("email", user.email);
-      localStorage.setItem("role", user.role);
-      localStorage.setItem("username", user.username);
-      if(localStorage.getItem("token"))
+      axios.defaults.headers.common['Authorization'] = `${jwtToken}`;
 
-        navigate("/hello");
+
+      navigate("/hello");
     },
     onError: () => {
       alert("Your email or password is incorrect.")
@@ -51,8 +48,6 @@ function Login() {
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(email)
-    console.log(password)
     loginMutation.mutate({ email, password });
   };
 
@@ -111,6 +106,13 @@ function Login() {
                 className={styles.navigationLink}
               >
                 Don't you have an account? Register
+              </Button>
+              <Button
+                type="link"
+                onClick={() => navigate("/forgotpassword")}
+                className={styles.navigationLink}
+              >
+                Forgot Password
               </Button>
             </div>
           </form>

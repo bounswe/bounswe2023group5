@@ -11,7 +11,6 @@ interface EnterVerificationCodeFormProps {
 }
 
 const EnterVerificationCodeForm: React.FC<EnterVerificationCodeFormProps> = ({
-  isVerified,
   setIsVerified,
   email
 }) => {
