@@ -42,7 +42,7 @@ function Login() {
       localStorage.setItem("role", user.role);
       localStorage.setItem("username", user.username);
       if(localStorage.getItem("token"))
-        console.log("Token is set");
+
         navigate("/hello");
     },
     onError: () => {
@@ -51,6 +51,8 @@ function Login() {
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    console.log(email)
+    console.log(password)
     loginMutation.mutate({ email, password });
   };
 

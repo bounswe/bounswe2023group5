@@ -2,7 +2,7 @@
 import React from "react";
 import { Form, Input, Button } from "antd";
 import { useMutation } from "react-query";
-
+import axios from 'axios';
 
 interface EnterVerificationCodeFormProps {
   isVerified: boolean;
@@ -26,15 +26,18 @@ const EnterVerificationCodeForm: React.FC<EnterVerificationCodeFormProps> = ({
     }
 
     const codeMutation = useMutation(postCode,{  
-    onSuccess: (data) => {
-        console.log(data.status)
+    onSuccess: async (data) => {
         if(data.status === 400){
-        alert("Please enter a valid code")
-        return;
+          alert("Please enter a valid code")
+          return;
         }else if(data.status === 500){
-        alert("Something went wrong.")
-        return;
+          alert("Something went wrong.")
+          return;
         }
+        
+        const token:string = await data.text();
+
+        axios.defaults.headers.common['Authorization'] = `${token}`;
         setIsVerified(true)    },
     onError: () => {
         alert("Something went wrong.")
@@ -43,7 +46,6 @@ const EnterVerificationCodeForm: React.FC<EnterVerificationCodeFormProps> = ({
   const onFinish = (data:any) => {
     // Logic for verifying the code
     data["userEmail"]=email;
-    console.log(data)
     codeMutation.mutate( data );
   };
 
