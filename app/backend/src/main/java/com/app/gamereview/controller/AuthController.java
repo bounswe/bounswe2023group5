@@ -6,7 +6,9 @@ import com.app.gamereview.dto.request.ForgotChangeUserPasswordRequestDto;
 import com.app.gamereview.dto.request.ForgotPasswordRequestDto;
 import com.app.gamereview.dto.request.RegisterUserRequestDto;
 import com.app.gamereview.dto.request.VerifyResetCodeRequestDto;
+import com.app.gamereview.dto.request.*;
 import com.app.gamereview.dto.response.LoginUserResponseDto;
+import com.app.gamereview.dto.response.UserResponseDto;
 import com.app.gamereview.model.ResetCode;
 import com.app.gamereview.model.User;
 import com.app.gamereview.repository.ResetCodeRepository;
@@ -130,6 +132,12 @@ public class AuthController {
 		resetCodeRepository.save(resetCode);
 
 		return code;
+	}
+
+	@PostMapping("/me")
+	public ResponseEntity<UserResponseDto> me(@RequestBody MeRequestDto token) {
+		UserResponseDto userResponse = authService.me(token);
+		return ResponseEntity.ok(userResponse);
 	}
 
 }
