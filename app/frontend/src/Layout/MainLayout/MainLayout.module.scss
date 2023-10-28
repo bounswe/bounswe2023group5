@@ -3,7 +3,7 @@
 .holyGrailLayout {
   display: grid;
   $column-size: clamp(0px, 20%, 300px);
-  grid-template-columns: $column-size 1fr $column-size;
+  grid-template-columns: min-content 1fr $column-size;
   grid-template-rows: auto 1fr auto;
   grid-template-areas:
     "header header header"

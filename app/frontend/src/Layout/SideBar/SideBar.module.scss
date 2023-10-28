@@ -1,0 +1,11 @@
+
+.sidebar-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .profile-pic {
+        height: 130px;
+        width:130px;
+    }
+}

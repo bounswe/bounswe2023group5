@@ -1,3 +1,4 @@
+import SideBar from "../SideBar/SideBar";
 import styles from "./MainLayout.module.scss";
 import { Outlet } from "react-router-dom";
 
@@ -5,7 +6,9 @@ function MainLayout() {
   return (
     <div className={styles.holyGrailLayout}>
       <div className={styles.header}>Header</div>
-      <div className={styles.leftColumn}>Left Sidebar</div>
+      <div className={styles.leftColumn}>
+        <SideBar></SideBar>
+      </div>
       <div className={styles.mainContent}>
         <Outlet />
       </div>
