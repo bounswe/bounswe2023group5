@@ -1,15 +1,13 @@
 import styles from "./HelloWorld.module.scss";
 import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 
 function HelloWorld() {
   const navigate = useNavigate();
   const Logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("email");
-    localStorage.removeItem("role");
-    localStorage.removeItem("username");
+    delete axios.defaults.headers.common['Authorization'];
     navigate("/login")
   }
   return (
