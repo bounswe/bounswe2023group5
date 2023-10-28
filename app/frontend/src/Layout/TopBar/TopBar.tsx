@@ -1,5 +1,4 @@
 import { Menu, MenuProps } from "antd";
-import { Header } from "antd/es/layout/layout";
 import styles from "./TopBar.module.scss";
 import { HomeTwoTone, UserOutlined, TeamOutlined } from "@ant-design/icons";
 import GameController from "../../Components/Icons/GameController";
