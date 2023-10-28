@@ -1,8 +1,17 @@
-.platform {
-   width: clamp(0px, 20%, 300px);
-}
-.menu {
+.container {
+  display: flex;
+  .logo {
+    width: clamp(0px, 20%, 300px);
+  }
+  .menu {
     display: flex;
     flex-grow: 1;
-    justify-content: space-between;
+    justify-content: stretch;
+    & > * {
+      flex: 1 1 0px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 }
