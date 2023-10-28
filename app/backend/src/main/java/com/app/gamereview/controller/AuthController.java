@@ -3,16 +3,21 @@ package com.app.gamereview.controller;
 import com.app.gamereview.dto.request.LoginUserRequestDto;
 import com.app.gamereview.dto.request.ChangeUserPasswordRequestDto;
 import com.app.gamereview.dto.request.ForgotChangeUserPasswordRequestDto;
+import com.app.gamereview.dto.request.ForgotPasswordRequestDto;
 import com.app.gamereview.dto.request.RegisterUserRequestDto;
 import com.app.gamereview.dto.request.VerifyResetCodeRequestDto;
+import com.app.gamereview.dto.request.*;
 import com.app.gamereview.dto.response.LoginUserResponseDto;
+import com.app.gamereview.dto.response.UserResponseDto;
 import com.app.gamereview.model.ResetCode;
 import com.app.gamereview.model.User;
 import com.app.gamereview.repository.ResetCodeRepository;
 import com.app.gamereview.service.AuthService;
 import com.app.gamereview.service.EmailService;
 import com.app.gamereview.service.UserService;
+import com.app.gamereview.util.AuthorizationRequired;
 import com.app.gamereview.util.JwtUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,16 +54,22 @@ public class AuthController {
 		return ResponseEntity.ok(userToCreate);
 	}
 
+	@AuthorizationRequired
 	@PostMapping("/change-password")
-	public ResponseEntity<Boolean> changePassword(@RequestBody ChangeUserPasswordRequestDto passwordRequestDto) {
-		Boolean changePasswordResult = authService.changeUserPassword(passwordRequestDto);
+	public ResponseEntity<Boolean> changePassword(@RequestBody ChangeUserPasswordRequestDto passwordRequestDto,
+			@RequestHeader String Authorization, HttpServletRequest request) {
+		User user = (User) request.getAttribute("authenticatedUser");
+		Boolean changePasswordResult = authService.changeUserPassword(passwordRequestDto, user);
 		return ResponseEntity.ok(changePasswordResult);
 	}
 
+	@AuthorizationRequired
 	@PostMapping("/change-forgot-password")
 	public ResponseEntity<Boolean> changeForgotPassword(
-			@RequestBody ForgotChangeUserPasswordRequestDto passwordRequestDto) {
-		Boolean changePasswordResult = authService.changeForgotPassword(passwordRequestDto);
+			@RequestBody ForgotChangeUserPasswordRequestDto passwordRequestDto, @RequestHeader String Authorization,
+			HttpServletRequest request) {
+		User user = (User) request.getAttribute("authenticatedUser");
+		Boolean changePasswordResult = authService.changeForgotPassword(passwordRequestDto, user);
 		return ResponseEntity.ok(changePasswordResult);
 	}
 
@@ -69,7 +80,8 @@ public class AuthController {
 	}
 
 	@PostMapping("/forgot-password")
-	public ResponseEntity<String> forgotPassword(@RequestParam String email) {
+	public ResponseEntity<String> forgotPassword(@RequestBody ForgotPasswordRequestDto forgotRequest) {
+		String email = forgotRequest.getEmail();
 		User user = userService.getUserByEmail(email);
 
 		if (user == null) {
@@ -85,7 +97,7 @@ public class AuthController {
 		message += "\n The reset code will expire after 24 hours.";
 		emailService.sendEmail(email, subject, message);
 
-		return ResponseEntity.ok("Reset code sent successfully");
+		return ResponseEntity.ok().body("Reset code sent successfully");
 	}
 
 	@PostMapping("/verify-reset-code")
@@ -111,7 +123,7 @@ public class AuthController {
 		// Clear the reset code after generating the token
 		resetCodeRepository.deleteByUserId(resetCode.getUserId());
 
-		return ResponseEntity.ok(token);
+		return ResponseEntity.ok().body(token);
 	}
 
 	private String generateResetCode(String userId) {
@@ -128,6 +140,14 @@ public class AuthController {
 		resetCodeRepository.save(resetCode);
 
 		return code;
+	}
+
+	@AuthorizationRequired
+	@PostMapping("/me")
+	public ResponseEntity<UserResponseDto> me(@RequestHeader String Authorization, HttpServletRequest request) {
+		User user = (User) request.getAttribute("authenticatedUser");
+		UserResponseDto userResponse = authService.me(user);
+		return ResponseEntity.ok(userResponse);
 	}
 
 }

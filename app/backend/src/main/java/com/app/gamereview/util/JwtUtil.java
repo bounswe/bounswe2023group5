@@ -59,4 +59,15 @@ public class JwtUtil {
 		return false; // Token is not valid
 	}
 
+	public static String extractSubject(String token) {
+		try {
+			Claims claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+
+			return claims.getSubject();
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
+
 }
