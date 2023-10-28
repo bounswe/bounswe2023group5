@@ -35,6 +35,7 @@ function TopBar() {
         mode="horizontal"
         defaultSelectedKeys={["2"]}
         items={items}
+        theme="dark"
       />
     </div>
   );

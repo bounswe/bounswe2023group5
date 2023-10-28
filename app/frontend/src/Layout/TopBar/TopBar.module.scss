@@ -1,17 +1,19 @@
+@import "../../colors";
+
 .container {
   display: flex;
+  background-color: $prussian-blue-dark-50;
+  overflow: hidden;
+  padding-right: 2px;
   .logo {
-    width: clamp(0px, 20%, 300px);
+    flex: 0 0 clamp(0px, 20%, 300px);
   }
   .menu {
+    flex: 1 1 0px;
     display: flex;
-    flex-grow: 1;
     justify-content: stretch;
     & > * {
       flex: 1 1 0px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
     }
   }
 }
