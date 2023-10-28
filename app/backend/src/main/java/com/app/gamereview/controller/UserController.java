@@ -1,9 +1,7 @@
 package com.app.gamereview.controller;
 
-import com.app.gamereview.dto.request.ChangeUserPasswordRequestDto;
 import com.app.gamereview.dto.request.GetAllUsersFilterRequestDto;
 import com.app.gamereview.model.User;
-import com.app.gamereview.service.AuthService;
 import com.app.gamereview.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
