@@ -1,6 +1,7 @@
 package com.app.gamereview.controller;
 
 import com.app.gamereview.dto.request.tag.AddGameTagRequestDto;
+import com.app.gamereview.dto.response.GameDetailResponseDto;
 import com.app.gamereview.dto.response.tag.AddGameTagResponseDto;
 import com.app.gamereview.dto.response.tag.GetAllTagsOfGameResponseDto;
 import org.apache.coyote.Response;
@@ -40,6 +41,11 @@ public class GameController {
 	@GetMapping("/get-all-tags")
 	public ResponseEntity<GetAllTagsOfGameResponseDto> getAllTags(@RequestParam String gameId){
 		GetAllTagsOfGameResponseDto response = gameService.getGameTags(gameId);
+		return ResponseEntity.ok(response);
+	}
+	@GetMapping("/get-game")
+	public ResponseEntity<GameDetailResponseDto> getGameDetail(@RequestParam String gameId){
+		GameDetailResponseDto response = gameService.getGameDetail(gameId);
 		return ResponseEntity.ok(response);
 	}
 }
