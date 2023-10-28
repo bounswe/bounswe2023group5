@@ -16,7 +16,6 @@ function AntdConfigProvider({ children }: PropsWithChildren<{}>) {
       colorBgContainer: getThemeColor("color-container"),
     },
   };
-  console.log(theme);
   return <ConfigProvider theme={theme}>{children}</ConfigProvider>;
 }
 
