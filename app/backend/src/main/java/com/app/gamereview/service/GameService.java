@@ -1,8 +1,14 @@
 package com.app.gamereview.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.app.gamereview.dto.request.tag.AddGameTagRequestDto;
+import com.app.gamereview.dto.response.tag.AddGameTagResponseDto;
+import com.app.gamereview.dto.response.tag.GetAllTagsOfGameResponseDto;
+import com.app.gamereview.model.Tag;
+import com.app.gamereview.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -18,12 +24,17 @@ import com.app.gamereview.repository.GameRepository;
 public class GameService {
 
 	private final GameRepository gameRepository;
+	private final TagRepository tagRepository;
 
 	private final MongoTemplate mongoTemplate;
 
 	@Autowired
-	public GameService(GameRepository gameRepository, MongoTemplate mongoTemplate) {
+	public GameService(
+			GameRepository gameRepository,
+			MongoTemplate mongoTemplate,
+			TagRepository tagRepository) {
 		this.gameRepository = gameRepository;
+		this.tagRepository = tagRepository;
 		this.mongoTemplate = mongoTemplate;
 	}
 
@@ -46,6 +57,56 @@ public class GameService {
 		GetGameListResponseDto gameDto = new GetGameListResponseDto(game.getGameName(), game.getGameDescription(),
 				game.getGameIcon());
 		return gameDto;
+	}
+
+	public GetAllTagsOfGameResponseDto getGameTags(String gameId){
+		Optional<Game> findGame = gameRepository.findById(gameId);
+
+		if(findGame.isEmpty() || findGame.get().getIsDeleted()){
+			// TODO exception
+			return null;
+		}
+
+		Game game = findGame.get();
+
+		GetAllTagsOfGameResponseDto response = new GetAllTagsOfGameResponseDto();
+
+		response.setPlayerTypes(game.getPlayerTypes());
+		response.setGenre(game.getGenre());
+		response.setProduction(game.getProduction());
+		response.setDuration(game.getDuration());
+		response.setPlatforms(game.getPlatforms());
+		response.setArtStyles(game.getArtStyles());
+		response.setDeveloper(game.getDeveloper());
+		response.setOtherTags(game.getOtherTags());
+
+		return response;
+	}
+
+	public AddGameTagResponseDto addGameTag(AddGameTagRequestDto request){
+		Optional<Game> findGame = gameRepository.findById(request.getGameId());
+
+		Optional<Tag> findTag = tagRepository.findById(request.getTagId());
+
+		if(findGame.isEmpty() || findGame.get().getIsDeleted()){
+			// TODO exception
+			return null;
+		}
+
+		if(findTag.isEmpty() || findTag.get().getIsDeleted()){
+			// TODO exception
+			return null;
+		}
+
+		Game game = findGame.get();
+		Tag tag = findTag.get();
+		game.addTag(tag);
+		gameRepository.save(game);
+
+		AddGameTagResponseDto response = new AddGameTagResponseDto();
+		response.setGameId(game.getId());
+		response.setAddedTag(tag);
+		return response;
 	}
 
 }
