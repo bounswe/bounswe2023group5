@@ -36,7 +36,6 @@ function TopBar() {
     <Header style={{ display: "flex", justifyContent: "flex-start" }}>
       <Menu
         className={styles.menu}
-        theme="dark"
         mode="horizontal"
         defaultSelectedKeys={["2"]}
         items={items1}
