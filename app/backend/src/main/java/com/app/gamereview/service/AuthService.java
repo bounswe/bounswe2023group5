@@ -80,18 +80,9 @@ public class AuthService {
 		return null;
 	}
 
-	public UserResponseDto me(MeRequestDto meRequestDto) {
-		String token = meRequestDto.getToken();
-		String email = JwtUtil.extractSubject(token);
-		Optional<User> userOptional = userRepository.findByEmailAndIsDeletedFalse(email);
-
-		if (userOptional.isPresent()) {
-			User user = userOptional.get();
-			UserResponseDto response = new UserResponseDto(user);
-			return response;
-		}
-		return null;
-
+	public UserResponseDto me(User user) {
+        UserResponseDto response = new UserResponseDto(user);
+        return response;
 	}
 
 }
