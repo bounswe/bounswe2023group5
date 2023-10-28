@@ -1,11 +1,25 @@
+@import "../../colors";
 
-.sidebar-container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    .profile-pic {
-        height: 130px;
-        width:130px;
+.container {
+  height: 100%;
+  width: clamp(0px, 20%, 300px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: width 0.2s ease-in-out;
+  background-color: $color-container;
+
+  .profile-pic {
+    aspect-ratio: 1;
+    width: 40px;
+    svg {
+      height: 100%;
+      width: 100%;
     }
+  }
+}
+
+.collapsed {
+  width: 40px;
+  overflow: hidden;
 }

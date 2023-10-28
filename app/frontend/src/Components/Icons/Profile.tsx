@@ -6,11 +6,11 @@ function Profile(props: Props) {
   return (
     <svg
       id="SvgjsSvg1035"
-      width="128"
-      height="128"
       xmlns="http://www.w3.org/2000/svg"
       version="1.1"
       xmlnsXlink="http://www.w3.org/1999/xlink"
+      viewBox="0 0 120 120"
+      {...props}
     >
       <defs id="SvgjsDefs1036"></defs>
       <g id="SvgjsG1037">
