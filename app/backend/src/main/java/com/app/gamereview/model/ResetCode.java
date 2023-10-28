@@ -22,4 +22,5 @@ public class ResetCode extends BaseModel {
 		this.userId = userId;
 		this.expirationDate = expirationDate;
 	}
+
 }

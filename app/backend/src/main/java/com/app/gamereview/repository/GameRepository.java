@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface GameRepository extends MongoRepository<Game, String> {
 
-    Optional<Game> findByGameNameAndIsDeletedFalse(String gameName);
+	Optional<Game> findByGameNameAndIsDeletedFalse(String gameName);
 
 }

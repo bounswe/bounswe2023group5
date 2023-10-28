@@ -12,22 +12,23 @@ import java.util.Date;
 @Setter
 public class Game extends BaseModel {
 
-    //TODO adding fields that depend on tag entity
+	// TODO adding fields that depend on tag entity
 
-    private String gameName;
+	private String gameName;
 
-    private String gameDescription;
+	private String gameDescription;
 
-    private String gameIcon;
+	private String gameIcon;
 
-    private Date releaseDate;
+	private Date releaseDate;
 
-    private String minSystemReq;
+	private String minSystemReq;
 
-    public Game(String gameName, String gameDescription, Date releaseDate, String minSystemReq) {
-        this.gameName = gameName;
-        this.gameDescription = gameDescription;
-        this.releaseDate = releaseDate;
-        this.minSystemReq = minSystemReq;
-    }
+	public Game(String gameName, String gameDescription, Date releaseDate, String minSystemReq) {
+		this.gameName = gameName;
+		this.gameDescription = gameDescription;
+		this.releaseDate = releaseDate;
+		this.minSystemReq = minSystemReq;
+	}
+
 }

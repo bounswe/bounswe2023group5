@@ -5,6 +5,6 @@ import lombok.Getter;
 @Getter
 public class ForgotPasswordRequestDto {
 
-    private String email;
-    
+	private String email;
+
 }

@@ -16,34 +16,36 @@ import com.app.gamereview.repository.GameRepository;
 
 @Service
 public class GameService {
-    
-    private final GameRepository gameRepository;
 
-    private final MongoTemplate mongoTemplate;
+	private final GameRepository gameRepository;
 
-     @Autowired
-    public GameService(GameRepository gameRepository, MongoTemplate mongoTemplate) {
-        this.gameRepository = gameRepository;
-        this.mongoTemplate = mongoTemplate;
-    }
+	private final MongoTemplate mongoTemplate;
 
-    public List<GetGameListResponseDto> getAllGames(GetGameListRequestDto filter) {
-        Query query = new Query();
+	@Autowired
+	public GameService(GameRepository gameRepository, MongoTemplate mongoTemplate) {
+		this.gameRepository = gameRepository;
+		this.mongoTemplate = mongoTemplate;
+	}
 
-        if (filter.getFindDeleted() == null) {
-            query.addCriteria(Criteria.where("isDeleted").is(false));
-        } else if (filter.getFindDeleted() == false) {
-            query.addCriteria(Criteria.where("isDeleted").is(false));
-        }
+	public List<GetGameListResponseDto> getAllGames(GetGameListRequestDto filter) {
+		Query query = new Query();
 
-        List<Game> gamesList = mongoTemplate.find(query, Game.class);
+		if (filter.getFindDeleted() == null) {
+			query.addCriteria(Criteria.where("isDeleted").is(false));
+		}
+		else if (filter.getFindDeleted() == false) {
+			query.addCriteria(Criteria.where("isDeleted").is(false));
+		}
 
-        return gamesList.stream().map(this::mapToGetGameListResponseDto).collect(Collectors.toList());
-    }
+		List<Game> gamesList = mongoTemplate.find(query, Game.class);
 
-    private GetGameListResponseDto mapToGetGameListResponseDto(Game game) {
-        GetGameListResponseDto gameDto = new GetGameListResponseDto(game.getGameName(), game.getGameDescription(), game.getGameIcon());
-        return gameDto;
-    }
+		return gamesList.stream().map(this::mapToGetGameListResponseDto).collect(Collectors.toList());
+	}
+
+	private GetGameListResponseDto mapToGetGameListResponseDto(Game game) {
+		GetGameListResponseDto gameDto = new GetGameListResponseDto(game.getGameName(), game.getGameDescription(),
+				game.getGameIcon());
+		return gameDto;
+	}
 
 }
