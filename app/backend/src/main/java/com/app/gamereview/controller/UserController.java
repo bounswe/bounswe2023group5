@@ -23,7 +23,7 @@ public class UserController {
 	}
 
 	@GetMapping("/get-all")
-	public ResponseEntity<List<User>> getUsers(@RequestBody GetAllUsersFilterRequestDto filter) {
+	public ResponseEntity<List<User>> getUsers(GetAllUsersFilterRequestDto filter) {
 		List<User> users = userService.getAllUsers(filter);
 		return ResponseEntity.ok(users);
 	}

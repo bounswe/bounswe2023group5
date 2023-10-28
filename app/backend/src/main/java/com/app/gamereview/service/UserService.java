@@ -42,8 +42,8 @@ public class UserService {
 		if (filter.getUsername() != null) {
 			query.addCriteria(Criteria.where("username").is(filter.getUsername()));
 		}
-		if (filter.getDeleted() != null) {
-			query.addCriteria(Criteria.where("isDeleted").is(filter.getDeleted()));
+		if (filter.getIsDeleted() != null) {
+			query.addCriteria(Criteria.where("isDeleted").is(filter.getIsDeleted()));
 		}
 
 		return mongoTemplate.find(query, User.class);
