@@ -142,9 +142,11 @@ public class AuthController {
 		return code;
 	}
 
+	@AuthorizationRequired
 	@PostMapping("/me")
-	public ResponseEntity<UserResponseDto> me(@RequestBody MeRequestDto token) {
-		UserResponseDto userResponse = authService.me(token);
+	public ResponseEntity<UserResponseDto> me(@RequestHeader String Authorization, HttpServletRequest request) {
+		User user = (User) request.getAttribute("authenticatedUser");
+		UserResponseDto userResponse = authService.me(user);
 		return ResponseEntity.ok(userResponse);
 	}
 
