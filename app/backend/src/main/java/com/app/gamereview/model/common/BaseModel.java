@@ -1,7 +1,7 @@
 package com.app.gamereview.model.common;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.annotation.PersistenceCreator;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -20,8 +20,9 @@ public abstract class BaseModel {
 
 	private Boolean isDeleted;
 
-	@PersistenceConstructor
+	@PersistenceCreator
 	public BaseModel() {
 		this.id = UUID.randomUUID().toString(); // Generate a UUID during construction
 	}
+
 }
