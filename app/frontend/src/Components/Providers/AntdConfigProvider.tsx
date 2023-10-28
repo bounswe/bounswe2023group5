@@ -1,4 +1,4 @@
-import { ConfigProvider } from "antd";
+import { ConfigProvider, ThemeConfig } from "antd";
 import { PropsWithChildren } from "react";
 
 function getThemeColor(name: string) {
@@ -8,11 +8,12 @@ function getThemeColor(name: string) {
 }
 
 function AntdConfigProvider({ children }: PropsWithChildren<{}>) {
-  const theme = {
+  const theme: ThemeConfig = {
     token: {
       colorBgBase: getThemeColor("color-background"),
       colorTextBase: getThemeColor("color-text"),
       colorPrimary: getThemeColor("color-primary"),
+      colorBgContainer: getThemeColor("color-container"),
     },
   };
   console.log(theme);

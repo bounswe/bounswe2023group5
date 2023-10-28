@@ -32,7 +32,6 @@ function TopBar() {
       <div className={styles.logo}>Logo</div>
       <Menu
         className={styles.menu}
-        theme="dark"
         mode="horizontal"
         defaultSelectedKeys={["2"]}
         items={items}
