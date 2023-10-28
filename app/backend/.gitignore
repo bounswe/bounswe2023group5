@@ -34,3 +34,6 @@ build/
 
 ### Env Files ###
 *.env
+
+### Image Files
+/images/
