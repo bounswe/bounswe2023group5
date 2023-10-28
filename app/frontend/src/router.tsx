@@ -6,7 +6,6 @@ import ChangePassword from "./Pages/ChangePassword/ChangePassword";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -25,7 +24,8 @@ const router = createBrowserRouter([
   {
     path: "change",
     element: <ChangePassword />,
-  },{
+  },
+  {
     path: "/login",
     element: <Login />,
   },

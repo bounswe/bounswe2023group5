@@ -1,5 +1,18 @@
 @import "../node_modules/modern-normalize/modern-normalize.css";
+@import "./colors";
 
+body {
+  --color-background: #{$color-background};
+  --color-primary: #{$color-primary};
+  --color-secondary: #{$color-secondary};
+  --color-accent: #{$color-accent};
+  --color-text: #{$color-text};
+  --color-text-light: #{$color-text-light};
+  --color-container: #{$color-container};
+  --color-primary-dark: #{$color-primary-dark};
+  background-color: $color-background;
+  color: $color-text;
+}
 body,
 html,
 #root {

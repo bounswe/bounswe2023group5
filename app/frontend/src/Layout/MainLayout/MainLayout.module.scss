@@ -10,32 +10,30 @@
     "leftColumn mainContent rightColumn"
     "leftColumn footer rightColumn";
   height: 100%;
+  background-color: $color-background;
 }
 
 .header {
   position: sticky;
   top: 0;
-
+  background-color: $color-secondary;
   grid-area: header;
-  background-color: $sky-blue; // Light Blue
 }
 
 .mainContent {
   grid-area: mainContent;
-  background-color: $violet; // Light Gray
 }
 
 .leftColumn {
   grid-area: leftColumn;
-  background-color: $orange; // Orange
+  background-color: $color-primary;
 }
 
 .rightColumn {
   grid-area: rightColumn;
-  background-color: $blue-green; // Green
+  background-color: $color-accent;
 }
 
 .footer {
   grid-area: footer;
-  background-color: $yellow; // Red
 }
