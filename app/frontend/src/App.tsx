@@ -1,16 +1,13 @@
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router";
 import "./globals.scss";
-import { ConfigProvider } from "antd";
-import { theme } from "./theme";
+import AntdConfigProvider from "./Components/Providers/AntdConfigProvider";
 
 function App() {
   return (
-    <>
-      <ConfigProvider theme={theme}>
-        <RouterProvider router={router} />
-      </ConfigProvider>
-    </>
+    <AntdConfigProvider>
+      <RouterProvider router={router} />
+    </AntdConfigProvider>
   );
 }
 
