@@ -1,7 +1,7 @@
 import { ConfigProvider, ThemeConfig } from "antd";
 import { ReactNode } from "react";
 
-function getThemeColor(name: string) {
+export function getThemeColor(name: string) {
   if (document.body) {
     return getComputedStyle(document.body).getPropertyValue(`--${name}`);
   }

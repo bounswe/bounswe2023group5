@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   TeamOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
-import { Menu } from "antd";
+import { ConfigProvider, Menu } from "antd";
 import styles from "./SideBar.module.scss";
 import Profile from "../../Components/Icons/Profile";
 import { clsx } from "clsx";
+import { getThemeColor } from "../../Components/Providers/AntdConfigProvider";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -46,27 +47,35 @@ function SideBar() {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <div className={clsx(styles.container, collapsed && styles.collapsed)}>
-      <button
-        type="button"
-        className={styles.toggleBtn}
-        onClick={() => setCollapsed((c) => !c)}
-      >
-        {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-      </button>
+    <ConfigProvider
+      theme={{
+        token: {
+          colorBgContainer: getThemeColor("color-accent"),
+        },
+      }}
+    >
+      <div className={clsx(styles.container, collapsed && styles.collapsed)}>
+        <button
+          type="button"
+          className={styles.toggleBtn}
+          onClick={() => setCollapsed((c) => !c)}
+        >
+          {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+        </button>
 
-      <div className={styles.profilePic}>
-        <Profile />
+        <div className={styles.profilePic}>
+          <Profile />
+        </div>
+
+        <Menu
+          defaultSelectedKeys={["1"]}
+          defaultOpenKeys={["sub1"]}
+          mode="inline"
+          inlineCollapsed={collapsed}
+          items={items}
+        />
       </div>
-
-      <Menu
-        defaultSelectedKeys={["1"]}
-        defaultOpenKeys={["sub1"]}
-        mode="inline"
-        inlineCollapsed={collapsed}
-        items={items}
-      />
-    </div>
+    </ConfigProvider>
   );
 }
 
