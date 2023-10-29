@@ -5,13 +5,12 @@ import { QueryCache, QueryClient, QueryClientProvider } from "react-query";
 import App from "./App.tsx";
 import { AuthProvider } from "./Components/Hooks/useAuth.tsx";
 import { message } from "antd";
+import { handleError } from "./Library/utils/handleError.ts";
 
 const queryClient = new QueryClient({
   queryCache: new QueryCache({
     onError(error) {
-      const text = (error as Error).message;
-      message.error(text);
-      console.error(error as Error);
+      handleError(error);
     },
   }),
 });
