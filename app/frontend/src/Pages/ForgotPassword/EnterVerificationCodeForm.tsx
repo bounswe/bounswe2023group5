@@ -3,6 +3,7 @@ import React from "react";
 import { Form, Input, Button } from "antd";
 import { useMutation } from "react-query";
 import axios from 'axios';
+import { postCode } from "../../Services/ForgotPassword";
 
 interface EnterVerificationCodeFormProps {
   isVerified: boolean;
@@ -14,15 +15,7 @@ const EnterVerificationCodeForm: React.FC<EnterVerificationCodeFormProps> = ({
   setIsVerified,
   email
 }) => {
-    const postCode = async (data:any) => {
-        return fetch(import.meta.env.VITE_APP_API_URL + "/api/auth/verify-reset-code", {
-        method: "POST",
-        headers: {
-        "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-    });
-    }
+
 
     const codeMutation = useMutation(postCode,{  
     onSuccess: async (data) => {

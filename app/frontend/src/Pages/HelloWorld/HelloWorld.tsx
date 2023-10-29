@@ -1,11 +1,8 @@
 import styles from "./HelloWorld.module.scss";
 import { Button } from "antd";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useAuth } from "../../Components/Hooks/useAuth";
 
 function HelloWorld() {
-  const navigate = useNavigate();
   const { user, logOut } = useAuth();
   return (
     <div style={{ alignContent: "center" }}>

@@ -9,8 +9,8 @@ import {
 } from "@ant-design/icons";
 import { Button, Input } from "antd";
 import { useMutation } from "react-query";
-import axios from "axios";
 import { useAuth } from "../../Components/Hooks/useAuth";
+import  postLogin  from "../../Services/Login";
 
 function Login() {
   const { setUser, setToken } = useAuth();
@@ -18,15 +18,7 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
-  const postLogin = async (formData: any) => {
-    return fetch(import.meta.env.VITE_APP_API_URL + "/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-  };
+
   const loginMutation = useMutation(postLogin, {
     onSuccess: async (data) => {
       if (data.status === 404) {
