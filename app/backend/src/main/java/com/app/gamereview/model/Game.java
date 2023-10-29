@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,21 +22,21 @@ public class Game extends BaseModel {
 
 	private Date releaseDate;
 
-	private List<Tag> playerTypes;
+	private List<Tag> playerTypes = new ArrayList<Tag>();
 
-	private List<Tag> genre;
+	private List<Tag> genre = new ArrayList<Tag>();
 
 	private Tag production;
 
 	private Tag duration;
 
-	private List<Tag> platforms;
+	private List<Tag> platforms = new ArrayList<Tag>();
 
-	private List<Tag> artStyles;
+	private List<Tag> artStyles = new ArrayList<Tag>();
 
 	private Tag developer;
 
-	private List<Tag> otherTags;
+	private List<Tag> otherTags = new ArrayList<Tag>();
 
 	private String minSystemReq;
 
