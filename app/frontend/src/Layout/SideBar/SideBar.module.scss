@@ -18,11 +18,16 @@
 
   .profile-pic {
     aspect-ratio: 1;
-    width: 40px;
+    width: 90%;
+    max-width: 120px;
     svg {
       height: 100%;
       width: 100%;
     }
+  }
+
+  .menu {
+    border-inline-end: 0px !important;
   }
 }
 

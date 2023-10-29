@@ -3,6 +3,7 @@ import {
   TeamOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  AppstoreOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { ConfigProvider, Menu } from "antd";
@@ -30,7 +31,7 @@ function createItem(
 }
 
 const items: MenuItem[] = [
-  createItem("My Games", "sub1", <></>, [
+  createItem("My Games", "sub1", <AppstoreOutlined />, [
     createItem("Minecraft", "5"),
     createItem("Rounds", "6"),
     createItem("Dota", "7"),
@@ -71,9 +72,8 @@ function SideBar() {
         <div className={styles.profilePic}>
           <Profile />
         </div>
-
+        {!collapsed && <div>CiselTheBarbie</div>}
         <Menu
-          defaultSelectedKeys={["1"]}
           defaultOpenKeys={["sub1"]}
           mode="inline"
           inlineCollapsed={collapsed}

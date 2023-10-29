@@ -4,8 +4,7 @@
   display: flex;
   background-color: $prussian-blue-dark-50;
   color: $color-text-light;
-  overflow: hidden;
-  padding-right: 2px;
+  padding-right: 10px;
   .logo {
     flex: 0 0 clamp(0px, 20%, 300px);
   }
