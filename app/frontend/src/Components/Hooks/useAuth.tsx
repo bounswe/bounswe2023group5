@@ -26,6 +26,7 @@ interface UseAuthProps extends AuthContextProps {
   token?: string;
   setToken: (token: string) => void;
   isLoggedIn: boolean;
+  logOut: () => void;
 }
 
 // Custom hook to use auth
@@ -52,7 +53,12 @@ const useAuth = (): UseAuthProps => {
     }
   }, [token]);
 
-  return { user, setUser, token, setToken, isLoggedIn: !!user };
+  function logOut() {
+    Cookies.remove("token");
+    location.reload();
+  }
+
+  return { user, setUser, token, setToken, isLoggedIn: !!user, logOut };
 };
 
 // AuthProvider component
