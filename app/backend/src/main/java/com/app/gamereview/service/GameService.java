@@ -48,21 +48,28 @@ public class GameService {
 				query.addCriteria(Criteria.where("isDeleted").is(false));
 			}
 
-			if (filter.getPlayerTypes() != null && filter.getPlayerTypes().size() > 0) {
-				query.addCriteria(Criteria.where("playerType.name").all(filter.getPlayerTypes()));
+			if(filter.getSearch() != null && filter.getSearch().length() > 0){
+				query.addCriteria(Criteria.where("gameName").regex(filter.getSearch(), "i"));
+
+			}else{
+				if (filter.getPlayerTypes() != null && filter.getPlayerTypes().size() > 0) {
+					query.addCriteria(Criteria.where("playerType.name").all(filter.getPlayerTypes()));
+				}
+				if (filter.getGenre() != null && filter.getGenre().size() > 0) {
+					query.addCriteria(Criteria.where("genre.name").all(filter.getGenre()));
+				}
+				if (filter.getProduction() != null && filter.getProduction().length() > 0) {
+					query.addCriteria(Criteria.where("production.name").is(filter.getProduction()));
+				}
+				if (filter.getPlatform() != null && filter.getPlatform().size() > 0) {
+					query.addCriteria(Criteria.where("platform.name").all(filter.getPlatform()));
+				}
+				if (filter.getArtStyle() != null && filter.getArtStyle().size() > 0) {
+					query.addCriteria(Criteria.where("artStyle.name").all(filter.getArtStyle()));
+				}
 			}
-			if (filter.getGenre() != null && filter.getGenre().size() > 0) {
-				query.addCriteria(Criteria.where("genre.name").all(filter.getGenre()));
-			}
-			if (filter.getProduction() != null && filter.getProduction().length() > 0) {
-				query.addCriteria(Criteria.where("production.name").is(filter.getProduction()));
-			}
-			if (filter.getPlatform() != null && filter.getPlatform().size() > 0) {
-				query.addCriteria(Criteria.where("platform.name").all(filter.getPlatform()));
-			}
-			if (filter.getArtStyle() != null && filter.getArtStyle().size() > 0) {
-				query.addCriteria(Criteria.where("artStyle.name").all(filter.getArtStyle()));
-			}
+
+
 		}
 
 

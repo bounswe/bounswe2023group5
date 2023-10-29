@@ -23,4 +23,6 @@ public class GetGameListRequestDto {
 
 	private List<String> artStyle;
 
+	private String search;
+
 }
