@@ -1,13 +1,13 @@
 import { ConfigProvider, ThemeConfig } from "antd";
-import { PropsWithChildren } from "react";
+import { ReactNode } from "react";
 
-function getThemeColor(name: string) {
+export function getThemeColor(name: string) {
   if (document.body) {
     return getComputedStyle(document.body).getPropertyValue(`--${name}`);
   }
 }
 
-function AntdConfigProvider({ children }: PropsWithChildren<{}>) {
+function AntdConfigProvider({ children }: { children: ReactNode }) {
   const theme: ThemeConfig = {
     token: {
       colorBgBase: getThemeColor("color-background"),

@@ -1,14 +1,9 @@
 import { Menu, MenuProps } from "antd";
-import { Header } from "antd/es/layout/layout";
 import styles from "./TopBar.module.scss";
 import { HomeTwoTone, UserOutlined, TeamOutlined } from "@ant-design/icons";
 import GameController from "../../Components/Icons/GameController";
 
-const items1: MenuProps["items"] = [
-  {
-    key: "nav-platform",
-    label: "GamerInsight",
-  },
+const items: MenuProps["items"] = [
   {
     key: "nav-home",
     label: "Home",
@@ -33,14 +28,16 @@ const items1: MenuProps["items"] = [
 
 function TopBar() {
   return (
-    <Header style={{ display: "flex", justifyContent: "flex-start" }}>
+    <div className={styles.container}>
+      <div className={styles.logo}>Logo</div>
       <Menu
         className={styles.menu}
         mode="horizontal"
         defaultSelectedKeys={["2"]}
-        items={items1}
-      ></Menu>
-    </Header>
+        items={items}
+        theme="dark"
+      />
+    </div>
   );
 }
 
