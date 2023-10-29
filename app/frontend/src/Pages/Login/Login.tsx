@@ -65,7 +65,7 @@ function Login() {
           <form onSubmit={(event) => handleLogin(event)}>
             <Input
               size="large"
-              placeholder="Username or Email"
+              placeholder="Please enter your Email"
               className={styles.formElem}
               prefix={
                 <UserOutlined
