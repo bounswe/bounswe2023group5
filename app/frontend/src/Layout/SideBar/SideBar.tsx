@@ -52,6 +52,11 @@ function SideBar() {
         token: {
           colorBgContainer: getThemeColor("color-accent"),
         },
+        components: {
+          Menu: {
+            activeBarBorderWidth: 0,
+          },
+        },
       }}
     >
       <div className={clsx(styles.container, collapsed && styles.collapsed)}>

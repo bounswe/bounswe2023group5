@@ -8,12 +8,12 @@
   align-items: center;
   transition: width 0.2s ease-in-out;
   background-color: $color-accent;
-  --color: #{$color-accent};
 
   .toggle-btn {
     background: transparent;
     padding: 1em;
     border: none;
+    align-self: end;
   }
 
   .profile-pic {
