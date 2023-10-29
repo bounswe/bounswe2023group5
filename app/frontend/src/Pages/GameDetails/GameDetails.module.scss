@@ -32,13 +32,24 @@
     .titleContainer {
       flex: 2 2 0;
 
-      h1 {
-        height: 40%;
+      .name {
+        height: 50%;
+
         width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
-        color: $prussian-blue-dark-20;
+        flex-direction: column;
+        h1 {
+          all: unset;
+          font-size: 2em;
+          font-weight: bold;
+          color: $prussian-blue-dark-20;
+        }
+        span {
+          color: $color-accent;
+          opacity: 80%;
+        }
       }
 
       .starsContainer {

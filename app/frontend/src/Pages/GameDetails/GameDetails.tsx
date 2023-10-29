@@ -3,11 +3,38 @@ import styles from "./GameDetails.module.scss";
 import { useState } from "react";
 import TagRenderer from "../../Components/TagRenderer/TagRenderer";
 
+function formatDate(date: Date) {
+  const day = date.getDate();
+  const monthIndex = date.getMonth();
+  const year = date.getFullYear();
+
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const monthName = monthNames[monthIndex];
+
+  return `${day} ${monthName} ${year}`;
+}
+
 function GameDetails() {
   const score = 4;
   const [subPage, setSubPage] = useState<"summary" | "reviews" | "forum">(
     "summary"
   );
+
+  const date = new Date();
   return (
     <div className={styles.container}>
       <div className={styles.info}>
@@ -15,7 +42,10 @@ function GameDetails() {
           <img src="./placeholders/minecraft.jpg" alt="Alperen Çiseli Seviyo" />
         </div>
         <div className={styles.titleContainer}>
-          <h1>Minecraft: Java Edition</h1>
+          <div className={styles.name}>
+            <h1>Minecraft: Java Edition</h1>
+            <span>{formatDate(date)}</span>
+          </div>
           <div className={styles.starsContainer}>
             {[1, 1, 1, 1, 1].map((_, index) =>
               index <= score - 1 ? (
