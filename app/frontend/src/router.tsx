@@ -19,6 +19,10 @@ const router = createBrowserRouter([
         path: "hello",
         element: <HelloWorld />,
       },
+      {
+        path: "/game",
+        element: <GameDetails />,
+      },
     ],
   },
   {
@@ -36,10 +40,6 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
-  },
-  {
-    path: "/GameDetails",
-    element: <GameDetails />,
   },
 ]);
 
