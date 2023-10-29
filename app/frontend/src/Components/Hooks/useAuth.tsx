@@ -45,7 +45,7 @@ const useAuth = (): UseAuthProps => {
 
   useEffect(() => {
     if (token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      axios.defaults.headers.common["Authorization"] = `${token}`;
 
       me().then((res) => {
         setUser?.(res.data);
