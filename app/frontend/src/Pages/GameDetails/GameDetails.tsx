@@ -1,6 +1,7 @@
 import { StarFilled, StarOutlined } from "@ant-design/icons";
 import styles from "./GameDetails.module.scss";
 import { useState } from "react";
+import TagRenderer from "../../Components/TagRenderer/TagRenderer";
 
 function GameDetails() {
   const score = 4;
@@ -38,7 +39,20 @@ function GameDetails() {
           </button>
         ))}
       </div>
-      <div className={styles.subPage}>Info</div>
+      <div className={styles.subPage}>
+        <TagRenderer
+          tags={[
+            { name: "Action", color: "#FF5733" },
+            { name: "Adventure", color: "#33FF57" },
+            { name: "RPG", color: "#3357FF" },
+            { name: "Strategy", color: "#8D33FF" },
+            { name: "Sports", color: "#FF33F6" },
+            { name: "Puzzle", color: "#FFC300" },
+            { name: "Simulation", color: "#058C42" },
+            { name: "Horror", color: "#FF3300" },
+          ]}
+        />
+      </div>
     </div>
   );
 }
