@@ -1,0 +1,91 @@
+@import "../../colors";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  height: 100%;
+  width: 100%;
+  padding: 2em;
+  gap: 1em;
+
+  .info {
+    display: flex;
+    justify-content: flex;
+    background-color: $celadon-light-20;
+    border-radius: 0.5em;
+    padding: 0.5em;
+
+    .pictureContainer {
+      flex: 1 1 0;
+      aspect-ratio: 1.8;
+      overflow: hidden;
+      border-radius: 0.5em;
+
+      img {
+        object-fit: cover;
+        height: auto;
+        width: 100%;
+      }
+    }
+
+    .titleContainer {
+      flex: 2 2 0;
+
+      h1 {
+        height: 40%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: $prussian-blue-dark-20;
+      }
+
+      .starsContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        font-size: 50px;
+        color: $yellow;
+      }
+    }
+  }
+
+  .menu {
+    background-color: $prussian-blue-dark-40;
+    color: $color-text-light;
+    height: 3.5em;
+    border-radius: 0.5em;
+    display: flex;
+    justify-content: stretch;
+    align-items: stretch;
+    overflow: hidden;
+
+    button {
+      all: unset;
+      flex: 1 1 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 150ms ease-in-out;
+      text-transform: capitalize;
+
+      &:hover,
+      &.active {
+        background-color: $blue-green;
+        color: $color-text;
+      }
+      &:active {
+        transition: all 50ms ease-in-out;
+        background-color: $blue-green-light-20;
+      }
+    }
+  }
+
+  .subPage {
+    background-color: $violet-light-80;
+    border-radius: 0.5em;
+    flex: 1 0 0px;
+  }
+}
