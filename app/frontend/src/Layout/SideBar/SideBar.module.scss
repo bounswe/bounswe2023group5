@@ -9,6 +9,12 @@
   transition: width 0.2s ease-in-out;
   background-color: $color-container;
 
+  .toggle-btn {
+    background: transparent;
+    padding: 1em;
+    border: none;
+  }
+
   .profile-pic {
     aspect-ratio: 1;
     width: 40px;

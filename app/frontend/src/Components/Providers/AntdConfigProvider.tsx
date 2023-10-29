@@ -1,5 +1,5 @@
 import { ConfigProvider, ThemeConfig } from "antd";
-import { PropsWithChildren } from "react";
+import { ReactNode } from "react";
 
 function getThemeColor(name: string) {
   if (document.body) {
@@ -7,7 +7,7 @@ function getThemeColor(name: string) {
   }
 }
 
-function AntdConfigProvider({ children }: PropsWithChildren<{}>) {
+function AntdConfigProvider({ children }: { children: ReactNode }) {
   const theme: ThemeConfig = {
     token: {
       colorBgBase: getThemeColor("color-background"),

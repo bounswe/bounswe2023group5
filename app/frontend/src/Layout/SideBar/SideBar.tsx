@@ -5,7 +5,7 @@ import {
   MenuUnfoldOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
-import { Button, Menu } from "antd";
+import { Menu } from "antd";
 import styles from "./SideBar.module.scss";
 import Profile from "../../Components/Icons/Profile";
 import { clsx } from "clsx";
@@ -47,9 +47,13 @@ function SideBar() {
 
   return (
     <div className={clsx(styles.container, collapsed && styles.collapsed)}>
-      <Button type="primary" onClick={() => setCollapsed((c) => !c)}>
+      <button
+        type="button"
+        className={styles.toggleBtn}
+        onClick={() => setCollapsed((c) => !c)}
+      >
         {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-      </Button>
+      </button>
 
       <div className={styles.profilePic}>
         <Profile />
