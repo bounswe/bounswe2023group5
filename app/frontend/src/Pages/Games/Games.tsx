@@ -113,7 +113,6 @@ function Games() {
             <h1 className={styles.header}>Games</h1>
             <Search
               placeholder="Game name"
-              allowClear
               enterButton
               className={styles.search}
               onSearch={(elem) => handleSearch(elem)}
