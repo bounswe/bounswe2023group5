@@ -85,6 +85,22 @@ function Games() {
       });
   };
 
+  const handleSearch = (search: string) => {
+    fetch("http://localhost:8080/api/game/get-game-list", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ search }),
+    })
+      .then(async (res) => {
+        setGames(await res.json());
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <>
       {games === null ? (
@@ -98,7 +114,9 @@ function Games() {
             <Search
               placeholder="Game name"
               allowClear
+              enterButton
               className={styles.search}
+              onSearch={(elem) => handleSearch(elem)}
             />
           </div>
           <div className={styles.filter}>
