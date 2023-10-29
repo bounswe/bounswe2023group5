@@ -33,7 +33,8 @@ public class GameController {
 	}
 
 	@PostMapping("/add-tag")
-	public ResponseEntity<AddGameTagResponseDto> addGameTag(AddGameTagRequestDto addGameTagRequestDto) {
+	public ResponseEntity<AddGameTagResponseDto> addGameTag(
+			@RequestBody AddGameTagRequestDto addGameTagRequestDto) {
 		AddGameTagResponseDto response = gameService.addGameTag(addGameTagRequestDto);
 		return ResponseEntity.ok(response);
 	}
