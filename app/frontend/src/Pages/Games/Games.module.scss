@@ -1,0 +1,39 @@
+@import "../../colors";
+
+.container {
+  padding: 3rem;
+}
+
+.spinnerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.games {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
+}
+.headerContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header {
+  color: $orange-dark-10;
+}
+
+.search {
+  width: 200px;
+}
+
+.filterButton {
+  background-color: $yellow;
+}
