@@ -1,7 +1,6 @@
 import { Button } from "antd";
 import styles from "./HelloWorld.module.scss";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useAuth } from "../../Components/Hooks/useAuth";
 
 function HelloWorld() {

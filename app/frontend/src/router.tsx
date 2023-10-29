@@ -5,8 +5,8 @@ import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
 import ChangePassword from "./Pages/ChangePassword/ChangePassword";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
-import axios from "axios";
 import GameDetails from "./Pages/GameDetails/GameDetails";
+import axios from "axios";
 
 axios.defaults.headers.common["Content-Type"] = "application/json";
 
