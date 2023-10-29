@@ -5,7 +5,9 @@ import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
 import ChangePassword from "./Pages/ChangePassword/ChangePassword";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
+import axios from "axios";
 
+axios.defaults.headers.common["Content-Type"] = "application/json";
 
 const router = createBrowserRouter([
   {
@@ -25,7 +27,8 @@ const router = createBrowserRouter([
   {
     path: "change",
     element: <ChangePassword />,
-  },{
+  },
+  {
     path: "/login",
     element: <Login />,
   },
