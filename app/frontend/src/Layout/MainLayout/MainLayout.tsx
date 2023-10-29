@@ -1,10 +1,13 @@
+import TopBar from "../TopBar/TopBar";
 import styles from "./MainLayout.module.scss";
 import { Outlet } from "react-router-dom";
 
 function MainLayout() {
   return (
     <div className={styles.holyGrailLayout}>
-      <div className={styles.header}>Header</div>
+      <div className={styles.header}>
+        <TopBar></TopBar>
+      </div>
       <div className={styles.leftColumn}>Left Sidebar</div>
       <div className={styles.mainContent}>
         <Outlet />
