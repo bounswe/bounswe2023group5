@@ -1,5 +1,4 @@
 package com.app.gamereview.controller;
-/* 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.MediaType;
@@ -42,4 +41,3 @@ public class ImageController {
 	}
 
 }
-*/
