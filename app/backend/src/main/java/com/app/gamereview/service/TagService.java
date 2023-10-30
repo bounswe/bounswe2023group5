@@ -3,6 +3,8 @@ package com.app.gamereview.service;
 import com.app.gamereview.dto.request.tag.CreateTagRequestDto;
 import com.app.gamereview.dto.request.tag.GetAllTagsFilterRequestDto;
 import com.app.gamereview.dto.request.tag.UpdateTagRequestDto;
+import com.app.gamereview.exception.BadRequestException;
+import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.Tag;
 import com.app.gamereview.model.User;
 import com.app.gamereview.repository.TagRepository;
@@ -68,8 +70,7 @@ public class TagService {
 				.findByNameAndIsDeletedFalse(request.getName());
 
 		if (sameName.isPresent()) {
-			// TODO : will add exception handling mechanism and custom exceptions
-			return null;
+			throw new BadRequestException("Tag with the same name already exist");
 		}
 		Tag tagToCreate = modelMapper.map(request, Tag.class);
 		tagToCreate.setIsDeleted(false);
@@ -81,8 +82,7 @@ public class TagService {
 		Optional<Tag> tag = tagRepository.findById(id);
 
 		if (tag.isEmpty() || tag.get().getIsDeleted()){
-			// TODO : will add exception handling mechanism and custom exceptions
-			return null;
+			throw new ResourceNotFoundException("Tag desired to be updated does not exist");
 		}
 
 		Tag tagToUpdate = modelMapper.map(request, Tag.class);

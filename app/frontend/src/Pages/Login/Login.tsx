@@ -10,7 +10,7 @@ import {
 import { Button, Input } from "antd";
 import { useMutation } from "react-query";
 import { useAuth } from "../../Components/Hooks/useAuth";
-import  postLogin  from "../../Services/Login";
+import postLogin from "../../Services/Login";
 
 function Login() {
   const { setUser, setToken } = useAuth();
@@ -34,7 +34,7 @@ function Login() {
       setUser(responseData.user);
       setToken(responseData.token);
 
-      navigate("/hello");
+      navigate("/");
     },
     onError: () => {
       alert("Your email or password is incorrect.");
