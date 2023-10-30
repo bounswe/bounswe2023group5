@@ -16,6 +16,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject changePasswordPage;
     [SerializeField] private GameObject changeForgetPasswordPage;
     [SerializeField] private GameObject gameDetailsPage;
+    [SerializeField] private GameObject deleteAccountPage;
 
 
     
@@ -129,6 +130,14 @@ public class CanvasManager : MonoBehaviour
         gameDetailsPage.SetActive(false);
     }
     
+    public void ShowDeleteAccountPage()
+    {
+        deleteAccountPage.SetActive(true);
+    }
     
-
+    public void HideDeleteAccountPage()
+    {
+        deleteAccountPage.SetActive(false);
+    }
+    
 }
