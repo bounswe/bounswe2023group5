@@ -41,6 +41,7 @@ const useAuth = (): UseAuthProps => {
 
   function setToken(token: string) {
     Cookies.set("token", token);
+    axios.defaults.headers.common["Authorization"] = `${token}`;
   }
 
   function logOut() {
