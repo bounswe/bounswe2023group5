@@ -1,10 +1,10 @@
 package com.app.gamereview.service;
 
-import com.app.gamereview.dto.request.ChangeUserPasswordRequestDto;
-import com.app.gamereview.dto.request.ForgotChangeUserPasswordRequestDto;
-import com.app.gamereview.dto.request.RegisterUserRequestDto;
-import com.app.gamereview.dto.request.LoginUserRequestDto;
+import com.app.gamereview.dto.request.*;
 import com.app.gamereview.dto.response.LoginUserResponseDto;
+import com.app.gamereview.dto.response.UserResponseDto;
+import com.app.gamereview.exception.BadRequestException;
+import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.User;
 import com.app.gamereview.repository.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -35,8 +35,7 @@ public class AuthService {
 		Optional<User> sameEmail = userRepository.findByEmailAndIsDeletedFalse(registerUserRequestDto.getEmail());
 
 		if (sameUsername.isPresent() || sameEmail.isPresent()) {
-			// TODO : will add exception handling mechanism and custom exceptions
-			return null;
+			throw new BadRequestException("User with the same information already exists");
 		}
 		User userToCreate = modelMapper.map(registerUserRequestDto, User.class);
 		userToCreate.setIsDeleted(false);
@@ -47,19 +46,7 @@ public class AuthService {
 		return userRepository.save(userToCreate);
 	}
 
-	public Boolean changeUserPassword(ChangeUserPasswordRequestDto passwordRequestDto) {
-		Optional<User> optionalUser = userRepository.findById(passwordRequestDto.getUserId());
-
-		if (optionalUser.isEmpty()) {
-			return false;
-		}
-
-		User user = optionalUser.get();
-
-		if (user.getIsDeleted()) {
-			return false;
-		}
-
+	public Boolean changeUserPassword(ChangeUserPasswordRequestDto passwordRequestDto, User user) {
 		if (!Objects.equals(passwordRequestDto.getCurrentPassword(), user.getPassword())) {
 			return false;
 		}
@@ -69,19 +56,7 @@ public class AuthService {
 		return true;
 	}
 
-	public Boolean changeForgotPassword(ForgotChangeUserPasswordRequestDto passwordRequestDto) {
-		Optional<User> optionalUser = userRepository.findById(passwordRequestDto.getUserId());
-
-		if (optionalUser.isEmpty()) {
-			return false;
-		}
-
-		User user = optionalUser.get();
-
-		if (user.getIsDeleted()) {
-			return false;
-		}
-
+	public Boolean changeForgotPassword(ForgotChangeUserPasswordRequestDto passwordRequestDto, User user) {
 		user.setPassword(passwordRequestDto.getNewPassword());
 		userRepository.save(user);
 		return true;
@@ -97,13 +72,18 @@ public class AuthService {
 			if (password.equals(loginUserRequestDto.getPassword())) {
 				String token = JwtUtil.generateToken(user.getEmail());
 				LoginUserResponseDto response = new LoginUserResponseDto();
-				response.setUser(user);
+				response.setUser(new UserResponseDto(user));
 				response.setToken(token);
 				return response;
 			}
 		}
 
 		return null;
+	}
+
+	public UserResponseDto me(User user) {
+        UserResponseDto response = new UserResponseDto(user);
+        return response;
 	}
 
 }

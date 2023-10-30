@@ -6,7 +6,7 @@ import lombok.Setter;
 @Setter
 public class LoginUserResponseDto {
 
-	public User user;
+	public UserResponseDto user;
 
 	public String token;
 

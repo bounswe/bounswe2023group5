@@ -1,10 +1,20 @@
 import { Button } from "antd";
 import styles from "./HelloWorld.module.scss";
+import { Button } from "antd";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useAuth } from "../../Components/Hooks/useAuth";
 
 function HelloWorld() {
+  const navigate = useNavigate();
+  const { user, logOut } = useAuth();
   return (
-    <div className={styles.hello}>
-      <Button type="primary">Hello World</Button>
+    <div style={{ alignContent: "center" }}>
+      <div className={styles.hello}>Hello World!</div>
+      <Button type="primary" danger={true} onClick={logOut}>
+        Logout
+      </Button>
+      <pre>{JSON.stringify(user, undefined, 2)}</pre>
     </div>
   );
 }
