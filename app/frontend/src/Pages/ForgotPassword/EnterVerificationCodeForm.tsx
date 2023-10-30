@@ -2,7 +2,7 @@
 import React from "react";
 import { Form, Input, Button } from "antd";
 import { useMutation } from "react-query";
-import { postCode } from "../../Services/ForgotPassword";
+import { postCode, postEmail } from "../../Services/ForgotPassword";
 import { useAuth } from "../../Components/Hooks/useAuth";
 
 interface EnterVerificationCodeFormProps {
@@ -43,6 +43,30 @@ const EnterVerificationCodeForm: React.FC<EnterVerificationCodeFormProps> = ({
     codeMutation.mutate(data);
   };
 
+
+  const emailMutation = useMutation(postEmail, {
+    onSuccess: (data) => {
+      if (data.status === 404) {
+        alert("Please enter a valid email address.");
+        return;
+      } else if (data.status === 500) {
+        alert("Something went wrong.");
+        return;
+      } else if (data.status === 400) {
+        alert("Bad Request");
+        return;
+      }
+      alert("Verification code is sent to your email address.");
+    },
+    onError: () => {
+      alert("Please enter a valid email address.");
+    },
+  });
+
+  const onResend = (data: any) => {
+    emailMutation.mutate(email);
+  };
+
   return (
     <Form onFinish={onFinish} size="large">
       <Form.Item
@@ -54,7 +78,7 @@ const EnterVerificationCodeForm: React.FC<EnterVerificationCodeFormProps> = ({
         <Input placeholder="Verification Code" />
       </Form.Item>
       <div style={{ display: "flex", justifyContent: "flex-end", gap: "10px" }}>
-        <Button type="primary">Resend Code</Button>
+        <Button type="primary" onClick={onResend}>Resend Code</Button>
         <Button type="primary" htmlType="submit">
           Verify
         </Button>
