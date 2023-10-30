@@ -1,7 +1,7 @@
 import axios from "axios";
 export const getGames = async (filters?: any, search?: any) => {
   const response = await axios.post(
-    "http://localhost:8080/api/game/get-game-list",
+    import.meta.env.VITE_APP_API_URL + "/api/game/get-game-list",
     { ...filters, search }
   );
 

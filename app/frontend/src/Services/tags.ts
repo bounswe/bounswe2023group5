@@ -1,5 +1,7 @@
 import axios from "axios";
 export const getTags = async () => {
-  const response = await axios.get("http://localhost:8080/api/tag/get-all");
+  const response = await axios.get(
+    import.meta.env.VITE_APP_API_URL + "/api/tag/get-all"
+  );
   return response.data;
 };

@@ -6,6 +6,8 @@ import Game from "../../Components/Game/Game";
 import SingleSelect from "../../Components/SingleSelect/SingleSelect";
 import MultipleSelect from "../../Components/MultipleSelect/MultipleSelect";
 import { Button, Input } from "antd";
+import { getGames } from "../../Services/games";
+import { getTags } from "../../Services/tags";
 
 function Games() {
   const [filters, setFilters] = useState<any>({
@@ -17,53 +19,28 @@ function Games() {
   });
 
   const { Search } = Input;
+  const [searchText, setSearchText] = useState("");
+  const [activeFilters, setActiveFilters] = useState();
 
-  const { data: games, status } = useQuery(["games", filters], () => getGames);
+  const { data: games, isLoading } = useQuery(
+    ["games", activeFilters, searchText],
+    () =>
+      getGames(activeFilters, searchText.length <= 0 ? undefined : searchText)
+  );
+
+  const { data: tags } = useQuery(["tags"], getTags);
 
   //const { data, status } = useQuery("tags", getTags);
 
   const onChange = (filterKey: string, value: string) => {
-    setFilters((filters) => {
+    setFilters((filters: any) => {
       return { ...filters, [filterKey]: value };
     });
   };
 
-  const onFilter = () => {
-    fetch("http://localhost:8080/api/game/get-game-list", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(filters),
-    })
-      .then(async (res) => {
-        setGames(await res.json());
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const handleSearch = (search: string) => {
-    getGames(null, search);
-    fetch("http://localhost:8080/api/game/get-game-list", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ search }),
-    })
-      .then(async (res) => {
-        setGames(await res.json());
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   return (
     <>
-      {games === null ? (
+      {isLoading ? (
         <div className={styles.spinnerContainer}>
           <PacmanLoader color="#1b4559" size={30} />
         </div>
@@ -75,7 +52,7 @@ function Games() {
               placeholder="Game name"
               enterButton
               className={styles.search}
-              onSearch={(elem) => handleSearch(elem)}
+              onSearch={setSearchText}
             />
           </div>
           <div className={styles.filter}>
@@ -83,8 +60,10 @@ function Games() {
               title="Player Types"
               filterKey="playerTypes"
               elements={tags
-                ?.filter((tag) => tag.tagType === "PLAYER_TYPE")
-                .map((elem) => elem.name)}
+                ?.filter(
+                  (tag: { tagType: string }) => tag.tagType === "PLAYER_TYPE"
+                )
+                .map((elem: { name: any }) => elem.name)}
               reset={false}
               onChange={onChange}
             ></MultipleSelect>
@@ -92,8 +71,8 @@ function Games() {
               title="Genre"
               filterKey="genre"
               elements={tags
-                ?.filter((tag) => tag.tagType === "GENRE")
-                .map((elem) => elem.name)}
+                ?.filter((tag: { tagType: string }) => tag.tagType === "GENRE")
+                .map((elem: { name: any }) => elem.name)}
               reset={false}
               onChange={onChange}
             ></MultipleSelect>
@@ -101,8 +80,10 @@ function Games() {
               title="Production"
               filterKey="production"
               elements={tags
-                ?.filter((tag) => tag.tagType === "PRODUCTION")
-                .map((elem) => elem.name)}
+                ?.filter(
+                  (tag: { tagType: string }) => tag.tagType === "PRODUCTION"
+                )
+                .map((elem: { name: any }) => elem.name)}
               reset={false}
               onChange={onChange}
             ></SingleSelect>
@@ -110,8 +91,10 @@ function Games() {
               title="Platform"
               filterKey="platform"
               elements={tags
-                ?.filter((tag) => tag.tagType === "PLATFORM")
-                .map((elem) => elem.name)}
+                ?.filter(
+                  (tag: { tagType: string }) => tag.tagType === "PLATFORM"
+                )
+                .map((elem: { name: any }) => elem.name)}
               reset={false}
               onChange={onChange}
             ></MultipleSelect>
@@ -119,13 +102,18 @@ function Games() {
               title="Art Style"
               filterKey="artStyle"
               elements={tags
-                ?.filter((tag) => tag.tagType === "ART_STYLE")
-                .map((elem) => elem.name)}
+                ?.filter(
+                  (tag: { tagType: string }) => tag.tagType === "ART_STYLE"
+                )
+                .map((elem: { name: any }) => elem.name)}
               reset={false}
               onChange={onChange}
             ></MultipleSelect>
 
-            <Button onClick={onFilter} className={styles.filterButton}>
+            <Button
+              onClick={() => setActiveFilters(filters)}
+              className={styles.filterButton}
+            >
               Filter
             </Button>
           </div>
