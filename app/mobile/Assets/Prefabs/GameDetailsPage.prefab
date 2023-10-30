@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 1657833092225782838}
   - component: {fileID: 1657833092225782837}
   - component: {fileID: 1657833092225782836}
+  - component: {fileID: 5694052104933317648}
   m_Layer: 5
   m_Name: GameDetailsPage
   m_TagString: Untagged
@@ -224,7 +225,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &1657833092225782838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,6 +281,23 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5694052104933317648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1657833092225782842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75356f8b0cfdfb7a99e100115c573762, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  summaryButton: {fileID: 0}
+  reviewsButton: {fileID: 0}
+  forumButton: {fileID: 0}
+  headingText: {fileID: 0}
+  bottomText: {fileID: 0}
 --- !u!1 &1657833092429837999
 GameObject:
   m_ObjectHideFlags: 0
