@@ -1,12 +1,12 @@
 import React from "react";
 import styles from "./Game.module.scss";
 import GameConsole from "../../../assets/images/game-console.png";
-import * as images from "../../../assets/images/index";
 import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
 
 function Game(props: any) {
   const game = props.game;
+
   const navigate = useNavigate();
   return (
     <div className={styles.container}>
@@ -22,10 +22,10 @@ function Game(props: any) {
       </div>
       <div className={styles.content}>
         <img
-          src={images[game.gameIcon]}
+          src={game.gameIcon}
           alt="name of the game"
-          width={100}
-          height={80}
+          width={120}
+          height={100}
           className={styles.icon}
         ></img>
         <div className={styles.descriptionContainer}>
@@ -35,7 +35,7 @@ function Game(props: any) {
               : game.gameDescription}
           </p>
           <Button
-            onClick={() => navigate("/register")}
+            onClick={() => navigate(`/game/${game.id}`)}
             className={styles.button}
           >
             Details

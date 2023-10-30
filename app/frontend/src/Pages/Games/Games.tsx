@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useMutation, useQuery } from "react-query";
+import React, { useState } from "react";
+import { useQuery } from "react-query";
 import styles from "./Games.module.scss";
 import PacmanLoader from "react-spinners/PacmanLoader";
 import Game from "../../Components/Game/Game";
@@ -22,15 +22,11 @@ function Games() {
   const [searchText, setSearchText] = useState("");
   const [activeFilters, setActiveFilters] = useState();
 
-  const { data: games, isLoading } = useQuery(
-    ["games", activeFilters, searchText],
-    () =>
-      getGames(activeFilters, searchText.length <= 0 ? undefined : searchText)
+  const { data: games } = useQuery(["games", activeFilters, searchText], () =>
+    getGames(activeFilters, searchText.length <= 0 ? undefined : searchText)
   );
 
   const { data: tags } = useQuery(["tags"], getTags);
-
-  //const { data, status } = useQuery("tags", getTags);
 
   const onChange = (filterKey: string, value: string) => {
     setFilters((filters: any) => {
@@ -40,7 +36,7 @@ function Games() {
 
   return (
     <>
-      {isLoading ? (
+      {games === null ? (
         <div className={styles.spinnerContainer}>
           <PacmanLoader color="#1b4559" size={30} />
         </div>
