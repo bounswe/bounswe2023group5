@@ -1,4 +1,4 @@
-import { Menu, MenuProps, Typography } from "antd";
+import { Menu, MenuProps } from "antd";
 import styles from "./TopBar.module.scss";
 import {
   HomeTwoTone,
@@ -16,7 +16,7 @@ function TopBar() {
 
   const itemsNotLoggedIn: MenuProps["items"] = [
     {
-      key: "Home",
+      key: "home",
       label: "Home",
       icon: <HomeTwoTone />,
     },
@@ -49,22 +49,22 @@ function TopBar() {
 
   const itemsLoggedIn: MenuProps["items"] = [
     {
-      key: "nav-home",
+      key: "home",
       label: "Home",
       icon: <HomeTwoTone />,
     },
     {
-      key: "nav-games",
+      key: "games",
       label: "Games",
       icon: <GameController />,
     },
     {
-      key: "nav-groups",
+      key: "groups",
       label: "Groups",
       icon: <TeamOutlined />,
     },
     {
-      key: "nav-profile",
+      key: "profile",
       label: "Profile",
       icon: <UserOutlined />,
     },
@@ -83,7 +83,7 @@ function TopBar() {
         items={isLoggedIn ? itemsLoggedIn : itemsNotLoggedIn}
         theme="dark"
         onClick={({ key }) => {
-          key !== "Home" ? navigate(`${key}`) : navigate("/");
+          key !== "home" ? navigate(`${key}`) : navigate("/");
         }}
       />
     </div>
