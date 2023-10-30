@@ -3,6 +3,7 @@ import styles from "./GameDetails.module.scss";
 import { useState } from "react";
 import TagRenderer from "../../Components/TagRenderer/TagRenderer";
 import Summary from "../../Components/GameDetails/Summary/Summary";
+import { useParams } from "react-router-dom";
 
 function formatDate(date: Date) {
   const day = date.getDate();
@@ -30,6 +31,8 @@ function formatDate(date: Date) {
 }
 
 function GameDetails() {
+  const { gameId } = useParams();
+  console.log(gameId);
   const score = 4;
   const [subPage, setSubPage] = useState<"summary" | "reviews" | "forum">(
     "summary"
@@ -61,6 +64,7 @@ function GameDetails() {
       <div className={styles.menu}>
         {["summary", "reviews", "forum"].map((name) => (
           <button
+            key={name}
             type="button"
             className={subPage === name ? styles.active : ""}
             onClick={() => setSubPage(name as any)}
