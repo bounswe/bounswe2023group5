@@ -1034,7 +1034,7 @@ GameObject:
   - component: {fileID: 190284391029328454}
   - component: {fileID: 190284391029328448}
   - component: {fileID: 190284391029328449}
-  - component: {fileID: 7786932499896906109}
+  - component: {fileID: 3073944147348655616}
   m_Layer: 5
   m_Name: Sign-up
   m_TagString: Untagged
@@ -1109,7 +1109,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7786932499896906109
+--- !u!114 &3073944147348655616
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1118,7 +1118,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 190284391029328455}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e74dbac99f920d4dbd80e3bdb546b63, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d89ce468166a7b46b544d9480bfc6b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nameInputField: {fileID: 3656364880469168315}
@@ -1585,7 +1585,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 190284391863507249}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1595,8 +1595,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.000015258789, y: -0.000091552734}
+  m_SizeDelta: {x: -0.000015258789, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &190284391863507250
 CanvasRenderer:
