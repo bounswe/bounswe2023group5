@@ -15,11 +15,6 @@ public class GetGameListRequest
     public string search;
 }
 
-public class GetGameListResponse
-{
-    public List<GameListEntry> games;
-}
-
 public class GameListEntry
 {
     public string id;

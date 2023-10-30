@@ -401,8 +401,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameImage: {fileID: 3620718977950705663}
-  gameName: {fileID: 3698399368712572417}
-  gameDescription: {fileID: 3452873215214412956}
+  gameNameText: {fileID: 3698399368712572417}
+  gameDescriptionText: {fileID: 3452873215214412956}
 --- !u!1 &3894357035366408990
 GameObject:
   m_ObjectHideFlags: 0

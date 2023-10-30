@@ -10,9 +10,9 @@ public class GamePage : MonoBehaviour
     [SerializeField] private TMP_Text gameNameText;
     [SerializeField] private TMP_Text gameDescriptionText;
     
-    public void Init(GameInfo gameInfo)
+    public void Init(GameListEntry gameInfo)
     {
-        StartCoroutine(LoadImageFromURL(gameInfo.gameIcon, gameImage));
+        // StartCoroutine(LoadImageFromURL(gameInfo.gameIcon, gameImage));
         gameNameText.text = gameInfo.gameName;
         gameDescriptionText.text = gameInfo.gameDescription;
     }
