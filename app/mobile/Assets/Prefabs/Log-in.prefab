@@ -932,11 +932,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2bce383c209482eb3cfe9b7837e8758, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usernameInputField: {fileID: 4291715816148256584}
+  emailInputField: {fileID: 4291715816148256584}
   passwordInputField: {fileID: 4291715815716848771}
   loginButton: {fileID: 834641553695411258}
   forgetPasswordButton: {fileID: 834641555038466763}
   signupButton: {fileID: 834641554522528735}
+  infoText: {fileID: 1866055559530236100}
 --- !u!1 &834641554522528733
 GameObject:
   m_ObjectHideFlags: 0
@@ -1424,6 +1425,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: eb6d7df1de0e1854798404de358ee824, type: 3}
+    - target: {fileID: 3466085996453410676, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.0043945312
+      objectReference: {fileID: 0}
     - target: {fileID: 3466085996453410677, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
       propertyPath: m_text
       value: Password
@@ -1528,6 +1533,10 @@ PrefabInstance:
       propertyPath: m_text
       value: Enter password
       objectReference: {fileID: 0}
+    - target: {fileID: 3466085997134889333, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 41.605225
+      objectReference: {fileID: 0}
     - target: {fileID: 4165697518747511664, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
       propertyPath: m_Type
       value: 0
@@ -1615,13 +1624,17 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 3b4eb8afea721524ba9bb6100e21c43f, type: 3}
+    - target: {fileID: 3466085996453410676, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.0043945312
+      objectReference: {fileID: 0}
     - target: {fileID: 3466085996453410677, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
       propertyPath: m_text
       value: Email Address
       objectReference: {fileID: 0}
     - target: {fileID: 3466085996475660108, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
       propertyPath: m_Name
-      value: Username
+      value: Email
       objectReference: {fileID: 0}
     - target: {fileID: 3466085996475660109, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
       propertyPath: m_Pivot.x
@@ -1706,6 +1719,10 @@ PrefabInstance:
     - target: {fileID: 3466085996630625213, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
       propertyPath: m_text
       value: Enter email
+      objectReference: {fileID: 0}
+    - target: {fileID: 3466085997134889333, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 41.605225
       objectReference: {fileID: 0}
     - target: {fileID: 6874090524766802231, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
       propertyPath: m_AnchoredPosition.x
