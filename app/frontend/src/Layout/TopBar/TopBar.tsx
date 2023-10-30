@@ -10,8 +10,6 @@ import GameController from "../../Components/Icons/GameController";
 import { useAuth } from "../../Components/Hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
-const { Title } = Typography;
-
 function TopBar() {
   const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
@@ -23,7 +21,7 @@ function TopBar() {
       icon: <HomeTwoTone />,
     },
     {
-      key: "Games",
+      key: "games",
       label: "Games",
       icon: <GameController />,
     },
@@ -74,11 +72,14 @@ function TopBar() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.logo}>Game Guru</div>
+      <div className={styles.logo}>
+        <img height="30px" src="../../../assets/images/guru-logo.png"></img>Game
+        Guru
+      </div>
       <Menu
         className={styles.menu}
         mode="horizontal"
-        defaultSelectedKeys={["Home"]}
+        defaultSelectedKeys={["games"]}
         items={isLoggedIn ? itemsLoggedIn : itemsNotLoggedIn}
         theme="dark"
         onClick={({ key }) => {
