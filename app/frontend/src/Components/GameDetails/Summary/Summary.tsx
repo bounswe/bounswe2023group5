@@ -18,10 +18,10 @@ function Summary({ game }: { game: any }) {
             <TagRenderer tags={[game?.production]} />
           </div>
         )}
-        {game?.playerType?.length > 0 && (
+        {game?.playerTypes?.length > 0 && (
           <div className={styles.tagContainer}>
             Player Type:
-            <TagRenderer tags={game?.playerType} />
+            <TagRenderer tags={game?.playerTypes} />
           </div>
         )}
         {game?.duration && (
@@ -46,6 +46,12 @@ function Summary({ game }: { game: any }) {
           <div className={styles.tagContainer}>
             Developer:
             <TagRenderer tags={[game?.developer]} />
+          </div>
+        )}
+        {game?.otherTags?.length > 0 && (
+          <div className={styles.tagContainer}>
+            Other:
+            <TagRenderer tags={game?.otherTags} />
           </div>
         )}
       </div>
