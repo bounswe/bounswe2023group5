@@ -21,6 +21,7 @@
     "react-dom": "^18.2.0",
     "react-query": "^3.39.3",
     "react-router-dom": "^6.17.0",
+    "react-spinners": "^0.13.8",
     "sass": "^1.69.4"
   },
   "devDependencies": {
