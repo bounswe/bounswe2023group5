@@ -20,9 +20,11 @@
     aspect-ratio: 1;
     width: 90%;
     max-width: 120px;
-    svg {
+    svg, img {
       height: 100%;
       width: 100%;
+      object-fit: cover;
+      border-radius: 100%;
     }
   }
 

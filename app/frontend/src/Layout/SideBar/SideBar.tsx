@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import {
   TeamOutlined,
   MenuFoldOutlined,
@@ -11,6 +11,7 @@ import styles from "./SideBar.module.scss";
 import Profile from "../../Components/Icons/Profile";
 import { clsx } from "clsx";
 import { getThemeColor } from "../../Components/Providers/AntdConfigProvider";
+import { useAuth } from "../../Components/Hooks/useAuth";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -47,6 +48,8 @@ const items: MenuItem[] = [
 function SideBar() {
   const [collapsed, setCollapsed] = useState(false);
 
+  const { user, isLoggedIn } = useAuth();
+
   return (
     <ConfigProvider
       theme={{
@@ -70,15 +73,22 @@ function SideBar() {
         </button>
 
         <div className={styles.profilePic}>
-          <Profile />
+          {isLoggedIn ? (
+            <Profile />
+          ) : (
+            <img src="../../../assets/images/guru.jpeg"></img>
+          )}
         </div>
-        {!collapsed && <div>CiselTheBarbie</div>}
-        <Menu
-          defaultOpenKeys={["sub1"]}
-          mode="inline"
-          inlineCollapsed={collapsed}
-          items={items}
-        />
+        {!collapsed && isLoggedIn && <div>{user.username}</div>}
+        {!collapsed && !isLoggedIn && <div>Game Guru</div>}
+        {isLoggedIn && (
+          <Menu
+            defaultOpenKeys={["sub1"]}
+            mode="inline"
+            inlineCollapsed={collapsed}
+            items={items}
+          />
+        )}
       </div>
     </ConfigProvider>
   );
