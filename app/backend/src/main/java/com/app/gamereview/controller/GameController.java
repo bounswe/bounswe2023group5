@@ -25,8 +25,9 @@ public class GameController {
 		this.gameService = gameService;
 	}
 
-	@GetMapping("get-game-list")
-	public ResponseEntity<List<GetGameListResponseDto>> getGames(GetGameListRequestDto filter) {
+	@PostMapping("get-game-list")
+	public ResponseEntity<List<GetGameListResponseDto>> getGames(@RequestBody(required = false) GetGameListRequestDto filter) {
+
 		List<GetGameListResponseDto> gameList = gameService.getAllGames(filter);
 		return ResponseEntity.ok().body(gameList);
 	}
