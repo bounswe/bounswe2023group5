@@ -86,7 +86,7 @@ public class GameService {
 	}
 
 	private GetGameListResponseDto mapToGetGameListResponseDto(Game game) {
-		GetGameListResponseDto gameDto = new GetGameListResponseDto(game.getGameName(), game.getGameDescription(),
+		GetGameListResponseDto gameDto = new GetGameListResponseDto(game.getId(), game.getGameName(), game.getGameDescription(),
 				game.getGameIcon());
 		return gameDto;
 	}
