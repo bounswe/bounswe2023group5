@@ -11,8 +11,7 @@ public class VerifyResetCodeRequest
 
 public class VerifyResetCodeResponse
 {
-    //todo : add response
-    public string response;
+    public string token;
 }
 
 public class RegisterRequest
@@ -66,7 +65,6 @@ public class ChangePasswordRequest
 
 public class ChangeForgetPasswordRequest
 {
-    public string Authorization;
     public string newPassword;
 }
 
