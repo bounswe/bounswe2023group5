@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using DG.Tweening;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -16,6 +17,7 @@ public class RegisterUser : MonoBehaviour
     [SerializeField] private TMP_InputField confirmPasswordInputField;
     [SerializeField] private Button createAccountButton;
     [SerializeField] private Button loginButton;
+    [SerializeField] private TMP_Text infoText;
     private CanvasManager canvasManager;
     
     private void Awake()
@@ -30,25 +32,33 @@ public class RegisterUser : MonoBehaviour
     {
         if (nameInputField.text == "" || emailInputField.text == "")
         {
-            Debug.Log("Name and email cannot be empty");
-            return;
-        }
-        if ( passwordInputField.text.Length < 6)
-        {
-            Debug.Log("Password must be at least 6 characters");
-            return;
-        }
-        if(confirmPasswordInputField.text != passwordInputField.text)
-        {
-            Debug.Log("Password does not match");
+            infoText.text = "Name and email cannot be empty";
+            infoText.color = Color.red;
             return;
         }
         
         if (emailInputField.text.Contains("@") == false || emailInputField.text.Contains(".") == false)
         {
-            Debug.Log("Email is not valid");
+            infoText.text = "Invalid email address";    
+            infoText.color = Color.red;
             return;
         }
+        
+        if ( passwordInputField.text.Length < 6)
+        {
+            infoText.text = "Password must be at least 6 characters";
+            infoText.color = Color.red;
+            return;
+        }
+        
+        if(confirmPasswordInputField.text != passwordInputField.text)
+        {
+            infoText.text = "Passwords do not match";
+            infoText.color = Color.red;
+            return;
+        }
+        
+        
         string url = AppVariables.HttpServerUrl + "/auth/register";
         var registerData = new RegisterRequest();
         registerData.username = nameInputField.text;
@@ -68,12 +78,28 @@ public class RegisterUser : MonoBehaviour
         yield return request.SendWebRequest();
         var response = request.downloadHandler.text;
         var _useraData = JsonConvert.DeserializeObject<RegisterResponse>(response);
-        Debug.Log(_useraData.email + " " + _useraData.id + " " + _useraData.username + " " + _useraData.role + " " + _useraData.verified + " " + _useraData.isDeleted + " " + _useraData.createdAt);
-        Debug.Log("Status Code: " + request.responseCode);
-        if (request.responseCode == 200)
+        
+        if (request.responseCode != 200 || _useraData?.username == null)
         {
-            canvasManager.ShowHomePage();
-            canvasManager.HideSignUpPage();
+            infoText.text = "Error: " + request.responseCode;
+            infoText.color = Color.red;
+        }
+        else
+        {
+            infoText.text = "Successfully registered";
+            infoText.color = Color.green;
+            
+            // Burada token alıp kaydetmek lazım ki login olmuş gibi olsun
+            // PersistenceManager.UserToken = _useraData.token;
+            PersistenceManager.UserName = _useraData.username;
+            
+            // 2 saniye sonra login sayfasına geç
+            DOVirtual.DelayedCall(2f, () =>
+            {
+                canvasManager.ShowLogInPage();
+                canvasManager.HideSignUpPage();
+            });
+            
         }
     }
     
