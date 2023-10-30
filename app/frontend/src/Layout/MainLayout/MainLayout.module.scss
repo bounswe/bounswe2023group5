@@ -9,6 +9,7 @@
     "footer";
   height: 100%;
   background-color: $color-background;
+  position: relative;
 }
 
 .header {
@@ -16,6 +17,7 @@
   top: 0;
   background-color: $color-secondary;
   grid-area: header;
+  z-index: 10;
 }
 
 .middle {
