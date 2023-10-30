@@ -1,0 +1,15 @@
+@import "../../colors";
+
+.container {
+  display: flex;
+  gap: 0.25em;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 0.9em;
+
+  .tag {
+    padding: 0.25em 0.5em;
+    border-radius: 10000000px;
+    color: $color-text;
+  }
+}

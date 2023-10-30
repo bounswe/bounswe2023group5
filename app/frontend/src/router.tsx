@@ -5,7 +5,11 @@ import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
 import ChangePassword from "./Pages/ChangePassword/ChangePassword";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
+import GameDetails from "./Pages/GameDetails/GameDetails";
+import axios from "axios";
 import Games from "./Pages/Games/Games";
+
+axios.defaults.headers.common["Content-Type"] = "application/json";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "hello",
         element: <HelloWorld />,
+      },
+      {
+        path: "/game/:gameId",
+        element: <GameDetails />,
       },
       {
         path: "games",
