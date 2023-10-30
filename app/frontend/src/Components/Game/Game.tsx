@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./Game.module.scss";
 import GameConsole from "../../../assets/images/game-console.png";
 import { Button } from "antd";

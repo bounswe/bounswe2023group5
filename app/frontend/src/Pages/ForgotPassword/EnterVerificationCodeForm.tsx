@@ -2,7 +2,6 @@
 import React from "react";
 import { Form, Input, Button } from "antd";
 import { useMutation } from "react-query";
-import axios from 'axios';
 import { postCode } from "../../Services/ForgotPassword";
 import { useAuth } from "../../Components/Hooks/useAuth";
 
