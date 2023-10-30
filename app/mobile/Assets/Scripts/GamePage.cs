@@ -22,7 +22,8 @@ public class GamePage : MonoBehaviour
 
     public void Init(GameListEntry gameInfo)
     {
-        // StartCoroutine(LoadImageFromURL(gameInfo.gameIcon, gameImage));
+        string url = "http://ec2-16-16-166-22.eu-north-1.compute.amazonaws.com/";
+        StartCoroutine(LoadImageFromURL(url + gameInfo.gameIcon, gameImage));
         gameNameText.text = gameInfo.gameName;
         gameDescriptionText.text = gameInfo.gameDescription;
         gameID = gameInfo.id;
