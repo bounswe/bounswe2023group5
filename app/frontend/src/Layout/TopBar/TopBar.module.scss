@@ -1,0 +1,19 @@
+@import "../../colors";
+
+.container {
+  display: flex;
+  background-color: $prussian-blue-dark-50;
+  color: $color-text-light;
+  padding-right: 10px;
+  .logo {
+    flex: 0 0 clamp(0px, 20%, 300px);
+  }
+  .menu {
+    flex: 1 1 0px;
+    display: flex;
+    justify-content: stretch;
+    & > * {
+      flex: 1 1 0px;
+    }
+  }
+}
