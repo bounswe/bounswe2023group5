@@ -11,10 +11,13 @@ import axios from "axios";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout />,
-    loader() {
+    loader: async () => {
       return redirect("/games");
     },
+  },
+  {
+    element: <MainLayout />,
+
     children: [
       {
         path: "hello",
@@ -35,11 +38,11 @@ const router = createBrowserRouter([
     element: <ChangePassword />,
   },
   {
-    path: "/login",
+    path: "login",
     element: <Login />,
   },
   {
-    path: "/register",
+    path: "register",
     element: <Register />,
   },
 ]);
