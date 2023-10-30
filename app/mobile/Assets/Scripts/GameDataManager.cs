@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class GameDataManager : MonoBehaviour
 {
-    public Transform gamePageParent;
+    // should delete this
+    /*
     void Start()
     {
+        
+        
         foreach (var gameInfo in GameDataHelper.GameData.games)
         {
             GamePage newGamePage = Instantiate(Resources.Load<GamePage>("Prefabs/GamePage"), gamePageParent);
             newGamePage.Init(gameInfo);
         }
+        
     }
+    */
 }
