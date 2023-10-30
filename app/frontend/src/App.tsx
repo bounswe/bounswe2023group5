@@ -9,9 +9,9 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-          <AntdConfigProvider>
-      <RouterProvider router={router} />
-                </AntdConfigProvider>
+      <AntdConfigProvider>
+        <RouterProvider router={router} />
+      </AntdConfigProvider>
     </QueryClientProvider>
   );
 }
