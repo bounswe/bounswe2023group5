@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import styles from "./Games.module.scss";
 import PacmanLoader from "react-spinners/PacmanLoader";
 import Game from "../../Components/Game/Game";
@@ -8,8 +8,6 @@ import MultipleSelect from "../../Components/MultipleSelect/MultipleSelect";
 import { Button, Input } from "antd";
 
 function Games() {
-  const [games, setGames] = useState<any[] | null>(null);
-  const [tags, setTags] = useState<any[] | null>(null);
   const [filters, setFilters] = useState<any>({
     playerType: [],
     genre: [],
@@ -20,48 +18,9 @@ function Games() {
 
   const { Search } = Input;
 
-  const getGames = async () => {
-    return fetch("http://localhost:8080/api/game/get-game-list", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  };
-  const getTags = async () => {
-    return fetch("http://localhost:8080/api/tag/get-all", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  };
+  const { data: games, status } = useQuery(["games", filters], () => getGames);
 
-  const gamesMutation = useMutation(getGames, {
-    onSuccess: async (data) => {
-      setGames(await data.json());
-    },
-    onError: (error: any) => {
-      console.log(error);
-    },
-  });
-
-  const tagsMutation = useMutation(getTags, {
-    onSuccess: async (data) => {
-      setTags(await data.json());
-    },
-    onError: (error: any) => {
-      console.log(error);
-    },
-  });
-
-  useEffect(() => {
-    setTimeout(() => {
-      gamesMutation.mutate();
-      tagsMutation.mutate();
-      tags;
-    }, 1000);
-  }, []);
+  //const { data, status } = useQuery("tags", getTags);
 
   const onChange = (filterKey: string, value: string) => {
     setFilters((filters) => {
@@ -86,6 +45,7 @@ function Games() {
   };
 
   const handleSearch = (search: string) => {
+    getGames(null, search);
     fetch("http://localhost:8080/api/game/get-game-list", {
       method: "POST",
       headers: {
