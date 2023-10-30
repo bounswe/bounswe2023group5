@@ -61,9 +61,9 @@ public class Login : MonoBehaviour
         yield return request.SendWebRequest();
         var response = request.downloadHandler.text;
         var _loginResponseData = JsonConvert.DeserializeObject<LoginResponse>(response);
-        var _useraData = _loginResponseData.user;
+        var _useraData = _loginResponseData?.user;
         
-        if (request.responseCode != 200 || _useraData?.username == null)
+        if (request.responseCode != 200 || _useraData == null || _useraData?.username == null)
         {
             infoText.text = "Error: " + request.responseCode;
             infoText.color = Color.red;

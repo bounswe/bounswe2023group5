@@ -15,6 +15,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject profilePage;
     [SerializeField] private GameObject changePasswordPage;
     [SerializeField] private GameObject changeForgetPasswordPage;
+    [SerializeField] private GameObject deleteAccountPage;
 
 
     
