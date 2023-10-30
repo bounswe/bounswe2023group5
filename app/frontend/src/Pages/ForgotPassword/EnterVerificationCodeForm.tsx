@@ -3,6 +3,8 @@ import React from "react";
 import { Form, Input, Button } from "antd";
 import { useMutation } from "react-query";
 import axios from 'axios';
+import { postCode } from "../../Services/ForgotPassword";
+import { useAuth } from "../../Components/Hooks/useAuth";
 
 interface EnterVerificationCodeFormProps {
   isVerified: boolean;
@@ -14,16 +16,9 @@ const EnterVerificationCodeForm: React.FC<EnterVerificationCodeFormProps> = ({
   setIsVerified,
   email
 }) => {
-    const postCode = async (data:any) => {
-        return fetch(import.meta.env.VITE_APP_API_URL + "/api/auth/verify-reset-code", {
-        method: "POST",
-        headers: {
-        "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-    });
-    }
 
+
+    const {setToken} = useAuth();
     const codeMutation = useMutation(postCode,{  
     onSuccess: async (data) => {
         if(data.status === 400){
@@ -33,10 +28,11 @@ const EnterVerificationCodeForm: React.FC<EnterVerificationCodeFormProps> = ({
           alert("Something went wrong.")
           return;
         }
-        
-        const token:string = await data.text();
-
-        axios.defaults.headers.common['Authorization'] = `${token}`;
+        console.log(data);
+        console.log(data.data);
+        const token:string = data.data;
+        setToken(token);
+      
         setIsVerified(true)    },
     onError: () => {
         alert("Something went wrong.")

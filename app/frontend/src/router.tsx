@@ -7,8 +7,6 @@ import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import axios from "axios";
 
-axios.defaults.headers.common["Content-Type"] = "application/json";
-
 const router = createBrowserRouter([
   {
     path: "/",
