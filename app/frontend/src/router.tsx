@@ -11,6 +11,7 @@ import Games from "./Pages/Games/Games";
 
 axios.defaults.headers.common["Content-Type"] = "application/json";
 
+
 const router = createBrowserRouter([
   {
     path: "/",
