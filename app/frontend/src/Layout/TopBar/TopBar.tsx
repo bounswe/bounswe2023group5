@@ -1,41 +1,87 @@
 import { Menu, MenuProps } from "antd";
 import styles from "./TopBar.module.scss";
-import { HomeTwoTone, UserOutlined, TeamOutlined } from "@ant-design/icons";
+import {
+  HomeTwoTone,
+  UserOutlined,
+  TeamOutlined,
+  LoginOutlined,
+} from "@ant-design/icons";
 import GameController from "../../Components/Icons/GameController";
-
-const items: MenuProps["items"] = [
-  {
-    key: "nav-home",
-    label: "Home",
-    icon: <HomeTwoTone />,
-  },
-  {
-    key: "nav-games",
-    label: "Games",
-    icon: <GameController />,
-  },
-  {
-    key: "nav-groups",
-    label: "Groups",
-    icon: <TeamOutlined />,
-  },
-  {
-    key: "nav-profile",
-    label: "Profile",
-    icon: <UserOutlined />,
-  },
-];
+import { useAuth } from "../../Components/Hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 function TopBar() {
+  const { isLoggedIn } = useAuth();
+  const navigate = useNavigate();
+
+  const itemsNotLoggedIn: MenuProps["items"] = [
+    {
+      key: "Home",
+      label: "Home",
+      icon: <HomeTwoTone />,
+    },
+    {
+      key: "Games",
+      label: "Games",
+      icon: <GameController />,
+    },
+    {
+      key: "Groups",
+      label: "Groups",
+      icon: <TeamOutlined />,
+    },
+    {
+      key: "main-login",
+      label: "Login",
+      icon: <LoginOutlined />,
+      children: [
+        {
+          key: "login",
+          label: "Login",
+        },
+        {
+          key: "register",
+          label: "Register",
+        },
+      ],
+    },
+  ];
+
+  const itemsLoggedIn: MenuProps["items"] = [
+    {
+      key: "nav-home",
+      label: "Home",
+      icon: <HomeTwoTone />,
+    },
+    {
+      key: "nav-games",
+      label: "Games",
+      icon: <GameController />,
+    },
+    {
+      key: "nav-groups",
+      label: "Groups",
+      icon: <TeamOutlined />,
+    },
+    {
+      key: "nav-profile",
+      label: "Profile",
+      icon: <UserOutlined />,
+    },
+  ];
+
   return (
     <div className={styles.container}>
       <div className={styles.logo}>Logo</div>
       <Menu
         className={styles.menu}
         mode="horizontal"
-        defaultSelectedKeys={["2"]}
-        items={items}
+        defaultSelectedKeys={["Home"]}
+        items={isLoggedIn ? itemsLoggedIn : itemsNotLoggedIn}
         theme="dark"
+        onClick={({ key }) => {
+          key !== "Home" ? navigate(`${key}`) : navigate("/");
+        }}
       />
     </div>
   );
