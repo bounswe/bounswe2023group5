@@ -34,7 +34,7 @@ function Login() {
       setUser(responseData.user);
       setToken(responseData.token);
 
-      navigate("/hello");
+      navigate("/");
     },
     onError: () => {
       alert("Your email or password is incorrect.");
