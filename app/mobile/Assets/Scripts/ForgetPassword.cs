@@ -1,43 +1,59 @@
+using System.Collections;
+using System.Text;
+using Newtonsoft.Json;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Networking;
 using TMPro;
+using UnityEngine.UI;
 
 public class ForgetPassword : MonoBehaviour
 {
     public TMP_InputField emailInputField;
-    private CanvasManager canvasManager;
     [SerializeField] private TMP_Text errorMessageText;
     [SerializeField] private Button sendButton;
     [SerializeField] private Button navigateToLogin;
+    private CanvasManager canvasManager;
 
     private void Awake()
     {
         sendButton.onClick.AddListener(OnClickedForgetPassword);
         navigateToLogin.onClick.AddListener(OnClickedNavigateToLogin);
-        canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
+        canvasManager = FindObjectOfType<CanvasManager>();
     }
 
     private void OnClickedForgetPassword()
     {
         errorMessageText.text = "";
 
-        if (emailInputField.text == "" || !emailInputField.text.Contains("@") || !emailInputField.text.Contains("."))
+        if (string.IsNullOrEmpty(emailInputField.text) || !emailInputField.text.Contains("@") || !emailInputField.text.Contains("."))
         {
             DisplayError("Email is not valid.");
             return;
         }
 
-        bool isEmailFound = UserDataHelper.DoesEmailExist(emailInputField.text);
-        
-        if(isEmailFound)
+        string url = AppVariables.HttpServerUrl + "/auth/forgot-password";
+        var forgetPasswordData = new ForgetPasswordRequest { email = emailInputField.text };
+        string bodyJsonString = JsonConvert.SerializeObject(forgetPasswordData);
+        StartCoroutine(Post(url, bodyJsonString));
+    }
+
+    IEnumerator Post(string url, string bodyJsonString)
+    {
+        var request = new UnityWebRequest(url, "POST");
+        byte[] bodyRaw = Encoding.UTF8.GetBytes(bodyJsonString);
+        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+        yield return request.SendWebRequest();
+
+        if (request.responseCode == 200)
         {
-            Debug.Log("Password sent to email");
+            canvasManager.ShowChangeForgetPasswordPage();
             canvasManager.HideForgetPasswordPage();
-            canvasManager.ShowLogInPage();
         }
         else
         {
-            DisplayError("Email not found.");
+            DisplayError("Error sending the reset password email.");
         }
     }
 
