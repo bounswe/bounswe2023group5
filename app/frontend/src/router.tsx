@@ -6,6 +6,9 @@ import ChangePassword from "./Pages/ChangePassword/ChangePassword";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import Games from "./Pages/Games/Games";
+import axios from "axios";
+
+axios.defaults.headers.common["Content-Type"] = "application/json";
 
 const router = createBrowserRouter([
   {
