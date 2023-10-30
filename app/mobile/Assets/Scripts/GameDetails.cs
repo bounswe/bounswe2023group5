@@ -11,11 +11,14 @@ using UnityEngine.UI;
 
 public class GameDetails : MonoBehaviour
 {
+    [SerializeField] private Image gameImage;
     [SerializeField] private Button summaryButton;
     [SerializeField] private Button reviewsButton;
     [SerializeField] private Button forumButton;
     [SerializeField] private TMP_Text headingText;
     [SerializeField] private TMP_Text bottomText;
+    [SerializeField] private Button exitButton;
+    
     private CanvasManager canvasManager;
     
     private string id;
@@ -40,6 +43,7 @@ public class GameDetails : MonoBehaviour
         //summaryButton.onClick.AddListener(OnClickedSummaryButton);
         //reviewsButton.onClick.AddListener(OnClickedReviewsButton);
         //forumButton.onClick.AddListener(OnClickedForumButton);
+        exitButton.onClick.AddListener(OnClickedExitButton);
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
     }
 
@@ -54,11 +58,11 @@ public class GameDetails : MonoBehaviour
 
     IEnumerator Get(string url, string gameId)
     {
-        url += "?gameId=" + gameId;
+        var parameteredUrl = url + "?gameId=" + gameId;
         
-        Debug.Log(url);
+        // Debug.Log(url);
         
-        var request = new UnityWebRequest(url, "GET");
+        var request = new UnityWebRequest(parameteredUrl, "GET");
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
         
@@ -95,8 +99,38 @@ public class GameDetails : MonoBehaviour
             otherTags = _gamesData.game.otherTags;
             minSystemReq = _gamesData.game.minSystemReq;
 
+            // Set the image 
+            StartCoroutine(LoadImageFromURL(AppVariables.HttpServerUrl+ "/" + gameIcon, gameImage));
+            
             summaryButton.image.color = Color.blue;
+            
+            // Set the bottom text
             bottomText.text = gameDescription;
+            
+            // Set heading
+            headingText.text = gameName;
+        }
+    }
+    
+    private void OnClickedExitButton()
+    {
+        canvasManager.ShowGamesPage();
+        canvasManager.HideGameDetailsPage();
+    }
+    
+    private IEnumerator LoadImageFromURL(string imageUrl, Image targetImage)
+    {
+        UnityWebRequest request = UnityWebRequestTexture.GetTexture(imageUrl);
+        yield return request.SendWebRequest();
+
+        if(request.result != UnityWebRequest.Result.Success)
+        {
+            // Debug.LogError("Failed to load image: " + request.error);
+        }
+        else
+        {
+            Texture2D texture = DownloadHandlerTexture.GetContent(request);
+            targetImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
         }
     }
 }
