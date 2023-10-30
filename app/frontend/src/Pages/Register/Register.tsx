@@ -10,6 +10,7 @@ import {
 import { Button, Input } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
+import postRegister from "../../Services/Register";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -19,16 +20,7 @@ function Register() {
 
   const navigate = useNavigate();
 
-  const postLogin = async (formData: any) => {
-    return fetch(import.meta.env.VITE_APP_API_URL + "/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-  };
-  const registerMutation = useMutation(postLogin, {
+  const registerMutation = useMutation(postRegister, {
     onSuccess: async (data) => {
       if (data.status === 500) {
         alert("Something went wrong.");

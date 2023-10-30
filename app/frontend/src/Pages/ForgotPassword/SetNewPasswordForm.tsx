@@ -2,8 +2,8 @@
 import React from "react";
 import { Form, Input, Button } from "antd";
 import { useMutation } from "react-query";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { postPassword }from "../../Services/ForgotPassword";
 
 interface SetNewPasswordFormProps {
   isVerified: boolean;
@@ -14,22 +14,7 @@ const SetNewPasswordForm: React.FC<SetNewPasswordFormProps> = ({ isVerified }) =
 
   const navigate = useNavigate();
 
-  const postPassword = async (newPassword:any) => {
-    const authorizationHeader = axios.defaults.headers.common['Authorization'];
-    const headers:any = {
-      'Content-Type': 'application/json',
-    };
-  
-    if (authorizationHeader) {
-      headers['Authorization'] = authorizationHeader;
-    }
 
-    return fetch(import.meta.env.VITE_APP_API_URL + "/api/auth/change-forgot-password", {
-      method: "POST",
-      headers:headers,
-      body: JSON.stringify(newPassword)
-      });
-  }
   const passwordMutation = useMutation(postPassword,{  
     onSuccess: (data) => {
       if(data.status === 500){
