@@ -76,3 +76,13 @@ public class UserData
     public string role;
     public bool isVerified;
 }
+
+public class DeleteAccountRequest
+{
+    public string id;
+}
+
+public class DeleteAccountResponse
+{
+    public bool IsDeleted;
+}
