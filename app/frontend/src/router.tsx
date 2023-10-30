@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, redirect } from "react-router-dom";
 import HelloWorld from "./Pages/HelloWorld/HelloWorld";
 import MainLayout from "./Layout/MainLayout/MainLayout";
 import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
@@ -11,7 +11,13 @@ import axios from "axios";
 const router = createBrowserRouter([
   {
     path: "/",
+    loader: async () => {
+      return redirect("/games");
+    },
+  },
+  {
     element: <MainLayout />,
+
     children: [
       {
         path: "hello",
@@ -32,11 +38,11 @@ const router = createBrowserRouter([
     element: <ChangePassword />,
   },
   {
-    path: "/login",
+    path: "login",
     element: <Login />,
   },
   {
-    path: "/register",
+    path: "register",
     element: <Register />,
   },
 ]);
