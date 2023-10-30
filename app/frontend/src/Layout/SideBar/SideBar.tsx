@@ -1,8 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import {
   TeamOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  AppstoreOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { ConfigProvider, Menu } from "antd";
@@ -10,6 +11,7 @@ import styles from "./SideBar.module.scss";
 import Profile from "../../Components/Icons/Profile";
 import { clsx } from "clsx";
 import { getThemeColor } from "../../Components/Providers/AntdConfigProvider";
+import { useAuth } from "../../Components/Hooks/useAuth";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -30,7 +32,7 @@ function createItem(
 }
 
 const items: MenuItem[] = [
-  createItem("My Games", "sub1", <></>, [
+  createItem("My Games", "sub1", <AppstoreOutlined />, [
     createItem("Minecraft", "5"),
     createItem("Rounds", "6"),
     createItem("Dota", "7"),
@@ -45,6 +47,8 @@ const items: MenuItem[] = [
 
 function SideBar() {
   const [collapsed, setCollapsed] = useState(false);
+
+  const { user, isLoggedIn } = useAuth();
 
   return (
     <ConfigProvider
@@ -69,16 +73,22 @@ function SideBar() {
         </button>
 
         <div className={styles.profilePic}>
-          <Profile />
+          {isLoggedIn ? (
+            <Profile />
+          ) : (
+            <img src="../../../assets/images/guru.jpeg"></img>
+          )}
         </div>
-
-        <Menu
-          defaultSelectedKeys={["1"]}
-          defaultOpenKeys={["sub1"]}
-          mode="inline"
-          inlineCollapsed={collapsed}
-          items={items}
-        />
+        {!collapsed && isLoggedIn && <div>{user.username}</div>}
+        {!collapsed && !isLoggedIn && <div>Game Guru</div>}
+        {isLoggedIn && (
+          <Menu
+            defaultOpenKeys={["sub1"]}
+            mode="inline"
+            inlineCollapsed={collapsed}
+            items={items}
+          />
+        )}
       </div>
     </ConfigProvider>
   );

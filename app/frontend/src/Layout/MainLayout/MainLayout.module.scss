@@ -29,4 +29,7 @@
 
 .footer {
   grid-area: footer;
+  height: 48px;
+  background-color: $violet-light-10;
+  position: relative;
 }

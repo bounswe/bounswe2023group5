@@ -1,14 +1,20 @@
 package com.app.gamereview.service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.app.gamereview.dto.request.tag.AddGameTagRequestDto;
+import com.app.gamereview.dto.response.LoginUserResponseDto;
+import com.app.gamereview.dto.response.UserResponseDto;
 import com.app.gamereview.dto.response.tag.AddGameTagResponseDto;
 import com.app.gamereview.dto.response.tag.GetAllTagsOfGameResponseDto;
+import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.Tag;
+import com.app.gamereview.model.User;
 import com.app.gamereview.repository.TagRepository;
+import com.app.gamereview.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -19,6 +25,7 @@ import com.app.gamereview.dto.request.GetGameListRequestDto;
 import com.app.gamereview.dto.response.GetGameListResponseDto;
 import com.app.gamereview.model.Game;
 import com.app.gamereview.repository.GameRepository;
+import com.app.gamereview.dto.response.GameDetailResponseDto;
 
 @Service
 public class GameService {
@@ -40,13 +47,38 @@ public class GameService {
 
 	public List<GetGameListResponseDto> getAllGames(GetGameListRequestDto filter) {
 		Query query = new Query();
+		if(filter != null) {
+			if (filter.getFindDeleted() == null) {
+				query.addCriteria(Criteria.where("isDeleted").is(false));
+			} else if (filter.getFindDeleted() == false) {
+				query.addCriteria(Criteria.where("isDeleted").is(false));
+			}
 
-		if (filter.getFindDeleted() == null) {
-			query.addCriteria(Criteria.where("isDeleted").is(false));
+			if(filter.getSearch() != null && filter.getSearch().length() > 0){
+				query.addCriteria(Criteria.where("gameName").regex(filter.getSearch(), "i"));
+
+			}else{
+				if (filter.getPlayerTypes() != null && filter.getPlayerTypes().size() > 0) {
+					query.addCriteria(Criteria.where("playerTypes.name").all(filter.getPlayerTypes()));
+				}
+				if (filter.getGenre() != null && filter.getGenre().size() > 0) {
+					query.addCriteria(Criteria.where("genre.name").all(filter.getGenre()));
+				}
+				if (filter.getProduction() != null && filter.getProduction().length() > 0) {
+					query.addCriteria(Criteria.where("production.name").is(filter.getProduction()));
+				}
+				if (filter.getPlatform() != null && filter.getPlatform().size() > 0) {
+					query.addCriteria(Criteria.where("platforms.name").all(filter.getPlatform()));
+				}
+				if (filter.getArtStyle() != null && filter.getArtStyle().size() > 0) {
+					query.addCriteria(Criteria.where("artStyles.name").all(filter.getArtStyle()));
+				}
+			}
+
+
 		}
-		else if (filter.getFindDeleted() == false) {
-			query.addCriteria(Criteria.where("isDeleted").is(false));
-		}
+
+
 
 		List<Game> gamesList = mongoTemplate.find(query, Game.class);
 
@@ -54,7 +86,7 @@ public class GameService {
 	}
 
 	private GetGameListResponseDto mapToGetGameListResponseDto(Game game) {
-		GetGameListResponseDto gameDto = new GetGameListResponseDto(game.getGameName(), game.getGameDescription(),
+		GetGameListResponseDto gameDto = new GetGameListResponseDto(game.getId(), game.getGameName(), game.getGameDescription(),
 				game.getGameIcon());
 		return gameDto;
 	}
@@ -63,8 +95,7 @@ public class GameService {
 		Optional<Game> findGame = gameRepository.findById(gameId);
 
 		if(findGame.isEmpty() || findGame.get().getIsDeleted()){
-			// TODO exception
-			return null;
+			throw new ResourceNotFoundException("Game does not exist");
 		}
 
 		Game game = findGame.get();
@@ -89,13 +120,11 @@ public class GameService {
 		Optional<Tag> findTag = tagRepository.findById(request.getTagId());
 
 		if(findGame.isEmpty() || findGame.get().getIsDeleted()){
-			// TODO exception
-			return null;
+			throw new ResourceNotFoundException("Game does not exist");
 		}
 
 		if(findTag.isEmpty() || findTag.get().getIsDeleted()){
-			// TODO exception
-			return null;
+			throw new ResourceNotFoundException("Tag does not exist");
 		}
 
 		Game game = findGame.get();
@@ -108,5 +137,17 @@ public class GameService {
 		response.setAddedTag(tag);
 		return response;
 	}
+
+	public GameDetailResponseDto getGameDetail(String id){
+		Optional<Game> optionalGame = gameRepository.findById(id);
+		if (optionalGame.isPresent()) {
+			Game game = optionalGame.get();
+			GameDetailResponseDto response = new GameDetailResponseDto();
+			response.setGame(game);
+			return response;
+		}
+		return null;
+	}
+
 
 }

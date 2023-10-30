@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Components/Hooks/useAuth";
 
 function HelloWorld() {
-  const navigate = useNavigate();
   const { user, logOut } = useAuth();
   return (
     <div style={{ alignContent: "center" }}>
