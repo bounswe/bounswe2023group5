@@ -1,4 +1,4 @@
-import { Menu, MenuProps } from "antd";
+import { Menu, MenuProps, Typography } from "antd";
 import styles from "./TopBar.module.scss";
 import {
   HomeTwoTone,
@@ -9,6 +9,8 @@ import {
 import GameController from "../../Components/Icons/GameController";
 import { useAuth } from "../../Components/Hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+
+const { Title } = Typography;
 
 function TopBar() {
   const { isLoggedIn } = useAuth();
@@ -72,7 +74,7 @@ function TopBar() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.logo}>Logo</div>
+      <div className={styles.logo}>Game Guru</div>
       <Menu
         className={styles.menu}
         mode="horizontal"

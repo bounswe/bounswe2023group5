@@ -7,11 +7,15 @@
   padding-right: 10px;
   .logo {
     flex: 0 0 clamp(0px, 20%, 300px);
+    color: $yellow;
+    align-self: center;
+    font-size: large;
   }
   .menu {
     flex: 1 1 0px;
     display: flex;
     justify-content: stretch;
+    align-items: stretch;
     & > * {
       flex: 1 1 0px;
     }
