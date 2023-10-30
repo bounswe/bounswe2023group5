@@ -5,11 +5,14 @@ const ChangePassword = () => {
   const [form] = Form.useForm();
 
   const handleChangePassword = () => {
+     /*
     const values = form.getFieldsValue();
+   
     const body = {
       email: values.email,
       new_password: values.new_password,
     };
+    */
     message.success("Password is changed successfully!");
   };
 
