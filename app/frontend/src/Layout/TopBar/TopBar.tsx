@@ -1,4 +1,4 @@
-import { Menu, MenuProps, Typography } from "antd";
+import { Menu, MenuProps } from "antd";
 import styles from "./TopBar.module.scss";
 import {
   HomeTwoTone,

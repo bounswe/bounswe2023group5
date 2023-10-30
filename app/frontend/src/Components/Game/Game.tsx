@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./Game.module.scss";
 import GameConsole from "../../../assets/images/game-console.png";
 import { Button } from "antd";
@@ -22,7 +21,7 @@ function Game(props: any) {
       </div>
       <div className={styles.content}>
         <img
-          src={game.gameIcon}
+          src={`${import.meta.env.VITE_APP_IMG_URL}${game?.gameIcon}`}
           alt="name of the game"
           width={120}
           height={100}

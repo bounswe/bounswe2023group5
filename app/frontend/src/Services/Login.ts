@@ -1,10 +1,14 @@
-import axios from 'axios';
+import axios from "axios";
 
-async function postLogin(formData:any) {
+async function postLogin(formData: any) {
   try {
-    const response = await axios.post(`${import.meta.env.VITE_APP_API_URL}/auth/login`, formData, {
-      withCredentials: true,
-    });
+    const response = await axios.post(
+      `${import.meta.env.VITE_APP_API_URL}/auth/login`,
+      formData,
+      {
+        withCredentials: true,
+      }
+    );
     return response;
   } catch (error) {
     throw error;
