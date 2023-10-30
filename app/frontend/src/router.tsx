@@ -5,7 +5,6 @@ import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
 import ChangePassword from "./Pages/ChangePassword/ChangePassword";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
-import axios from "axios";
 
 const router = createBrowserRouter([
   {
