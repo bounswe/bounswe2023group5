@@ -53,7 +53,7 @@ public class GameService {
 
 			}else{
 				if (filter.getPlayerTypes() != null && filter.getPlayerTypes().size() > 0) {
-					query.addCriteria(Criteria.where("playerType.name").all(filter.getPlayerTypes()));
+					query.addCriteria(Criteria.where("playerTypes.name").all(filter.getPlayerTypes()));
 				}
 				if (filter.getGenre() != null && filter.getGenre().size() > 0) {
 					query.addCriteria(Criteria.where("genre.name").all(filter.getGenre()));
@@ -62,10 +62,10 @@ public class GameService {
 					query.addCriteria(Criteria.where("production.name").is(filter.getProduction()));
 				}
 				if (filter.getPlatform() != null && filter.getPlatform().size() > 0) {
-					query.addCriteria(Criteria.where("platform.name").all(filter.getPlatform()));
+					query.addCriteria(Criteria.where("platforms.name").all(filter.getPlatform()));
 				}
 				if (filter.getArtStyle() != null && filter.getArtStyle().size() > 0) {
-					query.addCriteria(Criteria.where("artStyle.name").all(filter.getArtStyle()));
+					query.addCriteria(Criteria.where("artStyles.name").all(filter.getArtStyle()));
 				}
 			}
 
