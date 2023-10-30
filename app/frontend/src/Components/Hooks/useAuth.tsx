@@ -43,16 +43,6 @@ const useAuth = (): UseAuthProps => {
     Cookies.set("token", token);
   }
 
-  useEffect(() => {
-    if (token) {
-      axios.defaults.headers.common["Authorization"] = `${token}`;
-
-      me().then((res) => {
-        setUser?.(res.data);
-      });
-    }
-  }, [token]);
-
   function logOut() {
     Cookies.remove("token");
     location.reload();
@@ -64,6 +54,16 @@ const useAuth = (): UseAuthProps => {
 // AuthProvider component
 const AuthProvider = ({ children }: PropsWithChildren<{}>) => {
   const [user, setUser] = useState<User | null>(null); // Initialize to fetch from local storage or server if needed
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (token) {
+      axios.defaults.headers.common["Authorization"] = `${token}`;
+      me().then((res) => {
+        setUser?.(res.data);
+      });
+    }
+  }, []);
 
   const value = {
     user,
