@@ -10,6 +10,7 @@ import com.app.gamereview.dto.response.LoginUserResponseDto;
 import com.app.gamereview.dto.response.UserResponseDto;
 import com.app.gamereview.dto.response.tag.AddGameTagResponseDto;
 import com.app.gamereview.dto.response.tag.GetAllTagsOfGameResponseDto;
+import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.Tag;
 import com.app.gamereview.model.User;
 import com.app.gamereview.repository.TagRepository;
@@ -94,8 +95,7 @@ public class GameService {
 		Optional<Game> findGame = gameRepository.findById(gameId);
 
 		if(findGame.isEmpty() || findGame.get().getIsDeleted()){
-			// TODO exception
-			return null;
+			throw new ResourceNotFoundException("Game does not exist");
 		}
 
 		Game game = findGame.get();
@@ -120,13 +120,11 @@ public class GameService {
 		Optional<Tag> findTag = tagRepository.findById(request.getTagId());
 
 		if(findGame.isEmpty() || findGame.get().getIsDeleted()){
-			// TODO exception
-			return null;
+			throw new ResourceNotFoundException("Game does not exist");
 		}
 
 		if(findTag.isEmpty() || findTag.get().getIsDeleted()){
-			// TODO exception
-			return null;
+			throw new ResourceNotFoundException("Tag does not exist");
 		}
 
 		Game game = findGame.get();

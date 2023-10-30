@@ -3,6 +3,8 @@ package com.app.gamereview.service;
 import com.app.gamereview.dto.request.*;
 import com.app.gamereview.dto.response.LoginUserResponseDto;
 import com.app.gamereview.dto.response.UserResponseDto;
+import com.app.gamereview.exception.BadRequestException;
+import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.User;
 import com.app.gamereview.repository.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -33,8 +35,7 @@ public class AuthService {
 		Optional<User> sameEmail = userRepository.findByEmailAndIsDeletedFalse(registerUserRequestDto.getEmail());
 
 		if (sameUsername.isPresent() || sameEmail.isPresent()) {
-			// TODO : will add exception handling mechanism and custom exceptions
-			return null;
+			throw new BadRequestException("User with the same information already exists");
 		}
 		User userToCreate = modelMapper.map(registerUserRequestDto, User.class);
 		userToCreate.setIsDeleted(false);
