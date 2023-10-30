@@ -397,7 +397,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5735064818985095353
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1516,7 +1516,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03423cdb3c9f76d4db974a1b0cef7dd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasManager: {fileID: 0}
   gamesPageButton: {fileID: 8581152107358550334}
   loginPageButton: {fileID: 3635532836104504824}
   signUpPageButton: {fileID: 1793594359108330669}

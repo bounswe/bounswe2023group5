@@ -10,31 +10,24 @@ public class LogOut : MonoBehaviour
     
     // After the log out message is sent, the user should be navigated to 
     // another page
-    [SerializeField] private CanvasManager canvasManager;
+    private CanvasManager canvasManager;
     private void Awake()
     {
         GetComponent<Button>().onClick.AddListener(DoLogOut);
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 
     private void DoLogOut()
     {
         // Delete the token
+        PersistenceManager.UserToken = "";
+        PersistenceManager.UserName = "";
+        PersistenceManager.id = "";
+        PersistenceManager.Password = "";
         
         // Return back to the sign-up page, normally we'll return to log-in page
-        canvasManager.ShowSignUpPage();
-        canvasManager.HideHomePage();
+        canvasManager.ShowLogInPage();
+        canvasManager.HideProfilePage();
     }
 }

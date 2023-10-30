@@ -94,6 +94,11 @@ public class CanvasManager : MonoBehaviour
         homePage.SetActive(false);
     }
     
+    public void HideProfilePage()
+    {
+        profilePage.SetActive(false);
+    }
+    
     
     public void ShowForumPage()
     {

@@ -106,6 +106,6 @@ public class RegisterUser : MonoBehaviour
     private void OnClickedLoginButton()
     {
         canvasManager.ShowLogInPage();
-        canvasManager.HideLogInPage();
+        canvasManager.HideSignUpPage();
     }
 }

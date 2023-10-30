@@ -24,6 +24,12 @@ public class Login : MonoBehaviour
         forgetPasswordButton.onClick.AddListener(OnClickedForgetPassword);
         signupButton.onClick.AddListener(OnClickedSignup);
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
+        if (!string.IsNullOrEmpty(PersistenceManager.UserToken))
+        {
+            canvasManager.ShowHomePage();
+            canvasManager.HideLogInPage();
+        }
+        
     }
 
     private void OnClickedLogin()
