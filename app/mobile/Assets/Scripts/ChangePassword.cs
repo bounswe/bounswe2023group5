@@ -8,18 +8,17 @@ using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
+using UnityEngine.Networking;
 
 public class ChangePassword : MonoBehaviour
 {
-	public TMP_InputField emailInputField;
 	public TMP_InputField passwordInputField;
 	public TMP_InputField newPasswordInputField;
 	public TMP_Text errorField;
-	private string url = "http://ec2-16-16-166-22.eu-north-1.compute.amazonaws.com/api/auth/change-password";
+	private string url = AppVariables.HttpServerUrl + "/auth/change-password";
 
 
-	private string token =
-		"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYWxpc0BoYWxpcy5jb20iLCJleHAiOjE2OTk0NjUxMzYsImlhdCI6MTY5ODYwMTEzNn0.hMc9CDPEMQJA9StOCE4NLGfycnd5zEQ6FbGGXfxDHkw";	
 	// After the change password message is sent, the user should be navigated to 
 	// another page
 	private CanvasManager canvasManager;
@@ -27,6 +26,8 @@ public class ChangePassword : MonoBehaviour
 
 	private void Awake()
 	{
+		// Line below will be DELETED after log-in is implemented
+		// PersistenceManager.UserToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJha2lsQG1haWwuY29tIiwiZXhwIjoxNjk5NTU1NzUzLCJpYXQiOjE2OTg2OTE3NTN9.Opz6PHi12gRZB0CnFUqOe0e1HIgs40gJqG_C_xhPEOE";
 		GetComponent<Button>().onClick.AddListener(SendPasswordChangeRequest);
 		canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
 	}
@@ -45,21 +46,27 @@ public class ChangePassword : MonoBehaviour
 
     private async void SendPasswordChangeRequest()
     {
-	    // check the email field
-	    if (emailInputField.text.Contains("@") == false || emailInputField.text.Contains(".") == false)
-	    {
-		    Debug.Log("Email is not valid");
-			errorField.text = "Email is not valid";
-		    return;
-	    }
 
 	    // Check new password field
 	    if (newPasswordInputField.text.Length < 6)
 	    {
-		    Debug.Log("New password must be at least 6 characters");
-		    errorField.text = "New password must be at least 6 characters";
+		    string message = "New password must be at least 6 characters";
+		    Debug.Log(message);
+		    errorField.text = message;
+		    errorField.color = Color.red;
 			return;
 	    }
+	    
+	    // Check the token exists
+	    if (PersistenceManager.UserToken == "")
+	    {
+		    string message = "No user is logged in";
+		    Debug.Log(message);
+		    errorField.text = message;
+		    errorField.color = Color.red;
+		    return;
+	    }
+	    Debug.Log("token is "+ PersistenceManager.UserToken);
 
 	    // "Password change request" object
 	    PasswordChangeRequest passwordChangeRequest = new PasswordChangeRequest();
@@ -68,6 +75,7 @@ public class ChangePassword : MonoBehaviour
 	    // Make a request to the server
 	    using (var client = new HttpClient())
 	    {
+		    Debug.Log(url + " " + PersistenceManager.UserToken);
 		    // The backend "change password" endpoint
 		    var endpoint = new Uri(url);
 		    
@@ -78,7 +86,7 @@ public class ChangePassword : MonoBehaviour
 		    var payload = new StringContent(newPostJson, Encoding.UTF8, "application/json");
 
 		    // Add authorization header
-		    client.DefaultRequestHeaders.Add("Authorization", token);
+		    client.DefaultRequestHeaders.Add("Authorization", PersistenceManager.UserToken);
 		    
 		    // Make the request
 		    var response = await client.PostAsync(endpoint, payload);
@@ -90,17 +98,25 @@ public class ChangePassword : MonoBehaviour
 		    // If returned success
 		    if (responseContent == "true")
 		    {
-			    canvasManager.ShowHomePage();
-			    canvasManager.HideChangePasswordPage();
+			    errorField.text = "Successfully registered";
+			    errorField.color = Color.green;
+            
+			    
+			    // 2 saniye sonra login sayfasına geç
+			    DOVirtual.DelayedCall(2f, () =>
+			    {
+				    canvasManager.ShowLogInPage();
+				    canvasManager.HideChangePasswordPage();
+			    });
 		    }
 		    else
 		    {
 			    var message = "cannot change the password";
 			    Debug.Log(message);
 			    errorField.text = message;
+			    errorField.color = Color.red;
 		    }
-		    Debug.Log(responseContent == "true" ? "Password changed" : "Password not changed");
-
+		    
 	    }
 	    
 	    
