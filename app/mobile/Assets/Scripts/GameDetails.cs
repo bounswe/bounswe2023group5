@@ -41,8 +41,6 @@ public class GameDetails : MonoBehaviour
         //reviewsButton.onClick.AddListener(OnClickedReviewsButton);
         //forumButton.onClick.AddListener(OnClickedForumButton);
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
-        
-        GameDetail("dsgfhjhgds");
     }
 
     public void GameDetail(string gameId)
