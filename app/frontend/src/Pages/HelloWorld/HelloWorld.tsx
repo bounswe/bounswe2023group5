@@ -1,5 +1,5 @@
-import styles from "./HelloWorld.module.scss";
 import { Button } from "antd";
+import styles from "./HelloWorld.module.scss";
 import { useAuth } from "../../Components/Hooks/useAuth";
 
 function HelloWorld() {

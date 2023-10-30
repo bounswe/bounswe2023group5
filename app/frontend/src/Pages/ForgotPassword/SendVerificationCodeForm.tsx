@@ -3,8 +3,7 @@ import React from "react";
 import { Form, Input, Button } from "antd";
 import { MailOutlined } from "@ant-design/icons";
 import { useMutation } from "react-query";
-import { postEmail }  from "../../Services/ForgotPassword";
-
+import { postEmail } from "../../Services/ForgotPassword";
 
 interface SendVerificationCodeFormProps {
   codeInputVisible: boolean;
@@ -17,42 +16,34 @@ const SendVerificationCodeForm: React.FC<SendVerificationCodeFormProps> = ({
   setCodeInputVisible,
   setEmail,
 }) => {
-
-
-  const emailMutation = useMutation(postEmail,{  
+  const emailMutation = useMutation(postEmail, {
     onSuccess: (data) => {
-      if(data.status === 404){
-        alert("Please enter a valid email address.")
+      if (data.status === 404) {
+        alert("Please enter a valid email address.");
         return;
-      }else if(data.status === 500){
-        alert("Something went wrong.")
+      } else if (data.status === 500) {
+        alert("Something went wrong.");
         return;
-      }else if(data.status === 400){
-        alert("Bad Request")
+      } else if (data.status === 400) {
+        alert("Bad Request");
         return;
       }
-      alert("Verification code is sent to your email address.")
-      setCodeInputVisible(true)
+      alert("Verification code is sent to your email address.");
+      setCodeInputVisible(true);
     },
     onError: () => {
-      alert("Please enter a valid email address.")
-    },});
+      alert("Please enter a valid email address.");
+    },
+  });
 
-
-
-
-  const onFinish = (data:any) => {
+  const onFinish = (data: any) => {
     data["email"] = data["email"].toLowerCase();
-    emailMutation.mutate( data.email );
+    emailMutation.mutate(data.email);
     setEmail(data.email);
   };
 
   return (
-    <Form
-      layout="vertical"
-      onFinish={onFinish}
-      size="large"
-    >
+    <Form layout="vertical" onFinish={onFinish} size="large">
       <Form.Item
         style={{ width: "100%" }}
         name="email"
@@ -67,11 +58,7 @@ const SendVerificationCodeForm: React.FC<SendVerificationCodeFormProps> = ({
         />
       </Form.Item>
       <Form.Item>
-        <Button
-          disabled={codeInputVisible}
-          type="primary"
-          htmlType="submit"
-        >
+        <Button disabled={codeInputVisible} type="primary" htmlType="submit">
           Send Code
         </Button>
       </Form.Item>

@@ -1,4 +1,6 @@
 FROM eclipse-temurin:17-jdk-alpine
-VOLUME /tmp
-COPY target/*.jar app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+WORKDIR /app
+VOLUME /app/images
+COPY target/*.jar /app/bounswe.jar
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","/app/bounswe.jar"]

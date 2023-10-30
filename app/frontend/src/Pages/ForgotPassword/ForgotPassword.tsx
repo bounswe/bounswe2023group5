@@ -21,12 +21,14 @@ const ForgotPassword: React.FC = () => {
       )}
 
       {codeInputVisible && !isVerified && (
-        <EnterVerificationCodeForm isVerified={isVerified} setIsVerified={setIsVerified} email={email} />
+        <EnterVerificationCodeForm
+          isVerified={isVerified}
+          setIsVerified={setIsVerified}
+          email={email}
+        />
       )}
 
-      {isVerified && (
-        <SetNewPasswordForm isVerified={isVerified} />
-      )}
+      {isVerified && <SetNewPasswordForm isVerified={isVerified} />}
     </Card>
   );
 };

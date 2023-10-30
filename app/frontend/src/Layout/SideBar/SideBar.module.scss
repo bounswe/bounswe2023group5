@@ -1,0 +1,39 @@
+@import "../../colors";
+
+.container {
+  height: 100%;
+  width: clamp(0px, 20%, 300px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: width 0.2s ease-in-out;
+  background-color: $color-accent;
+
+  .toggle-btn {
+    background: transparent;
+    padding: 1em;
+    border: none;
+    align-self: end;
+  }
+
+  .profile-pic {
+    aspect-ratio: 1;
+    width: 90%;
+    max-width: 120px;
+    svg, img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 100%;
+    }
+  }
+
+  .menu {
+    border-inline-end: 0px !important;
+  }
+}
+
+.collapsed {
+  width: 40px;
+  overflow: hidden;
+}
