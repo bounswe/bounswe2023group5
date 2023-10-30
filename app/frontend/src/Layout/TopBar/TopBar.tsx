@@ -5,13 +5,14 @@ import {
   UserOutlined,
   TeamOutlined,
   LoginOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
 import GameController from "../../Components/Icons/GameController";
 import { useAuth } from "../../Components/Hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
 function TopBar() {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, logOut } = useAuth();
   const navigate = useNavigate();
 
   const itemsNotLoggedIn: MenuProps["items"] = [
@@ -68,6 +69,11 @@ function TopBar() {
       label: "Profile",
       icon: <UserOutlined />,
     },
+    {
+      key: "logout",
+      label: "Logout",
+      icon: <LogoutOutlined />,
+    },
   ];
 
   return (
@@ -83,7 +89,11 @@ function TopBar() {
         items={isLoggedIn ? itemsLoggedIn : itemsNotLoggedIn}
         theme="dark"
         onClick={({ key }) => {
-          key !== "home" ? navigate(`${key}`) : navigate("/");
+          key === "home"
+            ? navigate("/")
+            : key === "logout"
+            ? logOut()
+            : navigate(`${key}`);
         }}
       />
     </div>
