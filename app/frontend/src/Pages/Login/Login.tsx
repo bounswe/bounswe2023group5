@@ -9,45 +9,45 @@ import {
 } from "@ant-design/icons";
 import { Button, Input } from "antd";
 import { useMutation } from "react-query";
+import axios from "axios";
+import { useAuth } from "../../Components/Hooks/useAuth";
 
 function Login() {
+  const { setUser, setToken } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
-  const postLogin = async (formData:any) => {
-    return fetch(import.meta.env.VITE_APP_API_URL + "/api/auth/login", {
+  const postLogin = async (formData: any) => {
+    return fetch(import.meta.env.VITE_APP_API_URL + "/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
     });
-  }
-  const loginMutation = useMutation(postLogin,{  
-    onSuccess: async( data) => {
-      if(data.status === 404){
-        alert("Please enter a valid email address.")
+  };
+  const loginMutation = useMutation(postLogin, {
+    onSuccess: async (data) => {
+      if (data.status === 404) {
+        alert("Please enter a valid email address.");
         return;
-      }else if(data.status === 500){
-        alert("Something went wrong.")
+      } else if (data.status === 500) {
+        alert("Something went wrong.");
         return;
       }
-      console.log(data.status)
-      const responseData: { token: string, user:any} = await data.json();
-      const jwtToken:string = responseData.token;
-      const user:any = responseData.user;
-      localStorage.setItem("token", jwtToken);
-      localStorage.setItem("email", user.email);
-      localStorage.setItem("role", user.role);
-      localStorage.setItem("username", user.username);
-      if(localStorage.getItem("token"))
-        console.log("Token is set");
-        navigate("/hello");
+      console.log(data.status);
+      const responseData: { token: string; user: any } = await data.json();
+
+      setUser(responseData.user);
+      setToken(responseData.token);
+
+      navigate("/hello");
     },
     onError: () => {
-      alert("Your email or password is incorrect.")
-    },});
+      alert("Your email or password is incorrect.");
+    },
+  });
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -109,6 +109,13 @@ function Login() {
                 className={styles.navigationLink}
               >
                 Don't you have an account? Register
+              </Button>
+              <Button
+                type="link"
+                onClick={() => navigate("/forgotpassword")}
+                className={styles.navigationLink}
+              >
+                Forgot Password
               </Button>
             </div>
           </form>

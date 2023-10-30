@@ -18,11 +18,12 @@ const SendVerificationCodeForm: React.FC<SendVerificationCodeFormProps> = ({
 }) => {
 
   const postEmail = async (email:string) => {
-    return fetch(import.meta.env.VITE_APP_API_URL + "/api/auth/forgot-password?email="+ email, {
+    return fetch(import.meta.env.VITE_APP_API_URL + "/api/auth/forgot-password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({email})
     });
   }
   const emailMutation = useMutation(postEmail,{  
@@ -32,6 +33,9 @@ const SendVerificationCodeForm: React.FC<SendVerificationCodeFormProps> = ({
         return;
       }else if(data.status === 500){
         alert("Something went wrong.")
+        return;
+      }else if(data.status === 400){
+        alert("Bad Request")
         return;
       }
       alert("Verification code is sent to your email address.")

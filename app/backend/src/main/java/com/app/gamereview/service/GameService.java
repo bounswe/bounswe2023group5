@@ -1,5 +1,6 @@
 package com.app.gamereview.service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -45,13 +46,38 @@ public class GameService {
 
 	public List<GetGameListResponseDto> getAllGames(GetGameListRequestDto filter) {
 		Query query = new Query();
+		if(filter != null) {
+			if (filter.getFindDeleted() == null) {
+				query.addCriteria(Criteria.where("isDeleted").is(false));
+			} else if (filter.getFindDeleted() == false) {
+				query.addCriteria(Criteria.where("isDeleted").is(false));
+			}
 
-		if (filter.getFindDeleted() == null) {
-			query.addCriteria(Criteria.where("isDeleted").is(false));
+			if(filter.getSearch() != null && filter.getSearch().length() > 0){
+				query.addCriteria(Criteria.where("gameName").regex(filter.getSearch(), "i"));
+
+			}else{
+				if (filter.getPlayerTypes() != null && filter.getPlayerTypes().size() > 0) {
+					query.addCriteria(Criteria.where("playerTypes.name").all(filter.getPlayerTypes()));
+				}
+				if (filter.getGenre() != null && filter.getGenre().size() > 0) {
+					query.addCriteria(Criteria.where("genre.name").all(filter.getGenre()));
+				}
+				if (filter.getProduction() != null && filter.getProduction().length() > 0) {
+					query.addCriteria(Criteria.where("production.name").is(filter.getProduction()));
+				}
+				if (filter.getPlatform() != null && filter.getPlatform().size() > 0) {
+					query.addCriteria(Criteria.where("platforms.name").all(filter.getPlatform()));
+				}
+				if (filter.getArtStyle() != null && filter.getArtStyle().size() > 0) {
+					query.addCriteria(Criteria.where("artStyles.name").all(filter.getArtStyle()));
+				}
+			}
+
+
 		}
-		else if (filter.getFindDeleted() == false) {
-			query.addCriteria(Criteria.where("isDeleted").is(false));
-		}
+
+
 
 		List<Game> gamesList = mongoTemplate.find(query, Game.class);
 
