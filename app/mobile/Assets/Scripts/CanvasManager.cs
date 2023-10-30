@@ -15,6 +15,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject profilePage;
     [SerializeField] private GameObject changePasswordPage;
     [SerializeField] private GameObject changeForgetPasswordPage;
+    [SerializeField] private GameObject gameDetailsPage;
     [SerializeField] private GameObject deleteAccountPage;
 
 
@@ -116,6 +117,17 @@ public class CanvasManager : MonoBehaviour
         homePage.SetActive(false);
         forumPage.SetActive(false);
         gamesPage.SetActive(false);
+    }
+    
+    public void ShowGameDetailsPage(string gameID)
+    {
+        gameDetailsPage.SetActive(true);
+        gameDetailsPage.GetComponent<GameDetails>().GameDetail(gameID);
+    }
+    
+    public void HideGameDetailsPage()
+    {
+        gameDetailsPage.SetActive(false);
     }
     
     public void ShowDeleteAccountPage()
