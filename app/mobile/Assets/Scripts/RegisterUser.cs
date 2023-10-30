@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using DG.Tweening;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -78,7 +79,7 @@ public class RegisterUser : MonoBehaviour
         var response = request.downloadHandler.text;
         var _useraData = JsonConvert.DeserializeObject<RegisterResponse>(response);
         
-        if (request.responseCode != 200 || _useraData.username == null)
+        if (request.responseCode != 200 || _useraData?.username == null)
         {
             infoText.text = "Error: " + request.responseCode;
             infoText.color = Color.red;
@@ -87,11 +88,18 @@ public class RegisterUser : MonoBehaviour
         {
             infoText.text = "Successfully registered";
             infoText.color = Color.green;
-            canvasManager.ShowLogInPage();
-            canvasManager.HideSignUpPage();
+            
             // Burada token alıp kaydetmek lazım ki login olmuş gibi olsun
             // PersistenceManager.UserToken = _useraData.token;
             PersistenceManager.UserName = _useraData.username;
+            
+            // 2 saniye sonra login sayfasına geç
+            DOVirtual.DelayedCall(2f, () =>
+            {
+                canvasManager.ShowLogInPage();
+                canvasManager.HideSignUpPage();
+            });
+            
         }
     }
     
