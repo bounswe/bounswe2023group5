@@ -1,11 +1,14 @@
-async function postLogin  (formData: any)  {
-    return fetch(import.meta.env.VITE_APP_API_URL + "/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
+import axios from 'axios';
+
+async function postLogin(formData:any) {
+  try {
+    const response = await axios.post(`${import.meta.env.VITE_APP_API_URL}/auth/login`, formData, {
+      withCredentials: true,
     });
-  };
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
 
 export default postLogin;

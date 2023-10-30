@@ -1,41 +1,42 @@
 import axios from "axios";
 
 async function postEmail  (email:string) {
-    return fetch(import.meta.env.VITE_APP_API_URL + "/auth/forgot-password", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({email})
+
+  try {
+    const response = await axios.post(`${import.meta.env.VITE_APP_API_URL}/auth/forgot-password`, {email}, {
+      withCredentials: true,
     });
+    return response;
+  } catch (error) {
+    throw error;
   }
+}
 
 
 async function postPassword (newPassword:any) {
-    const authorizationHeader = axios.defaults.headers.common['Authorization'];
-    const headers:any = {
-      'Content-Type': 'application/json',
-    };
-  
-    if (authorizationHeader) {
-      headers['Authorization'] = authorizationHeader;
-    }
 
-    return fetch(import.meta.env.VITE_APP_API_URL + "/auth/change-forgot-password", {
-      method: "POST",
-      headers:headers,
-      body: JSON.stringify(newPassword)
-      });
+  try {
+    const response = await axios.post(`${import.meta.env.VITE_APP_API_URL}/auth/change-forgot-password`, newPassword, {
+      withCredentials: true,
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+
   }
 
 
 async function postCode (data:any) {
-    return fetch(import.meta.env.VITE_APP_API_URL + "/auth/verify-reset-code", {
-    method: "POST",
-    headers: {
-    "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-});
+
+  try {
+    const response = await axios.post(`${import.meta.env.VITE_APP_API_URL}/auth/verify-reset-code`, data, {
+      withCredentials: true,
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+
 }
 export {postPassword, postCode, postEmail};

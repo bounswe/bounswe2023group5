@@ -29,7 +29,7 @@ function Login() {
         return;
       }
       console.log(data.status);
-      const responseData: { token: string; user: any } = await data.json();
+      const responseData: { token: string; user: any } = data.data;
 
       setUser(responseData.user);
       setToken(responseData.token);
