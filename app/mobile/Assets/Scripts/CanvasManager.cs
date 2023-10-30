@@ -13,8 +13,13 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject forumPage;
     [SerializeField] private GameObject gamesPage;
     [SerializeField] private GameObject profilePage;
+
     [SerializeField] private GameObject changePasswordPage;
 
+    [SerializeField] private GameObject changeForgetPasswordPage;
+
+
+    
     public void ShowSignUpPage()
     {
         signUpPage.SetActive(true);
@@ -45,6 +50,7 @@ public class CanvasManager : MonoBehaviour
         forgetPasswordPage.SetActive(false);
     }
 
+    
     public void ShowChangePasswordPage()
     {
         changePasswordPage.SetActive(true);
@@ -53,6 +59,16 @@ public class CanvasManager : MonoBehaviour
     public void HideChangePasswordPage()
     {
         changePasswordPage.SetActive(false);
+    }
+    
+    public void ShowChangeForgetPasswordPage()
+    {
+        changeForgetPasswordPage.SetActive(true);
+    }
+    
+    public void HideChangeForgetPasswordPage()
+    {
+        changeForgetPasswordPage.SetActive(false);
     }
     
     public void ShowResetPasswordPage()
@@ -71,6 +87,11 @@ public class CanvasManager : MonoBehaviour
         forumPage.SetActive(false);
         gamesPage.SetActive(false);
         profilePage.SetActive(false);
+    }
+
+    public void HideHomePage()
+    {
+        homePage.SetActive(false);
     }
     
     
