@@ -1,6 +1,7 @@
 package com.app.gamereview.controller;
 
 import com.app.gamereview.dto.request.tag.AddGameTagRequestDto;
+import com.app.gamereview.dto.response.GameDetailResponseDto;
 import com.app.gamereview.dto.response.tag.AddGameTagResponseDto;
 import com.app.gamereview.dto.response.tag.GetAllTagsOfGameResponseDto;
 import org.apache.coyote.Response;
@@ -25,14 +26,16 @@ public class GameController {
 		this.gameService = gameService;
 	}
 
-	@GetMapping("get-game-list")
-	public ResponseEntity<List<GetGameListResponseDto>> getGames(GetGameListRequestDto filter) {
+	@PostMapping("get-game-list")
+	public ResponseEntity<List<GetGameListResponseDto>> getGames(@RequestBody(required = false) GetGameListRequestDto filter) {
+
 		List<GetGameListResponseDto> gameList = gameService.getAllGames(filter);
 		return ResponseEntity.ok().body(gameList);
 	}
 
 	@PostMapping("/add-tag")
-	public ResponseEntity<AddGameTagResponseDto> addGameTag(AddGameTagRequestDto addGameTagRequestDto) {
+	public ResponseEntity<AddGameTagResponseDto> addGameTag(
+			@RequestBody AddGameTagRequestDto addGameTagRequestDto) {
 		AddGameTagResponseDto response = gameService.addGameTag(addGameTagRequestDto);
 		return ResponseEntity.ok(response);
 	}
@@ -40,6 +43,11 @@ public class GameController {
 	@GetMapping("/get-all-tags")
 	public ResponseEntity<GetAllTagsOfGameResponseDto> getAllTags(@RequestParam String gameId){
 		GetAllTagsOfGameResponseDto response = gameService.getGameTags(gameId);
+		return ResponseEntity.ok(response);
+	}
+	@GetMapping("/get-game")
+	public ResponseEntity<GameDetailResponseDto> getGameDetail(@RequestParam String gameId){
+		GameDetailResponseDto response = gameService.getGameDetail(gameId);
 		return ResponseEntity.ok(response);
 	}
 }

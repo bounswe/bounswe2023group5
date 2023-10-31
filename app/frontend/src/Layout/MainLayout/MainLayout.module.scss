@@ -2,40 +2,34 @@
 
 .holyGrailLayout {
   display: grid;
-  $column-size: clamp(0px, 20%, 300px);
-  grid-template-columns: $column-size 1fr $column-size;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto 1fr 0px;
   grid-template-areas:
-    "header header header"
-    "leftColumn mainContent rightColumn"
-    "leftColumn footer rightColumn";
+    "header "
+    "middle"
+    "footer";
   height: 100%;
+  background-color: $color-background;
 }
 
 .header {
   position: sticky;
   top: 0;
-
+  background-color: $color-secondary;
   grid-area: header;
-  background-color: $sky-blue; // Light Blue
 }
 
-.mainContent {
-  grid-area: mainContent;
-  background-color: $violet; // Light Gray
-}
-
-.leftColumn {
-  grid-area: leftColumn;
-  background-color: $orange; // Orange
-}
-
-.rightColumn {
-  grid-area: rightColumn;
-  background-color: $blue-green; // Green
+.middle {
+  grid-area: middle;
+  display: flex;
+  justify-content: start;
+  .mainContent {
+    flex: 1 1 0px;
+  }
 }
 
 .footer {
   grid-area: footer;
-  background-color: $yellow; // Red
+  height: 48px;
+  background-color: $violet-light-10;
+  position: relative;
 }

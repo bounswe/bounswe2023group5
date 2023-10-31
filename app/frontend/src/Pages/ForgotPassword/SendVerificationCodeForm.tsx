@@ -3,6 +3,7 @@ import React from "react";
 import { Form, Input, Button } from "antd";
 import { MailOutlined } from "@ant-design/icons";
 import { useMutation } from "react-query";
+import { postEmail }  from "../../Services/ForgotPassword";
 
 
 interface SendVerificationCodeFormProps {
@@ -17,15 +18,7 @@ const SendVerificationCodeForm: React.FC<SendVerificationCodeFormProps> = ({
   setEmail,
 }) => {
 
-  const postEmail = async (email:string) => {
-    return fetch(import.meta.env.VITE_APP_API_URL + "/api/auth/forgot-password", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({email})
-    });
-  }
+
   const emailMutation = useMutation(postEmail,{  
     onSuccess: (data) => {
       if(data.status === 404){

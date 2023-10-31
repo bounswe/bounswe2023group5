@@ -26,6 +26,7 @@ interface UseAuthProps extends AuthContextProps {
   token?: string;
   setToken: (token: string) => void;
   isLoggedIn: boolean;
+  logOut: () => void;
 }
 
 // Custom hook to use auth
@@ -40,24 +41,30 @@ const useAuth = (): UseAuthProps => {
 
   function setToken(token: string) {
     Cookies.set("token", token);
+    axios.defaults.headers.common["Authorization"] = `${token}`;
   }
 
-  useEffect(() => {
-    if (token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  function logOut() {
+    Cookies.remove("token");
+    location.reload();
+  }
 
-      me().then((res) => {
-        setUser?.(res.data);
-      });
-    }
-  }, [token]);
-
-  return { user, setUser, token, setToken, isLoggedIn: !!user };
+  return { user, setUser, token, setToken, isLoggedIn: !!user, logOut };
 };
 
 // AuthProvider component
 const AuthProvider = ({ children }: PropsWithChildren<{}>) => {
   const [user, setUser] = useState<User | null>(null); // Initialize to fetch from local storage or server if needed
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (token) {
+      axios.defaults.headers.common["Authorization"] = `${token}`;
+      me().then((res) => {
+        setUser?.(res.data);
+      });
+    }
+  }, []);
 
   const value = {
     user,
