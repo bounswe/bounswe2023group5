@@ -1,15 +1,15 @@
 package com.app.gamereview.model;
 
 import com.app.gamereview.model.common.BaseModel;
-
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "User")
 @TypeAlias("User")
+@Getter
+@Setter
 public class User extends BaseModel {
 
 	private String username;

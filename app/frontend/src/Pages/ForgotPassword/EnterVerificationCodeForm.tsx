@@ -63,7 +63,7 @@ const EnterVerificationCodeForm: React.FC<EnterVerificationCodeFormProps> = ({
     },
   });
 
-  const onResend = (data: any) => {
+  const onResend = () => {
     emailMutation.mutate(email);
   };
 

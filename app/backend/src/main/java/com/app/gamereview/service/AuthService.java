@@ -84,9 +84,13 @@ public class AuthService {
 				response.setToken(token);
 				return response;
 			}
+			else {
+				throw new BadRequestException("Password is wrong");
+			}
 		}
-
-		return null;
+		else {
+			throw new ResourceNotFoundException("User not found");
+		}
 	}
 
 	public UserResponseDto me(User user) {

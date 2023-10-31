@@ -146,7 +146,10 @@ public class GameService {
 			response.setGame(game);
 			return response;
 		}
-		return null;
+		else {
+				throw new ResourceNotFoundException("Game not found");
+
+		}
 	}
 
 
