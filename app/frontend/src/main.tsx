@@ -4,7 +4,6 @@ import { QueryCache, QueryClient, QueryClientProvider } from "react-query";
 
 import App from "./App.tsx";
 import { AuthProvider } from "./Components/Hooks/useAuth.tsx";
-import { message } from "antd";
 import { handleError } from "./Library/utils/handleError.ts";
 import axios from "axios";
 
