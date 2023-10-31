@@ -3,15 +3,25 @@
 .container {
   display: flex;
   background-color: $prussian-blue-dark-50;
-  color: $color-text-light;
-  padding-right: 10px;
+  overflow: hidden;
+  
   .logo {
     flex: 0 0 clamp(0px, 20%, 300px);
+    color: $yellow;
+    align-self: center;
+    font-size: large;
+    text-align: center;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.5em;
   }
   .menu {
     flex: 1 1 0px;
     display: flex;
     justify-content: stretch;
+    align-items: stretch;
     & > * {
       flex: 1 1 0px;
     }

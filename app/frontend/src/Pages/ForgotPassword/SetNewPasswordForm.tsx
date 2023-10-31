@@ -3,46 +3,40 @@ import React from "react";
 import { Form, Input, Button } from "antd";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { postPassword }from "../../Services/ForgotPassword";
+import { postPassword } from "../../Services/ForgotPassword";
 
 interface SetNewPasswordFormProps {
   isVerified: boolean;
 }
 
-const SetNewPasswordForm: React.FC<SetNewPasswordFormProps> = ({ isVerified }) => {
-
-
+const SetNewPasswordForm: React.FC<SetNewPasswordFormProps> = ({
+  isVerified,
+}) => {
   const navigate = useNavigate();
 
-
-  const passwordMutation = useMutation(postPassword,{  
+  const passwordMutation = useMutation(postPassword, {
     onSuccess: (data) => {
-      if(data.status === 500){
-        alert("Something went wrong.")
+      if (data.status === 500) {
+        alert("Something went wrong.");
         return;
       }
-      alert("Password is successfully set")
+      alert("Password is successfully set");
       navigate("/login");
     },
-    onError: () => {
-  
-    },});
+    onError: () => {},
+  });
 
-
-  const onFinish = (data:any) => {
+  const onFinish = (data: any) => {
     // Logic for setting a new password
-    passwordMutation.mutate(data)
+    passwordMutation.mutate(data);
   };
 
   return (
-    <Form
-      onFinish={onFinish}
-      size="large"
-    >
+    <Form onFinish={onFinish} size="large">
       <Form.Item
         name="newPassword"
-        rules={[{ required: true, message: "Please enter a new password" }]
-      }>
+        rules={[{ required: true, message: "Please enter a new password" }]}
+      >
         <Input.Password placeholder="Enter a new password" />
       </Form.Item>
       <Form.Item
@@ -66,8 +60,15 @@ const SetNewPasswordForm: React.FC<SetNewPasswordFormProps> = ({ isVerified }) =
       >
         <Input.Password placeholder="Confirm the new password" />
       </Form.Item>
-      <div style={{ display: isVerified ? "flex" : "none", justifyContent: "flex-end" }}>
-        <Button type="primary" htmlType="submit">Change Password</Button>
+      <div
+        style={{
+          display: isVerified ? "flex" : "none",
+          justifyContent: "flex-end",
+        }}
+      >
+        <Button type="primary" htmlType="submit">
+          Change Password
+        </Button>
       </div>
     </Form>
   );

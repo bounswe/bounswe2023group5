@@ -1,4 +1,5 @@
 package com.app.gamereview.controller;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.MediaType;
@@ -16,7 +17,7 @@ public class ImageController {
 	@Value("${image.base-directory}")
 	private String imageBaseDirectory;
 
-	@GetMapping("/images/{folder}/{fileName:.+}")
+	@GetMapping("/api/{folder}/{fileName:.+}")
 	public ResponseEntity<Resource> serveImage(@PathVariable String folder, @PathVariable String fileName) {
 		try {
 			File imageFile = new File(imageBaseDirectory + folder + File.separator + fileName);
