@@ -142,6 +142,6 @@ class GameServiceTest {
         when(gameRepository.findById(gameId)).thenReturn(Optional.empty());
 
         // Act & Assert
-        assertNull(gameService.getGameDetail(gameId));
+        assertThrows(ResourceNotFoundException.class, () -> gameService.getGameDetail(gameId));
     }
 }
