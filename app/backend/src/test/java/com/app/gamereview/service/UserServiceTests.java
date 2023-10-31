@@ -1,4 +1,4 @@
-package com.app.gamereview;
+package com.app.gamereview.service;
 
 import com.app.gamereview.dto.request.GetAllUsersFilterRequestDto;
 import com.app.gamereview.model.User;
