@@ -37,15 +37,11 @@ public class AuthController {
 
 	private final UserService userService;
 
-	private final ResetCodeRepository resetCodeRepository;
-
 	@Autowired
-	public AuthController(AuthService authService, EmailService emailService, UserService userService,
-			ResetCodeRepository resetCodeRepository) {
+	public AuthController(AuthService authService, EmailService emailService, UserService userService) {
 		this.authService = authService;
 		this.emailService = emailService;
 		this.userService = userService;
-		this.resetCodeRepository = resetCodeRepository;
 	}
 
 	@PostMapping("/register")
@@ -89,7 +85,7 @@ public class AuthController {
 		}
 
 		// Generate and save a reset code (you can use UUID or any secure method)
-		String code = generateResetCode(user.getId());
+		String code = authService.generateResetCode(user.getId());
 
 		// Send email with reset code
 		String subject = "Password Reset";
@@ -102,44 +98,26 @@ public class AuthController {
 
 	@PostMapping("/verify-reset-code")
 	public ResponseEntity<String> verifyResetCode(@RequestBody VerifyResetCodeRequestDto request) {
-		Optional<ResetCode> resetCodeOptional = resetCodeRepository.findByCode(request.getResetCode());
-		if (resetCodeOptional.isEmpty() || resetCodeOptional.get().getExpirationDate().before(new Date())) {
+		ResetCode resetCode = authService.getResetCodeByCode(request.getResetCode());
+		if (resetCode == null || resetCode.getExpirationDate().before(new Date())) {
 			// Invalid or expired reset code
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid or expired reset code");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Invalid or expired reset code");
 		}
-
-		ResetCode resetCode = resetCodeOptional.get();
 
 		// Check if the reset code matches the user
 		String userEmail = userService.getUserById(resetCode.getUserId()).getEmail();
 		if (!userEmail.equals(request.getUserEmail())) {
 			// Reset code does not match the user
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(userEmail + "  " + request.getUserEmail());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email and Code doesn't match");
 		}
 
 		// Reset code is valid, generate a JWT token for the user
 		String token = JwtUtil.generateToken(userService.getUserById(resetCode.getUserId()).getEmail());
 
 		// Clear the reset code after generating the token
-		resetCodeRepository.deleteByUserId(resetCode.getUserId());
+		authService.deleteCodeByUserId(resetCode.getUserId());
 
 		return ResponseEntity.ok().body(token);
-	}
-
-	private String generateResetCode(String userId) {
-		// Check if a reset code exists for the user
-		ResetCode existingResetCode = resetCodeRepository.findByUserId(userId);
-
-		// If a reset code exists, delete it
-		if (existingResetCode != null) {
-			resetCodeRepository.delete(existingResetCode);
-		}
-		String code = UUID.randomUUID().toString().replace("-", "").substring(0, 6).toUpperCase();
-
-		ResetCode resetCode = new ResetCode(code, userId, new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000));
-		resetCodeRepository.save(resetCode);
-
-		return code;
 	}
 
 	@AuthorizationRequired

@@ -62,5 +62,4 @@ public class User extends BaseModel {
 		isVerified = verified;
 	}
 
-
 }
