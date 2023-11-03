@@ -15,10 +15,10 @@ Welcome to Group 5's README page. In order to get to know us in more detail and 
 ## :pushpin:Project Description - Game Guru
 ```
 A video game review platform where users discuss video games, find friends to play together and share
-their achievements. Variety of this platform can be extended from console
-and PC games to board games. Besides discussing, reviewing and rating games, players can make use of
-this platform similar to group finders in MMORPGs to match people. Players can create both offline
-and online meetings, dive into game related discussions, convention parties and so on.
+their achievements. Variety of this platform can be extended from console and PC games to board games.
+Besides discussing, reviewing and rating games, players can make use of this platform similar to group
+finders in MMORPGs to match people. Players can create both offline and online meetings, dive into
+game related discussions, convention parties and so on.
 ```
 <!--- #### In order to get to know our progress, research and team members in more detail [visit our Wiki Page](https://github.com/bounswe/bounswe2023group5/wiki)! --->
 ---
