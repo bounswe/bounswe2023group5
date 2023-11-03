@@ -46,7 +46,6 @@
     - [8.1.2 Mockups](#812-mockups)
     - [8.1.3 Scenarios](#813-scenarios)
   - [8.2 Software design documents in UML](#82-software-design-documents-in-uml)
-    - [8.2.1 Sequence Diagrams](#821-sequence-diagrams)
   - [8.3 Project plan, RAM and Communication Plan](#83-project-plan-ram-and-communication-plan)
   - [8.4 Weekly Reports and Additional Meeting Notes](#84-weekly-reports)
   - [8.5 Pre-Release Version of Software](#85-pre-release-of-software)
@@ -235,7 +234,7 @@ In addition to these functional requirements, we have also addressed security-re
 
 ### 8.2 Software design documents in UML
 
-- [Use Case Diagram](https://github.com/bounswe/bounswe2023group5/wiki/Use-Case-Diagram)
+- [Use Case Diagrams](https://github.com/bounswe/bounswe2023group5/wiki/Use-Case-Diagram)
 - [Sequence Diagrams](https://github.com/bounswe/bounswe2023group5/wiki/Sequence-Diagram) 
 - [Class Diagrams](https://github.com/bounswe/bounswe2023group5/wiki/Class-Diagram)
 
