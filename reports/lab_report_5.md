@@ -86,6 +86,7 @@
 ## Planned vs. Actual
 - Vote implementation issue was canceled.
 - Dockerizing mobile issue were converted to creation of an apk file. 
+- In the process of setting up our backend CI/CD workflow, we successfully integrated a Github Actions CI/CD script. However, we've determined that employing GitHub secrets for managing our environment variables is not viable due to their dynamic nature and our lack of permissions to add new secrets independently. This reliance on our teaching assistant to input new secrets is hindering our ability to swiftly incorporate new environment variables throughout the development phase. Consequently, we are exploring alternative methods to inject environment variables into the CI/CD deployment environment and will be initiating a new issue to address this challenge.
 
 
 ## Your plans for the next week
