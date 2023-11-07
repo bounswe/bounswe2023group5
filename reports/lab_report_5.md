@@ -55,13 +55,13 @@
 | Create Games Page - Mobile |[#497](https://github.com/bounswe/bounswe2023group5/issues/497) | Ege Ekşi, Harun Sami Çelik | 31.10.2023 | [#587](https://github.com/bounswe/bounswe2023group5/pull/587) | 4hr | 5 hr |
 | Create Game Details Page - Mobile | [#511](https://github.com/bounswe/bounswe2023group5/issues/511) | Bilal Atım, Said Yolcu | 31.10.2023 | | 4hr | 4 hr |
 | Determining the Primary, Secondary, Background, Text and Dark Text Colors| [#498](https://github.com/bounswe/bounswe2023group5/issues/498) | Ali Başaran| 31.10.2023 | - | 1 hr | 1.5 hr |
-| Configuring AntD to Use Our Color Palette| [#514](https://github.com/bounswe/bounswe2023group5/issues/514) | Alperen | 31.10.2023 | | 1 hr | 1.5 hr |
-| AuthWrapper and useUser hook| [#500](https://github.com/bounswe/bounswe2023group5/issues/500) | Alperen | 31.10.2023 | | 1.5 hr | 1.5 hr |
-| Adding a Toast Library and Global Error Handling on Queries | [#503](https://github.com/bounswe/bounswe2023group5/issues/503) | Alperen | 31.10.2023 | | 1 hr | 1 hr |
+| Configuring AntD to Use Our Color Palette| [#514](https://github.com/bounswe/bounswe2023group5/issues/514) | Alperen | 31.10.2023 | [#478](https://github.com/bounswe/bounswe2023group5/pull/478) | 1 hr | 1.5 hr |
+| AuthWrapper and useUser hook| [#500](https://github.com/bounswe/bounswe2023group5/issues/500) | Alperen | 31.10.2023 | [#567](https://github.com/bounswe/bounswe2023group5/pull/567) | 1.5 hr | 1.5 hr |
+| Adding a Toast Library and Global Error Handling on Queries | [#503](https://github.com/bounswe/bounswe2023group5/issues/503) | Alperen | 31.10.2023 | [#594](https://github.com/bounswe/bounswe2023group5/pull/594) | 1 hr | 1 hr |
 | Deploying Frontend to the AWS | [#495](https://github.com/bounswe/bounswe2023group5/issues/495) | Ali Başaran | 31.10.2023 | - | 2 hr | 4 hr |
 | Populating the Nav Bar, Side Bar and the Footer | [#501](https://github.com/bounswe/bounswe2023group5/issues/501) | Çisel | 31.10.2023 |  [#578](https://github.com/bounswe/bounswe2023group5/pull/578), [#575](https://github.com/bounswe/bounswe2023group5/pull/575)| 2 hr | 5 hr |
 | Games Page Implementation - FE | [#493](https://github.com/bounswe/bounswe2023group5/issues/493) | Arda | 31.10.2023 |[#563](https://github.com/bounswe/bounswe2023group5/pull/563) | 4 hr | 4.5 hr |
-| Individual Game Page Implementation - FE | [#496](https://github.com/bounswe/bounswe2023group5/issues/494) | Çisel, Alperen | 31.10.2023 | | 5 hr | 4 hr |
+| Individual Game Page Implementation - FE | [#496](https://github.com/bounswe/bounswe2023group5/issues/494) | Çisel, Alperen | 31.10.2023 | [#583](https://github.com/bounswe/bounswe2023group5/pull/583) | 5 hr | 4 hr |
 | Reviewing Game Page Mockups  | [#460](https://github.com/bounswe/bounswe2023group5/issues/460) | Frontend Team | 24.10.2023 | | 2 hr | 2.5 hr |
 
 
