@@ -31,12 +31,12 @@
 | Authorization Implementation | [#513](https://github.com/bounswe/bounswe2023group5/issues/513) | Halis Bal  | 31.10.2023 | | 3hr | 3.5 hr | 
 | Creating Me Endpoint |[#508](https://github.com/bounswe/bounswe2023group5/issues/508) | Zeynep Baydemir | 31.10.2023 | | 1hr | 1 hr |
 | Implementing CI/CD for Backend | [#512](https://github.com/bounswe/bounswe2023group5/issues/512) | Halis Bal | 31.10.2023 | | 5hr | 4 hr |
-| Deployment Backend to AWS | [#515](https://github.com/bounswe/bounswe2023group5/issues/515) | Deniz Ünal | 31.10.2023 | | 3hr | 3 hr | 
+| Deployment Backend to AWS | [#515](https://github.com/bounswe/bounswe2023group5/issues/515) | Deniz Ünal | 31.10.2023 | - | 3hr | 3 hr | 
 | Adding Conventions to Wiki Page | [#517](https://github.com/bounswe/bounswe2023group5/issues/517) | Alperen Bırçak | 31.10.2023 | | 30 mins | 30 mins |
 | Game Detail Endpoint | [#528](https://github.com/bounswe/bounswe2023group5/issues/528) | Zeynep Baydemir | 31.10.2023 | | 2 hr | 2 hr |
-| get-games-list Endpoint | [#521](https://github.com/bounswe/bounswe2023group5/issues/521) | Deniz Ünal | 28.10.2023 | | 1 hr | 1 hr |
+| get-games-list Endpoint | [#521](https://github.com/bounswe/bounswe2023group5/issues/521) | Deniz Ünal | 28.10.2023 | [#553](https://github.com/bounswe/bounswe2023group5/pull/553), [#573](https://github.com/bounswe/bounswe2023group5/pull/573) | 1 hr | 1 hr |
 | Add filter functionality to /GET games Endpoint | [#524](https://github.com/bounswe/bounswe2023group5/issues/524) | Arda | 31.10.2023 | | 2 hr | 3 hr | 
-| Game Entity Implementation | [#523](https://github.com/bounswe/bounswe2023group5/issues/523) | Deniz Ünal | 31.10.2023 | | 2 hr | 2 hr |
+| Game Entity Implementation | [#523](https://github.com/bounswe/bounswe2023group5/issues/523) | Deniz Ünal | 31.10.2023 | [#553](https://github.com/bounswe/bounswe2023group5/pull/553) | 2 hr | 2 hr |
 | Game Detail Implementation | [#528](https://github.com/bounswe/bounswe2023group5/issues/528)| Zeynep Baydemir | 31.10.2023 | | 3 hr | 3 hr |
 | Tag Implementation in Game  | [#538](https://github.com/bounswe/bounswe2023group5/issues/538)| Can Uzduran | 31.10.2023 | | 4 hr | 4 hr |
 | Updating RAM | [#518](https://github.com/bounswe/bounswe2023group5/issues/518) [#526](https://github.com/bounswe/bounswe2023group5/issues/526), [#534](https://github.com/bounswe/bounswe2023group5/issues/534), [#535](https://github.com/bounswe/bounswe2023group5/issues/535), [#536](https://github.com/bounswe/bounswe2023group5/issues/536), [#548](https://github.com/bounswe/bounswe2023group5/issues/548), [#612](https://github.com/bounswe/bounswe2023group5/issues/612), [#613](https://github.com/bounswe/bounswe2023group5/issues/613) | Team | 31.10.2023 | | 30 mins | 30 mins |
@@ -96,7 +96,7 @@
 | Implementing Forum Moderation Functionality |  [#635](https://github.com/bounswe/bounswe2023group5/issues/635)  | Zeynep Baydemir | 14.11.23 | 3 hr |
 | Implementing Password Hashing |  [#638](https://github.com/bounswe/bounswe2023group5/issues/638) | Zeynep Baydemir | 14.11.23 | 1.5 hr |
 | Implementing Forum Comment Functionality |  | Halis Bal | 14.11.23 | 8 hr |
-| Implementing Forum Post Functionality |  | Deniz Ünal | 14.11.23 | 8 hr |
+| Implementing Forum Post Functionality | [#628](https://github.com/bounswe/bounswe2023group5/issues/628) | Deniz Ünal | 14.11.23 | 8 hr |
 | Forum Post Functionality Implementation - MOBILE | [#625](https://github.com/bounswe/bounswe2023group5/issues/625)| Bilal Atım | 12.11.2023 | 7 hr|
 | Review Functionality Implementation - MOBILE  | [#622](https://github.com/bounswe/bounswe2023group5/issues/622)| Bilal Atım | 11.11.2023 | 6 hr|
 | Forum Comment Functionality Implementation - MOBILE  | | Ege Ekşi | 14.11.2023 |  |
