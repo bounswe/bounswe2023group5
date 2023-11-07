@@ -13,6 +13,13 @@
 * We created the apk file for our mobile application.
 * We reviewed and updated our requirements, diagrams and mockups.
 * We prepared the first milestone report.
+* We will implement forum posting functionality.
+* We will implement forum moderating functionality.
+* We will implement forum commenting functionality.
+* We will implement administration functionality.
+* We will implement reviewing functionality.
+* We will implement voting functionality.
+* CI/CD will be set up for front end.
 
 ## What was planned for the week? How did it go?
 | Description | Issue | Assignee | Due | PR | Estimated Duration | Actual Duration |
