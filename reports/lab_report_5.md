@@ -27,7 +27,7 @@
 | Determining the Name of the Project |  [#539](https://github.com/bounswe/bounswe2023group5/issues/539) | Team | 31.10.2023 | | 15 mins | 20 mins |
 | Determining the Logo of the Project |  [#540](https://github.com/bounswe/bounswe2023group5/issues/540)  | Team | 31.10.2023 | | 15 mins | 10 mins |
 | Determining the Branch Naming |  [#541](https://github.com/bounswe/bounswe2023group5/issues/541)   | Team | 31.10.2023 | | 15 mins | 10 mins |
-| Error Handling in Backend | [#544](https://github.com/bounswe/bounswe2023group5/issues/544) | Backend  | 31.10.2023 | | 2hr | 1hr |
+| Error Handling in Backend | [#544](https://github.com/bounswe/bounswe2023group5/issues/544) | Backend | 31.10.2023 | [#572](https://github.com/bounswe/bounswe2023group5/pull/572) | 2hr | 1hr |
 | Authorization Implementation | [#513](https://github.com/bounswe/bounswe2023group5/issues/513) | Halis Bal  | 31.10.2023 | [#555](https://github.com/bounswe/bounswe2023group5/pull/555) | 3hr | 3.5 hr | 
 | Creating Me Endpoint |[#508](https://github.com/bounswe/bounswe2023group5/issues/508) | Zeynep Baydemir | 31.10.2023 | [#552](https://github.com/bounswe/bounswe2023group5/pull/552) | 1hr | 1 hr |
 | Implementing CI/CD for Backend | [#512](https://github.com/bounswe/bounswe2023group5/issues/512) | Halis Bal | 31.10.2023 | [#582](https://github.com/bounswe/bounswe2023group5/pull/582) | 5hr | 4 hr |
@@ -37,7 +37,7 @@
 | Add filter functionality to /GET games Endpoint | [#524](https://github.com/bounswe/bounswe2023group5/issues/524) | Arda | 31.10.2023 | [#562](https://github.com/bounswe/bounswe2023group5/pull/562) | 2 hr | 3 hr | 
 | Game Entity Implementation | [#523](https://github.com/bounswe/bounswe2023group5/issues/523) | Deniz Ünal | 31.10.2023 | [#553](https://github.com/bounswe/bounswe2023group5/pull/553) | 2 hr | 2 hr |
 | Game Detail Implementation | [#528](https://github.com/bounswe/bounswe2023group5/issues/528)| Zeynep Baydemir | 31.10.2023 | [#565](https://github.com/bounswe/bounswe2023group5/pull/565) | 3 hr | 3 hr |
-| Tag Implementation in Game  | [#538](https://github.com/bounswe/bounswe2023group5/issues/538)| Can Uzduran | 31.10.2023 | | 4 hr | 4 hr |
+| Tag Implementation in Game | [#538](https://github.com/bounswe/bounswe2023group5/issues/538)| Can Uzduran | 31.10.2023 | [#556](https://github.com/bounswe/bounswe2023group5/pull/556) | 4 hr | 4 hr |
 | Updating RAM | [#518](https://github.com/bounswe/bounswe2023group5/issues/518) [#526](https://github.com/bounswe/bounswe2023group5/issues/526), [#534](https://github.com/bounswe/bounswe2023group5/issues/534), [#535](https://github.com/bounswe/bounswe2023group5/issues/535), [#536](https://github.com/bounswe/bounswe2023group5/issues/536), [#548](https://github.com/bounswe/bounswe2023group5/issues/548), [#612](https://github.com/bounswe/bounswe2023group5/issues/612), [#613](https://github.com/bounswe/bounswe2023group5/issues/613), [#596](https://github.com/bounswe/bounswe2023group5/issues/596) | Team | 31.10.2023 | | 30 mins | 30 mins |
 | Preparing a summary of the project status and any changes that are planned for moving forward |  [#542](https://github.com/bounswe/bounswe2023group5/issues/542) | Arda | 31.10.2023 | | 1 hr | 1 hr |
 | Preparing a summary of the customer feedback and reflections | [#543](https://github.com/bounswe/bounswe2023group5/issues/543)  | Bilal Atım | 31.10.2023 | | 30 mins | 45 mins | 
@@ -92,9 +92,14 @@
 ## Your plans for the next week
 | Description | Issue                                                           | Assignee | Due | Estimated Duration |
 | --- |-----------------------------------------------------------------| --- | --- | --- |
-| Implementing Review Feature Backend |  | Can Uzduran | 14.11.23 | 4 hr |
-| Implementing Vote Feature Backend |  | Can Uzduran | 14.11.23 | 3 hr |
-| Writing validations for data transfer objects and necessary fields Backend |  | Can Uzduran | 14.11.23 | 3 hr |
+
+| Implementing Review Feature Backend | [#640](https://github.com/bounswe/bounswe2023group5/issues/640)| Can Uzduran | 14.11.23 | 4 hr |
+
+| Documentation of Completed Endpoints | [#641](https://github.com/bounswe/bounswe2023group5/issues/641)| Can Uzduran | 14.11.23 | 4 hr |
+
+| Implementing Vote Feature Backend | [#642](https://github.com/bounswe/bounswe2023group5/issues/642)| Can Uzduran | 14.11.23 | 3 hr |
+
+| Writing validations for data transfer objects and necessary fields Backend | [#643](https://github.com/bounswe/bounswe2023group5/issues/643)| Can Uzduran | 14.11.23 | 3 hr |
 | Implementing Admin Functionality |  [#631](https://github.com/bounswe/bounswe2023group5/issues/631)  | Zeynep Baydemir | 14.11.23 | 3 hr |
 | Implementing Forum Moderation Functionality |  [#635](https://github.com/bounswe/bounswe2023group5/issues/635)  | Zeynep Baydemir | 14.11.23 | 3 hr |
 | Implementing Password Hashing |  [#638](https://github.com/bounswe/bounswe2023group5/issues/638) | Zeynep Baydemir | 14.11.23 | 1.5 hr |
