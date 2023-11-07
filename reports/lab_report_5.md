@@ -92,9 +92,9 @@
 | Implementing Review Feature Backend |  | Can Uzduran | 14.11.23 | 4 hr |
 | Implementing Vote Feature Backend |  | Can Uzduran | 14.11.23 | 3 hr |
 | Writing validations for data transfer objects and necessary fields Backend |  | Can Uzduran | 14.11.23 | 3 hr |
-| Implementing Admin Functionality |  | Zeynep Baydemir | 14.11.23 | 3 hr |
-| Implementing Forum Moderation Functionality |  | Zeynep Baydemir | 14.11.23 | 3 hr |
-| Implementing Password Hashing |  | Zeynep Baydemir | 14.11.23 | 1.5 hr |
+| Implementing Admin Functionality |  [#631](https://github.com/bounswe/bounswe2023group5/issues/631)  | Zeynep Baydemir | 14.11.23 | 3 hr |
+| Implementing Forum Moderation Functionality |  [#635](https://github.com/bounswe/bounswe2023group5/issues/635)  | Zeynep Baydemir | 14.11.23 | 3 hr |
+| Implementing Password Hashing |  [#638](https://github.com/bounswe/bounswe2023group5/issues/638) | Zeynep Baydemir | 14.11.23 | 1.5 hr |
 | Implementing Forum Comment Functionality |  | Halis Bal | 14.11.23 | 8 hr |
 | Implementing Forum Post Functionality |  | Deniz Ünal | 14.11.23 | 8 hr |
 | Forum Post Functionality Implementation - MOBILE | [#625](https://github.com/bounswe/bounswe2023group5/issues/625)| Bilal Atım | 12.11.2023 | 7 hr|
