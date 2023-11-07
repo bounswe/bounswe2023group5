@@ -48,12 +48,12 @@
 | Adding individual contributions | [#516](https://github.com/bounswe/bounswe2023group5/issues/516), [#527](https://github.com/bounswe/bounswe2023group5/issues/527) [#525](https://github.com/bounswe/bounswe2023group5/issues/525), [#530](https://github.com/bounswe/bounswe2023group5/issues/530), [#531](https://github.com/bounswe/bounswe2023group5/issues/531), [#533](https://github.com/bounswe/bounswe2023group5/issues/533), [#537](https://github.com/bounswe/bounswe2023group5/issues/537), [#549](https://github.com/bounswe/bounswe2023group5/issues/549), [#611](https://github.com/bounswe/bounswe2023group5/issues/611), [#568](https://github.com/bounswe/bounswe2023group5/issues/568) | Team | 31.10.2023 | | 20 mins | 30 mins |
 | Connecting Login Page to Backend - Mobile| [#506](https://github.com/bounswe/bounswe2023group5/issues/506) | Harun Sami Çelik | 31.10.2023 | | 2hr | 1.5 hr |
 | Connecting Delete Account Page to Backend - Mobile | [#507](https://github.com/bounswe/bounswe2023group5/issues/507) | Harun Sami Çelik | 31.10.2023 | | 2hr | 2 hr |
-| Connecting Forget Password Page to Backend - Mobile |[#496](https://github.com/bounswe/bounswe2023group5/issues/496) | Ege Ekşi | 31.10.2023 | | 2hr | 2.5 hr |
+| Connecting Forget Password Page to Backend - Mobile |[#496](https://github.com/bounswe/bounswe2023group5/issues/496) | Ege Ekşi | 31.10.2023 | [#570](https://github.com/bounswe/bounswe2023group5/pull/570) | 2hr | 2.5 hr |
 | Connecting Change Password Page to Backend - Mobile | [#510](https://github.com/bounswe/bounswe2023group5/issues/510) | Said Yolcu | 31.10.2023 | | 2hr | 2 hr |
 | Connecting Logout Functionality to Backend - Mobile | [#509](https://github.com/bounswe/bounswe2023group5/issues/509) | Said Yolcu | 31.10.2023 | | 2hr | 1.5 hr |
 | Connecting Home Page to Backend - Mobile | [#519](https://github.com/bounswe/bounswe2023group5/issues/519) | Bilal Atım | 31.10.2023 | | 2hr | 1.5 hr |
 | Connecting Signup to Backend - Mobile | [#520](https://github.com/bounswe/bounswe2023group5/issues/520) | Bilal Atım | 31.10.2023 | | 2hr | 2.5 hr |
-| Create Games Page - Mobile |[#497](https://github.com/bounswe/bounswe2023group5/issues/497) | Ege Ekşi, Harun Sami Çelik | 31.10.2023 | | 4hr | 5 hr |
+| Create Games Page - Mobile |[#497](https://github.com/bounswe/bounswe2023group5/issues/497) | Ege Ekşi, Harun Sami Çelik | 31.10.2023 | [#587](https://github.com/bounswe/bounswe2023group5/pull/587) | 4hr | 5 hr |
 | Create Game Details Page - Mobile | [#511](https://github.com/bounswe/bounswe2023group5/issues/511) | Bilal Atım, Said Yolcu | 31.10.2023 | | 4hr | 4 hr |
 | Determining the Primary, Secondary, Background, Text and Dark Text Colors| [#498](https://github.com/bounswe/bounswe2023group5/issues/498) | Ali Başaran| 31.10.2023 | | 1 hr | 1.5 hr |
 | Configuring AntD to Use Our Color Palette| [#514](https://github.com/bounswe/bounswe2023group5/issues/514) | Alperen | 31.10.2023 | | 1 hr | 1.5 hr |
@@ -101,12 +101,12 @@
 | Implementing Forum Post Functionality | [#628](https://github.com/bounswe/bounswe2023group5/issues/628) | Deniz Ünal | 14.11.23 | 8 hr |
 | Forum Post Functionality Implementation - MOBILE | [#625](https://github.com/bounswe/bounswe2023group5/issues/625)| Bilal Atım | 12.11.2023 | 7 hr|
 | Review Functionality Implementation - MOBILE  | [#622](https://github.com/bounswe/bounswe2023group5/issues/622)| Bilal Atım | 11.11.2023 | 6 hr|
-| Forum Comment Functionality Implementation - MOBILE  | | Ege Ekşi | 14.11.2023 |  |
+| Forum Comment Functionality Implementation - MOBILE  | [#648](https://github.com/bounswe/bounswe2023group5/issues/648) | Ege Ekşi | 14.11.2023 |  |
 | Forum Moderation Functionality Implementation - MOBILE  | | Harun Sami Çelik | 14.11.2023 | |
 | Forum Page Implementation - MOBILE | [#645](https://github.com/bounswe/bounswe2023group5/issues/645) | Said Yolcu | 13.11.2023 | |
 | Admin Mobile Additions for Necessary Pages - MOBILE | | Harun Sami Çelik | 14.11.2023 | |
 | Admin Control Panel Page Implementation - MOBILE | [#637](https://github.com/bounswe/bounswe2023group5/issues/637) | Said Yolcu | 12.11.2023 | |
-| Adding Review to Individual Game Page - MOBILE | | Ege Ekşi | 14.11.2023 | |
+| Adding Review to Individual Game Page - MOBILE | [#649](https://github.com/bounswe/bounswe2023group5/issues/649) | Ege Ekşi | 14.11.2023 | |
 | Adding Reviews to Individual Game Page |  [#621](https://github.com/bounswe/bounswe2023group5/issues/621) | Çisel | 12.11.2023 | 45 mins |
 | Creating Admin Control Panel Page| [#435](https://github.com/bounswe/bounswe2023group5/issues/435) | Arda | 14.11.2023 | 3 hours |
 | Admin Frontend Additions for Necessary Pages|[#623](https://github.com/bounswe/bounswe2023group5/issues/623) | Arda | 14.11.2023 | 2 hours |
