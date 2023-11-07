@@ -79,7 +79,7 @@
 | Update Use Case Diagram | [#614](https://github.com/bounswe/bounswe2023group5/issues/614) | Bilal Atım | 31.10.2023 | 1.5 hr |
 | Creating Presentation Slide | [#593](https://github.com/bounswe/bounswe2023group5/issues/593) | Çisel Zümbül | 31.10.2023 | 1 hr |
 | Writing 'Requirements Addressed Section' For Milestone Report| [#604](https://github.com/bounswe/bounswe2023group5/issues/604) | Çisel Zümbül | 31.10.2023 | 2 hrs |
-
+| Handling the Empty Submit in Forgot Password Route | [#492](https://github.com/bounswe/bounswe2023group5/issues/492) | Ali Başaran | 31.10.2023 | 30 mins |
 
 
 
