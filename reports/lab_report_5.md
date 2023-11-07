@@ -29,15 +29,14 @@
 | Determining the Branch Naming |  [#541](https://github.com/bounswe/bounswe2023group5/issues/541)   | Team | 31.10.2023 | | 15 mins | 10 mins |
 | Error Handling in Backend | [#544](https://github.com/bounswe/bounswe2023group5/issues/544) | Backend  | 31.10.2023 | | 2hr | 1hr |
 | Authorization Implementation | [#513](https://github.com/bounswe/bounswe2023group5/issues/513) | Halis Bal  | 31.10.2023 | [#555](https://github.com/bounswe/bounswe2023group5/pull/555) | 3hr | 3.5 hr | 
-| Creating Me Endpoint |[#508](https://github.com/bounswe/bounswe2023group5/issues/508) | Zeynep Baydemir | 31.10.2023 | | 1hr | 1 hr |
+| Creating Me Endpoint |[#508](https://github.com/bounswe/bounswe2023group5/issues/508) | Zeynep Baydemir | 31.10.2023 | [#552](https://github.com/bounswe/bounswe2023group5/pull/552) | 1hr | 1 hr |
 | Implementing CI/CD for Backend | [#512](https://github.com/bounswe/bounswe2023group5/issues/512) | Halis Bal | 31.10.2023 | [#582](https://github.com/bounswe/bounswe2023group5/pull/582) | 5hr | 4 hr |
 | Deployment Backend to AWS | [#515](https://github.com/bounswe/bounswe2023group5/issues/515) | Deniz Ünal | 31.10.2023 | - | 3hr | 3 hr | 
 | Adding Conventions to Wiki Page | [#517](https://github.com/bounswe/bounswe2023group5/issues/517) | Alperen Bırçak | 31.10.2023 | | 30 mins | 30 mins |
-| Game Detail Endpoint | [#528](https://github.com/bounswe/bounswe2023group5/issues/528) | Zeynep Baydemir | 31.10.2023 | | 2 hr | 2 hr |
 | get-games-list Endpoint | [#521](https://github.com/bounswe/bounswe2023group5/issues/521) | Deniz Ünal | 28.10.2023 | [#553](https://github.com/bounswe/bounswe2023group5/pull/553), [#573](https://github.com/bounswe/bounswe2023group5/pull/573) | 1 hr | 1 hr |
 | Add filter functionality to /GET games Endpoint | [#524](https://github.com/bounswe/bounswe2023group5/issues/524) | Arda | 31.10.2023 | [#562](https://github.com/bounswe/bounswe2023group5/pull/562) | 2 hr | 3 hr | 
 | Game Entity Implementation | [#523](https://github.com/bounswe/bounswe2023group5/issues/523) | Deniz Ünal | 31.10.2023 | [#553](https://github.com/bounswe/bounswe2023group5/pull/553) | 2 hr | 2 hr |
-| Game Detail Implementation | [#528](https://github.com/bounswe/bounswe2023group5/issues/528)| Zeynep Baydemir | 31.10.2023 | | 3 hr | 3 hr |
+| Game Detail Implementation | [#528](https://github.com/bounswe/bounswe2023group5/issues/528)| Zeynep Baydemir | 31.10.2023 | [#565](https://github.com/bounswe/bounswe2023group5/pull/565) | 3 hr | 3 hr |
 | Tag Implementation in Game  | [#538](https://github.com/bounswe/bounswe2023group5/issues/538)| Can Uzduran | 31.10.2023 | | 4 hr | 4 hr |
 | Updating RAM | [#518](https://github.com/bounswe/bounswe2023group5/issues/518) [#526](https://github.com/bounswe/bounswe2023group5/issues/526), [#534](https://github.com/bounswe/bounswe2023group5/issues/534), [#535](https://github.com/bounswe/bounswe2023group5/issues/535), [#536](https://github.com/bounswe/bounswe2023group5/issues/536), [#548](https://github.com/bounswe/bounswe2023group5/issues/548), [#612](https://github.com/bounswe/bounswe2023group5/issues/612), [#613](https://github.com/bounswe/bounswe2023group5/issues/613), [#596](https://github.com/bounswe/bounswe2023group5/issues/596) | Team | 31.10.2023 | | 30 mins | 30 mins |
 | Preparing a summary of the project status and any changes that are planned for moving forward |  [#542](https://github.com/bounswe/bounswe2023group5/issues/542) | Arda | 31.10.2023 | | 1 hr | 1 hr |
