@@ -35,12 +35,12 @@
 | Adding Conventions to Wiki Page | [#517](https://github.com/bounswe/bounswe2023group5/issues/517) | Alperen Bırçak | 31.10.2023 | | 30 mins | 30 mins |
 | Game Detail Endpoint | [#528](https://github.com/bounswe/bounswe2023group5/issues/528) | Zeynep Baydemir | 31.10.2023 | | 2 hr | 2 hr |
 | get-games-list Endpoint | [#521](https://github.com/bounswe/bounswe2023group5/issues/521) | Deniz Ünal | 28.10.2023 | [#553](https://github.com/bounswe/bounswe2023group5/pull/553), [#573](https://github.com/bounswe/bounswe2023group5/pull/573) | 1 hr | 1 hr |
-| Add filter functionality to /GET games Endpoint | [#524](https://github.com/bounswe/bounswe2023group5/issues/524) | Arda | 31.10.2023 | | 2 hr | 3 hr | 
+| Add filter functionality to /GET games Endpoint | [#524](https://github.com/bounswe/bounswe2023group5/issues/524) | Arda | 31.10.2023 | [#562](https://github.com/bounswe/bounswe2023group5/pull/562) | 2 hr | 3 hr | 
 | Game Entity Implementation | [#523](https://github.com/bounswe/bounswe2023group5/issues/523) | Deniz Ünal | 31.10.2023 | [#553](https://github.com/bounswe/bounswe2023group5/pull/553) | 2 hr | 2 hr |
 | Game Detail Implementation | [#528](https://github.com/bounswe/bounswe2023group5/issues/528)| Zeynep Baydemir | 31.10.2023 | | 3 hr | 3 hr |
 | Tag Implementation in Game  | [#538](https://github.com/bounswe/bounswe2023group5/issues/538)| Can Uzduran | 31.10.2023 | | 4 hr | 4 hr |
 | Updating RAM | [#518](https://github.com/bounswe/bounswe2023group5/issues/518) [#526](https://github.com/bounswe/bounswe2023group5/issues/526), [#534](https://github.com/bounswe/bounswe2023group5/issues/534), [#535](https://github.com/bounswe/bounswe2023group5/issues/535), [#536](https://github.com/bounswe/bounswe2023group5/issues/536), [#548](https://github.com/bounswe/bounswe2023group5/issues/548), [#612](https://github.com/bounswe/bounswe2023group5/issues/612), [#613](https://github.com/bounswe/bounswe2023group5/issues/613), [#596](https://github.com/bounswe/bounswe2023group5/issues/596) | Team | 31.10.2023 | | 30 mins | 30 mins |
-| Preparing a summary of the project status and any changes that are planned for moving forward |  [#542](https://github.com/bounswe/bounswe2023group5/issues/542) | Zeynep Baydemir | 31.10.2023 | | 1 hr | 1 hr |
+| Preparing a summary of the project status and any changes that are planned for moving forward |  [#542](https://github.com/bounswe/bounswe2023group5/issues/542) | Arda | 31.10.2023 | | 1 hr | 1 hr |
 | Preparing a summary of the customer feedback and reflections | [#543](https://github.com/bounswe/bounswe2023group5/issues/543)  | Bilal Atım | 31.10.2023 | | 30 mins | 45 mins | 
 | Preparing list and status of deliverables | [#545](https://github.com/bounswe/bounswe2023group5/issues/545)  | Ali Başaran | 31.10.2023 | | 2 hr | 2.5 hr |
 | Preparing evaluation of the status of deliverables and its impact on your project plan (reflection)| [#546](https://github.com/bounswe/bounswe2023group5/issues/546) | Halis Bal | 31.10.2023 | | 1 hr | 1.5 hr |
@@ -61,7 +61,7 @@
 | Adding a Toast Library and Global Error Handling on Queries | [#503](https://github.com/bounswe/bounswe2023group5/issues/503) | Alperen | 31.10.2023 | | 1 hr | 1 hr |
 | Deploying Frontend to the AWS | [#495](https://github.com/bounswe/bounswe2023group5/issues/495) | Ali Başaran | 31.10.2023 | | 2 hr | 4 hr |
 | Populating the Nav Bar, Side Bar and the Footer | [#501](https://github.com/bounswe/bounswe2023group5/issues/501) | Çisel | 31.10.2023 |  [#578](https://github.com/bounswe/bounswe2023group5/pull/578), [#575](https://github.com/bounswe/bounswe2023group5/pull/575)| 2 hr | 5 hr |
-| Games Page Implementation - FE | [#493](https://github.com/bounswe/bounswe2023group5/issues/493) | Arda | 31.10.2023 | | 4 hr | 4.5 hr |
+| Games Page Implementation - FE | [#493](https://github.com/bounswe/bounswe2023group5/issues/493) | Arda | 31.10.2023 |[#563](https://github.com/bounswe/bounswe2023group5/pull/563) | 4 hr | 4.5 hr |
 | Individual Game Page Implementation - FE | [#496](https://github.com/bounswe/bounswe2023group5/issues/494) | Çisel, Alperen | 31.10.2023 | | 5 hr | 4 hr |
 | Reviewing Game Page Mockups  | [#460](https://github.com/bounswe/bounswe2023group5/issues/460) | Frontend Team | 24.10.2023 | | 2 hr | 2.5 hr |
 
