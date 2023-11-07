@@ -92,13 +92,9 @@
 ## Your plans for the next week
 | Description | Issue                                                           | Assignee | Due | Estimated Duration |
 | --- |-----------------------------------------------------------------| --- | --- | --- |
-
 | Implementing Review Feature Backend | [#640](https://github.com/bounswe/bounswe2023group5/issues/640)| Can Uzduran | 14.11.23 | 4 hr |
-
 | Documentation of Completed Endpoints | [#641](https://github.com/bounswe/bounswe2023group5/issues/641)| Can Uzduran | 14.11.23 | 4 hr |
-
 | Implementing Vote Feature Backend | [#642](https://github.com/bounswe/bounswe2023group5/issues/642)| Can Uzduran | 14.11.23 | 3 hr |
-
 | Writing validations for data transfer objects and necessary fields Backend | [#643](https://github.com/bounswe/bounswe2023group5/issues/643)| Can Uzduran | 14.11.23 | 3 hr |
 | Implementing Admin Functionality |  [#631](https://github.com/bounswe/bounswe2023group5/issues/631)  | Zeynep Baydemir | 14.11.23 | 3 hr |
 | Implementing Forum Moderation Functionality |  [#635](https://github.com/bounswe/bounswe2023group5/issues/635)  | Zeynep Baydemir | 14.11.23 | 3 hr |
