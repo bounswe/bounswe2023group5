@@ -103,12 +103,12 @@
 | Implementing Forum Post Functionality | [#628](https://github.com/bounswe/bounswe2023group5/issues/628) | Deniz Ünal | 14.11.23 | 8 hr |
 | Forum Post Functionality Implementation - MOBILE | [#625](https://github.com/bounswe/bounswe2023group5/issues/625)| Bilal Atım | 12.11.2023 | 7 hr|
 | Review Functionality Implementation - MOBILE  | [#622](https://github.com/bounswe/bounswe2023group5/issues/622)| Bilal Atım | 11.11.2023 | 6 hr|
-| Forum Comment Functionality Implementation - MOBILE  | [#648](https://github.com/bounswe/bounswe2023group5/issues/648) | Ege Ekşi | 14.11.2023 |  |
+| Forum Comment Functionality Implementation - MOBILE  | [#648](https://github.com/bounswe/bounswe2023group5/issues/648) | Ege Ekşi | 14.11.2023 | 3 hr |
 | Forum Moderation Functionality Implementation - MOBILE  | [#651](https://github.com/bounswe/bounswe2023group5/issues/651) | Harun Sami Çelik | 14.11.2023 | |
 | Forum Page Implementation - MOBILE | [#645](https://github.com/bounswe/bounswe2023group5/issues/645) | Said Yolcu | 13.11.2023 | |
 | Admin Mobile Additions for Necessary Pages - MOBILE | [#650](https://github.com/bounswe/bounswe2023group5/issues/650) | Harun Sami Çelik | 14.11.2023 | |
 | Admin Control Panel Page Implementation - MOBILE | [#637](https://github.com/bounswe/bounswe2023group5/issues/637) | Said Yolcu | 12.11.2023 | |
-| Adding Review to Individual Game Page - MOBILE | [#649](https://github.com/bounswe/bounswe2023group5/issues/649) | Ege Ekşi | 14.11.2023 | |
+| Adding Review to Individual Game Page - MOBILE | [#649](https://github.com/bounswe/bounswe2023group5/issues/649) | Ege Ekşi | 14.11.2023 | 3 hr |
 | Adding Reviews to Individual Game Page |  [#621](https://github.com/bounswe/bounswe2023group5/issues/621) | Çisel | 12.11.2023 | 45 mins |
 | Creating Admin Control Panel Page| [#435](https://github.com/bounswe/bounswe2023group5/issues/435) | Arda | 14.11.2023 | 3 hours |
 | Admin Frontend Additions for Necessary Pages|[#623](https://github.com/bounswe/bounswe2023group5/issues/623) | Arda | 14.11.2023 | 2 hours |
