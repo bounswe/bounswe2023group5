@@ -28,9 +28,9 @@
 | Determining the Logo of the Project |  [#540](https://github.com/bounswe/bounswe2023group5/issues/540)  | Team | 31.10.2023 | | 15 mins | 10 mins |
 | Determining the Branch Naming |  [#541](https://github.com/bounswe/bounswe2023group5/issues/541)   | Team | 31.10.2023 | | 15 mins | 10 mins |
 | Error Handling in Backend | [#544](https://github.com/bounswe/bounswe2023group5/issues/544) | Backend  | 31.10.2023 | | 2hr | 1hr |
-| Authorization Implementation | [#513](https://github.com/bounswe/bounswe2023group5/issues/513) | Halis Bal  | 31.10.2023 | | 3hr | 3.5 hr | 
+| Authorization Implementation | [#513](https://github.com/bounswe/bounswe2023group5/issues/513) | Halis Bal  | 31.10.2023 | [#555](https://github.com/bounswe/bounswe2023group5/pull/555) | 3hr | 3.5 hr | 
 | Creating Me Endpoint |[#508](https://github.com/bounswe/bounswe2023group5/issues/508) | Zeynep Baydemir | 31.10.2023 | | 1hr | 1 hr |
-| Implementing CI/CD for Backend | [#512](https://github.com/bounswe/bounswe2023group5/issues/512) | Halis Bal | 31.10.2023 | | 5hr | 4 hr |
+| Implementing CI/CD for Backend | [#512](https://github.com/bounswe/bounswe2023group5/issues/512) | Halis Bal | 31.10.2023 | [#582](https://github.com/bounswe/bounswe2023group5/pull/582) | 5hr | 4 hr |
 | Deployment Backend to AWS | [#515](https://github.com/bounswe/bounswe2023group5/issues/515) | Deniz Ünal | 31.10.2023 | - | 3hr | 3 hr | 
 | Adding Conventions to Wiki Page | [#517](https://github.com/bounswe/bounswe2023group5/issues/517) | Alperen Bırçak | 31.10.2023 | | 30 mins | 30 mins |
 | Game Detail Endpoint | [#528](https://github.com/bounswe/bounswe2023group5/issues/528) | Zeynep Baydemir | 31.10.2023 | | 2 hr | 2 hr |
@@ -97,7 +97,7 @@
 | Implementing Admin Functionality |  [#631](https://github.com/bounswe/bounswe2023group5/issues/631)  | Zeynep Baydemir | 14.11.23 | 3 hr |
 | Implementing Forum Moderation Functionality |  [#635](https://github.com/bounswe/bounswe2023group5/issues/635)  | Zeynep Baydemir | 14.11.23 | 3 hr |
 | Implementing Password Hashing |  [#638](https://github.com/bounswe/bounswe2023group5/issues/638) | Zeynep Baydemir | 14.11.23 | 1.5 hr |
-| Implementing Forum Comment Functionality |  | Halis Bal | 14.11.23 | 8 hr |
+| Implementing Forum Comment Functionality | [#639](https://github.com/bounswe/bounswe2023group5/issues/639) | Halis Bal | 14.11.23 | 8 hr |
 | Implementing Forum Post Functionality | [#628](https://github.com/bounswe/bounswe2023group5/issues/628) | Deniz Ünal | 14.11.23 | 8 hr |
 | Forum Post Functionality Implementation - MOBILE | [#625](https://github.com/bounswe/bounswe2023group5/issues/625)| Bilal Atım | 12.11.2023 | 7 hr|
 | Review Functionality Implementation - MOBILE  | [#622](https://github.com/bounswe/bounswe2023group5/issues/622)| Bilal Atım | 11.11.2023 | 6 hr|
