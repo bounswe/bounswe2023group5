@@ -45,8 +45,8 @@
 | Preparing evaluation of the status of deliverables and its impact on your project plan (reflection)| [#546](https://github.com/bounswe/bounswe2023group5/issues/546) | Halis Bal | 31.10.2023 | | 1 hr | 3 hr |
 | Preparing evaluation of tools and processes you have used to manage your team project | [#547](https://github.com/bounswe/bounswe2023group5/issues/547) | Can Uzduran | 31.10.2023 | | 1 hr | 1 hr |
 | Adding individual contributions | [#516](https://github.com/bounswe/bounswe2023group5/issues/516), [#527](https://github.com/bounswe/bounswe2023group5/issues/527) [#525](https://github.com/bounswe/bounswe2023group5/issues/525), [#530](https://github.com/bounswe/bounswe2023group5/issues/530), [#531](https://github.com/bounswe/bounswe2023group5/issues/531), [#533](https://github.com/bounswe/bounswe2023group5/issues/533), [#537](https://github.com/bounswe/bounswe2023group5/issues/537), [#549](https://github.com/bounswe/bounswe2023group5/issues/549), [#611](https://github.com/bounswe/bounswe2023group5/issues/611), [#568](https://github.com/bounswe/bounswe2023group5/issues/568) | Team | 31.10.2023 | | 20 mins | 30 mins |
-| Connecting Login Page to Backend - Mobile| [#506](https://github.com/bounswe/bounswe2023group5/issues/506) | Harun Sami Çelik | 31.10.2023 | | 2hr | 1.5 hr |
-| Connecting Delete Account Page to Backend - Mobile | [#507](https://github.com/bounswe/bounswe2023group5/issues/507) | Harun Sami Çelik | 31.10.2023 | | 2hr | 2 hr |
+| Connecting Login Page to Backend - Mobile| [#506](https://github.com/bounswe/bounswe2023group5/issues/506) | Harun Sami Çelik | 31.10.2023 | [#588](https://github.com/bounswe/bounswe2023group5/pull/588) | 2hr | 1.5 hr |
+| Connecting Delete Account Page to Backend - Mobile | [#507](https://github.com/bounswe/bounswe2023group5/issues/507) | Harun Sami Çelik | 31.10.2023 | [#588](https://github.com/bounswe/bounswe2023group5/pull/588) | 2hr | 2 hr |
 | Connecting Forget Password Page to Backend - Mobile |[#496](https://github.com/bounswe/bounswe2023group5/issues/496) | Ege Ekşi | 31.10.2023 | [#570](https://github.com/bounswe/bounswe2023group5/pull/570) | 2hr | 2.5 hr |
 | Connecting Change Password Page to Backend - Mobile | [#510](https://github.com/bounswe/bounswe2023group5/issues/510) | Said Yolcu | 31.10.2023 | | 2hr | 2 hr |
 | Connecting Logout Functionality to Backend - Mobile | [#509](https://github.com/bounswe/bounswe2023group5/issues/509) | Said Yolcu | 31.10.2023 | | 2hr | 1.5 hr |
@@ -102,9 +102,9 @@
 | Forum Post Functionality Implementation - MOBILE | [#625](https://github.com/bounswe/bounswe2023group5/issues/625)| Bilal Atım | 12.11.2023 | 7 hr|
 | Review Functionality Implementation - MOBILE  | [#622](https://github.com/bounswe/bounswe2023group5/issues/622)| Bilal Atım | 11.11.2023 | 6 hr|
 | Forum Comment Functionality Implementation - MOBILE  | [#648](https://github.com/bounswe/bounswe2023group5/issues/648) | Ege Ekşi | 14.11.2023 |  |
-| Forum Moderation Functionality Implementation - MOBILE  | | Harun Sami Çelik | 14.11.2023 | |
+| Forum Moderation Functionality Implementation - MOBILE  | [#651](https://github.com/bounswe/bounswe2023group5/issues/651) | Harun Sami Çelik | 14.11.2023 | |
 | Forum Page Implementation - MOBILE | [#645](https://github.com/bounswe/bounswe2023group5/issues/645) | Said Yolcu | 13.11.2023 | |
-| Admin Mobile Additions for Necessary Pages - MOBILE | | Harun Sami Çelik | 14.11.2023 | |
+| Admin Mobile Additions for Necessary Pages - MOBILE | [#650](https://github.com/bounswe/bounswe2023group5/issues/650) | Harun Sami Çelik | 14.11.2023 | |
 | Admin Control Panel Page Implementation - MOBILE | [#637](https://github.com/bounswe/bounswe2023group5/issues/637) | Said Yolcu | 12.11.2023 | |
 | Adding Review to Individual Game Page - MOBILE | [#649](https://github.com/bounswe/bounswe2023group5/issues/649) | Ege Ekşi | 14.11.2023 | |
 | Adding Reviews to Individual Game Page |  [#621](https://github.com/bounswe/bounswe2023group5/issues/621) | Çisel | 12.11.2023 | 45 mins |
