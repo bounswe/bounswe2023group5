@@ -1,6 +1,6 @@
 package com.app.gamereview.service;
 
-import com.app.gamereview.dto.request.GetAllUsersFilterRequestDto;
+import com.app.gamereview.dto.request.user.GetAllUsersFilterRequestDto;
 import com.app.gamereview.model.User;
 import com.app.gamereview.repository.UserRepository;
 import org.modelmapper.ModelMapper;

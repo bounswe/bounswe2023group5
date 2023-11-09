@@ -1,4 +1,4 @@
-package com.app.gamereview.dto.request;
+package com.app.gamereview.dto.request.user;
 
 import lombok.Getter;
 import lombok.Setter;

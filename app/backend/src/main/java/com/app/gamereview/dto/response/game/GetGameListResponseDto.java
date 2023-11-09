@@ -1,4 +1,4 @@
-package com.app.gamereview.dto.response;
+package com.app.gamereview.dto.response.game;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

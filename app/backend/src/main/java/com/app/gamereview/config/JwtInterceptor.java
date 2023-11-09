@@ -2,7 +2,7 @@ package com.app.gamereview.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.app.gamereview.model.User;
-import com.app.gamereview.util.AuthorizationRequired;
+import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
 import com.app.gamereview.util.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

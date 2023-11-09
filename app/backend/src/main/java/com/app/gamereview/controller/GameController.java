@@ -1,22 +1,24 @@
 package com.app.gamereview.controller;
 
 import com.app.gamereview.dto.request.tag.AddGameTagRequestDto;
-import com.app.gamereview.dto.response.GameDetailResponseDto;
+import com.app.gamereview.dto.response.game.GameDetailResponseDto;
 import com.app.gamereview.dto.response.tag.AddGameTagResponseDto;
 import com.app.gamereview.dto.response.tag.GetAllTagsOfGameResponseDto;
-import org.apache.coyote.Response;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import com.app.gamereview.dto.request.GetGameListRequestDto;
-import com.app.gamereview.dto.response.GetGameListResponseDto;
+import com.app.gamereview.dto.request.game.GetGameListRequestDto;
+import com.app.gamereview.dto.response.game.GetGameListResponseDto;
 import com.app.gamereview.service.GameService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/game")
+@Validated
 public class GameController {
 
 	private final GameService gameService;
@@ -35,7 +37,7 @@ public class GameController {
 
 	@PostMapping("/add-tag")
 	public ResponseEntity<AddGameTagResponseDto> addGameTag(
-			@RequestBody AddGameTagRequestDto addGameTagRequestDto) {
+			@Valid @RequestBody AddGameTagRequestDto addGameTagRequestDto) {
 		AddGameTagResponseDto response = gameService.addGameTag(addGameTagRequestDto);
 		return ResponseEntity.ok(response);
 	}

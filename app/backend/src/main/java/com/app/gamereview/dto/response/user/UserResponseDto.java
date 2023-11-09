@@ -1,4 +1,4 @@
-package com.app.gamereview.dto.response;
+package com.app.gamereview.dto.response.user;
 
 import com.app.gamereview.model.User;
 import lombok.Getter;

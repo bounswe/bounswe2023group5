@@ -1,31 +1,26 @@
 package com.app.gamereview.service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.app.gamereview.dto.request.tag.AddGameTagRequestDto;
-import com.app.gamereview.dto.response.LoginUserResponseDto;
-import com.app.gamereview.dto.response.UserResponseDto;
 import com.app.gamereview.dto.response.tag.AddGameTagResponseDto;
 import com.app.gamereview.dto.response.tag.GetAllTagsOfGameResponseDto;
 import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.Tag;
-import com.app.gamereview.model.User;
 import com.app.gamereview.repository.TagRepository;
-import com.app.gamereview.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import com.app.gamereview.dto.request.GetGameListRequestDto;
-import com.app.gamereview.dto.response.GetGameListResponseDto;
+import com.app.gamereview.dto.request.game.GetGameListRequestDto;
+import com.app.gamereview.dto.response.game.GetGameListResponseDto;
 import com.app.gamereview.model.Game;
 import com.app.gamereview.repository.GameRepository;
-import com.app.gamereview.dto.response.GameDetailResponseDto;
+import com.app.gamereview.dto.response.game.GameDetailResponseDto;
 
 @Service
 public class GameService {

@@ -1,4 +1,4 @@
-package com.app.gamereview.util;
+package com.app.gamereview.util.validation.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
