@@ -1,15 +1,12 @@
 package com.app.gamereview.service;
 
-import com.app.gamereview.dto.request.LoginUserRequestDto;
-import com.app.gamereview.dto.request.RegisterUserRequestDto;
-import com.app.gamereview.dto.response.LoginUserResponseDto;
-import com.app.gamereview.dto.response.UserResponseDto;
+import com.app.gamereview.dto.request.auth.LoginUserRequestDto;
+import com.app.gamereview.dto.request.auth.RegisterUserRequestDto;
+import com.app.gamereview.dto.response.auth.LoginUserResponseDto;
 import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.User;
 import com.app.gamereview.repository.UserRepository;
-import com.app.gamereview.service.AuthService;
-import com.app.gamereview.util.JwtUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.modelmapper.ModelMapper;

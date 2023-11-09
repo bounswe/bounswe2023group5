@@ -1,8 +1,11 @@
 package com.app.gamereview.service;
 
-import com.app.gamereview.dto.request.*;
-import com.app.gamereview.dto.response.LoginUserResponseDto;
-import com.app.gamereview.dto.response.UserResponseDto;
+import com.app.gamereview.dto.request.auth.ChangeUserPasswordRequestDto;
+import com.app.gamereview.dto.request.auth.ForgotChangeUserPasswordRequestDto;
+import com.app.gamereview.dto.request.auth.LoginUserRequestDto;
+import com.app.gamereview.dto.request.auth.RegisterUserRequestDto;
+import com.app.gamereview.dto.response.auth.LoginUserResponseDto;
+import com.app.gamereview.dto.response.user.UserResponseDto;
 import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.ResetCode;

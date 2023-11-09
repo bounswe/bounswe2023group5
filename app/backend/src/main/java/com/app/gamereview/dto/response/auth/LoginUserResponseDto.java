@@ -1,6 +1,6 @@
-package com.app.gamereview.dto.response;
+package com.app.gamereview.dto.response.auth;
 
-import com.app.gamereview.model.User;
+import com.app.gamereview.dto.response.user.UserResponseDto;
 import lombok.Getter;
 import lombok.Setter;
 

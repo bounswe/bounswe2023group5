@@ -1,16 +1,18 @@
 package com.app.gamereview.controller;
 
-import com.app.gamereview.dto.request.GetAllUsersFilterRequestDto;
+import com.app.gamereview.dto.request.user.GetAllUsersFilterRequestDto;
 import com.app.gamereview.model.User;
 import com.app.gamereview.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
+@Validated
 public class UserController {
 
 	private final UserService userService;
@@ -27,7 +29,7 @@ public class UserController {
 	}
 
 	@DeleteMapping("/delete")
-	public ResponseEntity<Boolean> deleteUser(@RequestParam(value = "id", required = true) final String id) {
+	public ResponseEntity<Boolean> deleteUser(@RequestParam String id) {
 		Boolean deleteResult = userService.deleteUserById(id);
 
 		return ResponseEntity.ok(deleteResult);

@@ -1,4 +1,4 @@
-package com.app.gamereview.dto.request;
+package com.app.gamereview.dto.request.game;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
