@@ -1,5 +1,6 @@
 package com.app.gamereview.util.validation.annotation;
 
+import com.app.gamereview.enums.TagType;
 import com.app.gamereview.util.validation.validator.TagTypeValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -13,7 +14,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = TagTypeValidator.class)
 public @interface ValidTagType {
-    String message() default "Invalid TagType, allowed values are: ${allowedValues}";
+
+    TagType[] allowedValues();
+    String message() default "Invalid TagType, allowed values are: {allowedValues}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

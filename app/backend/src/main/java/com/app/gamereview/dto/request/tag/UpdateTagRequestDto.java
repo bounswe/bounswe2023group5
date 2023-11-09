@@ -14,7 +14,9 @@ public class UpdateTagRequestDto {
     @NotEmpty(message = "Tag name cannot be null or empty")
     private String name;
 
-    @ValidTagType(message = "Provided tag type is invalid")
+    @ValidTagType(allowedValues = {TagType.ART_STYLE, TagType.GENRE, TagType.DURATION, TagType.OTHER,
+            TagType.MONETIZATION, TagType.PLATFORM, TagType.DEVELOPER, TagType.PLAYER_TYPE, TagType.POST,
+            TagType.PRODUCTION})
     private TagType tagType;
 
     @Pattern(regexp = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$", message = "Provided color must be in hexadecimal format, e.g. #FF4500")
