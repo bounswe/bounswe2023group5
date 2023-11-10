@@ -133,6 +133,24 @@ public class PostService {
       editedPost.setLastEditedAt(LocalDateTime.now());
     }
 
-    return editedPost;
+    return postRepository.save(editedPost);
+  }
+
+  public Post deletePost(String id, User user) {
+    Optional<Post> post = postRepository.findById(id);
+
+    if (post.isEmpty() || post.get().getIsDeleted()) {
+      throw new ResourceNotFoundException("The post with the given id is not found.");
+    }
+
+    if (!post.get().getPoster().equals(user.getId())){
+      throw new BadRequestException("Only the user that created the post can delete it.");
+    }
+
+    Post postToDelete = post.get();
+
+    postToDelete.setIsDeleted(true);
+
+    return postRepository.save(postToDelete);
   }
 }

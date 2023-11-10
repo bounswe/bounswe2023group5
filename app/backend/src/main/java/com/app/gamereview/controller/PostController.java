@@ -58,4 +58,12 @@ public class PostController {
     Post editedPost = postService.editPost(id, post, user);
     return ResponseEntity.ok(editedPost);
   }
+
+  @AuthorizationRequired
+  @DeleteMapping("/delete")
+  public ResponseEntity<Post> deletePost(@RequestParam String id, @RequestHeader String Authorization, HttpServletRequest request) {
+    User user = (User) request.getAttribute("authenticatedUser");
+    Post deletedPost = postService.deletePost(id, user);
+    return ResponseEntity.ok(deletedPost);
+  }
 }
