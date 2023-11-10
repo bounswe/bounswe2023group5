@@ -22,21 +22,21 @@ public class Game extends BaseModel {
 
 	private Date releaseDate;
 
-	private List<Tag> playerTypes = new ArrayList<Tag>();
+	private List<String> playerTypes = new ArrayList<String>();
 
-	private List<Tag> genre = new ArrayList<Tag>();
+	private List<String> genre = new ArrayList<String>();
 
-	private Tag production;
+	private String production;
 
-	private Tag duration;
+	private String duration;
 
-	private List<Tag> platforms = new ArrayList<Tag>();
+	private List<String> platforms = new ArrayList<String>();
 
-	private List<Tag> artStyles = new ArrayList<Tag>();
+	private List<String> artStyles = new ArrayList<String>();
 
-	private Tag developer;
+	private String developer;
 
-	private List<Tag> otherTags = new ArrayList<Tag>();
+	private List<String> otherTags = new ArrayList<String>();
 
 	private String minSystemReq;
 
@@ -50,28 +50,28 @@ public class Game extends BaseModel {
 	public void addTag(Tag tag){
 		switch (tag.getTagType()){
 			case PLAYER_TYPE:
-				playerTypes.add(tag);
+				playerTypes.add(tag.getId());
 				break;
 			case GENRE:
-				genre.add(tag);
+				genre.add(tag.getId());
 				break;
 			case PRODUCTION:
-				production = tag;
+				production = tag.getId();
 				break;
 			case DURATION:
-				duration = tag;
+				duration = tag.getId();
 				break;
 			case PLATFORM:
-				platforms.add(tag);
+				platforms.add(tag.getId());
 				break;
 			case ART_STYLE:
-				artStyles.add(tag);
+				artStyles.add(tag.getId());
 				break;
 			case DEVELOPER:
-				developer = tag;
+				developer = tag.getId();
 				break;
 			case OTHER:
-				otherTags.add(tag);
+				otherTags.add(tag.getId());
 				break;
 		}
 	}

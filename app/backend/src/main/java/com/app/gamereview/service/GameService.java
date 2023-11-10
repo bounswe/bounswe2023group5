@@ -43,37 +43,31 @@ public class GameService {
 	public List<GetGameListResponseDto> getAllGames(GetGameListRequestDto filter) {
 		Query query = new Query();
 		if(filter != null) {
-			if (filter.getFindDeleted() == null) {
-				query.addCriteria(Criteria.where("isDeleted").is(false));
-			} else if (filter.getFindDeleted() == false) {
+			if (filter.getFindDeleted() == null || !filter.getFindDeleted()) {
 				query.addCriteria(Criteria.where("isDeleted").is(false));
 			}
-
-			if(filter.getSearch() != null && filter.getSearch().length() > 0){
+			if(filter.getSearch() != null && !filter.getSearch().isBlank()){
 				query.addCriteria(Criteria.where("gameName").regex(filter.getSearch(), "i"));
 
-			}else{
-				if (filter.getPlayerTypes() != null && filter.getPlayerTypes().size() > 0) {
-					query.addCriteria(Criteria.where("playerTypes.name").all(filter.getPlayerTypes()));
+			}
+			else {
+				if (filter.getPlayerTypes() != null && !filter.getPlayerTypes().isEmpty()) {
+					query.addCriteria(Criteria.where("playerTypes").in(filter.getPlayerTypes()));
 				}
-				if (filter.getGenre() != null && filter.getGenre().size() > 0) {
-					query.addCriteria(Criteria.where("genre.name").all(filter.getGenre()));
+				if (filter.getGenre() != null && !filter.getGenre().isEmpty()) {
+					query.addCriteria(Criteria.where("genre").in(filter.getGenre()));
 				}
-				if (filter.getProduction() != null && filter.getProduction().length() > 0) {
-					query.addCriteria(Criteria.where("production.name").is(filter.getProduction()));
+				if (filter.getProduction() != null && !filter.getProduction().isBlank()) {
+					query.addCriteria(Criteria.where("production").is(filter.getProduction()));
 				}
-				if (filter.getPlatform() != null && filter.getPlatform().size() > 0) {
-					query.addCriteria(Criteria.where("platforms.name").all(filter.getPlatform()));
+				if (filter.getPlatform() != null && !filter.getPlatform().isEmpty()) {
+					query.addCriteria(Criteria.where("platforms").in(filter.getPlatform()));
 				}
-				if (filter.getArtStyle() != null && filter.getArtStyle().size() > 0) {
-					query.addCriteria(Criteria.where("artStyles.name").all(filter.getArtStyle()));
+				if (filter.getArtStyle() != null && !filter.getArtStyle().isEmpty()) {
+					query.addCriteria(Criteria.where("artStyles").in(filter.getArtStyle()));
 				}
 			}
-
-
 		}
-
-
 
 		List<Game> gamesList = mongoTemplate.find(query, Game.class);
 
