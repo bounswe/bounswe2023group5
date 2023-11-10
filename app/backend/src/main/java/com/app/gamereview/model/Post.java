@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.app.gamereview.model.common.BaseModel;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,9 @@ public class Post extends BaseModel {
   private String postContent;
 
   private User poster;
+
+  @NotNull
+  private String forum;
 
   // TODO avatar
 
