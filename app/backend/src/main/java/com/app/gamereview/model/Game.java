@@ -20,6 +20,10 @@ public class Game extends BaseModel {
 
 	private String gameIcon;
 
+	private float overallRating;
+
+	private float ratingCount;
+
 	private Date releaseDate;
 
 	private List<String> playerTypes = new ArrayList<String>();
@@ -75,5 +79,30 @@ public class Game extends BaseModel {
 				break;
 		}
 	}
+
+	public void addRating(float newRating){
+		overallRating = (overallRating * ratingCount + newRating) / (ratingCount + 1);
+		ratingCount += 1;
+	}
+
+	public void updateRating(float removedRating, float newRating){
+		float nominator = overallRating * ratingCount;
+		nominator += (newRating - removedRating);
+		overallRating = nominator / ratingCount;
+	}
+
+	public void deleteRating(float deletedRating){
+		if(ratingCount == 1){
+			overallRating = 0;
+			ratingCount -= 1;
+		}
+		else{
+			float nominator = overallRating * ratingCount;
+			nominator -= deletedRating;
+			ratingCount -= 1;
+			overallRating = nominator / ratingCount;
+		}
+	}
+
 
 }
