@@ -13,16 +13,18 @@ import java.util.UUID;
 @Setter
 public abstract class BaseModel {
 
-	@Id
-	private String id;
+  @Id
+  private String id;
 
-	private LocalDateTime createdAt;
+  private LocalDateTime createdAt;
 
-	private Boolean isDeleted;
+  private Boolean isDeleted;
 
-	@PersistenceCreator
-	public BaseModel() {
-		this.id = UUID.randomUUID().toString(); // Generate a UUID during construction
-	}
+  @PersistenceCreator
+  public BaseModel() {
+    this.id = UUID.randomUUID().toString(); // Generate a UUID during construction
+    this.createdAt = LocalDateTime.now();
+    this.isDeleted = false;
+  }
 
 }
