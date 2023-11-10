@@ -9,19 +9,19 @@ import java.util.List;
 @Getter
 @Setter
 public class GetAllTagsOfGameResponseDto {
-    private List<Tag> playerTypes;
+    private List<String> playerTypes;
 
-    private List<Tag> genre;
+    private List<String> genre;
 
-    private Tag production;
+    private String production;
 
-    private Tag duration;
+    private String duration;
 
-    private List<Tag> platforms;
+    private List<String> platforms;
 
-    private List<Tag> artStyles;
+    private List<String> artStyles;
 
-    private Tag developer;
+    private String developer;
 
-    private List<Tag> otherTags;
+    private List<String> otherTags;
 }
