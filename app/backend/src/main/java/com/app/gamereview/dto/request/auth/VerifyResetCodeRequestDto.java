@@ -1,5 +1,6 @@
 package com.app.gamereview.dto.request.auth;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,6 +13,7 @@ public class VerifyResetCodeRequestDto {
 	private String resetCode;
 
 	@NotEmpty(message = "Email field cannot be null or empty")
+	@Email(message = "Provided email address is not valid")
 	private String userEmail;
 
 }

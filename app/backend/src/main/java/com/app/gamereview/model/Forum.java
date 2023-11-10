@@ -23,6 +23,8 @@ public class Forum extends BaseModel {
 
   private ForumType type;
 
+  private String parent; // Group or game that the forum is connected to.
+
   private List<String> subscribers;
 
   private List<String> bannedUsers;

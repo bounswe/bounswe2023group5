@@ -2,15 +2,14 @@ package com.app.gamereview.controller;
 
 import java.util.List;
 
+import com.app.gamereview.dto.request.post.EditPostRequestDto;
+import com.app.gamereview.model.User;
+import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.app.gamereview.dto.request.post.CreatePostRequestDto;
 import com.app.gamereview.dto.request.post.GetPostListFilterRequestDto;
@@ -44,9 +43,19 @@ public class PostController {
     return ResponseEntity.ok(post);
   }
 
+  @AuthorizationRequired
   @PostMapping("/create")
-  public ResponseEntity<Post> createPost(@Valid @RequestBody CreatePostRequestDto postDto) {
-    Post postToCreate = postService.createPost(postDto);
+  public ResponseEntity<Post> createPost(@Valid @RequestBody CreatePostRequestDto post, @RequestHeader String Authorization, HttpServletRequest request) {
+    User user = (User) request.getAttribute("authenticatedUser");
+    Post postToCreate = postService.createPost(post, user);
     return ResponseEntity.ok(postToCreate);
+  }
+
+  @AuthorizationRequired
+  @PostMapping("/edit")
+  public ResponseEntity<Post> editPost(@RequestParam String id, @Valid @RequestBody EditPostRequestDto post, @RequestHeader String Authorization, HttpServletRequest request) {
+    User user = (User) request.getAttribute("authenticatedUser");
+    Post editedPost = postService.editPost(id, post, user);
+    return ResponseEntity.ok(editedPost);
   }
 }

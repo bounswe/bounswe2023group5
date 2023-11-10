@@ -24,7 +24,9 @@ public class Post extends BaseModel {
 
   private String postContent;
 
-  private User poster;
+  private String postImage;
+
+  private String poster;
 
   @NotNull
   private String forum;
@@ -33,7 +35,7 @@ public class Post extends BaseModel {
 
   private LocalDateTime lastEditedAt;
 
-  private List<Tag> tags;
+  private List<String> tags;
 
   private Boolean inappropriate;
 
