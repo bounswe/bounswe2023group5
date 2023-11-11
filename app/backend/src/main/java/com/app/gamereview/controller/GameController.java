@@ -1,9 +1,12 @@
 package com.app.gamereview.controller;
 
+import com.app.gamereview.dto.request.game.CreateGameRequestDto;
 import com.app.gamereview.dto.request.tag.AddGameTagRequestDto;
 import com.app.gamereview.dto.response.game.GameDetailResponseDto;
 import com.app.gamereview.dto.response.tag.AddGameTagResponseDto;
 import com.app.gamereview.dto.response.tag.GetAllTagsOfGameResponseDto;
+import com.app.gamereview.model.Game;
+import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -51,5 +54,12 @@ public class GameController {
 	public ResponseEntity<GameDetailResponseDto> getGameDetail(@RequestParam String gameId){
 		GameDetailResponseDto response = gameService.getGameDetail(gameId);
 		return ResponseEntity.ok(response);
+	}
+
+	@AuthorizationRequired
+	@PostMapping("/create")
+	public ResponseEntity<Game> createGame(@Valid @RequestBody CreateGameRequestDto createGameRequestDto, String Authorization) {
+		Game gameToCreate = gameService.createGame(createGameRequestDto);
+		return ResponseEntity.ok(gameToCreate);
 	}
 }
