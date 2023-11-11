@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.app.gamereview.enums.SortDirection;
+import com.app.gamereview.enums.SortType;
 import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.model.Forum;
 import com.app.gamereview.model.Tag;
@@ -14,6 +16,7 @@ import com.app.gamereview.repository.ForumRepository;
 import com.app.gamereview.repository.TagRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -56,6 +59,23 @@ public class PostService {
       }
       if (filter.getSearch() != null && !filter.getSearch().isBlank()) {
         query.addCriteria(Criteria.where("title").regex(filter.getSearch(), "i"));
+      }
+    }
+
+    if (filter != null && filter.getSortBy() != null) {
+      Sort.Direction sortDirection = Sort.Direction.DESC; // Default sorting direction (you can change it to ASC if needed)
+      if (filter.getSortDirection() != null) {
+        sortDirection = filter.getSortDirection().equals(SortDirection.ASCENDING.name()) ? Sort.Direction.ASC : Sort.Direction.DESC;
+      }
+
+      if (filter.getSortBy().equals(SortType.CREATION_DATE.name())) {
+        query.with(Sort.by(sortDirection, "createdAt"));
+      } else if (filter.getSortBy().equals(SortType.EDIT_DATE.name())) {
+        query.with(Sort.by(sortDirection, "lastEditedAt"));
+      } else if (filter.getSortBy().equals(SortType.OVERALL_VOTE.name())) {
+        query.with(Sort.by(sortDirection, "overallVote"));
+      } else if (filter.getSortBy().equals(SortType.VOTE_COUNT.name())) {
+        query.with(Sort.by(sortDirection, "voteCount"));
       }
     }
 
