@@ -32,6 +32,10 @@ public class GetPostListResponseDto {
 
   private boolean inappropriate;
 
+  private int overallVote; // overallVote = # of upvote - # of downvote
+
+  private int voteCount;  // voteCount = # of upvote + # of downvote
+
   // TODO reports
   // TODO comments
   // TODO annotations

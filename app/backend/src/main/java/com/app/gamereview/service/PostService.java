@@ -69,7 +69,7 @@ public class PostService {
 
       return new GetPostListResponseDto(post.getId(), post.getTitle(), post.getPostContent(),
         post.getPoster(), post.getLastEditedAt(), post.getCreatedAt(), isEdited, post.getTags(),
-        post.getInappropriate());
+        post.getInappropriate(), post.getOverallVote(), post.getVoteCount());
   }
 
   public Post getPostById(String id) {

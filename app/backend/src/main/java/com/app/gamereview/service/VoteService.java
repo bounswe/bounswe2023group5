@@ -5,9 +5,11 @@ import com.app.gamereview.dto.request.vote.GetAllVotesFilterRequestDto;
 import com.app.gamereview.enums.VoteChoice;
 import com.app.gamereview.enums.VoteType;
 import com.app.gamereview.exception.ResourceNotFoundException;
+import com.app.gamereview.model.Post;
 import com.app.gamereview.model.Review;
 import com.app.gamereview.model.User;
 import com.app.gamereview.model.Vote;
+import com.app.gamereview.repository.PostRepository;
 import com.app.gamereview.repository.ReviewRepository;
 import com.app.gamereview.repository.VoteRepository;
 import org.modelmapper.ModelMapper;
@@ -30,18 +32,20 @@ public class VoteService {
     private final MongoTemplate mongoTemplate;
 
     private final ModelMapper modelMapper;
+    private final PostRepository postRepository;
 
     @Autowired
     public VoteService(
             VoteRepository voteRepository,
             ReviewRepository reviewRepository,
             MongoTemplate mongoTemplate,
-            ModelMapper modelMapper
-    ) {
+            ModelMapper modelMapper,
+            PostRepository postRepository) {
         this.voteRepository = voteRepository;
         this.reviewRepository = reviewRepository;
         this.mongoTemplate = mongoTemplate;
         this.modelMapper = modelMapper;
+        this.postRepository = postRepository;
 
         modelMapper.addMappings(new PropertyMap<CreateVoteRequestDto, Vote>() {
             @Override
@@ -106,6 +110,17 @@ public class VoteService {
                reviewRepository.save(review);
                deleteVote(prevVote.get(0).getId());
                return prevVote.get(0);
+           } else if(requestDto.getVoteType().equals(VoteType.POST.name())){
+               // delete previous vote
+               Optional<Post> optionalPost = postRepository.findById(requestDto.getTypeId());
+               if (optionalPost.isEmpty()) {
+                   throw new ResourceNotFoundException("Post with the given Id is not found.");
+               }
+               Post post = optionalPost.get();
+               post.deleteVote(choice);
+               postRepository.save(post);
+               deleteVote(prevVote.get(0).getId());
+               return prevVote.get(0);
            }
 
            // TODO same logic will be extended to other models that have voting mechanism
@@ -126,6 +141,21 @@ public class VoteService {
 
                 reviewRepository.save(review);
                 return voteRepository.save(voteToCreate);
+            } else if(requestDto.getVoteType().equals(VoteType.POST.name())){
+                // delete previous vote
+                Optional<Post> optionalPost = postRepository.findById(requestDto.getTypeId());
+                if (optionalPost.isEmpty()) {
+                    throw new ResourceNotFoundException("Post with the given Id is not found.");
+                }
+                Post post = optionalPost.get();
+                post.deleteVote(prevVote.get(0).getChoice());
+                deleteVote(prevVote.get(0).getId());
+
+                // add new vote
+                post.addVote(choice);
+
+                postRepository.save(post);
+                return voteRepository.save(voteToCreate);
             }
 
             // TODO same logic will be extended to other models that have voting mechanism
@@ -139,6 +169,16 @@ public class VoteService {
                 Review review = reviewRepository.findById(requestDto.getTypeId()).get();
                 review.addVote(choice);
                 reviewRepository.save(review);
+                return voteRepository.save(voteToCreate);
+            } else if(requestDto.getVoteType().equals(VoteType.POST.name())){
+                // add new vote
+                Optional<Post> optionalPost = postRepository.findById(requestDto.getTypeId());
+                if (optionalPost.isEmpty()) {
+                    throw new ResourceNotFoundException("The post with the given Id is not found.");
+                }
+                Post post = optionalPost.get();
+                post.addVote(choice);
+                postRepository.save(post);
                 return voteRepository.save(voteToCreate);
             }
 

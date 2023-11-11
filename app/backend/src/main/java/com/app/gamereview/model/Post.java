@@ -3,6 +3,7 @@ package com.app.gamereview.model;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.app.gamereview.enums.VoteChoice;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.app.gamereview.model.common.BaseModel;
@@ -41,9 +42,34 @@ public class Post extends BaseModel {
 
   private Boolean locked;
 
+  private int overallVote; // overallVote = # of upvote - # of downvote
+
+  private int voteCount;  // voteCount = # of upvote + # of downvote
+
   // TODO reports
   // TODO comments
   // TODO annotations
   // TODO achievements
+
+  public void addVote(VoteChoice choice){
+    voteCount += 1;
+    if(choice.name().equals("UPVOTE")){
+      overallVote += 1;
+    }
+    else if(choice.name().equals("DOWNVOTE")){
+      overallVote -= 1;
+    }
+  }
+
+  public void deleteVote(VoteChoice choice){
+    voteCount -= 1;
+    if(choice.name().equals("UPVOTE")){
+      overallVote -= 1;
+    }
+    else if(choice.name().equals("DOWNVOTE")){
+      overallVote += 1;
+    }
+  }
+
 
 }
