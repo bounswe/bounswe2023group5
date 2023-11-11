@@ -51,7 +51,7 @@ public class TagService {
 		if (filter.getTagType() != null) {
 			query.addCriteria(Criteria.where("tagType").is(filter.getTagType()));
 		}
-		if (filter.getIsDeleted() != null) {
+		if (!filter.getIsDeleted()) {
 			query.addCriteria(Criteria.where("isDeleted").is(filter.getIsDeleted()));
 		}
 
@@ -61,7 +61,11 @@ public class TagService {
 	public Tag getTagById(String id){
 		Optional<Tag> tag = tagRepository.findById(id);
 
-		return tag.orElse(null);
+		if(tag.isEmpty()){
+			throw new ResourceNotFoundException("Tag not found");
+		}
+
+		return tag.get();
 	}
 
 	public Tag createTag(CreateTagRequestDto request){
@@ -90,5 +94,18 @@ public class TagService {
 		tagToUpdate.setIsDeleted(false);
 		tagToUpdate.setCreatedAt(LocalDateTime.now());
 		return tagRepository.save(tagToUpdate);
+	}
+
+	public Boolean deleteTag(String id){
+		Optional<Tag> tag = tagRepository.findById(id);
+
+		if (tag.isEmpty() || tag.get().getIsDeleted()){
+			throw new ResourceNotFoundException("Tag desired to be updated does not exist");
+		}
+
+		Tag tagToDelete = tag.get();
+		tagToDelete.setIsDeleted(true);
+		tagRepository.save(tagToDelete);
+		return true;
 	}
 }

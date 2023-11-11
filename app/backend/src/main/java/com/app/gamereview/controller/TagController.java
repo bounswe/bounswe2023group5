@@ -56,4 +56,9 @@ public class TagController {
 		return ResponseEntity.ok(updatedTag);
 	}
 
+	@DeleteMapping("/delete")
+	public ResponseEntity<Boolean> deleteTag(@RequestParam String id){
+		return ResponseEntity.ok(tagService.deleteTag(id));
+	}
+
 }
