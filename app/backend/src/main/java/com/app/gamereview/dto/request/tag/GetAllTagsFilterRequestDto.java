@@ -13,5 +13,5 @@ public class GetAllTagsFilterRequestDto {
 
     private String tagType;
 
-    private Boolean isDeleted;
+    private Boolean isDeleted = false;
 }
