@@ -68,7 +68,17 @@ public class JwtInterceptor implements HandlerInterceptor {
 					request.setAttribute("authenticatedUser", user.get());
 					if (adminRequired != null){
 						UserRole userRole = user.get().getRole();
-						if (userRole != UserRole.ADMIN){
+                        if(userRole != UserRole.ADMIN){
+							response.setStatus(HttpStatus.UNAUTHORIZED.value());
+							Map<String, String> responseMessage = new HashMap<>();
+							responseMessage.put("message", "Unauthorized. Admin role required.");
+							responseMessage.put("code", "401");
+
+							String jsonResponse = objectMapper.writeValueAsString(responseMessage);
+
+							response.getWriter().write(jsonResponse);
+							response.setContentType("application/json");
+							response.setCharacterEncoding("UTF-8");
 							return false;
 						}
 					}

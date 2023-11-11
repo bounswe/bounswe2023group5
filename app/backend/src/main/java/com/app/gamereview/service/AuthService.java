@@ -6,6 +6,7 @@ import com.app.gamereview.dto.request.auth.LoginUserRequestDto;
 import com.app.gamereview.dto.request.auth.RegisterUserRequestDto;
 import com.app.gamereview.dto.response.auth.LoginUserResponseDto;
 import com.app.gamereview.dto.response.user.UserResponseDto;
+import com.app.gamereview.enums.UserRole;
 import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.ResetCode;
@@ -55,7 +56,7 @@ public class AuthService {
 		userToCreate.setVerified(false);
 		userToCreate.setCreatedAt(LocalDateTime.now());
 		// role assigning logic will change
-		userToCreate.setRole("basic");
+		userToCreate.setRole(UserRole.BASIC);
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String hashedPassword = passwordEncoder.encode(registerUserRequestDto.getPassword());
 		userToCreate.setPassword(hashedPassword);

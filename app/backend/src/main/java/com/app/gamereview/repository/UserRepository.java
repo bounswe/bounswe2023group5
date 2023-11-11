@@ -14,6 +14,7 @@ public interface UserRepository extends MongoRepository<User, String> {
 
 	Optional<User> findByUsernameAndIsDeletedFalse(String username);
 
+
 	Optional<User> findByEmailAndIsDeletedFalse(String email);
 
 	@Query("{ 'email' : ?0 }")
