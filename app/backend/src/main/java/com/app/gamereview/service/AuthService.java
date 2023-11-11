@@ -14,6 +14,7 @@ import com.app.gamereview.repository.ResetCodeRepository;
 import com.app.gamereview.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.app.gamereview.util.JwtUtil;
 
@@ -48,27 +49,36 @@ public class AuthService {
 		if (sameUsername.isPresent() || sameEmail.isPresent()) {
 			throw new BadRequestException("User with the same information already exists");
 		}
+
 		User userToCreate = modelMapper.map(registerUserRequestDto, User.class);
 		userToCreate.setIsDeleted(false);
 		userToCreate.setVerified(false);
 		userToCreate.setCreatedAt(LocalDateTime.now());
 		// role assigning logic will change
 		userToCreate.setRole("basic");
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String hashedPassword = passwordEncoder.encode(registerUserRequestDto.getPassword());
+		userToCreate.setPassword(hashedPassword);
 		return userRepository.save(userToCreate);
 	}
 
 	public Boolean changeUserPassword(ChangeUserPasswordRequestDto passwordRequestDto, User user) {
-		if (!Objects.equals(passwordRequestDto.getCurrentPassword(), user.getPassword())) {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String userPassword = user.getPassword();
+
+		if (!passwordEncoder.matches( passwordRequestDto.getCurrentPassword(), userPassword)) {
 			return false;
 		}
-
-		user.setPassword(passwordRequestDto.getNewPassword());
+		String hashedPassword = passwordEncoder.encode(passwordRequestDto.getNewPassword());
+		user.setPassword(hashedPassword);
 		userRepository.save(user);
 		return true;
 	}
 
 	public Boolean changeForgotPassword(ForgotChangeUserPasswordRequestDto passwordRequestDto, User user) {
-		user.setPassword(passwordRequestDto.getNewPassword());
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String hashedPassword = passwordEncoder.encode(passwordRequestDto.getNewPassword());
+		user.setPassword(hashedPassword);
 		userRepository.save(user);
 		return true;
 	}
@@ -79,8 +89,11 @@ public class AuthService {
 		if (userOptional.isPresent()) {
 			User user = userOptional.get();
 
-			String password = user.getPassword();
-			if (password.equals(loginUserRequestDto.getPassword())) {
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			String storedHashedPassword = user.getPassword();
+			String enteredPassword = loginUserRequestDto.getPassword();
+
+			if (passwordEncoder.matches(enteredPassword, storedHashedPassword)) {
 				String token = JwtUtil.generateToken(user.getEmail());
 				LoginUserResponseDto response = new LoginUserResponseDto();
 				response.setUser(new UserResponseDto(user));
