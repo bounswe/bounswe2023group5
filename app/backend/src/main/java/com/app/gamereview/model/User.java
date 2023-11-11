@@ -1,5 +1,6 @@
 package com.app.gamereview.model;
 
+import com.app.gamereview.enums.UserRole;
 import com.app.gamereview.model.common.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +19,7 @@ public class User extends BaseModel {
 
 	private String email;
 
-	private String role;
+	private UserRole role;
 
 	private Boolean isVerified;
 
@@ -46,11 +47,11 @@ public class User extends BaseModel {
 		this.email = email;
 	}
 
-	public String getRole() {
+	public UserRole getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(UserRole role) {
 		this.role = role;
 	}
 
