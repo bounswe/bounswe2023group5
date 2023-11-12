@@ -53,16 +53,16 @@ public class PostService {
   public List<GetPostListResponseDto> getPostList(GetPostListFilterRequestDto filter) {
     Query query = new Query();
 
-    if (filter != null) {
-      if (filter.getFindDeleted() == null || !filter.getFindDeleted()) {
-        query.addCriteria(Criteria.where("isDeleted").is(false));
-      }
-      if (filter.getSearch() != null && !filter.getSearch().isBlank()) {
-        query.addCriteria(Criteria.where("title").regex(filter.getSearch(), "i"));
-      }
+    query.addCriteria(Criteria.where("forum").is(filter.getForum()));
+
+    if (filter.getFindDeleted() == null || !filter.getFindDeleted()) {
+      query.addCriteria(Criteria.where("isDeleted").is(false));
+    }
+    if (filter.getSearch() != null && !filter.getSearch().isBlank()) {
+      query.addCriteria(Criteria.where("title").regex(filter.getSearch(), "i"));
     }
 
-    if (filter != null && filter.getSortBy() != null) {
+    if (filter.getSortBy() != null) {
       Sort.Direction sortDirection = Sort.Direction.DESC; // Default sorting direction (you can change it to ASC if needed)
       if (filter.getSortDirection() != null) {
         sortDirection = filter.getSortDirection().equals(SortDirection.ASCENDING.name()) ? Sort.Direction.ASC : Sort.Direction.DESC;
