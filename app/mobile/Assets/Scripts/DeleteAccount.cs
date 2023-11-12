@@ -81,6 +81,8 @@ public class DeleteAccount : MonoBehaviour
             });
             
         }
+        request.downloadHandler.Dispose();
+        request.uploadHandler.Dispose();
     }
 
     private void OnClickedBack()
