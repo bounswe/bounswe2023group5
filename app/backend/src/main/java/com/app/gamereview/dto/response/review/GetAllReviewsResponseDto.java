@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 @Setter
 public class GetAllReviewsResponseDto {
 
+    private String id;
+
     private String reviewDescription;
 
     private float rating;
