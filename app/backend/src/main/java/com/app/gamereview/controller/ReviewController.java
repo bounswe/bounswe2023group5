@@ -10,6 +10,7 @@ import com.app.gamereview.util.validation.annotation.AdminRequired;
 import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -32,7 +33,7 @@ public class ReviewController {
 	}
 
 	@GetMapping("/get-all")
-	public ResponseEntity<List<Review>> getReviews(GetAllReviewsFilterRequestDto filter) {
+	public ResponseEntity<List<Review>> getReviews(@ParameterObject GetAllReviewsFilterRequestDto filter) {
 		List<Review> reviews = reviewService.getAllReviews(filter);
 		return ResponseEntity.ok(reviews);
 	}
@@ -46,7 +47,7 @@ public class ReviewController {
 
 	@AuthorizationRequired
 	@PostMapping("/create")
-	public ResponseEntity<Review> createReview(@Valid @RequestBody CreateReviewRequestDto createReviewRequestDto,
+	public ResponseEntity<Review> createReview(@Valid @RequestBody @ParameterObject CreateReviewRequestDto createReviewRequestDto,
 											@RequestHeader String Authorization, HttpServletRequest request) {
 		User user = (User) request.getAttribute("authenticatedUser");
 		Review reviewToCreate = reviewService.addReview(createReviewRequestDto, user);
@@ -56,7 +57,7 @@ public class ReviewController {
 	@PutMapping("/update")
 	public ResponseEntity<Boolean> updateReview(
 			@RequestParam String id,
-			@Valid @RequestBody UpdateReviewRequestDto updateReviewRequestDto) {
+			@Valid @RequestBody @ParameterObject UpdateReviewRequestDto updateReviewRequestDto) {
 
 		Boolean isAck = reviewService.updateReview(id, updateReviewRequestDto);
 		return ResponseEntity.ok(isAck);
