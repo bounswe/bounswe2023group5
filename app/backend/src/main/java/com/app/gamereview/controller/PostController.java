@@ -38,9 +38,11 @@ public class PostController {
     return ResponseEntity.ok(posts);
   }
 
+  @AuthorizationRequired
   @GetMapping("/get-post-detail")
-  public ResponseEntity<Post> getPostDetail(@RequestParam String id) {
-    Post post = postService.getPostById(id);
+  public ResponseEntity<Post> getPostDetail(@RequestParam String id, @RequestHeader String Authorization, HttpServletRequest request) {
+    User user = (User) request.getAttribute("authenticatedUser");
+    Post post = postService.getPostById(id, user);
     return ResponseEntity.ok(post);
   }
 
