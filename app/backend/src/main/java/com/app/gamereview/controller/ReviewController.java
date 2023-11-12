@@ -3,6 +3,7 @@ package com.app.gamereview.controller;
 import com.app.gamereview.dto.request.review.CreateReviewRequestDto;
 import com.app.gamereview.dto.request.review.GetAllReviewsFilterRequestDto;
 import com.app.gamereview.dto.request.review.UpdateReviewRequestDto;
+import com.app.gamereview.dto.response.review.GetAllReviewsResponseDto;
 import com.app.gamereview.model.Review;
 import com.app.gamereview.model.User;
 import com.app.gamereview.service.ReviewService;
@@ -10,6 +11,7 @@ import com.app.gamereview.util.validation.annotation.AdminRequired;
 import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import org.apache.tomcat.util.http.parser.Authorization;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,21 +35,22 @@ public class ReviewController {
 	}
 
 	@GetMapping("/get-all")
-	public ResponseEntity<List<Review>> getReviews(@ParameterObject GetAllReviewsFilterRequestDto filter) {
-		List<Review> reviews = reviewService.getAllReviews(filter);
+	public ResponseEntity<List<GetAllReviewsResponseDto>> getReviews(
+			@ParameterObject GetAllReviewsFilterRequestDto filter) {
+		List<GetAllReviewsResponseDto> reviews = reviewService.getAllReviews(filter);
 		return ResponseEntity.ok(reviews);
 	}
 
 	@GetMapping("/get")
-	public ResponseEntity<Review> getReview(@RequestParam String id) {
-		Review review = reviewService.getReview(id);
+	public ResponseEntity<GetAllReviewsResponseDto> getReview(@RequestParam String id) {
+		GetAllReviewsResponseDto review = reviewService.getReview(id);
 
 		return ResponseEntity.ok(review);
 	}
 
 	@AuthorizationRequired
 	@PostMapping("/create")
-	public ResponseEntity<Review> createReview(@Valid @RequestBody @ParameterObject CreateReviewRequestDto createReviewRequestDto,
+	public ResponseEntity<Review> createReview(@Valid @RequestBody CreateReviewRequestDto createReviewRequestDto,
 											@RequestHeader String Authorization, HttpServletRequest request) {
 		User user = (User) request.getAttribute("authenticatedUser");
 		Review reviewToCreate = reviewService.addReview(createReviewRequestDto, user);
@@ -58,8 +61,8 @@ public class ReviewController {
 	@PutMapping("/update")
 	public ResponseEntity<Boolean> updateReview(
 			@RequestParam String id,
-			@RequestHeader String Authorization, HttpServletRequest request,
-			@Valid @RequestBody @ParameterObject UpdateReviewRequestDto updateReviewRequestDto) {
+			@Valid @RequestBody UpdateReviewRequestDto updateReviewRequestDto,
+			@RequestHeader String Authorization, HttpServletRequest request) {
 
 		User user = (User) request.getAttribute("authenticatedUser");
 
@@ -70,7 +73,8 @@ public class ReviewController {
 	@AuthorizationRequired
 	@AdminRequired
 	@DeleteMapping("/delete")
-	public ResponseEntity<Boolean> deleteReview(@RequestParam String id, @RequestHeader String Authorization, HttpServletRequest request) {
+	public ResponseEntity<Boolean> deleteReview(@RequestParam String id,
+			@RequestHeader String Authorization, HttpServletRequest request) {
 		User user = (User) request.getAttribute("authenticatedUser");
 		Boolean isAck = reviewService.deleteReview(id,user);
 		return ResponseEntity.ok(isAck);
