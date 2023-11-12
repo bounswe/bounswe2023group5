@@ -9,6 +9,7 @@ import com.app.gamereview.service.UserService;
 import com.app.gamereview.util.validation.annotation.AdminRequired;
 import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
 import jakarta.validation.Valid;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -31,7 +32,7 @@ public class TagController {
 	}
 
 	@GetMapping("/get-all")
-	public ResponseEntity<List<Tag>> getTags(GetAllTagsFilterRequestDto filter) {
+	public ResponseEntity<List<Tag>> getTags(@ParameterObject GetAllTagsFilterRequestDto filter) {
 		List<Tag> tags = tagService.getAllTags(filter);
 		return ResponseEntity.ok(tags);
 	}
