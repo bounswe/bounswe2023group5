@@ -6,6 +6,7 @@ import com.app.gamereview.dto.request.review.UpdateReviewRequestDto;
 import com.app.gamereview.model.Review;
 import com.app.gamereview.model.User;
 import com.app.gamereview.service.ReviewService;
+import com.app.gamereview.util.validation.annotation.AdminRequired;
 import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -61,6 +62,8 @@ public class ReviewController {
 		return ResponseEntity.ok(isAck);
 	}
 
+	@AuthorizationRequired
+	@AdminRequired
 	@DeleteMapping("/delete")
 	public ResponseEntity<Boolean> deleteReview(@RequestParam String id) {
 		Boolean isAck = reviewService.deleteReview(id);
