@@ -33,7 +33,7 @@ public class PostController {
   }
 
   @GetMapping("/get-post-list")
-  public ResponseEntity<List<GetPostListResponseDto>> getPostList(@ParameterObject GetPostListFilterRequestDto filter) {
+  public ResponseEntity<List<GetPostListResponseDto>> getPostList(@Valid @ParameterObject GetPostListFilterRequestDto filter) {
     List<GetPostListResponseDto> posts = postService.getPostList(filter);
     return ResponseEntity.ok(posts);
   }
