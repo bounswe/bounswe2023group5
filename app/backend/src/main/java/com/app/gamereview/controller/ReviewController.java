@@ -54,20 +54,25 @@ public class ReviewController {
 		return ResponseEntity.ok(reviewToCreate);
 	}
 
+	@AuthorizationRequired
 	@PutMapping("/update")
 	public ResponseEntity<Boolean> updateReview(
 			@RequestParam String id,
+			@RequestHeader String Authorization, HttpServletRequest request,
 			@Valid @RequestBody @ParameterObject UpdateReviewRequestDto updateReviewRequestDto) {
 
-		Boolean isAck = reviewService.updateReview(id, updateReviewRequestDto);
+		User user = (User) request.getAttribute("authenticatedUser");
+
+		Boolean isAck = reviewService.updateReview(id, updateReviewRequestDto, user);
 		return ResponseEntity.ok(isAck);
 	}
 
 	@AuthorizationRequired
 	@AdminRequired
 	@DeleteMapping("/delete")
-	public ResponseEntity<Boolean> deleteReview(@RequestParam String id) {
-		Boolean isAck = reviewService.deleteReview(id);
+	public ResponseEntity<Boolean> deleteReview(@RequestParam String id, @RequestHeader String Authorization, HttpServletRequest request) {
+		User user = (User) request.getAttribute("authenticatedUser");
+		Boolean isAck = reviewService.deleteReview(id,user);
 		return ResponseEntity.ok(isAck);
 	}
 

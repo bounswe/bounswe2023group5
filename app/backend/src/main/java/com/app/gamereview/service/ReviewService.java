@@ -3,6 +3,8 @@ package com.app.gamereview.service;
 import com.app.gamereview.dto.request.review.CreateReviewRequestDto;
 import com.app.gamereview.dto.request.review.GetAllReviewsFilterRequestDto;
 import com.app.gamereview.dto.request.review.UpdateReviewRequestDto;
+import com.app.gamereview.enums.UserRole;
+import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.Game;
 import com.app.gamereview.model.Review;
@@ -91,13 +93,16 @@ public class ReviewService {
         return reviewToCreate;
     }
 
-    public Boolean updateReview(String reviewId, UpdateReviewRequestDto requestDto){
+    public Boolean updateReview(String reviewId, UpdateReviewRequestDto requestDto, User user){
         Optional<Review> findResult = reviewRepository.findById(reviewId);
 
         if (findResult.isEmpty() || findResult.get().getIsDeleted()){
             throw new ResourceNotFoundException("Review not found");
         }
 
+        if (!(findResult.get().getReviewedBy().equals(user.getId()) || UserRole.ADMIN.equals(user.getRole()))) {
+            throw new BadRequestException("Only the user that created the review or the admin can update it.");
+        }
         float oldRating = findResult.get().getRating();
         float newRating = requestDto.getRating();
 
@@ -115,11 +120,14 @@ public class ReviewService {
         return updateResult.wasAcknowledged();
     }
 
-    public Boolean deleteReview(String reviewId){
+    public Boolean deleteReview(String reviewId, User user){
         Optional<Review> findResult = reviewRepository.findById(reviewId);
 
         if(findResult.isEmpty()){
             throw new ResourceNotFoundException("Review not found");
+        }
+        if (!(findResult.get().getReviewedBy().equals(user.getId()) || UserRole.ADMIN.equals(user.getRole()))) {
+            throw new BadRequestException("Only the user that created the review or the admin can delete it.");
         }
 
         // update game rating
