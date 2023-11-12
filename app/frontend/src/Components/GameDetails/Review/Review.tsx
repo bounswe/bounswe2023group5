@@ -1,6 +1,7 @@
-import { Button } from "antd";
+import { Button, Rate } from "antd";
 import styles from "./Review.module.scss";
 import {
+  CheckOutlined,
   DeleteOutlined,
   DownOutlined,
   EditOutlined,
@@ -10,9 +11,51 @@ import {
 import TextArea from "antd/es/input/TextArea";
 import { useState } from "react";
 import { formatDate } from "../../../Library/utils/formatDate";
+import { useAuth } from "../../Hooks/useAuth";
+import { useMutation, useQueryClient } from "react-query";
+import { deleteReview, updateReview } from "../../../Services/review";
 
 function Review({ review }: { review: any }) {
   const [inputMode, setInputMode] = useState(false);
+  const [reviewContent, setReviewContent] = useState(review.reviewDescription);
+  const [rating, setRating] = useState(review.rating);
+
+  const { user } = useAuth();
+  const queryClient = useQueryClient();
+
+  const { mutate: removeReview } = useMutation(
+    (id: string) => deleteReview(id),
+    {
+      onSuccess() {
+        queryClient.invalidateQueries(["reviews", review.gameId, ""]);
+      },
+      onMutate(id: string) {
+        queryClient.setQueryData(["reviews", review.gameId, ""], (prev: any) =>
+          prev.filter((review: any) => id !== review.id)
+        );
+      },
+    }
+  );
+
+  const { mutate: editReview } = useMutation(
+    ({ id, updatedReview }: { id: string; updatedReview: any }) =>
+      updateReview(id, updatedReview),
+    {
+      onSuccess() {
+        queryClient.invalidateQueries(["reviews", review.gameId, ""]);
+        setInputMode(false);
+      },
+      onMutate({ id, updatedReview }) {
+        queryClient.setQueryData(
+          ["reviews", updatedReview.gameId, ""],
+          (prev: any) =>
+            prev.map((review: any) =>
+              review.id === id ? { ...review, ...updatedReview } : review
+            )
+        );
+      },
+    }
+  );
 
   return (
     <div className={styles.reviewContainer} id={review.id}>
@@ -26,33 +69,73 @@ function Review({ review }: { review: any }) {
           <div className={styles.user}>
             <b>{review.reviewedBy}</b>
           </div>
-          <div className={styles.buttons}>
-            <Button
-              type="text"
-              ghost={true}
-              shape="circle"
-              size="small"
-              icon={<EditOutlined style={{ color: "#aacdbe" }} />}
-              onClick={() => setInputMode(true)}
-            />
-            <Button
-              type="text"
-              ghost={true}
-              shape="circle"
-              size="small"
-              icon={<DeleteOutlined style={{ color: "#aacdbe" }} />}
-            />
-          </div>
+          {/*TODO: change id to username*/}
+          {user.id === review.reviewedBy && (
+            <div className={styles.buttons}>
+              {!inputMode ? (
+                <Button
+                  type="text"
+                  ghost={true}
+                  shape="circle"
+                  size="small"
+                  icon={<EditOutlined style={{ color: "#aacdbe" }} />}
+                  onClick={() => setInputMode(true)}
+                />
+              ) : (
+                <Button
+                  type="text"
+                  ghost={true}
+                  shape="circle"
+                  size="small"
+                  icon={<CheckOutlined style={{ color: "#aacdbe" }} />}
+                  onClick={() =>
+                    editReview({
+                      id: review.id,
+                      updatedReview: {
+                        rating: rating,
+                        reviewDescription: reviewContent,
+                      },
+                    })
+                  }
+                />
+              )}
+              <Button
+                type="text"
+                ghost={true}
+                shape="circle"
+                size="small"
+                icon={<DeleteOutlined style={{ color: "#aacdbe" }} />}
+                onClick={() => removeReview(review.id)}
+              />
+            </div>
+          )}
         </div>
         <div className={styles.date}>{formatDate(review.createdAt)}</div>
         <div className={styles.stars}>
-          {[1, 2, 3, 4, 5].map((starValue) =>
-            starValue <= review.rating ? <StarFilled /> : ""
+          {inputMode ? (
+            <Rate
+              allowHalf
+              defaultValue={rating}
+              onChange={setRating}
+              value={rating}
+            />
+          ) : (
+            <>
+              {[1, 2, 3, 4, 5].map((starValue) =>
+                starValue <= review.rating ? (
+                  <StarFilled key={starValue} />
+                ) : null
+              )}
+              {Math.round(review.rating) !== review.rating && <span>½</span>}
+            </>
           )}
-          {Math.round(review.rating) !== review.rating ? <span>½</span> : ""}
         </div>
         {inputMode ? (
-          <TextArea />
+          <TextArea
+            style={{ backgroundColor: "#022b40", color: "#faf7cf" }}
+            defaultValue={reviewContent}
+            onChange={(e) => setReviewContent(e.target.value)}
+          />
         ) : (
           <div className={styles.content}>{review.reviewDescription}</div>
         )}

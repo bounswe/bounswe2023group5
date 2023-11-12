@@ -10,8 +10,9 @@
     border-radius: 0.5em;
     margin: 5px 5px 5px 5px;
     overflow: hidden;
-    padding: 10px 10px 0 10px;
-    gap: 10px;
+    padding: 5px;
+    gap: 5px;
+    justify-content: center;
 
     .content-input {
         background-color: $prussian-blue-dark-10 !important;
@@ -20,6 +21,10 @@
         border-radius: 0.5em;
         padding: 5px;
         font-size: 13px;
+    }
+
+    .button {
+        color: $celadon;
     }
 }
 
@@ -69,7 +74,7 @@
 
             .buttons {
                 display: flex;
-                justify-self: flex-end;;
+                justify-self: flex-end;
             }
         }
         .date {
