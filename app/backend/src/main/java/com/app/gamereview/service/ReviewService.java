@@ -87,14 +87,18 @@ public class ReviewService {
         return reviewDtos;
     }
 
-    public Review getReview(String reviewId){
+    public GetAllReviewsResponseDto getReview(String reviewId){
         Optional<Review> review = reviewRepository.findById(reviewId);
 
         if(review.isEmpty() || review.get().getIsDeleted()){
             throw new ResourceNotFoundException("Review not found");
         }
 
-        return review.get();
+        GetAllReviewsResponseDto reviewDto = modelMapper.map(review, GetAllReviewsResponseDto.class);
+        reviewDto.setReviewedUser(userRepository.findById(review.get().getReviewedBy())
+                .get().getUsername());
+
+        return reviewDto;
     }
 
     public Review addReview(CreateReviewRequestDto requestDto, User user){

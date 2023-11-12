@@ -42,8 +42,8 @@ public class ReviewController {
 	}
 
 	@GetMapping("/get")
-	public ResponseEntity<Review> getReview(@RequestParam String id) {
-		Review review = reviewService.getReview(id);
+	public ResponseEntity<GetAllReviewsResponseDto> getReview(@RequestParam String id) {
+		GetAllReviewsResponseDto review = reviewService.getReview(id);
 
 		return ResponseEntity.ok(review);
 	}
