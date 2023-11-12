@@ -1,15 +1,8 @@
 package com.app.gamereview.services;
 
-import com.app.gamereview.dto.request.GetGameListRequestDto;
-import com.app.gamereview.dto.request.tag.AddGameTagRequestDto;
-import com.app.gamereview.dto.request.tag.CreateTagRequestDto;
-import com.app.gamereview.dto.response.GetGameListResponseDto;
-import com.app.gamereview.dto.response.tag.AddGameTagResponseDto;
 import com.app.gamereview.dto.response.tag.GetAllTagsOfGameResponseDto;
-import com.app.gamereview.enums.TagType;
 import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.Game;
-import com.app.gamereview.model.Tag;
 import com.app.gamereview.repository.GameRepository;
 import com.app.gamereview.repository.TagRepository;
 import com.app.gamereview.service.GameService;
@@ -22,8 +15,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;

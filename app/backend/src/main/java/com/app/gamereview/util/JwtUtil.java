@@ -18,7 +18,7 @@ public class JwtUtil {
 	private String secret_key; //
 
 	@PostConstruct
-	private void init() {
+	public void init() {
 		SECRET_KEY = secret_key;
 	}
 
@@ -27,9 +27,10 @@ public class JwtUtil {
 	public static String generateToken(String subject) {
 		Date now = new Date();
 		Date expiration = new Date(now.getTime() + EXPIRATION_TIME);
-
 		Map<String, Object> claims = new HashMap<>();
-
+		if(SECRET_KEY== null){
+			SECRET_KEY = "testutil";
+		}
 		return Jwts.builder()
 			.setClaims(claims)
 			.setSubject(subject)

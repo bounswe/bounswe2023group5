@@ -1,34 +1,33 @@
 package com.app.gamereview.controller;
 
-import com.app.gamereview.dto.request.LoginUserRequestDto;
-import com.app.gamereview.dto.request.ChangeUserPasswordRequestDto;
-import com.app.gamereview.dto.request.ForgotChangeUserPasswordRequestDto;
-import com.app.gamereview.dto.request.ForgotPasswordRequestDto;
-import com.app.gamereview.dto.request.RegisterUserRequestDto;
-import com.app.gamereview.dto.request.VerifyResetCodeRequestDto;
-import com.app.gamereview.dto.request.*;
-import com.app.gamereview.dto.response.LoginUserResponseDto;
-import com.app.gamereview.dto.response.UserResponseDto;
+import com.app.gamereview.dto.request.auth.LoginUserRequestDto;
+import com.app.gamereview.dto.request.auth.ChangeUserPasswordRequestDto;
+import com.app.gamereview.dto.request.auth.ForgotChangeUserPasswordRequestDto;
+import com.app.gamereview.dto.request.auth.ForgotPasswordRequestDto;
+import com.app.gamereview.dto.request.auth.RegisterUserRequestDto;
+import com.app.gamereview.dto.request.auth.VerifyResetCodeRequestDto;
+import com.app.gamereview.dto.response.auth.LoginUserResponseDto;
+import com.app.gamereview.dto.response.user.UserResponseDto;
 import com.app.gamereview.model.ResetCode;
 import com.app.gamereview.model.User;
-import com.app.gamereview.repository.ResetCodeRepository;
 import com.app.gamereview.service.AuthService;
 import com.app.gamereview.service.EmailService;
 import com.app.gamereview.service.UserService;
-import com.app.gamereview.util.AuthorizationRequired;
+import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
 import com.app.gamereview.util.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
-import java.util.Optional;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/auth")
+@Validated
 public class AuthController {
 
 	private final AuthService authService;
@@ -45,14 +44,14 @@ public class AuthController {
 	}
 
 	@PostMapping("/register")
-	public ResponseEntity<User> registerUser(@RequestBody RegisterUserRequestDto registerUserRequestDto) {
+	public ResponseEntity<User> registerUser(@Valid @RequestBody RegisterUserRequestDto registerUserRequestDto) {
 		User userToCreate = authService.registerUser(registerUserRequestDto);
 		return ResponseEntity.ok(userToCreate);
 	}
 
 	@AuthorizationRequired
 	@PostMapping("/change-password")
-	public ResponseEntity<Boolean> changePassword(@RequestBody ChangeUserPasswordRequestDto passwordRequestDto,
+	public ResponseEntity<Boolean> changePassword(@Valid @RequestBody ChangeUserPasswordRequestDto passwordRequestDto,
 			@RequestHeader String Authorization, HttpServletRequest request) {
 		User user = (User) request.getAttribute("authenticatedUser");
 		Boolean changePasswordResult = authService.changeUserPassword(passwordRequestDto, user);
@@ -62,7 +61,7 @@ public class AuthController {
 	@AuthorizationRequired
 	@PostMapping("/change-forgot-password")
 	public ResponseEntity<Boolean> changeForgotPassword(
-			@RequestBody ForgotChangeUserPasswordRequestDto passwordRequestDto, @RequestHeader String Authorization,
+			@Valid @RequestBody ForgotChangeUserPasswordRequestDto passwordRequestDto, @RequestHeader String Authorization,
 			HttpServletRequest request) {
 		User user = (User) request.getAttribute("authenticatedUser");
 		Boolean changePasswordResult = authService.changeForgotPassword(passwordRequestDto, user);
@@ -70,13 +69,13 @@ public class AuthController {
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<LoginUserResponseDto> login(@RequestBody LoginUserRequestDto loginRequest) {
+	public ResponseEntity<LoginUserResponseDto> login(@Valid @RequestBody LoginUserRequestDto loginRequest) {
 		LoginUserResponseDto loginResponse = authService.loginUser(loginRequest);
 		return ResponseEntity.ok(loginResponse);
 	}
 
 	@PostMapping("/forgot-password")
-	public ResponseEntity<String> forgotPassword(@RequestBody ForgotPasswordRequestDto forgotRequest) {
+	public ResponseEntity<String> forgotPassword(@Valid @RequestBody ForgotPasswordRequestDto forgotRequest) {
 		String email = forgotRequest.getEmail();
 		User user = userService.getUserByEmail(email);
 
@@ -97,7 +96,7 @@ public class AuthController {
 	}
 
 	@PostMapping("/verify-reset-code")
-	public ResponseEntity<String> verifyResetCode(@RequestBody VerifyResetCodeRequestDto request) {
+	public ResponseEntity<String> verifyResetCode(@Valid @RequestBody VerifyResetCodeRequestDto request) {
 		ResetCode resetCode = authService.getResetCodeByCode(request.getResetCode());
 		if (resetCode == null || resetCode.getExpirationDate().before(new Date())) {
 			// Invalid or expired reset code
