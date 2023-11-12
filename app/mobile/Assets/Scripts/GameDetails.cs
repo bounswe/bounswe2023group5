@@ -100,7 +100,8 @@ public class GameDetails : MonoBehaviour
             minSystemReq = _gamesData.game.minSystemReq;
 
             // Set the image 
-            StartCoroutine(LoadImageFromURL(AppVariables.HttpServerUrl+ "/" + gameIcon, gameImage));
+            string pictureURL = "http://ec2-16-16-166-22.eu-north-1.compute.amazonaws.com/";
+            StartCoroutine(LoadImageFromURL(pictureURL + gameIcon, gameImage));
             
             summaryButton.image.color = Color.blue;
             
