@@ -6,6 +6,7 @@ import com.app.gamereview.dto.request.post.EditPostRequestDto;
 import com.app.gamereview.model.User;
 import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -32,14 +33,16 @@ public class PostController {
   }
 
   @GetMapping("/get-post-list")
-  public ResponseEntity<List<GetPostListResponseDto>> getPostList(GetPostListFilterRequestDto filter) {
+  public ResponseEntity<List<GetPostListResponseDto>> getPostList(@Valid @ParameterObject GetPostListFilterRequestDto filter) {
     List<GetPostListResponseDto> posts = postService.getPostList(filter);
     return ResponseEntity.ok(posts);
   }
 
+  @AuthorizationRequired
   @GetMapping("/get-post-detail")
-  public ResponseEntity<Post> getPostDetail(@RequestParam String id) {
-    Post post = postService.getPostById(id);
+  public ResponseEntity<Post> getPostDetail(@RequestParam String id, @RequestHeader String Authorization, HttpServletRequest request) {
+    User user = (User) request.getAttribute("authenticatedUser");
+    Post post = postService.getPostById(id, user);
     return ResponseEntity.ok(post);
   }
 

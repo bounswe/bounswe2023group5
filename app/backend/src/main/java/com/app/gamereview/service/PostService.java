@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import com.app.gamereview.enums.SortDirection;
 import com.app.gamereview.enums.SortType;
+import com.app.gamereview.enums.UserRole;
 import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.model.Forum;
 import com.app.gamereview.model.Tag;
@@ -53,16 +54,16 @@ public class PostService {
   public List<GetPostListResponseDto> getPostList(GetPostListFilterRequestDto filter) {
     Query query = new Query();
 
-    if (filter != null) {
-      if (filter.getFindDeleted() == null || !filter.getFindDeleted()) {
-        query.addCriteria(Criteria.where("isDeleted").is(false));
-      }
-      if (filter.getSearch() != null && !filter.getSearch().isBlank()) {
-        query.addCriteria(Criteria.where("title").regex(filter.getSearch(), "i"));
-      }
+    query.addCriteria(Criteria.where("forum").is(filter.getForum()));
+
+    if (filter.getFindDeleted() == null || !filter.getFindDeleted()) {
+      query.addCriteria(Criteria.where("isDeleted").is(false));
+    }
+    if (filter.getSearch() != null && !filter.getSearch().isBlank()) {
+      query.addCriteria(Criteria.where("title").regex(filter.getSearch(), "i"));
     }
 
-    if (filter != null && filter.getSortBy() != null) {
+    if (filter.getSortBy() != null) {
       Sort.Direction sortDirection = Sort.Direction.DESC; // Default sorting direction (you can change it to ASC if needed)
       if (filter.getSortDirection() != null) {
         sortDirection = filter.getSortDirection().equals(SortDirection.ASCENDING.name()) ? Sort.Direction.ASC : Sort.Direction.DESC;
@@ -92,11 +93,22 @@ public class PostService {
         post.getInappropriate(), post.getOverallVote(), post.getVoteCount());
   }
 
-  public Post getPostById(String id) {
+
+  public Post getPostById(String id, User user) {
     Optional<Post> post = postRepository.findById(id);
 
     if (post.isEmpty()) {
       throw new ResourceNotFoundException("The post with the given id was not found");
+    }
+    Optional<Forum> forum = forumRepository.findById(post.get().getForum());
+
+    if(forum.isPresent()){
+      List<String> bannedUsers = forum.get().getBannedUsers();
+      System.out.println();
+      System.out.println(bannedUsers);
+      if (bannedUsers.contains(user.getId())){
+        throw new ResourceNotFoundException("You cannot see the post because you are banned.");
+      }
     }
 
     return post.orElse(null);
@@ -163,8 +175,8 @@ public class PostService {
       throw new ResourceNotFoundException("The post with the given id is not found.");
     }
 
-    if (!post.get().getPoster().equals(user.getId())){
-      throw new BadRequestException("Only the user that created the post can delete it.");
+    if (!(post.get().getPoster().equals(user.getId()) || UserRole.ADMIN.equals(user.getRole()))){
+      throw new BadRequestException("Only the user that created the post or the admin can delete it.");
     }
 
     Post postToDelete = post.get();

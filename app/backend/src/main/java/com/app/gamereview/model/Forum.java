@@ -29,4 +29,7 @@ public class Forum extends BaseModel {
 
   private List<String> bannedUsers;
 
+  public void addBannedUser(String id){
+    bannedUsers.add(id);
+  }
 }
