@@ -71,7 +71,6 @@ public class ReviewController {
 	}
 
 	@AuthorizationRequired
-	@AdminRequired
 	@DeleteMapping("/delete")
 	public ResponseEntity<Boolean> deleteReview(@RequestParam String id,
 			@RequestHeader String Authorization, HttpServletRequest request) {
