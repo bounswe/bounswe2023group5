@@ -7,34 +7,39 @@ import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.User;
 import com.app.gamereview.repository.UserRepository;
+import com.app.gamereview.util.JwtUtil;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(SpringExtension.class)
+@SpringBootConfiguration
 @SpringBootTest
 public class AuthServiceTest {
 
-    @Autowired
+    @InjectMocks
     private AuthService authService;
 
-    @MockBean
+    @Mock
     private UserRepository userRepository;
 
-    @MockBean
+    @Mock
     private ModelMapper modelMapper;
+
+
 
     @Test
     public void testRegisterUser() {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         RegisterUserRequestDto request = new RegisterUserRequestDto();
         request.setUsername("testUser");
         request.setPassword("testPassword");
@@ -54,7 +59,7 @@ public class AuthServiceTest {
 
         assertNotNull(registeredUser);
         assertEquals("testUser", registeredUser.getUsername());
-        assertEquals("testPassword", registeredUser.getPassword());
+        assertTrue(passwordEncoder.matches(request.getPassword(), registeredUser.getPassword()));
         assertEquals("test@example.com", registeredUser.getEmail());
     }
 
@@ -66,7 +71,9 @@ public class AuthServiceTest {
 
         User user = new User();
         user.setEmail("test@example.com");
-        user.setPassword("testPassword");
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
+        String hashedPassword = passwordEncoder.encode("testPassword");
+        user.setPassword(hashedPassword);
 
         when(userRepository.findByEmailAndIsDeletedFalse(request.getEmail())).thenReturn(Optional.of(user));
 

@@ -6,6 +6,7 @@ import com.app.gamereview.dto.request.auth.LoginUserRequestDto;
 import com.app.gamereview.dto.request.auth.RegisterUserRequestDto;
 import com.app.gamereview.dto.response.auth.LoginUserResponseDto;
 import com.app.gamereview.dto.response.user.UserResponseDto;
+import com.app.gamereview.enums.UserRole;
 import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.ResetCode;
@@ -55,15 +56,15 @@ public class AuthService {
 		userToCreate.setVerified(false);
 		userToCreate.setCreatedAt(LocalDateTime.now());
 		// role assigning logic will change
-		userToCreate.setRole("basic");
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		userToCreate.setRole(UserRole.BASIC);
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
 		String hashedPassword = passwordEncoder.encode(registerUserRequestDto.getPassword());
 		userToCreate.setPassword(hashedPassword);
 		return userRepository.save(userToCreate);
 	}
 
 	public Boolean changeUserPassword(ChangeUserPasswordRequestDto passwordRequestDto, User user) {
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
 		String userPassword = user.getPassword();
 
 		if (!passwordEncoder.matches( passwordRequestDto.getCurrentPassword(), userPassword)) {
@@ -76,7 +77,7 @@ public class AuthService {
 	}
 
 	public Boolean changeForgotPassword(ForgotChangeUserPasswordRequestDto passwordRequestDto, User user) {
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
 		String hashedPassword = passwordEncoder.encode(passwordRequestDto.getNewPassword());
 		user.setPassword(hashedPassword);
 		userRepository.save(user);
@@ -89,7 +90,7 @@ public class AuthService {
 		if (userOptional.isPresent()) {
 			User user = userOptional.get();
 
-			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
 			String storedHashedPassword = user.getPassword();
 			String enteredPassword = loginUserRequestDto.getPassword();
 

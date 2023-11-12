@@ -6,6 +6,7 @@ import com.app.gamereview.dto.response.game.GameDetailResponseDto;
 import com.app.gamereview.dto.response.tag.AddGameTagResponseDto;
 import com.app.gamereview.dto.response.tag.GetAllTagsOfGameResponseDto;
 import com.app.gamereview.model.Game;
+import com.app.gamereview.util.validation.annotation.AdminRequired;
 import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,8 @@ public class GameController {
 		return ResponseEntity.ok().body(gameList);
 	}
 
+	@AuthorizationRequired
+	@AdminRequired
 	@PostMapping("/add-tag")
 	public ResponseEntity<AddGameTagResponseDto> addGameTag(
 			@Valid @RequestBody AddGameTagRequestDto addGameTagRequestDto) {

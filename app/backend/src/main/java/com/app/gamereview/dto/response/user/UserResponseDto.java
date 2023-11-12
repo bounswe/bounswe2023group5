@@ -1,5 +1,6 @@
 package com.app.gamereview.dto.response.user;
 
+import com.app.gamereview.enums.UserRole;
 import com.app.gamereview.model.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +15,7 @@ public class UserResponseDto {
 
 	private String email;
 
-	private String role;
+	private UserRole role;
 
 	private Boolean isVerified;
 
