@@ -9,6 +9,7 @@ public class ReviewsManager : MonoBehaviour
 {
     [SerializeField] private Transform reviewPageParent;
     private string gameId;
+    private List<GameReview> gameReviews = new List<GameReview>();
     public void Init(string _gameID)
     {
         gameId = _gameID;
@@ -17,7 +18,7 @@ public class ReviewsManager : MonoBehaviour
 
     public void GetGameReviews()
     {
-        string url = AppVariables.HttpServerUrl + "/review/get-all";
+        string url = AppVariables.HttpServerUrl + "/review/get-all?gameId=" + gameId;
         var reviewRequestData = new ReviewGetAllRequest();
         reviewRequestData.gameId = gameId;
         string bodyJsonString = JsonConvert.SerializeObject(reviewRequestData);
@@ -26,6 +27,11 @@ public class ReviewsManager : MonoBehaviour
     
     IEnumerator Post(string url, string bodyJsonString)
     {
+        foreach (var gameReview in gameReviews)
+        {
+            Destroy(gameReview.gameObject);
+        }
+        gameReviews.Clear();
         var request = new UnityWebRequest(url, "GET");
         byte[] bodyRaw = Encoding.UTF8.GetBytes(bodyJsonString);
         request.uploadHandler = (UploadHandler) new UploadHandlerRaw(bodyRaw);
@@ -44,6 +50,7 @@ public class ReviewsManager : MonoBehaviour
             foreach (var reviewData in _reviewData)
             {
                 GameReview newGamePage = Instantiate(Resources.Load<GameReview>("Prefabs/GameReview"),reviewPageParent);
+                gameReviews.Add(newGamePage);
                 newGamePage.Init(reviewData);
             }
         }
