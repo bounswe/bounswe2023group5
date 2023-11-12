@@ -7,18 +7,18 @@
 Welcome to Group 5's README page. In order to get to know us in more detail and view our progress and research you can [visit our Wiki Page](https://github.com/bounswe/bounswe2023group5/wiki)!
 
 <p align="center">
-  <a href = "https://user-images.githubusercontent.com/99494301/222924393-39e0c858-0467-4ba2-bcf8-7e317873b5f6.png">
-    <img src="https://user-images.githubusercontent.com/99494301/222924393-39e0c858-0467-4ba2-bcf8-7e317873b5f6.png" width="680px" height="240px">
+  <a href = "https://github-production-user-asset-6210df.s3.amazonaws.com/100769724/280239694-bcdc2ba4-7fd1-45d8-b760-2fafe1eb7340.jpeg">
+    <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/100769724/280239694-bcdc2ba4-7fd1-45d8-b760-2fafe1eb7340.jpeg" width="512px" height="512px">
   </a>
 </p>
 
-## :pushpin:Project Description
+## :pushpin:Project Description - Game Guru
 ```
-A video game review platform where users discuss video games, create related events and find friends
-to play together and share their achievements. Variety of this platform can be extended from console
-and PC games to board games. Besides discussing, reviewing and rating games, players can make use of
-this platform similar to group finders in MMORPGs to match people. Players can create both offline
-and online meetings, dive into game related discussions, convention parties and so on.
+A video game review platform where users discuss video games, find friends to play together and share
+their achievements. Variety of this platform can be extended from console and PC games to board games.
+Besides discussing, reviewing and rating games, players can make use of this platform similar to group
+finders in MMORPGs to match people. Players can create both offline and online meetings, dive into
+game related discussions, convention parties and so on.
 ```
 <!--- #### In order to get to know our progress, research and team members in more detail [visit our Wiki Page](https://github.com/bounswe/bounswe2023group5/wiki)! --->
 ---

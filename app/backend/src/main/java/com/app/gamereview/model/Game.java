@@ -1,7 +1,9 @@
 package com.app.gamereview.model;
 
 import com.app.gamereview.model.common.BaseModel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -12,6 +14,8 @@ import java.util.List;
 @Document(collection = "Game")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Game extends BaseModel {
 
 	private String gameName;
@@ -20,23 +24,29 @@ public class Game extends BaseModel {
 
 	private String gameIcon;
 
+	private float overallRating;
+
+	private float ratingCount;
+
 	private Date releaseDate;
 
-	private List<Tag> playerTypes = new ArrayList<Tag>();
+    private String forum;
 
-	private List<Tag> genre = new ArrayList<Tag>();
+	private List<String> playerTypes = new ArrayList<>();
 
-	private Tag production;
+	private List<String> genre = new ArrayList<>();
 
-	private Tag duration;
+	private String production;
 
-	private List<Tag> platforms = new ArrayList<Tag>();
+	private String duration;
 
-	private List<Tag> artStyles = new ArrayList<Tag>();
+	private List<String> platforms = new ArrayList<>();
 
-	private Tag developer;
+	private List<String> artStyles = new ArrayList<>();
 
-	private List<Tag> otherTags = new ArrayList<Tag>();
+	private String developer;
+
+	private List<String> otherTags = new ArrayList<>();
 
 	private String minSystemReq;
 
@@ -50,30 +60,55 @@ public class Game extends BaseModel {
 	public void addTag(Tag tag){
 		switch (tag.getTagType()){
 			case PLAYER_TYPE:
-				playerTypes.add(tag);
+				playerTypes.add(tag.getId());
 				break;
 			case GENRE:
-				genre.add(tag);
+				genre.add(tag.getId());
 				break;
 			case PRODUCTION:
-				production = tag;
+				production = tag.getId();
 				break;
 			case DURATION:
-				duration = tag;
+				duration = tag.getId();
 				break;
 			case PLATFORM:
-				platforms.add(tag);
+				platforms.add(tag.getId());
 				break;
 			case ART_STYLE:
-				artStyles.add(tag);
+				artStyles.add(tag.getId());
 				break;
 			case DEVELOPER:
-				developer = tag;
+				developer = tag.getId();
 				break;
 			case OTHER:
-				otherTags.add(tag);
+				otherTags.add(tag.getId());
 				break;
 		}
 	}
+
+	public void addRating(float newRating){
+		overallRating = (overallRating * ratingCount + newRating) / (ratingCount + 1);
+		ratingCount += 1;
+	}
+
+	public void updateRating(float removedRating, float newRating){
+		float nominator = overallRating * ratingCount;
+		nominator += (newRating - removedRating);
+		overallRating = nominator / ratingCount;
+	}
+
+	public void deleteRating(float deletedRating){
+		if(ratingCount == 1){
+			overallRating = 0;
+			ratingCount -= 1;
+		}
+		else{
+			float nominator = overallRating * ratingCount;
+			nominator -= deletedRating;
+			ratingCount -= 1;
+			overallRating = nominator / ratingCount;
+		}
+	}
+
 
 }

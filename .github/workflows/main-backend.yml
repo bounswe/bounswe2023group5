@@ -18,6 +18,11 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
 
+      - name: Create .env file
+        run: |
+          cd app/backend
+          echo "${{ secrets.ENVIRONMENT_VARIABLES }}" > .env
+
       - name: Build with Maven
         run: |
           cd app/backend

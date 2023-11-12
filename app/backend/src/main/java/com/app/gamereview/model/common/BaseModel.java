@@ -23,6 +23,8 @@ public abstract class BaseModel {
 	@PersistenceCreator
 	public BaseModel() {
 		this.id = UUID.randomUUID().toString(); // Generate a UUID during construction
+		this.createdAt = LocalDateTime.now();
+		this.isDeleted = false;
 	}
 
 }

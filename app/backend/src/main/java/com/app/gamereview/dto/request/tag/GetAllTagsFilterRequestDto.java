@@ -11,7 +11,7 @@ public class GetAllTagsFilterRequestDto {
 
     private String color;
 
-    private TagType tagType;
+    private String tagType;
 
-    private Boolean isDeleted;
+    private Boolean isDeleted = false;
 }
