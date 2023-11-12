@@ -35,6 +35,7 @@
 .review-container {
     display: flex;
     width: min-content;
+    min-width: 200px;
     background-color: $prussian-blue-dark-40;
     border-radius: 0.5em;
     margin: 5px 5px 5px 5px;
@@ -60,7 +61,7 @@
         color: $color-text-light;
         gap: 5px;
         justify-content: space-between;
-
+        flex: 1;
         .header {
             display: flex;
             justify-content: flex-start;

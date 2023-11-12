@@ -24,7 +24,6 @@ export async function getAllReviews(gameId : string, reviewedBy?: string) {
 }
 
 export async function postReview(review: any) {
-    console.log("posting");
 
     await axios.post(`${import.meta.env.VITE_APP_API_URL}/review/create`, review); 
 

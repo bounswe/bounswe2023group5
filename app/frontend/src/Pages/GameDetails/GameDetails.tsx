@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { getGame } from "../../Services/gamedetail";
 import { useQuery } from "react-query";
 import { PacmanLoader } from "react-spinners";
+import Reviews from "../../Components/GameDetails/Review/Reviews";
 
 function formatDate(date: Date) {
   const day = date.getDate();
@@ -83,14 +84,17 @@ function GameDetails() {
                 type="button"
                 className={subPage === name ? styles.active : ""}
                 onClick={() => setSubPage(name as any)}
-                disabled
               >
                 {name}
               </button>
             ))}
           </div>
           <div className={styles.subPage}>
-            <Summary game={data} />
+            {subPage === "summary" ? (
+              <Summary game={data} />
+            ) : (
+              <Reviews gameId={data.id} />
+            )}
           </div>
         </>
       )}

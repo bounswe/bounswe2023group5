@@ -67,10 +67,9 @@ function Review({ review }: { review: any }) {
       <div className={styles.review}>
         <div className={styles.header}>
           <div className={styles.user}>
-            <b>{review.reviewedBy}</b>
+            <b>{review.reviewedUser}</b>
           </div>
-          {/*TODO: change id to username*/}
-          {user.id === review.reviewedBy && (
+          {user.username === review.reviewedUser && (
             <div className={styles.buttons}>
               {!inputMode ? (
                 <Button
