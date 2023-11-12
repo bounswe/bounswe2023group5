@@ -8,6 +8,7 @@ import com.app.gamereview.service.UserService;
 import com.app.gamereview.util.validation.annotation.AdminRequired;
 import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
 import jakarta.validation.Valid;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -28,7 +29,7 @@ public class UserController {
 	}
 
 	@GetMapping("/get-all")
-	public ResponseEntity<List<User>> getUsers(GetAllUsersFilterRequestDto filter) {
+	public ResponseEntity<List<User>> getUsers(@ParameterObject GetAllUsersFilterRequestDto filter) {
 		List<User> users = userService.getAllUsers(filter);
 		return ResponseEntity.ok(users);
 	}

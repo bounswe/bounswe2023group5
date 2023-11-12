@@ -6,6 +6,7 @@ import com.app.gamereview.dto.request.post.EditPostRequestDto;
 import com.app.gamereview.model.User;
 import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
