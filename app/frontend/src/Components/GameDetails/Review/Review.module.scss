@@ -1,0 +1,98 @@
+@import "../../../colors";
+
+
+.review-input-container {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    color: white !important;
+    background-color: $blue-green;
+    border-radius: 0.5em;
+    margin: 5px 5px 5px 5px;
+    overflow: hidden;
+    padding: 10px 10px 0 10px;
+    gap: 10px;
+
+    .content-input {
+        background-color: $prussian-blue-dark-10 !important;
+        flex: 4;
+        width: 100%;
+        border-radius: 0.5em;
+        padding: 5px;
+        font-size: 13px;
+    }
+}
+
+.reviews-subpage-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+.review-container {
+    display: flex;
+    width: min-content;
+    background-color: $prussian-blue-dark-40;
+    border-radius: 0.5em;
+    margin: 5px 5px 5px 5px;
+    overflow: hidden;
+    
+    .vote {
+        display: flex;
+        flex-direction: column;
+        background-color: $celadon-light-10;
+        padding: 10px;
+        align-items: center;
+        gap: 5px;
+        color: $color-text;
+        width: 60px;
+        justify-content: center;
+    }
+
+    .review {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px; 
+        color: $color-text-light;
+        gap: 5px;
+        justify-content: space-between;
+
+        .header {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 100px;
+            .user {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .buttons {
+                display: flex;
+                justify-self: flex-end;;
+            }
+        }
+        .date {
+            font-size: 10px;
+            align-self: flex-start;
+        }
+        .stars {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2px;
+            color: $yellow;
+            align-self: flex-end;
+        }
+
+        .content {
+            background-color: $prussian-blue-dark-10 !important;
+            flex: 4;
+            width: 100%;
+            border-radius: 0.5em;
+            padding: 5px;
+            font-size: 13px;
+        }
+    }
+    
+}
