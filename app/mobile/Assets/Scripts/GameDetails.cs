@@ -28,14 +28,14 @@ public class GameDetails : MonoBehaviour
     private string gameDescription;
     private string gameIcon;
     private string releaseDate;
-    private List<AddedTag> playerTypes;
-    private List<AddedTag> genre;
-    private AddedTag production;
-    private AddedTag duration;
-    private List<AddedTag> platforms;
-    private List<AddedTag> artStyles;
-    private AddedTag developer;
-    private List<AddedTag> otherTags;
+    private List<string> playerTypes;
+    private List<string> genre;
+    private string production;
+    private string duration;
+    private List<string> platforms;
+    private List<string> artStyles;
+    private string developer;
+    private List<string> otherTags;
     private string minSystemReq;
     
     private void Awake()
@@ -110,6 +110,7 @@ public class GameDetails : MonoBehaviour
             // Set heading
             headingText.text = gameName;
         }
+        request.downloadHandler.Dispose();
     }
     
     private void OnClickedExitButton()
