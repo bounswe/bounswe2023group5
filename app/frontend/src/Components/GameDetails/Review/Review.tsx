@@ -27,7 +27,7 @@ function Review({ review }: { review: any }) {
   const { upvote, downvote } = useVote({
     voteType: "REVIEW",
     typeId: review.id,
-    invalidateKey: ["reviews", review.gameId],
+    invalidateKey: ["reviews", review.gameId, ""],
   });
 
   const { mutate: removeReview } = useMutation(
@@ -37,9 +37,9 @@ function Review({ review }: { review: any }) {
         queryClient.invalidateQueries(["reviews", review.gameId]);
       },
       onMutate(id: string) {
-        queryClient.setQueryData(["reviews", review.gameId], (prev: any) =>
-          prev.filter((review: any) => id !== review.id)
-        );
+        queryClient.setQueriesData(["reviews", review.gameId], (prev: any) => {
+          return prev?.filter((review: any) => id !== review.id);
+        });
       },
     }
   );
@@ -53,8 +53,8 @@ function Review({ review }: { review: any }) {
         setInputMode(false);
       },
       onMutate({ id, updatedReview }) {
-        queryClient.setQueryData(["reviews"], (prev: any) =>
-          prev.map((review: any) =>
+        queryClient.setQueriesData(["reviews", review.gameId], (prev: any) =>
+          prev?.map((review: any) =>
             review.id === id ? { ...review, ...updatedReview } : review
           )
         );

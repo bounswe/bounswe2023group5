@@ -38,14 +38,24 @@ function ReviewInput({ gameId }: { gameId: string }) {
 
   return (
     <div className={styles.reviewInputContainer}>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <Rate
-          style={{ alignSelf: "flex-end" }}
-          allowHalf
-          defaultValue={0}
-          onChange={setRating}
-          value={rating}
-        />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <div className={styles.header}>
+          <div>
+            <b>Post Review</b>
+          </div>
+          <Rate
+            style={{ alignSelf: "flex-end" }}
+            allowHalf
+            defaultValue={0}
+            onChange={setRating}
+            value={rating}
+          />
+        </div>
         <Button icon={<CheckOutlined />} onClick={() => handleClick()}></Button>
       </div>
 

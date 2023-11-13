@@ -22,12 +22,15 @@ function Reviews({ gameId }: { gameId: string }) {
 
   return (
     <>
-      <Search
-        placeholder="Search by user or content"
-        enterButton
-        onSearch={setSearchText}
-      />
       <div className={styles.reviewsSubpageContainer}>
+        <div style={{ width: "100%" }}>
+          <Search
+            placeholder="Search reviews by content or reviewer"
+            enterButton
+            onSearch={setSearchText}
+            style={{ width: "350px", padding: "5px" }}
+          />
+        </div>
         <ReviewInput gameId={gameId} />
         {reviews &&
           reviews
