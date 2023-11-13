@@ -6,7 +6,7 @@ function MultipleSelect(props: {
   filterKey: string;
   elements: any[] | undefined;
   reset: boolean;
-  onChange: (filterKey: string, selected: string) => void;
+  onChange: (filterKey: string, selected: string[]) => void;
 }) {
   const options =
     props.elements &&
@@ -17,7 +17,7 @@ function MultipleSelect(props: {
       };
     });
 
-  const handleChange = (value: string) => {
+  const handleChange = (value: string[]) => {
     props.onChange(props.filterKey, value);
   };
 
