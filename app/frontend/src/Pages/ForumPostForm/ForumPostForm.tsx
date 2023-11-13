@@ -1,6 +1,5 @@
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import styles from "./ForumPostForm.module.scss";
-import TextArea from "antd/es/input/TextArea";
 import { Button, Form, Input } from "antd";
 import { useMutation } from "react-query";
 import { createPost } from "../../Services/forum";

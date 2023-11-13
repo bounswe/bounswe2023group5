@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import styles from "./ForumPost.module.scss";
 import { useQuery } from "react-query";
 import { getPost } from "../../Services/forum";
+import CommentForm from "../../Components/Comment/CommentForm/CommentForm.tsx";
 
 function ForumPost() {
   const { postId } = useParams();
@@ -11,9 +12,12 @@ function ForumPost() {
   return (
     <div className={styles.container}>
       {!isLoading && (
-        <div className={styles.postContainer}>
-          <span className={styles.title}>{post.title}</span>
-          <span>{post.postContent}</span>
+        <div>
+          <div className={styles.postContainer}>
+            <span className={styles.title}>{post.title}</span>
+            <span>{post.postContent}</span>
+          </div>
+          <CommentForm/>
         </div>
       )}
     </div>
