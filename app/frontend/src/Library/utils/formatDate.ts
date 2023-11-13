@@ -1,5 +1,5 @@
-export function formatDate(inputDate: Date | string) {
-  const date = new Date(inputDate);
+export function formatDate(inputDate?: Date | string) {
+  const date = inputDate ? new Date(inputDate) : new Date(0);
   const day = date.getDate();
   const monthIndex = date.getMonth();
   const year = date.getFullYear();

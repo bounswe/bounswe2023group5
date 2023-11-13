@@ -23,7 +23,7 @@ function GameDetails() {
     (searchParams.get("subPage") as any) ?? "summary"
   );
 
-  const date = new Date();
+  const date = data?.releaseDate;
   return (
     <div className={styles.container}>
       {isLoading ? (
