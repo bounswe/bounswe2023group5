@@ -55,6 +55,8 @@ public class GameScreen : MonoBehaviour
                 newGamePage.Init(gameData);
             }
         }
+        request.downloadHandler.Dispose();
+        request.uploadHandler.Dispose();
     }
 
 }

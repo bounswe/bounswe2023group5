@@ -85,6 +85,8 @@ namespace GetPostDemo
             var _useraData = JsonConvert.DeserializeObject<LoginResponse>(request.downloadHandler.text);
             Debug.Log(_useraData.user.email + " " + _useraData.token + " " + _useraData.user.id + " " + _useraData.user.role + " " + _useraData.user.isVerified + " " + _useraData.user.username);
             Debug.Log("Status Code: " + request.responseCode);
+            request.downloadHandler.Dispose();
+            request.uploadHandler.Dispose();
         }
         
         IEnumerator Get(string url, string bodyJsonString)
@@ -99,6 +101,8 @@ namespace GetPostDemo
             var _useraData = JsonConvert.DeserializeObject<LoginResponse>(request.downloadHandler.text);
             Debug.Log(_useraData.user.email + " " + _useraData.token + " " + _useraData.user.id + " " + _useraData.user.role + " " + _useraData.user.isVerified + " " + _useraData.user.username);
             Debug.Log("Status Code: " + request.responseCode);
+            request.downloadHandler.Dispose();
+            request.uploadHandler.Dispose();
         }
         
         IEnumerator Put(string url, string bodyJsonString)
@@ -115,6 +119,8 @@ namespace GetPostDemo
             var _useraData = JsonConvert.DeserializeObject<LoginResponse>(request.downloadHandler.text);
             Debug.Log(_useraData.user.email + " " + _useraData.token + " " + _useraData.user.id + " " + _useraData.user.role + " " + _useraData.user.isVerified + " " + _useraData.user.username);
             Debug.Log("Status Code: " + request.responseCode);
+            request.downloadHandler.Dispose();
+            request.uploadHandler.Dispose();
         }
         
         IEnumerator Delete(string url, string bodyJsonString)
@@ -129,6 +135,8 @@ namespace GetPostDemo
             var _useraData = JsonConvert.DeserializeObject<LoginResponse>(request.downloadHandler.text);
             Debug.Log(_useraData.user.email + " " + _useraData.token + " " + _useraData.user.id + " " + _useraData.user.role + " " + _useraData.user.isVerified + " " + _useraData.user.username);
             Debug.Log("Status Code: " + request.responseCode);
+            request.downloadHandler.Dispose();
+            request.uploadHandler.Dispose();
         }
     }
 }

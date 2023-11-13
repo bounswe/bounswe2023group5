@@ -76,6 +76,8 @@ public class ChangeForgetPassword : MonoBehaviour
         {
             DisplayError("Invalid reset code.");
         }
+        request.downloadHandler.Dispose();
+        request.uploadHandler.Dispose();
     }
 
     private void ChangeForgotPassword()
@@ -105,6 +107,8 @@ public class ChangeForgetPassword : MonoBehaviour
         {
             DisplayError("Error changing the password.");
         }
+        request.downloadHandler.Dispose();
+        request.uploadHandler.Dispose();
     }
 
     private void OnClickedNavigateToLogin()

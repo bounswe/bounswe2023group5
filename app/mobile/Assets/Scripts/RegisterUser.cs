@@ -101,6 +101,8 @@ public class RegisterUser : MonoBehaviour
             });
             
         }
+        request.downloadHandler.Dispose();
+        request.uploadHandler.Dispose();
     }
     
     private void OnClickedLoginButton()
