@@ -6,12 +6,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetPostCommentsResponseDto {
+public class CommentReplyResponseDto {
 
     private String id;
 
@@ -30,8 +29,6 @@ public class GetPostCommentsResponseDto {
     private int overallVote; // overallVote = # of upvote - # of downvote
 
     private int voteCount;  // voteCount = # of upvote + # of downvote
-
-    private ArrayList<CommentReplyResponseDto> replies;
 
     // TODO reports
     // TODO annotations
