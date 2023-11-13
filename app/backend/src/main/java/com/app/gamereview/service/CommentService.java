@@ -48,7 +48,7 @@ public class CommentService {
 
         Optional<Comment> parentComment = commentRepository.findById(request.getParentComment());
 
-        if (parentComment.isEmpty()) {
+        if (parentComment.isEmpty() || parentComment.get().getIsDeleted()) {
             throw new ResourceNotFoundException("Parent Comment is not found.");
         }
 
