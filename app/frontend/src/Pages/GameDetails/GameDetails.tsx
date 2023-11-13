@@ -8,6 +8,7 @@ import { useQuery } from "react-query";
 import { PacmanLoader } from "react-spinners";
 import Reviews from "../../Components/GameDetails/Review/Reviews";
 import Forum from "../../Components/Forum/Forum";
+import { formatDate } from "../../Library/utils/formatDate";
 
 function GameDetails() {
   const { gameId } = useParams();

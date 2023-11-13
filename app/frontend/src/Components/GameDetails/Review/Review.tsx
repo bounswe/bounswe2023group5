@@ -14,6 +14,7 @@ import { formatDate } from "../../../Library/utils/formatDate";
 import { useAuth } from "../../Hooks/useAuth";
 import { useMutation, useQueryClient } from "react-query";
 import { deleteReview, updateReview } from "../../../Services/review";
+import { useVote } from "../../Hooks/useVote";
 
 function Review({ review }: { review: any }) {
   const [inputMode, setInputMode] = useState(false);
@@ -23,14 +24,20 @@ function Review({ review }: { review: any }) {
   const { user } = useAuth();
   const queryClient = useQueryClient();
 
+  const { upvote, downvote } = useVote({
+    voteType: "REVIEW",
+    typeId: review.id,
+    invalidateKey: ["reviews", review.gameId],
+  });
+
   const { mutate: removeReview } = useMutation(
     (id: string) => deleteReview(id),
     {
       onSuccess() {
-        queryClient.invalidateQueries(["reviews", review.gameId, ""]);
+        queryClient.invalidateQueries(["reviews", review.gameId]);
       },
       onMutate(id: string) {
-        queryClient.setQueryData(["reviews", review.gameId, ""], (prev: any) =>
+        queryClient.setQueryData(["reviews", review.gameId], (prev: any) =>
           prev.filter((review: any) => id !== review.id)
         );
       },
@@ -42,16 +49,14 @@ function Review({ review }: { review: any }) {
       updateReview(id, updatedReview),
     {
       onSuccess() {
-        queryClient.invalidateQueries(["reviews", review.gameId, ""]);
+        queryClient.invalidateQueries(["reviews", review.gameId]);
         setInputMode(false);
       },
       onMutate({ id, updatedReview }) {
-        queryClient.setQueryData(
-          ["reviews", updatedReview.gameId, ""],
-          (prev: any) =>
-            prev.map((review: any) =>
-              review.id === id ? { ...review, ...updatedReview } : review
-            )
+        queryClient.setQueryData(["reviews"], (prev: any) =>
+          prev.map((review: any) =>
+            review.id === id ? { ...review, ...updatedReview } : review
+          )
         );
       },
     }
@@ -60,9 +65,19 @@ function Review({ review }: { review: any }) {
   return (
     <div className={styles.reviewContainer} id={review.id}>
       <div className={styles.vote}>
-        <Button type="primary" shape="circle" icon={<UpOutlined />} />
+        <Button
+          type="primary"
+          shape="circle"
+          icon={<UpOutlined />}
+          onClick={upvote}
+        />
         <span>{review.overallVote}</span>
-        <Button type="primary" shape="circle" icon={<DownOutlined />} />
+        <Button
+          type="primary"
+          shape="circle"
+          icon={<DownOutlined />}
+          onClick={downvote}
+        />
       </div>
       <div className={styles.review}>
         <div className={styles.header}>

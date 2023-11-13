@@ -4,7 +4,7 @@
 .review-input-container {
     display: flex;
     flex-direction: column;
-    width: 300px;
+    width: 350px;
     color: white !important;
     background-color: $blue-green;
     border-radius: 0.5em;
@@ -34,8 +34,9 @@
 }
 .review-container {
     display: flex;
+    flex-shrink: 0;
     width: min-content;
-    min-width: 200px;
+    min-width: 350px;
     background-color: $prussian-blue-dark-40;
     border-radius: 0.5em;
     margin: 5px 5px 5px 5px;
