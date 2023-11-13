@@ -6,14 +6,16 @@ import {
   TeamOutlined,
   LoginOutlined,
   LogoutOutlined,
+  FormOutlined,
 } from "@ant-design/icons";
 import GameController from "../../Components/Icons/GameController";
 import { useAuth } from "../../Components/Hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
 function TopBar() {
-  const { isLoggedIn, logOut } = useAuth();
+  const { isLoggedIn, logOut, user } = useAuth();
   const navigate = useNavigate();
+  const isAdmin = user?.role === "ADMIN";
 
   const itemsNotLoggedIn: MenuProps["items"] = [
     {
@@ -69,6 +71,13 @@ function TopBar() {
       label: "Profile",
       icon: <UserOutlined />,
     },
+    isAdmin
+      ? {
+          key: "admin",
+          label: "Admin",
+          icon: <FormOutlined />,
+        }
+      : null,
     {
       key: "logout",
       label: "Logout",
