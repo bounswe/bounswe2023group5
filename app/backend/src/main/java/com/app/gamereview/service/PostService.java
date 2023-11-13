@@ -95,10 +95,11 @@ public class PostService {
         Optional<User> poster = userRepository.findByIdAndIsDeletedFalse(posterId);
 
         User posterObject = poster.orElse(null);
+        int commentCount = commentRepository.countByPost(post.getId());
 
         return new GetPostListResponseDto(post.getId(), post.getTitle(), post.getPostContent(),
                 posterObject, post.getLastEditedAt(), post.getCreatedAt(), isEdited, post.getTags(),
-                post.getInappropriate(), post.getOverallVote(), post.getVoteCount());
+                post.getInappropriate(), post.getOverallVote(), post.getVoteCount(), commentCount);
     }
 
 
