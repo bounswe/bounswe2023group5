@@ -1,0 +1,27 @@
+@import "../../../colors";
+
+.container {
+  position: relative;
+  padding: 1em;
+  background-color: $celadon;
+  border-radius: 0.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.5em;
+  .title {
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+  .meta {
+    display: flex;
+    gap: 1em;
+    font-size: 0.8em;
+    opacity: 80%;
+  }
+  .readMore {
+    position: absolute;
+    bottom: 0.5em;
+    right: 0.5em;
+  }
+}
