@@ -1,6 +1,10 @@
 package com.app.gamereview.service;
 
-import com.app.gamereview.dto.request.GetAllUsersFilterRequestDto;
+import com.app.gamereview.dto.request.tag.UpdateTagRequestDto;
+import com.app.gamereview.dto.request.user.ChangeRoleRequestDto;
+import com.app.gamereview.dto.request.user.GetAllUsersFilterRequestDto;
+import com.app.gamereview.exception.ResourceNotFoundException;
+import com.app.gamereview.model.Tag;
 import com.app.gamereview.model.User;
 import com.app.gamereview.repository.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -11,6 +15,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,6 +78,25 @@ public class UserService {
 		Optional<User> getResult = userRepository.findByEmail(email);
 
 		return getResult.orElse(null);
+	}
+
+	public Boolean changeRole(String id, ChangeRoleRequestDto request){
+		Optional<User> user = userRepository.findById(id);
+
+		if (user.isEmpty() || user.get().getIsDeleted()){
+			throw new ResourceNotFoundException("User desired to be updated does not exist");
+		}
+
+		User userToUpdate = modelMapper.map(request, User.class);
+		userToUpdate.setId(id);
+		userToUpdate.setIsDeleted(false);
+		userToUpdate.setUsername(user.get().getUsername());
+		userToUpdate.setEmail(user.get().getEmail());
+		userToUpdate.setPassword(user.get().getPassword());
+		userToUpdate.setVerified(user.get().getVerified());
+		userToUpdate.setCreatedAt(LocalDateTime.now());
+		userRepository.save(userToUpdate);
+		return true;
 	}
 
 }

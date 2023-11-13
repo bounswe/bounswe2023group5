@@ -2,36 +2,12 @@ import { StarFilled, StarOutlined } from "@ant-design/icons";
 import styles from "./GameDetails.module.scss";
 import { useState } from "react";
 import Summary from "../../Components/GameDetails/Summary/Summary";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { getGame } from "../../Services/gamedetail";
 import { useQuery } from "react-query";
 import { PacmanLoader } from "react-spinners";
 import Reviews from "../../Components/GameDetails/Review/Reviews";
-
-function formatDate(date: Date) {
-  const day = date.getDate();
-  const monthIndex = date.getMonth();
-  const year = date.getFullYear();
-
-  const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  const monthName = monthNames[monthIndex];
-
-  return `${day} ${monthName} ${year}`;
-}
+import Forum from "../../Components/Forum/Forum";
 
 function GameDetails() {
   const { gameId } = useParams();
@@ -41,11 +17,13 @@ function GameDetails() {
   );
 
   const score = 4;
+  const [searchParams] = useSearchParams();
+
   const [subPage, setSubPage] = useState<"summary" | "reviews" | "forum">(
-    "summary"
+    (searchParams.get("subPage") as any) ?? "summary"
   );
 
-  const date = new Date();
+  const date = data?.releaseDate;
   return (
     <div className={styles.container}>
       {isLoading ? (
@@ -89,13 +67,24 @@ function GameDetails() {
               </button>
             ))}
           </div>
-          <div className={styles.subPage}>
-            {subPage === "summary" ? (
-              <Summary game={data} />
-            ) : (
-              <Reviews gameId={data.id} />
-            )}
-          </div>
+          {data && (
+            <div className={styles.subPage}>
+              {subPage === "summary" ? (
+                <Summary game={data} />
+              ) : subPage === "forum" ? (
+                data?.forum ? (
+                  <Forum
+                    forumId={data.forum}
+                    redirect={`/game/${gameId}?subPage=forum`}
+                  />
+                ) : (
+                  <>No forum on this game.</>
+                )
+              ) : (
+                <Reviews gameId={data.id} />
+              )}
+            </div>
+          )}
         </>
       )}
     </div>

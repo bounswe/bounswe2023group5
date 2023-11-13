@@ -1,9 +1,8 @@
 package com.app.gamereview.service;
 
-import com.app.gamereview.dto.request.GetAllUsersFilterRequestDto;
+import com.app.gamereview.dto.request.user.GetAllUsersFilterRequestDto;
 import com.app.gamereview.model.User;
 import com.app.gamereview.repository.UserRepository;
-import com.app.gamereview.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

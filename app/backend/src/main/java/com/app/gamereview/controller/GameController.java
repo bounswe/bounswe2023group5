@@ -1,22 +1,28 @@
 package com.app.gamereview.controller;
 
+import com.app.gamereview.dto.request.game.CreateGameRequestDto;
 import com.app.gamereview.dto.request.tag.AddGameTagRequestDto;
-import com.app.gamereview.dto.response.GameDetailResponseDto;
+import com.app.gamereview.dto.response.game.GameDetailResponseDto;
 import com.app.gamereview.dto.response.tag.AddGameTagResponseDto;
 import com.app.gamereview.dto.response.tag.GetAllTagsOfGameResponseDto;
-import org.apache.coyote.Response;
+import com.app.gamereview.model.Game;
+import com.app.gamereview.util.validation.annotation.AdminRequired;
+import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import com.app.gamereview.dto.request.GetGameListRequestDto;
-import com.app.gamereview.dto.response.GetGameListResponseDto;
+import com.app.gamereview.dto.request.game.GetGameListRequestDto;
+import com.app.gamereview.dto.response.game.GetGameListResponseDto;
 import com.app.gamereview.service.GameService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/game")
+@Validated
 public class GameController {
 
 	private final GameService gameService;
@@ -33,9 +39,11 @@ public class GameController {
 		return ResponseEntity.ok().body(gameList);
 	}
 
+	@AuthorizationRequired
+	@AdminRequired
 	@PostMapping("/add-tag")
 	public ResponseEntity<AddGameTagResponseDto> addGameTag(
-			@RequestBody AddGameTagRequestDto addGameTagRequestDto) {
+			@Valid @RequestBody AddGameTagRequestDto addGameTagRequestDto) {
 		AddGameTagResponseDto response = gameService.addGameTag(addGameTagRequestDto);
 		return ResponseEntity.ok(response);
 	}
@@ -49,5 +57,12 @@ public class GameController {
 	public ResponseEntity<GameDetailResponseDto> getGameDetail(@RequestParam String gameId){
 		GameDetailResponseDto response = gameService.getGameDetail(gameId);
 		return ResponseEntity.ok(response);
+	}
+
+	@AuthorizationRequired
+	@PostMapping("/create")
+	public ResponseEntity<Game> createGame(@Valid @RequestBody CreateGameRequestDto createGameRequestDto, String Authorization) {
+		Game gameToCreate = gameService.createGame(createGameRequestDto);
+		return ResponseEntity.ok(gameToCreate);
 	}
 }
