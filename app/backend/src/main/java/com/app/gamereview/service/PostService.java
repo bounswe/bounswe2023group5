@@ -15,6 +15,7 @@ import com.app.gamereview.model.Tag;
 import com.app.gamereview.model.User;
 import com.app.gamereview.repository.ForumRepository;
 import com.app.gamereview.repository.TagRepository;
+import com.app.gamereview.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -38,14 +39,17 @@ public class PostService {
 
   private final ForumRepository forumRepository;
 
+  private final UserRepository userRepository;
+
   private final TagRepository tagRepository;
   private final MongoTemplate mongoTemplate;
   private final ModelMapper modelMapper;
 
   @Autowired
-  public PostService(PostRepository postRepository, ForumRepository forumRepository, TagRepository tagRepository, MongoTemplate mongoTemplate, ModelMapper modelMapper) {
+  public PostService(PostRepository postRepository, ForumRepository forumRepository, UserRepository userRepository, TagRepository tagRepository, MongoTemplate mongoTemplate, ModelMapper modelMapper) {
     this.postRepository = postRepository;
     this.forumRepository = forumRepository;
+    this.userRepository = userRepository;
     this.tagRepository = tagRepository;
     this.mongoTemplate = mongoTemplate;
     this.modelMapper = modelMapper;
@@ -87,9 +91,13 @@ public class PostService {
 
   private GetPostListResponseDto mapToGetPostListResponseDto(Post post) {
     Boolean isEdited = post.getCreatedAt().isBefore(post.getLastEditedAt());
+    String posterId = post.getPoster();
+    Optional<User> poster = userRepository.findByIdAndIsDeletedFalse(posterId);
+
+    User posterObject = poster.orElse(null);
 
       return new GetPostListResponseDto(post.getId(), post.getTitle(), post.getPostContent(),
-        post.getPoster(), post.getLastEditedAt(), post.getCreatedAt(), isEdited, post.getTags(),
+        posterObject, post.getLastEditedAt(), post.getCreatedAt(), isEdited, post.getTags(),
         post.getInappropriate(), post.getOverallVote(), post.getVoteCount());
   }
 
