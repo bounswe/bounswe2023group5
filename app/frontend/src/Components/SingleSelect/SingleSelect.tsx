@@ -3,10 +3,12 @@ import styles from "./SingleSelect.module.scss";
 
 function SingleSelect(props: {
   title: string;
-  filterKey: string;
+  filterKey?: string;
+  defaultValue?: string;
   elements: any[] | undefined;
   reset: boolean;
   onChange: (filterKey: string, selected: string) => void;
+  className?: string;
 }) {
   const options =
     props.elements &&
@@ -18,13 +20,14 @@ function SingleSelect(props: {
     });
 
   const handleChange = (value: string) => {
-    props.onChange(props.filterKey, value);
+    props.onChange(props.filterKey || "", value);
   };
 
   return (
     <Select
       showSearch
-      className={styles.container}
+      defaultValue={props.defaultValue}
+      className={`${styles.container} ${props.className}`}
       placeholder={props.title}
       optionFilterProp="children"
       onChange={handleChange}

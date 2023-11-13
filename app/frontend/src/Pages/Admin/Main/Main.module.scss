@@ -1,0 +1,13 @@
+@import "../../../colors";
+
+.container {
+  padding: 4rem;
+  .header {
+    color: $blue-green-light-30;
+    margin-bottom: 2rem;
+  }
+
+  .itemHeader {
+    color: $orange-light-10;
+  }
+}

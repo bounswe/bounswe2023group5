@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = SortDirectionValidator.class)
 public @interface ValidSortDirection {
     SortDirection[] allowedValues();
-    String message() default "Invalid VoteType, allowed values are: {allowedValues}";
+    String message() default "Invalid SortDirection, allowed values are: {allowedValues}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
