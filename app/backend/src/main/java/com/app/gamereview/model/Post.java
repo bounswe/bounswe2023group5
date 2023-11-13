@@ -47,7 +47,6 @@ public class Post extends BaseModel {
   private int voteCount;  // voteCount = # of upvote + # of downvote
 
   // TODO reports
-  // TODO comments
   // TODO annotations
   // TODO achievements
 
