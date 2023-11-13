@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = SortTypeValidator.class)
 public @interface ValidSortType {
     SortType[] allowedValues();
-    String message() default "Invalid VoteType, allowed values are: {allowedValues}";
+    String message() default "Invalid SortType, allowed values are: {allowedValues}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

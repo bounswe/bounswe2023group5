@@ -20,7 +20,7 @@ jobs:
 
       - name: Create .env file
         run: |
-          cd app/backend
+          cd app/backend/src/main/resources
           echo "${{ secrets.ENVIRONMENT_VARIABLES }}" > .env
 
       - name: Build with Maven
