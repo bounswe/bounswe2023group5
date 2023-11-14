@@ -19,25 +19,16 @@ export const createComment = async ({
 };
 
 export const getCommentList = async ({
-    findDeleted = false,
-    sortBy = "CREATION_DATE",
     postId,
-    sortDirection = "DESCENDING",
   }: {
-    findDeleted?: boolean;
     postId: string;
-    sortBy?: string;
-    sortDirection?: string;
   }) => {
     const id:string = postId;
     const response = await axios.get(
       import.meta.env.VITE_APP_API_URL + "/post/get-post-comments",
       {
         params: {
-          findDeleted,
-          sortBy,
           id,
-          sortDirection,
         },
       }
     );
