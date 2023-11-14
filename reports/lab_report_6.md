@@ -20,7 +20,7 @@ This week, all teams primarily focused on enhancing communication components of 
 | Implementing Forum Moderation Functionality                                | [#635](https://github.com/bounswe/bounswe2023group5/issues/635) | Zeynep Baydemir  | 14.11.23   |     | 3 hrs              | 3 hrs           |
 | Implementing Password Hashing                                              | [#638](https://github.com/bounswe/bounswe2023group5/issues/638) | Zeynep Baydemir  | 14.11.23   |     | 1.5 hr             | 1hr             |
 | Implementing Forum Comment Functionality                                   | [#639](https://github.com/bounswe/bounswe2023group5/issues/639) | Halis Bal        | 14.11.23   |     | 8 hrs              | 7hrs            |
-| Implementing Forum Post Functionality                                      | [#628](https://github.com/bounswe/bounswe2023group5/issues/628) | Deniz Ünal       | 14.11.23   |     | 8 hrs              | 9hrs            |
+| Implementing Forum Post Functionality                                      | [#628](https://github.com/bounswe/bounswe2023group5/issues/628) | Deniz Ünal       | 14.11.23   | [#658](https://github.com/bounswe/bounswe2023group5/pull/658) | 8 hrs              | 9hrs            |
 | Forum Post Functionality Implementation - MOBILE                           | [#625](https://github.com/bounswe/bounswe2023group5/issues/625) | Bilal Atım       | 12.11.2023 |     | 7 hr               | 7hr 30mins      |
 | Review Functionality Implementation - MOBILE                               | [#622](https://github.com/bounswe/bounswe2023group5/issues/622) | Bilal Atım       | 11.11.2023 |     | 6 hr               | 5hrs50mins      |
 | Forum Comment Functionality Implementation - MOBILE                        | [#648](https://github.com/bounswe/bounswe2023group5/issues/648) | Ege Ekşi         | 14.11.2023 |     | 3 hr               | 3hr30mins       |
@@ -38,6 +38,12 @@ This week, all teams primarily focused on enhancing communication components of 
 | Implementing Forum Post Comment Component                                  | [#646](https://github.com/bounswe/bounswe2023group5/issues/646) | Ali              | 14.11.2023 |     | 2.5 hours          | 3hrs            |
 | Implementing Forum Post Creation Web Page                                  | [#636](https://github.com/bounswe/bounswe2023group5/issues/636) | Alperen          | 14.11.2023 |     | 2 hours            | 1hr             |
 | Implementing Comment Creation Form                                         | [#647](https://github.com/bounswe/bounswe2023group5/issues/647) | Ali              | 14.11.2023 |     |  2 hours           | 2hrs            |
+
+## Completed tasks that were not planned for the week
+| Description | Issue | Assignee | Due | Duration |
+| --- | --- | --- | --- | --- |
+| Implementing create game endpoint | [#557](https://github.com/bounswe/bounswe2023group5/issues/557) | Deniz Ünal | 11.11.2023 | 2.5 hours |
+
 
 ## Planned Vs. Actual
 
