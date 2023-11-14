@@ -8,6 +8,7 @@ import com.app.gamereview.service.VoteService;
 import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -30,7 +31,7 @@ public class VoteController {
     }
 
     @GetMapping("/get-all")
-    public ResponseEntity<List<Vote>> getVotes(GetAllVotesFilterRequestDto filter) {
+    public ResponseEntity<List<Vote>> getVotes(@ParameterObject GetAllVotesFilterRequestDto filter) {
         List<Vote> votes = voteService.getAllVotes(filter);
         return ResponseEntity.ok(votes);
     }

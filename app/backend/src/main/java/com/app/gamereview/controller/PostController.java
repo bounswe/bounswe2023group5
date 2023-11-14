@@ -3,9 +3,11 @@ package com.app.gamereview.controller;
 import java.util.List;
 
 import com.app.gamereview.dto.request.post.EditPostRequestDto;
+import com.app.gamereview.dto.response.comment.GetPostCommentsResponseDto;
 import com.app.gamereview.model.User;
 import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -24,46 +26,56 @@ import jakarta.validation.Valid;
 @Validated
 public class PostController {
 
-  private final PostService postService;
+    private final PostService postService;
 
-  @Autowired
-  public PostController(PostService postService) {
-    this.postService = postService;
-  }
+    @Autowired
+    public PostController(PostService postService) {
+        this.postService = postService;
+    }
 
-  @GetMapping("/get-post-list")
-  public ResponseEntity<List<GetPostListResponseDto>> getPostList(GetPostListFilterRequestDto filter) {
-    List<GetPostListResponseDto> posts = postService.getPostList(filter);
-    return ResponseEntity.ok(posts);
-  }
+    @GetMapping("/get-post-list")
+    public ResponseEntity<List<GetPostListResponseDto>> getPostList(@Valid @ParameterObject GetPostListFilterRequestDto filter) {
+        List<GetPostListResponseDto> posts = postService.getPostList(filter);
+        return ResponseEntity.ok(posts);
+    }
 
-  @GetMapping("/get-post-detail")
-  public ResponseEntity<Post> getPostDetail(@RequestParam String id) {
-    Post post = postService.getPostById(id);
-    return ResponseEntity.ok(post);
-  }
+    @AuthorizationRequired
+    @GetMapping("/get-post-detail")
+    public ResponseEntity<Post> getPostDetail(@RequestParam String id, @RequestHeader String Authorization, HttpServletRequest request) {
+        User user = (User) request.getAttribute("authenticatedUser");
+        Post post = postService.getPostById(id, user);
+        return ResponseEntity.ok(post);
+    }
 
-  @AuthorizationRequired
-  @PostMapping("/create")
-  public ResponseEntity<Post> createPost(@Valid @RequestBody CreatePostRequestDto post, @RequestHeader String Authorization, HttpServletRequest request) {
-    User user = (User) request.getAttribute("authenticatedUser");
-    Post postToCreate = postService.createPost(post, user);
-    return ResponseEntity.ok(postToCreate);
-  }
+    @AuthorizationRequired
+    @GetMapping("/get-post-comments")
+    public ResponseEntity<List<GetPostCommentsResponseDto>> getPostComments(@RequestParam String id, @RequestHeader String Authorization, HttpServletRequest request) {
+        User user = (User) request.getAttribute("authenticatedUser");
+        List<GetPostCommentsResponseDto> comments = postService.getCommentList(id, user);
+        return ResponseEntity.ok(comments);
+    }
 
-  @AuthorizationRequired
-  @PostMapping("/edit")
-  public ResponseEntity<Post> editPost(@RequestParam String id, @Valid @RequestBody EditPostRequestDto post, @RequestHeader String Authorization, HttpServletRequest request) {
-    User user = (User) request.getAttribute("authenticatedUser");
-    Post editedPost = postService.editPost(id, post, user);
-    return ResponseEntity.ok(editedPost);
-  }
+    @AuthorizationRequired
+    @PostMapping("/create")
+    public ResponseEntity<Post> createPost(@Valid @RequestBody CreatePostRequestDto post, @RequestHeader String Authorization, HttpServletRequest request) {
+        User user = (User) request.getAttribute("authenticatedUser");
+        Post postToCreate = postService.createPost(post, user);
+        return ResponseEntity.ok(postToCreate);
+    }
 
-  @AuthorizationRequired
-  @DeleteMapping("/delete")
-  public ResponseEntity<Post> deletePost(@RequestParam String id, @RequestHeader String Authorization, HttpServletRequest request) {
-    User user = (User) request.getAttribute("authenticatedUser");
-    Post deletedPost = postService.deletePost(id, user);
-    return ResponseEntity.ok(deletedPost);
-  }
+    @AuthorizationRequired
+    @PostMapping("/edit")
+    public ResponseEntity<Post> editPost(@RequestParam String id, @Valid @RequestBody EditPostRequestDto post, @RequestHeader String Authorization, HttpServletRequest request) {
+        User user = (User) request.getAttribute("authenticatedUser");
+        Post editedPost = postService.editPost(id, post, user);
+        return ResponseEntity.ok(editedPost);
+    }
+
+    @AuthorizationRequired
+    @DeleteMapping("/delete")
+    public ResponseEntity<Post> deletePost(@RequestParam String id, @RequestHeader String Authorization, HttpServletRequest request) {
+        User user = (User) request.getAttribute("authenticatedUser");
+        Post deletedPost = postService.deletePost(id, user);
+        return ResponseEntity.ok(deletedPost);
+    }
 }
