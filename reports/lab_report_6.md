@@ -16,9 +16,9 @@ This week, all teams primarily focused on enhancing communication components of 
 | Documentation of Completed Endpoints                                       | [#641](https://github.com/bounswe/bounswe2023group5/issues/641) | Can Uzduran      | 14.11.23   |     | 4 hrs              | 30mins          |
 | Implementing Vote Feature Backend                                          | [#642](https://github.com/bounswe/bounswe2023group5/issues/642) | Can Uzduran      | 14.11.23   |     |  3 hrs             | 4hrs            |
 | Writing validations for data transfer objects and necessary fields Backend | [#643](https://github.com/bounswe/bounswe2023group5/issues/643) | Can Uzduran      | 14.11.23   |     | 3 hr               | 1hr30mins       |
-| Implementing Admin Functionality                                           | [#631](https://github.com/bounswe/bounswe2023group5/issues/631) | Zeynep Baydemir  | 14.11.23   |     | 3 hr               | 2 hrs           |
-| Implementing Forum Moderation Functionality                                | [#635](https://github.com/bounswe/bounswe2023group5/issues/635) | Zeynep Baydemir  | 14.11.23   |     | 3 hrs              | 3 hrs           |
-| Implementing Password Hashing                                              | [#638](https://github.com/bounswe/bounswe2023group5/issues/638) | Zeynep Baydemir  | 14.11.23   |     | 1.5 hr             | 1hr             |
+| Implementing Admin Functionality                                           | [#631](https://github.com/bounswe/bounswe2023group5/issues/631) | Zeynep Baydemir  | 14.11.23   |  [#660](https://github.com/bounswe/bounswe2023group5/pull/660), [#664](https://github.com/bounswe/bounswe2023group5/pull/664)   | 3 hr               | 2 hrs           | 
+| Implementing Forum Moderation Functionality                                | [#635](https://github.com/bounswe/bounswe2023group5/issues/635) | Zeynep Baydemir  | 14.11.23   |  [#663](https://github.com/bounswe/bounswe2023group5/pull/663)   | 3 hrs              | 3 hrs           | 
+| Implementing Password Hashing                                              | [#638](https://github.com/bounswe/bounswe2023group5/issues/638) | Zeynep Baydemir  | 14.11.23   |  [#657](https://github.com/bounswe/bounswe2023group5/pull/657), [#659](https://github.com/bounswe/bounswe2023group5/pull/659)   | 1.5 hr             | 1hr             |  
 | Implementing Forum Comment Functionality                                   | [#639](https://github.com/bounswe/bounswe2023group5/issues/639) | Halis Bal        | 14.11.23   |     | 8 hrs              | 7hrs            |
 | Implementing Forum Post Functionality                                      | [#628](https://github.com/bounswe/bounswe2023group5/issues/628) | Deniz Ünal       | 14.11.23   | [#658](https://github.com/bounswe/bounswe2023group5/pull/658) | 8 hrs              | 9hrs            |
 | Forum Post Functionality Implementation - MOBILE                           | [#625](https://github.com/bounswe/bounswe2023group5/issues/625) | Bilal Atım       | 12.11.2023 |     | 7 hr               | 7hr 30mins      |
@@ -72,6 +72,9 @@ This week, all teams primarily focused on enhancing communication components of 
 | Adding Game Image Upload Functionality to Game Create Web Page | [#694](https://github.com/bounswe/bounswe2023group5/issues/694) | Arda Kabadayı  | 21.11.2023 | 1 hr               |
 | Implementing Review Reporting                                  | [#693](https://github.com/bounswe/bounswe2023group5/issues/693) | Çisel Zümbül   | 19.11.2023 | 1 hr               |
 | Implementing Post Reporting                                    | [#693](https://github.com/bounswe/bounswe2023group5/issues/693) | Alperen Bırçak | 19.11.2023 | 1 hr               |
+| Group Moderation Implementation-BE                             | [#705](https://github.com/bounswe/bounswe2023group5/issues/705) | Zeynep Baydemir | 21.11.2023 | 3 hr               |
+| Join-Leave Group Implementation-BE                             | [#704](https://github.com/bounswe/bounswe2023group5/issues/704) | Zeynep Baydemir | 21.11.2023 | 3 hr               |
+| Admin Permissions In Post Comments                             | [#706](https://github.com/bounswe/bounswe2023group5/issues/706) | Zeynep Baydemir | 21.11.2023 | 1 hr               |
 
 ## UI/UX
 
