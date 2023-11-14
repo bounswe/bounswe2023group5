@@ -11,7 +11,7 @@ import { getTags } from "../../Services/tags";
 
 function Games() {
   const [filters, setFilters] = useState<any>({
-    playerType: [],
+    playerTypes: [],
     genre: [],
     production: "",
     platform: [],
@@ -28,10 +28,22 @@ function Games() {
 
   const { data: tags } = useQuery(["tags"], getTags);
 
-  const onChange = (filterKey: string, value: string) => {
-    setFilters((filters: any) => {
-      return { ...filters, [filterKey]: value };
-    });
+  const onChange = (filterKey: string, value: string[] | string) => {
+    if (Array.isArray(value)) {
+      const tagIds: string[] = [];
+      for (const val of value) {
+        tagIds.push(tags.find((tag: any) => tag.name === val).id);
+      }
+      setFilters((filters: any) => {
+        return { ...filters, [filterKey]: tagIds };
+      });
+    } else {
+      let tagId: string = "";
+      tagId = tags.find((tag: any) => tag.name === value).id;
+      setFilters((filters: any) => {
+        return { ...filters, [filterKey]: tagId };
+      });
+    }
   };
 
   return (
@@ -59,7 +71,7 @@ function Games() {
                 ?.filter(
                   (tag: { tagType: string }) => tag.tagType === "PLAYER_TYPE"
                 )
-                .map((elem: { name: any }) => elem.name)}
+                .map((elem: { name: string }) => elem.name)}
               reset={false}
               onChange={onChange}
             ></MultipleSelect>
@@ -68,7 +80,7 @@ function Games() {
               filterKey="genre"
               elements={tags
                 ?.filter((tag: { tagType: string }) => tag.tagType === "GENRE")
-                .map((elem: { name: any }) => elem.name)}
+                .map((elem: { name: string }) => elem.name)}
               reset={false}
               onChange={onChange}
             ></MultipleSelect>
@@ -79,7 +91,7 @@ function Games() {
                 ?.filter(
                   (tag: { tagType: string }) => tag.tagType === "PRODUCTION"
                 )
-                .map((elem: { name: any }) => elem.name)}
+                .map((elem: { name: string }) => elem.name)}
               reset={false}
               onChange={onChange}
             ></SingleSelect>
@@ -90,7 +102,7 @@ function Games() {
                 ?.filter(
                   (tag: { tagType: string }) => tag.tagType === "PLATFORM"
                 )
-                .map((elem: { name: any }) => elem.name)}
+                .map((elem: { name: string }) => elem.name)}
               reset={false}
               onChange={onChange}
             ></MultipleSelect>
@@ -101,7 +113,7 @@ function Games() {
                 ?.filter(
                   (tag: { tagType: string }) => tag.tagType === "ART_STYLE"
                 )
-                .map((elem: { name: any }) => elem.name)}
+                .map((elem: { name: string }) => elem.name)}
               reset={false}
               onChange={onChange}
             ></MultipleSelect>
