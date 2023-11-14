@@ -18,7 +18,7 @@ public class GameDetails : MonoBehaviour
     [SerializeField] private Button forumButton;
     [SerializeField] private GameObject summaryManager;
     [SerializeField] private ReviewsManager reviewsManager;
-    [SerializeField] private ForumManager forumManager;
+    [SerializeField] private ForumScreen forumManager;
     [SerializeField] private Button exitButton;
     private string gameId;
     
@@ -108,7 +108,7 @@ public class GameDetails : MonoBehaviour
         summaryManager.gameObject.SetActive(false);
         reviewsManager.gameObject.SetActive(false);
         forumManager.gameObject.SetActive(true);
-        forumManager.Inıt(forum);
+        forumManager.ListForumPosts(forum);
     }
     
 
