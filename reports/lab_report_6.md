@@ -83,6 +83,10 @@ This week, all teams primarily focused on enhancing communication components of 
 | Review And Edit Controller Scripts - MOBILE | [#708](https://github.com/bounswe/bounswe2023group5/issues/708) | Said Yolcu | 16.11.2023 | 2hrs |
 | Create Request Functions For Game Controller Endpoints - MOBILE | [#709](https://github.com/bounswe/bounswe2023group5/issues/709) | Said Yolcu | 19.11.2023 | 3hrs |
 | Create Request Functions For Tag Controller Endpoints - MOBILE | [#710](https://github.com/bounswe/bounswe2023group5/issues/710) | Said Yolcu | 18.11.2023 | 3hrs |
+| Group Creation Functionality Implementation - MOBILE | [#711](https://github.com/bounswe/bounswe2023group5/issues/711) | Bilal Atım | 22.11.2023 | 4 hrs|
+| Create Request Functions For Post Controller Endpoints - MOBILE | [#712](https://github.com/bounswe/bounswe2023group5/issues/712) | Bilal Atım | 17.11.2023 | 3 hrs|
+| Create Request Functions For Review Controller Endpoints - MOBILE | [#715](https://github.com/bounswe/bounswe2023group5/issues/715) | Bilal Atım | 18.112023 | 3 hrs|
+| Fix Errors and Bugs in Authontications Pages - MOBILE| [#716](https://github.com/bounswe/bounswe2023group5/issues/716) | Bilal Atım | 16.11.2023 | 2 hrs|
 
 ## UI/UX
 
