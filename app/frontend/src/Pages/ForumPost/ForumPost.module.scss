@@ -1,0 +1,20 @@
+@import "../../colors";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 2.5em;
+
+  .postContainer {
+    display: grid;
+    grid-template-rows: 50px 1fr;
+    border-radius: 0.5em;
+    padding: 1em;
+    background-color: $celadon;
+    .title {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+  }
+}

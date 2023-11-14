@@ -16,7 +16,7 @@ public class GameReview : MonoBehaviour
     private string gameID;
     
 
-    public void Init(ReviewGetAllResponse reviewInfo)
+    public void Init(ReviewResponse reviewInfo)
     {
         userNameText.text = reviewInfo.reviewedUser;
         reviewDescriptionText.text = reviewInfo.reviewDescription;

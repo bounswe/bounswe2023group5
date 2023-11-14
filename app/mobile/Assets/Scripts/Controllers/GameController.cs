@@ -23,6 +23,34 @@ public class GameListEntry
     public string gameIcon;
 }
 
+public class CreateGameRequest
+{
+    public string gameName;
+    public string gameDescription;
+    public string gameIcon;
+    public string releaseDate;
+    public string[] playerTypes;
+    public string[] genre;
+    public string production;
+    public string[] platforms;
+    public string[] artStyles;
+    public string developer;
+    public string[] otherTags;
+    public string minSystemReq;
+}
+
+public class GameAddTagRequest
+{
+    public string gameId;
+    public string tagId;
+}
+
+public class GameAddTagResponse
+{
+    public string gameId;
+    public AddedTag addedTag;
+}
+
 public class GetGameRequest
 {
     public string gameId;
@@ -45,14 +73,14 @@ public class GameDetail
     public string ratingCount;
     public string releaseDate;
     public string forum;
-    public List<string> playerTypes;
-    public List<string> genre;
+    public string[] playerTypes;
+    public string[] genre;
     public string production;
     public string duration;
-    public List<string> platforms;
-    public List<string> artStyles;
+    public string[] platforms;
+    public string[] artStyles;
     public string developer;
-    public List<string> otherTags;
+    public string[] otherTags;
     public string minSystemReq;
 }
 
@@ -63,26 +91,14 @@ public class GetAllTagsRequest
 
 public class GetAllTagsResponse
 {
-    public List<AddedTag> playerTypes;
-    public List<AddedTag> genre;
-    public AddedTag production;
-    public AddedTag duration;
-    public List<AddedTag> platforms;
-    public List<AddedTag> artStyles;
-    public AddedTag developer;
-    public List<AddedTag> otherTags;
-}
-
-public class GameAddTagRequest
-{
-    public string gameId;
-    public string tagId;
-}
-
-public class GameAddTagResponse
-{
-    public string gameId;
-    public AddedTag addedTag;
+    public string[] playerTypes;
+    public string[]  genre;
+    public string production;
+    public string duration;
+    public string[] platforms;
+    public string[] artStyles;
+    public string developer;
+    public string[] otherTags;
 }
 
 public class AddedTag

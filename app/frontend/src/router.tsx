@@ -8,11 +8,14 @@ import Register from "./Pages/Register/Register";
 import GameDetails from "./Pages/GameDetails/GameDetails";
 import axios from "axios";
 import Games from "./Pages/Games/Games";
+import ForumPostForm from "./Pages/ForumPostForm/ForumPostForm";
+import ForumPost from "./Pages/ForumPost/ForumPost";
 import { default as AdminMain } from "./Pages/Admin/Main/Main";
 import CreateTag from "./Pages/Admin/Tag/CreateTag/CreateTag";
 import UpdateTag from "./Pages/Admin/Tag/UpdateTag/UpdateTag";
 import CreateGame from "./Pages/Admin/Game/CreateGame/CreateGame";
 import DeleteTag from "./Pages/Admin/Tag/DeleteTag/DeleteTag";
+
 
 axios.defaults.headers.common["Content-Type"] = "application/json";
 
@@ -32,8 +35,21 @@ const router = createBrowserRouter([
         element: <HelloWorld />,
       },
       {
-        path: "/game/:gameId",
+        path: "game/:gameId",
         element: <GameDetails />,
+      },
+      {
+        path: "forum",
+        children: [
+          {
+            path: "form",
+            element: <ForumPostForm />,
+          },
+          {
+            path: "detail/:postId",
+            element: <ForumPost />,
+          },
+        ],
       },
       {
         path: "games",
