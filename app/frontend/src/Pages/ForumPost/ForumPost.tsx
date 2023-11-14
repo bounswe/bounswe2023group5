@@ -26,6 +26,7 @@ function ForumPost() {
       
       <div className={styles.title}>Comments</div>
       {!isLoadingComments && (comments.map((comment:any) => ( 
+        !comment.isDeleted &&
         <Comment comment={comment} postId={postId!} key={comment.id}/>
       )))}
 

@@ -44,3 +44,10 @@ export const getCommentList = async ({
     return response.data;
   };
   
+  export async function deleteComment(id: string) {
+    await axios.delete(`${import.meta.env.VITE_APP_API_URL}/comment/delete`, {
+         params: {
+             id
+         }
+     });
+ }
