@@ -75,6 +75,9 @@ This week, all teams primarily focused on enhancing communication components of 
 | Group Moderation Implementation-BE                             | [#705](https://github.com/bounswe/bounswe2023group5/issues/705) | Zeynep Baydemir | 21.11.2023 | 3 hr               |
 | Join-Leave Group Implementation-BE                             | [#704](https://github.com/bounswe/bounswe2023group5/issues/704) | Zeynep Baydemir | 21.11.2023 | 3 hr               |
 | Admin Permissions In Post Comments                             | [#706](https://github.com/bounswe/bounswe2023group5/issues/706) | Zeynep Baydemir | 21.11.2023 | 1 hr               |
+| Create Group Endpoint Implementation - BE                             | [#696](https://github.com/bounswe/bounswe2023group5/issues/696) | Can Uzduran | 21.11.2023 | 2 hr               |
+| Group Model Creation and Necessary Retrieving Endpoints (Filter, Search, Sort, Get Details)                             | [#697](https://github.com/bounswe/bounswe2023group5/issues/697) | Can Uzduran | 21.11.2023 | 3 hr               |
+| Edit and Delete Functionalities for Group - BE                           | [#714](https://github.com/bounswe/bounswe2023group5/issues/714) | Can Uzduran | 21.11.2023 | 2 hr               |
 | Restructuring Project Folder Layout - MOBILE                             | [#699](https://github.com/bounswe/bounswe2023group5/issues/699) | Ege Ekşi | 21.11.2023 | 1 hr               |
 | Finalizing Endpoint Connections for Comment Functionality - MOBILE                             | [#700](https://github.com/bounswe/bounswe2023group5/issues/700) | Ege Ekşi | 21.11.2023 | 2 hr     
 | Verifying and Implementing Remaining Endpoint Connections for User Controller - MOBILE                             | [#701](https://github.com/bounswe/bounswe2023group5/issues/701) | Ege Ekşi | 21.11.2023 | 2 hr     
