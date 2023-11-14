@@ -47,8 +47,21 @@ This week, all teams primarily focused on enhancing communication components of 
 
 ## Your plans for the next week
 
-| Description                                      | Issue                                                           | Assignee   | Due        | Estimated Duration |
-| ------------------------------------------------ | --------------------------------------------------------------- | ---------- | ---------- | ------------------ |
-| Admin Frontend Additions for Necessary Pages     | [#623](https://github.com/bounswe/bounswe2023group5/issues/623) | Arda       | 21.11.2023 | 2 hrs              |
-| Implementing CI/CD for Frontend                  | [#624](https://github.com/bounswe/bounswe2023group5/issues/624) | Ali        | 21.11.2023 | 1 hh               |
-| Admin Control Panel Page Implementation - MOBILE | [#637](https://github.com/bounswe/bounswe2023group5/issues/637) | Said Yolcu | 21.11.2023 | 3 hrs              |
+| Description                                                    | Issue                                                           | Assignee       | Due        | Estimated Duration |
+| -------------------------------------------------------------- | --------------------------------------------------------------- | -------------- | ---------- | ------------------ |
+| Admin Frontend Additions for Necessary Pages                   | [#623](https://github.com/bounswe/bounswe2023group5/issues/623) | Arda Kabadayı  | 21.11.2023 | 2 hrs              |
+| Implementing CI/CD for Frontend                                | [#624](https://github.com/bounswe/bounswe2023group5/issues/624) | Ali Başaran    | 21.11.2023 | 1 hr               |
+| Admin Control Panel Page Implementation - MOBILE               | [#637](https://github.com/bounswe/bounswe2023group5/issues/637) | Said Yolcu     | 21.11.2023 | 3 hrs              |
+| Groups Web Page Implementation                                 | [#681](https://github.com/bounswe/bounswe2023group5/issues/681) | Çisel Zümbül   | 21.11.2023 | 4 hrs              |
+| Implementing Group Creation Web Page                           | [#682](https://github.com/bounswe/bounswe2023group5/issues/682) | Ali Başaran    | 20.11.2023 | 1 hr               |
+| Implementing Group Moderation Frontend Additions               | [#683](https://github.com/bounswe/bounswe2023group5/issues/683) | Arda Kabadayı  | 21.11.2023 | 1 hr               |
+| Researching Annotations For Frontend                           | [#684](https://github.com/bounswe/bounswe2023group5/issues/684) | Frontend Team  | 21.11.2023 | 8hr                |
+| Adding New Functionalities to Admin Page                       | [#686](https://github.com/bounswe/bounswe2023group5/issues/686) | Arda Kabadayı  | 21.11.2023 | 3 hrs              |
+| Adding User Aggrement Chexbox to Register                      | [#689](https://github.com/bounswe/bounswe2023group5/issues/689) | Arda Kabadayı  | 21.11.2023 | 30 mins            |
+| Implementing Forum Post Comment Reply Component                | [#690](https://github.com/bounswe/bounswe2023group5/issues/690) | Ali Başaran    | 19.11.2023 | 3hrs               |
+| Implementing Filters And Sort of Reviews                       | [#692](https://github.com/bounswe/bounswe2023group5/issues/692) | Çisel Zümbül   | 20.11.2023 | 3 hrs              |
+| Implementing Filters, Search and Sort of Forum Posts           | [#695](https://github.com/bounswe/bounswe2023group5/issues/695) | Alperen Bırçak | 20.11.2023 | 3 hrs              |
+| Implementing Group Details Web Page                            | [#693](https://github.com/bounswe/bounswe2023group5/issues/693) | Alperen Bırçak | 21.11.2023 | 5 hrs              |
+| Adding Game Image Upload Functionality to Game Create Web Page | [#694](https://github.com/bounswe/bounswe2023group5/issues/694) | Arda Kabadayı  | 21.11.2023 | 1 hr               |
+| Implementing Review Reporting                                  | [#693](https://github.com/bounswe/bounswe2023group5/issues/693) | Çisel Zümbül   | 19.11.2023 | 1 hr               |
+| Implementing Post Reporting                                    | [#693](https://github.com/bounswe/bounswe2023group5/issues/693) | Alperen Bırçak | 19.11.2023 | 1 hr               |
