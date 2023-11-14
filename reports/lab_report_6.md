@@ -79,10 +79,10 @@ This week, all teams primarily focused on enhancing communication components of 
 | Finalizing Endpoint Connections for Comment Functionality - MOBILE                             | [#700](https://github.com/bounswe/bounswe2023group5/issues/700) | Ege Ekşi | 21.11.2023 | 2 hr     
 | Verifying and Implementing Remaining Endpoint Connections for User Controller - MOBILE                             | [#701](https://github.com/bounswe/bounswe2023group5/issues/701) | Ege Ekşi | 21.11.2023 | 2 hr     
 | Annotation Research - MOBILE                             | [#702](https://github.com/bounswe/bounswe2023group5/issues/702) | Ege Ekşi | 21.11.2023 | 2 hr   
-| Group Moderation Functionality Implementation - MOBILE | [#707](https://github.com/bounswe/bounswe2023group5/issues/707) | Said | 23.11.2023 | 5hrs |
-| Review And Edit Controller Scripts - MOBILE | [#708](https://github.com/bounswe/bounswe2023group5/issues/708) | Said | 16.11.2023 | 2hrs |
-| Create Request Functions For Game Controller Endpoints - MOBILE | [#709](https://github.com/bounswe/bounswe2023group5/issues/709) | Said | 19.11.2023 | 3hrs |
-| Create Request Functions For Tag Controller Endpoints - MOBILE | [#710](https://github.com/bounswe/bounswe2023group5/issues/710) | Said | 18.11.2023 | 3hrs |
+| Group Moderation Functionality Implementation - MOBILE | [#707](https://github.com/bounswe/bounswe2023group5/issues/707) | Said Yolcu | 23.11.2023 | 5hrs |
+| Review And Edit Controller Scripts - MOBILE | [#708](https://github.com/bounswe/bounswe2023group5/issues/708) | Said Yolcu | 16.11.2023 | 2hrs |
+| Create Request Functions For Game Controller Endpoints - MOBILE | [#709](https://github.com/bounswe/bounswe2023group5/issues/709) | Said Yolcu | 19.11.2023 | 3hrs |
+| Create Request Functions For Tag Controller Endpoints - MOBILE | [#710](https://github.com/bounswe/bounswe2023group5/issues/710) | Said Yolcu | 18.11.2023 | 3hrs |
 
 ## UI/UX
 
