@@ -19,7 +19,7 @@ This week, all teams primarily focused on enhancing communication components of 
 | Implementing Admin Functionality                                           | [#631](https://github.com/bounswe/bounswe2023group5/issues/631) | Zeynep Baydemir  | 14.11.23   |  [#660](https://github.com/bounswe/bounswe2023group5/pull/660), [#664](https://github.com/bounswe/bounswe2023group5/pull/664)   | 3 hr               | 2 hrs           | 
 | Implementing Forum Moderation Functionality                                | [#635](https://github.com/bounswe/bounswe2023group5/issues/635) | Zeynep Baydemir  | 14.11.23   |  [#663](https://github.com/bounswe/bounswe2023group5/pull/663)   | 3 hrs              | 3 hrs           | 
 | Implementing Password Hashing                                              | [#638](https://github.com/bounswe/bounswe2023group5/issues/638) | Zeynep Baydemir  | 14.11.23   |  [#657](https://github.com/bounswe/bounswe2023group5/pull/657), [#659](https://github.com/bounswe/bounswe2023group5/pull/659)   | 1.5 hr             | 1hr             |  
-| Implementing Forum Comment Functionality                                   | [#639](https://github.com/bounswe/bounswe2023group5/issues/639) | Halis Bal        | 14.11.23   |     | 8 hrs              | 7hrs            |
+| Implementing Forum Comment Functionality                                   | [#639](https://github.com/bounswe/bounswe2023group5/issues/639) | Halis Bal        | 14.11.23   |  [#673](https://github.com/bounswe/bounswe2023group5/pull/673)   | 8 hrs              | 7hrs            |
 | Implementing Forum Post Functionality                                      | [#628](https://github.com/bounswe/bounswe2023group5/issues/628) | Deniz Ünal       | 14.11.23   | [#658](https://github.com/bounswe/bounswe2023group5/pull/658) | 8 hrs              | 9hrs            |
 | Forum Post Functionality Implementation - MOBILE                           | [#625](https://github.com/bounswe/bounswe2023group5/issues/625) | Bilal Atım       | 12.11.2023 |  [#671](https://github.com/bounswe/bounswe2023group5/pull/671)   | 7 hr               | 7hr 30mins      |
 | Review Functionality Implementation - MOBILE                               | [#622](https://github.com/bounswe/bounswe2023group5/issues/622) | Bilal Atım       | 11.11.2023 |  [#685](https://github.com/bounswe/bounswe2023group5/pull/685)   | 6 hr               | 5hrs50mins      |
@@ -87,6 +87,8 @@ This week, all teams primarily focused on enhancing communication components of 
 | Create Request Functions For Post Controller Endpoints - MOBILE | [#712](https://github.com/bounswe/bounswe2023group5/issues/712) | Bilal Atım | 17.11.2023 | 3 hrs|
 | Create Request Functions For Review Controller Endpoints - MOBILE | [#715](https://github.com/bounswe/bounswe2023group5/issues/715) | Bilal Atım | 18.112023 | 3 hrs|
 | Fix Errors and Bugs in Authontications Pages - MOBILE| [#716](https://github.com/bounswe/bounswe2023group5/issues/716) | Bilal Atım | 16.11.2023 | 2 hrs|
+| Implementing Application to a Private Group Feature| [#717](https://github.com/bounswe/bounswe2023group5/issues/717) | Halis Bal | 21.11.2023 | 6 hrs|
+
 
 ## UI/UX
 
