@@ -4,6 +4,7 @@ public class GameController
 {
 }
 
+// Response is a list of GameListEntry's
 public class GetGameListRequest
 {
     public bool findDeleted;
@@ -23,6 +24,8 @@ public class GameListEntry
     public string gameIcon;
 }
 
+// Also send Authorization as query parameter
+// Response is GameDetail
 public class CreateGameRequest
 {
     public string gameName;
@@ -48,13 +51,12 @@ public class GameAddTagRequest
 public class GameAddTagResponse
 {
     public string gameId;
-    public AddedTag addedTag;
+    public TagResponse addedTag;
 }
 
-public class GetGameRequest
-{
-    public string gameId;
-}
+// For GetGame request, send no body but only gameId
+// as a query parameter
+
 
 public class GetGameResponse
 {
@@ -84,10 +86,8 @@ public class GameDetail
     public string minSystemReq;
 }
 
-public class GetAllTagsRequest
-{
-    public string gameId;
-}
+// For GetAllTagsRequest send gameId as a query parameter
+
 
 public class GetAllTagsResponse
 {
@@ -101,13 +101,5 @@ public class GetAllTagsResponse
     public string[] otherTags;
 }
 
-public class AddedTag
-{
-    public string id;
-    public string createdAt;
-    public string isDeleted;
-    public string name;
-    public PlayerType tagType;
-    public string color;
-}
+
 

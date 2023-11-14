@@ -3,13 +3,20 @@
     
 }
 
+// Send the parameters below too:
+// Query parameters:
+// string id
+// Header parameters:
+// string Authorization
 public class ReviewUpdateRequest
 {
-    public string id;
     public string reviewDescription;
     public string rating;
 }
 
+// Send the parameters below too:
+// Header parameters:
+// string Authorization
 public class ReviewCreateRequest
 {
     public string reviewDescription;
@@ -23,42 +30,45 @@ public class ReviewCreateResponse
     public string createdAt;
     public bool isDeleted;
     public string reviewDescription;
-    public string rating;
+    public int rating;
     public string gameId;
     public string reviewedBy;
-    public string overallVote;
-    public string voteCount;
-    public string reportNum;
+    public int overallVote;
+    public int voteCount;
+    public int reportNum;
 }
 
-public class ReviewGetRequest
-{
-    public string id;
-}
+// For ReviewGetRequest, send no body, but send the parameters
+// below:
+// Query parameters:
+// string id;
+// Response is ReviewResponse
 
 
-public class ReviewGetAllRequest
-{
-    public string gameId;
-    public string reviewedBy;
-    public bool withDeleted;
-}
+
+// For ReviewGetAllRequest, send no body but the parameters 
+// below:
+// Query parameters:
+// string gameId, string reviewedBy, bool withDeleted
+// Response is an array of ReviewResponse's
 
 public class ReviewResponse
 {
     public string id;
     public string reviewDescription;
-    public string rating;
+    public int rating;
     public string gameId;
     public string reviewedUser;
-    public string overallVote;
-    public string reportNum;    
+    public int overallVote;
+    public int reportNum;    
     public string createdAt;
 }
 
-public class ReviewDeleteRequest
-{
-    public string id;
-}
+// For ReviewDeleteRequest, send no body but the parameters 
+// below:
+// Query parameters:
+// string id
+// Header parameters:
+// string Authorization
 
 

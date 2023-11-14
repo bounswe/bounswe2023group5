@@ -3,13 +3,20 @@
     
 }
 
+// Query parameters:
+// string id
+// Header parameters:
+// string Authorization
+// Response is PostResponse
 public class PostEditRequest
 {
-    public string id;
     public string title;
     public string postContent;
 }
 
+// Header parameters:
+// string Authorization
+// Response is PostResponse
 public class PostCreateRequest
 {
     public string title;
@@ -19,15 +26,11 @@ public class PostCreateRequest
     public string[] tags;
 }
 
-public class GetPostListRequest
-{
-    public bool findDeleted;
-    public string[] tags;
-    public string search;
-    public string forum;
-    public string sortBy;
-    public string sortDirection;
-}
+// For GetPostListRequest send no body. Only specify the parameters
+// below
+// Query parameters:
+// bool findDeleted, string[] tags, string search, string forum,
+// string sortBy, string sortDirection
 
 public class GetPostListResponse
 {
@@ -46,15 +49,22 @@ public class GetPostListResponse
     
 }
 
-public class GetPostDetailRequest
-{
-    public string id;
-}
+// For GetPostDetailRequest do not send a body but specify the
+// parameters below
+// Query parameters:
+// string id
+// Header parameters:
+// string Authorization
+// Response is PostResponse
 
-public class GetPostCommentsRequest
-{
-    public string id;
-}
+
+// For GetPostCommentsRequest send no body, but specify the
+// parameters below:
+// Query parameters:
+// string id
+// Header parameters:
+// string Authorization
+// Response is an array of GetPostCommentsResponse
 
 public class GetPostCommentsResponse
 {
@@ -65,16 +75,20 @@ public class GetPostCommentsResponse
     public string lastEditedAt;
     public string createdAt;
     public bool isEdited;
+    public bool isDeleted;
     public int overallVote;
     public int voteCount;
     public PostComment[] replies;
 
 }
 
-public class PostDeleteRequest
-{
-    public string id;
-}
+// For PostDeleteRequest, send no body but specify query
+// parameters below
+// Query parameters:
+// string id
+// Header parameters:
+// string Authorization
+// Response is PostResponse
 
 public class PostComment
 {
