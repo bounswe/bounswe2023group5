@@ -41,15 +41,18 @@ public class GameDetail
     public string gameName;
     public string gameDescription;
     public string gameIcon;
+    public string overallRating;
+    public string ratingCount;
     public string releaseDate;
-    public List<AddedTag> playerTypes;
-    public List<AddedTag> genre;
-    public AddedTag production;
-    public AddedTag duration;
-    public List<AddedTag> platforms;
-    public List<AddedTag> artStyles;
-    public AddedTag developer;
-    public List<AddedTag> otherTags;
+    public string forum;
+    public List<string> playerTypes;
+    public List<string> genre;
+    public string production;
+    public string duration;
+    public List<string> platforms;
+    public List<string> artStyles;
+    public string developer;
+    public List<string> otherTags;
     public string minSystemReq;
 }
 

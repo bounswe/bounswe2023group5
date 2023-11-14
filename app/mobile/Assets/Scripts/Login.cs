@@ -91,6 +91,8 @@ public class Login : MonoBehaviour
             });
             
         }
+        request.downloadHandler.Dispose();
+        request.uploadHandler.Dispose();
     }
 
     private void OnClickedForgetPassword()

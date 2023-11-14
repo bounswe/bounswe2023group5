@@ -55,6 +55,8 @@ public class ForgetPassword : MonoBehaviour
         {
             DisplayError("Error sending the reset password email.");
         }
+        request.downloadHandler.Dispose();
+        request.uploadHandler.Dispose();
     }
 
     private void OnClickedNavigateToLogin()
