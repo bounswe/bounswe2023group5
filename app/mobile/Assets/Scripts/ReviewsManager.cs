@@ -40,7 +40,7 @@ public class ReviewsManager : MonoBehaviour
         yield return request.SendWebRequest();
         var response = request.downloadHandler.text;
         Debug.Log(response);
-        var _reviewData = JsonConvert.DeserializeObject<ReviewGetAllResponse[]>(response);
+        var _reviewData = JsonConvert.DeserializeObject<ReviewResponse[]>(response);
         if (request.responseCode != 200 || _reviewData == null)
         {
             Debug.Log("error");
