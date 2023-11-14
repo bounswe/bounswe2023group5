@@ -65,3 +65,34 @@ This week, all teams primarily focused on enhancing communication components of 
 | Adding Game Image Upload Functionality to Game Create Web Page | [#694](https://github.com/bounswe/bounswe2023group5/issues/694) | Arda Kabadayı  | 21.11.2023 | 1 hr               |
 | Implementing Review Reporting                                  | [#693](https://github.com/bounswe/bounswe2023group5/issues/693) | Çisel Zümbül   | 19.11.2023 | 1 hr               |
 | Implementing Post Reporting                                    | [#693](https://github.com/bounswe/bounswe2023group5/issues/693) | Alperen Bırçak | 19.11.2023 | 1 hr               |
+
+## UI/UX
+
+### Things we've implemented
+
+- Hamburger side-bar for easy accessing the customized elements
+- Forgot passsword email verification
+- Expandable comment replies
+
+### Thing we'd implemented
+
+- 3D avatars
+- Special editor to add annotations easily
+
+## Risks
+
+- Not being able to complete all of the issues planned for the week.
+
+## Participants
+
+- Ali Başaran
+- Arda Kabadayı
+- Bilal Atım
+- Can Uzduran
+- Çisel Zümbül
+- Deniz Ünal
+- Ege Ekşi
+- Halis Bal
+- Harun Sami Çelik
+- Mehmet Said Yolcu
+- Zeynep Baydemir
