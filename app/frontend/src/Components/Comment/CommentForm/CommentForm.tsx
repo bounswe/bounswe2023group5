@@ -1,11 +1,13 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styles from "./CommentForm.module.scss";
 import { Button, Form, Input } from "antd";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { createComment } from "../../../Services/comment";
 
 function CommentForm() {
   const postId = useParams();
+  const [form] = Form.useForm();
+  const queryClient = useQueryClient();
 
   const { mutate: addComment, isLoading } = useMutation(
     ({  commentContent }: {  commentContent: string }) =>
@@ -13,20 +15,29 @@ function CommentForm() {
       createComment({  post: postId.postId!, commentContent }),
     {
       onSuccess() {
-        alert("Comment is added successfully!");
+        queryClient.invalidateQueries(["comments", postId]);
+        
       },
+      onMutate(comment: any) {
+        queryClient.setQueryData(["comments", postId], (prev: any) => [
+          comment,
+          prev,
+        ]);
+        
+      },
+      
     }
   );
 
   return (
     <div className={styles.container}>
-      <Form onFinish={addComment}>
+      <Form form={form} onFinish={addComment}>
         <Form.Item
           name="commentContent"
           rules={[{ required: true, message: "Please enter a comment" }]}
         >
           <Input.TextArea
-            rows={2}
+            rows={1}
             placeholder="Comment under construction... 🚧"
           />
         </Form.Item>

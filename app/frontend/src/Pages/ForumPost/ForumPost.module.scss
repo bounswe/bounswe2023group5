@@ -12,9 +12,16 @@
     border-radius: 0.5em;
     padding: 1em;
     background-color: $celadon;
+      margin: 0.5em;
+
     .title {
       font-size: 1.5em;
       font-weight: bold;
     }
+  }
+  .title {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 0.4em;
   }
 }
