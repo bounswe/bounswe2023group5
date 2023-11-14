@@ -364,6 +364,7 @@ MonoBehaviour:
   lastEditedAt: {fileID: 2118135838967527145}
   overallVote: {fileID: 5834398186108893806}
   tags: {fileID: 2118135838575496079}
+  userName: {fileID: 2118135838328443308}
 --- !u!1 &2118135838575496065
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,6 +14,7 @@ public class ForumPage : MonoBehaviour
     [SerializeField] private TMP_Text lastEditedAt;
     [SerializeField] private TMP_Text overallVote;
     [SerializeField] private TMP_Text tags;
+    [SerializeField] private TMP_Text userName;
     // [SerializeField] private Button gameDetailsButton;
     private CanvasManager canvasManager;
 
@@ -32,7 +33,9 @@ public class ForumPage : MonoBehaviour
         postContent.text = postInfo.postContent;
         lastEditedAt.text = postInfo.lastEditedAt;
         overallVote.text = Convert.ToString(postInfo.overallVote);
+        userName.text = postInfo.poster.username;
 
+        tags.text = "";
         foreach (var tag in postInfo.tags)
         {
             tags.text =  tags.text + tag + " ";

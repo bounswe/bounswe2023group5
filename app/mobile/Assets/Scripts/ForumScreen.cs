@@ -20,13 +20,15 @@ public class ForumScreen : MonoBehaviour
 
     private void OnEnable()
     {
-        ListForumPosts();
+        ListForumPosts("b4036d6f-0e69-4df3-a935-a84750dc2bcd");
     }
 
 
-    private void ListForumPosts()
+    private void ListForumPosts(string forumId)
     {
-        string url = AppVariables.HttpServerUrl + "/post/get-post-list";
+        string url = AppVariables.HttpServerUrl + "/post/get-post-list?forum="
+                                                + forumId +"&sortBy=CREATION_DATE"+
+                                                "&sortDirection=ASCENDING";
         var forumRequestData = new GetForumRequest();
         string bodyJsonString = JsonConvert.SerializeObject(forumRequestData);
         StartCoroutine(Get(url));

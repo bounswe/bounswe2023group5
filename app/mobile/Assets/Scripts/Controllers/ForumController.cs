@@ -15,7 +15,7 @@ public class PostListEntry
     public string id;
     public string title;
     public string postContent;
-    public string poster;
+    public Poster poster;
     public string lastEditedAt;
     public string createdAt;
     public bool isEdited;
@@ -23,4 +23,18 @@ public class PostListEntry
     public bool inappropriate;
     public int overallVote;
     public int voteCount;
+}
+
+public class Poster
+{
+
+    public string id;
+    public string createdAt;
+    public bool isDeleted;
+    public string username;
+    public string password;
+    public string email;
+    public string role;
+    public bool isVerified;
+    public bool verified;
 }
