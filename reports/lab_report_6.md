@@ -1,7 +1,8 @@
 # Project Development Weekly Progress Report
 
 **Team Name:** Video Game Community Platform - Group 5
-**Date:** 07.11.2023
+
+**Date:** 14.11.2023
 
 ## Progress Summary
 
