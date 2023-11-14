@@ -6,6 +6,7 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { getGame } from "../../Services/gamedetail";
 import { useQuery } from "react-query";
 import { PacmanLoader } from "react-spinners";
+import Reviews from "../../Components/GameDetails/Review/Reviews";
 import Forum from "../../Components/Forum/Forum";
 import { formatDate } from "../../Library/utils/formatDate";
 
@@ -23,7 +24,7 @@ function GameDetails() {
     (searchParams.get("subPage") as any) ?? "summary"
   );
 
-  const date = new Date();
+  const date = data?.releaseDate;
   return (
     <div className={styles.container}>
       {isLoading ? (
@@ -81,7 +82,7 @@ function GameDetails() {
                   <>No forum on this game.</>
                 )
               ) : (
-                <></>
+                <Reviews gameId={data.id} />
               )}
             </div>
           )}

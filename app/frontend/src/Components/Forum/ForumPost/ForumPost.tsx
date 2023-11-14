@@ -5,6 +5,8 @@ import { DeleteFilled } from "@ant-design/icons";
 import { useMutation } from "react-query";
 import { deletePost } from "../../../Services/forum";
 import { useAuth } from "../../Hooks/useAuth";
+import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
+import { useVote } from "../../Hooks/useVote";
 
 function ForumPost({ post }: { post: any }) {
   const { user } = useAuth();
@@ -22,9 +24,25 @@ function ForumPost({ post }: { post: any }) {
   const handleDelete = () => {
     deletePostMutation.mutate(post.id);
   };
+
+function ForumPost({ post, forumId }: { post: any; forumId: string }) {
+  const { upvote, downvote } = useVote({
+    voteType: "POST",
+    typeId: post.id,
+    invalidateKey: ["forum", forumId],
+  });
   return (
     <div className={styles.container}>
-      <div className={styles.titleContainer}>
+      <div className={styles.vote}>
+        <button type="button" onClick={upvote}>
+          <ArrowUpOutlined />
+        </button>
+        <div>{post.overallVote}</div>
+        <button type="button" onClick={downvote}>
+          <ArrowDownOutlined />
+        </button>
+      </div>
+       <div className={styles.titleContainer}>
         <div className={styles.title}>{post.title}</div>
         {isAdmin && (
           <DeleteFilled style={{ color: "red" }} onClick={handleDelete} />

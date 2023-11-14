@@ -34,7 +34,7 @@ function Forum({
       </div>
       <div className={styles.posts}>
         {posts?.map((post: any) => (
-          <ForumPost key={post.id} post={post} />
+          <ForumPost key={post.id} post={post} forumId={forumId} />
         ))}
       </div>
     </div>

@@ -1,0 +1,114 @@
+@import "../../../colors";
+
+
+.review-input-container {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    color: $color-text-light ;
+    background-color: $blue-green;
+    border-radius: 0.5em;
+    margin: 5px 5px 5px 5px;
+    overflow: hidden;
+    padding: 5px;
+    gap: 5px;
+    justify-content: center;
+
+    .header {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        margin: 5px 0px 0px 10px;
+        font-size: 18px;
+    }
+
+    .content-input {
+        background-color: $prussian-blue-dark-10 !important;
+        flex: 4;
+        width: 100%;
+        border-radius: 0.5em;
+        padding: 5px;
+        font-size: 13px;
+    }
+
+    .button {
+        color: $celadon;
+    }
+}
+
+.reviews-subpage-container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+.review-container {
+    display: flex;
+    flex-shrink: 0;
+    width: min-content;
+    min-width: 350px;
+    background-color: $prussian-blue-dark-40;
+    border-radius: 0.5em;
+    margin: 5px 5px 5px 5px;
+    overflow: hidden;
+    
+    .vote {
+        display: flex;
+        flex-direction: column;
+        background-color: $celadon-light-10;
+        padding: 10px;
+        align-items: center;
+        gap: 5px;
+        color: $color-text;
+        width: 60px;
+        justify-content: center;
+    }
+
+    .review {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px; 
+        color: $color-text-light;
+        gap: 5px;
+        justify-content: space-between;
+        flex: 1;
+        .header {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 100px;
+            .user {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .buttons {
+                display: flex;
+                justify-self: flex-end;
+            }
+        }
+        .date {
+            font-size: 10px;
+            align-self: flex-start;
+        }
+        .stars {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2px;
+            color: $yellow;
+            align-self: flex-end;
+        }
+
+        .content {
+            background-color: $prussian-blue-dark-10 !important;
+            flex: 4;
+            width: 100%;
+            border-radius: 0.5em;
+            padding: 5px;
+            font-size: 13px;
+        }
+    }
+    
+}

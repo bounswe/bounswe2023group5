@@ -5,25 +5,47 @@
   padding: 1em;
   background-color: $celadon;
   border-radius: 0.5em;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  display: grid;
   gap: 0.5em;
   .titleContainer {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 0.5rem;
+  grid-template-areas:
+    "v t"
+    "v m";
+  grid-template-rows: 50px 25px;
+  grid-template-columns: 25px 1fr;
+  .vote {
+    grid-area: v;
+    grid-template-rows: repeat(3, 1fr);
+    justify-items: center;
+    align-items: center;
+    display: grid;
+    color: $orange;
+
+    button {
+      all: unset;
+      cursor: pointer;
+      color: $orange-dark-40;
+
+      .active {
+        color: $orange;
+      }
+    }
   }
   .title {
     font-weight: bold;
     font-size: 1.2em;
+    grid-area: t;
   }
   .meta {
     display: flex;
     gap: 1em;
     font-size: 0.8em;
     opacity: 80%;
+    grid-area: m;
   }
   .readMore {
     position: absolute;
