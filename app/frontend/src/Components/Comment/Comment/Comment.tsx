@@ -15,7 +15,7 @@ function Comment({ comment, postId }: { comment: any; postId: string }) {
   const { upvote, downvote } = useVote({
     voteType: "COMMENT",
     typeId: comment.id,
-    invalidateKey: ["post", postId],
+    invalidateKey: ["comments", postId],
   });
 
   const { user } = useAuth();
@@ -25,10 +25,10 @@ function Comment({ comment, postId }: { comment: any; postId: string }) {
     (id: string) => deleteComment(id),
     {
       onSuccess() {
-        queryClient.invalidateQueries(["comments", comment.postId]);
+        queryClient.invalidateQueries(["comments", postId]);
       },
       onMutate(id: string) {
-        queryClient.setQueriesData(["comments", comment.postId], (prev: any) => {
+        queryClient.setQueriesData(["comments", postId], (prev: any) => {
           return prev?.filter((comment: any) => id !== comment.id);
         });
       },

@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styles from "./CommentForm.module.scss";
 import { Button, Form, Input } from "antd";
 import { useMutation, useQueryClient } from "react-query";
@@ -10,20 +10,17 @@ function CommentForm() {
   const queryClient = useQueryClient();
 
   const { mutate: addComment, isLoading } = useMutation(
-    ({  commentContent }: {  commentContent: string }) =>
-      
+    ({  commentContent }: {  commentContent: string }) => 
       createComment({  post: postId.postId!, commentContent }),
     {
       onSuccess() {
-        queryClient.invalidateQueries(["comments", postId]);
+        queryClient.invalidateQueries(["comments", postId.postId]);
         
       },
       onMutate(comment: any) {
-        queryClient.setQueryData(["comments", postId], (prev: any) => [
-          comment,
-          prev,
-        ]);
-        
+        queryClient.setQueryData(["comments", postId.postId], (prev: any) => {
+          return prev?.filter((comments: any) => comment.id !== comments.id);
+        })
       },
       
     }
