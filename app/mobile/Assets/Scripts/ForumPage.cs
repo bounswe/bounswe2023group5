@@ -24,7 +24,7 @@ public class ForumPage : MonoBehaviour
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
     }
 
-    public void Init(PostListEntry postInfo)
+    public void Init(GetPostListResponse postInfo)
     {
         string url = "http://ec2-16-16-166-22.eu-north-1.compute.amazonaws.com/";
         // StartCoroutine(LoadImageFromURL(url + gameInfo.gameIcon, gameImage));

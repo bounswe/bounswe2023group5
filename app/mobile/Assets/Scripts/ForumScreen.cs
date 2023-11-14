@@ -20,16 +20,16 @@ public class ForumScreen : MonoBehaviour
 
     private void OnEnable()
     {
-        ListForumPosts("b4036d6f-0e69-4df3-a935-a84750dc2bcd");
+        // ListForumPosts("b4036d6f-0e69-4df3-a935-a84750dc2bcd");
     }
 
 
-    private void ListForumPosts(string forumId)
+    public void ListForumPosts(string forumId)
     {
         string url = AppVariables.HttpServerUrl + "/post/get-post-list?forum="
                                                 + forumId +"&sortBy=CREATION_DATE"+
                                                 "&sortDirection=ASCENDING";
-        var forumRequestData = new GetForumRequest();
+        var forumRequestData = new GetPostListRequest();
         string bodyJsonString = JsonConvert.SerializeObject(forumRequestData);
         StartCoroutine(Get(url));
     }
@@ -44,7 +44,7 @@ public class ForumScreen : MonoBehaviour
         yield return request.SendWebRequest();
         var response = request.downloadHandler.text;
         Debug.Log(response);
-        var _forumData = JsonConvert.DeserializeObject<PostListEntry[]>(response);
+        var _forumData = JsonConvert.DeserializeObject<GetPostListResponse[]>(response);
         if (request.responseCode != 200 || _forumData == null)
         {
             Debug.Log("error");

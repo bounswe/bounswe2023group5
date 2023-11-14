@@ -830,10 +830,13 @@ MonoBehaviour:
   summaryButton: {fileID: 1785689345845183516}
   reviewsButton: {fileID: 8580559191335013712}
   forumButton: {fileID: 8580559191512452021}
-  summaryManager: {fileID: 8274770874207487193}
+  summaryManager: {fileID: 6523252292595790896}
   reviewsManager: {fileID: 7567187849886917222}
   forumManager: {fileID: 6918450709577564822}
   exitButton: {fileID: 8618792654162021669}
+  gameImage: {fileID: 8557401434490320188}
+  headingText: {fileID: 1785689345816748673}
+  bottomText: {fileID: 1785689346635429365}
 --- !u!1 &3322075522197425738
 GameObject:
   m_ObjectHideFlags: 0
@@ -1383,9 +1386,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 656c8dc25a55e68438871181850fd062, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameImage: {fileID: 8557401434490320188}
-  headingText: {fileID: 1785689345816748673}
-  bottomText: {fileID: 1785689346635429365}
 --- !u!1 &6618691057451061482
 GameObject:
   m_ObjectHideFlags: 0
@@ -1512,9 +1512,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8255130371942184857}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c09bfa80e02ca24784728a0f5868515, type: 3}
+  m_Script: {fileID: 11500000, guid: 600be5d505c34b2cfb1e4bf1a7551762, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forumPageParent: {fileID: 3174394764014732961}
 --- !u!1 &9096608093222309021
 GameObject:
   m_ObjectHideFlags: 0
