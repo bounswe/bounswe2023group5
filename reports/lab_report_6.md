@@ -1,0 +1,54 @@
+# Project Development Weekly Progress Report
+
+**Team Name:** Video Game Community Platform - Group 5
+**Date:** 07.11.2023
+
+## Progress Summary
+
+This week, all teams primarily focused on enhancing communication components of the platform, such as the review, forum, and comments features. We have largely completed the forum, reviews, and comments sections. As a team, we simplemented the basic functionality for forum, review, and comment posting, and their respective pages are now finalized with established and operational backend connections. Edit and delete functionalities have been incorporated for reviews, posts, and comments. Additionally, a voting feature has been added to both reviews and forums. Furthermore, this week we've started incorparating admin and moderation functionalities into the relevant components, implemented game creation feature. Some visual enhancements for these components and additional features like sorting, filtering, and comment replies will be planned for the next week. The backend team has successfully established an automated CI/CD process. The frontend team will work on the implementation of automated CI/CD next week. In addition to these, all teams will work on mainly on groups feature of the platform next week.
+
+## What was planned for the week? How did it go?
+
+| Description                                                                | Issue                                                           | Assignee         | Due        | PR  | Estimated Duration | Actual Duration |
+| -------------------------------------------------------------------------- | --------------------------------------------------------------- | ---------------- | ---------- | --- | ------------------ | --------------- |
+| Implementing Review Feature Backend                                        | [#640](https://github.com/bounswe/bounswe2023group5/issues/640) | Can Uzduran      | 14.11.23   |     | 4 hrs              | 4 hrs           |
+| Documentation of Completed Endpoints                                       | [#641](https://github.com/bounswe/bounswe2023group5/issues/641) | Can Uzduran      | 14.11.23   |     | 4 hrs              | 30mins          |
+| Implementing Vote Feature Backend                                          | [#642](https://github.com/bounswe/bounswe2023group5/issues/642) | Can Uzduran      | 14.11.23   |     |  3 hrs             | 4hrs            |
+| Writing validations for data transfer objects and necessary fields Backend | [#643](https://github.com/bounswe/bounswe2023group5/issues/643) | Can Uzduran      | 14.11.23   |     | 3 hr               | 1hr30mins       |
+| Implementing Admin Functionality                                           | [#631](https://github.com/bounswe/bounswe2023group5/issues/631) | Zeynep Baydemir  | 14.11.23   |     | 3 hr               | 2 hrs           |
+| Implementing Forum Moderation Functionality                                | [#635](https://github.com/bounswe/bounswe2023group5/issues/635) | Zeynep Baydemir  | 14.11.23   |     | 3 hrs              | 3 hrs           |
+| Implementing Password Hashing                                              | [#638](https://github.com/bounswe/bounswe2023group5/issues/638) | Zeynep Baydemir  | 14.11.23   |     | 1.5 hr             | 1hr             |
+| Implementing Forum Comment Functionality                                   | [#639](https://github.com/bounswe/bounswe2023group5/issues/639) | Halis Bal        | 14.11.23   |     | 8 hrs              | 7hrs            |
+| Implementing Forum Post Functionality                                      | [#628](https://github.com/bounswe/bounswe2023group5/issues/628) | Deniz Ünal       | 14.11.23   |     | 8 hrs              | 9hrs            |
+| Forum Post Functionality Implementation - MOBILE                           | [#625](https://github.com/bounswe/bounswe2023group5/issues/625) | Bilal Atım       | 12.11.2023 |     | 7 hr               | 7hr 30mins      |
+| Review Functionality Implementation - MOBILE                               | [#622](https://github.com/bounswe/bounswe2023group5/issues/622) | Bilal Atım       | 11.11.2023 |     | 6 hr               | 5hrs50mins      |
+| Forum Comment Functionality Implementation - MOBILE                        | [#648](https://github.com/bounswe/bounswe2023group5/issues/648) | Ege Ekşi         | 14.11.2023 |     | 3 hr               | 3hr30mins       |
+| Forum Moderation Functionality Implementation - MOBILE                     | [#651](https://github.com/bounswe/bounswe2023group5/issues/651) | Harun Sami Çelik | 14.11.2023 |     | 3hrs               | 3hr30mins       |
+| Forum Page Implementation - MOBILE                                         | [#645](https://github.com/bounswe/bounswe2023group5/issues/645) | Said Yolcu       | 13.11.2023 |     | 4hrs               | 4hrs            |
+| Admin Mobile Additions for Necessary Pages - MOBILE                        | [#650](https://github.com/bounswe/bounswe2023group5/issues/650) | Harun Sami Çelik | 14.11.2023 |     | 3hrs               | 4hrs            |
+| Adding Review to Individual Game Page - MOBILE                             | [#649](https://github.com/bounswe/bounswe2023group5/issues/649) | Ege Ekşi         | 14.11.2023 |     | 3 hr               | 2hr30mins       |
+| Adding Reviews to Individual Game Page                                     | [#621](https://github.com/bounswe/bounswe2023group5/issues/621) | Çisel            | 12.11.2023 |     | 45 mins            | 1hr 30mins      |
+| Creating Admin Control Panel Page                                          | [#435](https://github.com/bounswe/bounswe2023group5/issues/435) | Arda             | 14.11.2023 |     | 3 hours            | 5 hours         |
+| Creating Review Component                                                  | [#644](https://github.com/bounswe/bounswe2023group5/issues/644) | Çisel            | 14.11.2023 |     | 2 hours            | 5hrs            |
+| Implementing Review Posting                                                | [#632](https://github.com/bounswe/bounswe2023group5/issues/632) | Çisel            | 12.11.2023 |     | 2 hours            | 4hrs            |
+| Implementing Forum Web Page                                                | [#629](https://github.com/bounswe/bounswe2023group5/issues/629) | Alperen          | 14.11.2023 |     | 4 hours            | 2hrs            |
+| Implementing Forum Post Component                                          | [#626](https://github.com/bounswe/bounswe2023group5/issues/626) | Alperen          | 14.11.2023 |     | 2 hours            | 2hrs            |
+| Implementing Forum Moderation Frontend Additions                           | [#634](https://github.com/bounswe/bounswe2023group5/issues/634) | Arda             | 14.11.2023 |     | 2 hours            | 1hr             |
+| Implementing Forum Post Comment Component                                  | [#646](https://github.com/bounswe/bounswe2023group5/issues/646) | Ali              | 14.11.2023 |     | 2.5 hours          | 3hrs            |
+| Implementing Forum Post Creation Web Page                                  | [#636](https://github.com/bounswe/bounswe2023group5/issues/636) | Alperen          | 14.11.2023 |     | 2 hours            | 1hr             |
+| Implementing Comment Creation Form                                         | [#647](https://github.com/bounswe/bounswe2023group5/issues/647) | Ali              | 14.11.2023 |     |  2 hours           | 2hrs            |
+
+## Planned Vs. Actual
+
+- We couldn't find the time and implement automated CI/CD of the frontend
+- Some admin additions on forums and reviews couldn't be done
+- Mobile's admin control panel page couldn't be completed
+- It has come to our attention that the requirements include additional functionalities beyond what we initially defined in the issues like sorting/filtering of posts/reviews and comment replying. In order to address this requirements new issues will be planned for next week.
+
+## Your plans for the next week
+
+| Description                                      | Issue                                                           | Assignee   | Due        | Estimated Duration |
+| ------------------------------------------------ | --------------------------------------------------------------- | ---------- | ---------- | ------------------ |
+| Admin Frontend Additions for Necessary Pages     | [#623](https://github.com/bounswe/bounswe2023group5/issues/623) | Arda       | 21.11.2023 | 2 hrs              |
+| Implementing CI/CD for Frontend                  | [#624](https://github.com/bounswe/bounswe2023group5/issues/624) | Ali        | 21.11.2023 | 1 hh               |
+| Admin Control Panel Page Implementation - MOBILE | [#637](https://github.com/bounswe/bounswe2023group5/issues/637) | Said Yolcu | 21.11.2023 | 3 hrs              |
