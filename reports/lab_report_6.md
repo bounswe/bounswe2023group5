@@ -25,7 +25,7 @@ This week, all teams primarily focused on enhancing communication components of 
 | Review Functionality Implementation - MOBILE                               | [#622](https://github.com/bounswe/bounswe2023group5/issues/622) | Bilal Atım       | 11.11.2023 |     | 6 hr               | 5hrs50mins      |
 | Forum Comment Functionality Implementation - MOBILE                        | [#648](https://github.com/bounswe/bounswe2023group5/issues/648) | Ege Ekşi         | 14.11.2023 | [#687](https://github.com/bounswe/bounswe2023group5/pull/687)    | 3 hr               | 3hr30mins       |
 | Forum Moderation Functionality Implementation - MOBILE                     | [#651](https://github.com/bounswe/bounswe2023group5/issues/651) | Harun Sami Çelik | 14.11.2023 |     | 3hrs               | 3hr30mins       |
-| Forum Page Implementation - MOBILE                                         | [#645](https://github.com/bounswe/bounswe2023group5/issues/645) | Said Yolcu       | 13.11.2023 |     | 4hrs               | 4hrs            |
+| Forum Page Implementation - MOBILE                                         | [#645](https://github.com/bounswe/bounswe2023group5/issues/645) | Said Yolcu       | 13.11.2023 |  [#691](https://github.com/bounswe/bounswe2023group5/pull/691)   | 4hrs               | 4hrs            |
 | Admin Mobile Additions for Necessary Pages - MOBILE                        | [#650](https://github.com/bounswe/bounswe2023group5/issues/650) | Harun Sami Çelik | 14.11.2023 |     | 3hrs               | 4hrs            |
 | Adding Review to Individual Game Page - MOBILE                             | [#649](https://github.com/bounswe/bounswe2023group5/issues/649) | Ege Ekşi         | 14.11.2023 | [#688](https://github.com/bounswe/bounswe2023group5/pull/688)    | 3 hr               | 2hr30mins       |
 | Adding Reviews to Individual Game Page                                     | [#621](https://github.com/bounswe/bounswe2023group5/issues/621) | Çisel            | 12.11.2023 |  [#677](https://github.com/bounswe/bounswe2023group5/pull/677)   | 45 mins            | 1hr 30mins      |
@@ -78,7 +78,11 @@ This week, all teams primarily focused on enhancing communication components of 
 | Restructuring Project Folder Layout - MOBILE                             | [#699](https://github.com/bounswe/bounswe2023group5/issues/699) | Ege Ekşi | 21.11.2023 | 1 hr               |
 | Finalizing Endpoint Connections for Comment Functionality - MOBILE                             | [#700](https://github.com/bounswe/bounswe2023group5/issues/700) | Ege Ekşi | 21.11.2023 | 2 hr     
 | Verifying and Implementing Remaining Endpoint Connections for User Controller - MOBILE                             | [#701](https://github.com/bounswe/bounswe2023group5/issues/701) | Ege Ekşi | 21.11.2023 | 2 hr     
-| Annotation Research - MOBILE                             | [#702](https://github.com/bounswe/bounswe2023group5/issues/702) | Ege Ekşi | 21.11.2023 | 2 hr     
+| Annotation Research - MOBILE                             | [#702](https://github.com/bounswe/bounswe2023group5/issues/702) | Ege Ekşi | 21.11.2023 | 2 hr   
+| Group Moderation Functionality Implementation - MOBILE | [#707](https://github.com/bounswe/bounswe2023group5/issues/707) | Said | 23.11.2023 | 5hrs |
+| Review And Edit Controller Scripts - MOBILE | [#708](https://github.com/bounswe/bounswe2023group5/issues/708) | Said | 16.11.2023 | 2hrs |
+| Create Request Functions For Game Controller Endpoints - MOBILE | [#709](https://github.com/bounswe/bounswe2023group5/issues/709) | Said | 19.11.2023 | 3hrs |
+| Create Request Functions For Tag Controller Endpoints - MOBILE | [#710](https://github.com/bounswe/bounswe2023group5/issues/710) | Said | 18.11.2023 | 3hrs |
 
 ## UI/UX
 
