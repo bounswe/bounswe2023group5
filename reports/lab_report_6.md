@@ -35,9 +35,9 @@ This week, all teams primarily focused on enhancing communication components of 
 | Implementing Forum Web Page                                                | [#629](https://github.com/bounswe/bounswe2023group5/issues/629) | Alperen          | 14.11.2023 |     | 4 hours            | 2hrs            |
 | Implementing Forum Post Component                                          | [#626](https://github.com/bounswe/bounswe2023group5/issues/626) | Alperen          | 14.11.2023 |     | 2 hours            | 2hrs            |
 | Implementing Forum Moderation Frontend Additions                           | [#634](https://github.com/bounswe/bounswe2023group5/issues/634) | Arda             | 14.11.2023 |     | 2 hours            | 1hr             |
-| Implementing Forum Post Comment Component                                  | [#646](https://github.com/bounswe/bounswe2023group5/issues/646) | Ali              | 14.11.2023 |     | 2.5 hours          | 3hrs            |
-| Implementing Forum Post Creation Web Page                                  | [#636](https://github.com/bounswe/bounswe2023group5/issues/636) | Alperen          | 14.11.2023 |     | 2 hours            | 1hr             |
-| Implementing Comment Creation Form                                         | [#647](https://github.com/bounswe/bounswe2023group5/issues/647) | Ali              | 14.11.2023 |     |  2 hours           | 2hrs            |
+| Implementing Forum Post Comment Component                                  | [#646](https://github.com/bounswe/bounswe2023group5/issues/646) | Ali              | 14.11.2023 |  [#703](https://github.com/bounswe/bounswe2023group5/pull/703)     | 2.5 hours          | 3hrs            |
+| Implementing Forum Post Creation Web Page                                  | [#636](https://github.com/bounswe/bounswe2023group5/issues/636) | Alperen          | 14.11.2023 |     | 2 hours            | 3hrs             |
+| Implementing Comment Creation Form                                         | [#647](https://github.com/bounswe/bounswe2023group5/issues/647) | Ali              | 14.11.2023 |  [#703](https://github.com/bounswe/bounswe2023group5/pull/703)   |  2 hours           | 2hrs            |
 
 ## Completed tasks that were not planned for the week
 | Description | Issue | Assignee | Due | Duration |
