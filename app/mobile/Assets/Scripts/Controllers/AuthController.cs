@@ -25,13 +25,14 @@ public class RegisterRequest
 public class RegisterResponse
 {
     public string id;
-    public string username;
-    public string email;
-    public string password;
-    public string role;
-    public bool verified;
-    public bool isDeleted;
     public string createdAt;
+    public bool isDeleted;
+    public string username;
+    public string password;
+    public string email;
+    public string role;
+    public bool isVerified;
+    public bool verified;
 }
 
 public class MeRequest
@@ -58,7 +59,6 @@ public class ForgetPasswordRequest
 
 public class ChangePasswordRequest
 {
-    public string Authorization;
     public string currentPassword;
     public string newPassword;
 }
@@ -75,14 +75,4 @@ public class UserData
     public string id;
     public string role;
     public bool isVerified;
-}
-
-public class DeleteAccountRequest
-{
-    public string id;
-}
-
-public class DeleteAccountResponse
-{
-    public bool IsDeleted;
 }

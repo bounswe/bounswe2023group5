@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-public class TagController
+﻿public class TagController
 {
     
 }
@@ -27,12 +25,15 @@ public class GetTagRequest
 
 public class GetAllTagRequest
 {
-    public string id;
     public string name;
     public PlayerType tagType;
     public string color;
-    public string createdAt;
     public bool isDeleted;
+}
+
+public class DeleteTagRequest
+{
+    public string id;
 }
 
 public class TagResponse
