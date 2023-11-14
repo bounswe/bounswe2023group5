@@ -70,7 +70,7 @@ This week, all teams primarily focused on enhancing communication components of 
 | Implementing Filters, Search and Sort of Forum Posts           | [#695](https://github.com/bounswe/bounswe2023group5/issues/695) | Alperen Bırçak | 20.11.2023 | 3 hrs              |
 | Implementing Group Details Web Page                            | [#693](https://github.com/bounswe/bounswe2023group5/issues/693) | Alperen Bırçak | 21.11.2023 | 5 hrs              |
 | Adding Game Image Upload Functionality to Game Create Web Page | [#694](https://github.com/bounswe/bounswe2023group5/issues/694) | Arda Kabadayı  | 21.11.2023 | 1 hr               |
-| Implementing Review Reporting                                  | [#693](https://github.com/bounswe/bounswe2023group5/issues/693) | Çisel Zümbül   | 19.11.2023 | 1 hr               |
+| Implementing Review Reporting                                  | [#713](https://github.com/bounswe/bounswe2023group5/issues/713) | Çisel Zümbül   | 19.11.2023 | 1 hr               |
 | Implementing Post Reporting                                    | [#693](https://github.com/bounswe/bounswe2023group5/issues/693) | Alperen Bırçak | 19.11.2023 | 1 hr               |
 | Group Moderation Implementation-BE                             | [#705](https://github.com/bounswe/bounswe2023group5/issues/705) | Zeynep Baydemir | 21.11.2023 | 3 hr               |
 | Join-Leave Group Implementation-BE                             | [#704](https://github.com/bounswe/bounswe2023group5/issues/704) | Zeynep Baydemir | 21.11.2023 | 3 hr               |
