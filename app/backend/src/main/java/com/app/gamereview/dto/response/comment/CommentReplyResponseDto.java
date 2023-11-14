@@ -26,6 +26,8 @@ public class CommentReplyResponseDto {
 
     private Boolean isEdited;
 
+    private Boolean isDeleted;
+
     private int overallVote; // overallVote = # of upvote - # of downvote
 
     private int voteCount;  // voteCount = # of upvote + # of downvote

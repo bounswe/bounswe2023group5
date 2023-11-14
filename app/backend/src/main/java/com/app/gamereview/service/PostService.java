@@ -171,7 +171,7 @@ public class PostService {
 
         User commenterObject = commenter.orElse(null);
         return new GetPostCommentsResponseDto(comment.getId(), comment.getCommentContent(), commenterObject,
-                comment.getPost(), comment.getLastEditedAt(), comment.getCreatedAt(), isEdited, comment.getOverallVote(),
+                comment.getPost(), comment.getLastEditedAt(), comment.getCreatedAt(), isEdited, comment.getIsDeleted(), comment.getOverallVote(),
                 comment.getVoteCount(), new ArrayList<>());
     }
 
@@ -182,7 +182,7 @@ public class PostService {
 
         User commenterObject = commenter.orElse(null);
         return new CommentReplyResponseDto(comment.getId(), comment.getCommentContent(), commenterObject,
-                comment.getPost(), comment.getLastEditedAt(), comment.getCreatedAt(), isEdited, comment.getOverallVote(),
+                comment.getPost(), comment.getLastEditedAt(), comment.getCreatedAt(), isEdited, comment.getIsDeleted(), comment.getOverallVote(),
                 comment.getVoteCount());
     }
 
