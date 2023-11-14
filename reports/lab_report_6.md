@@ -91,6 +91,9 @@ This week, all teams primarily focused on enhancing communication components of 
 | Create Request Functions For Review Controller Endpoints - MOBILE | [#715](https://github.com/bounswe/bounswe2023group5/issues/715) | Bilal Atım | 18.112023 | 3 hrs|
 | Fix Errors and Bugs in Authontications Pages - MOBILE| [#716](https://github.com/bounswe/bounswe2023group5/issues/716) | Bilal Atım | 16.11.2023 | 2 hrs|
 | Implementing Application to a Private Group Feature| [#717](https://github.com/bounswe/bounswe2023group5/issues/717) | Halis Bal | 21.11.2023 | 6 hrs|
+| Group Page Implementation - MOBILE| [#718](https://github.com/bounswe/bounswe2023group5/issues/718) | Harun Sami Çelik | 20.11.2023 | 3 hrs|
+| Adding endpoint requests for Vote Controller - MOBILE| [#719](https://github.com/bounswe/bounswe2023group5/issues/719) | Harun Sami Çelik  | 20.11.2023 | 2 hrs|
+| Deleting Unused Branches - MOBILE| [#720](https://github.com/bounswe/bounswe2023group5/issues/720) | Harun Sami Çelik | 20.11.2023 | 30 mins|
 
 
 ## UI/UX
