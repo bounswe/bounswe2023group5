@@ -1,5 +1,7 @@
 package com.app.gamereview.dto.request.review;
 
+import com.app.gamereview.enums.SortDirection;
+import com.app.gamereview.util.validation.annotation.ValidSortDirection;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,4 +13,7 @@ public class GetAllReviewsFilterRequestDto {
     private String reviewedBy;
 
     private Boolean withDeleted = false;
+
+    @ValidSortDirection(allowedValues = {SortDirection.ASCENDING, SortDirection.DESCENDING})
+    private String sortDirection = SortDirection.DESCENDING.name();
 }

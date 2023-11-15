@@ -23,9 +23,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ReviewService {
@@ -75,6 +73,13 @@ public class ReviewService {
         }
 
         List<Review> filteredReviews =  mongoTemplate.find(query, Review.class);
+
+        if(filter.getSortDirection().equals("DESCENDING")){
+            Collections.sort(filteredReviews, Comparator.comparing(Review::getCreatedAt).reversed());
+        }
+        else{
+            Collections.sort(filteredReviews, Comparator.comparing(Review::getCreatedAt));
+        }
 
         List<GetAllReviewsResponseDto> reviewDtos = new ArrayList<>();
 
