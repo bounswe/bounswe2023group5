@@ -9,6 +9,7 @@ import { deleteComment } from "../../../Services/comment";
 import { useQueryClient } from "react-query";
 import { useState } from "react";
 import ReplyForm from "../ReplyForm/ReplyForm";
+import Reply from "../Reply/Reply";
 
 
 
@@ -37,24 +38,12 @@ function Comment({ comment, postId }: { comment: any; postId: string }) {
     }
   );
   const [isCommenting, setCommenting] = useState(false);
-  const [commentText, setCommentText] = useState('');
 
   const toggleCommenting = () => {
     setCommenting(!isCommenting);
     console.log(isCommenting);
   };
 
-
-
-  const submitReply = () => {
-    // Add your logic to handle comment submission
-    // For example, you might want to call an API to save the comment
-    console.log('Submitted Reply:', commentText);
-
-    // Clear the input field and toggle commenting off
-    setCommentText('');
-    toggleCommenting();
-  };
 
 
 
@@ -103,7 +92,13 @@ function Comment({ comment, postId }: { comment: any; postId: string }) {
       </div>
     </div>
       {isCommenting && (
+              <div>
                 <ReplyForm  commentId={comment.id}/>
+                {comment.replies.map((reply:any) => (
+                  !reply.isDeleted &&
+                  <Reply reply={reply} key={reply.id}/>
+                ))}
+              </div>
           )}
  
     </div>

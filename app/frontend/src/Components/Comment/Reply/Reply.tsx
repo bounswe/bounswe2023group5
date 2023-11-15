@@ -13,9 +13,9 @@ import { useQueryClient } from "react-query";
 function Reply({ reply }: { reply: any}) {
 
   const { upvote, downvote } = useVote({
-    voteType: "REPLY",
+    voteType: "COMMENT",
     typeId: reply.id,
-    invalidateKey: ["replies", reply.id],
+    invalidateKey: ["comments", reply.post],
   });
 
   const { user } = useAuth();
@@ -26,10 +26,10 @@ function Reply({ reply }: { reply: any}) {
     (id: string) => deleteComment(id),
     {
       onSuccess() {
-        queryClient.invalidateQueries(["replies", reply.id]);
+        queryClient.invalidateQueries(["comments", reply.post]);
       },
       onMutate(id: string) {
-        queryClient.setQueriesData(["replies", reply.postId], (prev: any) => {
+        queryClient.setQueriesData(["comments", reply.post], (prev: any) => {
           return prev?.filter((reply: any) => id !== reply.id);
         });
       },
@@ -49,7 +49,7 @@ function Reply({ reply }: { reply: any}) {
           <ArrowDownOutlined />
         </button>
       </div>
-      <div className={styles.title}>{reply.replyContent}</div>
+      <div className={styles.title}>{reply.commentContent}</div>
       <div className={styles.meta}>
         <span>{reply.commenter.username}</span>
         <span>{reply.createdAt && formatDate(reply.createdAt)}</span>
