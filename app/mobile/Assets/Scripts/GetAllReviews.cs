@@ -19,13 +19,11 @@ public class GetAllReviews : MonoBehaviour
     public void GetGameReviews()
     {
         string url = AppVariables.HttpServerUrl + "/review/get-all?id=" + gameId;
-        var reviewRequestData = new ReviewGetAllRequest();
-        reviewRequestData.gameId = gameId;
-        string bodyJsonString = JsonConvert.SerializeObject(reviewRequestData);
-        StartCoroutine(Post(url, bodyJsonString));
+        //todo: add filters
+        StartCoroutine(Post(url));
     }
     
-    IEnumerator Post(string url, string bodyJsonString)
+    IEnumerator Post(string url)
     {
         foreach (var gameReview in gameReviews)
         {
@@ -33,8 +31,6 @@ public class GetAllReviews : MonoBehaviour
         }
         gameReviews.Clear();
         var request = new UnityWebRequest(url, "GET");
-        byte[] bodyRaw = Encoding.UTF8.GetBytes(bodyJsonString);
-        request.uploadHandler = (UploadHandler) new UploadHandlerRaw(bodyRaw);
         request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
         yield return request.SendWebRequest();
@@ -54,7 +50,5 @@ public class GetAllReviews : MonoBehaviour
         {
             Debug.Log("Error to get all review: " + response);
         }
-        request.downloadHandler.Dispose();
-        request.uploadHandler.Dispose();
-    }
+        request.downloadHandler.Dispose(); }
 }
