@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class ReviewsManager : MonoBehaviour
+public class GetAllReviews : MonoBehaviour
 {
     [SerializeField] private Transform reviewPageParent;
     private string gameId;
@@ -18,7 +18,7 @@ public class ReviewsManager : MonoBehaviour
 
     public void GetGameReviews()
     {
-        string url = AppVariables.HttpServerUrl + "/review/get-all?gameId=" + gameId;
+        string url = AppVariables.HttpServerUrl + "/review/get-all?id=" + gameId;
         var reviewRequestData = new ReviewGetAllRequest();
         reviewRequestData.gameId = gameId;
         string bodyJsonString = JsonConvert.SerializeObject(reviewRequestData);
@@ -39,13 +39,8 @@ public class ReviewsManager : MonoBehaviour
         request.SetRequestHeader("Content-Type", "application/json");
         yield return request.SendWebRequest();
         var response = request.downloadHandler.text;
-        Debug.Log(response);
         var _reviewData = JsonConvert.DeserializeObject<ReviewResponse[]>(response);
-        if (request.responseCode != 200 || _reviewData == null)
-        {
-            Debug.Log("error");
-        }
-        else
+        if (request.responseCode == 200)
         {
             foreach (var reviewData in _reviewData)
             {
@@ -53,6 +48,11 @@ public class ReviewsManager : MonoBehaviour
                 gameReviews.Add(newGamePage);
                 newGamePage.Init(reviewData);
             }
+            Debug.Log("Success to get all review: " + response);
+        }
+        else
+        {
+            Debug.Log("Error to get all review: " + response);
         }
         request.downloadHandler.Dispose();
         request.uploadHandler.Dispose();
