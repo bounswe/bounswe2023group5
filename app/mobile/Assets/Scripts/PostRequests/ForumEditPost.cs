@@ -1,25 +1,33 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class ForumCreatePost : MonoBehaviour
+public class ForumEditPost : MonoBehaviour
 {
-    private string commentContent;
-    private string post;
-    
-    
-    public void CreatePost(string title, string body)
+    [SerializeField] private string title;
+    [SerializeField] private string postContent;
+    private string postID;
+
+    private void Start()
     {
-        string url = AppVariables.HttpServerUrl + "/post/create";
-        var commentCreateRequest = new CommentCreateRequest();
-        commentCreateRequest.commentContent = commentContent;
-        commentCreateRequest.post = post;
-        string bodyJsonString = JsonUtility.ToJson(commentCreateRequest);
-        StartCoroutine(CreateForumPost(url, bodyJsonString));
+        Init("b73d132b-a3e3-4776-bbe6-01c2ce0d2d2c");
     }
-    IEnumerator CreateForumPost(string url, string bodyJsonString)
+
+    public void Init(string _postID)
+    {
+        postID = _postID;
+        string url = AppVariables.HttpServerUrl + "/post/edit?id=" + postID;
+        var postEditRequest = new PostEditRequest();
+        postEditRequest.title = title;
+        postEditRequest.postContent = postContent;
+        string bodyJsonString = JsonUtility.ToJson(postEditRequest);
+        StartCoroutine(Post(url, bodyJsonString));
+    }
+    
+    IEnumerator Post(string url, string bodyJsonString)
     {
         var request = new UnityWebRequest(url, "POST");
         byte[] bodyRaw = Encoding.UTF8.GetBytes(bodyJsonString);
@@ -32,15 +40,15 @@ public class ForumCreatePost : MonoBehaviour
         if (request.responseCode == 200)
         {
             response = request.downloadHandler.text;
-            Debug.Log(response);
+            Debug.Log("Success to edit forum post: " + response);
         }
         else
         {
-            Debug.Log("error");
+            Debug.Log("Error to edit forum post: " + response);
         }
-        
         request.downloadHandler.Dispose();
         request.uploadHandler.Dispose();
     }
     
 }
+
