@@ -6,7 +6,7 @@ export function useVote({
   typeId,
   invalidateKey,
 }: {
-  voteType: "POST" | "REVIEW" | "COMMENT";
+  voteType: "POST" | "REVIEW" | "COMMENT" | "REPLY";
   typeId: string;
   invalidateKey: QueryKey;
 }) {
