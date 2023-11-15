@@ -111,3 +111,15 @@ public class AddedTag
     public string color;
 }
 
+public class CreateGameRequest
+{
+    public string email;
+    public string password;
+}
+
+public class CreateGameResponse
+{
+    public UserData user;
+    public string token;
+}
+
