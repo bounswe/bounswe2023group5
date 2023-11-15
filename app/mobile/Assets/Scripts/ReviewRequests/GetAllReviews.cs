@@ -4,9 +4,11 @@ using System.Text;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class GetAllReviews : MonoBehaviour
 {
+    [SerializeField] private ScrollRect scrollRect;
     [SerializeField] private Transform reviewPageParent;
     private string gameId;
     private List<GameReview> gameReviews = new List<GameReview>();
@@ -44,6 +46,8 @@ public class GetAllReviews : MonoBehaviour
                 gameReviews.Add(newGamePage);
                 newGamePage.Init(reviewData);
             }
+            Canvas.ForceUpdateCanvases();
+            scrollRect.verticalNormalizedPosition = 1;
             Debug.Log("Success to get all review: " + response);
         }
         else
