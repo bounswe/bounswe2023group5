@@ -42,3 +42,21 @@ export const getCommentList = async ({
          }
      });
  }
+
+
+ export const createReply = async ({
+  parentComment,
+  commentContent,
+}: {
+  parentComment: string;
+  commentContent: string;
+}) => {
+  const response = await axios.post(
+    import.meta.env.VITE_APP_API_URL + "/comment/reply",
+    {
+      parentComment,
+        commentContent,
+    }
+  );
+  return response.data;
+};

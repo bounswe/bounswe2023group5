@@ -1,17 +1,17 @@
 import { useParams } from "react-router-dom";
-import styles from "./CommentForm.module.scss";
+import styles from "./ReplyForm.module.scss";
 import { Button, Form, Input } from "antd";
 import { useMutation, useQueryClient } from "react-query";
-import { createComment } from "../../../Services/comment";
+import { createReply } from "../../../Services/comment";
 
-function CommentForm() {
+function ReplyForm({commentId}:{commentId:string}) {
   const postId = useParams();
   const [form] = Form.useForm();
   const queryClient = useQueryClient();
 
   const { mutate: addComment, isLoading } = useMutation(
     ({  commentContent }: {  commentContent: string }) => 
-      createComment({  post: postId.postId!, commentContent }),
+      createReply({  parentComment: commentId, commentContent }),
     {
       onSuccess() {
         queryClient.invalidateQueries(["comments", postId.postId]);
@@ -48,4 +48,4 @@ function CommentForm() {
   );
 }
 
-export default CommentForm;
+export default ReplyForm;

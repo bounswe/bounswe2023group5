@@ -8,6 +8,7 @@ import { useMutation } from "react-query";
 import { deleteComment } from "../../../Services/comment";
 import { useQueryClient } from "react-query";
 import { useState } from "react";
+import ReplyForm from "../ReplyForm/ReplyForm";
 
 
 
@@ -43,14 +44,12 @@ function Comment({ comment, postId }: { comment: any; postId: string }) {
     console.log(isCommenting);
   };
 
-  const handleCommentChange = (e:any) => {
-    setCommentText(e.target.value);
-  };
 
-  const submitComment = () => {
+
+  const submitReply = () => {
     // Add your logic to handle comment submission
     // For example, you might want to call an API to save the comment
-    console.log('Submitted Comment:', commentText);
+    console.log('Submitted Reply:', commentText);
 
     // Clear the input field and toggle commenting off
     setCommentText('');
@@ -104,25 +103,7 @@ function Comment({ comment, postId }: { comment: any; postId: string }) {
       </div>
     </div>
       {isCommenting && (
-                <div className={styles.commentInput}>
-                <Form  onFinish={() => {}}>
-                  <Form.Item
-                    name="commentContent"
-                    rules={[{ required: true, message: "Please enter a comment" }]}
-                  >
-                    <Input.TextArea
-                      rows={1}
-                      placeholder="Comment under construction... 🚧"
-
-                    />
-                  </Form.Item>
-                  <Form.Item>
-                    <Button type="primary" htmlType="submit" >
-                      Submit
-                    </Button>
-                  </Form.Item>
-                </Form>
-              </div>
+                <ReplyForm  commentId={comment.id}/>
           )}
  
     </div>
