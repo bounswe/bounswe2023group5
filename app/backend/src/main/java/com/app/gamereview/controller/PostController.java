@@ -1,14 +1,22 @@
 package com.app.gamereview.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import com.app.gamereview.dto.request.post.EditPostRequestDto;
 import com.app.gamereview.dto.response.comment.GetPostCommentsResponseDto;
+import com.app.gamereview.dto.response.post.GetPostDetailResponseDto;
 import com.app.gamereview.model.User;
 import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +34,9 @@ import jakarta.validation.Valid;
 @Validated
 public class PostController {
 
+    @Value("${SECRET_KEY}")
+    private String secret_key = "${SECRET_KEY}";
+
     private final PostService postService;
 
     @Autowired
@@ -34,16 +45,34 @@ public class PostController {
     }
 
     @GetMapping("/get-post-list")
-    public ResponseEntity<List<GetPostListResponseDto>> getPostList(@Valid @ParameterObject GetPostListFilterRequestDto filter) {
-        List<GetPostListResponseDto> posts = postService.getPostList(filter);
+    public ResponseEntity<List<GetPostListResponseDto>> getPostList(@Valid @ParameterObject GetPostListFilterRequestDto filter, @RequestHeader(name = HttpHeaders.AUTHORIZATION, required = true) String Authorization) {
+
+        String email = "";
+        try {
+            Claims claims = Jwts.parser().setSigningKey(secret_key).parseClaimsJws(String.valueOf(Authorization)).getBody();
+
+            Date expirationDate = claims.getExpiration();
+            Date now = new Date();
+            if (expirationDate.after(now)) {
+                email = claims.getSubject();
+            }
+        }
+        catch (SignatureException | ExpiredJwtException | IllegalArgumentException e) {
+            // SignatureException: Token signature is invalid
+            // ExpiredJwtException: Token has expired
+            // IllegalArgumentException: Token is not correctly formatted
+            // In any of these cases, the token is considered invalid
+        }
+
+        List<GetPostListResponseDto> posts = postService.getPostList(filter, email);
         return ResponseEntity.ok(posts);
     }
 
     @AuthorizationRequired
     @GetMapping("/get-post-detail")
-    public ResponseEntity<Post> getPostDetail(@RequestParam String id, @RequestHeader String Authorization, HttpServletRequest request) {
+    public ResponseEntity<GetPostDetailResponseDto> getPostDetail(@RequestParam String id, @RequestHeader String Authorization, HttpServletRequest request) {
         User user = (User) request.getAttribute("authenticatedUser");
-        Post post = postService.getPostById(id, user);
+        GetPostDetailResponseDto post = postService.getPostById(id, user);
         return ResponseEntity.ok(post);
     }
 
