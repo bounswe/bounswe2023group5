@@ -98,7 +98,7 @@ function Comment({ comment, postId }: { comment: any; postId: string }) {
               }}
             />
           </div>
-          
+        )}
 
           {user.username === comment.commenter.username && (
             <div className={styles.delete}>
@@ -111,7 +111,7 @@ function Comment({ comment, postId }: { comment: any; postId: string }) {
                     onClick={() => {removeComment(comment.id)}}
                   />
             </div>)}
-            
+          
       </div>
     </div>
       {isCommenting && (
