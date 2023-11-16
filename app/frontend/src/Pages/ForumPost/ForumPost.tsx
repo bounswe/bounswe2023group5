@@ -99,8 +99,8 @@ function ForumPost() {
                 ghost={true}
                 shape="circle"
                 size="small"
-                icon={<CommentOutlined style={{ color: "red"}} />}
-                style={{marginLeft:"5em" , marginTop:"15px"}}
+                icon={<CommentOutlined style={{ color: "#555064"}} />}
+                style={{marginLeft:"13em" , marginTop:"15px"}}
                 onClick={() => {toggleCommenting()}}
               />
 
@@ -109,7 +109,7 @@ function ForumPost() {
         </div>
       )}
 
-
+      
       <div className={styles.commentTitle}>Comments</div>
       {!isLoadingComments &&
         comments.map(
@@ -119,8 +119,6 @@ function ForumPost() {
             )
         )}
 
-
-      <CommentForm />
     </div>
   );
 }

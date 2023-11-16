@@ -1,12 +1,15 @@
 import { formatDate } from "../../../Library/utils/formatDate";
 import styles from "./reply.module.scss";
-import { ArrowDownOutlined, ArrowUpOutlined, DeleteOutlined } from "@ant-design/icons";
+import { ArrowDownOutlined, ArrowUpOutlined, DeleteOutlined, DownOutlined, EditOutlined, UpOutlined } from "@ant-design/icons";
 import { useVote } from "../../Hooks/useVote";
 import { Button } from "antd";
 import { useAuth } from "../../Hooks/useAuth";
 import { useMutation } from "react-query";
 import { deleteComment } from "../../../Services/comment";
 import { useQueryClient } from "react-query";
+import { useState } from "react";
+import CommentForm from "../CommentForm/CommentForm";
+import ReplyForm from "../ReplyForm/ReplyForm";
 
 
 
@@ -18,7 +21,7 @@ function Reply({ reply }: { reply: any}) {
     invalidateKey: ["comments", reply.post],
   });
 
-  const { user } = useAuth();
+  const { user, isLoggedIn } = useAuth();
 
 
   const queryClient = useQueryClient();
@@ -35,19 +38,35 @@ function Reply({ reply }: { reply: any}) {
       },
     }
   );
+  const [isEditing, setEditing] = useState(false);
 
+  const toggleEditing = () => {
+    setEditing(!isEditing);
+  };
 
 
   return (
     <div className={styles.container}>
       <div className={styles.vote}>
-        <button type="button" onClick={upvote}>
-          <ArrowUpOutlined />
-        </button>
-        <div>{reply.overallVote}</div>
-        <button type="button" onClick={downvote}>
-          <ArrowDownOutlined />
-        </button>
+        <Button
+          type="primary"
+          shape="circle"
+          size="small"
+          icon={<UpOutlined />}
+          onClick={downvote}
+          disabled={!isLoggedIn}
+          //className={clsx(post?.userVote === "DOWNVOTE" && styles.active)}
+        />
+        <div className={styles.title}>{reply.overallVote}</div>
+        <Button
+          type="primary"
+          shape="circle"
+          size="small"
+          icon={<DownOutlined />}
+          onClick={downvote}
+          disabled={!isLoggedIn}
+          //className={clsx(post?.userVote === "DOWNVOTE" && styles.active)}
+        />
       </div>
       <div className={styles.title}>{reply.commentContent}</div>
       <div className={styles.meta}>
