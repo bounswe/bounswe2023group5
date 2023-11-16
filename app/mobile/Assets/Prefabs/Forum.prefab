@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 600be5d505c34b2cfb1e4bf1a7551762, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forumPageParent: {fileID: 0}
+  forumPageParent: {fileID: 3126411506773381386}
 --- !u!1 &4173911263195850364
 GameObject:
   m_ObjectHideFlags: 0
