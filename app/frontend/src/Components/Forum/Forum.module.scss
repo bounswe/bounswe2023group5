@@ -17,5 +17,15 @@
     flex-direction: column;
     align-items: stretch;
     gap: 1em;
+    .searchContainer {
+      display: flex;
+      justify-content: stretch;
+      align-items: stretch;
+      gap: 0.5em;
+
+      & > span {
+        flex: 1 1 0;
+      }
+    }
   }
 }
