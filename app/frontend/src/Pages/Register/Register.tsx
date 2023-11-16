@@ -26,9 +26,9 @@ function Register() {
         alert("Something went wrong.");
         return;
       }
-      console.log(data.status);
+
       alert("You registered successfully.");
-      console.log("Token is set");
+
       navigate("/login");
     },
     onError: () => {
