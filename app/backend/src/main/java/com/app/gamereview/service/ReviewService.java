@@ -4,6 +4,8 @@ import com.app.gamereview.dto.request.review.CreateReviewRequestDto;
 import com.app.gamereview.dto.request.review.GetAllReviewsFilterRequestDto;
 import com.app.gamereview.dto.request.review.UpdateReviewRequestDto;
 import com.app.gamereview.dto.response.review.GetAllReviewsResponseDto;
+import com.app.gamereview.enums.SortDirection;
+import com.app.gamereview.enums.SortType;
 import com.app.gamereview.enums.UserRole;
 import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.exception.ResourceNotFoundException;
@@ -17,6 +19,7 @@ import com.mongodb.client.result.UpdateResult;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -72,14 +75,23 @@ public class ReviewService {
             query.addCriteria(Criteria.where("isDeleted").is(filter.getWithDeleted()));
         }
 
-        List<Review> filteredReviews =  mongoTemplate.find(query, Review.class);
+        if (filter.getSortBy() != null) {
+            Sort.Direction sortDirection = Sort.Direction.DESC;
+            if (filter.getSortDirection() != null) {
+                sortDirection = filter.getSortDirection().equals(SortDirection.ASCENDING.name()) ? Sort.Direction.ASC : Sort.Direction.DESC;
+            }
+            if (filter.getSortBy().equals(SortType.CREATION_DATE.name())) {
+                query.with(Sort.by(sortDirection, "createdAt"));
+            }
+            else if (filter.getSortBy().equals(SortType.OVERALL_VOTE.name())) {
+                query.with(Sort.by(sortDirection, "overallVote"));
+            }
+            else if (filter.getSortBy().equals(SortType.VOTE_COUNT.name())) {
+                query.with(Sort.by(sortDirection, "voteCount"));
+            }
+        }
 
-        if(filter.getSortDirection().equals("DESCENDING")){
-            Collections.sort(filteredReviews, Comparator.comparing(Review::getCreatedAt).reversed());
-        }
-        else{
-            Collections.sort(filteredReviews, Comparator.comparing(Review::getCreatedAt));
-        }
+        List<Review> filteredReviews =  mongoTemplate.find(query, Review.class);
 
         List<GetAllReviewsResponseDto> reviewDtos = new ArrayList<>();
 
