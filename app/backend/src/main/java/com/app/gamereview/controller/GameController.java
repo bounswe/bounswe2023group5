@@ -19,10 +19,7 @@ import com.app.gamereview.dto.request.game.GetGameListRequestDto;
 import com.app.gamereview.dto.response.game.GetGameListResponseDto;
 import com.app.gamereview.service.GameService;
 
-import java.io.IOException;
 import java.util.List;
-
-import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/game")

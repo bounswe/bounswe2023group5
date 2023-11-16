@@ -1,6 +1,5 @@
 package com.app.gamereview.controller;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -27,7 +26,6 @@ import com.app.gamereview.model.Post;
 import com.app.gamereview.service.PostService;
 
 import jakarta.validation.Valid;
-import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/post")

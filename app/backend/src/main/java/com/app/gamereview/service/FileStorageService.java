@@ -37,14 +37,14 @@ public class FileStorageService {
             fileExtension = originalFilename.substring(lastDotIndex);
         }
 
-        String newFilename = UUID.randomUUID().toString() + fileExtension;
+        String newFilename = UUID.randomUUID() + fileExtension;
 
         // Resolve the target file path
         Path targetFilePath = storageLocation.resolve(newFilename);
 
         // Check if the filename is unique, regenerate if necessary
         while (Files.exists(targetFilePath)) {
-            newFilename = UUID.randomUUID().toString() + fileExtension;
+            newFilename = UUID.randomUUID() + fileExtension;
             targetFilePath = storageLocation.resolve(newFilename);
         }
 
