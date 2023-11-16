@@ -5,23 +5,57 @@
   flex-direction: column;
   align-items: stretch;
   padding: 2.5em;
-
+  gap: 0.5em;
   .postContainer {
     display: grid;
-    grid-template-rows: 50px 1fr;
+    grid-template-rows: 60px 1fr;
     border-radius: 0.5em;
     padding: 1em;
     background-color: $celadon;
-      margin: 0.5em;
+    min-height: 300px;
 
     .title {
       font-size: 1.5em;
       font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      margin-bottom: 1em;
+      .vote {
+        grid-area: v;
+        grid-template-rows: repeat(3, 1fr);
+        justify-items: center;
+        align-items: center;
+        display: grid;
+        color: $orange;
+        font-size: 1rem;
+        font-weight: normal;
+
+        button {
+          all: unset;
+          cursor: pointer;
+          color: $orange-dark-40;
+
+          .active {
+            color: $orange;
+          }
+
+          &:disabled {
+            opacity: 50%;
+          }
+        }
+      }
+    }
+
+    .body {
+      padding: 0.5em;
+      background-color: $celadon-light-30;
+      border-radius: 0.5em;
     }
   }
-  .title {
-    font-size: 1.5em;
+  .commentTitle {
+    font-size: 1.2em;
     font-weight: bold;
-    margin: 0.4em;
+    margin-bottom: 0.5em;
   }
 }

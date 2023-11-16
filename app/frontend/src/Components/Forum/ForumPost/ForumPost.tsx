@@ -52,7 +52,7 @@ function ForumPost({ post, forumId }: { post: any; forumId: string }) {
         <span>{post.createdAt && formatDate(post.createdAt)}</span>
       </div>
       <div className={styles.readMore}>
-        <Button href={`/forum/detail/${post.id}`}>Read More</Button>
+        <Button href={`/forum/detail/${forumId}/${post.id}`}>Read More</Button>
       </div>
     </div>
   );

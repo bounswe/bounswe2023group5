@@ -2,36 +2,60 @@ import { useParams } from "react-router-dom";
 import styles from "./ForumPost.module.scss";
 import { useQuery } from "react-query";
 import { getPost } from "../../Services/forum";
-import {getCommentList} from "../../Services/comment";
+import { getCommentList } from "../../Services/comment";
 import CommentForm from "../../Components/Comment/CommentForm/CommentForm.tsx";
 import Comment from "../../Components/Comment/Comment/Comment.tsx";
+import { useVote } from "../../Components/Hooks/useVote.tsx";
+import { useAuth } from "../../Components/Hooks/useAuth.tsx";
+import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
 
 function ForumPost() {
-  const { postId } = useParams();
+  const { isLoggedIn } = useAuth();
+  const { postId, forumId } = useParams();
   const { data: post, isLoading } = useQuery(["post", postId], () =>
     getPost(postId!)
   );
-  const { data: comments, isLoading: isLoadingComments } = useQuery(["comments", postId], () =>
-    getCommentList({postId:postId!})
+  const { upvote, downvote } = useVote({
+    voteType: "POST",
+    typeId: post?.id,
+    invalidateKey: ["forum", forumId],
+  });
+  const { data: comments, isLoading: isLoadingComments } = useQuery(
+    ["comments", postId],
+    () => getCommentList({ postId: postId! })
   );
   return (
     <div className={styles.container}>
       {!isLoading && (
-          <div className={styles.postContainer}>
-            <span className={styles.title}>{post.title}</span>
-            <span>{post.postContent}</span>
+        <div className={styles.postContainer}>
+          <div className={styles.title}>
+            <div>
+              <div className={styles.vote}>
+                <button type="button" onClick={upvote} disabled={!isLoggedIn}>
+                  <ArrowUpOutlined />
+                </button>
+                <div>{post.overallVote}</div>
+                <button type="button" onClick={downvote} disabled={!isLoggedIn}>
+                  <ArrowDownOutlined />
+                </button>
+              </div>
+            </div>
+            {post.title}
           </div>
+          <span className={styles.body}>{post.postContent}</span>
+        </div>
       )}
 
-      
-      <div className={styles.title}>Comments</div>
-      {!isLoadingComments && (comments.map((comment:any) => ( 
-        !comment.isDeleted &&
-        <Comment comment={comment} postId={postId!} key={comment.id}/>
-      )))}
+      <div className={styles.commentTitle}>Comments</div>
+      {!isLoadingComments &&
+        comments.map(
+          (comment: any) =>
+            !comment.isDeleted && (
+              <Comment comment={comment} postId={postId!} key={comment.id} />
+            )
+        )}
 
-    <CommentForm/>
-
+      <CommentForm />
     </div>
   );
 }
