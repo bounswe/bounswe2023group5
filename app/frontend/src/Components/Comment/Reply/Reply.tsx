@@ -38,11 +38,8 @@ function Reply({ reply }: { reply: any}) {
       },
     }
   );
-  const [isEditing, setEditing] = useState(false);
 
-  const toggleEditing = () => {
-    setEditing(!isEditing);
-  };
+
 
 
   return (
@@ -57,7 +54,7 @@ function Reply({ reply }: { reply: any}) {
           disabled={!isLoggedIn}
           //className={clsx(post?.userVote === "DOWNVOTE" && styles.active)}
         />
-        <div className={styles.title}>{reply.overallVote}</div>
+        <div style={{fontWeight:"bold"}}>{reply.overallVote}</div>
         <Button
           type="primary"
           shape="circle"
