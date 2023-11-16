@@ -5,17 +5,24 @@ export function useVote({
   voteType,
   typeId,
   invalidateKey,
+  invalidateKeys,
 }: {
   voteType: "POST" | "REVIEW" | "COMMENT";
   typeId: string;
-  invalidateKey: QueryKey;
+  invalidateKey?: QueryKey;
+  invalidateKeys?: QueryKey[];
 }) {
   const queryClient = useQueryClient();
   const { mutate: vote, isLoading } = useMutation(
     (choice: "UPVOTE" | "DOWNVOTE") => createVote({ voteType, typeId, choice }),
     {
       onSuccess() {
-        queryClient.invalidateQueries(invalidateKey);
+        if (invalidateKey) {
+          queryClient.invalidateQueries(invalidateKey);
+        }
+        if (invalidateKeys) {
+          invalidateKeys.forEach((key) => queryClient.invalidateQueries(key));
+        }
       },
     }
   );

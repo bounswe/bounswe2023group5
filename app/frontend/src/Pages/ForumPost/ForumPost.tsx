@@ -8,6 +8,7 @@ import Comment from "../../Components/Comment/Comment/Comment.tsx";
 import { useVote } from "../../Components/Hooks/useVote.tsx";
 import { useAuth } from "../../Components/Hooks/useAuth.tsx";
 import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
+import clsx from "clsx";
 
 function ForumPost() {
   const { isLoggedIn } = useAuth();
@@ -17,8 +18,11 @@ function ForumPost() {
   );
   const { upvote, downvote } = useVote({
     voteType: "POST",
-    typeId: post?.id,
-    invalidateKey: ["forum", forumId],
+    typeId: postId!,
+    invalidateKeys: [
+      ["forum", forumId],
+      ["post", postId],
+    ],
   });
   const { data: comments, isLoading: isLoadingComments } = useQuery(
     ["comments", postId],
@@ -29,16 +33,24 @@ function ForumPost() {
       {!isLoading && (
         <div className={styles.postContainer}>
           <div className={styles.title}>
-            <div>
-              <div className={styles.vote}>
-                <button type="button" onClick={upvote} disabled={!isLoggedIn}>
-                  <ArrowUpOutlined />
-                </button>
-                <div>{post.overallVote}</div>
-                <button type="button" onClick={downvote} disabled={!isLoggedIn}>
-                  <ArrowDownOutlined />
-                </button>
-              </div>
+            <div className={styles.vote}>
+              <button
+                type="button"
+                onClick={upvote}
+                disabled={!isLoggedIn}
+                className={clsx(post?.userVote === "UPVOTE" && styles.active)}
+              >
+                <ArrowUpOutlined />
+              </button>
+              <div>{post.overallVote}</div>
+              <button
+                type="button"
+                onClick={downvote}
+                disabled={!isLoggedIn}
+                className={clsx(post?.userVote === "DOWNVOTE" && styles.active)}
+              >
+                <ArrowDownOutlined />
+              </button>
             </div>
             {post.title}
           </div>

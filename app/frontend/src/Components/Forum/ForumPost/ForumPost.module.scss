@@ -32,7 +32,7 @@
       cursor: pointer;
       color: $orange-dark-40;
 
-      .active {
+      &.active {
         color: $orange;
       }
 
