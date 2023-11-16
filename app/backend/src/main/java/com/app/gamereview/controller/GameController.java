@@ -68,10 +68,8 @@ public class GameController {
 
 	@AuthorizationRequired
 	@PostMapping("/create")
-	public ResponseEntity<Game> createGame(@Valid @RequestPart("game") CreateGameRequestDto createGameRequestDto,
-										   @RequestParam MultipartFile image, @RequestHeader String Authorization)
-											throws IOException {
-		createGameRequestDto.setGameIcon("game-icons/" + fileService.storeFile(image, "game-icons"));
+	public ResponseEntity<Game> createGame(@Valid @RequestBody CreateGameRequestDto createGameRequestDto,
+										   @RequestHeader String Authorization) {
 		Game gameToCreate = gameService.createGame(createGameRequestDto);
 		return ResponseEntity.ok(gameToCreate);
 	}

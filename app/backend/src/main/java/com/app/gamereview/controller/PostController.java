@@ -90,9 +90,8 @@ public class PostController {
 
     @AuthorizationRequired
     @PostMapping("/create")
-    public ResponseEntity<Post> createPost(@Valid @RequestPart CreatePostRequestDto post, @RequestPart MultipartFile image,
-                                           @RequestHeader String Authorization, HttpServletRequest request) throws IOException {
-        post.setPostImage("post-images/" + fileService.storeFile(image, "post-images"));
+    public ResponseEntity<Post> createPost(@Valid @RequestBody CreatePostRequestDto post,
+                                           @RequestHeader String Authorization, HttpServletRequest request) {
         User user = (User) request.getAttribute("authenticatedUser");
         Post postToCreate = postService.createPost(post, user);
         return ResponseEntity.ok(postToCreate);

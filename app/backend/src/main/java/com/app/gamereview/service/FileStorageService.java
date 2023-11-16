@@ -1,5 +1,6 @@
 package com.app.gamereview.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,14 +13,16 @@ import java.util.UUID;
 
 @Service
 public class FileStorageService {
-    private final Path baseLocation;
 
-    public FileStorageService() {
-        // Initialize the storage location. This could be configured externally.
-        this.baseLocation = Path.of("images");
-    }
+    @Value("${image.base-directory}")
+    private Path baseLocation;
 
     public String storeFile(MultipartFile file, String folder) throws IOException {
+        // Check if the file is empty
+        if (file.isEmpty()) {
+            throw new IllegalArgumentException("Cannot store an empty file.");
+        }
+
         Path storageLocation = Path.of(baseLocation + "/" + folder);
         // Ensure the target directory exists
         Files.createDirectories(storageLocation);
