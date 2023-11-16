@@ -10,22 +10,32 @@ public class ReviewsManager : MonoBehaviour
     [SerializeField] private Transform reviewPageParent;
     private string gameId;
     private List<GameReview> gameReviews = new List<GameReview>();
-    public void Init(string _gameID)
+    public void Init(string[] pars, string[] vals)
     {
-        gameId = _gameID;
-        GetGameReviews();
+        gameId = ListToQueryParameters.GetValueOfParam(
+            pars, vals, "id" );
+        
+        if (gameId == "")
+        {
+            Debug.Log("Id must be specified");
+        }
+        
+        GetGameReviews(pars, vals);
     }
 
-    public void GetGameReviews()
+    public void GetGameReviews(string[] pars, string[] vals)
     {
-        string url = AppVariables.HttpServerUrl + "/review/get-all?gameId=" + gameId;
+        string url = AppVariables.HttpServerUrl + "/review/get-all" + 
+                     ListToQueryParameters.ListToQueryParams(pars,vals);
+        /*
         var reviewRequestData = new ReviewGetAllRequest();
         reviewRequestData.gameId = gameId;
         string bodyJsonString = JsonConvert.SerializeObject(reviewRequestData);
-        StartCoroutine(Post(url, bodyJsonString));
+        */
+        StartCoroutine(Post(url));
     }
     
-    IEnumerator Post(string url, string bodyJsonString)
+    IEnumerator Post(string url)
     {
         foreach (var gameReview in gameReviews)
         {
@@ -33,8 +43,8 @@ public class ReviewsManager : MonoBehaviour
         }
         gameReviews.Clear();
         var request = new UnityWebRequest(url, "GET");
-        byte[] bodyRaw = Encoding.UTF8.GetBytes(bodyJsonString);
-        request.uploadHandler = (UploadHandler) new UploadHandlerRaw(bodyRaw);
+        // byte[] bodyRaw = Encoding.UTF8.GetBytes(bodyJsonString);
+        // request.uploadHandler = (UploadHandler) new UploadHandlerRaw(bodyRaw);
         request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
         yield return request.SendWebRequest();

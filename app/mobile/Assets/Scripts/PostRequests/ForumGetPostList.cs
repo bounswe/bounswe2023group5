@@ -25,13 +25,12 @@ public class ForumGetPostList : MonoBehaviour
     }
 
 
-    public void ListForumPosts(string forumId)
+    public void ListForumPosts(string[] pars, string[] vals)
     {
-        string url = AppVariables.HttpServerUrl + "/post/get-post-list?forum="
-                                                + forumId +"&sortBy=CREATION_DATE"+
-                                                "&sortDirection=ASCENDING";
-        var forumRequestData = new GetPostListRequest();
-        string bodyJsonString = JsonConvert.SerializeObject(forumRequestData);
+        string url =
+            $"{AppVariables.HttpServerUrl}/post/get-post-list" +
+                ListToQueryParameters.ListToQueryParams(pars, vals);
+        
         StartCoroutine(Get(url));
     }
 

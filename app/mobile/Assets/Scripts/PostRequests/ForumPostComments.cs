@@ -13,13 +13,22 @@ public class ForumPostComments : MonoBehaviour
 
     private void Start()
     {
-        Init("b73d132b-a3e3-4776-bbe6-01c2ce0d2d2c");
+        Init(new[] {"id"},new[] {"b73d132b-a3e3-4776-bbe6-01c2ce0d2d2c"});
+
     }
 
-    public void Init(string _postID)
+    public void Init(string[] pars, string[] vals)
     {
-        postID = _postID;
-        string url = AppVariables.HttpServerUrl + "/post/get-post-comments?id=" + postID;
+        postID = ListToQueryParameters.GetValueOfParam(
+            pars, vals, "id" );
+        
+        if (postID == "")
+        {
+            Debug.Log("Id must be specified");
+        }
+        
+        string url = AppVariables.HttpServerUrl + "/post/get-post-comments" + 
+                     ListToQueryParameters.ListToQueryParams(pars, vals);
         StartCoroutine(Get(url));
     }
     

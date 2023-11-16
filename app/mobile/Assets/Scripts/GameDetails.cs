@@ -108,25 +108,30 @@ public class GameDetails : MonoBehaviour
         summaryManager.gameObject.SetActive(false);
         getAllReviews.gameObject.SetActive(false);
         forumManager.gameObject.SetActive(true);
-        forumManager.ListForumPosts(forum);
+        
+        // 3 parameters are required
+        forumManager.ListForumPosts(new [] {"forum", "sortBy", "sortDirection"},
+            new [] {forum, "CREATION_DATE", "ASCENDING"});
     }
     
 
     private void GetGameSummary()
     {
-        // Make a request
-        string url = AppVariables.HttpServerUrl + "/game/get-game";
+        // Make a request to game id
+        string url = AppVariables.HttpServerUrl + "/game/get-game" + 
+                     ListToQueryParameters.ListToQueryParams(
+                         new []{"gameId"}, new []{gameId});
 
         StartCoroutine(Get(url));
     }
 
     IEnumerator Get(string url)
     {
-        var parameteredUrl = url + "?gameId=" + gameId;
+        // var parameteredUrl = url + "?gameId=" + gameId;
         
         // Debug.Log(url);
         
-        var request = new UnityWebRequest(parameteredUrl, "GET");
+        var request = new UnityWebRequest(url, "GET");
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
         

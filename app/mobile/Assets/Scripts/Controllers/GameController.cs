@@ -102,12 +102,13 @@ public class GetAllTagsResponse
 }
 
 
-
+/*
 public class CreateGameRequest
 {
     public string email;
     public string password;
 }
+*/
 
 public class CreateGameResponse
 {
