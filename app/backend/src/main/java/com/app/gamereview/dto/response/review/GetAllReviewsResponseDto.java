@@ -19,6 +19,8 @@ public class GetAllReviewsResponseDto {
 
     private String reviewedUser;   // user username
 
+    private String requestedUserVote = null; // vote of requested (endpoint) user - null if didn't vote the review
+
     private int overallVote;
 
     private int reportNum;
