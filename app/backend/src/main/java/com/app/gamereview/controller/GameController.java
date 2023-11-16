@@ -6,6 +6,7 @@ import com.app.gamereview.dto.response.game.GameDetailResponseDto;
 import com.app.gamereview.dto.response.tag.AddGameTagResponseDto;
 import com.app.gamereview.dto.response.tag.GetAllTagsOfGameResponseDto;
 import com.app.gamereview.model.Game;
+import com.app.gamereview.service.FileStorageService;
 import com.app.gamereview.util.validation.annotation.AdminRequired;
 import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
 import jakarta.validation.Valid;
@@ -18,7 +19,10 @@ import com.app.gamereview.dto.request.game.GetGameListRequestDto;
 import com.app.gamereview.dto.response.game.GetGameListResponseDto;
 import com.app.gamereview.service.GameService;
 
+import java.io.IOException;
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/game")
@@ -27,9 +31,12 @@ public class GameController {
 
 	private final GameService gameService;
 
+	private final FileStorageService fileService;
+
 	@Autowired
-	public GameController(GameService gameService) {
+	public GameController(GameService gameService, FileStorageService fileService) {
 		this.gameService = gameService;
+		this.fileService = fileService;
 	}
 
 	@PostMapping("get-game-list")
@@ -61,7 +68,10 @@ public class GameController {
 
 	@AuthorizationRequired
 	@PostMapping("/create")
-	public ResponseEntity<Game> createGame(@Valid @RequestBody CreateGameRequestDto createGameRequestDto, String Authorization) {
+	public ResponseEntity<Game> createGame(@Valid @RequestPart("game") CreateGameRequestDto createGameRequestDto,
+										   @RequestParam MultipartFile image, @RequestHeader String Authorization)
+											throws IOException {
+		createGameRequestDto.setGameIcon("game-icons/" + fileService.storeFile(image, "game-icons"));
 		Game gameToCreate = gameService.createGame(createGameRequestDto);
 		return ResponseEntity.ok(gameToCreate);
 	}
