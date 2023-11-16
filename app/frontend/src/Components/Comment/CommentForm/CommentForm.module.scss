@@ -1,6 +1,11 @@
+@import "../../../colors";
+
 .container {
-    padding: 1em;
-    position: relative;
-    z-index: 1;
-  }
+  padding: 1em;
+  border-radius: 0.5em;
+  background-color: $violet-light-60;
+  position: relative;
+  z-index: 1;
+}
   
+

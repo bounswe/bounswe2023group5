@@ -2,31 +2,50 @@
 
 .container {
   position: relative;
-  padding: 1em;
   background-color: $celadon;
   border-radius: 0.5em;
   display: grid;
   gap: 0.5em;
+  overflow: hidden;
+  color: $color-text;
+  grid-template-rows: 30px 55px 35px;
+  grid-template-columns: 60px 1fr;
   grid-template-areas:
     "v t"
+    "v c"
     "v m";
-  grid-template-rows: 50px 25px;
-  grid-template-columns: 25px 1fr;
+  .titleContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    gap: 0.5rem;
+  }
+
+  .content {
+    grid-area: c;
+    overflow: hidden;
+    opacity: 80%;
+    padding-right: 2.5em;
+  }
+
   .vote {
     grid-area: v;
     grid-template-rows: repeat(3, 1fr);
     justify-items: center;
     align-items: center;
     display: grid;
-    color: $orange;
-
+    color: $color-text-light;
+    background-color: $orange-light-40;
     button {
-      all: unset;
       cursor: pointer;
-      color: $orange-dark-40;
+      background-color: $orange-dark-40;
 
-      .active {
-        color: $orange;
+      &.active {
+        background-color: $orange;
+      }
+
+      &:disabled {
+        opacity: 40%;
       }
     }
   }
@@ -37,7 +56,9 @@
   }
   .meta {
     display: flex;
+    align-items: end;
     gap: 1em;
+    padding: 0.5em;
     font-size: 0.8em;
     opacity: 80%;
     grid-area: m;
@@ -45,6 +66,11 @@
   .readMore {
     position: absolute;
     bottom: 0.5em;
+    right: 0.5em;
+  }
+  .edit {
+    position: absolute;
+    top: 0.5em;
     right: 0.5em;
   }
 }

@@ -3,6 +3,8 @@
     
 }
 
+// Send Authorization as header parameter
+// Response is Comment
 public class CommentReplyRequest
 {
     public string commentContent;
@@ -10,12 +12,16 @@ public class CommentReplyRequest
 }
 
 
+// Send id as query parameter and Authorization as
+// header parameter
+// Response is Comment
 public class CommentEditRequest
 {
-    public string id;
     public string commentContent;
 }
 
+// Send Authorization as header parameter
+// Response is Comment
 public class CommentCreateRequest
 {
     public string commentContent;
@@ -23,10 +29,10 @@ public class CommentCreateRequest
 }
 
 
-public class CommentDeleteRequest
-{
-    public string id;
-}
+// For making a comment delete request, send no body,
+// only specify id as a query parameter and Authorization
+// as a header parameter
+// Response is Comment
 
 public class Comment
 {

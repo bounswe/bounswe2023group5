@@ -15,15 +15,21 @@
     align-items: center;
     display: grid;
     color: $orange;
+    font-size: 1rem;
     margin-right: 30px;
 
-    button {
-      all: unset;
-      cursor: pointer;
-      color: $orange-dark-40;
 
-      .active {
-        color: $orange;
+    button {
+      cursor: pointer;
+      background-color: $orange-dark-40;
+      color: white;
+
+      &.active {
+        background-color: $orange;
+      }
+
+      &:disabled {
+        opacity: 40%;
       }
     }
   }
