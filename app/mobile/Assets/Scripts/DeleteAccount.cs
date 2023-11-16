@@ -51,6 +51,7 @@ public class DeleteAccount : MonoBehaviour
         deleteData.id = PersistenceManager.id;
         string bodyJsonString = JsonConvert.SerializeObject(deleteData);
         */
+
         StartCoroutine(Delete(url));
 
     }

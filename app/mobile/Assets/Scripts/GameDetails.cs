@@ -18,7 +18,9 @@ public class GameDetails : MonoBehaviour
     [SerializeField] private Button forumButton;
     [SerializeField] private GameObject summaryManager;
     [SerializeField] private GetAllReviews getAllReviews;
+
     [SerializeField] private ForumGetPostList forumManager;
+
     [SerializeField] private Button exitButton;
     private string gameId;
     
@@ -96,7 +98,7 @@ public class GameDetails : MonoBehaviour
         summaryManager.gameObject.SetActive(false);
         getAllReviews.gameObject.SetActive(true);
         forumManager.gameObject.SetActive(false);
-        getAllReviews.Init(gameId);
+        getAllReviews.Init(new []{"gameId"},new []{gameId});
     }
     
     private void OnClickedForumButton()

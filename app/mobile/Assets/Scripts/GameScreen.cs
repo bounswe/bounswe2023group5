@@ -30,9 +30,17 @@ public class GameScreen : MonoBehaviour
     private void ListGames(GetGameListRequest gameRequestData)
     {
         string url = AppVariables.HttpServerUrl + "/game/get-game-list";
+
         
         string bodyJsonString = (gameRequestData == null) ? "" :
             JsonConvert.SerializeObject(gameRequestData);
+
+        /*
+        var gameRequestData = new GetGameListRequest();
+        //todo: add filters
+        string bodyJsonString = JsonConvert.SerializeObject(gameRequestData);
+        */
+        
         StartCoroutine(Post(url, bodyJsonString));
     }
 

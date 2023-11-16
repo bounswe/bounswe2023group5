@@ -27,10 +27,16 @@ public class ForumGetPostList : MonoBehaviour
 
     public void ListForumPosts(string[] pars, string[] vals)
     {
+<<<<<<< HEAD:app/mobile/Assets/Scripts/PostRequests/ForumGetPostList.cs
         string url =
             $"{AppVariables.HttpServerUrl}/post/get-post-list" +
                 ListToQueryParameters.ListToQueryParams(pars, vals);
         
+=======
+        string url = AppVariables.HttpServerUrl + "/post/get-post-list?forum="
+                                                + forumId +"&sortBy=CREATION_DATE"+
+                                                "&sortDirection=ASCENDING";
+>>>>>>> main:app/mobile/Assets/Scripts/ForumScreen.cs
         StartCoroutine(Get(url));
     }
 
@@ -42,8 +48,6 @@ public class ForumGetPostList : MonoBehaviour
         }
         forumPosts.Clear();
         var request = new UnityWebRequest(url, "GET");
-        // byte[] bodyRaw = Encoding.UTF8.GetBytes(bodyJsonString);
-        // request.uploadHandler = (UploadHandler) new UploadHandlerRaw(bodyRaw);
         request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
         yield return request.SendWebRequest();

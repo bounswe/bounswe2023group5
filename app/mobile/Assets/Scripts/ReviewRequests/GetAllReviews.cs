@@ -4,9 +4,11 @@ using System.Text;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
-public class ReviewsManager : MonoBehaviour
+public class GetAllReviews : MonoBehaviour
 {
+    [SerializeField] private ScrollRect scrollRect;
     [SerializeField] private Transform reviewPageParent;
     private string gameId;
     private List<GameReview> gameReviews = new List<GameReview>();
@@ -25,6 +27,7 @@ public class ReviewsManager : MonoBehaviour
 
     public void GetGameReviews(string[] pars, string[] vals)
     {
+
         string url = AppVariables.HttpServerUrl + "/review/get-all" + 
                      ListToQueryParameters.ListToQueryParams(pars,vals);
         /*
@@ -32,6 +35,7 @@ public class ReviewsManager : MonoBehaviour
         reviewRequestData.gameId = gameId;
         string bodyJsonString = JsonConvert.SerializeObject(reviewRequestData);
         */
+
         StartCoroutine(Post(url));
     }
     
@@ -45,17 +49,13 @@ public class ReviewsManager : MonoBehaviour
         var request = new UnityWebRequest(url, "GET");
         // byte[] bodyRaw = Encoding.UTF8.GetBytes(bodyJsonString);
         // request.uploadHandler = (UploadHandler) new UploadHandlerRaw(bodyRaw);
+
         request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
         yield return request.SendWebRequest();
         var response = request.downloadHandler.text;
-        Debug.Log(response);
         var _reviewData = JsonConvert.DeserializeObject<ReviewResponse[]>(response);
-        if (request.responseCode != 200 || _reviewData == null)
-        {
-            Debug.Log("error");
-        }
-        else
+        if (request.responseCode == 200)
         {
             foreach (var reviewData in _reviewData)
             {
@@ -63,8 +63,13 @@ public class ReviewsManager : MonoBehaviour
                 gameReviews.Add(newGamePage);
                 newGamePage.Init(reviewData);
             }
+            Canvas.ForceUpdateCanvases();
+            scrollRect.verticalNormalizedPosition = 1;
+            Debug.Log("Success to get all review: " + response);
         }
-        request.downloadHandler.Dispose();
-        request.uploadHandler.Dispose();
-    }
+        else
+        {
+            Debug.Log("Error to get all review: " + response);
+        }
+        request.downloadHandler.Dispose(); }
 }
