@@ -8,7 +8,7 @@ import { useAuth } from "../../Hooks/useAuth";
 import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
 import { useVote } from "../../Hooks/useVote";
 
-function ForumPost({ post }: { post: any }) {
+function ForumPost({ post, forumId }: { post: any; forumId: string }) {
   const { user } = useAuth();
 
   const isAdmin = user?.role === "ADMIN";
@@ -25,7 +25,6 @@ function ForumPost({ post }: { post: any }) {
     deletePostMutation.mutate(post.id);
   };
 
-function ForumPost({ post, forumId }: { post: any; forumId: string }) {
   const { upvote, downvote } = useVote({
     voteType: "POST",
     typeId: post.id,
@@ -42,7 +41,7 @@ function ForumPost({ post, forumId }: { post: any; forumId: string }) {
           <ArrowDownOutlined />
         </button>
       </div>
-       <div className={styles.titleContainer}>
+      <div className={styles.titleContainer}>
         <div className={styles.title}>{post.title}</div>
         {isAdmin && (
           <DeleteFilled style={{ color: "red" }} onClick={handleDelete} />
