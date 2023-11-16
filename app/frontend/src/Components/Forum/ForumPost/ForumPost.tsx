@@ -1,16 +1,31 @@
 import { Button } from "antd";
 import { formatDate } from "../../../Library/utils/formatDate";
 import styles from "./ForumPost.module.scss";
-import { DeleteFilled, DownOutlined, UpOutlined } from "@ant-design/icons";
+import {
+  DeleteFilled,
+  DownOutlined,
+  EditOutlined,
+  UpOutlined,
+} from "@ant-design/icons";
 import { useMutation } from "react-query";
 import { deletePost } from "../../../Services/forum";
 import { useAuth } from "../../Hooks/useAuth";
 import { useVote } from "../../Hooks/useVote";
 import clsx from "clsx";
 import { truncateWithEllipsis } from "../../../Library/utils/truncate";
+import { useNavigate } from "react-router-dom";
 
-function ForumPost({ post, forumId }: { post: any; forumId: string }) {
+function ForumPost({
+  post,
+  forumId,
+  redirect = "/",
+}: {
+  post: any;
+  forumId: string;
+  redirect?: string;
+}) {
   const { user, isLoggedIn } = useAuth();
+  const navigate = useNavigate();
 
   const isAdmin = user?.role === "ADMIN";
   const deletePostMutation = useMutation(deletePost, {
@@ -72,8 +87,23 @@ function ForumPost({ post, forumId }: { post: any; forumId: string }) {
         <span>{post.createdAt && formatDate(post.createdAt)}</span>
       </div>
       <div className={styles.readMore}>
-        <Button href={`/forum/detail/${forumId}/${post.id}`}>Read More</Button>
+        <Button onClick={() => navigate(`/forum/detail/${forumId}/${post.id}`)}>
+          Read More
+        </Button>
       </div>
+      {user.id === post.poster.id && (
+        <div className={styles.edit}>
+          <Button
+            onClick={() =>
+              navigate(
+                `/forum/form?forumId=${forumId}&&redirect=${redirect}&&editId=${post.id}`
+              )
+            }
+          >
+            <EditOutlined />
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

@@ -45,7 +45,7 @@
       }
 
       &:disabled {
-        opacity: 50%;
+        opacity: 40%;
       }
     }
   }
@@ -66,6 +66,11 @@
   .readMore {
     position: absolute;
     bottom: 0.5em;
+    right: 0.5em;
+  }
+  .edit {
+    position: absolute;
+    top: 0.5em;
     right: 0.5em;
   }
 }
