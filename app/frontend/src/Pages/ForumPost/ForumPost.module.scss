@@ -8,7 +8,7 @@
   gap: 0.5em;
   .postContainer {
     display: grid;
-    grid-template-rows: 60px 1fr;
+    grid-template-rows: 80px 1fr;
     border-radius: 0.5em;
     padding: 1em;
     background-color: $celadon;
@@ -29,15 +29,14 @@
         display: grid;
         color: $orange;
         font-size: 1rem;
-        font-weight: normal;
 
         button {
-          all: unset;
           cursor: pointer;
-          color: $orange-dark-40;
+          background-color: $orange-dark-40;
+          color: white;
 
           &.active {
-            color: $orange;
+            background-color: $orange;
           }
 
           &:disabled {

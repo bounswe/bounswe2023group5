@@ -20,14 +20,19 @@
     align-items: center;
     display: grid;
     color: $orange;
+    font-size: 1rem;
 
     button {
-      all: unset;
       cursor: pointer;
-      color: $orange-dark-40;
+      background-color: $orange-dark-40;
+      color: white;
 
-      .active {
-        color: $orange;
+      &.active {
+        background-color: $orange;
+      }
+
+      &:disabled {
+        opacity: 50%;
       }
     }
   }

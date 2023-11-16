@@ -7,8 +7,14 @@ import CommentForm from "../../Components/Comment/CommentForm/CommentForm.tsx";
 import Comment from "../../Components/Comment/Comment/Comment.tsx";
 import { useVote } from "../../Components/Hooks/useVote.tsx";
 import { useAuth } from "../../Components/Hooks/useAuth.tsx";
-import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
+import {
+  ArrowDownOutlined,
+  ArrowUpOutlined,
+  DownOutlined,
+  UpOutlined,
+} from "@ant-design/icons";
 import clsx from "clsx";
+import { Button } from "antd";
 
 function ForumPost() {
   const { isLoggedIn } = useAuth();
@@ -34,23 +40,26 @@ function ForumPost() {
         <div className={styles.postContainer}>
           <div className={styles.title}>
             <div className={styles.vote}>
-              <button
-                type="button"
+              <Button
+                type="primary"
+                shape="circle"
+                icon={<UpOutlined />}
+                size="small"
                 onClick={upvote}
                 disabled={!isLoggedIn}
                 className={clsx(post?.userVote === "UPVOTE" && styles.active)}
-              >
-                <ArrowUpOutlined />
-              </button>
+              />
               <div>{post.overallVote}</div>
-              <button
-                type="button"
+
+              <Button
+                type="primary"
+                shape="circle"
+                size="small"
+                icon={<DownOutlined />}
                 onClick={downvote}
                 disabled={!isLoggedIn}
                 className={clsx(post?.userVote === "DOWNVOTE" && styles.active)}
-              >
-                <ArrowDownOutlined />
-              </button>
+              />
             </div>
             {post.title}
           </div>

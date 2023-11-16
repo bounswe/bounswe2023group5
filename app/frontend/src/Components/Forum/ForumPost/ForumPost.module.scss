@@ -7,16 +7,23 @@
   border-radius: 0.5em;
   display: grid;
   gap: 0.5em;
-  grid-template-rows: 50px 25px;
-  grid-template-columns: 25px 1fr;
+  grid-template-rows: 25px 55px 25px;
+  grid-template-columns: 50px 1fr;
   grid-template-areas:
     "v t"
+    "v c"
     "v m";
   .titleContainer {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 0.5rem;
+  }
+
+  .content {
+    grid-area: c;
+    overflow: hidden;
+    opacity: 80%;
   }
 
   .vote {
@@ -28,12 +35,12 @@
     color: $orange;
 
     button {
-      all: unset;
       cursor: pointer;
-      color: $orange-dark-40;
+      background-color: $orange-dark-40;
+      color: white;
 
       &.active {
-        color: $orange;
+        background-color: $orange;
       }
 
       &:disabled {
