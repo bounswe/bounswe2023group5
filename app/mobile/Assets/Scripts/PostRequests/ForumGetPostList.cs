@@ -27,16 +27,17 @@ public class ForumGetPostList : MonoBehaviour
 
     public void ListForumPosts(string[] pars, string[] vals)
     {
-<<<<<<< HEAD:app/mobile/Assets/Scripts/PostRequests/ForumGetPostList.cs
+
         string url =
             $"{AppVariables.HttpServerUrl}/post/get-post-list" +
                 ListToQueryParameters.ListToQueryParams(pars, vals);
         
-=======
+
+        /*
         string url = AppVariables.HttpServerUrl + "/post/get-post-list?forum="
                                                 + forumId +"&sortBy=CREATION_DATE"+
                                                 "&sortDirection=ASCENDING";
->>>>>>> main:app/mobile/Assets/Scripts/ForumScreen.cs
+        */
         StartCoroutine(Get(url));
     }
 
