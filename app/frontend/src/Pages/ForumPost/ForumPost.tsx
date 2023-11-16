@@ -1,4 +1,9 @@
-import { useParams } from "react-router-dom";
+import {
+  useLocation,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import styles from "./ForumPost.module.scss";
 import { useQuery } from "react-query";
 import { getPost } from "../../Services/forum";
@@ -7,17 +12,14 @@ import CommentForm from "../../Components/Comment/CommentForm/CommentForm.tsx";
 import Comment from "../../Components/Comment/Comment/Comment.tsx";
 import { useVote } from "../../Components/Hooks/useVote.tsx";
 import { useAuth } from "../../Components/Hooks/useAuth.tsx";
-import {
-  ArrowDownOutlined,
-  ArrowUpOutlined,
-  DownOutlined,
-  UpOutlined,
-} from "@ant-design/icons";
+import { DownOutlined, EditOutlined, UpOutlined } from "@ant-design/icons";
 import clsx from "clsx";
 import { Button } from "antd";
 
 function ForumPost() {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, user } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
   const { postId, forumId } = useParams();
   const { data: post, isLoading } = useQuery(["post", postId], () =>
     getPost(postId!)
@@ -38,6 +40,19 @@ function ForumPost() {
     <div className={styles.container}>
       {!isLoading && (
         <div className={styles.postContainer}>
+          {user.id === post.poster.id && (
+            <div className={styles.edit}>
+              <Button
+                onClick={() =>
+                  navigate(
+                    `/forum/form?forumId=${forumId}&&redirect=${location.pathname}&&editId=${postId}`
+                  )
+                }
+              >
+                <EditOutlined />
+              </Button>
+            </div>
+          )}
           <div className={styles.title}>
             <div className={styles.vote}>
               <Button

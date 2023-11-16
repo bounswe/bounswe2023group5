@@ -91,7 +91,12 @@ function Forum({
           />
         </div>
         {posts?.map((post: any) => (
-          <ForumPost key={post.id} post={post} forumId={forumId} />
+          <ForumPost
+            key={post.id}
+            post={post}
+            forumId={forumId}
+            redirect={redirect}
+          />
         ))}
       </div>
     </div>
