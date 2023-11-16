@@ -1,5 +1,6 @@
 package com.app.gamereview.controller;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import com.app.gamereview.dto.request.post.EditPostRequestDto;
 import com.app.gamereview.dto.response.comment.GetPostCommentsResponseDto;
 import com.app.gamereview.dto.response.post.GetPostDetailResponseDto;
 import com.app.gamereview.model.User;
+import com.app.gamereview.service.FileStorageService;
 import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
 import io.jsonwebtoken.*;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,6 +27,7 @@ import com.app.gamereview.model.Post;
 import com.app.gamereview.service.PostService;
 
 import jakarta.validation.Valid;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/post")
@@ -36,9 +39,12 @@ public class PostController {
 
     private final PostService postService;
 
+    private final FileStorageService fileService;
+
     @Autowired
-    public PostController(PostService postService) {
+    public PostController(PostService postService, FileStorageService fileService) {
         this.postService = postService;
+        this.fileService = fileService;
     }
 
     @GetMapping("/get-post-list")
@@ -84,7 +90,9 @@ public class PostController {
 
     @AuthorizationRequired
     @PostMapping("/create")
-    public ResponseEntity<Post> createPost(@Valid @RequestBody CreatePostRequestDto post, @RequestHeader String Authorization, HttpServletRequest request) {
+    public ResponseEntity<Post> createPost(@Valid @RequestPart CreatePostRequestDto post, @RequestPart MultipartFile image,
+                                           @RequestHeader String Authorization, HttpServletRequest request) throws IOException {
+        post.setPostImage("post-images/" + fileService.storeFile(image, "post-images"));
         User user = (User) request.getAttribute("authenticatedUser");
         Post postToCreate = postService.createPost(post, user);
         return ResponseEntity.ok(postToCreate);
