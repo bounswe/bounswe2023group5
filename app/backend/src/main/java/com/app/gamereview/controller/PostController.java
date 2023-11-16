@@ -8,10 +8,7 @@ import com.app.gamereview.dto.response.comment.GetPostCommentsResponseDto;
 import com.app.gamereview.dto.response.post.GetPostDetailResponseDto;
 import com.app.gamereview.model.User;
 import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +42,7 @@ public class PostController {
     }
 
     @GetMapping("/get-post-list")
-    public ResponseEntity<List<GetPostListResponseDto>> getPostList(@Valid @ParameterObject GetPostListFilterRequestDto filter, @RequestHeader(name = HttpHeaders.AUTHORIZATION, required = true) String Authorization) {
+    public ResponseEntity<List<GetPostListResponseDto>> getPostList(@Valid @ParameterObject GetPostListFilterRequestDto filter, @RequestHeader(name = HttpHeaders.AUTHORIZATION, required = false) String Authorization) {
 
         String email = "";
         try {
@@ -57,10 +54,11 @@ public class PostController {
                 email = claims.getSubject();
             }
         }
-        catch (SignatureException | ExpiredJwtException | IllegalArgumentException e) {
+        catch (SignatureException | ExpiredJwtException | IllegalArgumentException | MalformedJwtException e) {
             // SignatureException: Token signature is invalid
             // ExpiredJwtException: Token has expired
             // IllegalArgumentException: Token is not correctly formatted
+            // MalformedJwtException: Token is not correctly formatted (eg. empty string)
             // In any of these cases, the token is considered invalid
         }
 
