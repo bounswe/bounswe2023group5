@@ -7,6 +7,7 @@ import {
   EditOutlined,
   StarFilled,
   UpOutlined,
+  WarningOutlined,
 } from "@ant-design/icons";
 import TextArea from "antd/es/input/TextArea";
 import { useState } from "react";
@@ -84,7 +85,7 @@ function Review({ review }: { review: any }) {
           <div className={styles.user}>
             <b>{review.reviewedUser}</b>
           </div>
-          {user.username === review.reviewedUser && (
+          {user?.username === review.reviewedUser ? (
             <div className={styles.buttons}>
               {!inputMode ? (
                 <Button
@@ -120,6 +121,17 @@ function Review({ review }: { review: any }) {
                 size="small"
                 icon={<DeleteOutlined style={{ color: "#aacdbe" }} />}
                 onClick={() => removeReview(review.id)}
+              />
+            </div>
+          ) : (
+            <div className={styles.buttons}>
+              <Button
+                type="text"
+                ghost={true}
+                shape="circle"
+                size="small"
+                icon={<WarningOutlined style={{ color: "#aacdbe" }} />}
+                /* onClick will be implemented when reporting functionality is added in backend */
               />
             </div>
           )}
