@@ -13,6 +13,7 @@ public class GamePage : MonoBehaviour
     [SerializeField] private Button gameDetailsButton;
     private CanvasManager canvasManager;
     private string gameID;
+    private string forumID;
 
     private void Awake()
     {

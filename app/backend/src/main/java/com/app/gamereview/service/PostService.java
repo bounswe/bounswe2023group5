@@ -6,15 +6,14 @@ import java.util.stream.Collectors;
 
 import com.app.gamereview.dto.response.comment.CommentReplyResponseDto;
 import com.app.gamereview.dto.response.comment.GetPostCommentsResponseDto;
+import com.app.gamereview.dto.response.post.GetPostDetailResponseDto;
 import com.app.gamereview.enums.SortDirection;
 import com.app.gamereview.enums.SortType;
 import com.app.gamereview.enums.UserRole;
+import com.app.gamereview.enums.VoteChoice;
 import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.model.*;
-import com.app.gamereview.repository.CommentRepository;
-import com.app.gamereview.repository.ForumRepository;
-import com.app.gamereview.repository.TagRepository;
-import com.app.gamereview.repository.UserRepository;
+import com.app.gamereview.repository.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -28,7 +27,6 @@ import com.app.gamereview.dto.request.post.EditPostRequestDto;
 import com.app.gamereview.dto.request.post.GetPostListFilterRequestDto;
 import com.app.gamereview.dto.response.post.GetPostListResponseDto;
 import com.app.gamereview.exception.ResourceNotFoundException;
-import com.app.gamereview.repository.PostRepository;
 
 @Service
 public class PostService {
@@ -41,21 +39,28 @@ public class PostService {
 
     private final TagRepository tagRepository;
     private final CommentRepository commentRepository;
+
+    private final VoteRepository voteRepository;
+
     private final MongoTemplate mongoTemplate;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public PostService(PostRepository postRepository, ForumRepository forumRepository, UserRepository userRepository, TagRepository tagRepository, CommentRepository commentRepository, MongoTemplate mongoTemplate, ModelMapper modelMapper) {
+    public PostService(PostRepository postRepository, ForumRepository forumRepository, UserRepository userRepository, TagRepository tagRepository, CommentRepository commentRepository, VoteRepository voteRepository, MongoTemplate mongoTemplate, ModelMapper modelMapper) {
         this.postRepository = postRepository;
         this.forumRepository = forumRepository;
         this.userRepository = userRepository;
         this.tagRepository = tagRepository;
         this.commentRepository = commentRepository;
+        this.voteRepository = voteRepository;
         this.mongoTemplate = mongoTemplate;
         this.modelMapper = modelMapper;
     }
 
-    public List<GetPostListResponseDto> getPostList(GetPostListFilterRequestDto filter) {
+    public List<GetPostListResponseDto> getPostList(GetPostListFilterRequestDto filter, String email) {
+        Optional<User> loggedInUser = userRepository.findByEmailAndIsDeletedFalse(email);
+        String loggedInUserId = loggedInUser.map(User::getId).orElse(null);
+
         Query query = new Query();
 
         query.addCriteria(Criteria.where("forum").is(filter.getForum()));
@@ -86,10 +91,10 @@ public class PostService {
 
         List<Post> postList = mongoTemplate.find(query, Post.class);
 
-        return postList.stream().map(this::mapToGetPostListResponseDto).collect(Collectors.toList());
+        return postList.stream().map(post -> mapToGetPostListResponseDto(post, loggedInUserId)).collect(Collectors.toList());
     }
 
-    private GetPostListResponseDto mapToGetPostListResponseDto(Post post) {
+    private GetPostListResponseDto mapToGetPostListResponseDto(Post post, String loggedInUserId) {
         Boolean isEdited = post.getCreatedAt().isBefore(post.getLastEditedAt());
         String posterId = post.getPoster();
         Optional<User> poster = userRepository.findByIdAndIsDeletedFalse(posterId);
@@ -97,13 +102,17 @@ public class PostService {
         User posterObject = poster.orElse(null);
         int commentCount = commentRepository.countByPost(post.getId());
 
+        Optional<Vote> userVote = voteRepository.findByTypeIdAndVotedBy(post.getId(), loggedInUserId);
+
+        VoteChoice userVoteChoice = userVote.map(Vote::getChoice).orElse(null);
+
         return new GetPostListResponseDto(post.getId(), post.getTitle(), post.getPostContent(),
-                posterObject, post.getLastEditedAt(), post.getCreatedAt(), isEdited, post.getTags(),
+                posterObject, userVoteChoice, post.getLastEditedAt(), post.getCreatedAt(), isEdited, post.getTags(),
                 post.getInappropriate(), post.getOverallVote(), post.getVoteCount(), commentCount);
     }
 
 
-    public Post getPostById(String id, User user) {
+    public GetPostDetailResponseDto getPostById(String id, User user) {
         Optional<Post> post = postRepository.findById(id);
 
         if (post.isEmpty()) {
@@ -120,7 +129,11 @@ public class PostService {
             }
         }
 
-        return post.orElse(null);
+        GetPostDetailResponseDto postDto = modelMapper.map(post, GetPostDetailResponseDto.class);
+        Optional<User> poster = userRepository.findByIdAndIsDeletedFalse(post.get().getPoster());
+        poster.ifPresent(postDto::setPoster);
+
+        return postDto;
     }
 
     public List<GetPostCommentsResponseDto> getCommentList(String postId, User user) {

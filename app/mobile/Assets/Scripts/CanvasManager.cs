@@ -127,7 +127,7 @@ public class CanvasManager : MonoBehaviour
     public void ShowGameDetailsPage(string gameID)
     {
         gameDetailsPage.SetActive(true);
-        gameDetailsPage.GetComponent<GameDetails>().GameDetail(gameID);
+        gameDetailsPage.GetComponent<GameDetails>().Init(gameID);
     }
     
     public void HideGameDetailsPage()

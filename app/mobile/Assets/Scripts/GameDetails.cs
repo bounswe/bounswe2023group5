@@ -7,19 +7,28 @@ using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
 using TMPro;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class GameDetails : MonoBehaviour
 {
-    [SerializeField] private Image gameImage;
+
     [SerializeField] private Button summaryButton;
     [SerializeField] private Button reviewsButton;
     [SerializeField] private Button forumButton;
-    [SerializeField] private TMP_Text headingText;
-    [SerializeField] private TMP_Text bottomText;
+    [SerializeField] private GameObject summaryManager;
+    [SerializeField] private ReviewsManager reviewsManager;
+    [SerializeField] private ForumScreen forumManager;
     [SerializeField] private Button exitButton;
+    private string gameId;
     
     private CanvasManager canvasManager;
+    
+    
+    
+    [SerializeField] private Image gameImage;
+    [SerializeField] private TMP_Text headingText;
+    [SerializeField] private TMP_Text bottomText;
     
     private string id;
     private string createdAt;
@@ -27,36 +36,91 @@ public class GameDetails : MonoBehaviour
     private string gameName;
     private string gameDescription;
     private string gameIcon;
+    private string overallRating;
+    private string ratingCount;
     private string releaseDate;
-    private List<AddedTag> playerTypes;
-    private List<AddedTag> genre;
-    private AddedTag production;
-    private AddedTag duration;
-    private List<AddedTag> platforms;
-    private List<AddedTag> artStyles;
-    private AddedTag developer;
-    private List<AddedTag> otherTags;
+    private string forum;
+    private string[] playerTypes;
+    private string[] genre;
+    private string production;
+    private string duration;
+    private string[] platforms;
+    private string[] artStyles;
+    private string developer;
+    private string[] otherTags;
     private string minSystemReq;
+    
+
     
     private void Awake()
     {
-        //summaryButton.onClick.AddListener(OnClickedSummaryButton);
-        //reviewsButton.onClick.AddListener(OnClickedReviewsButton);
-        //forumButton.onClick.AddListener(OnClickedForumButton);
+        summaryButton.onClick.AddListener(OnClickedSummaryButton);
+        reviewsButton.onClick.AddListener(OnClickedReviewsButton);
+        forumButton.onClick.AddListener(OnClickedForumButton);
         exitButton.onClick.AddListener(OnClickedExitButton);
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
     }
 
-    public void GameDetail(string gameId)
+    public void Init(string _gameID)
     {
+        gameId = _gameID;
+        OnClickedSummaryButton();
+        GetGameSummary();
+    }
+
+    
+    
+    private void OnClickedExitButton()
+    {
+        canvasManager.ShowGamesPage();
+        canvasManager.HideGameDetailsPage();
+    }
+    
+    private void OnClickedSummaryButton()
+    {
+        summaryButton.image.color = Color.blue;
+        reviewsButton.image.color = Color.white;
+        forumButton.image.color = Color.white;
         
+        summaryManager.gameObject.SetActive(true);
+        reviewsManager.gameObject.SetActive(false);
+        forumManager.gameObject.SetActive(false);
+    }
+    
+    private void OnClickedReviewsButton()
+    {
+        summaryButton.image.color = Color.white;
+        reviewsButton.image.color = Color.blue;
+        forumButton.image.color = Color.white;
+        
+        summaryManager.gameObject.SetActive(false);
+        reviewsManager.gameObject.SetActive(true);
+        forumManager.gameObject.SetActive(false);
+        reviewsManager.Init(gameId);
+    }
+    
+    private void OnClickedForumButton()
+    {
+        summaryButton.image.color = Color.white;
+        reviewsButton.image.color = Color.white;
+        forumButton.image.color = Color.blue;
+        
+        summaryManager.gameObject.SetActive(false);
+        reviewsManager.gameObject.SetActive(false);
+        forumManager.gameObject.SetActive(true);
+        forumManager.ListForumPosts(forum);
+    }
+    
+
+    private void GetGameSummary()
+    {
         // Make a request
         string url = AppVariables.HttpServerUrl + "/game/get-game";
 
-        StartCoroutine(Get(url, gameId));
+        StartCoroutine(Get(url));
     }
 
-    IEnumerator Get(string url, string gameId)
+    IEnumerator Get(string url)
     {
         var parameteredUrl = url + "?gameId=" + gameId;
         
@@ -70,7 +134,7 @@ public class GameDetails : MonoBehaviour
         yield return request.SendWebRequest();
 
         var response = request.downloadHandler.text;
-
+        Debug.Log(response);
         var _gamesData = JsonConvert.DeserializeObject<GetGameResponse>(response);
         
 
@@ -88,7 +152,10 @@ public class GameDetails : MonoBehaviour
             gameName = _gamesData.game.gameName;
             gameDescription = _gamesData.game.gameDescription;
             gameIcon = _gamesData.game.gameIcon;
+            overallRating = _gamesData.game.overallRating;
+            ratingCount = _gamesData.game.ratingCount;
             releaseDate = _gamesData.game.releaseDate;
+            forum = "b4036d6f-0e69-4df3-a935-a84750dc2bcd";
             playerTypes = _gamesData.game.playerTypes;
             genre = _gamesData.game.genre;
             production = _gamesData.game.production;
@@ -100,9 +167,9 @@ public class GameDetails : MonoBehaviour
             minSystemReq = _gamesData.game.minSystemReq;
 
             // Set the image 
-            StartCoroutine(LoadImageFromURL(AppVariables.HttpServerUrl+ "/" + gameIcon, gameImage));
+            string pictureURL = "http://ec2-16-16-166-22.eu-north-1.compute.amazonaws.com/";
+            StartCoroutine(LoadImageFromURL(pictureURL + gameIcon, gameImage));
             
-            summaryButton.image.color = Color.blue;
             
             // Set the bottom text
             bottomText.text = gameDescription;
@@ -110,14 +177,8 @@ public class GameDetails : MonoBehaviour
             // Set heading
             headingText.text = gameName;
         }
+        request.downloadHandler.Dispose();
     }
-    
-    private void OnClickedExitButton()
-    {
-        canvasManager.ShowGamesPage();
-        canvasManager.HideGameDetailsPage();
-    }
-    
     private IEnumerator LoadImageFromURL(string imageUrl, Image targetImage)
     {
         UnityWebRequest request = UnityWebRequestTexture.GetTexture(imageUrl);
@@ -133,4 +194,6 @@ public class GameDetails : MonoBehaviour
             targetImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
         }
     }
+    
+    
 }

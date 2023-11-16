@@ -9,6 +9,8 @@ public class VerifyResetCodeRequest
     public string resetCode;
 }
 
+// Actually this response is not an object but a single 
+// string
 public class VerifyResetCodeResponse
 {
     public string token;
@@ -25,19 +27,22 @@ public class RegisterRequest
 public class RegisterResponse
 {
     public string id;
-    public string username;
-    public string email;
-    public string password;
-    public string role;
-    public bool verified;
-    public bool isDeleted;
     public string createdAt;
+    public bool isDeleted;
+    public string username;
+    public string password;
+    public string email;
+    public string role;
+    public bool isVerified;
+    public bool verified;
 }
 
-public class MeRequest
-{
-    public string Authorization;
-}
+// MeRequest is just sending a Post without a body. 
+// The request should have a Authorization header
+// parameter
+
+
+// MeResponse is same as UserData
 
 public class LoginRequest
 {
@@ -56,13 +61,16 @@ public class ForgetPasswordRequest
     public string email;
 }
 
+// Also Authorization must be sent in headers when
+// making a request
 public class ChangePasswordRequest
 {
-    public string Authorization;
     public string currentPassword;
     public string newPassword;
 }
 
+// Also Authorization must be sent in headers when
+// making a request
 public class ChangeForgetPasswordRequest
 {
     public string newPassword;
@@ -75,14 +83,4 @@ public class UserData
     public string id;
     public string role;
     public bool isVerified;
-}
-
-public class DeleteAccountRequest
-{
-    public string id;
-}
-
-public class DeleteAccountResponse
-{
-    public bool IsDeleted;
 }

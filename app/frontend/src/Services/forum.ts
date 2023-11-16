@@ -67,3 +67,10 @@ export const getPost = async (id: string) => {
   );
   return response.data;
 };
+
+export const deletePost = async (id: string) => {
+  const response = await axios.delete(
+    `${import.meta.env.VITE_APP_API_URL}/post/delete?id=${id}`
+  );
+  return response.data;
+};
