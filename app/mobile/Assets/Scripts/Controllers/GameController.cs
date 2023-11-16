@@ -26,7 +26,7 @@ public class GameListEntry
 
 // Also send Authorization as query parameter
 // Response is GameDetail
-public class CreateGameRequest
+public class CreateGameResponse
 {
     public string gameName;
     public string gameDescription;
@@ -99,19 +99,5 @@ public class GetAllTagsResponse
     public string[] artStyles;
     public string developer;
     public string[] otherTags;
-}
-
-
-
-public class CreateGameRequest
-{
-    public string email;
-    public string password;
-}
-
-public class CreateGameResponse
-{
-    public UserData user;
-    public string token;
 }
 

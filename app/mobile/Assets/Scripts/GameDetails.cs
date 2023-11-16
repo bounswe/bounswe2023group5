@@ -17,7 +17,7 @@ public class GameDetails : MonoBehaviour
     [SerializeField] private Button reviewsButton;
     [SerializeField] private Button forumButton;
     [SerializeField] private GameObject summaryManager;
-    [SerializeField] private ReviewsManager reviewsManager;
+    [SerializeField] private GetAllReviews getAllReviews;
     [SerializeField] private ForumScreen forumManager;
     [SerializeField] private Button exitButton;
     private string gameId;
@@ -83,7 +83,7 @@ public class GameDetails : MonoBehaviour
         forumButton.image.color = Color.white;
         
         summaryManager.gameObject.SetActive(true);
-        reviewsManager.gameObject.SetActive(false);
+        getAllReviews.gameObject.SetActive(false);
         forumManager.gameObject.SetActive(false);
     }
     
@@ -94,9 +94,9 @@ public class GameDetails : MonoBehaviour
         forumButton.image.color = Color.white;
         
         summaryManager.gameObject.SetActive(false);
-        reviewsManager.gameObject.SetActive(true);
+        getAllReviews.gameObject.SetActive(true);
         forumManager.gameObject.SetActive(false);
-        reviewsManager.Init(gameId);
+        getAllReviews.Init(gameId);
     }
     
     private void OnClickedForumButton()
@@ -106,7 +106,7 @@ public class GameDetails : MonoBehaviour
         forumButton.image.color = Color.blue;
         
         summaryManager.gameObject.SetActive(false);
-        reviewsManager.gameObject.SetActive(false);
+        getAllReviews.gameObject.SetActive(false);
         forumManager.gameObject.SetActive(true);
         forumManager.ListForumPosts(forum);
     }

@@ -44,13 +44,10 @@ public class DeleteAccount : MonoBehaviour
         }
         
         string url = AppVariables.HttpServerUrl + "/user/delete";
-        var deleteData = new UserDeleteRequest();
-        deleteData.id = PersistenceManager.id;
-        string bodyJsonString = JsonConvert.SerializeObject(deleteData);
-        StartCoroutine(Delete(url, bodyJsonString));
+        StartCoroutine(Delete(url));
 
     }
-    IEnumerator Delete(string url, string bodyJsonString)
+    IEnumerator Delete(string url)
     {
         url += "?id=" + PersistenceManager.id;
         var request = new UnityWebRequest(url, "DELETE");

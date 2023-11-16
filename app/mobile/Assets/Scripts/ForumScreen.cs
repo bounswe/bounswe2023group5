@@ -29,16 +29,12 @@ public class ForumScreen : MonoBehaviour
         string url = AppVariables.HttpServerUrl + "/post/get-post-list?forum="
                                                 + forumId +"&sortBy=CREATION_DATE"+
                                                 "&sortDirection=ASCENDING";
-        var forumRequestData = new GetPostListRequest();
-        string bodyJsonString = JsonConvert.SerializeObject(forumRequestData);
         StartCoroutine(Get(url));
     }
 
     IEnumerator Get(string url)
     {
         var request = new UnityWebRequest(url, "GET");
-        // byte[] bodyRaw = Encoding.UTF8.GetBytes(bodyJsonString);
-        // request.uploadHandler = (UploadHandler) new UploadHandlerRaw(bodyRaw);
         request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
         yield return request.SendWebRequest();
