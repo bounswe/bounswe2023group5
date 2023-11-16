@@ -64,7 +64,7 @@ function ForumPost({ post, forumId }: { post: any; forumId: string }) {
       </div>
 
       <div className={styles.content}>
-        {truncateWithEllipsis(post.postContent, 400)}
+        {truncateWithEllipsis(post.postContent, 300)}
       </div>
 
       <div className={styles.meta}>
