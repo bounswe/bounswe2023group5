@@ -2,14 +2,15 @@ import { useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import DatePicker from "react-datepicker";
 import styles from "./CreateGame.module.scss";
-
 import "react-datepicker/dist/react-datepicker.css";
 import { getTags } from "../../../../Services/tags";
-import { Button, Input } from "antd";
+import { Button, Input, Upload } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import MultipleSelect from "../../../../Components/MultipleSelect/MultipleSelect";
 import SingleSelect from "../../../../Components/SingleSelect/SingleSelect";
 import { createGame } from "../../../../Services/games";
+import { InboxOutlined } from "@ant-design/icons";
+import { RcFile } from "antd/es/upload";
 
 function CreateGame() {
   // add gameIcon, duration, min system, developer and othertags req field
@@ -24,6 +25,9 @@ function CreateGame() {
     artStyle: [],
     developer: "",
   });
+  const [fileList, setFileList] = useState<any[]>([]);
+
+  const { Dragger } = Upload;
 
   const { data: tags } = useQuery(["tags"], getTags);
 
@@ -58,6 +62,36 @@ function CreateGame() {
     addGameMutation.mutate({ name, description, releaseDate, ...selectedTags });
   };
 
+  const getBase64 = (file: RcFile): Promise<string> =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = (error) => reject(error);
+    });
+
+  const handleChange = async (info: any) => {
+    let fileList = [...info.fileList];
+
+    fileList = fileList.slice(-1);
+
+    //console.log(await getBase64(fileList[0].originFileObj as RcFile));
+
+    if (fileList.length === 0) {
+      setFileList([]);
+      return;
+    }
+
+    fileList.map((file) => {
+      if (file.type.indexOf("image") === -1) {
+        alert("You can only upload image files!");
+        setFileList([]);
+      } else {
+        setFileList([file]);
+      }
+    });
+  };
+
   return (
     <div className={styles.container}>
       <h1 className={styles.header}>Create Game</h1>
@@ -72,11 +106,26 @@ function CreateGame() {
         <TextArea
           showCount
           value={description}
-          maxLength={300}
+          maxLength={1000}
           className={styles.input}
           onChange={(event) => setDescription(event.target.value)}
           placeholder="Description"
         />
+        <h4 className={styles.colorHeader}>Game Image</h4>
+        <Dragger
+          fileList={fileList}
+          beforeUpload={() => false}
+          onChange={handleChange}
+          className={styles.dragger}
+        >
+          <p className="ant-upload-drag-icon">
+            <InboxOutlined />
+          </p>
+          <p className="ant-upload-text">
+            Click or drag an image file to this area to upload
+          </p>
+          <p className="ant-upload-hint">You can only upload one image file.</p>
+        </Dragger>
         <h4 className={styles.colorHeader}>Release Date</h4>
         <DatePicker
           selected={releaseDate}
