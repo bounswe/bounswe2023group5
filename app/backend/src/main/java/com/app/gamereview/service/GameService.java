@@ -159,6 +159,11 @@ public class GameService {
 
 		Game game = findGame.get();
 		Tag tag = findTag.get();
+
+		if(game.getAllTags().contains(tag.getId())){
+			throw new BadRequestException("Tag is already added");
+		}
+
 		game.addTag(tag);
 		gameRepository.save(game);
 

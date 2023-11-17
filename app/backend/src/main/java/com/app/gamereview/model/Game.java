@@ -86,6 +86,21 @@ public class Game extends BaseModel {
 		}
 	}
 
+	public List<String> getAllTags(){
+		List<String> allTags = new ArrayList<>();
+
+		allTags.addAll(playerTypes);
+		allTags.addAll(genre);
+		allTags.addAll(platforms);
+		allTags.addAll(artStyles);
+		allTags.addAll(otherTags);
+		allTags.add(production);
+		allTags.add(duration);
+		allTags.add(developer);
+
+		return allTags;
+	}
+
 	public void addRating(float newRating){
 		overallRating = (overallRating * ratingCount + newRating) / (ratingCount + 1);
 		ratingCount += 1;
