@@ -26,7 +26,7 @@ public class GameListEntry
 
 // Also send Authorization as query parameter
 // Response is GameDetail
-public class CreateGameResponse
+public class CreateGameRequest
 {
     public string gameName;
     public string gameDescription;
