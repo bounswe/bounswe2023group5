@@ -26,24 +26,30 @@ public class CreateGame : MonoBehaviour
     {
         
         string url = AppVariables.HttpServerUrl + "/game/create";
-        var createData = new CreateGameRequest();
-        //createData.email = emailInputField.text;
-        //createData.password = passwordInputField.text;
-        string bodyJsonString = JsonConvert.SerializeObject(createData);
-        StartCoroutine(Post(url, bodyJsonString));
+        StartCoroutine(Post(url));
        
     }
     
-    IEnumerator Post(string url, string bodyJsonString)
+    IEnumerator Post(string url)
     {
         var request = new UnityWebRequest(url, "POST");
-        byte[] bodyRaw = Encoding.UTF8.GetBytes(bodyJsonString);
-        request.uploadHandler = (UploadHandler) new UploadHandlerRaw(bodyRaw);
         request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
+        request.SetRequestHeader("Authorization", PersistenceManager.UserToken);
         yield return request.SendWebRequest();
         var response = request.downloadHandler.text;
-        var _CreateGameResponseData = JsonConvert.DeserializeObject<CreateGameResponse>(response);
+        if (request.responseCode == 200)
+        {
+            var _CreateGameResponseData = JsonConvert.DeserializeObject<CreateGameResponse>(response);
+            Debug.Log("Success to create review: " + response);
+        }
+        else
+        {
+            Debug.Log("Error to create review: " + response);
+        }
+        
+        request.downloadHandler.Dispose();
+        request.uploadHandler.Dispose();
       
     }
     
