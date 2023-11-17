@@ -53,6 +53,35 @@ public class GameService {
 		this.modelMapper = modelMapper;
 	}
 
+	public List<Game> getGames(GetGameListRequestDto filter) {
+		Query query = new Query();
+		if(filter != null) {
+			if (filter.getFindDeleted() == null || !filter.getFindDeleted()) {
+				query.addCriteria(Criteria.where("isDeleted").is(false));
+			}
+			if(filter.getGameName() != null && !filter.getGameName().isBlank()){
+				query.addCriteria(Criteria.where("gameName").is(filter.getGameName()));
+			}
+			if (filter.getPlayerTypes() != null && !filter.getPlayerTypes().isEmpty()) {
+				query.addCriteria(Criteria.where("playerTypes").in(filter.getPlayerTypes()));
+			}
+			if (filter.getGenre() != null && !filter.getGenre().isEmpty()) {
+				query.addCriteria(Criteria.where("genre").in(filter.getGenre()));
+			}
+			if (filter.getProduction() != null && !filter.getProduction().isBlank()) {
+				query.addCriteria(Criteria.where("production").is(filter.getProduction()));
+			}
+			if (filter.getPlatform() != null && !filter.getPlatform().isEmpty()) {
+				query.addCriteria(Criteria.where("platforms").in(filter.getPlatform()));
+			}
+			if (filter.getArtStyle() != null && !filter.getArtStyle().isEmpty()) {
+				query.addCriteria(Criteria.where("artStyles").in(filter.getArtStyle()));
+			}
+		}
+
+		return mongoTemplate.find(query, Game.class);
+	}
+
 	public List<GetGameListResponseDto> getAllGames(GetGameListRequestDto filter) {
 		Query query = new Query();
 		if(filter != null) {
@@ -150,6 +179,19 @@ public class GameService {
 		else {
 				throw new ResourceNotFoundException("Game not found");
 
+		}
+	}
+
+	public GameDetailResponseDto getGameByName(String name){
+		Optional<Game> optionalGame = gameRepository.findByGameNameAndIsDeletedFalse(name);
+		if (optionalGame.isPresent()) {
+			Game game = optionalGame.get();
+			GameDetailResponseDto response = new GameDetailResponseDto();
+			response.setGame(game);
+			return response;
+		}
+		else {
+			throw new ResourceNotFoundException("Game not found");
 		}
 	}
 
