@@ -11,7 +11,9 @@ import java.util.List;
 @NoArgsConstructor
 public class GetGameListRequestDto {
 
-	private Boolean findDeleted;
+	private Boolean findDeleted = false;
+
+	private String gameName;
 
 	private List<String> playerTypes;
 
