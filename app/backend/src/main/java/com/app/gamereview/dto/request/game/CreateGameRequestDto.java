@@ -20,6 +20,7 @@ public class CreateGameRequestDto {
     @NotEmpty(message = "Game description cannot be null or empty")
     private String gameDescription;
 
+    @NotEmpty(message = "Game icon cannot be null or empty")
     private String gameIcon;
 
     @NotNull(message = "Release Date cannot be null or empty")

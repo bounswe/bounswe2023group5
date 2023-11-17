@@ -6,7 +6,6 @@ import com.app.gamereview.dto.response.game.GameDetailResponseDto;
 import com.app.gamereview.dto.response.tag.AddGameTagResponseDto;
 import com.app.gamereview.dto.response.tag.GetAllTagsOfGameResponseDto;
 import com.app.gamereview.model.Game;
-import com.app.gamereview.service.FileStorageService;
 import com.app.gamereview.util.validation.annotation.AdminRequired;
 import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
 import jakarta.validation.Valid;
@@ -28,12 +27,9 @@ public class GameController {
 
 	private final GameService gameService;
 
-	private final FileStorageService fileService;
-
 	@Autowired
-	public GameController(GameService gameService, FileStorageService fileService) {
+	public GameController(GameService gameService) {
 		this.gameService = gameService;
-		this.fileService = fileService;
 	}
 
 	@PostMapping("get-game-list")

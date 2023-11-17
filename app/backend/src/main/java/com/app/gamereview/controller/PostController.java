@@ -7,7 +7,6 @@ import com.app.gamereview.dto.request.post.EditPostRequestDto;
 import com.app.gamereview.dto.response.comment.GetPostCommentsResponseDto;
 import com.app.gamereview.dto.response.post.GetPostDetailResponseDto;
 import com.app.gamereview.model.User;
-import com.app.gamereview.service.FileStorageService;
 import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
 import io.jsonwebtoken.*;
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,12 +36,9 @@ public class PostController {
 
     private final PostService postService;
 
-    private final FileStorageService fileService;
-
     @Autowired
-    public PostController(PostService postService, FileStorageService fileService) {
+    public PostController(PostService postService) {
         this.postService = postService;
-        this.fileService = fileService;
     }
 
     @GetMapping("/get-post-list")
