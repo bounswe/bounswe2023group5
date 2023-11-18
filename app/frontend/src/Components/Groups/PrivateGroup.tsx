@@ -1,8 +1,8 @@
 import { TeamOutlined, UserOutlined } from "@ant-design/icons";
-import styles from "./Group.module.scss";
+import styles from "./PrivateGroup.module.scss";
 import { Button } from "antd";
 
-function Group() {
+function PrivateGroup() {
   return (
     <div className={styles.group}>
       <div className={styles.header}>
@@ -28,7 +28,7 @@ function Group() {
             <div>
               <UserOutlined></UserOutlined> 45 members
             </div>
-            <Button>Join</Button>
+            <Button>Apply</Button>
           </div>
         </div>
       </div>
@@ -36,4 +36,4 @@ function Group() {
   );
 }
 
-export default Group;
+export default PrivateGroup;
