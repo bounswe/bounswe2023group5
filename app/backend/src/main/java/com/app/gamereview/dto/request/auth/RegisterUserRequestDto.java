@@ -9,7 +9,7 @@ import lombok.Setter;
 public class RegisterUserRequestDto {
 
 	@NotEmpty(message = "Username field cannot be null or empty")
-	@Size(min = 3, message = "Username must be at least 6 characters long")
+	@Size(min = 3, message = "Username must be at least 3 characters long")
 	@Size(max = 15, message = "Username must be at most 15 characters long")
 	private String username;
 

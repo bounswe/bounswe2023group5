@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class CreateReviewRequestDto {
 
-    @Size(max = 150, message = "Description must be at most 150 characters long")
+    @Size(max = 300, message = "Description must be at most 300 characters long")
     private String reviewDescription = null;
 
     @Max(value=5, message = "Rating cannot be more than 5")

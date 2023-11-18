@@ -4,9 +4,12 @@ public class GameController
 {
 }
 
+// Below is for the POST endpoint for game/get-game-list
+// Response is a list of GameListEntry's
 public class GetGameListRequest
 {
     public bool findDeleted;
+    public string gameName;
     public string[] playerTypes;
     public string[] genre;
     public string production;
@@ -14,6 +17,14 @@ public class GetGameListRequest
     public string[] artStyle;
     public string search;
 }
+
+// Below is for the GET endpoint for game/get-game-list
+// Used in GETGetGameList.cs
+// Response is a list of GameListEntry's
+// Query parameters:
+// bool findDeleted, string gameName, string[] playerTypes
+// string[] genre, string production, string[] platform
+// string[] artStyle, string search
 
 public class GameListEntry
 {
@@ -23,10 +34,39 @@ public class GameListEntry
     public string gameIcon;
 }
 
-public class GetGameRequest
+// Also send Authorization as query parameter
+// Response is GameDetail
+public class CreateGameRequest
+{
+    public string gameName;
+    public string gameDescription;
+    public string gameIcon;
+    public string releaseDate;
+    public string[] playerTypes;
+    public string[] genre;
+    public string production;
+    public string[] platforms;
+    public string[] artStyles;
+    public string developer;
+    public string[] otherTags;
+    public string minSystemReq;
+}
+
+public class GameAddTagRequest
 {
     public string gameId;
+    public string tagId;
 }
+
+public class GameAddTagResponse
+{
+    public string gameId;
+    public TagResponse addedTag;
+}
+
+// For GetGame request, send no body but only gameId
+// as a query parameter
+
 
 public class GetGameResponse
 {
@@ -41,54 +81,37 @@ public class GameDetail
     public string gameName;
     public string gameDescription;
     public string gameIcon;
+    public double overallRating;
+    public int ratingCount;
     public string releaseDate;
-    public List<AddedTag> playerTypes;
-    public List<AddedTag> genre;
-    public AddedTag production;
-    public AddedTag duration;
-    public List<AddedTag> platforms;
-    public List<AddedTag> artStyles;
-    public AddedTag developer;
-    public List<AddedTag> otherTags;
+    public string forum;
+    public string[] playerTypes;
+    public string[] genre;
+    public string production;
+    public string duration;
+    public string[] platforms;
+    public string[] artStyles;
+    public string developer;
+    public string[] otherTags;
     public string minSystemReq;
+    public string[] allTags;
 }
 
-public class GetAllTagsRequest
-{
-    public string gameId;
-}
+// For GetAllTagsRequest send gameId as a query parameter
+
 
 public class GetAllTagsResponse
 {
-    public List<AddedTag> playerTypes;
-    public List<AddedTag> genre;
-    public AddedTag production;
-    public AddedTag duration;
-    public List<AddedTag> platforms;
-    public List<AddedTag> artStyles;
-    public AddedTag developer;
-    public List<AddedTag> otherTags;
+    public string[] playerTypes;
+    public string[]  genre;
+    public string production;
+    public string duration;
+    public string[] platforms;
+    public string[] artStyles;
+    public string developer;
+    public string[] otherTags;
 }
 
-public class GameAddTagRequest
-{
-    public string gameId;
-    public string tagId;
-}
-
-public class GameAddTagResponse
-{
-    public string gameId;
-    public AddedTag addedTag;
-}
-
-public class AddedTag
-{
-    public string id;
-    public string createdAt;
-    public string isDeleted;
-    public string name;
-    public PlayerType tagType;
-    public string color;
-}
+// For GameByNameRequest send name of the game as a query parameter
+// Response is a GetGameResponse
 

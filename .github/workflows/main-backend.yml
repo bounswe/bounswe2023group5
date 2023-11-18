@@ -18,6 +18,11 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
 
+      - name: Create .env file
+        run: |
+          cd app/backend/src/main/resources
+          echo "${{ secrets.ENVIRONMENT_VARIABLES }}" > .env
+
       - name: Build with Maven
         run: |
           cd app/backend
@@ -46,4 +51,4 @@ jobs:
         run: |
           echo "$PRIVATE_KEY" > private_key.pem
           chmod 600 private_key.pem
-          ssh -o StrictHostKeyChecking=no -i private_key.pem ubuntu@ec2-16-16-166-22.eu-north-1.compute.amazonaws.com 'updateswe'
+          ssh -o StrictHostKeyChecking=no -i private_key.pem ubuntu@ec2-16-16-166-22.eu-north-1.compute.amazonaws.com 'bash /home/ubuntu/scripts/updateswe'

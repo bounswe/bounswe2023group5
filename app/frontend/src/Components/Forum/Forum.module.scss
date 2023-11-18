@@ -1,0 +1,21 @@
+@import "../../colors";
+
+.container {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  padding: 1em;
+
+  .top {
+    display: flex;
+    justify-content: end;
+  }
+
+  .posts {
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1em;
+  }
+}

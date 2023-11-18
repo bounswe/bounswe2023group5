@@ -1,18 +1,22 @@
 package com.app.gamereview.controller;
 
+import com.app.gamereview.dto.request.game.CreateGameRequestDto;
+import com.app.gamereview.dto.request.game.GetGameListRequestDto;
 import com.app.gamereview.dto.request.tag.AddGameTagRequestDto;
 import com.app.gamereview.dto.response.game.GameDetailResponseDto;
+import com.app.gamereview.dto.response.game.GetGameListResponseDto;
 import com.app.gamereview.dto.response.tag.AddGameTagResponseDto;
 import com.app.gamereview.dto.response.tag.GetAllTagsOfGameResponseDto;
+import com.app.gamereview.model.Game;
+import com.app.gamereview.service.GameService;
+import com.app.gamereview.util.validation.annotation.AdminRequired;
+import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
 import jakarta.validation.Valid;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import com.app.gamereview.dto.request.game.GetGameListRequestDto;
-import com.app.gamereview.dto.response.game.GetGameListResponseDto;
-import com.app.gamereview.service.GameService;
 
 import java.util.List;
 
@@ -29,12 +33,26 @@ public class GameController {
 	}
 
 	@PostMapping("get-game-list")
-	public ResponseEntity<List<GetGameListResponseDto>> getGames(@RequestBody(required = false) GetGameListRequestDto filter) {
+	public ResponseEntity<List<GetGameListResponseDto>> getAllGames(@RequestBody(required = false) GetGameListRequestDto filter) {
 
 		List<GetGameListResponseDto> gameList = gameService.getAllGames(filter);
 		return ResponseEntity.ok().body(gameList);
 	}
 
+	@GetMapping("get-game-list")
+	public ResponseEntity<List<Game>> getGames(@ParameterObject GetGameListRequestDto filter) {
+		List<Game> gameList = gameService.getGames(filter);
+		return ResponseEntity.ok(gameList);
+	}
+
+	@GetMapping("game-by-name")
+	public ResponseEntity<GameDetailResponseDto> getGameByName(String name) {
+		GameDetailResponseDto game = gameService.getGameByName(name);
+		return ResponseEntity.ok(game);
+	}
+
+	@AuthorizationRequired
+	@AdminRequired
 	@PostMapping("/add-tag")
 	public ResponseEntity<AddGameTagResponseDto> addGameTag(
 			@Valid @RequestBody AddGameTagRequestDto addGameTagRequestDto) {
@@ -51,5 +69,12 @@ public class GameController {
 	public ResponseEntity<GameDetailResponseDto> getGameDetail(@RequestParam String gameId){
 		GameDetailResponseDto response = gameService.getGameDetail(gameId);
 		return ResponseEntity.ok(response);
+	}
+
+	@AuthorizationRequired
+	@PostMapping("/create")
+	public ResponseEntity<Game> createGame(@Valid @RequestBody CreateGameRequestDto createGameRequestDto, String Authorization) {
+		Game gameToCreate = gameService.createGame(createGameRequestDto);
+		return ResponseEntity.ok(gameToCreate);
 	}
 }

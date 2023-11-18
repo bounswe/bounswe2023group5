@@ -1,5 +1,6 @@
 package com.app.gamereview.config;
 
+import com.app.gamereview.enums.UserRole;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.app.gamereview.model.User;
 import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import com.app.gamereview.repository.UserRepository;
+import com.app.gamereview.util.validation.annotation.AdminRequired;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -43,6 +46,7 @@ public class JwtInterceptor implements HandlerInterceptor {
 		if (handler instanceof HandlerMethod) {
 			HandlerMethod handlerMethod = (HandlerMethod) handler;
 			AuthorizationRequired authRequired = handlerMethod.getMethodAnnotation(AuthorizationRequired.class);
+			AdminRequired adminRequired = handlerMethod.getMethodAnnotation(AdminRequired.class);
 			String token = request.getHeader("Authorization");
 			if (authRequired != null) {
 				if (token == null || !JwtUtil.validateToken(token)) {
@@ -62,6 +66,22 @@ public class JwtInterceptor implements HandlerInterceptor {
 				Optional<User> user = userRepository.findByEmailAndIsDeletedFalse(email);
 				if (user.isPresent()) {
 					request.setAttribute("authenticatedUser", user.get());
+					if (adminRequired != null){
+						UserRole userRole = user.get().getRole();
+                        if(userRole != UserRole.ADMIN){
+							response.setStatus(HttpStatus.UNAUTHORIZED.value());
+							Map<String, String> responseMessage = new HashMap<>();
+							responseMessage.put("message", "Unauthorized. Admin role required.");
+							responseMessage.put("code", "401");
+
+							String jsonResponse = objectMapper.writeValueAsString(responseMessage);
+
+							response.getWriter().write(jsonResponse);
+							response.setContentType("application/json");
+							response.setCharacterEncoding("UTF-8");
+							return false;
+						}
+					}
 				}
 				else {
 					response.setStatus(HttpStatus.METHOD_NOT_ALLOWED.value());

@@ -3,30 +3,42 @@ package com.app.gamereview.service;
 import com.app.gamereview.dto.request.review.CreateReviewRequestDto;
 import com.app.gamereview.dto.request.review.GetAllReviewsFilterRequestDto;
 import com.app.gamereview.dto.request.review.UpdateReviewRequestDto;
+import com.app.gamereview.dto.response.review.GetAllReviewsResponseDto;
+import com.app.gamereview.enums.SortDirection;
+import com.app.gamereview.enums.SortType;
+import com.app.gamereview.enums.UserRole;
+import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.Game;
 import com.app.gamereview.model.Review;
 import com.app.gamereview.model.User;
+import com.app.gamereview.model.Vote;
 import com.app.gamereview.repository.GameRepository;
 import com.app.gamereview.repository.ReviewRepository;
+import com.app.gamereview.repository.UserRepository;
+import com.app.gamereview.repository.VoteRepository;
 import com.mongodb.client.result.UpdateResult;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ReviewService {
     private final ReviewRepository reviewRepository;
 
     private final GameRepository gameRepository;
+
+    private final VoteRepository voteRepository;
+
+    private final UserRepository userRepository;
 
     private final MongoTemplate mongoTemplate;
 
@@ -36,11 +48,15 @@ public class ReviewService {
     public ReviewService(
             ReviewRepository reviewRepository,
             GameRepository gameRepository,
+            VoteRepository voteRepository,
+            UserRepository userRepository,
             MongoTemplate mongoTemplate,
             ModelMapper modelMapper
     ) {
         this.reviewRepository = reviewRepository;
         this.gameRepository = gameRepository;
+        this.voteRepository = voteRepository;
+        this.userRepository = userRepository;
         this.mongoTemplate = mongoTemplate;
         this.modelMapper = modelMapper;
 
@@ -53,7 +69,10 @@ public class ReviewService {
         });
     }
 
-    public List<Review> getAllReviews(GetAllReviewsFilterRequestDto filter) {
+    public List<GetAllReviewsResponseDto> getAllReviews(GetAllReviewsFilterRequestDto filter, String email) {
+        Optional<User> loggedInUser = userRepository.findByEmailAndIsDeletedFalse(email);
+        String loggedInUserId = loggedInUser.map(User::getId).orElse(null);
+
         Query query = new Query();
         if (filter.getGameId() != null) {
             query.addCriteria(Criteria.where("gameId").is(filter.getGameId()));
@@ -65,17 +84,56 @@ public class ReviewService {
             query.addCriteria(Criteria.where("isDeleted").is(filter.getWithDeleted()));
         }
 
-        return mongoTemplate.find(query, Review.class);
+        if (filter.getSortBy() != null) {
+            Sort.Direction sortDirection = Sort.Direction.DESC;
+            if (filter.getSortDirection() != null) {
+                sortDirection = filter.getSortDirection().equals(SortDirection.ASCENDING.name()) ? Sort.Direction.ASC
+                        : Sort.Direction.DESC;
+            }
+            if (filter.getSortBy().equals(SortType.CREATION_DATE.name())) {
+                query.with(Sort.by(sortDirection, "createdAt"));
+            }
+            else if (filter.getSortBy().equals(SortType.OVERALL_VOTE.name())) {
+                query.with(Sort.by(sortDirection, "overallVote"));
+            }
+            else if (filter.getSortBy().equals(SortType.VOTE_COUNT.name())) {
+                query.with(Sort.by(sortDirection, "voteCount"));
+            }
+        }
+
+        List<Review> filteredReviews =  mongoTemplate.find(query, Review.class);
+
+        List<GetAllReviewsResponseDto> reviewDtos = new ArrayList<>();
+
+        for(Review review : filteredReviews){
+            GetAllReviewsResponseDto reviewDto = modelMapper.map(review, GetAllReviewsResponseDto.class);
+
+            Optional<Vote> vote = voteRepository.findByVoteTypeAndTypeIdAndVotedBy("REVIEW",
+                    review.getId(), loggedInUserId);
+
+            if(vote.isPresent()){
+                reviewDto.setRequestedUserVote(vote.get().getChoice().name());
+            }
+
+            reviewDto.setReviewedUser(userRepository.findById(review.getReviewedBy())
+                    .get().getUsername());
+            reviewDtos.add(reviewDto);
+        }
+        return reviewDtos;
     }
 
-    public Review getReview(String reviewId){
+    public GetAllReviewsResponseDto getReview(String reviewId){
         Optional<Review> review = reviewRepository.findById(reviewId);
 
         if(review.isEmpty() || review.get().getIsDeleted()){
             throw new ResourceNotFoundException("Review not found");
         }
 
-        return review.get();
+        GetAllReviewsResponseDto reviewDto = modelMapper.map(review, GetAllReviewsResponseDto.class);
+        reviewDto.setReviewedUser(userRepository.findById(review.get().getReviewedBy())
+                .get().getUsername());
+
+        return reviewDto;
     }
 
     public Review addReview(CreateReviewRequestDto requestDto, User user){
@@ -91,13 +149,16 @@ public class ReviewService {
         return reviewToCreate;
     }
 
-    public Boolean updateReview(String reviewId, UpdateReviewRequestDto requestDto){
+    public Boolean updateReview(String reviewId, UpdateReviewRequestDto requestDto, User user){
         Optional<Review> findResult = reviewRepository.findById(reviewId);
 
         if (findResult.isEmpty() || findResult.get().getIsDeleted()){
             throw new ResourceNotFoundException("Review not found");
         }
 
+        if (!(findResult.get().getReviewedBy().equals(user.getId()) || UserRole.ADMIN.equals(user.getRole()))) {
+            throw new BadRequestException("Only the user that created the review or the admin can update it.");
+        }
         float oldRating = findResult.get().getRating();
         float newRating = requestDto.getRating();
 
@@ -115,11 +176,14 @@ public class ReviewService {
         return updateResult.wasAcknowledged();
     }
 
-    public Boolean deleteReview(String reviewId){
+    public Boolean deleteReview(String reviewId, User user){
         Optional<Review> findResult = reviewRepository.findById(reviewId);
 
         if(findResult.isEmpty()){
             throw new ResourceNotFoundException("Review not found");
+        }
+        if (!(findResult.get().getReviewedBy().equals(user.getId()) || UserRole.ADMIN.equals(user.getRole()))) {
+            throw new BadRequestException("Only the user that created the review or the admin can delete it.");
         }
 
         // update game rating

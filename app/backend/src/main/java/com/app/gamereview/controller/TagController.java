@@ -6,7 +6,10 @@ import com.app.gamereview.dto.request.tag.UpdateTagRequestDto;
 import com.app.gamereview.model.Tag;
 import com.app.gamereview.service.TagService;
 import com.app.gamereview.service.UserService;
+import com.app.gamereview.util.validation.annotation.AdminRequired;
+import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
 import jakarta.validation.Valid;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -29,7 +32,7 @@ public class TagController {
 	}
 
 	@GetMapping("/get-all")
-	public ResponseEntity<List<Tag>> getTags(GetAllTagsFilterRequestDto filter) {
+	public ResponseEntity<List<Tag>> getTags(@ParameterObject GetAllTagsFilterRequestDto filter) {
 		List<Tag> tags = tagService.getAllTags(filter);
 		return ResponseEntity.ok(tags);
 	}
@@ -41,12 +44,16 @@ public class TagController {
 		return ResponseEntity.ok(tag);
 	}
 
+	@AuthorizationRequired
+	@AdminRequired
 	@PostMapping("/create")
 	public ResponseEntity<Tag> createTag(@Valid @RequestBody CreateTagRequestDto createTagRequestDto) {
 		Tag tagToCreate = tagService.createTag(createTagRequestDto);
 		return ResponseEntity.ok(tagToCreate);
 	}
 
+	@AuthorizationRequired
+	@AdminRequired
 	@PutMapping("/update")
 	public ResponseEntity<Tag> updateTag(
 			@RequestParam String id,
@@ -54,6 +61,13 @@ public class TagController {
 
 		Tag updatedTag = tagService.updateTag(id, updateTagRequestDto);
 		return ResponseEntity.ok(updatedTag);
+	}
+
+	@AuthorizationRequired
+	@AdminRequired
+	@DeleteMapping("/delete")
+	public ResponseEntity<Boolean> deleteTag(@RequestParam String id){
+		return ResponseEntity.ok(tagService.deleteTag(id));
 	}
 
 }

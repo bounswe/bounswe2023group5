@@ -1,7 +1,9 @@
 package com.app.gamereview.model;
 
 import com.app.gamereview.model.common.BaseModel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -12,6 +14,8 @@ import java.util.List;
 @Document(collection = "Game")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Game extends BaseModel {
 
 	private String gameName;
@@ -26,21 +30,23 @@ public class Game extends BaseModel {
 
 	private Date releaseDate;
 
-	private List<String> playerTypes = new ArrayList<String>();
+    private String forum;
 
-	private List<String> genre = new ArrayList<String>();
+	private List<String> playerTypes = new ArrayList<>();
+
+	private List<String> genre = new ArrayList<>();
 
 	private String production;
 
 	private String duration;
 
-	private List<String> platforms = new ArrayList<String>();
+	private List<String> platforms = new ArrayList<>();
 
-	private List<String> artStyles = new ArrayList<String>();
+	private List<String> artStyles = new ArrayList<>();
 
 	private String developer;
 
-	private List<String> otherTags = new ArrayList<String>();
+	private List<String> otherTags = new ArrayList<>();
 
 	private String minSystemReq;
 
@@ -78,6 +84,21 @@ public class Game extends BaseModel {
 				otherTags.add(tag.getId());
 				break;
 		}
+	}
+
+	public List<String> getAllTags(){
+		List<String> allTags = new ArrayList<>();
+
+		allTags.addAll(playerTypes);
+		allTags.addAll(genre);
+		allTags.addAll(platforms);
+		allTags.addAll(artStyles);
+		allTags.addAll(otherTags);
+		allTags.add(production);
+		allTags.add(duration);
+		allTags.add(developer);
+
+		return allTags;
 	}
 
 	public void addRating(float newRating){
