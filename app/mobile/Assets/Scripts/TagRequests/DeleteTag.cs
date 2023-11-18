@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 using Newtonsoft.Json;
 using UnityEditor.UIElements;
 
-public class CreateTag : MonoBehaviour
+public class DeleteTag : MonoBehaviour
 {
     // id of the tag
     [SerializeField] private string id;
