@@ -38,8 +38,8 @@ public class GameDetails : MonoBehaviour
     private string gameName;
     private string gameDescription;
     private string gameIcon;
-    private string overallRating;
-    private string ratingCount;
+    private double overallRating;
+    private int ratingCount;
     private string releaseDate;
     private string forum;
     private string[] playerTypes;
