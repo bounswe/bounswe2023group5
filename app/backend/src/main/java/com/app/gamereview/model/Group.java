@@ -37,4 +37,14 @@ public class Group extends BaseModel {
 
     private Boolean avatarOnly;
 
+    public void addMember(String id){
+        members.add(id);
+    }
+
+    public void removeMember(String id){
+        members.remove(id);
+    }
+
+
+
 }
