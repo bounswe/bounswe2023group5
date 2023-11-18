@@ -1,50 +1,5 @@
 @import "../../../colors";
 
-.reviews-subpage-container {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 10px;
-    .findReview {
-        display: flex;
-        align-items: center;
-    }
-}
-
-.review-input-container {
-    display: flex;
-    flex-direction: column;
-    width: 350px;
-    color: $color-text-light ;
-    background-color: $blue-green;
-    border-radius: 0.5em;
-    margin: 5px 5px 5px 5px;
-    overflow: hidden;
-    padding: 5px;
-    gap: 5px;
-    justify-content: center;
-
-    .header {
-        display: flex;
-        flex-direction: column;
-        gap: 7px;
-        margin: 5px 0px 0px 10px;
-        font-size: 18px;
-    }
-
-    .content-input {
-        background-color: $prussian-blue-dark-10 !important;
-        flex: 4;
-        width: 100%;
-        border-radius: 0.5em;
-        padding: 5px;
-        font-size: 13px;
-    }
-
-    .button {
-        color: $celadon;
-    }
-}
-
 .review-container {
     display: flex;
     flex-shrink: 0;
@@ -65,6 +20,12 @@
         color: $color-text;
         width: 60px;
         justify-content: center;
+
+        .voted {
+            background-color: $blue-green-light-30;
+            opacity: 70%;
+        }
+        
     }
 
     .review {

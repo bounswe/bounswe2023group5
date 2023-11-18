@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import Review from "./Review";
-import styles from "./Review.module.scss";
+import styles from "./ReviewSubPage.module.scss";
 import ReviewInput from "./ReviewInput";
 import { getAllReviews } from "../../../Services/review";
 import { useState } from "react";
@@ -9,18 +9,13 @@ import {
   SortAscendingOutlined,
   SortDescendingOutlined,
 } from "@ant-design/icons";
+import { isEmpty } from "../../../Library/utils/isEmpty";
 
 function Reviews({ gameId }: { gameId: string }) {
   const [reviewedBy, setReviewedBy] = useState();
   const [searchText, setSearchText] = useState("");
 
   const { Search } = Input;
-
-  const { data: reviews, isLoading } = useQuery(
-    ["reviews", gameId, reviewedBy],
-    () =>
-      getAllReviews(gameId, sortBy, sortDir, reviewedBy).then((res) => res.data)
-  );
 
   const sortOptions = [
     { label: "Creation Date", value: "CREATION_DATE" },
@@ -37,6 +32,12 @@ function Reviews({ gameId }: { gameId: string }) {
     );
   };
 
+  const { data: reviews, isLoading } = useQuery(
+    ["reviews", gameId, reviewedBy, sortBy, sortDir],
+    () =>
+      getAllReviews(gameId, sortBy, sortDir, reviewedBy).then((res) => res.data)
+  );
+
   return (
     <>
       <div className={styles.reviewsSubpageContainer}>
@@ -45,7 +46,7 @@ function Reviews({ gameId }: { gameId: string }) {
             placeholder="Search reviews by content or reviewer"
             enterButton
             onSearch={setSearchText}
-            style={{ width: "350px", padding: "5px" }}
+            style={{ minWidth: "600px", padding: "5px" }}
           />
           <Button onClick={toggleSortDir}>
             {sortDir === "DESCENDING" ? (
@@ -62,14 +63,19 @@ function Reviews({ gameId }: { gameId: string }) {
           />
         </div>
         <ReviewInput gameId={gameId} />
-        {reviews &&
+        {!isEmpty(reviews) ? (
           reviews
             ?.filter((review: any) => {
               return `${review.reviewDescription}${review.reviewedUser}`.includes(
                 searchText
               );
             })
-            .map((review: any) => <Review key={review.id} review={review} />)}
+            .map((review: any) => <Review key={review.id} review={review} />)
+        ) : (
+          <span style={{ flexShrink: "0", width: "100%", textAlign: "center" }}>
+            There are no reviews for this game yet
+          </span>
+        )}
       </div>
     </>
   );

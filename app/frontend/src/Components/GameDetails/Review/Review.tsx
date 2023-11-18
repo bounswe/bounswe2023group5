@@ -28,7 +28,7 @@ function Review({ review }: { review: any }) {
   const { upvote, downvote } = useVote({
     voteType: "REVIEW",
     typeId: review.id,
-    invalidateKey: ["reviews", review.gameId, ""],
+    invalidateKey: ["reviews", review.gameId],
   });
 
   const { mutate: removeReview } = useMutation(
@@ -71,6 +71,7 @@ function Review({ review }: { review: any }) {
           shape="circle"
           icon={<UpOutlined />}
           onClick={upvote}
+          className={review.requestedUserVote === "UPVOTE" ? styles.voted : ""}
         />
         <span>{review.overallVote}</span>
         <Button
@@ -78,6 +79,9 @@ function Review({ review }: { review: any }) {
           shape="circle"
           icon={<DownOutlined />}
           onClick={downvote}
+          className={
+            review.requestedUserVote === "DOWNVOTE" ? styles.voted : ""
+          }
         />
       </div>
       <div className={styles.review}>
@@ -90,7 +94,6 @@ function Review({ review }: { review: any }) {
               {!inputMode ? (
                 <Button
                   type="text"
-                  ghost={true}
                   shape="circle"
                   size="small"
                   icon={<EditOutlined style={{ color: "#aacdbe" }} />}
@@ -99,7 +102,6 @@ function Review({ review }: { review: any }) {
               ) : (
                 <Button
                   type="text"
-                  ghost={true}
                   shape="circle"
                   size="small"
                   icon={<CheckOutlined style={{ color: "#aacdbe" }} />}
@@ -116,7 +118,6 @@ function Review({ review }: { review: any }) {
               )}
               <Button
                 type="text"
-                ghost={true}
                 shape="circle"
                 size="small"
                 icon={<DeleteOutlined style={{ color: "#aacdbe" }} />}
