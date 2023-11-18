@@ -3,7 +3,10 @@
     
 }
 
-// Send id as query parameter
+// Query parameters:
+// string id
+// Header parameters
+// string Authorization (admin token is required)
 // Response is TagResponse
 public class UpdateTagRequest
 {
@@ -13,6 +16,8 @@ public class UpdateTagRequest
     public string color;
 }
 
+// Header parameters:
+// string Authorization (admin token must be given)
 // Response is TagResponse
 public class CreateTagRequest
 {
@@ -21,15 +26,23 @@ public class CreateTagRequest
     public string color;
 }
 
-// For GetTagRequest send no body but specify the id as 
-// a query parameter
+// For GetTagRequest send no body but specify the query
+// parameters below:
+// string id
 // Response is TagResponse
 
-// For GetAllTagRequest send no body. Query parameters are:
+// For GetAllTagRequest send no body.
+// Query parameters:
 // string name, string tagType, string color, bool isDeleted
+// Response is an array of TagResponse's
 
-// For DeleteTagRequest send no body, query parameters are:
+// For DeleteTagRequest send no body.
+// Query parameters are:
 // string id
+// Header parameters are:
+// string Authorization (admin token must be given)
+// Response is an informative string or simple informative 
+// json
 
 public class TagResponse
 {
