@@ -38,8 +38,8 @@ public class GameDetails : MonoBehaviour
     private string gameName;
     private string gameDescription;
     private string gameIcon;
-    private string overallRating;
-    private string ratingCount;
+    private double overallRating;
+    private int ratingCount;
     private string releaseDate;
     private string forum;
     private string[] playerTypes;
@@ -162,7 +162,7 @@ public class GameDetails : MonoBehaviour
             overallRating = _gamesData.game.overallRating;
             ratingCount = _gamesData.game.ratingCount;
             releaseDate = _gamesData.game.releaseDate;
-            forum = "b4036d6f-0e69-4df3-a935-a84750dc2bcd";
+            forum = _gamesData.game.forum;
             playerTypes = _gamesData.game.playerTypes;
             genre = _gamesData.game.genre;
             production = _gamesData.game.production;
