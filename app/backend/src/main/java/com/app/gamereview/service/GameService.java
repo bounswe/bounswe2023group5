@@ -234,7 +234,7 @@ public class GameService {
 		for (String genreId : request.getGenre()) {
 			Optional<Tag> genre = tagRepository.findByIdAndIsDeletedFalse(genreId);
 			if (genre.isEmpty() || genre.get().getTagType() != TagType.GENRE) {
-				throw new ResourceNotFoundException("One of the givem genre is not found.");
+				throw new ResourceNotFoundException("One of the given genre is not found.");
 			}
 		}
 
