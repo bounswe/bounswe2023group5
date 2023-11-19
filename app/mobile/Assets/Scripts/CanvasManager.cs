@@ -20,6 +20,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject adminControlPanelPage;
     [SerializeField] private GameObject createGamePage;
     [SerializeField] private GameObject createTagPage;
+    [SerializeField] private GameObject updateTagPage;
 
 
     
@@ -170,6 +171,18 @@ public class CanvasManager : MonoBehaviour
     {
         adminControlPanelPage.SetActive(true);
         profilePage.SetActive(false);
+    }
+
+    public void ShowUpdateTagPage()
+    {
+        adminControlPanelPage.SetActive(false);
+        updateTagPage.SetActive(true);
+    }
+    
+    public void HideUpdateTagPage()
+    {
+        adminControlPanelPage.SetActive(true);
+        updateTagPage.SetActive(false);
     }
     
 }

@@ -26,6 +26,7 @@ public class AdminControlPanelScript : MonoBehaviour
     {
         createGameButton.onClick.AddListener(OnClickedCreateGame);
         createTagButton.onClick.AddListener(OnClickedCreateTag);
+        updateTagButton.onClick.AddListener(OnClickedUpdateTag);
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
     }
 
@@ -62,6 +63,16 @@ public class AdminControlPanelScript : MonoBehaviour
         
         // Change the screen to CreateGame page
         canvasManager.ShowCreateTagPage();
+    }
+    
+    private void OnClickedUpdateTag()
+    {
+        // Set this button's color as blue, and others as white
+        createGameButton.image.color = Color.yellow;
+        createTagButton.image.color = Color.green;
+        
+        // Change the screen to CreateGame page
+        canvasManager.ShowUpdateTagPage();
     }
     
     
