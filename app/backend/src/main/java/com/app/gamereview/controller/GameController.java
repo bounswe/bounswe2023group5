@@ -2,7 +2,8 @@ package com.app.gamereview.controller;
 
 import com.app.gamereview.dto.request.game.CreateGameRequestDto;
 import com.app.gamereview.dto.request.game.GetGameListRequestDto;
-import com.app.gamereview.dto.request.tag.AddGameTagRequestDto;
+import com.app.gamereview.dto.request.game.AddGameTagRequestDto;
+import com.app.gamereview.dto.request.game.RemoveGameTagRequestDto;
 import com.app.gamereview.dto.response.game.GameDetailResponseDto;
 import com.app.gamereview.dto.response.game.GetGameListResponseDto;
 import com.app.gamereview.dto.response.tag.AddGameTagResponseDto;
@@ -57,6 +58,15 @@ public class GameController {
 	public ResponseEntity<AddGameTagResponseDto> addGameTag(
 			@Valid @RequestBody AddGameTagRequestDto addGameTagRequestDto) {
 		AddGameTagResponseDto response = gameService.addGameTag(addGameTagRequestDto);
+		return ResponseEntity.ok(response);
+	}
+
+	@AuthorizationRequired
+	@AdminRequired
+	@DeleteMapping("/remove-tag")
+	public ResponseEntity<Boolean> removeGameTag(
+			@Valid @RequestBody RemoveGameTagRequestDto removeGameTagRequestDto) {
+		Boolean response = gameService.removeGameTag(removeGameTagRequestDto);
 		return ResponseEntity.ok(response);
 	}
 

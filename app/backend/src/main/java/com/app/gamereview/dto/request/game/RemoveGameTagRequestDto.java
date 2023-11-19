@@ -1,4 +1,4 @@
-package com.app.gamereview.dto.request.tag;
+package com.app.gamereview.dto.request.game;
 
 
 import jakarta.validation.constraints.NotEmpty;
@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddGameTagRequestDto {
+public class RemoveGameTagRequestDto {
 
     @NotEmpty(message = "Game Id field cannot be null or empty")
     @Pattern(regexp = "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
