@@ -11,7 +11,6 @@
 public class UpdateTagRequest
 {
     public string name;
-    // PlayerType may be problematic, a string would be better
     public string tagType; 
     public string color;
 }
