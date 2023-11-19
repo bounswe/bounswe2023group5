@@ -185,4 +185,56 @@ public class GroupService {
         return true;
     }
 
+    public Boolean banUser(String groupId, String userId, User user) {
+        Optional<Group> group = groupRepository.findById(groupId);
+
+        if (group.isEmpty() || group.get().getIsDeleted()) {
+            throw new ResourceNotFoundException("The group with the given id is not found.");
+        }
+
+        if (group.get().getModerators().contains(user.getId()) && group.get().getModerators().contains(userId)) {
+            throw new BadRequestException("Moderators cannot ban moderators.");
+        }
+
+        if (!(group.get().getModerators().contains(user.getId()) || UserRole.ADMIN.equals(user.getRole()))) {
+            throw new BadRequestException("Only the moderator or the admin can ban user.");
+        }
+
+        group.get().addBannedUser(userId);
+        groupRepository.save(group.get());
+
+        return true;
+    }
+
+    public Boolean addModerator(String groupId, String userId, User user) {
+        Optional<Group> group = groupRepository.findById(groupId);
+
+        if (group.isEmpty() || group.get().getIsDeleted()) {
+            throw new ResourceNotFoundException("The group with the given id is not found.");
+        }
+
+        if (!(group.get().getModerators().contains(user.getId()) || UserRole.ADMIN.equals(user.getRole()))) {
+            throw new BadRequestException("Only the moderator or the admin can add moderator.");
+        }
+
+        group.get().addModerator(userId);
+        groupRepository.save(group.get());
+
+        return true;
+    }
+
+    public Boolean removeModerator(String groupId, String userId) {
+        Optional<Group> group = groupRepository.findById(groupId);
+
+        if (group.isEmpty() || group.get().getIsDeleted()) {
+            throw new ResourceNotFoundException("The group with the given id is not found.");
+        }
+
+        group.get().removeModerator(userId);
+        groupRepository.save(group.get());
+
+        return true;
+    }
+
+
 }

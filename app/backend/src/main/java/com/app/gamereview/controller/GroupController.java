@@ -12,6 +12,7 @@ import com.app.gamereview.model.User;
 import com.app.gamereview.repository.GroupRepository;
 import com.app.gamereview.service.GroupService;
 import com.app.gamereview.service.ReviewService;
+import com.app.gamereview.util.validation.annotation.AdminRequired;
 import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
 import io.jsonwebtoken.*;
 import jakarta.servlet.http.HttpServletRequest;
@@ -83,5 +84,28 @@ public class GroupController {
 		User user = (User) request.getAttribute("authenticatedUser");
 		Boolean leave = groupService.leaveGroup(id, user);
 		return ResponseEntity.ok(leave);
+	}
+
+	@AuthorizationRequired
+	@PutMapping("/ban-user")
+	public ResponseEntity<Boolean> banUser(@RequestParam String groupId, @RequestParam String userId, @RequestHeader String Authorization, HttpServletRequest request) {
+		User user = (User) request.getAttribute("authenticatedUser");
+		Boolean result = groupService.banUser(groupId, userId, user);
+		return ResponseEntity.ok(result);
+	}
+	@AuthorizationRequired
+	@PutMapping("/add-moderator")
+	public ResponseEntity<Boolean> addModerator(@RequestParam String groupId, @RequestParam String userId, @RequestHeader String Authorization, HttpServletRequest request) {
+		User user = (User) request.getAttribute("authenticatedUser");
+		Boolean result = groupService.addModerator(groupId, userId, user);
+		return ResponseEntity.ok(result);
+	}
+
+	@AuthorizationRequired
+	@AdminRequired
+	@PutMapping("/remove-moderator")
+	public ResponseEntity<Boolean> removeModerator(@RequestParam String groupId, @RequestParam String userId, @RequestHeader String Authorization, HttpServletRequest request) {
+		Boolean result = groupService.removeModerator(groupId, userId);
+		return ResponseEntity.ok(result);
 	}
 }
