@@ -45,6 +45,11 @@ public class Group extends BaseModel {
         members.remove(id);
     }
 
+    public void addTag(Tag tag){
+        this.tags.add(tag.getId());
+    }
 
-
+    public void removeTag(Tag tag){
+        this.tags.remove(tag.getId());
+    }
 }
