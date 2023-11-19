@@ -24,8 +24,16 @@ public class AdminControlPanelScript : MonoBehaviour
     
     private void Awake()
     {
-        createGameButton.onClick.AddListener(OnClickedCreateGameButton);
+        createGameButton.onClick.AddListener(OnClickedCreateGame);
+        createTagButton.onClick.AddListener(OnClickedCreateTag);
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
+    }
+
+    private void OnEnable()
+    {
+        // Set all buttons' colors yellow
+        createGameButton.image.color = Color.yellow;
+        createTagButton.image.color = Color.yellow;
     }
 
     /*
@@ -37,15 +45,24 @@ public class AdminControlPanelScript : MonoBehaviour
     }
     */
     
-    private void OnClickedCreateGameButton()
+    private void OnClickedCreateGame()
     {
         // Set this button's color as blue, and others as white
-        createGameButton.image.color = Color.blue;
+        createGameButton.image.color = Color.green;
+        createTagButton.image.color = Color.yellow;
         
         // Change the screen to CreateGame page
         canvasManager.ShowCreateGamePage();
     }
-    
+    private void OnClickedCreateTag()
+    {
+        // Set this button's color as blue, and others as white
+        createGameButton.image.color = Color.yellow;
+        createTagButton.image.color = Color.green;
+        
+        // Change the screen to CreateGame page
+        canvasManager.ShowCreateTagPage();
+    }
     
     
 }
