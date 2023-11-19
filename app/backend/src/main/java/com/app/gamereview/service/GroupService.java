@@ -3,9 +3,7 @@ package com.app.gamereview.service;
 import com.app.gamereview.dto.request.group.CreateGroupRequestDto;
 import com.app.gamereview.dto.request.group.GetAllGroupsFilterRequestDto;
 import com.app.gamereview.dto.request.tag.AddGameTagRequestDto;
-import com.app.gamereview.enums.ForumType;
-import com.app.gamereview.enums.SortDirection;
-import com.app.gamereview.enums.SortType;
+import com.app.gamereview.enums.*;
 import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.*;
@@ -150,6 +148,41 @@ public class GroupService {
         groupToCreate.setMembers(members);
 
         return groupRepository.save(groupToCreate);
+    }
+
+    public Boolean joinGroup(String groupId, User user){
+        Optional<Group> isGroupExists = groupRepository.findByIdAndIsDeletedFalse(groupId);
+
+        if(isGroupExists.isEmpty()){
+            throw new ResourceNotFoundException("Group not found");
+        }
+
+        if(MembershipPolicy.PRIVATE.equals(isGroupExists.get().getMembershipPolicy())){
+            throw new BadRequestException("You should send join request for this group");
+        }
+
+        if(isGroupExists.get().getQuota() <= isGroupExists.get().getMembers().size()){
+            throw new BadRequestException("You cannot join, group is full");
+        }
+
+        isGroupExists.get().addMember(user.getId());
+        groupRepository.save(isGroupExists.get());
+
+        return true;
+    }
+
+    public Boolean leaveGroup(String groupId, User user){
+        Optional<Group> isGroupExists = groupRepository.findByIdAndIsDeletedFalse(groupId);
+
+        if(isGroupExists.isEmpty()){
+            throw new ResourceNotFoundException("Group not found");
+        }
+
+
+        isGroupExists.get().removeMember(user.getId());
+        groupRepository.save(isGroupExists.get());
+
+        return true;
     }
 
 }

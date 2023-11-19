@@ -67,4 +67,21 @@ public class GroupController {
 		return ResponseEntity.ok(groupToCreate);
 	}
 
+	@AuthorizationRequired
+	@PostMapping("/join")
+	public ResponseEntity<Boolean> joinGroup(@RequestParam String id,
+									  @RequestHeader String Authorization, HttpServletRequest request) {
+		User user = (User) request.getAttribute("authenticatedUser");
+		Boolean joined = groupService.joinGroup(id, user);
+		return ResponseEntity.ok(joined);
+	}
+
+	@AuthorizationRequired
+	@PostMapping("/leave")
+	public ResponseEntity<Boolean> leaveGroup(@RequestParam String id,
+											 @RequestHeader String Authorization, HttpServletRequest request) {
+		User user = (User) request.getAttribute("authenticatedUser");
+		Boolean leave = groupService.leaveGroup(id, user);
+		return ResponseEntity.ok(leave);
+	}
 }
