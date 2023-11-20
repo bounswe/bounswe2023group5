@@ -53,20 +53,8 @@ public class TagResponse
     public bool isDeleted;
 }
 
-// In requests and responses PlayerType's are given in string
-// enum would lead to ints, therefore we shouldn't use enum
-/*
-public enum PlayerType
+public class TagInfo
 {
-    PLAYER_TYPE, 
-    GENRE, 
-    PRODUCTION, 
-    DURATION, 
-    PLATFORM, 
-    ART_STYLE, 
-    DEVELOPER, 
-    MONETIZATION, 
-    POST, 
-    OTHER 
+    public string code;
+    public string message;
 }
-*/
