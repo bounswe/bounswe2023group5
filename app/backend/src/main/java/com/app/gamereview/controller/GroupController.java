@@ -1,6 +1,7 @@
 package com.app.gamereview.controller;
 
 import com.app.gamereview.dto.request.group.*;
+import com.app.gamereview.dto.response.group.GetGroupResponseDto;
 import com.app.gamereview.dto.response.tag.AddGroupTagResponseDto;
 import com.app.gamereview.model.Group;
 import com.app.gamereview.model.User;
@@ -38,15 +39,15 @@ public class GroupController {
 	}
 
 	@GetMapping("/get-all")
-	public ResponseEntity<List<Group>> getReviews(
+	public ResponseEntity<List<GetGroupResponseDto>> getReviews(
 			@ParameterObject GetAllGroupsFilterRequestDto filter) {
-		List<Group> groups = groupService.getAllGroups(filter);
+		List<GetGroupResponseDto> groups = groupService.getAllGroups(filter);
 		return ResponseEntity.ok(groups);
 	}
 
 	@GetMapping("/get")
-	public ResponseEntity<Group> getGroup(@RequestParam String id) {
-		Group group = groupService.getGroupById(id);
+	public ResponseEntity<GetGroupResponseDto> getGroup(@RequestParam String id) {
+		GetGroupResponseDto group = groupService.getGroupById(id);
 
 		return ResponseEntity.ok(group);
 	}
