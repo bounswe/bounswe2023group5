@@ -12,36 +12,44 @@
   .info {
     display: flex;
     justify-content: flex;
-    flex-direction: column;
     gap: 2em;
     background-color: $celadon-light-20;
     border-radius: 0.5em;
     padding: 1em;
-
-    .name {
-      height: 100%;
-
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      h1 {
-        all: unset;
-        font-size: 2em;
-        font-weight: bold;
-        color: $prussian-blue-dark-20;
-      }
-      span {
-        color: $color-accent;
-        opacity: 80%;
-      }
+    .game {
+      flex: 1 1 0;
     }
+    .meta {
+      flex: 2 2 0;
 
-    .desc {
       display: flex;
       justify-content: center;
-      align-items: center;
+      gap: 2em;
+      flex-direction: column;
+
+      .name {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        h1 {
+          all: unset;
+          font-size: 2em;
+          font-weight: bold;
+          color: $prussian-blue-dark-20;
+        }
+        span {
+          color: $color-accent;
+          opacity: 80%;
+        }
+      }
+
+      .desc {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
   }
 
