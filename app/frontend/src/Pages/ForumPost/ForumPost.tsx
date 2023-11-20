@@ -18,12 +18,14 @@ import {
   EditOutlined,
   UpOutlined,
   CommentOutlined,
+  WarningOutlined,
 } from "@ant-design/icons";
 import clsx from "clsx";
 import { Button } from "antd";
 import { useState } from "react";
 import { formatDate } from "../../Library/utils/formatDate.ts";
 import TagRenderer from "../../Components/TagRenderer/TagRenderer.tsx";
+import { twj } from "tw-to-css";
 
 function ForumPost() {
   const { isLoggedIn, user } = useAuth();
@@ -95,22 +97,26 @@ function ForumPost() {
               />
             </div>
 
-            {post.title}
+            <h2>{post.title}</h2>
             <TagRenderer tags={post.tags} />
-          </div>
+          </div>{" "}
           <span className={styles.body}>{post.postContent}</span>
-          <Button
-            type="text"
-            ghost={true}
-            shape="circle"
-            size="small"
-            icon={<CommentOutlined style={{ color: "#555064" }} />}
-            style={{ marginLeft: "13em", marginTop: "15px" }}
-            onClick={() => {
-              toggleCommenting();
-            }}
-          />
-
+          <div style={twj("flex gap-2 pt-2")}>
+            <Button
+              size="small"
+              icon={<CommentOutlined style={{ color: "#555064" }} />}
+              onClick={() => {
+                toggleCommenting();
+              }}
+            >
+              Comment{" "}
+            </Button>
+            <WarningOutlined
+              style={twj("text-red-500 text-lg cursor-pointer")}
+              type="text"
+              alt="report"
+            />
+          </div>
           {isCommenting && <CommentForm />}
         </div>
       )}
