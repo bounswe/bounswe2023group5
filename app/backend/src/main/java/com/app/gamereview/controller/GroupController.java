@@ -61,6 +61,15 @@ public class GroupController {
 	}
 
 	@AuthorizationRequired
+	@DeleteMapping("/delete")
+	public ResponseEntity<Boolean> deleteGroup(String identifier,
+											 @RequestHeader String Authorization, HttpServletRequest request) {
+		User user = (User) request.getAttribute("authenticatedUser");
+		Boolean response = groupService.deleteGroup(identifier);
+		return ResponseEntity.ok(response);
+	}
+
+	@AuthorizationRequired
 	@PostMapping("/add-tag")
 	public ResponseEntity<AddGroupTagResponseDto> addGroupTag(
 			@Valid @RequestBody AddGroupTagRequestDto addGroupTagRequestDto) {
