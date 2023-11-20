@@ -1,9 +1,6 @@
 package com.app.gamereview.service;
 
-import com.app.gamereview.dto.request.group.AddGroupTagRequestDto;
-import com.app.gamereview.dto.request.group.CreateGroupRequestDto;
-import com.app.gamereview.dto.request.group.GetAllGroupsFilterRequestDto;
-import com.app.gamereview.dto.request.group.RemoveGroupTagRequestDto;
+import com.app.gamereview.dto.request.group.*;
 import com.app.gamereview.dto.response.tag.AddGroupTagResponseDto;
 import com.app.gamereview.enums.*;
 import com.app.gamereview.exception.BadRequestException;
@@ -11,6 +8,7 @@ import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.*;
 import com.app.gamereview.repository.*;
 import com.app.gamereview.util.UtilExtensions;
+import com.app.gamereview.util.validation.annotation.ValidMemberPolicy;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -172,6 +170,29 @@ public class GroupService {
         groupToDelete.setIsDeleted(true);
         groupRepository.save(groupToDelete);
         return true;
+    }
+
+    public Group updateGroup(String groupId, UpdateGroupRequestDto request){
+        Optional<Group> foundGroup = groupRepository.findByIdAndIsDeletedFalse(groupId);
+
+        if(foundGroup.isEmpty()){
+            throw new ResourceNotFoundException("Group does not exist");
+        }
+
+        Group groupToUpdate = foundGroup.get();
+
+        if(groupToUpdate.getMembers().size() > request.getQuota()){
+            throw new BadRequestException("Quota cannot be less than the current number of members in group");
+        }
+
+        // could also use a mapper (few values to assign hence this implementation is kind of handy)
+        groupToUpdate.setTitle(request.getTitle());
+        groupToUpdate.setDescription(request.getDescription());
+        groupToUpdate.setMembershipPolicy(MembershipPolicy.valueOf(request.getMembershipPolicy()));
+        groupToUpdate.setQuota(request.getQuota());
+        groupToUpdate.setAvatarOnly(request.getAvatarOnly());
+        groupRepository.save(groupToUpdate);
+        return groupToUpdate;
     }
 
     public AddGroupTagResponseDto addGroupTag(AddGroupTagRequestDto request){

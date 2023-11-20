@@ -1,18 +1,17 @@
 package com.app.gamereview.dto.request.group;
 
 import com.app.gamereview.enums.MembershipPolicy;
-import com.app.gamereview.enums.TagType;
 import com.app.gamereview.util.validation.annotation.ValidMemberPolicy;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Getter
 @Setter
-public class CreateGroupRequestDto {
+public class UpdateGroupRequestDto {
 
     @NotEmpty(message = "Title field cannot be null or empty")
     @Size(min = 3, message = "Title must be at least 3 characters long")
@@ -26,16 +25,9 @@ public class CreateGroupRequestDto {
     @ValidMemberPolicy(allowedValues = {MembershipPolicy.PUBLIC, MembershipPolicy.PRIVATE})
     private String membershipPolicy;
 
-    private List<String> tags = new ArrayList<>(); // list of tag ids
-
-    @NotEmpty(message = "Game Id must be provided")
-    @Pattern(regexp = "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-            message = "Game has Invalid Id (UUID) format")
-    private String gameId;      // id of related game
-
     @Positive(message = "Quota cannot be negative or zero")
     private int quota;
 
     @NotNull(message = "Avatar only field cannot be null")
-    private Boolean avatarOnly = false;
+    private Boolean avatarOnly;
 }
