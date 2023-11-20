@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 import { getPostList } from "../../Services/forum";
 import { Button, Input, Select } from "antd";
 import {
+  FilterOutlined,
   PlusCircleOutlined,
   SearchOutlined,
   SortAscendingOutlined,
@@ -13,6 +14,7 @@ import { useAuth } from "../Hooks/useAuth";
 import ForumPost from "./ForumPost/ForumPost";
 import { useState } from "react";
 import { useDebounce } from "usehooks-ts";
+import { getTags } from "../../Services/tags";
 const sortOptions = [
   { label: "Creation Date", value: "CREATION_DATE" },
   { label: "Edit Date", value: "EDIT_DATE" },
@@ -28,6 +30,7 @@ function Forum({
   redirect?: string;
 }) {
   const { isLoggedIn } = useAuth();
+  const [filterTags, setFilterTags] = useState([]);
   const [sortBy, setSortBy] = useState<string>(sortOptions[0].value);
   const [sortDir, setSortDir] = useState<"ASCENDING" | "DESCENDING">(
     "DESCENDING"
@@ -43,14 +46,25 @@ function Forum({
   };
 
   const { data: posts } = useQuery(
-    ["forum", forumId, sortBy, sortDir, searchString],
+    ["forum", forumId, sortBy, sortDir, filterTags, searchString],
     () =>
       getPostList({
         forum: forumId,
         sortBy,
         sortDirection: sortDir,
         search: searchString,
+        tags: filterTags,
       })
+  );
+  const { data: tagOptions } = useQuery(
+    ["tagOptions", "forumPost"],
+    async () => {
+      const data = await getTags({ tagType: "POST" });
+      return data.map((item: { name: any; id: any }) => ({
+        label: item.name,
+        value: item.id,
+      }));
+    }
   );
   const navigate = useNavigate();
   return (
@@ -76,6 +90,16 @@ function Forum({
               onChange={(e) => setSearch(e.target.value)}
             />
           </span>
+          <Select
+            options={tagOptions}
+            value={filterTags}
+            onChange={setFilterTags}
+            suffixIcon={<FilterOutlined />}
+            style={{ width: "180px" }}
+            placeholder="Filter By Tag"
+            allowClear
+            mode="multiple"
+          />
           <Button onClick={toggleSortDir}>
             {sortDir === "DESCENDING" ? (
               <SortDescendingOutlined />

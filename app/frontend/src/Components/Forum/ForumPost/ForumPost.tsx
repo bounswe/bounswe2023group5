@@ -14,6 +14,7 @@ import { useVote } from "../../Hooks/useVote";
 import clsx from "clsx";
 import { truncateWithEllipsis } from "../../../Library/utils/truncate";
 import { useNavigate } from "react-router-dom";
+import TagRenderer from "../../TagRenderer/TagRenderer";
 
 function ForumPost({
   post,
@@ -76,6 +77,7 @@ function ForumPost({
         {isAdmin && (
           <DeleteFilled style={{ color: "red" }} onClick={handleDelete} />
         )}
+        <TagRenderer tags={post.tags} />
       </div>
 
       <div className={styles.content}>
