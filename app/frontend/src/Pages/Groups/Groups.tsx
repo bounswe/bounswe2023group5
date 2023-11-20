@@ -91,7 +91,6 @@ function Groups() {
             style={{ width: "120px" }}
           />
           <Select
-            mode="multiple"
             placeholder="Filter by game"
             onChange={setGameName}
             style={{ width: "30%" }}

@@ -3,8 +3,10 @@ import styles from "./PublicGroup.module.scss";
 import { Button } from "antd";
 import TagRenderer from "../TagRenderer/TagRenderer";
 import { formatDate } from "../../Library/utils/formatDate";
+import { useNavigate } from "react-router-dom";
 
 function PublicGroup({ group }: { group: any }) {
+  const navigate = useNavigate();
   return (
     <div className={styles.group}>
       <div className={styles.header}>
@@ -42,7 +44,9 @@ function PublicGroup({ group }: { group: any }) {
             </div>
             <div style={{ display: "flex", gap: "3px" }}>
               <Button>Join</Button>
-              <Button>Group Details</Button>
+              <Button onClick={() => navigate(`/group/${group.id}`)}>
+                Group Details
+              </Button>
             </div>
           </div>
         </div>
