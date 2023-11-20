@@ -7,6 +7,7 @@ import {
   EditOutlined,
   StarFilled,
   UpOutlined,
+  WarningOutlined,
 } from "@ant-design/icons";
 import TextArea from "antd/es/input/TextArea";
 import { useState } from "react";
@@ -27,7 +28,7 @@ function Review({ review }: { review: any }) {
   const { upvote, downvote } = useVote({
     voteType: "REVIEW",
     typeId: review.id,
-    invalidateKey: ["reviews", review.gameId, ""],
+    invalidateKey: ["reviews", review.gameId],
   });
 
   const { mutate: removeReview } = useMutation(
@@ -70,6 +71,7 @@ function Review({ review }: { review: any }) {
           shape="circle"
           icon={<UpOutlined />}
           onClick={upvote}
+          className={review.requestedUserVote === "UPVOTE" ? styles.voted : ""}
         />
         <span>{review.overallVote}</span>
         <Button
@@ -77,6 +79,9 @@ function Review({ review }: { review: any }) {
           shape="circle"
           icon={<DownOutlined />}
           onClick={downvote}
+          className={
+            review.requestedUserVote === "DOWNVOTE" ? styles.voted : ""
+          }
         />
       </div>
       <div className={styles.review}>
@@ -84,12 +89,11 @@ function Review({ review }: { review: any }) {
           <div className={styles.user}>
             <b>{review.reviewedUser}</b>
           </div>
-          {user.username === review.reviewedUser && (
+          {user?.username === review.reviewedUser ? (
             <div className={styles.buttons}>
               {!inputMode ? (
                 <Button
                   type="text"
-                  ghost={true}
                   shape="circle"
                   size="small"
                   icon={<EditOutlined style={{ color: "#aacdbe" }} />}
@@ -98,7 +102,6 @@ function Review({ review }: { review: any }) {
               ) : (
                 <Button
                   type="text"
-                  ghost={true}
                   shape="circle"
                   size="small"
                   icon={<CheckOutlined style={{ color: "#aacdbe" }} />}
@@ -115,11 +118,21 @@ function Review({ review }: { review: any }) {
               )}
               <Button
                 type="text"
-                ghost={true}
                 shape="circle"
                 size="small"
                 icon={<DeleteOutlined style={{ color: "#aacdbe" }} />}
                 onClick={() => removeReview(review.id)}
+              />
+            </div>
+          ) : (
+            <div className={styles.buttons}>
+              <Button
+                type="text"
+                ghost={true}
+                shape="circle"
+                size="small"
+                icon={<WarningOutlined style={{ color: "#aacdbe" }} />}
+                /* onClick will be implemented when reporting functionality is added in backend */
               />
             </div>
           )}

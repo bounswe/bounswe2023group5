@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 2118135838422049655}
   - component: {fileID: 6529245646193006568}
   m_Layer: 5
-  m_Name: ForumPage
+  m_Name: ForumPost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

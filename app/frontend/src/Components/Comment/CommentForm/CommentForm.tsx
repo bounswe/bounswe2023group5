@@ -10,19 +10,17 @@ function CommentForm() {
   const queryClient = useQueryClient();
 
   const { mutate: addComment, isLoading } = useMutation(
-    ({  commentContent }: {  commentContent: string }) => 
-      createComment({  post: postId.postId!, commentContent }),
+    ({ commentContent }: { commentContent: string }) =>
+      createComment({ post: postId.postId!, commentContent }),
     {
       onSuccess() {
         queryClient.invalidateQueries(["comments", postId.postId]);
-        
       },
       onMutate(comment: any) {
         queryClient.setQueryData(["comments", postId.postId], (prev: any) => {
           return prev?.filter((comments: any) => comment.id !== comments.id);
-        })
+        });
       },
-      
     }
   );
 
@@ -34,12 +32,18 @@ function CommentForm() {
           rules={[{ required: true, message: "Please enter a comment" }]}
         >
           <Input.TextArea
-            rows={1}
+            rows={2}
+
             placeholder="Comment under construction... 🚧"
           />
         </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit" disabled={isLoading}>
+        <Form.Item noStyle>
+          <Button
+            type="primary"
+            htmlType="submit"
+            disabled={isLoading}
+            style={{ marginLeft: "85%" }}
+          >
             Submit
           </Button>
         </Form.Item>

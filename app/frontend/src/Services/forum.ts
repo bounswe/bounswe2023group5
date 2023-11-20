@@ -56,6 +56,31 @@ export const createPost = async ({
   return response.data;
 };
 
+export const editPost = async ({
+  title,
+  postContent,
+  postImage,
+  id,
+  tags = [],
+}: {
+  title: string;
+  postContent: string;
+  postImage?: string;
+  id: string;
+  tags?: string[];
+}) => {
+  const response = await axios.post(
+    import.meta.env.VITE_APP_API_URL + "/post/edit?id=" + id,
+    {
+      title,
+      postContent,
+      postImage,
+      tags,
+    }
+  );
+  return response.data;
+};
+
 export const getPost = async (id: string) => {
   const response = await axios.get(
     import.meta.env.VITE_APP_API_URL + "/post/get-post-detail",

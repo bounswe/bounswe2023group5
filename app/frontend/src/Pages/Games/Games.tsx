@@ -26,7 +26,7 @@ function Games() {
     getGames(activeFilters, searchText.length <= 0 ? undefined : searchText)
   );
 
-  const { data: tags } = useQuery(["tags"], getTags);
+  const { data: tags } = useQuery(["tags"], () => getTags());
 
   const onChange = (filterKey: string, value: string[] | string) => {
     if (Array.isArray(value)) {
