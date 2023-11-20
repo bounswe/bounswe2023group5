@@ -1,0 +1,65 @@
+@import "../../colors";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  height: 100%;
+  width: 100%;
+  padding: 2em;
+  gap: 1em;
+
+  .info {
+    display: flex;
+    justify-content: flex;
+    flex-direction: column;
+    gap: 2em;
+    background-color: $celadon-light-20;
+    border-radius: 0.5em;
+    padding: 1em;
+
+    .name {
+      height: 100%;
+
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      h1 {
+        all: unset;
+        font-size: 2em;
+        font-weight: bold;
+        color: $prussian-blue-dark-20;
+      }
+      span {
+        color: $color-accent;
+        opacity: 80%;
+      }
+    }
+
+    .desc {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .forumTitle {
+    background-color: $prussian-blue-dark-40;
+    color: $color-text-light;
+    border-radius: 0.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.2em;
+    padding: 1em;
+  }
+
+  .forum {
+    background-color: $violet-light-80;
+    border-radius: 0.5em;
+    flex: 1 0 0px;
+  }
+}
