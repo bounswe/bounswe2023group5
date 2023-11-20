@@ -120,7 +120,17 @@ function Review({ review }: { review: any }) {
                 type="text"
                 shape="circle"
                 size="small"
-                icon={<DeleteOutlined style={{ color: "#aacdbe" }} />}
+                icon={<DeleteOutlined style={{ color: "red" }} />}
+                onClick={() => removeReview(review.id)}
+              />
+            </div>
+          ) : user?.role == "ADMIN" ? (
+            <div className={styles.buttons}>
+              <Button
+                type="text"
+                shape="circle"
+                size="small"
+                icon={<DeleteOutlined style={{ color: "red" }} />}
                 onClick={() => removeReview(review.id)}
               />
             </div>
