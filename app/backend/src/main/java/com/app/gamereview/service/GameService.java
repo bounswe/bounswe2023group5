@@ -6,7 +6,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.app.gamereview.dto.request.game.CreateGameRequestDto;
-import com.app.gamereview.dto.request.tag.AddGameTagRequestDto;
+import com.app.gamereview.dto.request.game.AddGameTagRequestDto;
+import com.app.gamereview.dto.request.game.RemoveGameTagRequestDto;
 import com.app.gamereview.dto.response.tag.AddGameTagResponseDto;
 import com.app.gamereview.dto.response.tag.GetAllTagsOfGameResponseDto;
 import com.app.gamereview.enums.ForumType;
@@ -51,6 +52,35 @@ public class GameService {
 		this.mongoTemplate = mongoTemplate;
 		this.forumRepository = forumRepository;
 		this.modelMapper = modelMapper;
+	}
+
+	public List<Game> getGames(GetGameListRequestDto filter) {
+		Query query = new Query();
+		if(filter != null) {
+			if (filter.getFindDeleted() == null || !filter.getFindDeleted()) {
+				query.addCriteria(Criteria.where("isDeleted").is(false));
+			}
+			if(filter.getGameName() != null && !filter.getGameName().isBlank()){
+				query.addCriteria(Criteria.where("gameName").is(filter.getGameName()));
+			}
+			if (filter.getPlayerTypes() != null && !filter.getPlayerTypes().isEmpty()) {
+				query.addCriteria(Criteria.where("playerTypes").in(filter.getPlayerTypes()));
+			}
+			if (filter.getGenre() != null && !filter.getGenre().isEmpty()) {
+				query.addCriteria(Criteria.where("genre").in(filter.getGenre()));
+			}
+			if (filter.getProduction() != null && !filter.getProduction().isBlank()) {
+				query.addCriteria(Criteria.where("production").is(filter.getProduction()));
+			}
+			if (filter.getPlatform() != null && !filter.getPlatform().isEmpty()) {
+				query.addCriteria(Criteria.where("platforms").in(filter.getPlatform()));
+			}
+			if (filter.getArtStyle() != null && !filter.getArtStyle().isEmpty()) {
+				query.addCriteria(Criteria.where("artStyles").in(filter.getArtStyle()));
+			}
+		}
+
+		return mongoTemplate.find(query, Game.class);
 	}
 
 	public List<GetGameListResponseDto> getAllGames(GetGameListRequestDto filter) {
@@ -130,6 +160,11 @@ public class GameService {
 
 		Game game = findGame.get();
 		Tag tag = findTag.get();
+
+		if(game.getAllTags().contains(tag.getId())){
+			throw new BadRequestException("Tag is already added");
+		}
+
 		game.addTag(tag);
 		gameRepository.save(game);
 
@@ -137,6 +172,32 @@ public class GameService {
 		response.setGameId(game.getId());
 		response.setAddedTag(tag);
 		return response;
+	}
+
+	public Boolean removeGameTag(RemoveGameTagRequestDto request){
+		Optional<Game> findGame = gameRepository.findById(request.getGameId());
+
+		Optional<Tag> findTag = tagRepository.findById(request.getTagId());
+
+		if(findGame.isEmpty() || findGame.get().getIsDeleted()){
+			throw new ResourceNotFoundException("Game does not exist");
+		}
+
+		if(findTag.isEmpty() || findTag.get().getIsDeleted()){
+			throw new ResourceNotFoundException("Tag does not exist");
+		}
+
+		Game game = findGame.get();
+		Tag tag = findTag.get();
+
+		if(!game.getAllTags().contains(tag.getId())){
+			return false;
+		}
+
+		game.removeTag(tag);
+		gameRepository.save(game);
+
+		return true;
 	}
 
 	public GameDetailResponseDto getGameDetail(String id){
@@ -150,6 +211,19 @@ public class GameService {
 		else {
 				throw new ResourceNotFoundException("Game not found");
 
+		}
+	}
+
+	public GameDetailResponseDto getGameByName(String name){
+		Optional<Game> optionalGame = gameRepository.findByGameNameAndIsDeletedFalse(name);
+		if (optionalGame.isPresent()) {
+			Game game = optionalGame.get();
+			GameDetailResponseDto response = new GameDetailResponseDto();
+			response.setGame(game);
+			return response;
+		}
+		else {
+			throw new ResourceNotFoundException("Game not found");
 		}
 	}
 
@@ -187,7 +261,7 @@ public class GameService {
 		for (String genreId : request.getGenre()) {
 			Optional<Tag> genre = tagRepository.findByIdAndIsDeletedFalse(genreId);
 			if (genre.isEmpty() || genre.get().getTagType() != TagType.GENRE) {
-				throw new ResourceNotFoundException("One of the givem genre is not found.");
+				throw new ResourceNotFoundException("One of the given genre is not found.");
 			}
 		}
 

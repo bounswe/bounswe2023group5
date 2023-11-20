@@ -4,5 +4,6 @@ public enum SortType {
     CREATION_DATE,
     EDIT_DATE,
     OVERALL_VOTE,
-    VOTE_COUNT
+    VOTE_COUNT,
+    QUOTA
 }

@@ -3,6 +3,7 @@ package com.app.gamereview.service;
 import com.app.gamereview.dto.request.comment.CreateCommentRequestDto;
 import com.app.gamereview.dto.request.comment.EditCommentRequestDto;
 import com.app.gamereview.dto.request.comment.ReplyCommentRequestDto;
+import com.app.gamereview.enums.UserRole;
 import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.*;
@@ -66,8 +67,8 @@ public class CommentService {
             throw new ResourceNotFoundException("The comment with the given id is not found.");
         }
 
-        if (!comment.get().getCommenter().equals(user.getId())) {
-            throw new BadRequestException("Only the user that created the comment can edit it.");
+        if (!(comment.get().getCommenter().equals(user.getId()) || UserRole.ADMIN.equals(user.getRole()))) {
+            throw new BadRequestException("Only the user that created the comment or admin can edit it.");
         }
 
         Comment editedComment = comment.get();
@@ -87,8 +88,8 @@ public class CommentService {
             throw new ResourceNotFoundException("The comment with the given id is not found.");
         }
 
-        if (!comment.get().getCommenter().equals(user.getId())) {
-            throw new BadRequestException("Only the user that created the comment can delete it.");
+        if (!(comment.get().getCommenter().equals(user.getId()) || UserRole.ADMIN.equals(user.getRole()))) {
+            throw new BadRequestException("Only the user that created the comment or admin can delete it.");
         }
 
         Comment commentToDelete = comment.get();

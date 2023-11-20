@@ -104,8 +104,8 @@ function ForumPost() {
             ghost={true}
             shape="circle"
             size="small"
-            icon={<CommentOutlined style={{ color: "red" }} />}
-            style={{ marginLeft: "5em", marginTop: "15px" }}
+            icon={<CommentOutlined style={{ color: "#555064" }} />}
+            style={{ marginLeft: "13em", marginTop: "15px" }}
             onClick={() => {
               toggleCommenting();
             }}
@@ -123,8 +123,6 @@ function ForumPost() {
               <Comment comment={comment} postId={postId!} key={comment.id} />
             )
         )}
-
-      <CommentForm />
     </div>
   );
 }

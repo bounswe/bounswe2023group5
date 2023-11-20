@@ -17,8 +17,10 @@ public class GameDetails : MonoBehaviour
     [SerializeField] private Button reviewsButton;
     [SerializeField] private Button forumButton;
     [SerializeField] private GameObject summaryManager;
-    [SerializeField] private ReviewsManager reviewsManager;
-    [SerializeField] private ForumScreen forumManager;
+    [SerializeField] private GetAllReviews getAllReviews;
+
+    [SerializeField] private ForumGetPostList forumManager;
+
     [SerializeField] private Button exitButton;
     private string gameId;
     
@@ -36,8 +38,8 @@ public class GameDetails : MonoBehaviour
     private string gameName;
     private string gameDescription;
     private string gameIcon;
-    private string overallRating;
-    private string ratingCount;
+    private double overallRating;
+    private int ratingCount;
     private string releaseDate;
     private string forum;
     private string[] playerTypes;
@@ -83,7 +85,7 @@ public class GameDetails : MonoBehaviour
         forumButton.image.color = Color.white;
         
         summaryManager.gameObject.SetActive(true);
-        reviewsManager.gameObject.SetActive(false);
+        getAllReviews.gameObject.SetActive(false);
         forumManager.gameObject.SetActive(false);
     }
     
@@ -94,9 +96,9 @@ public class GameDetails : MonoBehaviour
         forumButton.image.color = Color.white;
         
         summaryManager.gameObject.SetActive(false);
-        reviewsManager.gameObject.SetActive(true);
+        getAllReviews.gameObject.SetActive(true);
         forumManager.gameObject.SetActive(false);
-        reviewsManager.Init(gameId);
+        getAllReviews.Init(new []{"gameId"},new []{gameId});
     }
     
     private void OnClickedForumButton()
@@ -106,27 +108,32 @@ public class GameDetails : MonoBehaviour
         forumButton.image.color = Color.blue;
         
         summaryManager.gameObject.SetActive(false);
-        reviewsManager.gameObject.SetActive(false);
+        getAllReviews.gameObject.SetActive(false);
         forumManager.gameObject.SetActive(true);
-        forumManager.ListForumPosts(forum);
+        
+        // 3 parameters are required
+        forumManager.ListForumPosts(new [] {"forum", "sortBy", "sortDirection"},
+            new [] {forum, "CREATION_DATE", "ASCENDING"});
     }
     
 
     private void GetGameSummary()
     {
-        // Make a request
-        string url = AppVariables.HttpServerUrl + "/game/get-game";
+        // Make a request to game id
+        string url = AppVariables.HttpServerUrl + "/game/get-game" + 
+                     ListToQueryParameters.ListToQueryParams(
+                         new []{"gameId"}, new []{gameId});
 
         StartCoroutine(Get(url));
     }
 
     IEnumerator Get(string url)
     {
-        var parameteredUrl = url + "?gameId=" + gameId;
+        // var parameteredUrl = url + "?gameId=" + gameId;
         
         // Debug.Log(url);
         
-        var request = new UnityWebRequest(parameteredUrl, "GET");
+        var request = new UnityWebRequest(url, "GET");
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
         
@@ -155,7 +162,7 @@ public class GameDetails : MonoBehaviour
             overallRating = _gamesData.game.overallRating;
             ratingCount = _gamesData.game.ratingCount;
             releaseDate = _gamesData.game.releaseDate;
-            forum = "b4036d6f-0e69-4df3-a935-a84750dc2bcd";
+            forum = _gamesData.game.forum;
             playerTypes = _gamesData.game.playerTypes;
             genre = _gamesData.game.genre;
             production = _gamesData.game.production;

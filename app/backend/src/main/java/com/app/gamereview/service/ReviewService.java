@@ -4,19 +4,24 @@ import com.app.gamereview.dto.request.review.CreateReviewRequestDto;
 import com.app.gamereview.dto.request.review.GetAllReviewsFilterRequestDto;
 import com.app.gamereview.dto.request.review.UpdateReviewRequestDto;
 import com.app.gamereview.dto.response.review.GetAllReviewsResponseDto;
+import com.app.gamereview.enums.SortDirection;
+import com.app.gamereview.enums.SortType;
 import com.app.gamereview.enums.UserRole;
 import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.Game;
 import com.app.gamereview.model.Review;
 import com.app.gamereview.model.User;
+import com.app.gamereview.model.Vote;
 import com.app.gamereview.repository.GameRepository;
 import com.app.gamereview.repository.ReviewRepository;
 import com.app.gamereview.repository.UserRepository;
+import com.app.gamereview.repository.VoteRepository;
 import com.mongodb.client.result.UpdateResult;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -31,6 +36,8 @@ public class ReviewService {
 
     private final GameRepository gameRepository;
 
+    private final VoteRepository voteRepository;
+
     private final UserRepository userRepository;
 
     private final MongoTemplate mongoTemplate;
@@ -41,12 +48,14 @@ public class ReviewService {
     public ReviewService(
             ReviewRepository reviewRepository,
             GameRepository gameRepository,
+            VoteRepository voteRepository,
             UserRepository userRepository,
             MongoTemplate mongoTemplate,
             ModelMapper modelMapper
     ) {
         this.reviewRepository = reviewRepository;
         this.gameRepository = gameRepository;
+        this.voteRepository = voteRepository;
         this.userRepository = userRepository;
         this.mongoTemplate = mongoTemplate;
         this.modelMapper = modelMapper;
@@ -60,7 +69,10 @@ public class ReviewService {
         });
     }
 
-    public List<GetAllReviewsResponseDto> getAllReviews(GetAllReviewsFilterRequestDto filter) {
+    public List<GetAllReviewsResponseDto> getAllReviews(GetAllReviewsFilterRequestDto filter, String email) {
+        Optional<User> loggedInUser = userRepository.findByEmailAndIsDeletedFalse(email);
+        String loggedInUserId = loggedInUser.map(User::getId).orElse(null);
+
         Query query = new Query();
         if (filter.getGameId() != null) {
             query.addCriteria(Criteria.where("gameId").is(filter.getGameId()));
@@ -72,19 +84,37 @@ public class ReviewService {
             query.addCriteria(Criteria.where("isDeleted").is(filter.getWithDeleted()));
         }
 
-        List<Review> filteredReviews =  mongoTemplate.find(query, Review.class);
+        if (filter.getSortBy() != null) {
+            Sort.Direction sortDirection = Sort.Direction.DESC;
+            if (filter.getSortDirection() != null) {
+                sortDirection = filter.getSortDirection().equals(SortDirection.ASCENDING.name()) ? Sort.Direction.ASC
+                        : Sort.Direction.DESC;
+            }
+            if (filter.getSortBy().equals(SortType.CREATION_DATE.name())) {
+                query.with(Sort.by(sortDirection, "createdAt"));
+            }
+            else if (filter.getSortBy().equals(SortType.OVERALL_VOTE.name())) {
+                query.with(Sort.by(sortDirection, "overallVote"));
+            }
+            else if (filter.getSortBy().equals(SortType.VOTE_COUNT.name())) {
+                query.with(Sort.by(sortDirection, "voteCount"));
+            }
+        }
 
-        if(filter.getSortDirection().equals("DESCENDING")){
-            Collections.sort(filteredReviews, Comparator.comparing(Review::getCreatedAt).reversed());
-        }
-        else{
-            Collections.sort(filteredReviews, Comparator.comparing(Review::getCreatedAt));
-        }
+        List<Review> filteredReviews =  mongoTemplate.find(query, Review.class);
 
         List<GetAllReviewsResponseDto> reviewDtos = new ArrayList<>();
 
         for(Review review : filteredReviews){
             GetAllReviewsResponseDto reviewDto = modelMapper.map(review, GetAllReviewsResponseDto.class);
+
+            Optional<Vote> vote = voteRepository.findByVoteTypeAndTypeIdAndVotedBy("REVIEW",
+                    review.getId(), loggedInUserId);
+
+            if(vote.isPresent()){
+                reviewDto.setRequestedUserVote(vote.get().getChoice().name());
+            }
+
             reviewDto.setReviewedUser(userRepository.findById(review.getReviewedBy())
                     .get().getUsername());
             reviewDtos.add(reviewDto);

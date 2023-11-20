@@ -10,6 +10,17 @@
   gap: 0.5em;
 
   margin-bottom: 0.5em;
+  .edit {
+    position: absolute;
+    bottom: 0.005em;
+    right: 0.5em;
+  }
+  .commentButton{
+    color: $celadon-light-30
+  }
+  .text{
+    font-size: 1.2em;
+  }
   .vote {
     justify-items: center;
     align-items: center;
@@ -47,7 +58,8 @@
     position: relative;
   }
   .title {
-    font-size: 1.2em;
+    font-size: 1em;
+    font-weight: bold;
   }
   .meta {
     display: flex;

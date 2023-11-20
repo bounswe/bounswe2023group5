@@ -4,10 +4,12 @@ public class GameController
 {
 }
 
+// Below is for the POST endpoint for game/get-game-list
 // Response is a list of GameListEntry's
 public class GetGameListRequest
 {
     public bool findDeleted;
+    public string gameName;
     public string[] playerTypes;
     public string[] genre;
     public string production;
@@ -15,6 +17,14 @@ public class GetGameListRequest
     public string[] artStyle;
     public string search;
 }
+
+// Below is for the GET endpoint for game/get-game-list
+// Used in GETGetGameList.cs
+// Response is a list of GameListEntry's
+// Query parameters:
+// bool findDeleted, string gameName, string[] playerTypes
+// string[] genre, string production, string[] platform
+// string[] artStyle, string search
 
 public class GameListEntry
 {
@@ -71,8 +81,8 @@ public class GameDetail
     public string gameName;
     public string gameDescription;
     public string gameIcon;
-    public string overallRating;
-    public string ratingCount;
+    public double overallRating;
+    public int ratingCount;
     public string releaseDate;
     public string forum;
     public string[] playerTypes;
@@ -84,6 +94,7 @@ public class GameDetail
     public string developer;
     public string[] otherTags;
     public string minSystemReq;
+    public string[] allTags;
 }
 
 // For GetAllTagsRequest send gameId as a query parameter
@@ -101,17 +112,6 @@ public class GetAllTagsResponse
     public string[] otherTags;
 }
 
-
-
-public class CreateGameRequest
-{
-    public string email;
-    public string password;
-}
-
-public class CreateGameResponse
-{
-    public UserData user;
-    public string token;
-}
+// For GameByNameRequest send name of the game as a query parameter
+// Response is a GetGameResponse
 

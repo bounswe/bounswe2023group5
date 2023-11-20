@@ -35,11 +35,15 @@ function ReplyForm({commentId}:{commentId:string}) {
         >
           <Input.TextArea
             rows={2}
-            placeholder="Comment under construction... 🚧"
+            placeholder="Reply under construction... 🚧"
           />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit" disabled={isLoading}>
+          <Button 
+            type="primary" 
+            htmlType="submit" 
+            disabled={isLoading} 
+            style={{ marginLeft: "85%" }}>
             Submit
           </Button>
         </Form.Item>

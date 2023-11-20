@@ -43,16 +43,21 @@ public class DeleteAccount : MonoBehaviour
             return;
         }
         
-        string url = AppVariables.HttpServerUrl + "/user/delete";
+        string url = AppVariables.HttpServerUrl + "/user/delete" +
+                     ListToQueryParameters.ListToQueryParams(
+                         new[]{"id"}, new []{PersistenceManager.id});
+        /*
         var deleteData = new UserDeleteRequest();
         deleteData.id = PersistenceManager.id;
         string bodyJsonString = JsonConvert.SerializeObject(deleteData);
-        StartCoroutine(Delete(url, bodyJsonString));
+        */
+
+        StartCoroutine(Delete(url));
 
     }
-    IEnumerator Delete(string url, string bodyJsonString)
+    IEnumerator Delete(string url)
     {
-        url += "?id=" + PersistenceManager.id;
+        // url += "?id=" + PersistenceManager.id;
         var request = new UnityWebRequest(url, "DELETE");
         request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
