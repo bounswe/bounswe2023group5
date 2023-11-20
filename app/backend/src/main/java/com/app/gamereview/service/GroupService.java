@@ -1,6 +1,8 @@
 package com.app.gamereview.service;
 
 import com.app.gamereview.dto.request.group.*;
+import com.app.gamereview.dto.request.review.CreateReviewRequestDto;
+import com.app.gamereview.dto.response.group.GetGroupResponseDto;
 import com.app.gamereview.dto.response.tag.AddGroupTagResponseDto;
 import com.app.gamereview.enums.*;
 import com.app.gamereview.exception.BadRequestException;
@@ -58,9 +60,16 @@ public class GroupService {
                 skip().setId(null); // Exclude id from mapping
             }
         });
+
+        modelMapper.addMappings(new PropertyMap<Group, GetGroupResponseDto>() {
+            @Override
+            protected void configure() {
+                skip().setTags(null); // Exclude id from mapping
+            }
+        });
     }
 
-    public List<Group> getAllGroups(GetAllGroupsFilterRequestDto filter){
+    public List<GetGroupResponseDto> getAllGroups(GetAllGroupsFilterRequestDto filter){
         Query query = new Query();
 
         // search for title
@@ -96,17 +105,38 @@ public class GroupService {
             }
         }
 
-        return mongoTemplate.find(query,Group.class);
+        List<Group> filteredGroups = mongoTemplate.find(query,Group.class);
+        List<GetGroupResponseDto> responseDtos = new ArrayList<>();
+
+        for(Group group : filteredGroups){
+            GetGroupResponseDto dto = modelMapper.map(group,GetGroupResponseDto.class);
+
+            for(String tagId : group.getTags()){
+                Optional<Tag> tag = tagRepository.findById(tagId);
+                tag.ifPresent(dto::populateTag);
+            }
+
+            responseDtos.add(dto);
+        }
+
+        return responseDtos;
     }
 
-    public Group getGroupById(String groupId){
+    public GetGroupResponseDto getGroupById(String groupId){
         Optional<Group> isGroupExists = groupRepository.findByIdAndIsDeletedFalse(groupId);
 
         if(isGroupExists.isEmpty()){
             throw new ResourceNotFoundException("Group not found");
         }
 
-        return isGroupExists.get();
+        Group group = isGroupExists.get();
+        GetGroupResponseDto dto = modelMapper.map(group, GetGroupResponseDto.class);
+        for(String tagId : group.getTags()){
+            Optional<Tag> tag = tagRepository.findById(tagId);
+            tag.ifPresent(dto::populateTag);
+        }
+
+        return dto;
     }
 
     public Group createGroup(CreateGroupRequestDto request, User user){
