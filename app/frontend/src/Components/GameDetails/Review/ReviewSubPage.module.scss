@@ -1,0 +1,11 @@
+
+.reviews-subpage-container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    .findReview {
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+}

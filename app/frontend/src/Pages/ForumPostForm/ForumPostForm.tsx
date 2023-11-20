@@ -1,11 +1,12 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import styles from "./ForumPostForm.module.scss";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Select } from "antd";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { createPost, editPost, getPost } from "../../Services/forum";
 import { twj } from "tw-to-css";
 import { useEffect } from "react";
 import { useForm } from "antd/es/form/Form";
+import { getTags } from "../../Services/tags";
 
 function ForumPostForm() {
   const [form] = useForm();
@@ -22,6 +23,17 @@ function ForumPostForm() {
     }
   );
 
+  const { data: tagOptions } = useQuery(
+    ["tagOptions", "forumPost"],
+    async () => {
+      const data = await getTags({ tagType: "POST" });
+      return data.map((item: { name: any; id: any }) => ({
+        label: item.name,
+        value: item.id,
+      }));
+    }
+  );
+
   useEffect(() => {
     if (editedPost) {
       form.setFieldsValue(editedPost);
@@ -29,12 +41,21 @@ function ForumPostForm() {
   }, [editedPost]);
 
   const { mutate: submit, isLoading } = useMutation(
-    ({ title, postContent }: { title: string; postContent: string }) => {
+    ({
+      title,
+      postContent,
+      tags,
+    }: {
+      title: string;
+      postContent: string;
+      tags: string[];
+    }) => {
       if (!editId) {
         return createPost({
           forum: searchParams.get("forumId")!,
           title,
           postContent,
+          tags,
         });
       } else {
         return editPost({ id: editId!, title, postContent });
@@ -59,6 +80,14 @@ function ForumPostForm() {
           label="Title"
         >
           <Input placeholder="Come up with a totes cool title my dude" />
+        </Form.Item>
+        <Form.Item name="tags" label="Tags">
+          <Select
+            allowClear
+            mode="multiple"
+            placeholder="You can add tags to your post."
+            options={tagOptions}
+          />
         </Form.Item>
         <Form.Item
           name="postContent"

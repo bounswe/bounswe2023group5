@@ -13,12 +13,19 @@ import Comment from "../../Components/Comment/Comment/Comment.tsx";
 
 import { useVote } from "../../Components/Hooks/useVote.tsx";
 import { useAuth } from "../../Components/Hooks/useAuth.tsx";
-import { DownOutlined, EditOutlined, UpOutlined, CommentOutlined} from "@ant-design/icons";
+import {
+  DownOutlined,
+  EditOutlined,
+  UpOutlined,
+  CommentOutlined,
+  WarningOutlined,
+} from "@ant-design/icons";
 import clsx from "clsx";
 import { Button } from "antd";
 import { useState } from "react";
 import { formatDate } from "../../Library/utils/formatDate.ts";
-
+import TagRenderer from "../../Components/TagRenderer/TagRenderer.tsx";
+import { twj } from "tw-to-css";
 
 function ForumPost() {
   const { isLoggedIn, user } = useAuth();
@@ -43,11 +50,10 @@ function ForumPost() {
 
   const [isCommenting, setCommenting] = useState(false);
 
-
   const toggleCommenting = () => {
     setCommenting(!isCommenting);
     console.log(isCommenting);
-    console.log(post)
+    console.log(post);
   };
 
   return (
@@ -91,25 +97,30 @@ function ForumPost() {
               />
             </div>
 
-            {post.title}
-          </div>
+            <h2>{post.title}</h2>
+            <TagRenderer tags={post.tags} />
+          </div>{" "}
           <span className={styles.body}>{post.postContent}</span>
-          <Button
-                type="text"
-                ghost={true}
-                shape="circle"
-                size="small"
-                icon={<CommentOutlined style={{ color: "#555064"}} />}
-                style={{marginLeft:"13em" , marginTop:"15px"}}
-                onClick={() => {toggleCommenting()}}
-              />
-
-
-          {isCommenting && <CommentForm/>}
+          <div style={twj("flex gap-2 pt-2")}>
+            <Button
+              size="small"
+              icon={<CommentOutlined style={{ color: "#555064" }} />}
+              onClick={() => {
+                toggleCommenting();
+              }}
+            >
+              Comment{" "}
+            </Button>
+            <WarningOutlined
+              style={twj("text-red-500 text-lg cursor-pointer")}
+              type="text"
+              alt="report"
+            />
+          </div>
+          {isCommenting && <CommentForm />}
         </div>
       )}
 
-      
       <div className={styles.commentTitle}>Comments</div>
       {!isLoadingComments &&
         comments.map(
@@ -118,7 +129,6 @@ function ForumPost() {
               <Comment comment={comment} postId={postId!} key={comment.id} />
             )
         )}
-
     </div>
   );
 }

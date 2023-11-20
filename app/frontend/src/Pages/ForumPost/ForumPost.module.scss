@@ -21,12 +21,14 @@
       right: 0.5em;
     }
     .title {
-      font-size: 1.5em;
-      font-weight: bold;
       display: flex;
       align-items: center;
       gap: 0.5em;
       margin-bottom: 1em;
+      h2 {
+        font-size: 1.5em;
+        font-weight: bold;
+      }
       .vote {
         grid-area: v;
         grid-template-rows: repeat(3, 1fr);

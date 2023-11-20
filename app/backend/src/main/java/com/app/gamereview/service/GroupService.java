@@ -1,15 +1,16 @@
 package com.app.gamereview.service;
 
-import com.app.gamereview.dto.request.group.AddGroupTagRequestDto;
-import com.app.gamereview.dto.request.group.CreateGroupRequestDto;
-import com.app.gamereview.dto.request.group.GetAllGroupsFilterRequestDto;
-import com.app.gamereview.dto.request.group.RemoveGroupTagRequestDto;
+import com.app.gamereview.dto.request.group.*;
+import com.app.gamereview.dto.request.review.CreateReviewRequestDto;
+import com.app.gamereview.dto.response.group.GetGroupResponseDto;
 import com.app.gamereview.dto.response.tag.AddGroupTagResponseDto;
 import com.app.gamereview.enums.*;
 import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.*;
 import com.app.gamereview.repository.*;
+import com.app.gamereview.util.UtilExtensions;
+import com.app.gamereview.util.validation.annotation.ValidMemberPolicy;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,9 +60,16 @@ public class GroupService {
                 skip().setId(null); // Exclude id from mapping
             }
         });
+
+        modelMapper.addMappings(new PropertyMap<Group, GetGroupResponseDto>() {
+            @Override
+            protected void configure() {
+                skip().setTags(null); // Exclude id from mapping
+            }
+        });
     }
 
-    public List<Group> getAllGroups(GetAllGroupsFilterRequestDto filter){
+    public List<GetGroupResponseDto> getAllGroups(GetAllGroupsFilterRequestDto filter){
         Query query = new Query();
 
         // search for title
@@ -97,17 +105,38 @@ public class GroupService {
             }
         }
 
-        return mongoTemplate.find(query,Group.class);
+        List<Group> filteredGroups = mongoTemplate.find(query,Group.class);
+        List<GetGroupResponseDto> responseDtos = new ArrayList<>();
+
+        for(Group group : filteredGroups){
+            GetGroupResponseDto dto = modelMapper.map(group,GetGroupResponseDto.class);
+
+            for(String tagId : group.getTags()){
+                Optional<Tag> tag = tagRepository.findById(tagId);
+                tag.ifPresent(dto::populateTag);
+            }
+
+            responseDtos.add(dto);
+        }
+
+        return responseDtos;
     }
 
-    public Group getGroupById(String groupId){
+    public GetGroupResponseDto getGroupById(String groupId){
         Optional<Group> isGroupExists = groupRepository.findByIdAndIsDeletedFalse(groupId);
 
         if(isGroupExists.isEmpty()){
             throw new ResourceNotFoundException("Group not found");
         }
 
-        return isGroupExists.get();
+        Group group = isGroupExists.get();
+        GetGroupResponseDto dto = modelMapper.map(group, GetGroupResponseDto.class);
+        for(String tagId : group.getTags()){
+            Optional<Tag> tag = tagRepository.findById(tagId);
+            tag.ifPresent(dto::populateTag);
+        }
+
+        return dto;
     }
 
     public Group createGroup(CreateGroupRequestDto request, User user){
@@ -150,6 +179,50 @@ public class GroupService {
         groupToCreate.setMembers(members);
 
         return groupRepository.save(groupToCreate);
+    }
+
+    public Boolean deleteGroup(String identifier){
+        Optional<Group> foundGroup;
+
+        if(UtilExtensions.isUUID(identifier)){
+            foundGroup = groupRepository.findByIdAndIsDeletedFalse(identifier);
+        }
+        else{
+            foundGroup = groupRepository.findByTitleAndIsDeletedFalse(identifier);
+        }
+
+        if(foundGroup.isEmpty()){
+            throw new ResourceNotFoundException("Group is not found");
+        }
+
+        Group groupToDelete = foundGroup.get();
+
+        groupToDelete.setIsDeleted(true);
+        groupRepository.save(groupToDelete);
+        return true;
+    }
+
+    public Group updateGroup(String groupId, UpdateGroupRequestDto request){
+        Optional<Group> foundGroup = groupRepository.findByIdAndIsDeletedFalse(groupId);
+
+        if(foundGroup.isEmpty()){
+            throw new ResourceNotFoundException("Group does not exist");
+        }
+
+        Group groupToUpdate = foundGroup.get();
+
+        if(groupToUpdate.getMembers().size() > request.getQuota()){
+            throw new BadRequestException("Quota cannot be less than the current number of members in group");
+        }
+
+        // could also use a mapper (few values to assign hence this implementation is kind of handy)
+        groupToUpdate.setTitle(request.getTitle());
+        groupToUpdate.setDescription(request.getDescription());
+        groupToUpdate.setMembershipPolicy(MembershipPolicy.valueOf(request.getMembershipPolicy()));
+        groupToUpdate.setQuota(request.getQuota());
+        groupToUpdate.setAvatarOnly(request.getAvatarOnly());
+        groupRepository.save(groupToUpdate);
+        return groupToUpdate;
     }
 
     public AddGroupTagResponseDto addGroupTag(AddGroupTagRequestDto request){
@@ -241,5 +314,57 @@ public class GroupService {
 
         return true;
     }
+
+    public Boolean banUser(String groupId, String userId, User user) {
+        Optional<Group> group = groupRepository.findById(groupId);
+
+        if (group.isEmpty() || group.get().getIsDeleted()) {
+            throw new ResourceNotFoundException("The group with the given id is not found.");
+        }
+
+        if (group.get().getModerators().contains(user.getId()) && group.get().getModerators().contains(userId)) {
+            throw new BadRequestException("Moderators cannot ban moderators.");
+        }
+
+        if (!(group.get().getModerators().contains(user.getId()) || UserRole.ADMIN.equals(user.getRole()))) {
+            throw new BadRequestException("Only the moderator or the admin can ban user.");
+        }
+
+        group.get().addBannedUser(userId);
+        groupRepository.save(group.get());
+
+        return true;
+    }
+
+    public Boolean addModerator(String groupId, String userId, User user) {
+        Optional<Group> group = groupRepository.findById(groupId);
+
+        if (group.isEmpty() || group.get().getIsDeleted()) {
+            throw new ResourceNotFoundException("The group with the given id is not found.");
+        }
+
+        if (!(group.get().getModerators().contains(user.getId()) || UserRole.ADMIN.equals(user.getRole()))) {
+            throw new BadRequestException("Only the moderator or the admin can add moderator.");
+        }
+
+        group.get().addModerator(userId);
+        groupRepository.save(group.get());
+
+        return true;
+    }
+
+    public Boolean removeModerator(String groupId, String userId) {
+        Optional<Group> group = groupRepository.findById(groupId);
+
+        if (group.isEmpty() || group.get().getIsDeleted()) {
+            throw new ResourceNotFoundException("The group with the given id is not found.");
+        }
+
+        group.get().removeModerator(userId);
+        groupRepository.save(group.get());
+
+        return true;
+    }
+
 
 }
