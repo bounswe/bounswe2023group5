@@ -36,5 +36,6 @@ public class CreateGroupRequestDto {
     @Positive(message = "Quota cannot be negative or zero")
     private int quota;
 
+    @NotNull(message = "Avatar only field cannot be null")
     private Boolean avatarOnly = false;
 }
