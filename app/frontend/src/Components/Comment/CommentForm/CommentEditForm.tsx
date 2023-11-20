@@ -2,16 +2,16 @@ import { useParams } from "react-router-dom";
 import styles from "./CommentForm.module.scss";
 import { Button, Form, Input } from "antd";
 import { useMutation, useQueryClient } from "react-query";
-import { createComment } from "../../../Services/comment";
+import { edit } from "../../../Services/comment";
 
-function CommentForm() {
+function CommentEditForm({commentId, commentContent}:{commentId:string, commentContent:string}) {
   const postId = useParams();
   const [form] = Form.useForm();
   const queryClient = useQueryClient();
 
-  const { mutate: addComment, isLoading } = useMutation(
+  const { mutate: editComment, isLoading } = useMutation(
     ({ commentContent }: { commentContent: string }) =>
-      createComment({ post: postId.postId!, commentContent }),
+      edit({ id: commentId!, commentContent }),
     {
       onSuccess() {
         queryClient.invalidateQueries(["comments", postId.postId]);
@@ -23,10 +23,10 @@ function CommentForm() {
       },
     }
   );
-
+  form.setFieldsValue({commentContent:commentContent})
   return (
     <div className={styles.container}>
-      <Form form={form} onFinish={addComment}>
+      <Form form={form} onFinish={editComment}>
         <Form.Item
           name="commentContent"
           rules={[{ required: true, message: "Please enter a comment" }]}
@@ -52,4 +52,4 @@ function CommentForm() {
   );
 }
 
-export default CommentForm;
+export default CommentEditForm;

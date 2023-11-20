@@ -1,26 +1,28 @@
 import { useParams } from "react-router-dom";
-import styles from "./CommentForm.module.scss";
+import styles from "./ReplyForm.module.scss";
 import { Button, Form, Input } from "antd";
 import { useMutation, useQueryClient } from "react-query";
-import { createComment } from "../../../Services/comment";
+import { createReply } from "../../../Services/comment";
 
-function CommentForm() {
+function ReplyForm({commentId}:{commentId:string}) {
   const postId = useParams();
   const [form] = Form.useForm();
   const queryClient = useQueryClient();
 
   const { mutate: addComment, isLoading } = useMutation(
-    ({ commentContent }: { commentContent: string }) =>
-      createComment({ post: postId.postId!, commentContent }),
+    ({  commentContent }: {  commentContent: string }) => 
+      createReply({  parentComment: commentId, commentContent }),
     {
       onSuccess() {
         queryClient.invalidateQueries(["comments", postId.postId]);
+        
       },
       onMutate(comment: any) {
         queryClient.setQueryData(["comments", postId.postId], (prev: any) => {
           return prev?.filter((comments: any) => comment.id !== comments.id);
-        });
+        })
       },
+      
     }
   );
 
@@ -33,17 +35,15 @@ function CommentForm() {
         >
           <Input.TextArea
             rows={2}
-
-            placeholder="Comment under construction... 🚧"
+            placeholder="Reply under construction... 🚧"
           />
         </Form.Item>
-        <Form.Item noStyle>
-          <Button
-            type="primary"
-            htmlType="submit"
-            disabled={isLoading}
-            style={{ marginLeft: "85%" }}
-          >
+        <Form.Item>
+          <Button 
+            type="primary" 
+            htmlType="submit" 
+            disabled={isLoading} 
+            style={{ marginLeft: "85%" }}>
             Submit
           </Button>
         </Form.Item>
@@ -52,4 +52,4 @@ function CommentForm() {
   );
 }
 
-export default CommentForm;
+export default ReplyForm;

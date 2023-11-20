@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const createVote = async (body: {
-  voteType: "POST" | "REVIEW" | "COMMENT";
+  voteType: "POST" | "REVIEW" | "COMMENT" | "REPLY";
   typeId: string;
   choice: "UPVOTE" | "DOWNVOTE";
 }) => {
