@@ -10,6 +10,7 @@ import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.*;
 import com.app.gamereview.repository.*;
+import com.app.gamereview.util.UtilExtensions;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -150,6 +151,27 @@ public class GroupService {
         groupToCreate.setMembers(members);
 
         return groupRepository.save(groupToCreate);
+    }
+
+    public Boolean deleteGroup(String identifier){
+        Optional<Group> foundGroup;
+
+        if(UtilExtensions.isUUID(identifier)){
+            foundGroup = groupRepository.findByIdAndIsDeletedFalse(identifier);
+        }
+        else{
+            foundGroup = groupRepository.findByTitleAndIsDeletedFalse(identifier);
+        }
+
+        if(foundGroup.isEmpty()){
+            throw new ResourceNotFoundException("Group is not found");
+        }
+
+        Group groupToDelete = foundGroup.get();
+
+        groupToDelete.setIsDeleted(true);
+        groupRepository.save(groupToDelete);
+        return true;
     }
 
     public AddGroupTagResponseDto addGroupTag(AddGroupTagRequestDto request){
