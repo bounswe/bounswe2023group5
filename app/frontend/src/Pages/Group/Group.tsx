@@ -6,6 +6,7 @@ import { formatDate } from "../../Library/utils/formatDate";
 import Forum from "../../Components/Forum/Forum";
 import { getGame } from "../../Services/gamedetail";
 import Game from "../../Components/Game/Game";
+import TagRenderer from "../../Components/TagRenderer/TagRenderer";
 
 function Group() {
   const { groupId } = useParams();
@@ -14,8 +15,10 @@ function Group() {
     getGroup(groupId!)
   );
 
-  const { data: game } = useQuery(["game", group.gameId], () =>
-    getGame(group.gameId!)
+  const { data: game } = useQuery(
+    ["game", group?.gameId],
+    () => getGame(group?.gameId!),
+    { enabled: !!group }
   );
 
   return (
@@ -26,13 +29,16 @@ function Group() {
           <div className={styles.name}>
             <h1>{group?.title}</h1>
             <span>{formatDate(group?.createdAt)}</span>
+            <span>{!isLoading && <TagRenderer tags={group?.tags} />}</span>
           </div>
           <div className={styles.desc}>{group?.description}</div>
         </div>
       </div>
       <div className={styles.forumTitle}>Forum</div>
       <div className={styles.forum}>
-        <Forum forumId={group?.forumId} redirect={`/group/${groupId}`} />
+        {!isLoading && (
+          <Forum forumId={group?.forumId} redirect={`/group/${groupId}`} />
+        )}
       </div>
     </div>
   );
