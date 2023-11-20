@@ -79,7 +79,9 @@ function ForumPost({
         {isAdmin && (
           <DeleteFilled style={{ color: "red" }} onClick={handleDelete} />
         )}
-        <TagRenderer tags={post.tags} />
+        <span style={twj("text-xs")}>
+          <TagRenderer tags={post.tags} />
+        </span>
       </div>
 
       <div className={styles.content}>
