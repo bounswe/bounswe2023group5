@@ -6,6 +6,7 @@ public static class PersistenceManager
         private static string _userName = "UserName";
         private static string _Id = "Id";
         private static string _password = "Password";
+        private static string _role = "Role";
         public static string UserToken
         {
             get => PlayerPrefs.GetString(_userToken, "");
@@ -28,5 +29,11 @@ public static class PersistenceManager
         {
             get => PlayerPrefs.GetString(_password, "");
             set => PlayerPrefs.SetString(_password, value);
+        }
+        
+        public static string Role
+        {
+            get => PlayerPrefs.GetString(_role, "");
+            set => PlayerPrefs.SetString(_role, value);
         }
 }

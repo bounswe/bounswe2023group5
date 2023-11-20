@@ -11,12 +11,14 @@ export async function getReview(id : string ) {
     return reviews;
 }
 
-export async function getAllReviews(gameId : string, reviewedBy?: string) {
+export async function getAllReviews(gameId : string, sortBy: string, sortDirection: string, reviewedBy?: string,) {
  
     const reviews = await axios.get(`${import.meta.env.VITE_APP_API_URL}/review/get-all`, {
         params: {
             gameId,
-            reviewedBy
+            reviewedBy,
+            sortBy,
+            sortDirection
         }
     });
 

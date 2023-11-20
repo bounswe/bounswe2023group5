@@ -6,7 +6,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.app.gamereview.dto.request.game.CreateGameRequestDto;
-import com.app.gamereview.dto.request.tag.AddGameTagRequestDto;
+import com.app.gamereview.dto.request.game.AddGameTagRequestDto;
+import com.app.gamereview.dto.request.game.RemoveGameTagRequestDto;
 import com.app.gamereview.dto.response.tag.AddGameTagResponseDto;
 import com.app.gamereview.dto.response.tag.GetAllTagsOfGameResponseDto;
 import com.app.gamereview.enums.ForumType;
@@ -171,6 +172,32 @@ public class GameService {
 		response.setGameId(game.getId());
 		response.setAddedTag(tag);
 		return response;
+	}
+
+	public Boolean removeGameTag(RemoveGameTagRequestDto request){
+		Optional<Game> findGame = gameRepository.findById(request.getGameId());
+
+		Optional<Tag> findTag = tagRepository.findById(request.getTagId());
+
+		if(findGame.isEmpty() || findGame.get().getIsDeleted()){
+			throw new ResourceNotFoundException("Game does not exist");
+		}
+
+		if(findTag.isEmpty() || findTag.get().getIsDeleted()){
+			throw new ResourceNotFoundException("Tag does not exist");
+		}
+
+		Game game = findGame.get();
+		Tag tag = findTag.get();
+
+		if(!game.getAllTags().contains(tag.getId())){
+			return false;
+		}
+
+		game.removeTag(tag);
+		gameRepository.save(game);
+
+		return true;
 	}
 
 	public GameDetailResponseDto getGameDetail(String id){

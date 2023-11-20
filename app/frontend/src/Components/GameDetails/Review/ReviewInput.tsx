@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, Input, Rate } from "antd";
-import styles from "./Review.module.scss";
+import styles from "./ReviewInput.module.scss";
 import { CheckOutlined } from "@ant-design/icons";
 import { useMutation, useQueryClient } from "react-query";
 import { postReview } from "../../../Services/review";
@@ -16,10 +16,10 @@ function ReviewInput({ gameId }: { gameId: string }) {
     (review: any) => postReview(review),
     {
       onSuccess() {
-        queryClient.invalidateQueries(["reviews", gameId, ""]);
+        queryClient.invalidateQueries(["reviews", gameId]);
       },
       onMutate(review: any) {
-        queryClient.setQueryData(["reviews", gameId, ""], (prev: any) => [
+        queryClient.setQueriesData(["reviews", gameId], (prev: any) => [
           review,
           ...prev,
         ]);
@@ -56,7 +56,11 @@ function ReviewInput({ gameId }: { gameId: string }) {
             value={rating}
           />
         </div>
-        <Button icon={<CheckOutlined />} onClick={() => handleClick()}></Button>
+        <Button
+          icon={<CheckOutlined />}
+          type="text"
+          onClick={() => handleClick()}
+        ></Button>
       </div>
 
       <TextArea

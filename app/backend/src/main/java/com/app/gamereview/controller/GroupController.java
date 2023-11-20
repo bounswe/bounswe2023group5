@@ -1,31 +1,23 @@
 package com.app.gamereview.controller;
 
-import com.app.gamereview.dto.request.group.CreateGroupRequestDto;
-import com.app.gamereview.dto.request.group.GetAllGroupsFilterRequestDto;
-import com.app.gamereview.dto.request.review.CreateReviewRequestDto;
-import com.app.gamereview.dto.request.review.GetAllReviewsFilterRequestDto;
-import com.app.gamereview.dto.request.review.UpdateReviewRequestDto;
-import com.app.gamereview.dto.response.review.GetAllReviewsResponseDto;
+import com.app.gamereview.dto.request.group.*;
+import com.app.gamereview.dto.response.tag.AddGroupTagResponseDto;
 import com.app.gamereview.model.Group;
-import com.app.gamereview.model.Review;
 import com.app.gamereview.model.User;
-import com.app.gamereview.repository.GroupRepository;
 import com.app.gamereview.service.GroupService;
 import com.app.gamereview.service.ReviewService;
 import com.app.gamereview.util.validation.annotation.AdminRequired;
 import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
-import io.jsonwebtoken.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -66,6 +58,40 @@ public class GroupController {
 		User user = (User) request.getAttribute("authenticatedUser");
 		Group groupToCreate = groupService.createGroup(createGroupRequestDto, user);
 		return ResponseEntity.ok(groupToCreate);
+	}
+
+	@AuthorizationRequired
+	@PutMapping("/update")
+	public ResponseEntity<Group> editGroup(@RequestParam String id,
+										   @Valid @RequestBody UpdateGroupRequestDto updateGroupRequestDto,
+										   @RequestHeader String Authorization, HttpServletRequest request) {
+		Group updatedGroup = groupService.updateGroup(id,updateGroupRequestDto);
+		return ResponseEntity.ok(updatedGroup);
+	}
+
+	@AuthorizationRequired
+	@DeleteMapping("/delete")
+	public ResponseEntity<Boolean> deleteGroup(String identifier,
+											 @RequestHeader String Authorization, HttpServletRequest request) {
+		User user = (User) request.getAttribute("authenticatedUser");
+		Boolean response = groupService.deleteGroup(identifier);
+		return ResponseEntity.ok(response);
+	}
+
+	@AuthorizationRequired
+	@PostMapping("/add-tag")
+	public ResponseEntity<AddGroupTagResponseDto> addGroupTag(
+			@Valid @RequestBody AddGroupTagRequestDto addGroupTagRequestDto) {
+		AddGroupTagResponseDto response = groupService.addGroupTag(addGroupTagRequestDto);
+		return ResponseEntity.ok(response);
+	}
+
+	@AuthorizationRequired
+	@DeleteMapping("/remove-tag")
+	public ResponseEntity<Boolean> removeGroupTag(
+			@Valid @RequestBody RemoveGroupTagRequestDto removeGroupTagRequestDto) {
+		Boolean response = groupService.removeGroupTag(removeGroupTagRequestDto);
+		return ResponseEntity.ok(response);
 	}
 
 	@AuthorizationRequired

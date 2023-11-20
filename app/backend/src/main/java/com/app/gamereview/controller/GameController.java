@@ -2,7 +2,8 @@ package com.app.gamereview.controller;
 
 import com.app.gamereview.dto.request.game.CreateGameRequestDto;
 import com.app.gamereview.dto.request.game.GetGameListRequestDto;
-import com.app.gamereview.dto.request.tag.AddGameTagRequestDto;
+import com.app.gamereview.dto.request.game.AddGameTagRequestDto;
+import com.app.gamereview.dto.request.game.RemoveGameTagRequestDto;
 import com.app.gamereview.dto.response.game.GameDetailResponseDto;
 import com.app.gamereview.dto.response.game.GetGameListResponseDto;
 import com.app.gamereview.dto.response.tag.AddGameTagResponseDto;
@@ -60,6 +61,15 @@ public class GameController {
 		return ResponseEntity.ok(response);
 	}
 
+	@AuthorizationRequired
+	@AdminRequired
+	@DeleteMapping("/remove-tag")
+	public ResponseEntity<Boolean> removeGameTag(
+			@Valid @RequestBody RemoveGameTagRequestDto removeGameTagRequestDto) {
+		Boolean response = gameService.removeGameTag(removeGameTagRequestDto);
+		return ResponseEntity.ok(response);
+	}
+
 	@GetMapping("/get-all-tags")
 	public ResponseEntity<GetAllTagsOfGameResponseDto> getAllTags(@RequestParam String gameId){
 		GetAllTagsOfGameResponseDto response = gameService.getGameTags(gameId);
@@ -73,7 +83,8 @@ public class GameController {
 
 	@AuthorizationRequired
 	@PostMapping("/create")
-	public ResponseEntity<Game> createGame(@Valid @RequestBody CreateGameRequestDto createGameRequestDto, String Authorization) {
+	public ResponseEntity<Game> createGame(@Valid @RequestBody CreateGameRequestDto createGameRequestDto,
+										   @RequestHeader String Authorization) {
 		Game gameToCreate = gameService.createGame(createGameRequestDto);
 		return ResponseEntity.ok(gameToCreate);
 	}
