@@ -15,6 +15,7 @@ import clsx from "clsx";
 import { truncateWithEllipsis } from "../../../Library/utils/truncate";
 import { useNavigate } from "react-router-dom";
 import TagRenderer from "../../TagRenderer/TagRenderer";
+import { twj } from "tw-to-css";
 
 function ForumPost({
   post,
@@ -77,7 +78,9 @@ function ForumPost({
         {isAdmin && (
           <DeleteFilled style={{ color: "red" }} onClick={handleDelete} />
         )}
-        <TagRenderer tags={post.tags} />
+        <span style={twj("text-xs")}>
+          <TagRenderer tags={post.tags} />
+        </span>
       </div>
 
       <div className={styles.content}>
