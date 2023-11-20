@@ -106,8 +106,16 @@ public class PostService {
 
         VoteChoice userVoteChoice = userVote.map(Vote::getChoice).orElse(null);
 
+        List<Tag> tags = new ArrayList<>();
+
+        // Fetch tags individually
+        for (String tagId : post.getTags()) {
+            Optional<Tag> tag = tagRepository.findById(tagId);
+            tag.ifPresent(tags::add);
+        }
+
         return new GetPostListResponseDto(post.getId(), post.getTitle(), post.getPostContent(),
-                posterObject, userVoteChoice, post.getLastEditedAt(), post.getCreatedAt(), isEdited, post.getTags(),
+                posterObject, userVoteChoice, post.getLastEditedAt(), post.getCreatedAt(), isEdited, tags,
                 post.getInappropriate(), post.getOverallVote(), post.getVoteCount(), commentCount);
     }
 
@@ -122,14 +130,23 @@ public class PostService {
 
         if (forum.isPresent()) {
             List<String> bannedUsers = forum.get().getBannedUsers();
-            System.out.println();
-            System.out.println(bannedUsers);
             if (bannedUsers.contains(user.getId())) {
                 throw new ResourceNotFoundException("You cannot see the post because you are banned.");
             }
         }
 
         GetPostDetailResponseDto postDto = modelMapper.map(post, GetPostDetailResponseDto.class);
+
+        List<Tag> tags = new ArrayList<>();
+
+        // Fetch tags individually
+        for (String tagId : post.get().getTags()) {
+            Optional<Tag> tag = tagRepository.findById(tagId);
+            tag.ifPresent(tags::add);
+        }
+
+        postDto.setTags(tags);
+
         Optional<User> poster = userRepository.findByIdAndIsDeletedFalse(post.get().getPoster());
         poster.ifPresent(postDto::setPoster);
 
