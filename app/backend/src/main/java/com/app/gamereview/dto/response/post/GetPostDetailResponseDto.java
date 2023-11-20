@@ -1,5 +1,6 @@
 package com.app.gamereview.dto.response.post;
 
+import com.app.gamereview.model.Tag;
 import com.app.gamereview.model.User;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -29,7 +30,7 @@ public class GetPostDetailResponseDto {
 
     private LocalDateTime lastEditedAt;
 
-    private List<String> tags;
+    private List<Tag> tags;
 
     private Boolean inappropriate;
 

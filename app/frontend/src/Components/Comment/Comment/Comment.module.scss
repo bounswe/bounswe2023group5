@@ -1,48 +1,80 @@
 @import "../../../colors";
 
 .container {
-  position: relative;
   padding: 1em;
   background-color: $celadon;
   border-radius: 0.5em;
-  display: grid;
+  position: relative;
+  max-width: 70em;
+  word-break: break-word;
   gap: 0.5em;
-  grid-template-areas:
-    "v t"
-    "v m";
-  grid-template-rows: 50px 25px;
-  grid-template-columns: 25px 1fr;
+
   margin-bottom: 0.5em;
+  .edit {
+    position: absolute;
+    bottom: 0.005em;
+    right: 0.5em;
+  }
+  .commentButton{
+    color: $celadon-light-30
+  }
+  .text{
+    font-size: 1.2em;
+  }
   .vote {
-    grid-area: v;
-    grid-template-rows: repeat(3, 1fr);
     justify-items: center;
     align-items: center;
     display: grid;
     color: $orange;
+    font-size: 1rem;
+    margin-right: 30px;
+
 
     button {
-      all: unset;
       cursor: pointer;
-      color: $orange-dark-40;
+      background-color: $orange-dark-40;
+      color: white;
 
-      .active {
-        color: $orange;
+      &.active {
+        background-color: $orange;
+      }
+
+      &:disabled {
+        opacity: 40%;
       }
     }
   }
+  .row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+    margin-left: 10px;
+  }
+  .column{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
   .title {
-    font-size: 1.2em;
-    grid-area: t;
+    font-size: 1em;
+    font-weight: bold;
   }
   .meta {
     display: flex;
-    gap: 1em;
+    gap: 1.5em;
     font-size: 0.8em;
     opacity: 80%;
-    grid-area: m;
+    margin-left: 3.5em;
+    margin-top: 1em;
   }
   .delete {
     margin-left: 5em;
+  }
+  .commentInput {
+    padding: 1em;
+    position: relative;
+    flex-direction: row;
   }
 }
