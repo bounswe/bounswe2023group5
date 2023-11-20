@@ -1,8 +1,10 @@
 package com.app.gamereview.service;
 
+import com.app.gamereview.dto.request.group.AddGroupTagRequestDto;
 import com.app.gamereview.dto.request.group.CreateGroupRequestDto;
 import com.app.gamereview.dto.request.group.GetAllGroupsFilterRequestDto;
-import com.app.gamereview.dto.request.tag.AddGameTagRequestDto;
+import com.app.gamereview.dto.request.group.RemoveGroupTagRequestDto;
+import com.app.gamereview.dto.response.tag.AddGroupTagResponseDto;
 import com.app.gamereview.enums.*;
 import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.exception.ResourceNotFoundException;
@@ -148,6 +150,61 @@ public class GroupService {
         groupToCreate.setMembers(members);
 
         return groupRepository.save(groupToCreate);
+    }
+
+    public AddGroupTagResponseDto addGroupTag(AddGroupTagRequestDto request){
+        Optional<Group> findGroup = groupRepository.findById(request.getGroupId());
+
+        Optional<Tag> findTag = tagRepository.findById(request.getTagId());
+
+        if(findGroup.isEmpty() || findGroup.get().getIsDeleted()){
+            throw new ResourceNotFoundException("Group does not exist");
+        }
+
+        if(findTag.isEmpty() || findTag.get().getIsDeleted()){
+            throw new ResourceNotFoundException("Tag does not exist");
+        }
+
+        Group group = findGroup.get();
+        Tag tag = findTag.get();
+
+        if(group.getTags().contains(tag.getId())){
+            throw new BadRequestException("Tag is already added");
+        }
+
+        group.addTag(tag);
+        groupRepository.save(group);
+
+        AddGroupTagResponseDto response = new AddGroupTagResponseDto();
+        response.setGroupId(group.getId());
+        response.setAddedTag(tag);
+        return response;
+    }
+
+    public Boolean removeGroupTag(RemoveGroupTagRequestDto request){
+        Optional<Group> findGroup = groupRepository.findById(request.getGroupId());
+
+        Optional<Tag> findTag = tagRepository.findById(request.getTagId());
+
+        if(findGroup.isEmpty() || findGroup.get().getIsDeleted()){
+            throw new ResourceNotFoundException("Group does not exist");
+        }
+
+        if(findTag.isEmpty() || findTag.get().getIsDeleted()){
+            throw new ResourceNotFoundException("Tag does not exist");
+        }
+
+        Group group = findGroup.get();
+        Tag tag = findTag.get();
+
+        if(!group.getTags().contains(tag.getId())){
+            return false;
+        }
+
+        group.removeTag(tag);
+        groupRepository.save(group);
+
+        return true;
     }
 
     public Boolean joinGroup(String groupId, User user){
