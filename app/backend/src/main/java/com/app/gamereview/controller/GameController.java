@@ -83,7 +83,8 @@ public class GameController {
 
 	@AuthorizationRequired
 	@PostMapping("/create")
-	public ResponseEntity<Game> createGame(@Valid @RequestBody CreateGameRequestDto createGameRequestDto, String Authorization) {
+	public ResponseEntity<Game> createGame(@Valid @RequestBody CreateGameRequestDto createGameRequestDto,
+										   @RequestHeader String Authorization) {
 		Game gameToCreate = gameService.createGame(createGameRequestDto);
 		return ResponseEntity.ok(gameToCreate);
 	}
