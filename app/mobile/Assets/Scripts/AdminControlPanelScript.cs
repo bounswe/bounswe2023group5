@@ -27,6 +27,7 @@ public class AdminControlPanelScript : MonoBehaviour
         createGameButton.onClick.AddListener(OnClickedCreateGame);
         createTagButton.onClick.AddListener(OnClickedCreateTag);
         updateTagButton.onClick.AddListener(OnClickedUpdateTag);
+        deleteTagButton.onClick.AddListener(OnClickedDeleteTag);
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
     }
 
@@ -35,6 +36,8 @@ public class AdminControlPanelScript : MonoBehaviour
         // Set all buttons' colors yellow
         createGameButton.image.color = Color.yellow;
         createTagButton.image.color = Color.yellow;
+        updateTagButton.image.color = Color.yellow;
+        deleteTagButton.image.color = Color.yellow;
     }
 
     /*
@@ -48,18 +51,22 @@ public class AdminControlPanelScript : MonoBehaviour
     
     private void OnClickedCreateGame()
     {
-        // Set this button's color as blue, and others as white
+        // Set all buttons' colors yellow, and this button green
         createGameButton.image.color = Color.green;
         createTagButton.image.color = Color.yellow;
+        updateTagButton.image.color = Color.yellow;
+        deleteTagButton.image.color = Color.yellow;
         
         // Change the screen to CreateGame page
         canvasManager.ShowCreateGamePage();
     }
     private void OnClickedCreateTag()
     {
-        // Set this button's color as blue, and others as white
+        // Set all buttons' colors yellow, and this button green
         createGameButton.image.color = Color.yellow;
         createTagButton.image.color = Color.green;
+        updateTagButton.image.color = Color.yellow;
+        deleteTagButton.image.color = Color.yellow;
         
         // Change the screen to CreateGame page
         canvasManager.ShowCreateTagPage();
@@ -67,12 +74,26 @@ public class AdminControlPanelScript : MonoBehaviour
     
     private void OnClickedUpdateTag()
     {
-        // Set this button's color as blue, and others as white
+        // Set all buttons' colors yellow, and this button green
         createGameButton.image.color = Color.yellow;
-        createTagButton.image.color = Color.green;
+        createTagButton.image.color = Color.yellow;
+        updateTagButton.image.color = Color.green;
+        deleteTagButton.image.color = Color.yellow;
         
         // Change the screen to CreateGame page
         canvasManager.ShowUpdateTagPage();
+    }
+
+    private void OnClickedDeleteTag()
+    {
+        // Set all buttons' colors yellow, and this button green
+        createGameButton.image.color = Color.yellow;
+        createTagButton.image.color = Color.yellow;
+        updateTagButton.image.color = Color.yellow;
+        deleteTagButton.image.color = Color.green;
+        
+        // Change the screen to CreateGame page
+        canvasManager.ShowDeleteTagPage();
     }
     
     
