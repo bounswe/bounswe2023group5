@@ -93,7 +93,7 @@ function ForumPost({
           Read More
         </Button>
       </div>
-      {user.id === post.poster.id && (
+      {user?.id === post.poster.id && (
         <div className={styles.edit}>
           <Button
             onClick={() =>
