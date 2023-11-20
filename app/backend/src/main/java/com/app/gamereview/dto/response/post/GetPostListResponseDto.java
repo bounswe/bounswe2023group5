@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.app.gamereview.enums.VoteChoice;
+import com.app.gamereview.model.Tag;
 import com.app.gamereview.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,7 +33,7 @@ public class GetPostListResponseDto {
 
   private Boolean isEdited;
 
-  private List<String> tags;
+  private List<Tag> tags;
 
   private boolean inappropriate;
 

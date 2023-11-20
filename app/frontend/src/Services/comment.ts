@@ -10,43 +10,72 @@ export const createComment = async ({
   const response = await axios.post(
     import.meta.env.VITE_APP_API_URL + "/comment/create",
     {
-      post,
-      commentContent,
+        post,
+        commentContent,
+    }
+  );
+  return response.data;
+};
+
+export const edit = async ({
+  id,
+  commentContent,
+}: {
+  id: string;
+  commentContent: string;
+}) => {
+  const response = await axios.post(
+    import.meta.env.VITE_APP_API_URL + "/comment/edit",
+    {commentContent},
+    {
+        
+        params:{
+            id
+        }
     }
   );
   return response.data;
 };
 
 export const getCommentList = async ({
-  findDeleted = false,
-  sortBy = "CREATION_DATE",
-  postId,
-  sortDirection = "DESCENDING",
-}: {
-  findDeleted?: boolean;
-  postId: string;
-  sortBy?: string;
-  sortDirection?: string;
-}) => {
-  const id: string = postId;
+    postId,
+  }: {
+    postId: string;
+  }) => {
+  const id:string = postId;
   const response = await axios.get(
     import.meta.env.VITE_APP_API_URL + "/post/get-post-comments",
     {
       params: {
-        findDeleted,
-        sortBy,
         id,
-        sortDirection,
       },
     }
   );
   return response.data;
 };
-
+  
 export async function deleteComment(id: string) {
   await axios.delete(`${import.meta.env.VITE_APP_API_URL}/comment/delete`, {
-    params: {
-      id,
-    },
-  });
+        params: {
+            id
+        }
+    });
 }
+
+
+ export const createReply = async ({
+  parentComment,
+  commentContent,
+}: {
+  parentComment: string;
+  commentContent: string;
+}) => {
+  const response = await axios.post(
+    import.meta.env.VITE_APP_API_URL + "/comment/reply",
+    {
+      parentComment,
+        commentContent,
+    }
+  );
+  return response.data;
+};

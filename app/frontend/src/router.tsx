@@ -17,6 +17,9 @@ import CreateGame from "./Pages/Admin/Game/CreateGame/CreateGame";
 import DeleteTag from "./Pages/Admin/Tag/DeleteTag/DeleteTag";
 import BanUser from "./Pages/Admin/User/BanUser/BanUser";
 import GiveAdminPermission from "./Pages/Admin/User/GiveAdminPermission/GiveAdminPermission";
+import Groups from "./Pages/Groups/Groups";
+import Group from "./Pages/Group/Group";
+
 
 axios.defaults.headers.common["Content-Type"] = "application/json";
 
@@ -40,6 +43,10 @@ const router = createBrowserRouter([
         element: <GameDetails />,
       },
       {
+        path: "group/:groupId",
+        element: <Group />,
+      },
+      {
         path: "forum",
         children: [
           {
@@ -47,7 +54,7 @@ const router = createBrowserRouter([
             element: <ForumPostForm />,
           },
           {
-            path: "detail/:postId",
+            path: "detail/:forumId/:postId",
             element: <ForumPost />,
           },
         ],
@@ -55,6 +62,10 @@ const router = createBrowserRouter([
       {
         path: "games",
         element: <Games />,
+      },
+      {
+        path: "groups",
+        element: <Groups />,
       },
       {
         path: "admin",

@@ -32,6 +32,12 @@ public class Login : MonoBehaviour
         
     }
 
+    // This function  will be called whenever the page is set active
+    private void OnEnable()
+    {
+        infoText.text = "";
+    }
+
     private void OnClickedLogin()
     {
         if (emailInputField.text == "")
@@ -83,6 +89,7 @@ public class Login : MonoBehaviour
             PersistenceManager.UserName = _useraData.username;
             PersistenceManager.id = _useraData.id;
             PersistenceManager.Password = passwordInputField.text;
+            PersistenceManager.Role = _useraData.role;
             
             DOVirtual.DelayedCall(2f, () =>
             {

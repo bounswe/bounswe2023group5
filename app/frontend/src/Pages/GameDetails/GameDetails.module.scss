@@ -31,8 +31,8 @@
       border-radius: 0.5em;
 
       img {
-        object-fit: cover;
-        height: auto;
+        object-fit: contain;
+        height: 100%;
         width: 100%;
       }
     }
