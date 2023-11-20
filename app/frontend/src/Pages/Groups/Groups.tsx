@@ -1,4 +1,4 @@
-import { Select } from "antd";
+import { Button, Select } from "antd";
 import PrivateGroup from "../../Components/Groups/PrivateGroup";
 import PublicGroup from "../../Components/Groups/PublicGroup";
 import styles from "./Groups.module.scss";
@@ -6,13 +6,17 @@ import { useQuery } from "react-query";
 import { getGames } from "../../Services/games";
 import Search from "antd/es/input/Search";
 import { useState } from "react";
+import { getGroups } from "../../Services/groups";
+import {
+  SortAscendingOutlined,
+  SortDescendingOutlined,
+} from "@ant-design/icons";
+import { getTags } from "../../Services/tags";
 
 function Groups() {
-  const [searchText, setSearchText] = useState("");
-
   const membershipOptions = [
-    { value: "private", label: "Private" },
-    { value: "public", label: "Public" },
+    { value: "PRIVATE", label: "Private" },
+    { value: "PUBLIC", label: "Public" },
     { value: null, label: "All" },
   ];
 
@@ -21,8 +25,34 @@ function Groups() {
     return { value: game.gameName, label: game.gameName };
   });
 
-  const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
+  const sortOptions = [{ label: "Creation Date", value: "CREATION_DATE" }];
+
+  const { data: tagOptions } = useQuery(["tagOptions", "groups"], async () => {
+    const data = await getTags({ tagType: "GROUP" });
+    return data.map((item: { name: any; id: any }) => ({
+      label: item.name,
+      value: item.id,
+    }));
+  });
+
+  const [title, setTitle] = useState("");
+  const [tags, setTags] = useState([]);
+  const [membershipPolicy, setMembershipPolicy] = useState();
+  const [gameName, setGameName] = useState("");
+  const [sortBy, setSortBy] = useState("");
+  const [sortDir, setSortDir] = useState<"ASCENDING" | "DESCENDING">(
+    "DESCENDING"
+  );
+
+  const { data: groups } = useQuery(
+    ["groups", title, gameName, tags, membershipPolicy, sortBy, sortDir],
+    () => getGroups(title, gameName, tags, membershipPolicy, sortBy, sortDir)
+  );
+
+  const toggleSortDir = () => {
+    setSortDir((currentSortDir) =>
+      currentSortDir === "ASCENDING" ? "DESCENDING" : "ASCENDING"
+    );
   };
 
   return (
@@ -33,26 +63,56 @@ function Groups() {
             placeholder="Search groups by name"
             enterButton
             className={styles.search}
-            onSearch={setSearchText}
+            onSearch={setTitle}
+            onChange={(e) => {
+              e.target.value === "" ? setTitle("") : "";
+            }}
             style={{ width: "50%" }}
           />
           <Select
             placeholder="Filter by membership rule"
             defaultValue={null}
             options={membershipOptions}
-            onChange={handleChange}
+            onChange={setMembershipPolicy}
             style={{ width: "20%" }}
+          />
+          <Button onClick={toggleSortDir}>
+            {sortDir === "DESCENDING" ? (
+              <SortDescendingOutlined />
+            ) : (
+              <SortAscendingOutlined />
+            )}
+          </Button>
+          <Select
+            options={sortOptions}
+            defaultValue={sortBy}
+            value={"CREATION_DATE"}
+            onChange={setSortBy}
+            style={{ width: "120px" }}
           />
           <Select
             mode="multiple"
             placeholder="Filter by game"
-            onChange={handleChange}
+            onChange={setGameName}
             style={{ width: "30%" }}
             options={gameOptions}
           />
+          <Select
+            mode="multiple"
+            placeholder="Filter by tag"
+            onChange={setTags}
+            style={{ width: "30%" }}
+            options={tagOptions}
+          />
         </div>
-        <PublicGroup></PublicGroup>
-        <PrivateGroup></PrivateGroup>
+        {groups &&
+          groups.map((group: any) =>
+            group.membershipPolicy === "PRIVATE" ? (
+              <PrivateGroup key={group.id} group={group}></PrivateGroup>
+            ) : (
+              <PublicGroup key={group.id} group={group}></PublicGroup>
+            )
+          )}
       </div>
     </div>
   );

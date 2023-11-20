@@ -16,6 +16,8 @@
         .find-groups {
             display: flex;
             width: 100%;
+            flex-wrap: wrap;
+            row-gap: 5px;
         }
     }
 }

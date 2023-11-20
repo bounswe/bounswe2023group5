@@ -1,16 +1,19 @@
 import { TeamOutlined, UserOutlined } from "@ant-design/icons";
 import styles from "./PrivateGroup.module.scss";
 import { Button } from "antd";
+import TagRenderer from "../TagRenderer/TagRenderer";
+import { formatDate } from "../../Library/utils/formatDate";
 
-function PrivateGroup() {
+function PrivateGroup({ group }: { group: any }) {
   return (
     <div className={styles.group}>
       <div className={styles.header}>
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
           <TeamOutlined />
           <div>
-            <b>heder mi keder mi</b>
+            <b>{group?.title}</b>
           </div>
+          <TagRenderer tags={group?.tags} />
         </div>
       </div>
       <div className={styles.body}>
@@ -19,16 +22,22 @@ function PrivateGroup() {
         </div>
         <div className={styles.content}>
           <div className={styles.description}>
-            <span>
-              Here is some description for people who like to enjoy
-              minecraftiiie
-            </span>
+            <span>{group?.description}</span>
           </div>
           <div className={styles.footer}>
-            <div>
-              <UserOutlined></UserOutlined> 45 members
+            <div style={{ display: "flex", gap: "40px" }}>
+              <div>
+                <UserOutlined></UserOutlined>{" "}
+                {`${group?.members.length} members`}
+              </div>
+              <div style={{ fontSize: "13px" }}>
+                <i>{`since ${formatDate(group.createdAt)}`}</i>
+              </div>
             </div>
-            <Button>Apply</Button>
+            <div style={{ display: "flex", gap: "3px" }}>
+              <Button>Apply</Button>
+              <Button>Group Details</Button>
+            </div>
           </div>
         </div>
       </div>
