@@ -15,7 +15,8 @@ import CreateTag from "./Pages/Admin/Tag/CreateTag/CreateTag";
 import UpdateTag from "./Pages/Admin/Tag/UpdateTag/UpdateTag";
 import CreateGame from "./Pages/Admin/Game/CreateGame/CreateGame";
 import DeleteTag from "./Pages/Admin/Tag/DeleteTag/DeleteTag";
-
+import BanUser from "./Pages/Admin/User/BanUser/BanUser";
+import GiveAdminPermission from "./Pages/Admin/User/GiveAdminPermission/GiveAdminPermission";
 
 axios.defaults.headers.common["Content-Type"] = "application/json";
 
@@ -74,6 +75,14 @@ const router = createBrowserRouter([
       {
         path: "create-game",
         element: <CreateGame />,
+      },
+      {
+        path: "ban-user",
+        element: <BanUser />,
+      },
+      {
+        path: "admin-permission",
+        element: <GiveAdminPermission />,
       },
     ],
   },
