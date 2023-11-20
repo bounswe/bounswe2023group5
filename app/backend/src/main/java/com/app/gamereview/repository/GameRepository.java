@@ -9,4 +9,6 @@ public interface GameRepository extends MongoRepository<Game, String> {
 
 	Optional<Game> findByGameNameAndIsDeletedFalse(String gameName);
 
+	Optional<Game> findByIdAndIsDeletedFalse(String id);
+
 }

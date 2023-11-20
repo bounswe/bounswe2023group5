@@ -1,7 +1,14 @@
 import axios from "axios";
-export const getTags = async () => {
+export const getTags = async (query?: {
+  tagType?: string;
+  isDeleted?: boolean;
+}) => {
+  query && (query.isDeleted = query?.isDeleted ?? false);
   const response = await axios.get(
-    `${import.meta.env.VITE_APP_API_URL}/tag/get-all`
+    `${import.meta.env.VITE_APP_API_URL}/tag/get-all`,
+    {
+      params: query,
+    }
   );
   return response.data;
 };

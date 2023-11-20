@@ -28,7 +28,7 @@ public class GetPostListFilterRequestDto {
           message = "Forum has invalid Id (UUID) format")
   private String forum;
 
-  @ValidSortType(allowedValues = {SortType.CREATION_DATE, SortType.EDIT_DATE, SortType.OVERALL_VOTE, SortType.CREATION_DATE})
+  @ValidSortType(allowedValues = {SortType.CREATION_DATE, SortType.EDIT_DATE, SortType.OVERALL_VOTE, SortType.VOTE_COUNT})
   private String sortBy;
 
   @ValidSortDirection(allowedValues = {SortDirection.ASCENDING, SortDirection.DESCENDING})

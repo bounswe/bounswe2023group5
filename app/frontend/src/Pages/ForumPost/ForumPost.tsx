@@ -10,11 +10,20 @@ import { getPost } from "../../Services/forum";
 import { getCommentList } from "../../Services/comment";
 import CommentForm from "../../Components/Comment/CommentForm/CommentForm.tsx";
 import Comment from "../../Components/Comment/Comment/Comment.tsx";
+
 import { useVote } from "../../Components/Hooks/useVote.tsx";
 import { useAuth } from "../../Components/Hooks/useAuth.tsx";
-import { DownOutlined, EditOutlined, UpOutlined } from "@ant-design/icons";
+import {
+  DownOutlined,
+  EditOutlined,
+  UpOutlined,
+  CommentOutlined,
+} from "@ant-design/icons";
 import clsx from "clsx";
 import { Button } from "antd";
+import { useState } from "react";
+import { formatDate } from "../../Library/utils/formatDate.ts";
+import TagRenderer from "../../Components/TagRenderer/TagRenderer.tsx";
 
 function ForumPost() {
   const { isLoggedIn, user } = useAuth();
@@ -36,6 +45,15 @@ function ForumPost() {
     ["comments", postId],
     () => getCommentList({ postId: postId! })
   );
+
+  const [isCommenting, setCommenting] = useState(false);
+
+  const toggleCommenting = () => {
+    setCommenting(!isCommenting);
+    console.log(isCommenting);
+    console.log(post);
+  };
+
   return (
     <div className={styles.container}>
       {!isLoading && (
@@ -76,9 +94,24 @@ function ForumPost() {
                 className={clsx(post?.userVote === "DOWNVOTE" && styles.active)}
               />
             </div>
+
             {post.title}
+            <TagRenderer tags={post.tags} />
           </div>
           <span className={styles.body}>{post.postContent}</span>
+          <Button
+            type="text"
+            ghost={true}
+            shape="circle"
+            size="small"
+            icon={<CommentOutlined style={{ color: "#555064" }} />}
+            style={{ marginLeft: "13em", marginTop: "15px" }}
+            onClick={() => {
+              toggleCommenting();
+            }}
+          />
+
+          {isCommenting && <CommentForm />}
         </div>
       )}
 
@@ -90,8 +123,6 @@ function ForumPost() {
               <Comment comment={comment} postId={postId!} key={comment.id} />
             )
         )}
-
-      <CommentForm />
     </div>
   );
 }

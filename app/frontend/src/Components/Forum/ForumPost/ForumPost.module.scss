@@ -34,11 +34,12 @@
     justify-items: center;
     align-items: center;
     display: grid;
-    color: $color-text-light;
+    color: white;
     background-color: $orange-light-40;
     button {
       cursor: pointer;
       background-color: $orange-dark-40;
+      color: white;
 
       &.active {
         background-color: $orange;

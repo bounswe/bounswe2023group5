@@ -32,7 +32,8 @@ function CommentForm() {
           rules={[{ required: true, message: "Please enter a comment" }]}
         >
           <Input.TextArea
-            rows={4}
+            rows={2}
+
             placeholder="Comment under construction... 🚧"
           />
         </Form.Item>

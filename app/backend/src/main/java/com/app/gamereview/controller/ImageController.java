@@ -1,21 +1,28 @@
 package com.app.gamereview.controller;
 
+import com.app.gamereview.service.FileStorageService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.core.io.Resource;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
 
 @Controller
 public class ImageController {
 
+	private final FileStorageService fileService;
 	@Value("${image.base-directory}")
 	private String imageBaseDirectory;
+
+	public ImageController(FileStorageService fileService) {
+		this.fileService = fileService;
+	}
 
 	@GetMapping("/api/{folder}/{fileName:.+}")
 	public ResponseEntity<Resource> serveImage(@PathVariable String folder, @PathVariable String fileName) {
@@ -39,6 +46,11 @@ public class ImageController {
 			// Handle exceptions, e.g., file not found
 			return ResponseEntity.status(500).build();
 		}
+	}
+
+	@PostMapping("/api/image/upload")
+	public ResponseEntity<String> uploadImage(@RequestParam String folder, @RequestPart MultipartFile image) throws IOException {
+		return ResponseEntity.ok(folder + "/" + fileService.storeFile(image, folder));
 	}
 
 }

@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 
-public class ForumPage : MonoBehaviour
+public class ForumPost : MonoBehaviour
 {
     [SerializeField] private Image userImage;
     [SerializeField] private TMP_Text poster;

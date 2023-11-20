@@ -56,7 +56,7 @@ public class ReviewResponse
 {
     public string id;
     public string reviewDescription;
-    public int rating;
+    public float rating;
     public string gameId;
     public string reviewedUser;
     public int overallVote;
