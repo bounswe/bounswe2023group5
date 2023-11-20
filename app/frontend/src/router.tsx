@@ -16,7 +16,6 @@ import UpdateTag from "./Pages/Admin/Tag/UpdateTag/UpdateTag";
 import CreateGame from "./Pages/Admin/Game/CreateGame/CreateGame";
 import DeleteTag from "./Pages/Admin/Tag/DeleteTag/DeleteTag";
 
-
 axios.defaults.headers.common["Content-Type"] = "application/json";
 
 const router = createBrowserRouter([
@@ -46,7 +45,7 @@ const router = createBrowserRouter([
             element: <ForumPostForm />,
           },
           {
-            path: "detail/:postId",
+            path: "detail/:forumId/:postId",
             element: <ForumPost />,
           },
         ],

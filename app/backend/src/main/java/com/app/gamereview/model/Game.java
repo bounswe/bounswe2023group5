@@ -86,6 +86,35 @@ public class Game extends BaseModel {
 		}
 	}
 
+	public void removeTag(Tag tag){
+		switch (tag.getTagType()){
+			case PLAYER_TYPE:
+				playerTypes.remove(tag.getId());
+				break;
+			case GENRE:
+				genre.remove(tag.getId());
+				break;
+			case PRODUCTION:
+				production = null;
+				break;
+			case DURATION:
+				duration = null;
+				break;
+			case PLATFORM:
+				platforms.remove(tag.getId());
+				break;
+			case ART_STYLE:
+				artStyles.remove(tag.getId());
+				break;
+			case DEVELOPER:
+				developer = null;
+				break;
+			case OTHER:
+				otherTags.remove(tag.getId());
+				break;
+		}
+	}
+
 	public List<String> getAllTags(){
 		List<String> allTags = new ArrayList<>();
 
