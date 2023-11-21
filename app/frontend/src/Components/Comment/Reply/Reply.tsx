@@ -1,20 +1,14 @@
 import { formatDate } from "../../../Library/utils/formatDate";
 import styles from "./reply.module.scss";
-import { ArrowDownOutlined, ArrowUpOutlined, DeleteOutlined, DownOutlined, EditOutlined, UpOutlined } from "@ant-design/icons";
+import { DeleteOutlined, DownOutlined, UpOutlined } from "@ant-design/icons";
 import { useVote } from "../../Hooks/useVote";
 import { Button } from "antd";
 import { useAuth } from "../../Hooks/useAuth";
 import { useMutation } from "react-query";
 import { deleteComment } from "../../../Services/comment";
 import { useQueryClient } from "react-query";
-import { useState } from "react";
-import CommentForm from "../CommentForm/CommentForm";
-import ReplyForm from "../ReplyForm/ReplyForm";
 
-
-
-function Reply({ reply }: { reply: any}) {
-
+function Reply({ reply }: { reply: any }) {
   const { upvote, downvote } = useVote({
     voteType: "COMMENT",
     typeId: reply.id,
@@ -22,7 +16,6 @@ function Reply({ reply }: { reply: any}) {
   });
 
   const { user, isLoggedIn } = useAuth();
-
 
   const queryClient = useQueryClient();
   const { mutate: removereply } = useMutation(
@@ -39,9 +32,6 @@ function Reply({ reply }: { reply: any}) {
     }
   );
 
-
-
-
   return (
     <div className={styles.container}>
       <div className={styles.vote}>
@@ -54,7 +44,7 @@ function Reply({ reply }: { reply: any}) {
           disabled={!isLoggedIn}
           //className={clsx(post?.userVote === "DOWNVOTE" && styles.active)}
         />
-        <div style={{fontWeight:"bold"}}>{reply.overallVote}</div>
+        <div style={{ fontWeight: "bold" }}>{reply.overallVote}</div>
         <Button
           type="primary"
           shape="circle"
@@ -71,17 +61,19 @@ function Reply({ reply }: { reply: any}) {
         <span>{reply.createdAt && formatDate(reply.createdAt)}</span>
         {user.username === reply.commenter.username && (
           <div className={styles.delete}>
-              <Button
-                  type="text"
-                  ghost={true}
-                  shape="circle"
-                  size="small"
-                  icon={<DeleteOutlined style={{ color: "red" }} />}
-                  onClick={() => {removereply(reply.id)}}
-                />
-          </div>)}
+            <Button
+              type="text"
+              ghost={true}
+              shape="circle"
+              size="small"
+              icon={<DeleteOutlined style={{ color: "red" }} />}
+              onClick={() => {
+                removereply(reply.id);
+              }}
+            />
+          </div>
+        )}
       </div>
- 
     </div>
   );
 }
