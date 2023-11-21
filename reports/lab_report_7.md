@@ -37,10 +37,10 @@ In the recent progress update, significant strides have been made in enhancing t
 | Finalizing Endpoint Connections for Comment Functionality - MOBILE                             | [#700](https://github.com/bounswe/bounswe2023group5/issues/700) | Ege Ekşi | 21.11.2023 |[#774](https://github.com/bounswe/bounswe2023group5/pull/774)| 2 hr     |4 hr |
 | Verifying and Implementing Remaining Endpoint Connections for User Controller - MOBILE                             | [#701](https://github.com/bounswe/bounswe2023group5/issues/701) | Ege Ekşi | 21.11.2023 |[#773](https://github.com/bounswe/bounswe2023group5/pull/773)| 2 hr     |2 hr |
 | Annotation Research - MOBILE                             | [#702](https://github.com/bounswe/bounswe2023group5/issues/702) | Ege Ekşi | 21.11.2023 | - | 2 hr   |2 hr|
-| Group Moderation Functionality Implementation - MOBILE | [#707](https://github.com/bounswe/bounswe2023group5/issues/707) | Said Yolcu | 23.11.2023 | |5hrs |4hrs|
-| Review And Edit Controller Scripts - MOBILE | [#708](https://github.com/bounswe/bounswe2023group5/issues/708) | Said Yolcu | 16.11.2023 | |2hrs |2hrs|
-| Create Request Functions For Game Controller Endpoints - MOBILE | [#709](https://github.com/bounswe/bounswe2023group5/issues/709) | Said Yolcu | 19.11.2023 || 3hrs |3hrs|
-| Create Request Functions For Tag Controller Endpoints - MOBILE | [#710](https://github.com/bounswe/bounswe2023group5/issues/710) | Said Yolcu | 18.11.2023 | |3hrs |3hrs|
+| Group Moderation Functionality Implementation - MOBILE | [#707](https://github.com/bounswe/bounswe2023group5/issues/707) | Said Yolcu | 23.11.2023 | [#802](https://github.com/bounswe/bounswe2023group5/pull/802) | 5hrs | 2hrs|
+| Review And Edit Controller Scripts - MOBILE | [#708](https://github.com/bounswe/bounswe2023group5/issues/708) | Said Yolcu | 16.11.2023 | [#726](https://github.com/bounswe/bounswe2023group5/pull/726) |2hrs |1.5hrs|
+| Create Request Functions For Game Controller Endpoints - MOBILE | [#709](https://github.com/bounswe/bounswe2023group5/issues/709) | Said Yolcu | 19.11.2023 | [#737](https://github.com/bounswe/bounswe2023group5/pull/737) | 3hrs |3.5hrs|
+| Create Request Functions For Tag Controller Endpoints - MOBILE | [#710](https://github.com/bounswe/bounswe2023group5/issues/710) | Said Yolcu | 18.11.2023 | [#744](https://github.com/bounswe/bounswe2023group5/pull/744) |3hrs |3hrs|
 | Group Creation Functionality Implementation - MOBILE | [#711](https://github.com/bounswe/bounswe2023group5/issues/711) | Bilal Atım | 22.11.2023 | |4 hrs|4 hrs|
 | Create Request Functions For Post Controller Endpoints - MOBILE | [#712](https://github.com/bounswe/bounswe2023group5/issues/712) | Bilal Atım | 17.11.2023 | |3 hrs|3 hrs|
 | Create Request Functions For Review Controller Endpoints - MOBILE | [#715](https://github.com/bounswe/bounswe2023group5/issues/715) | Bilal Atım | 18.112023 || 3 hrs|3 hrs|
