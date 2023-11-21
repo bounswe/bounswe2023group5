@@ -17,12 +17,11 @@ public class DeleteAccount : MonoBehaviour
     [SerializeField] private Toggle checkBox;
     [SerializeField] private TMP_Text infoText;
 
-    
     private void Awake()
     {
         deleteButton.onClick.AddListener(OnClickedDelete);
         backButton.onClick.AddListener(OnClickedBack);
-        canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
+        canvasManager = FindObjectOfType<CanvasManager>() as CanvasManager;
     }
 
     private void OnClickedDelete()
@@ -43,51 +42,38 @@ public class DeleteAccount : MonoBehaviour
             return;
         }
         
-        string url = AppVariables.HttpServerUrl + "/user/delete" +
-                     ListToQueryParameters.ListToQueryParams(
-                         new[]{"id"}, new []{PersistenceManager.id});
-        /*
-        var deleteData = new UserDeleteRequest();
-        deleteData.id = PersistenceManager.id;
-        string bodyJsonString = JsonConvert.SerializeObject(deleteData);
-        */
-
-        StartCoroutine(Delete(url));
-
+        var deleteRequest = new UserDeleteRequest { id = PersistenceManager.id };
+        StartCoroutine(DeleteUser(deleteRequest));
     }
-    IEnumerator Delete(string url)
+
+    IEnumerator DeleteUser(UserDeleteRequest request)
     {
-        // url += "?id=" + PersistenceManager.id;
-        var request = new UnityWebRequest(url, "DELETE");
-        request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
-        request.SetRequestHeader("Content-Type", "application/json");
-        yield return request.SendWebRequest();
-        var response = request.downloadHandler.text;
-        
-        if (request.responseCode != 200 || response == null)
+        string url = AppVariables.HttpServerUrl + "/user/delete?id=" + request.id;
+        var unityWebRequest = new UnityWebRequest(url, "DELETE");
+        unityWebRequest.downloadHandler = new DownloadHandlerBuffer();
+        unityWebRequest.SetRequestHeader("Content-Type", "application/json");
+        unityWebRequest.SetRequestHeader("Authorization", PersistenceManager.UserToken);
+
+        yield return unityWebRequest.SendWebRequest();
+
+        if (unityWebRequest.result != UnityWebRequest.Result.Success)
         {
-            infoText.text = "Error: " + request.responseCode;
-            infoText.color = Color.red;
-        }
-        else if (response == "false")
-        {
-            infoText.text = "Error: " + response;
+            infoText.text = "Error: " + unityWebRequest.error;
             infoText.color = Color.red;
         }
         else
         {
             infoText.text = "Successfully Deleted";
             infoText.color = Color.green;
-            
+
             DOVirtual.DelayedCall(2f, () =>
             {
                 canvasManager.HideDeleteAccountPage();
                 canvasManager.ShowSignUpPage();
             });
-            
         }
-        request.downloadHandler.Dispose();
-        request.uploadHandler.Dispose();
+
+        unityWebRequest.Dispose();
     }
 
     private void OnClickedBack()
@@ -95,6 +81,5 @@ public class DeleteAccount : MonoBehaviour
         canvasManager.HideDeleteAccountPage();
         canvasManager.ShowHomePage();
     }
-
-
 }
+

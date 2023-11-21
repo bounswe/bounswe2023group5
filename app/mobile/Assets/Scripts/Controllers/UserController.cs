@@ -1,27 +1,29 @@
 ﻿public class UserController
 {
-    
 }
 
-// With the body send the parameters below:
-// Query parameters:
-// string id
 public class UserChangeRoleRequest
 {
+    public string id;
     public string userRole;
 }
 
-// For UserGetAllRequest, do not sent any body but send the 
-// parameters below:
-// Query parameters:
-// string id, string username, bool isDeleted;
-// The response is an array of User's
+public class UserGetAllRequest
+{
+    public string id;
+    public string username;
+    public bool isDeleted;
+}
 
-// For UserDeleteRequest, do not sent any body but send the 
-// parameters below:
-// Query parameters:
-// string id
+public class UserGetAllResponse
+{
+    public User[] users;
+}
 
+public class UserDeleteRequest
+{
+    public string id;
+}
 
 public class User
 {
