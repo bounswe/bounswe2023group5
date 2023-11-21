@@ -15,6 +15,11 @@
     bottom: 0.005em;
     right: 0.5em;
   }
+  .delete {
+    position: absolute;
+    bottom: 0.005em;
+    right: 3em;
+  }
   .commentButton{
     color: $celadon-light-30
   }
@@ -59,6 +64,8 @@
   }
   .title {
     font-size: 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
     font-weight: bold;
   }
   .meta {

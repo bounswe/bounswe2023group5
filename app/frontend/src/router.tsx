@@ -17,6 +17,7 @@ import CreateGame from "./Pages/Admin/Game/CreateGame/CreateGame";
 import DeleteTag from "./Pages/Admin/Tag/DeleteTag/DeleteTag";
 import Groups from "./Pages/Groups/Groups";
 import Group from "./Pages/Group/Group";
+import CreateGroup from "./Pages/CreateGroup/CreateGroup";
 
 axios.defaults.headers.common["Content-Type"] = "application/json";
 
@@ -40,8 +41,17 @@ const router = createBrowserRouter([
         element: <GameDetails />,
       },
       {
-        path: "group/:groupId",
-        element: <Group />,
+        path: "group",
+        children: [
+          {
+            path: "create",
+            element: <CreateGroup />,
+          },
+          {
+            path: "detail/:groupId",
+            element: <Group />,
+          },
+        ],
       },
       {
         path: "forum",
