@@ -2,6 +2,15 @@ public class GroupController
 {
 }
 
+public class GroupUpdateRequest
+{
+    public string title;
+    public string description;
+    public string membershipPolicy;
+    public int quota;
+    public bool avatarOnly;
+}
+
 // For GroupGetAllRequest send no body.
 // Query parameters:
 // string title, string membershipPolicy, string[] tags, 
