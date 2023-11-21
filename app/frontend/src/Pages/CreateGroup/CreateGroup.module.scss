@@ -6,3 +6,9 @@
   background-color: $violet-light-60;
   margin: 2.5em;
 }
+.row {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  justify-content: space-around;
+}

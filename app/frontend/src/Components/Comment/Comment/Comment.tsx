@@ -110,7 +110,7 @@ function Comment({ comment, postId }: { comment: any; postId: string }) {
               type="text"
               alt="report"
             />
-          {user.username === comment.commenter.username && (
+          {((user.username === comment.commenter.username) || (user.isAdmin)) && (
             <div className={styles.delete}>
               <Button
                 type="text"

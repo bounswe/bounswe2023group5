@@ -7,6 +7,9 @@ import { twj } from "tw-to-css";
 import { useEffect, useState } from "react";
 import { useForm } from "antd/es/form/Form";
 import { getTags } from "../../Services/tags";
+import FormItem from "antd/es/form/FormItem";
+import { getGames } from "../../Services/games";
+import { createGroup } from "../../Services/group";
 
 function CreateGroup() {
   const [form] = useForm();
@@ -14,14 +17,6 @@ function CreateGroup() {
   const navigate = useNavigate();
   const editId = searchParams.get("editId");
   const queryClient = useQueryClient();
-
-  const { data: editedPost, isLoading: editLoading } = useQuery(
-    ["post", editId],
-    () => getPost(editId!),
-    {
-      enabled: !!editId,
-    }
-  );
 
   const { data: tagOptions } = useQuery(
     ["tagOptions", "forumPost"],
@@ -34,54 +29,65 @@ function CreateGroup() {
     }
   );
 
-  useEffect(() => {
-    if (editedPost) {
-      form.setFieldsValue(editedPost);
-    }
-  }, [editedPost]);
 
   const { mutate: submit, isLoading } = useMutation(
     ({
-      title,
-      postContent,
-      tags,
+        title,
+        tags,
+        membershipPolicy,
+        quota,
+        avatarOnly,
+        description,
+        gameId,
     }: {
-      title: string;
-      postContent: string;
-      tags: string[];
+        title:string,
+        tags:string[],
+        membershipPolicy:string,
+        quota:number,
+        avatarOnly:boolean,
+        description:string,
+        gameId:string,
     }) => {
-      if (!editId) {
-        return createPost({
-          forum: searchParams.get("forumId")!,
-          title,
-          postContent,
-          tags,
-        });
-      } else {
-        return editPost({ id: editId!, title, postContent });
-      }
+      return createGroup(
+        title,
+        tags,
+        membershipPolicy,
+        quota,
+        avatarOnly,
+        description,
+        gameId,
+      )
     },
     {
-      onSuccess() {
-        queryClient.invalidateQueries(["post", editId]);
-        queryClient.invalidateQueries(["forum", searchParams.get("forumId")]);
-
-        navigate(searchParams.get("redirect") ?? "/");
+      onSuccess(data:any) {
+        console.log(data);
+        const groupId = data.id;
+        console.log(groupId)
+        navigate(`/group/detail/${groupId}`);
       },
     }
   );
 
-  const [isSwitchOn, setSwitchOn] = useState("PUBLIC");
+  const [membershipPolicy, setMembershipPolicy] = useState("PUBLIC");
   const [avatarOnly, setAvatarOnly] = useState(false);
-
+  
+  const gameList = useQuery(["games"], () => getGames());
+  
 
   function handleSwitchChange(checked:boolean){
     if(checked){ 
-        setSwitchOn("PRIVATE");
+        setMembershipPolicy("PRIVATE");
     }else{
-        setSwitchOn("PUBLIC");
+        setMembershipPolicy("PUBLIC");
     }
   };
+
+  form.setFieldsValue({
+    membershipPolicy: membershipPolicy,
+    avatarOnly: avatarOnly,
+    quota: 3,
+    });
+
   return (
     <div className={styles.container}>
       <Form onFinish={submit} layout="vertical" form={form}>
@@ -92,27 +98,51 @@ function CreateGroup() {
         >
           <Input placeholder="The possibilities are endless! What's the name of your squad?" />
         </Form.Item>
+        <FormItem
+            name="gameId"
+            rules={[{ required: true, message: "Please enter a game" }]}
+            label="Game">
+                  <Select
+                    showSearch
+                    placeholder="Add your game"
+                    optionFilterProp="children"
+                    filterOption={(input:string, option) => (option?.label ?? '').toLowerCase().includes(input)}
+                    filterSort={(optionA:any, optionB:any) =>
+                    String(optionA?.gameName ?? '').toLowerCase().localeCompare(String(optionB?.gameName ?? '').toLowerCase())
+                    }
+                    options={gameList.data?.map((item: { gameName: string; id: string }) => ({
+                        label: item.gameName,
+                        value: item.id,
+                    }))}
+                />
+        </FormItem>
         <Form.Item name="tags" label="Tags">
           <Select
             allowClear
             mode="multiple"
             placeholder="You can add tags to your group."
+            optionFilterProp="children"
+            filterOption={(input:string, option) => (option?.label ?? '').toLowerCase().includes(input)}
+            filterSort={(optionA:any, optionB:any) =>
+            String(optionA?.label ?? '').toLowerCase().localeCompare(String(optionB?.label ?? '').toLowerCase())
+            }
             options={tagOptions}
           />
         </Form.Item>
         <Form.Item
           name="description"
           rules={[{ required: true, message: "Please enter description" }]}
-          label="Content"
+          label="Description"
         >
-          <Input.TextArea
-            rows={5}
-            placeholder="To describe or not to describe, that is the question."
-          />
+            <Input.TextArea
+                rows={5}
+                placeholder="To describe or not to describe, that is the question."
+            />
         </Form.Item>
+        <div className={styles.row}>
         <Form.Item
-            name="policy"
-            label={"Policy: "+ isSwitchOn}
+            name="membershipPolicy"
+            label={"Policy: "+ membershipPolicy}
             >
             <Switch
                 onChange={handleSwitchChange}
@@ -137,14 +167,15 @@ function CreateGroup() {
                 defaultValue={3} 
             />
         </Form.Item>
+        </div>
         <Form.Item noStyle>
           <Button
             type="primary"
             htmlType="submit"
-            disabled={isLoading || editLoading}
+            disabled={isLoading}
             style={twj("ml-[85%]")}
           >
-            Submit
+            Create
           </Button>
         </Form.Item>
       </Form>
