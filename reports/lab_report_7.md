@@ -54,7 +54,7 @@ In the recent progress update, significant strides have been made in enhancing t
 | --- | --- | --- | --- | --- |
 | Creating The Create-Tag Page - MOBILE | [#747](https://github.com/bounswe/bounswe2023group5/issues/747) | Said Yolcu | 22.11.2023 | 2.5hrs |
 | Creating The Update-Tag Page - MOBILE | [#748](https://github.com/bounswe/bounswe2023group5/issues/748) | Said Yolcu | 22.11.2023 | 1hr |
-| Creating The Delete-Tag Page - MOBILE | [#748](https://github.com/bounswe/bounswe2023group5/issues/749) | Said Yolcu | 22.11.2023 | 1hr |
+| Creating The Delete-Tag Page - MOBILE | [#749](https://github.com/bounswe/bounswe2023group5/issues/749) | Said Yolcu | 22.11.2023 | 1hr |
 | Write Controller Script For Group Endpoints - MOBILE |  [#758](https://github.com/bounswe/bounswe2023group5/issues/758) | Said Yolcu | 22.11.2023 | 1hr |
 
 
