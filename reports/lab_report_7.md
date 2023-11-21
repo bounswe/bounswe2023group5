@@ -56,7 +56,9 @@ In the recent progress update, significant strides have been made in enhancing t
 | Creating The Update-Tag Page - MOBILE | [#748](https://github.com/bounswe/bounswe2023group5/issues/748) | Said Yolcu | 22.11.2023 | 1hr |
 | Creating The Delete-Tag Page - MOBILE | [#749](https://github.com/bounswe/bounswe2023group5/issues/749) | Said Yolcu | 22.11.2023 | 1hr |
 | Write Controller Script For Group Endpoints - MOBILE |  [#758](https://github.com/bounswe/bounswe2023group5/issues/758) | Said Yolcu | 22.11.2023 | 1hr |
-
+| Implementing image uploading functionality | [#698](https://github.com/bounswe/bounswe2023group5/issues/698) | Deniz Ünal | 22.11.2023 | 2.5 hr |
+| get-post-list and get-post-detail improvements | [#729](https://github.com/bounswe/bounswe2023group5/pull/719) | Deniz Ünal | 22.11.2023 | 1.5 hr |
+| populated tags in get-post-detail and get-post-list endpoints |  [#752](https://github.com/bounswe/bounswe2023group5/pull/752) | Deniz Ünal | 22.11.2023 | 30 mins |
 
 ## Planned Vs. Actual
 
@@ -79,6 +81,9 @@ In the recent progress update, significant strides have been made in enhancing t
 | Last activities in profile endpoint | [#804](https://github.com/bounswe/bounswe2023group5/issues/804) | Zeynep Baydemir | 27.11.2023 | 3hrs |
 | Create Group Details Page - MOBILE | [#799](https://github.com/bounswe/bounswe2023group5/issues/799) | Said Yolcu | 28.11.2023 | 5hrs |
 | Modifying Forum Page With Agreed UI Design Decisions - MOBILE | [#801](https://github.com/bounswe/bounswe2023group5/issues/801) | Said Yolcu | 27.11.2023 | 1.5hrs |
+| Creating achievement entity | [#805](https://github.com/bounswe/bounswe2023group5/issues/805) | Deniz Ünal | 25.11.2023 | 2hrs | 
+| Achievement CRUD endpoints and grant-achievement endpoint | [#806](https://github.com/bounswe/bounswe2023group5/issues/806) | Deniz Ünal | 25.11.2023 | 4hrs | 
+| get-game-achievements endpoint and adding achievements to posts | [#807](https://github.com/bounswe/bounswe2023group5/issues/807) | Deniz Ünal | 25.11.2023 | 2hrs | 
 
 
 ## Risks
