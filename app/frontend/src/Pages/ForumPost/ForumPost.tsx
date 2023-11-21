@@ -1,9 +1,4 @@
-import {
-  useLocation,
-  useNavigate,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import styles from "./ForumPost.module.scss";
 import { useQuery } from "react-query";
 import { getPost } from "../../Services/forum";
@@ -23,7 +18,6 @@ import {
 import clsx from "clsx";
 import { Button } from "antd";
 import { useState } from "react";
-import { formatDate } from "../../Library/utils/formatDate.ts";
 import TagRenderer from "../../Components/TagRenderer/TagRenderer.tsx";
 import { twj } from "tw-to-css";
 

@@ -2,9 +2,8 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import styles from "./CreateGroup.module.scss";
 import { Button, Form, Input, InputNumber, Select, Switch } from "antd";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { createPost, editPost, getPost } from "../../Services/forum";
 import { twj } from "tw-to-css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "antd/es/form/Form";
 import { getTags } from "../../Services/tags";
 import FormItem from "antd/es/form/FormItem";
@@ -29,24 +28,23 @@ function CreateGroup() {
     }
   );
 
-
   const { mutate: submit, isLoading } = useMutation(
     ({
-        title,
-        tags,
-        membershipPolicy,
-        quota,
-        avatarOnly,
-        description,
-        gameId,
+      title,
+      tags,
+      membershipPolicy,
+      quota,
+      avatarOnly,
+      description,
+      gameId,
     }: {
-        title:string,
-        tags:string[],
-        membershipPolicy:string,
-        quota:number,
-        avatarOnly:boolean,
-        description:string,
-        gameId:string,
+      title: string;
+      tags: string[];
+      membershipPolicy: string;
+      quota: number;
+      avatarOnly: boolean;
+      description: string;
+      gameId: string;
     }) => {
       return createGroup(
         title,
@@ -55,14 +53,14 @@ function CreateGroup() {
         quota,
         avatarOnly,
         description,
-        gameId,
-      )
+        gameId
+      );
     },
     {
-      onSuccess(data:any) {
+      onSuccess(data: any) {
         console.log(data);
         const groupId = data.id;
-        console.log(groupId)
+        console.log(groupId);
         navigate(`/group/detail/${groupId}`);
       },
     }
@@ -70,23 +68,22 @@ function CreateGroup() {
 
   const [membershipPolicy, setMembershipPolicy] = useState("PUBLIC");
   const [avatarOnly, setAvatarOnly] = useState(false);
-  
-  const gameList = useQuery(["games"], () => getGames());
-  
 
-  function handleSwitchChange(checked:boolean){
-    if(checked){ 
-        setMembershipPolicy("PRIVATE");
-    }else{
-        setMembershipPolicy("PUBLIC");
+  const gameList = useQuery(["games"], () => getGames());
+
+  function handleSwitchChange(checked: boolean) {
+    if (checked) {
+      setMembershipPolicy("PRIVATE");
+    } else {
+      setMembershipPolicy("PUBLIC");
     }
-  };
+  }
 
   form.setFieldsValue({
     membershipPolicy: membershipPolicy,
     avatarOnly: avatarOnly,
     quota: 3,
-    });
+  });
 
   return (
     <div className={styles.container}>
@@ -99,22 +96,29 @@ function CreateGroup() {
           <Input placeholder="The possibilities are endless! What's the name of your squad?" />
         </Form.Item>
         <FormItem
-            name="gameId"
-            rules={[{ required: true, message: "Please enter a game" }]}
-            label="Game">
-                  <Select
-                    showSearch
-                    placeholder="Add your game"
-                    optionFilterProp="children"
-                    filterOption={(input:string, option) => (option?.label ?? '').toLowerCase().includes(input)}
-                    filterSort={(optionA:any, optionB:any) =>
-                    String(optionA?.gameName ?? '').toLowerCase().localeCompare(String(optionB?.gameName ?? '').toLowerCase())
-                    }
-                    options={gameList.data?.map((item: { gameName: string; id: string }) => ({
-                        label: item.gameName,
-                        value: item.id,
-                    }))}
-                />
+          name="gameId"
+          rules={[{ required: true, message: "Please enter a game" }]}
+          label="Game"
+        >
+          <Select
+            showSearch
+            placeholder="Add your game"
+            optionFilterProp="children"
+            filterOption={(input: string, option) =>
+              (option?.label ?? "").toLowerCase().includes(input)
+            }
+            filterSort={(optionA: any, optionB: any) =>
+              String(optionA?.gameName ?? "")
+                .toLowerCase()
+                .localeCompare(String(optionB?.gameName ?? "").toLowerCase())
+            }
+            options={gameList.data?.map(
+              (item: { gameName: string; id: string }) => ({
+                label: item.gameName,
+                value: item.id,
+              })
+            )}
+          />
         </FormItem>
         <Form.Item name="tags" label="Tags">
           <Select
@@ -122,9 +126,13 @@ function CreateGroup() {
             mode="multiple"
             placeholder="You can add tags to your group."
             optionFilterProp="children"
-            filterOption={(input:string, option) => (option?.label ?? '').toLowerCase().includes(input)}
-            filterSort={(optionA:any, optionB:any) =>
-            String(optionA?.label ?? '').toLowerCase().localeCompare(String(optionB?.label ?? '').toLowerCase())
+            filterOption={(input: string, option) =>
+              (option?.label ?? "").toLowerCase().includes(input)
+            }
+            filterSort={(optionA: any, optionB: any) =>
+              String(optionA?.label ?? "")
+                .toLowerCase()
+                .localeCompare(String(optionB?.label ?? "").toLowerCase())
             }
             options={tagOptions}
           />
@@ -134,39 +142,33 @@ function CreateGroup() {
           rules={[{ required: true, message: "Please enter description" }]}
           label="Description"
         >
-            <Input.TextArea
-                rows={5}
-                placeholder="To describe or not to describe, that is the question."
-            />
+          <Input.TextArea
+            rows={5}
+            placeholder="To describe or not to describe, that is the question."
+          />
         </Form.Item>
         <div className={styles.row}>
-        <Form.Item
+          <Form.Item
             name="membershipPolicy"
-            label={"Policy: "+ membershipPolicy}
-            >
-            <Switch
-                onChange={handleSwitchChange}
-            />
-        </Form.Item>
-        <Form.Item
-            name="avatarOnly"
-            label={"Avatar Only"}
-            >
-            <Switch
-                onChange={setAvatarOnly}
-            />
-        </Form.Item>
-        <Form.Item
-            name = "quota"
+            label={"Policy: " + membershipPolicy}
+          >
+            <Switch onChange={handleSwitchChange} />
+          </Form.Item>
+          <Form.Item name="avatarOnly" label={"Avatar Only"}>
+            <Switch onChange={setAvatarOnly} />
+          </Form.Item>
+          <Form.Item
+            name="quota"
             label="Quota"
-            rules={[{ required: true, message: "Number of members in your group cannot be infinite." }]}
-        >
-            <InputNumber 
-                min={1} 
-                max={10} 
-                defaultValue={3} 
-            />
-        </Form.Item>
+            rules={[
+              {
+                required: true,
+                message: "Number of members in your group cannot be infinite.",
+              },
+            ]}
+          >
+            <InputNumber min={1} max={10} defaultValue={3} />
+          </Form.Item>
         </div>
         <Form.Item noStyle>
           <Button

@@ -4,7 +4,13 @@ import { Button, Form, Input } from "antd";
 import { useMutation, useQueryClient } from "react-query";
 import { edit } from "../../../Services/comment";
 
-function CommentEditForm({commentId, commentContent}:{commentId:string, commentContent:string}) {
+function CommentEditForm({
+  commentId,
+  commentContent,
+}: {
+  commentId: string;
+  commentContent: string;
+}) {
   const postId = useParams();
   const [form] = Form.useForm();
   const queryClient = useQueryClient();
@@ -23,7 +29,7 @@ function CommentEditForm({commentId, commentContent}:{commentId:string, commentC
       },
     }
   );
-  form.setFieldsValue({commentContent:commentContent})
+  form.setFieldsValue({ commentContent: commentContent });
   return (
     <div className={styles.container}>
       <Form form={form} onFinish={editComment}>
@@ -33,7 +39,6 @@ function CommentEditForm({commentId, commentContent}:{commentId:string, commentC
         >
           <Input.TextArea
             rows={2}
-
             placeholder="Comment under construction... 🚧"
           />
         </Form.Item>

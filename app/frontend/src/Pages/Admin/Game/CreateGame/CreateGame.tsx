@@ -10,7 +10,6 @@ import MultipleSelect from "../../../../Components/MultipleSelect/MultipleSelect
 import SingleSelect from "../../../../Components/SingleSelect/SingleSelect";
 import { createGame } from "../../../../Services/games";
 import { InboxOutlined } from "@ant-design/icons";
-import { RcFile } from "antd/es/upload";
 import { uploadImage } from "../../../../Services/image";
 
 function CreateGame() {

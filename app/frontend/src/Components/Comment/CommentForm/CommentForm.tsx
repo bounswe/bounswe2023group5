@@ -33,7 +33,6 @@ function CommentForm() {
         >
           <Input.TextArea
             rows={2}
-
             placeholder="Comment under construction... 🚧"
           />
         </Form.Item>
