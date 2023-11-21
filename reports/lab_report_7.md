@@ -27,9 +27,9 @@ In the recent progress update, significant strides have been made in enhancing t
 | Adding Game Image Upload Functionality to Game Create Web Page | [#694](https://github.com/bounswe/bounswe2023group5/issues/694) | Arda Kabadayı  | 21.11.2023 || 1 hr               |2 hr |
 | Implementing Review Reporting                                  | [#713](https://github.com/bounswe/bounswe2023group5/issues/713) | Çisel Zümbül   | 19.11.2023 || 1 hr               |1.5 hr|
 | Implementing Post Reporting                                    | [#693](https://github.com/bounswe/bounswe2023group5/issues/693) | Alperen Bırçak | 19.11.2023 || 1 hr               |1 hr|
-| Group Moderation Implementation-BE                             | [#705](https://github.com/bounswe/bounswe2023group5/issues/705) | Zeynep Baydemir | 21.11.2023 || 3 hr               |4 hr|
-| Join-Leave Group Implementation-BE                             | [#704](https://github.com/bounswe/bounswe2023group5/issues/704) | Zeynep Baydemir | 21.11.2023 || 3 hr               | 3 hr|
-| Admin Permissions In Post Comments                             | [#706](https://github.com/bounswe/bounswe2023group5/issues/706) | Zeynep Baydemir | 21.11.2023 || 1 hr               |1 hr|
+| Group Moderation Implementation-BE                             | [#705](https://github.com/bounswe/bounswe2023group5/issues/705) | Zeynep Baydemir | 21.11.2023 |[#750](https://github.com/bounswe/bounswe2023group5/pull/750)| 3 hr               |4 hr|
+| Join-Leave Group Implementation-BE                             | [#704](https://github.com/bounswe/bounswe2023group5/issues/704) | Zeynep Baydemir | 21.11.2023 |[#743](https://github.com/bounswe/bounswe2023group5/pull/743)| 3 hr               | 3 hr|
+| Admin Permissions In Post Comments                             | [#706](https://github.com/bounswe/bounswe2023group5/issues/706) | Zeynep Baydemir | 21.11.2023 |[#739](https://github.com/bounswe/bounswe2023group5/pull/739)| 1 hr               |1 hr|
 | Create Group Endpoint Implementation - BE                             | [#696](https://github.com/bounswe/bounswe2023group5/issues/696) | Can Uzduran | 21.11.2023 || 2 hr               |2 hr|
 | Group Model Creation and Necessary Retrieving Endpoints (Filter, Search, Sort, Get Details)                             | [#697](https://github.com/bounswe/bounswe2023group5/issues/697) | Can Uzduran | 21.11.2023 || 3 hr               |2 hr|
 | Edit and Delete Functionalities for Group - BE                           | [#714](https://github.com/bounswe/bounswe2023group5/issues/714) | Can Uzduran | 21.11.2023 || 2 hr               |2 hr|
@@ -72,6 +72,8 @@ In the recent progress update, significant strides have been made in enhancing t
 | API endpoints documentation and links | [#791](https://github.com/bounswe/bounswe2023group5/issues/791) | Team | 30.11.2023 | 2hrs |
 | Generated unit test reports | [#793](https://github.com/bounswe/bounswe2023group5/issues/793) | Team | 30.11.2023 | 2hrs | | General test plan for the project | [#795](https://github.com/bounswe/bounswe2023group5/issues/795) | Team | 30.11.2023 | 3hrs |
 | Status/Plans for functionalities associated with annotations | [#798](https://github.com/bounswe/bounswe2023group5/issues/798) | Team | 30.11.2023 | 2.5hrs |
+| Unban user from group and forum | [#803](https://github.com/bounswe/bounswe2023group5/issues/803) | Zeynep Baydemir | 27.11.2023 | 1.5hrs |
+| Last activities in profile endpoint | [#804](https://github.com/bounswe/bounswe2023group5/issues/804) | Zeynep Baydemir | 27.11.2023 | 3hrs |
 
 
 
