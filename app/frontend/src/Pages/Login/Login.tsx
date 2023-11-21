@@ -28,7 +28,7 @@ function Login() {
         alert("Something went wrong.");
         return;
       }
-      console.log(data.status);
+
       const responseData: { token: string; user: any } = data.data;
 
       setUser(responseData.user);

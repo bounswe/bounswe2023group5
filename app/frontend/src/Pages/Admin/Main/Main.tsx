@@ -38,6 +38,21 @@ function Main() {
           </li>
         </ul>
       </div>
+      <div>
+        <h3 className={styles.itemHeader}>3) User</h3>
+        <ul>
+          <li>
+            <Button type="link" onClick={() => navigate("/ban-user")}>
+              Ban User
+            </Button>
+          </li>
+          <li>
+            <Button type="link" onClick={() => navigate("/admin-permission")}>
+              Give Admin Permission to User
+            </Button>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 }
