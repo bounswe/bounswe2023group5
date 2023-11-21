@@ -11,6 +11,7 @@ import SingleSelect from "../../../../Components/SingleSelect/SingleSelect";
 import { createGame } from "../../../../Services/games";
 import { InboxOutlined } from "@ant-design/icons";
 import { RcFile } from "antd/es/upload";
+import { uploadImage } from "../../../../Services/image";
 
 function CreateGame() {
   // add gameIcon, duration, min system, developer and othertags req field
@@ -58,24 +59,29 @@ function CreateGame() {
     },
   });
 
-  const handleClick = () => {
-    addGameMutation.mutate({ name, description, releaseDate, ...selectedTags });
-  };
+  const uploadImageMutation = useMutation(uploadImage, {
+    onError: () => {
+      alert("We cannot upload the image");
+    },
+  });
+  const handleClick = async () => {
+    const gameIcon = await uploadImageMutation.mutateAsync(
+      fileList[0].originFileObj
+    );
 
-  const getBase64 = (file: RcFile): Promise<string> =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result as string);
-      reader.onerror = (error) => reject(error);
+    addGameMutation.mutate({
+      name,
+      description,
+      releaseDate,
+      gameIcon,
+      ...selectedTags,
     });
+  };
 
   const handleChange = async (info: any) => {
     let fileList = [...info.fileList];
 
     fileList = fileList.slice(-1);
-
-    //console.log(await getBase64(fileList[0].originFileObj as RcFile));
 
     if (fileList.length === 0) {
       setFileList([]);
@@ -111,6 +117,7 @@ function CreateGame() {
           onChange={(event) => setDescription(event.target.value)}
           placeholder="Description"
         />
+
         <h4 className={styles.colorHeader}>Game Image</h4>
         <Dragger
           fileList={fileList}
@@ -126,6 +133,7 @@ function CreateGame() {
           </p>
           <p className="ant-upload-hint">You can only upload one image file.</p>
         </Dragger>
+
         <h4 className={styles.colorHeader}>Release Date</h4>
         <DatePicker
           selected={releaseDate}

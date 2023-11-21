@@ -12,11 +12,13 @@ export const createGame = async ({
   name,
   description,
   releaseDate,
+  gameIcon,
   ...tags
 }: {
   name: string;
   description: string;
   releaseDate: Date | null;
+  gameIcon: any;
   tags: any;
 }) => {
   const response = await axios.post(
@@ -28,7 +30,7 @@ export const createGame = async ({
       ...tags,
       platforms: tags.platform,
       minSystemReq: "4GBRAM", // will be changed
-      gameIcon: "game-icon", // will be changed
+      gameIcon,
     }
   );
 
