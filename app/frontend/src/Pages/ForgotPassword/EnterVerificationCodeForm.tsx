@@ -25,8 +25,7 @@ const EnterVerificationCodeForm: React.FC<EnterVerificationCodeFormProps> = ({
         alert("Something went wrong.");
         return;
       }
-      console.log(data);
-      console.log(data.data);
+
       const token: string = data.data;
       setToken(token);
 
@@ -42,7 +41,6 @@ const EnterVerificationCodeForm: React.FC<EnterVerificationCodeFormProps> = ({
     data["userEmail"] = email;
     codeMutation.mutate(data);
   };
-
 
   const emailMutation = useMutation(postEmail, {
     onSuccess: (data) => {
@@ -78,7 +76,9 @@ const EnterVerificationCodeForm: React.FC<EnterVerificationCodeFormProps> = ({
         <Input placeholder="Verification Code" />
       </Form.Item>
       <div style={{ display: "flex", justifyContent: "flex-end", gap: "10px" }}>
-        <Button type="primary" onClick={onResend}>Resend Code</Button>
+        <Button type="primary" onClick={onResend}>
+          Resend Code
+        </Button>
         <Button type="primary" htmlType="submit">
           Verify
         </Button>
