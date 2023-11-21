@@ -64,6 +64,14 @@ In the recent progress update, significant strides have been made in enhancing t
 
 | Description | Issue | Assignee | Due | Duration |
 | --- | --- | --- | --- | --- |
+| A  summary of the project status | [#782](https://github.com/bounswe/bounswe2023group5/issues/782) | Team | 30.11.2023 | 2hrs | 
+| A  summary of the customer feedback and reflections | [#783](https://github.com/bounswe/bounswe2023group5/issues/783) | Team | 30.11.2023 | 2hrs |
+| Describe changes made since Milestone 1 for process improvement | [#784](https://github.com/bounswe/bounswe2023group5/issues/784) | Team | 30.11.2023 | 3hrs |
+| List and status of deliverables | [#785](https://github.com/bounswe/bounswe2023group5/issues/785) | Team | 30.11.2023 | 1hrs |
+| Progress according to requirements | [#789](https://github.com/bounswe/bounswe2023group5/issues/789) | Team | 30.11.2023 | 2hrs |
+| API endpoints documentation and links | [#791](https://github.com/bounswe/bounswe2023group5/issues/791) | Team | 30.11.2023 | 2hrs |
+| Generated unit test reports | [#793](https://github.com/bounswe/bounswe2023group5/issues/793) | Team | 30.11.2023 | 2hrs | | General test plan for the project | [#795](https://github.com/bounswe/bounswe2023group5/issues/795) | Team | 30.11.2023 | 3hrs |
+| Status/Plans for functionalities associated with annotations | [#798](https://github.com/bounswe/bounswe2023group5/issues/798) | Team | 30.11.2023 | 2.5hrs |
 
 
 
