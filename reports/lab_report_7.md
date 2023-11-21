@@ -74,7 +74,8 @@ In the recent progress update, significant strides have been made in enhancing t
 | Status/Plans for functionalities associated with annotations | [#798](https://github.com/bounswe/bounswe2023group5/issues/798) | Team | 30.11.2023 | 2.5hrs |
 | Unban user from group and forum | [#803](https://github.com/bounswe/bounswe2023group5/issues/803) | Zeynep Baydemir | 27.11.2023 | 1.5hrs |
 | Last activities in profile endpoint | [#804](https://github.com/bounswe/bounswe2023group5/issues/804) | Zeynep Baydemir | 27.11.2023 | 3hrs |
-
+| Create Group Details Page - MOBILE | [#799](https://github.com/bounswe/bounswe2023group5/issues/799) | Said Yolcu | 28.11.2023 | 5hrs |
+| Modifying Forum Page With Agreed UI Design Decisions - MOBILE | [#801](https://github.com/bounswe/bounswe2023group5/issues/801) | Said Yolcu | 27.11.2023 | 1.5hrs |
 
 
 ## Risks
