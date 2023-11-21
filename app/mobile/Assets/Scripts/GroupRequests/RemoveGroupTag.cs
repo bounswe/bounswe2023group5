@@ -3,18 +3,36 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Networking;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Text;
+using Newtonsoft.Json;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.Networking;
 
 public class RemoveGroupTag : MonoBehaviour
 {
     [SerializeField] private string groupId;
     [SerializeField] private string TagId;
 
-    private void Start()
+    private void Awake()
     {
-        Init();
+        GetComponent<Button>().onClick.AddListener(DoRemoveTag);
     }
 
-    public void Init()
+    public void DoRemoveTag()
     {
         string url = AppVariables.HttpServerUrl + "/group/remove-tag";
         var groupRemoveTagRequest = new GroupRemoveTagRequest();
