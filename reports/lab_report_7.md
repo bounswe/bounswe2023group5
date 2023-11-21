@@ -20,7 +20,7 @@ In the recent progress update, significant strides have been made in enhancing t
 | Researching Annotations For Frontend                           | [#684](https://github.com/bounswe/bounswe2023group5/issues/684) | Frontend Team  | 21.11.2023 || 8hr                |6hr|
 | Adding New Functionalities to Admin Page                       | [#686](https://github.com/bounswe/bounswe2023group5/issues/686) | Arda Kabadayı  | 21.11.2023 || 3 hrs              |4 hrs  |
 | Adding User Aggrement Chexbox to Register                      | [#689](https://github.com/bounswe/bounswe2023group5/issues/689) | Arda Kabadayı  | 21.11.2023 || 30 mins            |45 mins|
-| Implementing Forum Post Comment Reply Component                | [#690](https://github.com/bounswe/bounswe2023group5/issues/690) | Ali Başaran    | 19.11.2023 || 3hrs               |2hrs|
+| Implementing Forum Post Comment Reply Component                | [#690](https://github.com/bounswe/bounswe2023group5/issues/690) | Ali Başaran    | 19.11.2023 || 3hrs               |3.5hrs|
 | Implementing Filters And Sort of Reviews                       | [#692](https://github.com/bounswe/bounswe2023group5/issues/692) | Çisel Zümbül   | 20.11.2023 || 3 hrs              |3 hrs|
 | Implementing Filters, Search and Sort of Forum Posts           | [#695](https://github.com/bounswe/bounswe2023group5/issues/695) | Alperen Bırçak | 20.11.2023 || 3 hrs              |3 hrs|
 | Implementing Group Details Web Page                            | [#693](https://github.com/bounswe/bounswe2023group5/issues/693) | Alperen Bırçak | 21.11.2023 || 5 hrs              |6 hrs|
