@@ -13,7 +13,7 @@ In the recent progress update, significant strides have been made in enhancing t
 | -------------------------------------------------------------------------- | --------------------------------------------------------------- | ---------------- | ---------- | --- | ------------------ | --------------- |
 | Admin Frontend Additions for Necessary Pages                   | [#623](https://github.com/bounswe/bounswe2023group5/issues/623) | Arda Kabadayı  | 21.11.2023 || 2 hrs              |2.5 hrs |
 | Implementing CI/CD for Frontend                                | [#624](https://github.com/bounswe/bounswe2023group5/issues/624) | Ali Başaran    | 21.11.2023 || 5 hr               |4.5 hr  |
-| Admin Control Panel Page Implementation - MOBILE               | [#637](https://github.com/bounswe/bounswe2023group5/issues/637) | Said Yolcu     | 21.11.2023 || 3 hrs              |3 hrs |
+| Admin Control Panel Page Implementation - MOBILE               | [#637](https://github.com/bounswe/bounswe2023group5/issues/637) | Said Yolcu     | 19.11.2023 | [#745](https://github.com/bounswe/bounswe2023group5/pull/745) | 3 hrs              | 5 hrs |
 | Groups Web Page Implementation                                 | [#681](https://github.com/bounswe/bounswe2023group5/issues/681) | Çisel Zümbül   | 21.11.2023 || 4 hrs              |3 hrs |
 | Implementing Group Creation Web Page                           | [#682](https://github.com/bounswe/bounswe2023group5/issues/682) | Ali Başaran    | 20.11.2023 || 2 hr               | 2 hr |
 | Implementing Group Moderation Frontend Additions               | [#683](https://github.com/bounswe/bounswe2023group5/issues/683) | Arda Kabadayı  | 21.11.2023 || 1 hr               |2 hr   |
@@ -52,7 +52,10 @@ In the recent progress update, significant strides have been made in enhancing t
 ## Completed tasks that were not planned for the week
 | Description | Issue | Assignee | Due | Duration |
 | --- | --- | --- | --- | --- |
-
+| Creating The Create-Tag Page - MOBILE | [#747](https://github.com/bounswe/bounswe2023group5/issues/747) | Said Yolcu | 22.11.2023 | 2.5hrs |
+| Creating The Update-Tag Page - MOBILE | [#748](https://github.com/bounswe/bounswe2023group5/issues/748) | Said Yolcu | 22.11.2023 | 1hr |
+| Creating The Delete-Tag Page - MOBILE | [#748](https://github.com/bounswe/bounswe2023group5/issues/749) | Said Yolcu | 22.11.2023 | 1hr |
+| Write Controller Script For Group Endpoints - MOBILE |  [#758](https://github.com/bounswe/bounswe2023group5/issues/758) | Said Yolcu | 22.11.2023 | 1hr |
 
 
 ## Planned Vs. Actual
