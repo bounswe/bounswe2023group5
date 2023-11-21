@@ -2,7 +2,7 @@ import { Button } from "antd";
 import { formatDate } from "../../../Library/utils/formatDate";
 import styles from "./ForumPost.module.scss";
 import {
-  DeleteFilled,
+  DeleteOutlined,
   DownOutlined,
   EditOutlined,
   UpOutlined,
@@ -74,10 +74,11 @@ function ForumPost({
           className={clsx(post?.userVote === "DOWNVOTE" && styles.active)}
         />
       </div>
+
       <div className={styles.titleContainer}>
         <div className={styles.title}>{post.title}</div>
         {isAdmin && (
-          <DeleteFilled style={{ color: "red" }} onClick={handleDelete} />
+          <DeleteOutlined style={{ color: "red" }} onClick={handleDelete} />
         )}
         <span style={twj("text-xs")}>
           <TagRenderer tags={post.tags} />
