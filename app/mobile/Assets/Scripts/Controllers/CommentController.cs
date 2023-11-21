@@ -1,38 +1,36 @@
 ﻿public class CommentController
 {
-    
+    public class CommentReplyRequest
+    {
+        public string commentContent;
+        public string parentComment;
+    }
+
+    public class CommentReplyResponse : Comment { }
+
+    public class CommentEditRequest
+    {
+        public string id;
+        public string commentContent;
+    }
+
+    public class CommentEditResponse : Comment { }
+
+    public class CommentCreateRequest
+    {
+        public string commentContent;
+        public string post;
+    }
+
+    public class CommentCreateResponse : Comment { }
+
+    public class CommentDeleteRequest
+    {
+        public string id;
+    }
+
+    public class CommentDeleteResponse : Comment { }
 }
-
-// Send Authorization as header parameter
-// Response is Comment
-public class CommentReplyRequest
-{
-    public string commentContent;
-    public string parentComment;
-}
-
-
-// Send id as query parameter and Authorization as
-// header parameter
-// Response is Comment
-public class CommentEditRequest
-{
-    public string commentContent;
-}
-
-// Send Authorization as header parameter
-// Response is Comment
-public class CommentCreateRequest
-{
-    public string commentContent;
-    public string post;
-}
-
-
-// For making a comment delete request, send no body,
-// only specify id as a query parameter and Authorization
-// as a header parameter
-// Response is Comment
 
 public class Comment
 {
@@ -47,5 +45,3 @@ public class Comment
     public int overallVote;
     public int voteCount;
 }
-
-
