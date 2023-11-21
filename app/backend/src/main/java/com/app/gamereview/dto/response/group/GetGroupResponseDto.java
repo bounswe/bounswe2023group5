@@ -5,6 +5,7 @@ import com.app.gamereview.model.Tag;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,8 @@ import java.util.List;
 @Getter
 @Setter
 public class GetGroupResponseDto {
+    private String id;
+
     private String title;
 
     private String description;
@@ -33,6 +36,8 @@ public class GetGroupResponseDto {
     private List<String> bannedMembers = new ArrayList<>();       // userIds of the banned members
 
     private Boolean avatarOnly;
+
+    private LocalDateTime createdAt;
 
     public void populateTag(Tag tag){
         this.tags.add(tag);
