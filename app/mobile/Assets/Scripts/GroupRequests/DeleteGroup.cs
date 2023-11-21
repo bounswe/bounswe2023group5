@@ -2,30 +2,51 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Text;
+using Newtonsoft.Json;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.Networking;
+
 
 public class DeleteGroup : MonoBehaviour
 {
+    
+    // [SerializeField] private TMP_Text infoText;
+    
+    // User will be banned via the back-end
+    // [SerializeField] private GameObject userList;
+    
+    // After the log out message is sent, the user should be navigated to 
+    // another page
+    private CanvasManager canvasManager;
+
+    // There must be a way to fetch these from the environment
     private string identifier;
-
-    private void Start()
+    
+    private void Awake()
     {
-        Init(new[] {"identifier"},new[] {""});
-
+        GetComponent<Button>().onClick.AddListener(DoDeleteGroup);
+        canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
     }
 
-    public void Init(string[] pars, string[] vals)
+    private void DoDeleteGroup()
     {
-        identifier  = ListToQueryParameters.GetValueOfParam(
-            pars, vals, "identifier" );
-
-        if (identifier == "")
-        {
-            Debug.Log("identifier must be specified");
-        }
-
         string url = AppVariables.HttpServerUrl + "/group/delete" + 
-                     ListToQueryParameters.ListToQueryParams(pars, vals);
+                     ListToQueryParameters.ListToQueryParams(
+                         new []{"identifier"}, new []{identifier});
         StartCoroutine(DELETE(url));
+        
+
     }
     
     IEnumerator DELETE(string url)
@@ -48,3 +69,4 @@ public class DeleteGroup : MonoBehaviour
         request.downloadHandler.Dispose();
     }
 }
+
