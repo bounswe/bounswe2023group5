@@ -33,10 +33,10 @@ In the recent progress update, significant strides have been made in enhancing t
 | Create Group Endpoint Implementation - BE                             | [#696](https://github.com/bounswe/bounswe2023group5/issues/696) | Can Uzduran | 21.11.2023 || 2 hr               |2 hr|
 | Group Model Creation and Necessary Retrieving Endpoints (Filter, Search, Sort, Get Details)                             | [#697](https://github.com/bounswe/bounswe2023group5/issues/697) | Can Uzduran | 21.11.2023 || 3 hr               |2 hr|
 | Edit and Delete Functionalities for Group - BE                           | [#714](https://github.com/bounswe/bounswe2023group5/issues/714) | Can Uzduran | 21.11.2023 || 2 hr               |2 hr|
-| Restructuring Project Folder Layout - MOBILE                             | [#699](https://github.com/bounswe/bounswe2023group5/issues/699) | Ege Ekşi | 21.11.2023 || 1 hr               |1 hr|
-| Finalizing Endpoint Connections for Comment Functionality - MOBILE                             | [#700](https://github.com/bounswe/bounswe2023group5/issues/700) | Ege Ekşi | 21.11.2023 || 2 hr     |4 hr |
-| Verifying and Implementing Remaining Endpoint Connections for User Controller - MOBILE                             | [#701](https://github.com/bounswe/bounswe2023group5/issues/701) | Ege Ekşi | 21.11.2023 || 2 hr     |2 hr |
-| Annotation Research - MOBILE                             | [#702](https://github.com/bounswe/bounswe2023group5/issues/702) | Ege Ekşi | 21.11.2023 || 2 hr   |2 hr|
+| Restructuring Project Folder Layout - MOBILE                             | [#699](https://github.com/bounswe/bounswe2023group5/issues/699) | Ege Ekşi | 21.11.2023 | - | 1 hr               |1 hr|
+| Finalizing Endpoint Connections for Comment Functionality - MOBILE                             | [#700](https://github.com/bounswe/bounswe2023group5/issues/700) | Ege Ekşi | 21.11.2023 |[#774](https://github.com/bounswe/bounswe2023group5/pull/774)| 2 hr     |4 hr |
+| Verifying and Implementing Remaining Endpoint Connections for User Controller - MOBILE                             | [#701](https://github.com/bounswe/bounswe2023group5/issues/701) | Ege Ekşi | 21.11.2023 |[#773](https://github.com/bounswe/bounswe2023group5/pull/773)| 2 hr     |2 hr |
+| Annotation Research - MOBILE                             | [#702](https://github.com/bounswe/bounswe2023group5/issues/702) | Ege Ekşi | 21.11.2023 | - | 2 hr   |2 hr|
 | Group Moderation Functionality Implementation - MOBILE | [#707](https://github.com/bounswe/bounswe2023group5/issues/707) | Said Yolcu | 23.11.2023 | |5hrs |4hrs|
 | Review And Edit Controller Scripts - MOBILE | [#708](https://github.com/bounswe/bounswe2023group5/issues/708) | Said Yolcu | 16.11.2023 | |2hrs |2hrs|
 | Create Request Functions For Game Controller Endpoints - MOBILE | [#709](https://github.com/bounswe/bounswe2023group5/issues/709) | Said Yolcu | 19.11.2023 || 3hrs |3hrs|
