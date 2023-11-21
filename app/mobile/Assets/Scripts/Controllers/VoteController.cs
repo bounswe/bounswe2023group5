@@ -23,6 +23,21 @@ public class VoteResponse
     public string votedBy;
 }
 
+public class GetVoteRequest
+{
+    public string id;
+}
+
+public class GetAllVotesRequest
+{
+    public string voteType;
+    public string typeId;
+    public string choice;
+    public string votedBy;
+    public bool withDeleted;
+}
+
+
 
 // For GetVoteRequest, send no body but specify the parameters 
 // below
@@ -35,7 +50,7 @@ public class VoteResponse
 // Query parameters:
 // string voteType, string typeId, string choice, string votedBy,
 // bool withDeleted;
-// Response is an array of VoteResponse's
+// Response is an array of VoteResponse's (We can use VoteResponse like List<VoteResponse> voteList = JsonConvert....)
 
 // Choice is a string, therefore we are better off not using 
 // enum
