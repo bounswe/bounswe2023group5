@@ -7,16 +7,20 @@ import {
   MailOutlined,
   EyeInvisibleOutlined,
 } from "@ant-design/icons";
-import { Button, Input } from "antd";
+import { Button, Checkbox, Input, Modal } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
 import postRegister from "../../Services/Register";
+import { CheckboxChangeEvent } from "antd/es/checkbox";
+import { userAgreementText } from "./Register.const";
 
 function Register() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [agreeTerm, setAgreeTerm] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -43,10 +47,24 @@ function Register() {
       alert("Please enter a valid email address!");
     } else if (password !== confirmPassword) {
       alert("Passwords do not match!");
+    } else if (agreeTerm === false) {
+      alert("Please agree with our user agreement!");
     } else {
       registerMutation.mutate({ username, email, password });
     }
     event.preventDefault();
+  };
+
+  const handleAgreeTerm = (e: CheckboxChangeEvent) => {
+    setAgreeTerm(e.target.checked);
+  };
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -70,7 +88,6 @@ function Register() {
               value={username}
               onChange={(event) => setUsername(event.target.value)}
             />
-
             <Input
               size="large"
               placeholder="Email"
@@ -83,7 +100,6 @@ function Register() {
               value={email}
               onChange={(event) => setEmail(event.target.value)}
             />
-
             <Input.Password
               placeholder="Password"
               prefix={
@@ -102,7 +118,6 @@ function Register() {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
             />
-
             <Input.Password
               placeholder="Confirm Password"
               prefix={
@@ -121,6 +136,17 @@ function Register() {
               value={confirmPassword}
               onChange={(event) => setConfirmPassword(event.target.value)}
             />
+            <Checkbox
+              onChange={handleAgreeTerm}
+              value={agreeTerm}
+              className={styles.agreeCheckbox}
+              disabled={isModalOpen}
+            >
+              I agree to the{" "}
+              <span className={styles.userAgreementLink} onClick={showModal}>
+                Game Guru User Agreement
+              </span>
+            </Checkbox>
 
             <div className={styles.buttonContainer}>
               <Button
@@ -141,6 +167,14 @@ function Register() {
           </form>
         </div>
       </div>
+      <Modal
+        title="User Agreement"
+        open={isModalOpen}
+        footer={null}
+        onCancel={handleCancel}
+      >
+        <p>{userAgreementText}</p>
+      </Modal>
     </div>
   );
 }

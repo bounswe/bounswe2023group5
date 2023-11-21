@@ -50,6 +50,16 @@
   color: red;
 }
 
+.userAgreementLink {
+  color: lightblue;
+  text-decoration: underline;
+}
+
+.agreeCheckbox {
+  color: white;
+  margin-bottom: 1rem;
+}
+
 .navigationLink {
   color: white;
 }
