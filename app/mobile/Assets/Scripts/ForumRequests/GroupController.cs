@@ -1,4 +1,4 @@
-public class GameController
+public class GroupController
 {
 }
 
