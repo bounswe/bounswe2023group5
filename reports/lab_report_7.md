@@ -183,8 +183,6 @@ As a mobile development team utilizing Unity and C sharp, we test manually. Afte
 ## Scenarios
 
 
-### Frontend Scenarios
-
 #### Admin Panel Scenario
 Ali is the admin of the website. He wants to create the game Portal2 because it is a popular game among the gamers.
 1. Ali creates game (Only admin's can create a game)
