@@ -162,6 +162,9 @@ An example test scenario that we would use be:
 - Editing a review should reflect the updated content.
 - Deleting a review should remove it from the reviews section.
 
+### How do we test ? - Mobile
+As a mobile development team utilizing Unity and C sharp, we test manually. After a change is made in a branch, we run the Unity simulation and test the newly created functionalities. We also test the previously completed functionalities, as most of the time new functionalities are interconnected with the old. Before the milestones, we take builds of our application and test the application in a mobile phone, in the actual user environment.
+
   
 ## Scenarios
 
