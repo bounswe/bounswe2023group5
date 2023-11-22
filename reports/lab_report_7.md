@@ -45,7 +45,7 @@ In the recent progress update, significant strides have been made in enhancing t
 | Create Request Functions For Post Controller Endpoints - MOBILE | [#712](https://github.com/bounswe/bounswe2023group5/issues/712) | Bilal Atım | 17.11.2023 | [#728](https://github.com/bounswe/bounswe2023group5/pull/728) |3 hrs|3 hrs|
 | Create Request Functions For Review Controller Endpoints - MOBILE | [#715](https://github.com/bounswe/bounswe2023group5/issues/715) | Bilal Atım | 18.112023 | [#727](https://github.com/bounswe/bounswe2023group5/pull/727) | 3 hrs|3 hrs|
 | Fix Errors and Bugs in Authontications Pages - MOBILE| [#716](https://github.com/bounswe/bounswe2023group5/issues/716) | Bilal Atım | 16.11.2023 | [#727](https://github.com/bounswe/bounswe2023group5/pull/727) |2 hrs|2 hrs|
-| Implementing Application to a Private Group Feature| [#717](https://github.com/bounswe/bounswe2023group5/issues/717) | Halis Bal | 21.11.2023 | |6 hrs|6 hrs|
+| Implementing Application to a Private Group Feature| [#717](https://github.com/bounswe/bounswe2023group5/issues/717) | Halis Bal | 21.11.2023 | |6 hrs||
 | Group Page Implementation - MOBILE| [#718](https://github.com/bounswe/bounswe2023group5/issues/718) | Harun Sami Çelik | 20.11.2023 || 3 hrs|3 hrs|
 | Adding endpoint requests for Vote Controller - MOBILE| [#719](https://github.com/bounswe/bounswe2023group5/issues/719) | Harun Sami Çelik  | 20.11.2023 || 2 hrs|2.5 hrs|
 | Deleting Unused Branches - MOBILE| [#720](https://github.com/bounswe/bounswe2023group5/issues/720) | Harun Sami Çelik | 20.11.2023 || 30 mins|30 mins|
@@ -64,6 +64,7 @@ In the recent progress update, significant strides have been made in enhancing t
 
 - We couldn't find the time and implement automated CI/CD of the frontend
 - Adding images to posts haasn't been implemented yet.
+- We couldn't complete the application to a private group feature on the backend side. We will be implementing it next week.
 
 ## Your plans for the next week
 
@@ -79,6 +80,8 @@ In the recent progress update, significant strides have been made in enhancing t
 | Status/Plans for functionalities associated with annotations | [#798](https://github.com/bounswe/bounswe2023group5/issues/798) | Team | 30.11.2023 | 2.5hrs |
 | Unban user from group and forum | [#803](https://github.com/bounswe/bounswe2023group5/issues/803) | Zeynep Baydemir | 27.11.2023 | 1.5hrs |
 | Last activities in profile endpoint | [#804](https://github.com/bounswe/bounswe2023group5/issues/804) | Zeynep Baydemir | 27.11.2023 | 3hrs |
+| Profile Page Implementation - BE | [#822](https://github.com/bounswe/bounswe2023group5/issues/822) | Halis Bal | 27.11.2023 | 3hrs |
+| Edit Game Endpoint Implementation - BE | [#823](https://github.com/bounswe/bounswe2023group5/issues/823) | Halis Bal | 27.11.2023 | 1.5hrs |
 | Create Group Details Page - MOBILE | [#799](https://github.com/bounswe/bounswe2023group5/issues/799) | Said Yolcu | 28.11.2023 | 5hrs |
 | Modifying Forum Page With Agreed UI Design Decisions - MOBILE | [#801](https://github.com/bounswe/bounswe2023group5/issues/801) | Said Yolcu | 27.11.2023 | 1.5hrs |
 | Creating achievement entity | [#805](https://github.com/bounswe/bounswe2023group5/issues/805) | Deniz Ünal | 25.11.2023 | 2hrs | 
