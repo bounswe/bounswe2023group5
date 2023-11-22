@@ -87,6 +87,9 @@ In the recent progress update, significant strides have been made in enhancing t
 | Get achievements of user and implementation of other related functionalities | [#810](https://github.com/bounswe/bounswe2023group5/issues/810) | Can Uzduran | 27.11.2023 | 2hrs |
 | Implement Necessary Functionalities for Earned Achievements (Meta Achievements) | [#790](https://github.com/bounswe/bounswe2023group5/issues/790) | Can Uzduran | 27.11.2023 | 3hrs |
 
+### How do we test ? - BE
+As a backend development team utilizing Java and the Spring framework, our approach to testing and developing processes involves a comprehensive strategy to ensure the reliability and functionality of our code. We prioritize the implementation of JUnit unit tests, which allow us to verify the correctness of individual components and functionalities within our Java codebase. These tests cover a wide range of scenarios, ensuring that each service method performs as expected under various provided inputs. Additionally, our testing process extends to database interactions, where we validate that our application's data access layer seamlessly integrates with the database. This involves executing tests to confirm that relevant changes made through the application are accurately reflected in the database, maintaining data integrity. By incorporating a combination of unit tests and database validations, we aim to maintain the quality and robustness of our backend code, applying to best practices in software development. Additionally, we rigorously test endpoints using API clients like Postman and Swagger to confirm proper communication and functionality, ensuring the overall quality and robustness of our backend code and change our implementation of endpoints and service methods based on provided feedbacks from front-end and mobile team.
+
 
 ## Risks
 
