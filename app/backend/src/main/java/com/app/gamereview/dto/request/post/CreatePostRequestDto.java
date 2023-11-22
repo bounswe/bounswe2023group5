@@ -33,5 +33,8 @@ public class CreatePostRequestDto {
           message = "One of the tags has invalid Id (UUID) format")String> tags;
 
   // TODO annotations
-  // TODO achievements
+
+  @Pattern(regexp = "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+          message = "Achievement has invalid Id (UUID) format")
+  private String achievement;
 }
