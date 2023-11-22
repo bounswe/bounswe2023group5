@@ -16,7 +16,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -39,17 +38,11 @@ public class AchievementService {
 
     public Achievement createAchievement(CreateAchievementRequestDto achievementRequestDto) {
 
-        Optional<Achievement> achievementOptional = achievementRepository.findByTitleAndIsDeletedFalse(achievementRequestDto.getTitle());
+        if (achievementRequestDto.getType().equals(AchievementType.GAME.toString())) {
 
-        if (achievementOptional.isPresent() && Objects.equals(achievementOptional.get().getGameId(), achievementRequestDto.getGameId())) {
-            throw new BadRequestException("There is already an achievement with the same name.");
-        }
+            String gameId = achievementRequestDto.getGame();
 
-        if (achievementRequestDto.getType() == AchievementType.GAME) {
-
-            String gameId = achievementRequestDto.getGameId();
-
-            if (gameId.isEmpty()) {
+            if (gameId == null) {
                 throw new BadRequestException("Game id cannot be empty for game achievements.");
             }
 
@@ -59,7 +52,15 @@ public class AchievementService {
                 throw new ResourceNotFoundException("Game with the given is not found.");
             }
         } else {
-            achievementRequestDto.setGameId("-1");
+            achievementRequestDto.setGame("-1");
+        }
+
+        List<Achievement> achievementsSameName = achievementRepository.findByTitleAndIsDeletedFalse(achievementRequestDto.getTitle());
+
+        for (Achievement achievement : achievementsSameName) {
+            if (achievement.getGame().equals(achievementRequestDto.getGame())) {
+                throw new BadRequestException("There is already an achievement with the same name.");
+            }
         }
 
         Achievement achievement = modelMapper.map(achievementRequestDto, Achievement.class);
@@ -76,15 +77,25 @@ public class AchievementService {
 
         Achievement achievementToUpdate = achievementOptional.get();
 
-        if (!requestDto.getIcon().isEmpty()) {
+        if (requestDto.getIcon() != null) {
             achievementToUpdate.setIcon(requestDto.getIcon());
         }
 
-        if (!requestDto.getDescription().isEmpty()) {
+        if (requestDto.getDescription() != null) {
             achievementToUpdate.setDescription(requestDto.getDescription());
         }
 
-        if (!requestDto.getTitle().isEmpty()) {
+        if (requestDto.getTitle() != null) {
+
+            List<Achievement> achievementsSameName = achievementRepository.findByTitleAndIsDeletedFalse(requestDto.getTitle());
+
+            for (Achievement achievement : achievementsSameName) {
+                if (achievement.getGame().equals(achievementToUpdate.getGame()) &&
+                        !achievement.getId().equals(achievementToUpdate.getId())) {
+                    throw new BadRequestException("There is already an achievement with the same name.");
+                }
+            }
+
             achievementToUpdate.setTitle(requestDto.getTitle());
         }
 

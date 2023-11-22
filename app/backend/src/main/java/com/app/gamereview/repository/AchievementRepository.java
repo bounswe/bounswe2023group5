@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface AchievementRepository extends MongoRepository<Achievement, String> {
 
-    Optional<Achievement> findByTitleAndIsDeletedFalse(String title);
+    List<Achievement> findByTitleAndIsDeletedFalse(String title);
 
     Optional<Achievement> findByIdAndIsDeletedFalse(String id);
 

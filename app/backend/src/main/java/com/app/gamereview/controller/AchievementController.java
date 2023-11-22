@@ -5,6 +5,7 @@ import com.app.gamereview.dto.request.achievement.GrantAchievementRequestDto;
 import com.app.gamereview.dto.request.achievement.UpdateAchievementRequestDto;
 import com.app.gamereview.service.AchievementService;
 import com.app.gamereview.util.validation.annotation.AdminRequired;
+import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,7 @@ public class AchievementController {
     }
 
     @PostMapping("/create")
+    @AuthorizationRequired
     @AdminRequired
     public ResponseEntity<Achievement> createAchievement(@Valid @RequestBody CreateAchievementRequestDto achievementDto,
                                                          @RequestHeader String Authorization, HttpServletRequest request) {
@@ -35,6 +37,7 @@ public class AchievementController {
     }
 
     @PostMapping("/update")
+    @AuthorizationRequired
     @AdminRequired
     public ResponseEntity<Achievement> updateAchievement(@RequestParam String id,
                                                          @Valid @RequestBody UpdateAchievementRequestDto updateAchievementRequestDto,
@@ -44,6 +47,7 @@ public class AchievementController {
     }
 
     @DeleteMapping("/delete")
+    @AuthorizationRequired
     @AdminRequired
     public ResponseEntity<Achievement> deleteAchievement(@RequestParam String id, @RequestHeader String Authorization,
                                                          HttpServletRequest request) {
@@ -58,6 +62,7 @@ public class AchievementController {
     }
 
     @PostMapping("/grant-achievement")
+    @AuthorizationRequired
     @AdminRequired
     public ResponseEntity<List<String>> grantAchievement(@Valid @RequestBody GrantAchievementRequestDto achievementDto,
                                                         @RequestHeader String Authorization, HttpServletRequest request) {

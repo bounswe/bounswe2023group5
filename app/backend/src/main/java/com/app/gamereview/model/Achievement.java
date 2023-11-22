@@ -23,5 +23,5 @@ public class Achievement extends BaseModel {
 
     private AchievementType type;
 
-    private String gameId;
+    private String game;
 }

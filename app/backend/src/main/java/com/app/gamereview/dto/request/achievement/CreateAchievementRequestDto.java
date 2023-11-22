@@ -3,6 +3,7 @@ package com.app.gamereview.dto.request.achievement;
 import com.app.gamereview.enums.AchievementType;
 import com.app.gamereview.util.validation.annotation.ValidAchievementType;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,10 +24,10 @@ public class CreateAchievementRequestDto {
     private String icon;
 
     @ValidAchievementType(allowedValues = {AchievementType.GAME, AchievementType.META})
-    @NotEmpty(message = "Achievement type cannot be empty.")
-    private AchievementType type;
+    @NotNull(message = "Achievement type cannot be empty.")
+    private String type;
 
     @Pattern(regexp = "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
             message = "Game has invalid Id (UUID) format")
-    private String gameId;
+    private String game;
 }
