@@ -156,6 +156,42 @@ An example test scenario that we would use be:
 - Editing a review should reflect the updated content.
 - Deleting a review should remove it from the reviews section.
 
+  
+## Scenarios
+
+
+### Frontend Scenarion
+
+#### Admin Panel Scenario
+Ali is the admin of the website. He wants to create the game Portal2 because it is a popular game among the gamers.
+1. Ali creates game (Only admin's can create a game)
+2. He checks the tags and he cannot find the tag Puzzle
+3. He wants to create a new tag
+4. He creates a tag
+5. He decides to edit the color of the tag
+6. He updates the tag 
+7. He uses the tag for game creation
+
+
+#### Game Forum Scenario
+Admin Ali and user Josh are signed into the system. Ali is the admin of the website and has general information about all games. Josh is a user that expert of Portal2. Josh wants to create a post about the game. The post is about a record he broked. Ali wants to vote the post and comment about the post.
+1. Josh creates a post about the record he broke in the game
+2. Ali enters the forum and votes the post, then post a comment about the post
+3. Josh replies to the Ali
+4. Josh posts a review about game
+5. Josh goes to profile and sees his posts and reviews
+6. Josh also sees the achievements he got by adding a review and posting a post to a forum.
+
+
+#### Group Scenario
+Josh is a gamer that loves FPS. Josh wants to create a group about CS:GO and find new friends. Ali wants to enter a group about CS:GO and share his experiences to the other users. Both are average gamers that plays CS:GO.
+1. Josh user creates a public group
+2. Ali enters the group
+3. Ali posts to the group. But the post contains incorrect information about the game
+4. Josh enters the post detail and warns the user by commenting the post
+5. Ali edits the comment according to feedback
+6. Josh deletes his own comment after Ali edited his comment
+
 
 ## Risks
 
