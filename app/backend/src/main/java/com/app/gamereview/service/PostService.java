@@ -140,6 +140,10 @@ public class PostService {
 
         GetPostDetailResponseDto postDto = modelMapper.map(post, GetPostDetailResponseDto.class);
 
+        Optional<Achievement> postAchievement = achievementRepository.findByIdAndIsDeletedFalse(post.get().getAchievement());
+
+        postAchievement.ifPresent(postDto::setAchievement);
+
         List<Tag> tags = new ArrayList<>();
 
         // Fetch tags individually

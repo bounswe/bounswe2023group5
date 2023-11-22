@@ -1,5 +1,6 @@
 package com.app.gamereview.dto.response.post;
 
+import com.app.gamereview.model.Achievement;
 import com.app.gamereview.model.Tag;
 import com.app.gamereview.model.User;
 import lombok.AllArgsConstructor;
@@ -26,7 +27,7 @@ public class GetPostDetailResponseDto {
 
     // TODO avatar
 
-    private String achievement;
+    private Achievement achievement;
 
     private LocalDateTime lastEditedAt;
 
