@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import com.app.gamereview.model.Achievement;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -52,13 +51,12 @@ public class AchievementController {
         return ResponseEntity.ok(achievement);
     }
 
-    //TODO
     @GetMapping("/get-game-achievements")
-    public ResponseEntity<List<Achievement>> getGameAchievements() {
-        return ResponseEntity.ok(new ArrayList<Achievement>());
+    public ResponseEntity<List<Achievement>> getGameAchievements(@RequestParam String gameId) {
+        List<Achievement> gameAchievements = achievementService.getGameAchievements(gameId);
+        return ResponseEntity.ok(gameAchievements);
     }
 
-    //TODO
     @PostMapping("/grant-achievement")
     @AdminRequired
     public ResponseEntity<List<String>> grantAchievement(@Valid @RequestBody GrantAchievementRequestDto achievementDto,

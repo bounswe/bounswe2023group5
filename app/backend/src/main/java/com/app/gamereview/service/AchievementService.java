@@ -133,4 +133,15 @@ public class AchievementService {
         userRepository.save(userToGrant);
         return userToGrant.getAchievements();
     }
+
+    public List<Achievement> getGameAchievements(String gameId) {
+
+        Optional<Game> gameOptional = gameRepository.findByIdAndIsDeletedFalse(gameId);
+
+        if (gameOptional.isEmpty()) {
+            throw new ResourceNotFoundException("Game with the given is not found.");
+        }
+
+        return achievementRepository.findByGameAndIsDeletedFalse(gameId);
+    }
 }
