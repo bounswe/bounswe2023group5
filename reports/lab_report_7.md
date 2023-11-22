@@ -65,6 +65,7 @@ In the recent progress update, significant strides have been made in enhancing t
 - We couldn't find the time and implement automated CI/CD of the frontend
 - Adding images to posts haasn't been implemented yet.
 - We couldn't complete the application to a private group feature on the backend side. We will be implementing it next week.
+- We couldn't complete moderation functionalities for group in frontend.
 
 ## Your plans for the next week
 
