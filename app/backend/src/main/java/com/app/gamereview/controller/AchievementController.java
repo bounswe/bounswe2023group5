@@ -1,6 +1,7 @@
 package com.app.gamereview.controller;
 
 import com.app.gamereview.dto.request.achievement.CreateAchievementRequestDto;
+import com.app.gamereview.dto.request.achievement.GrantAchievementRequestDto;
 import com.app.gamereview.dto.request.achievement.UpdateAchievementRequestDto;
 import com.app.gamereview.service.AchievementService;
 import com.app.gamereview.util.validation.annotation.AdminRequired;
@@ -59,7 +60,10 @@ public class AchievementController {
 
     //TODO
     @PostMapping("/grant-achievement")
-    public ResponseEntity<Achievement> grantAchievement() {
-        return ResponseEntity.ok(new Achievement());
+    @AdminRequired
+    public ResponseEntity<List<String>> grantAchievement(@Valid @RequestBody GrantAchievementRequestDto achievementDto,
+                                                        @RequestHeader String Authorization, HttpServletRequest request) {
+        List<String> userAchievements = achievementService.grantAchievement(achievementDto);
+        return ResponseEntity.ok(userAchievements);
     }
 }
