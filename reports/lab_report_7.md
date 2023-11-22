@@ -30,9 +30,9 @@ In the recent progress update, significant strides have been made in enhancing t
 | Group Moderation Implementation-BE                             | [#705](https://github.com/bounswe/bounswe2023group5/issues/705) | Zeynep Baydemir | 21.11.2023 |[#750](https://github.com/bounswe/bounswe2023group5/pull/750)| 3 hr               |4 hr|
 | Join-Leave Group Implementation-BE                             | [#704](https://github.com/bounswe/bounswe2023group5/issues/704) | Zeynep Baydemir | 21.11.2023 |[#743](https://github.com/bounswe/bounswe2023group5/pull/743)| 3 hr               | 3 hr|
 | Admin Permissions In Post Comments                             | [#706](https://github.com/bounswe/bounswe2023group5/issues/706) | Zeynep Baydemir | 21.11.2023 |[#739](https://github.com/bounswe/bounswe2023group5/pull/739)| 1 hr               |1 hr|
-| Create Group Endpoint Implementation - BE                             | [#696](https://github.com/bounswe/bounswe2023group5/issues/696) | Can Uzduran | 21.11.2023 || 2 hr               |2 hr|
-| Group Model Creation and Necessary Retrieving Endpoints (Filter, Search, Sort, Get Details)                             | [#697](https://github.com/bounswe/bounswe2023group5/issues/697) | Can Uzduran | 21.11.2023 || 3 hr               |2 hr|
-| Edit and Delete Functionalities for Group - BE                           | [#714](https://github.com/bounswe/bounswe2023group5/issues/714) | Can Uzduran | 21.11.2023 || 2 hr               |2 hr|
+| Create Group Endpoint Implementation - BE | [#696](https://github.com/bounswe/bounswe2023group5/issues/696) | Can Uzduran | 21.11.2023 |[#740](https://github.com/bounswe/bounswe2023group5/pull/740)| 2 hr |1 hr|
+| Group Model Creation and Necessary Retrieving Endpoints (Filter, Search, Sort, Get Details)                             | [#697](https://github.com/bounswe/bounswe2023group5/issues/697) | Can Uzduran | 21.11.2023 |[#740](https://github.com/bounswe/bounswe2023group5/pull/740)| 3 hr               |2 hr|
+| Edit and Delete Functionalities for Group - BE                           | [#714](https://github.com/bounswe/bounswe2023group5/issues/714) | Can Uzduran | 21.11.2023 |[#753](https://github.com/bounswe/bounswe2023group5/pull/753),[#755](https://github.com/bounswe/bounswe2023group5/pull/755)| 2 hr               |2 hr|
 | Restructuring Project Folder Layout - MOBILE                             | [#699](https://github.com/bounswe/bounswe2023group5/issues/699) | Ege Ekşi | 21.11.2023 | - | 1 hr               |1 hr|
 | Finalizing Endpoint Connections for Comment Functionality - MOBILE                             | [#700](https://github.com/bounswe/bounswe2023group5/issues/700) | Ege Ekşi | 21.11.2023 |[#774](https://github.com/bounswe/bounswe2023group5/pull/774)| 2 hr     |4 hr |
 | Verifying and Implementing Remaining Endpoint Connections for User Controller - MOBILE                             | [#701](https://github.com/bounswe/bounswe2023group5/issues/701) | Ege Ekşi | 21.11.2023 |[#773](https://github.com/bounswe/bounswe2023group5/pull/773)| 2 hr     |2 hr |
@@ -83,7 +83,9 @@ In the recent progress update, significant strides have been made in enhancing t
 | Modifying Forum Page With Agreed UI Design Decisions - MOBILE | [#801](https://github.com/bounswe/bounswe2023group5/issues/801) | Said Yolcu | 27.11.2023 | 1.5hrs |
 | Creating achievement entity | [#805](https://github.com/bounswe/bounswe2023group5/issues/805) | Deniz Ünal | 25.11.2023 | 2hrs | 
 | Achievement CRUD endpoints and grant-achievement endpoint | [#806](https://github.com/bounswe/bounswe2023group5/issues/806) | Deniz Ünal | 25.11.2023 | 4hrs | 
-| get-game-achievements endpoint and adding achievements to posts | [#807](https://github.com/bounswe/bounswe2023group5/issues/807) | Deniz Ünal | 25.11.2023 | 2hrs | 
+| get-game-achievements endpoint and adding achievements to posts | [#807](https://github.com/bounswe/bounswe2023group5/issues/807) | Deniz Ünal | 25.11.2023 | 2hrs |
+| Get achievements of user and implementation of other related functionalities | [#810](https://github.com/bounswe/bounswe2023group5/issues/810) | Can Uzduran | 27.11.2023 | 2hrs |
+| Implement Necessary Functionalities for Earned Achievements (Meta Achievements) | [#790](https://github.com/bounswe/bounswe2023group5/issues/790) | Can Uzduran | 27.11.2023 | 3hrs |
 
 
 ## Risks
