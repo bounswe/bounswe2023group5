@@ -46,8 +46,8 @@ In the recent progress update, significant strides have been made in enhancing t
 | Create Request Functions For Review Controller Endpoints - MOBILE | [#715](https://github.com/bounswe/bounswe2023group5/issues/715) | Bilal Atım | 18.112023 | [#727](https://github.com/bounswe/bounswe2023group5/pull/727) | 3 hrs|3 hrs|
 | Fix Errors and Bugs in Authontications Pages - MOBILE| [#716](https://github.com/bounswe/bounswe2023group5/issues/716) | Bilal Atım | 16.11.2023 | [#727](https://github.com/bounswe/bounswe2023group5/pull/727) |2 hrs|2 hrs|
 | Implementing Application to a Private Group Feature| [#717](https://github.com/bounswe/bounswe2023group5/issues/717) | Halis Bal | 21.11.2023 | |6 hrs||
-| Group Page Implementation - MOBILE| [#718](https://github.com/bounswe/bounswe2023group5/issues/718) | Harun Sami Çelik | 20.11.2023 || 3 hrs|3 hrs|
-| Adding endpoint requests for Vote Controller - MOBILE| [#719](https://github.com/bounswe/bounswe2023group5/issues/719) | Harun Sami Çelik  | 20.11.2023 || 2 hrs|2.5 hrs|
+| Group Page Implementation - MOBILE| [#718](https://github.com/bounswe/bounswe2023group5/issues/718) | Harun Sami Çelik | 20.11.2023 |[#824](https://github.com/bounswe/bounswe2023group5/pull/824)| 3 hrs|3 hrs|
+| Adding endpoint requests for Vote Controller - MOBILE| [#719](https://github.com/bounswe/bounswe2023group5/issues/719) | Harun Sami Çelik  | 20.11.2023 |[#811](https://github.com/bounswe/bounswe2023group5/pull/811)| 2 hrs|2.5 hrs|
 | Deleting Unused Branches - MOBILE| [#720](https://github.com/bounswe/bounswe2023group5/issues/720) | Harun Sami Çelik | 20.11.2023 || 30 mins|30 mins|
 ## Completed tasks that were not planned for the week
 | Description | Issue | Assignee | Due | Duration |
@@ -95,6 +95,9 @@ In the recent progress update, significant strides have been made in enhancing t
 | Modifying ProfilePage with Agreed UI Design Decisions - MOBILE | [#815](https://github.com/bounswe/bounswe2023group5/issues/815) | Bilal Atım | 27.11.2023 | 3hrs |
 | Create Post Page - MOBILE | [#796](https://github.com/bounswe/bounswe2023group5/issues/796) | Ege Ekşi | 28.11.2023 | 4hrs |
 | Modifying Review Page with Agreed UI Design Decisions - MOBILE | [#797](https://github.com/bounswe/bounswe2023group5/issues/797) | Ege Ekşi | 28.11.2023 | 2hrs |
+| Create Game Page Arrangement - MOBILE | [#816](https://github.com/bounswe/bounswe2023group5/issues/816) | Harun Sami Çelik | 28.11.2023 | 3hrs |
+| Updating Navigation Drop Buttons - MOBILE | [#817](https://github.com/bounswe/bounswe2023group5/issues/817) | Harun Sami Çelik | 28.11.2023 | 1hrs |
+| Modifying Games Page with Agreed UI Design Decisions - MOBILE| [#818](https://github.com/bounswe/bounswe2023group5/issues/818) | Harun Sami Çelik | 28.11.2023 | 2hrs |
 
 ### How do we test ? - BE
 As a backend development team utilizing Java and the Spring framework, our approach to testing and developing processes involves a comprehensive strategy to ensure the reliability and functionality of our code. We prioritize the implementation of JUnit unit tests, which allow us to verify the correctness of individual components and functionalities within our Java codebase. These tests cover a wide range of scenarios, ensuring that each service method performs as expected under various provided inputs. Additionally, our testing process extends to database interactions, where we validate that our application's data access layer seamlessly integrates with the database. This involves executing tests to confirm that relevant changes made through the application are accurately reflected in the database, maintaining data integrity. By incorporating a combination of unit tests and database validations, we aim to maintain the quality and robustness of our backend code, applying to best practices in software development. Additionally, we rigorously test endpoints using API clients like Postman and Swagger to confirm proper communication and functionality, ensuring the overall quality and robustness of our backend code and change our implementation of endpoints and service methods based on provided feedbacks from front-end and mobile team.
