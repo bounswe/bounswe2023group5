@@ -160,7 +160,7 @@ An example test scenario that we would use be:
 ## Scenarios
 
 
-### Frontend Scenarion
+### Frontend Scenarios
 
 #### Admin Panel Scenario
 Ali is the admin of the website. He wants to create the game Portal2 because it is a popular game among the gamers.
