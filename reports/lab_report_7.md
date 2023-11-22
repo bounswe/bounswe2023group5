@@ -96,6 +96,66 @@ In the recent progress update, significant strides have been made in enhancing t
 ### How do we test ? - BE
 As a backend development team utilizing Java and the Spring framework, our approach to testing and developing processes involves a comprehensive strategy to ensure the reliability and functionality of our code. We prioritize the implementation of JUnit unit tests, which allow us to verify the correctness of individual components and functionalities within our Java codebase. These tests cover a wide range of scenarios, ensuring that each service method performs as expected under various provided inputs. Additionally, our testing process extends to database interactions, where we validate that our application's data access layer seamlessly integrates with the database. This involves executing tests to confirm that relevant changes made through the application are accurately reflected in the database, maintaining data integrity. By incorporating a combination of unit tests and database validations, we aim to maintain the quality and robustness of our backend code, applying to best practices in software development. Additionally, we rigorously test endpoints using API clients like Postman and Swagger to confirm proper communication and functionality, ensuring the overall quality and robustness of our backend code and change our implementation of endpoints and service methods based on provided feedbacks from front-end and mobile team.
 
+### How do we test? - FE
+
+We usually perform manuel tests to ensure the functionality of the ui and its integration with backend.
+An example test scenario that we would use be: 
+
+#### Test Case: Review Functionality Test for a Game
+##### Preconditions:
+- Ensure that the application is deployed and accessible.
+- Make sure you have a valid normal user account for testing purposes.
+
+##### Test Steps:
+1. **Login as Normal User:**
+   - Open the application.
+   - Log in with valid credentials of a normal user.
+
+2. **Navigate to Game Details of Path of Exile:**
+   - Click on "Games" tab from the top navigation bar
+   - Find the "Path of Exile" in games page
+   - Click on the game details button to go to the corresponding details page.
+
+4. **Access Reviews Section:**
+   - See the tab related to reviews.
+   - Click on the "Reviews" tan on submenu in game details page.
+
+5. **Check UI for Reviews Section:**
+   - Verify that the reviews section is open.
+   - Ensure that the tab has a distinct and bright color to indicate the active state.
+
+6. **Verify Existing Reviews:**
+   - Confirm that there are reviews listed in the reviews section.
+   - Check for details such as user names, dates, rating and review content.
+
+7. **Post a New Review:**
+   - In the "Post Review" section, input some text in the review content field.
+   - Select a rating for the game.
+   - Click the button with the check icon.
+   - Verify that the new review is visible in the reviews section.
+
+8. **Edit the Review:**
+   - Find the review you posted in step 7.
+   - Click the "Edit" button with pen icon associated with the review.
+   - Modify the text in the review content field.
+   - Click the button with the check icon to confirm the edit.
+   - Confirm that the edited content is now visible in the reviews section.
+
+9. **Delete the Review:**
+   - Locate the review you posted in steps 6 and 7.
+   - Click the "Delete" button associated with your review.
+   - Confirm the deletion by clicking the "Delete" or "Confirm" button in the confirmation dialog.
+   - Ensure that the deleted review is no longer visible in the reviews section.
+
+##### Expected Results:
+- The user should be able to log in successfully.
+- The game details page for Path of Exile should be accessible from the games page.
+- The Reviews section should open, and the menu should have a distinct bright color.
+- Existing reviews should be listed with accurate details.
+- Posting a new review should display the review in the reviews section.
+- Editing a review should reflect the updated content.
+- Deleting a review should remove it from the reviews section.
+
 
 ## Risks
 
