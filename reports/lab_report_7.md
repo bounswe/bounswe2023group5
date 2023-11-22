@@ -84,6 +84,7 @@ In the recent progress update, significant strides have been made in enhancing t
 | Creating achievement entity | [#805](https://github.com/bounswe/bounswe2023group5/issues/805) | Deniz Ünal | 25.11.2023 | 2hrs | 
 | Achievement CRUD endpoints and grant-achievement endpoint | [#806](https://github.com/bounswe/bounswe2023group5/issues/806) | Deniz Ünal | 25.11.2023 | 4hrs | 
 | get-game-achievements endpoint and adding achievements to posts | [#807](https://github.com/bounswe/bounswe2023group5/issues/807) | Deniz Ünal | 25.11.2023 | 2hrs |
+| Adding "How do we test ?" Section to Lab Report - BE | [#812](https://github.com/bounswe/bounswe2023group5/issues/812) | Can Uzduran | 22.11.2023 | 30mins |
 | Get achievements of user and implementation of other related functionalities | [#810](https://github.com/bounswe/bounswe2023group5/issues/810) | Can Uzduran | 27.11.2023 | 2hrs |
 | Implement Necessary Functionalities for Earned Achievements (Meta Achievements) | [#790](https://github.com/bounswe/bounswe2023group5/issues/790) | Can Uzduran | 27.11.2023 | 3hrs |
 
