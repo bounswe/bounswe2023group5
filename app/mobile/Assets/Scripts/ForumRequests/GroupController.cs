@@ -24,12 +24,12 @@ public class GroupUpdateRequest
 
 public class GroupResponse{
     public string id;
-    public string createdAt;
-    public bool isDeleted;
     public string title;
     public string description;
     public string membershipPolicy;
-    public string[]  tags;
+    public TagResponse[]  tags;
+    public string createdAt;
+    public bool isDeleted;
     public string gameId;
     public string forumId;
     public int quota;
