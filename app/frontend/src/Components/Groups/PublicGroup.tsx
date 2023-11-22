@@ -44,7 +44,7 @@ function PublicGroup({ group }: { group: any }) {
             </div>
             <div style={{ display: "flex", gap: "3px" }}>
               <Button>Join</Button>
-              <Button onClick={() => navigate(`/group/${group.id}`)}>
+              <Button onClick={() => navigate(`/group/detail/${group.id}`)}>
                 Group Details
               </Button>
             </div>
