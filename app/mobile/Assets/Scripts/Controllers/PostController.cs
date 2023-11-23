@@ -38,16 +38,18 @@ public class GetPostListResponse
     public string title;
     public string postContent;
     public User poster;
+    // public int userVote;
     public string lastEditedAt;
     public string createdAt;
     public bool isEdited;
-    public string[] tags;
+    public TagResponse[] tags;
     public bool inappropriate;
     public int overallVote;
     public int voteCount;
     public int commentCount;
     
 }
+
 
 // For GetPostDetailRequest do not send a body but specify the
 // parameters below
