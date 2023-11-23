@@ -6,19 +6,20 @@ import com.app.gamereview.dto.response.tag.AddGroupTagResponseDto;
 import com.app.gamereview.model.Group;
 import com.app.gamereview.model.User;
 import com.app.gamereview.service.GroupService;
-import com.app.gamereview.service.ReviewService;
 import com.app.gamereview.util.validation.annotation.AdminRequired;
 import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
+import io.jsonwebtoken.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -40,14 +41,53 @@ public class GroupController {
 
 	@GetMapping("/get-all")
 	public ResponseEntity<List<GetGroupResponseDto>> getReviews(
-			@ParameterObject GetAllGroupsFilterRequestDto filter) {
-		List<GetGroupResponseDto> groups = groupService.getAllGroups(filter);
+			@ParameterObject GetAllGroupsFilterRequestDto filter, @RequestHeader(name = HttpHeaders.AUTHORIZATION, required = false) String Authorization) {
+
+		String email = "";
+		try {
+			Claims claims = Jwts.parser().setSigningKey(secret_key).parseClaimsJws(String.valueOf(Authorization)).getBody();
+
+			Date expirationDate = claims.getExpiration();
+			Date now = new Date();
+			if (expirationDate.after(now)) {
+				email = claims.getSubject();
+			}
+		}
+		catch (SignatureException | ExpiredJwtException | IllegalArgumentException | MalformedJwtException e) {
+			// SignatureException: Token signature is invalid
+			// ExpiredJwtException: Token has expired
+			// IllegalArgumentException: Token is not correctly formatted
+			// MalformedJwtException: Token is not correctly formatted (eg. empty string)
+			// In any of these cases, the token is considered invalid
+		}
+
+		List<GetGroupResponseDto> groups = groupService.getAllGroups(filter, email);
 		return ResponseEntity.ok(groups);
 	}
 
 	@GetMapping("/get")
-	public ResponseEntity<GetGroupResponseDto> getGroup(@RequestParam String id) {
-		GetGroupResponseDto group = groupService.getGroupById(id);
+	public ResponseEntity<GetGroupResponseDto> getGroup(
+			@RequestParam String id, @RequestHeader(name = HttpHeaders.AUTHORIZATION, required = false) String Authorization) {
+
+		String email = "";
+		try {
+			Claims claims = Jwts.parser().setSigningKey(secret_key).parseClaimsJws(String.valueOf(Authorization)).getBody();
+
+			Date expirationDate = claims.getExpiration();
+			Date now = new Date();
+			if (expirationDate.after(now)) {
+				email = claims.getSubject();
+			}
+		}
+		catch (SignatureException | ExpiredJwtException | IllegalArgumentException | MalformedJwtException e) {
+			// SignatureException: Token signature is invalid
+			// ExpiredJwtException: Token has expired
+			// IllegalArgumentException: Token is not correctly formatted
+			// MalformedJwtException: Token is not correctly formatted (eg. empty string)
+			// In any of these cases, the token is considered invalid
+		}
+
+		GetGroupResponseDto group = groupService.getGroupById(id, email);
 
 		return ResponseEntity.ok(group);
 	}
