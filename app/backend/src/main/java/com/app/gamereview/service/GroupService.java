@@ -1,7 +1,6 @@
 package com.app.gamereview.service;
 
 import com.app.gamereview.dto.request.group.*;
-import com.app.gamereview.dto.request.review.CreateReviewRequestDto;
 import com.app.gamereview.dto.response.group.GetGroupResponseDto;
 import com.app.gamereview.dto.response.tag.AddGroupTagResponseDto;
 import com.app.gamereview.enums.*;
@@ -10,7 +9,6 @@ import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.*;
 import com.app.gamereview.repository.*;
 import com.app.gamereview.util.UtilExtensions;
-import com.app.gamereview.util.validation.annotation.ValidMemberPolicy;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +31,8 @@ public class GroupService {
 
     private final TagRepository tagRepository;
 
+    private final UserRepository userRepository;
+
     private final MongoTemplate mongoTemplate;
 
     private final ModelMapper modelMapper;
@@ -43,13 +43,14 @@ public class GroupService {
             GameRepository gameRepository,
             ForumRepository forumRepository,
             TagRepository tagRepository,
-            MongoTemplate mongoTemplate,
+            UserRepository userRepository, MongoTemplate mongoTemplate,
             ModelMapper modelMapper
     ) {
         this.groupRepository = groupRepository;
         this.gameRepository = gameRepository;
         this.forumRepository = forumRepository;
         this.tagRepository = tagRepository;
+        this.userRepository = userRepository;
         this.mongoTemplate = mongoTemplate;
         this.modelMapper = modelMapper;
 
@@ -69,7 +70,11 @@ public class GroupService {
         });
     }
 
-    public List<GetGroupResponseDto> getAllGroups(GetAllGroupsFilterRequestDto filter){
+    public List<GetGroupResponseDto> getAllGroups(GetAllGroupsFilterRequestDto filter, String email){
+
+        Optional<User> loggedInUser = userRepository.findByEmailAndIsDeletedFalse(email);
+        String loggedInUserId = loggedInUser.map(User::getId).orElse(null);
+
         Query query = new Query();
 
         // search for title
@@ -116,13 +121,19 @@ public class GroupService {
                 tag.ifPresent(dto::populateTag);
             }
 
+            dto.setUserJoined(group.getMembers().contains(loggedInUserId));
+
             responseDtos.add(dto);
         }
 
         return responseDtos;
     }
 
-    public GetGroupResponseDto getGroupById(String groupId){
+    public GetGroupResponseDto getGroupById(String groupId, String email){
+
+        Optional<User> loggedInUser = userRepository.findByEmailAndIsDeletedFalse(email);
+        String loggedInUserId = loggedInUser.map(User::getId).orElse(null);
+
         Optional<Group> isGroupExists = groupRepository.findByIdAndIsDeletedFalse(groupId);
 
         if(isGroupExists.isEmpty()){
@@ -135,6 +146,8 @@ public class GroupService {
             Optional<Tag> tag = tagRepository.findById(tagId);
             tag.ifPresent(dto::populateTag);
         }
+
+        dto.setUserJoined(group.getMembers().contains(loggedInUserId));
 
         return dto;
     }
