@@ -1,7 +1,6 @@
 package com.app.gamereview.dto.request.group;
 
 import com.app.gamereview.enums.MembershipPolicy;
-import com.app.gamereview.enums.TagType;
 import com.app.gamereview.util.validation.annotation.ValidMemberPolicy;
 import jakarta.validation.constraints.*;
 import lombok.Getter;

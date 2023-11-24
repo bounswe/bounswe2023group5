@@ -166,6 +166,9 @@ public class GroupService {
                 if(tag.isEmpty()){
                     throw new ResourceNotFoundException("One of the added tag is not found");
                 }
+                if(!tag.get().getTagType().name().equals(TagType.GROUP.name())){
+                    throw new BadRequestException("Groups can only be tagged with group tags");
+                }
             }
         }
 
@@ -249,6 +252,10 @@ public class GroupService {
 
         if(findTag.isEmpty() || findTag.get().getIsDeleted()){
             throw new ResourceNotFoundException("Tag does not exist");
+        }
+
+        if(!findTag.get().getTagType().name().equals(TagType.GROUP.name())){
+            throw new BadRequestException("Only GROUP tags can be added to groups");
         }
 
         Group group = findGroup.get();
