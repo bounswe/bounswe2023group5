@@ -239,10 +239,12 @@ public class PostService {
             throw new ResourceNotFoundException("Forum is not found.");
         }
 
-        Optional<Achievement> achievementOptional = achievementRepository.findById(request.getAchievement());
+        if(request.getAchievement() != null){   // if achievement is assigned
+            Optional<Achievement> achievementOptional = achievementRepository.findById(request.getAchievement());
 
-        if (achievementOptional.isEmpty()) {
-            throw new ResourceNotFoundException("Achievement is not found.");
+            if (achievementOptional.isEmpty()) {
+                throw new ResourceNotFoundException("Achievement is not found.");
+            }
         }
 
         if (request.getTags() != null) {
@@ -269,7 +271,7 @@ public class PostService {
             Optional<Achievement> achievement =
                     achievementRepository.findByIdAndIsDeletedFalse("88f359cc-8ca3-4286-bc13-1b44262ee9f4");
             achievement.ifPresent(value -> profile.addAchievement(value.getId()));
-            profile.setIsReviewedYet(true);
+            profile.setIsPostedYet(true);
         }
 
         profile.setPostCount(profile.getPostCount() + 1);
