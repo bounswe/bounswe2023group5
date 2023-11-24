@@ -7,10 +7,15 @@ import com.app.gamereview.enums.UserRole;
 import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.*;
+import com.app.gamereview.repository.AchievementRepository;
 import com.app.gamereview.repository.CommentRepository;
 import com.app.gamereview.repository.PostRepository;
+import com.app.gamereview.repository.ProfileRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -21,13 +26,21 @@ public class CommentService {
 
     private final PostRepository postRepository;
     private final CommentRepository commentRepository;
+    private final ProfileRepository profileRepository;
+    private final AchievementRepository achievementRepository;
     private final ModelMapper modelMapper;
+    private final MongoTemplate mongoTemplate;
 
     @Autowired
-    public CommentService(PostRepository postRepository, CommentRepository commentRepository, ModelMapper modelMapper) {
+    public CommentService(PostRepository postRepository, CommentRepository commentRepository,
+                          ProfileRepository profileRepository, AchievementRepository achievementRepository,
+                          MongoTemplate mongoTemplate, ModelMapper modelMapper) {
         this.postRepository = postRepository;
         this.commentRepository = commentRepository;
+        this.profileRepository = profileRepository;
+        this.achievementRepository = achievementRepository;
         this.modelMapper = modelMapper;
+        this.mongoTemplate = mongoTemplate;
     }
 
 
@@ -38,6 +51,24 @@ public class CommentService {
         if (post.isEmpty()) {
             throw new ResourceNotFoundException("Post is not found.");
         }
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("userId").is(user.getId()));
+        Profile profile = mongoTemplate.findOne(query, Profile.class);
+
+        if(profile == null){
+            throw new ResourceNotFoundException("Profile of the user does not exist");
+        }
+
+        if(!profile.getIsCommentedYet()){      // first review of the user
+            Optional<Achievement> achievement =
+                    achievementRepository.findByIdAndIsDeletedFalse("af009796-6799-42d4-ae40-9adbb92657c4");
+            achievement.ifPresent(value -> profile.addAchievement(value.getId()));
+            profile.setIsCommentedYet(true);
+        }
+
+        profile.setCommentCount(profile.getCommentCount() + 1);
+        profileRepository.save(profile);
 
         Comment commentToCreate = modelMapper.map(request, Comment.class);
         commentToCreate.setCommenter(user.getId());
@@ -52,6 +83,24 @@ public class CommentService {
         if (parentComment.isEmpty() || parentComment.get().getIsDeleted()) {
             throw new ResourceNotFoundException("Parent Comment is not found.");
         }
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("userId").is(user.getId()));
+        Profile profile = mongoTemplate.findOne(query, Profile.class);
+
+        if(profile == null){
+            throw new ResourceNotFoundException("Profile of the user does not exist");
+        }
+
+        if(!profile.getIsCommentedYet()){      // first review of the user
+            Optional<Achievement> achievement =
+                    achievementRepository.findByIdAndIsDeletedFalse("af009796-6799-42d4-ae40-9adbb92657c4");
+            achievement.ifPresent(value -> profile.addAchievement(value.getId()));
+            profile.setIsCommentedYet(true);
+        }
+
+        profile.setCommentCount(profile.getCommentCount() + 1);
+        profileRepository.save(profile);
 
         Comment commentToCreate = modelMapper.map(request, Comment.class);
         commentToCreate.setCommenter(user.getId());
@@ -91,6 +140,17 @@ public class CommentService {
         if (!(comment.get().getCommenter().equals(user.getId()) || UserRole.ADMIN.equals(user.getRole()))) {
             throw new BadRequestException("Only the user that created the comment or admin can delete it.");
         }
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("userId").is(user.getId()));
+        Profile profile = mongoTemplate.findOne(query, Profile.class);
+
+        if(profile == null){
+            throw new ResourceNotFoundException("Profile of the user does not exist");
+        }
+
+        profile.setCommentCount(profile.getCommentCount() - 1);
+        profileRepository.save(profile);
 
         Comment commentToDelete = comment.get();
 
