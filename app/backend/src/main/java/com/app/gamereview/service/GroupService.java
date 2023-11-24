@@ -386,5 +386,22 @@ public class GroupService {
         return true;
     }
 
+    public Boolean unbanUser(String groupId, String userId, User user) {
+        Optional<Group> group = groupRepository.findById(groupId);
+
+        if (group.isEmpty() || group.get().getIsDeleted()) {
+            throw new ResourceNotFoundException("The group with the given id is not found.");
+        }
+
+        if (!(group.get().getModerators().contains(user.getId()) || UserRole.ADMIN.equals(user.getRole()))) {
+            throw new BadRequestException("Only the moderator or the admin can unban user.");
+        }
+
+        group.get().removeBannedUser(userId);
+        groupRepository.save(group.get());
+
+        return true;
+    }
+
 
 }
