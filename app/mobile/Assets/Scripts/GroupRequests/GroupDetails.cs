@@ -18,7 +18,7 @@ public class GroupDetails : MonoBehaviour
     [SerializeField] private Button forumButton;
     [SerializeField] private Button membersButton;
     [SerializeField] private GameObject descriptionManager;
-    // [SerializeField] private GetAllMembers getAllMembers;
+    [SerializeField] private GetGroupMemberList getAllMembers;
 
     [SerializeField] private ForumGetPostList forumManager;
 
@@ -106,7 +106,7 @@ public class GroupDetails : MonoBehaviour
         
         descriptionManager.gameObject.SetActive(true);
         forumManager.gameObject.SetActive(false);
-        //getAllMembers.gameObject.SetActive(false);
+        getAllMembers.gameObject.SetActive(false);
     }
     
     private void OnClickedForumButton()
@@ -117,7 +117,7 @@ public class GroupDetails : MonoBehaviour
         
         descriptionManager.gameObject.SetActive(false);
         forumManager.gameObject.SetActive(true);
-        //getAllMembers.gameObject.SetActive(false);
+        getAllMembers.gameObject.SetActive(false);
         
         // 3 parameters are required // Will be changed
         forumManager.ListForumPosts(new [] {"forum", "sortBy", "sortDirection"},
@@ -128,13 +128,14 @@ public class GroupDetails : MonoBehaviour
     {
         descriptionButton.image.color = colors.prussianBlue;
         forumButton.image.color = colors.prussianBlue;
-        //getAllMembers.image.color = colors.blueGreen;
+        membersButton.image.color = colors.blueGreen;
         
         descriptionManager.gameObject.SetActive(false);
         forumManager.gameObject.SetActive(false);
-        //getAllMembers.gameObject.SetActive(true);
+        getAllMembers.gameObject.SetActive(true);
         
-        //getAllMembers.Init(new []{"gameId"},new []{gameId});
+        getAllMembers.GetMemberList(new []{"id"}, new []{groupId});
+        Debug.Log("Returned from GetMemberList");
     }
     
     

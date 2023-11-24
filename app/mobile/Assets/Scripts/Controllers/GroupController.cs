@@ -94,3 +94,9 @@ public class GroupRemoveTagRequest
     public string groupId;
     public string tagId;
 }
+
+public class GroupMember
+{
+    public string userName;
+    public string userImage;
+}

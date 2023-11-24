@@ -331,6 +331,7 @@ MonoBehaviour:
   forumButton: {fileID: 5932410433198970311}
   membersButton: {fileID: 5932410432874205986}
   descriptionManager: {fileID: 9207430917733575847}
+  getAllMembers: {fileID: 1135426632218460250}
   forumManager: {fileID: 4449927190830197286}
   exitButton: {fileID: 5970779721985365426}
   gameImage: {fileID: 6017263780393610667}
@@ -421,7 +422,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 759848284725071999}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
   m_Name: 
@@ -1124,14 +1125,14 @@ GameObject:
   - component: {fileID: 8261015753950340117}
   - component: {fileID: 1498794628479635458}
   - component: {fileID: 3255129722936732812}
-  - component: {fileID: 4990872975192513025}
+  - component: {fileID: 1135426632218460250}
   m_Layer: 5
   m_Name: Members
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8261015753950340117
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1191,7 +1192,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4990872975192513025
+--- !u!114 &1135426632218460250
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1200,11 +1201,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6327697737391222542}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 600be5d505c34b2cfb1e4bf1a7551762, type: 3}
+  m_Script: {fileID: 11500000, guid: eb1fc71aad5066215836e0e20b20c404, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   scrollRect: {fileID: 3991994424488227908}
-  forumPageParent: {fileID: 670427201697259062}
+  memberBoxParent: {fileID: 670427201697259062}
 --- !u!1 &6592643242639774730
 GameObject:
   m_ObjectHideFlags: 0
