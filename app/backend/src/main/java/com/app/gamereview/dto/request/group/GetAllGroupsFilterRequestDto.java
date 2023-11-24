@@ -19,7 +19,7 @@ public class GetAllGroupsFilterRequestDto {
 
     private List<String> tags = new ArrayList<>(); // list of tag ids
 
-    private String gameName;   // id of related game
+    private String gameName;
 
     @ValidSortType(allowedValues = {SortType.QUOTA, SortType.CREATION_DATE})
     private String sortBy = SortType.CREATION_DATE.name();

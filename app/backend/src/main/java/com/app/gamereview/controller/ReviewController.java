@@ -7,28 +7,23 @@ import com.app.gamereview.dto.response.review.GetAllReviewsResponseDto;
 import com.app.gamereview.model.Review;
 import com.app.gamereview.model.User;
 import com.app.gamereview.service.ReviewService;
+import com.app.gamereview.util.JwtUtil;
 import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
-import io.jsonwebtoken.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/review")
 @Validated
 public class ReviewController {
-
-	@Value("${SECRET_KEY}")
-	private String secret_key = "${SECRET_KEY}";
 
 	private final ReviewService reviewService;
 
@@ -44,23 +39,9 @@ public class ReviewController {
 			@ParameterObject GetAllReviewsFilterRequestDto filter,
 			@RequestHeader(name = HttpHeaders.AUTHORIZATION, required = false) String Authorization) {
 
-		String email = "";
-		try {
-			Claims claims = Jwts.parser().setSigningKey(secret_key).parseClaimsJws(String.valueOf(Authorization)).getBody();
-
-			Date expirationDate = claims.getExpiration();
-			Date now = new Date();
-			if (expirationDate.after(now)) {
-				email = claims.getSubject();
-			}
-		}
-		catch (SignatureException | ExpiredJwtException | IllegalArgumentException | MalformedJwtException e) {
-			// SignatureException: Token signature is invalid
-			// ExpiredJwtException: Token has expired
-			// IllegalArgumentException: Token is not correctly formatted
-			// MalformedJwtException: Token is not correctly formatted (eg. empty string)
-			// In any of these cases, the token is considered invalid
-		}
+		String email;
+		if (JwtUtil.validateToken(Authorization)) email = JwtUtil.extractSubject(Authorization);
+		else email = "";
 
 		List<GetAllReviewsResponseDto> reviews = reviewService.getAllReviews(filter, email);
 		return ResponseEntity.ok(reviews);

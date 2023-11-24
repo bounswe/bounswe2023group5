@@ -48,7 +48,8 @@ public class Post extends BaseModel {
 
   // TODO reports
   // TODO annotations
-  // TODO achievements
+
+  private String achievement;
 
   public void addVote(VoteChoice choice){
     voteCount += 1;
