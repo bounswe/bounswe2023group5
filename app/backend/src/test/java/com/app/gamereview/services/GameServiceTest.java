@@ -123,7 +123,7 @@ class GameServiceTest {
 
         // Assert
         assertNotNull(response);
-        assertEquals(game, response.getGame());
+        assertEquals(game.getId(), response.getId());
     }
 
     @Test
