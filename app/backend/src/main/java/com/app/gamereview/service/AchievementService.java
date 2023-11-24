@@ -38,9 +38,9 @@ public class AchievementService {
 
     public Achievement createAchievement(CreateAchievementRequestDto achievementRequestDto) {
 
-        if (achievementRequestDto.getType().equals(AchievementType.GAME.toString())) {
+        String gameId = achievementRequestDto.getGame();
 
-            String gameId = achievementRequestDto.getGame();
+        if (achievementRequestDto.getType().equals(AchievementType.GAME.toString())) {
 
             if (gameId == null) {
                 throw new BadRequestException("Game id cannot be empty for game achievements.");
@@ -52,7 +52,9 @@ public class AchievementService {
                 throw new ResourceNotFoundException("Game with the given is not found.");
             }
         } else {
-            achievementRequestDto.setGame("-1");
+            if (gameId != null) {
+                throw new BadRequestException("Meta achievements cannot be linked to any game.");
+            }
         }
 
         List<Achievement> achievementsSameName = achievementRepository.findByTitleAndIsDeletedFalse(achievementRequestDto.getTitle());

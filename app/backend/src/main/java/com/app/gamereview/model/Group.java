@@ -46,8 +46,10 @@ public class Group extends BaseModel {
     }
 
     public void addBannedUser(String id){
-        members.remove(id);
-        bannedMembers.add(id);
+        if(!(bannedMembers.contains(id))){
+            bannedMembers.add(id);
+            members.remove(id);
+        }
     }
 
     public void addModerator(String id){
@@ -67,5 +69,9 @@ public class Group extends BaseModel {
 
     public void removeTag(Tag tag){
         this.tags.remove(tag.getId());
+    }
+
+    public void removeBannedUser(String id){
+        bannedMembers.remove(id);
     }
 }

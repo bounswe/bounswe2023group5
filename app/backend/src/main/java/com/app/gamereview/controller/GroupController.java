@@ -142,4 +142,12 @@ public class GroupController {
 		Boolean result = groupService.removeModerator(groupId, userId);
 		return ResponseEntity.ok(result);
 	}
+
+	@AuthorizationRequired
+	@PutMapping("/unban-user")
+	public ResponseEntity<Boolean> unbanUser(@RequestParam String groupId, @RequestParam String userId, @RequestHeader String Authorization, HttpServletRequest request) {
+		User user = (User) request.getAttribute("authenticatedUser");
+		Boolean result = groupService.unbanUser(groupId, userId, user);
+		return ResponseEntity.ok(result);
+	}
 }

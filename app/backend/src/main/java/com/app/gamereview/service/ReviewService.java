@@ -9,14 +9,8 @@ import com.app.gamereview.enums.SortType;
 import com.app.gamereview.enums.UserRole;
 import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.exception.ResourceNotFoundException;
-import com.app.gamereview.model.Game;
-import com.app.gamereview.model.Review;
-import com.app.gamereview.model.User;
-import com.app.gamereview.model.Vote;
-import com.app.gamereview.repository.GameRepository;
-import com.app.gamereview.repository.ReviewRepository;
-import com.app.gamereview.repository.UserRepository;
-import com.app.gamereview.repository.VoteRepository;
+import com.app.gamereview.model.*;
+import com.app.gamereview.repository.*;
 import com.mongodb.client.result.UpdateResult;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
@@ -38,7 +32,11 @@ public class ReviewService {
 
     private final VoteRepository voteRepository;
 
+    private final AchievementRepository achievementRepository;
+
     private final UserRepository userRepository;
+
+    private final ProfileRepository profileRepository;
 
     private final MongoTemplate mongoTemplate;
 
@@ -49,14 +47,18 @@ public class ReviewService {
             ReviewRepository reviewRepository,
             GameRepository gameRepository,
             VoteRepository voteRepository,
+            AchievementRepository achievementRepository,
             UserRepository userRepository,
+            ProfileRepository profileRepository,
             MongoTemplate mongoTemplate,
             ModelMapper modelMapper
     ) {
         this.reviewRepository = reviewRepository;
         this.gameRepository = gameRepository;
         this.voteRepository = voteRepository;
+        this.achievementRepository = achievementRepository;
         this.userRepository = userRepository;
+        this.profileRepository = profileRepository;
         this.mongoTemplate = mongoTemplate;
         this.modelMapper = modelMapper;
 
@@ -140,6 +142,24 @@ public class ReviewService {
         Review reviewToCreate = modelMapper.map(requestDto, Review.class);
         reviewToCreate.setReviewedBy(user.getId());
 
+        Query query = new Query();
+        query.addCriteria(Criteria.where("userId").is(user.getId()));
+        Profile profile = mongoTemplate.findOne(query, Profile.class);
+
+        if(profile == null){
+            throw new ResourceNotFoundException("Profile of the user does not exist");
+        }
+
+        if(!profile.getIsReviewedYet()){      // first review of the user
+            Optional<Achievement> achievement =
+                    achievementRepository.findByIdAndIsDeletedFalse("405564b0-fbc0-4864-853c-c6e8e4cd2acd");
+            achievement.ifPresent(value -> profile.addAchievement(value.getId()));
+            profile.setIsReviewedYet(true);
+        }
+
+        profile.setReviewCount(profile.getReviewCount() + 1);
+        profileRepository.save(profile);
+
         // add game rating
         Game reviewedGame = gameRepository.findById(reviewToCreate.getGameId()).get();
         reviewedGame.addRating(reviewToCreate.getRating());
@@ -185,6 +205,17 @@ public class ReviewService {
         if (!(findResult.get().getReviewedBy().equals(user.getId()) || UserRole.ADMIN.equals(user.getRole()))) {
             throw new BadRequestException("Only the user that created the review or the admin can delete it.");
         }
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("userId").is(user.getId()));
+        Profile profile = mongoTemplate.findOne(query, Profile.class);
+
+        if(profile == null){
+            throw new ResourceNotFoundException("Profile of the user does not exist");
+        }
+
+        profile.setReviewCount(profile.getReviewCount() - 1);
+        profileRepository.save(profile);
 
         // update game rating
         Game reviewedGame = gameRepository.findById(findResult.get().getGameId()).get();
