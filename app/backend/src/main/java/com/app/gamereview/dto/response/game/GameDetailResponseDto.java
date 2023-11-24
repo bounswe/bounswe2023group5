@@ -5,6 +5,7 @@ import com.app.gamereview.model.Tag;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,6 +13,8 @@ import java.util.List;
 @Getter
 @Setter
 public class GameDetailResponseDto {
+
+    private String id;
 
     private String gameName;
 
@@ -44,6 +47,10 @@ public class GameDetailResponseDto {
     private List<Tag> otherTags = new ArrayList<>();
 
     private String minSystemReq;
+
+    private LocalDateTime createdAt;
+
+    private Boolean isDeleted;
 
     public void populateTag(Tag tag){
         switch (tag.getTagType()){
