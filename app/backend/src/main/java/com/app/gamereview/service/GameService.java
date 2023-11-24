@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import com.app.gamereview.dto.request.game.CreateGameRequestDto;
 import com.app.gamereview.dto.request.game.AddGameTagRequestDto;
 import com.app.gamereview.dto.request.game.RemoveGameTagRequestDto;
+import com.app.gamereview.dto.response.group.GetGroupResponseDto;
 import com.app.gamereview.dto.response.tag.AddGameTagResponseDto;
 import com.app.gamereview.dto.response.tag.GetAllTagsOfGameResponseDto;
 import com.app.gamereview.enums.ForumType;
@@ -15,10 +16,12 @@ import com.app.gamereview.enums.TagType;
 import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.Forum;
+import com.app.gamereview.model.Group;
 import com.app.gamereview.model.Tag;
 import com.app.gamereview.repository.ForumRepository;
 import com.app.gamereview.repository.TagRepository;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -52,6 +55,20 @@ public class GameService {
 		this.mongoTemplate = mongoTemplate;
 		this.forumRepository = forumRepository;
 		this.modelMapper = modelMapper;
+
+		modelMapper.addMappings(new PropertyMap<Game, GameDetailResponseDto>() {
+			@Override
+			protected void configure() {
+				skip().setDeveloper(null);
+				skip().setDuration(null);
+				skip().setArtStyles(null);
+				skip().setGenre(null);
+				skip().setOtherTags(null);
+				skip().setPlatforms(null);
+				skip().setPlayerTypes(null);
+				skip().setProduction(null);
+			}
+		});
 	}
 
 	public List<Game> getGames(GetGameListRequestDto filter) {
@@ -204,8 +221,13 @@ public class GameService {
 		Optional<Game> optionalGame = gameRepository.findById(id);
 		if (optionalGame.isPresent()) {
 			Game game = optionalGame.get();
-			GameDetailResponseDto response = new GameDetailResponseDto();
-			response.setGame(game);
+			GameDetailResponseDto response = modelMapper.map(game, GameDetailResponseDto.class);
+
+			for(String tagId : game.getAllTags()){
+				Optional<Tag> tag = tagRepository.findById(tagId);
+				tag.ifPresent(response::populateTag);
+			}
+
 			return response;
 		}
 		else {
@@ -218,8 +240,13 @@ public class GameService {
 		Optional<Game> optionalGame = gameRepository.findByGameNameAndIsDeletedFalse(name);
 		if (optionalGame.isPresent()) {
 			Game game = optionalGame.get();
-			GameDetailResponseDto response = new GameDetailResponseDto();
-			response.setGame(game);
+			GameDetailResponseDto response = modelMapper.map(game, GameDetailResponseDto.class);
+
+			for(String tagId : game.getAllTags()){
+				Optional<Tag> tag = tagRepository.findById(tagId);
+				tag.ifPresent(response::populateTag);
+			}
+
 			return response;
 		}
 		else {
