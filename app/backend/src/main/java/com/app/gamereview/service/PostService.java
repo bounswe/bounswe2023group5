@@ -37,6 +37,8 @@ public class PostService {
 
     private final UserRepository userRepository;
 
+    private final ProfileRepository profileRepository;
+
     private final TagRepository tagRepository;
     private final CommentRepository commentRepository;
 
@@ -48,10 +50,15 @@ public class PostService {
     private final ModelMapper modelMapper;
 
     @Autowired
-    public PostService(PostRepository postRepository, ForumRepository forumRepository, UserRepository userRepository, TagRepository tagRepository, CommentRepository commentRepository, VoteRepository voteRepository, AchievementRepository achievementRepository, MongoTemplate mongoTemplate, ModelMapper modelMapper) {
+    public PostService(PostRepository postRepository, ForumRepository forumRepository, UserRepository userRepository,
+                       ProfileRepository profileRepository, TagRepository tagRepository,
+                       CommentRepository commentRepository, VoteRepository voteRepository,
+                       AchievementRepository achievementRepository, MongoTemplate mongoTemplate,
+                       ModelMapper modelMapper) {
         this.postRepository = postRepository;
         this.forumRepository = forumRepository;
         this.userRepository = userRepository;
+        this.profileRepository = profileRepository;
         this.tagRepository = tagRepository;
         this.commentRepository = commentRepository;
         this.voteRepository = voteRepository;
@@ -170,7 +177,7 @@ public class PostService {
         if (forum.isPresent()) {
             List<String> bannedUsers = forum.get().getBannedUsers();
             if (bannedUsers.contains(user.getId())) {
-                throw new ResourceNotFoundException("You cannot see the comments because you are banne from this forum.");
+                throw new ResourceNotFoundException("You cannot see the comments because you are banned from this forum.");
             }
         }
         List<Comment> comments = commentRepository.findByPost(postId);
@@ -249,6 +256,25 @@ public class PostService {
             request.setTags(new ArrayList<>());
         }
 
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("userId").is(user.getId()));
+        Profile profile = mongoTemplate.findOne(query, Profile.class);
+
+        if(profile == null){
+            throw new ResourceNotFoundException("Profile of the user does not exist");
+        }
+
+        if(!profile.getIsPostedYet()){      // first post of the user
+            Optional<Achievement> achievement =
+                    achievementRepository.findByIdAndIsDeletedFalse("88f359cc-8ca3-4286-bc13-1b44262ee9f4");
+            achievement.ifPresent(value -> profile.addAchievement(value.getId()));
+            profile.setIsReviewedYet(true);
+        }
+
+        profile.setPostCount(profile.getPostCount() + 1);
+        profileRepository.save(profile);
+
         Post postToCreate = modelMapper.map(request, Post.class);
         postToCreate.setPoster(user.getId());
         postToCreate.setLastEditedAt(postToCreate.getCreatedAt());
@@ -294,6 +320,15 @@ public class PostService {
         if (!(post.get().getPoster().equals(user.getId()) || UserRole.ADMIN.equals(user.getRole()))) {
             throw new BadRequestException("Only the user that created the post or the admin can delete it.");
         }
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("userId").is(user.getId()));
+        Profile profile = mongoTemplate.findOne(query, Profile.class);
+        if(profile == null){
+            throw new ResourceNotFoundException("Profile of the user does not exist");
+        }
+        profile.setPostCount(profile.getPostCount() - 1);
+        profileRepository.save(profile);
 
         Post postToDelete = post.get();
 
