@@ -2,29 +2,27 @@ import { formatDate } from "../../../Library/utils/formatDate";
 import styles from "./Comment.module.scss";
 
 import {
-  ArrowDownOutlined,
-  ArrowUpOutlined,
   CommentOutlined,
   DeleteOutlined,
   DownOutlined,
   EditOutlined,
   UpOutlined,
+  WarningOutlined,
 } from "@ant-design/icons";
 
 import { useVote } from "../../Hooks/useVote";
-import { Button, Form, Input } from "antd";
+import { Button } from "antd";
 import { useAuth } from "../../Hooks/useAuth";
 import { useMutation } from "react-query";
 import { deleteComment } from "../../../Services/comment";
 import { useQueryClient } from "react-query";
 
-import clsx from "clsx";
 import { useState } from "react";
 import ReplyForm from "../ReplyForm/ReplyForm";
 import Reply from "../Reply/Reply";
 import { useNavigate } from "react-router-dom";
-import CommentForm from "../CommentForm/CommentForm";
 import CommentEditForm from "../CommentForm/CommentEditForm";
+import { twj } from "tw-to-css";
 
 function Comment({ comment, postId }: { comment: any; postId: string }) {
   const { upvote, downvote } = useVote({
@@ -103,18 +101,25 @@ function Comment({ comment, postId }: { comment: any; postId: string }) {
               toggleCommenting();
             }}
           />
-          {user.username === comment.commenter.username && (
+          <WarningOutlined
+            style={twj("text-red-500 text-lg cursor-pointer")}
+            type="text"
+            alt="report"
+          />
+          {(user.username === comment.commenter.username || user.isAdmin) && (
             <div className={styles.delete}>
               <Button
                 type="text"
                 ghost={true}
-                shape="circle"
+                shape="default"
                 size="small"
-                icon={<DeleteOutlined style={{ color: "red" }} />}
+                className={styles.delete}
                 onClick={() => {
                   removeComment(comment.id);
                 }}
-              />
+              >
+                <DeleteOutlined style={{ color: "red" }} />
+              </Button>
             </div>
           )}
           {user.id === comment.commenter.id && (

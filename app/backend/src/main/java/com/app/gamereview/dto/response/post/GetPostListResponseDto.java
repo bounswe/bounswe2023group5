@@ -46,5 +46,4 @@ public class GetPostListResponseDto {
   // TODO reports
   // TODO comments
   // TODO annotations
-  // TODO achievements
 }

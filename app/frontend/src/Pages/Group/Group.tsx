@@ -37,7 +37,10 @@ function Group() {
       <div className={styles.forumTitle}>Forum</div>
       <div className={styles.forum}>
         {!isLoading && (
-          <Forum forumId={group?.forumId} redirect={`/group/${groupId}`} />
+          <Forum
+            forumId={group?.forumId}
+            redirect={`/group/detail/${groupId}`}
+          />
         )}
       </div>
     </div>

@@ -10,8 +10,8 @@ export const createComment = async ({
   const response = await axios.post(
     import.meta.env.VITE_APP_API_URL + "/comment/create",
     {
-        post,
-        commentContent,
+      post,
+      commentContent,
     }
   );
   return response.data;
@@ -26,23 +26,18 @@ export const edit = async ({
 }) => {
   const response = await axios.post(
     import.meta.env.VITE_APP_API_URL + "/comment/edit",
-    {commentContent},
+    { commentContent },
     {
-        
-        params:{
-            id
-        }
+      params: {
+        id,
+      },
     }
   );
   return response.data;
 };
 
-export const getCommentList = async ({
-    postId,
-  }: {
-    postId: string;
-  }) => {
-  const id:string = postId;
+export const getCommentList = async ({ postId }: { postId: string }) => {
+  const id: string = postId;
   const response = await axios.get(
     import.meta.env.VITE_APP_API_URL + "/post/get-post-comments",
     {
@@ -53,17 +48,16 @@ export const getCommentList = async ({
   );
   return response.data;
 };
-  
+
 export async function deleteComment(id: string) {
   await axios.delete(`${import.meta.env.VITE_APP_API_URL}/comment/delete`, {
-        params: {
-            id
-        }
-    });
+    params: {
+      id,
+    },
+  });
 }
 
-
- export const createReply = async ({
+export const createReply = async ({
   parentComment,
   commentContent,
 }: {
@@ -74,7 +68,7 @@ export async function deleteComment(id: string) {
     import.meta.env.VITE_APP_API_URL + "/comment/reply",
     {
       parentComment,
-        commentContent,
+      commentContent,
     }
   );
   return response.data;

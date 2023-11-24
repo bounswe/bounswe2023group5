@@ -42,17 +42,20 @@ public class PostService {
 
     private final VoteRepository voteRepository;
 
+    private final AchievementRepository achievementRepository;
+
     private final MongoTemplate mongoTemplate;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public PostService(PostRepository postRepository, ForumRepository forumRepository, UserRepository userRepository, TagRepository tagRepository, CommentRepository commentRepository, VoteRepository voteRepository, MongoTemplate mongoTemplate, ModelMapper modelMapper) {
+    public PostService(PostRepository postRepository, ForumRepository forumRepository, UserRepository userRepository, TagRepository tagRepository, CommentRepository commentRepository, VoteRepository voteRepository, AchievementRepository achievementRepository, MongoTemplate mongoTemplate, ModelMapper modelMapper) {
         this.postRepository = postRepository;
         this.forumRepository = forumRepository;
         this.userRepository = userRepository;
         this.tagRepository = tagRepository;
         this.commentRepository = commentRepository;
         this.voteRepository = voteRepository;
+        this.achievementRepository = achievementRepository;
         this.mongoTemplate = mongoTemplate;
         this.modelMapper = modelMapper;
     }
@@ -136,6 +139,10 @@ public class PostService {
         }
 
         GetPostDetailResponseDto postDto = modelMapper.map(post, GetPostDetailResponseDto.class);
+
+        Optional<Achievement> postAchievement = achievementRepository.findByIdAndIsDeletedFalse(post.get().getAchievement());
+
+        postAchievement.ifPresent(postDto::setAchievement);
 
         List<Tag> tags = new ArrayList<>();
 
@@ -223,6 +230,12 @@ public class PostService {
 
         if (forum.isEmpty()) {
             throw new ResourceNotFoundException("Forum is not found.");
+        }
+
+        Optional<Achievement> achievementOptional = achievementRepository.findById(request.getAchievement());
+
+        if (achievementOptional.isEmpty()) {
+            throw new ResourceNotFoundException("Achievement is not found.");
         }
 
         if (request.getTags() != null) {

@@ -18,12 +18,12 @@ public static class ListToQueryParameters
         {
             if (!isQueryParamAdded) // First query param added
             {
-                queryParams += "?";
+                queryParams = "?" + queryParams;
                 isQueryParamAdded = true;
             }
             else
             {
-                queryParams += "&";
+                queryParams = "&" + queryParams;
             }
 
             queryParams += $"{pars[i]}={values[i]}";

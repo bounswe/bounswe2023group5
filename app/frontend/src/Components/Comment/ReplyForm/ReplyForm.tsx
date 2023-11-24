@@ -4,25 +4,23 @@ import { Button, Form, Input } from "antd";
 import { useMutation, useQueryClient } from "react-query";
 import { createReply } from "../../../Services/comment";
 
-function ReplyForm({commentId}:{commentId:string}) {
+function ReplyForm({ commentId }: { commentId: string }) {
   const postId = useParams();
   const [form] = Form.useForm();
   const queryClient = useQueryClient();
 
   const { mutate: addComment, isLoading } = useMutation(
-    ({  commentContent }: {  commentContent: string }) => 
-      createReply({  parentComment: commentId, commentContent }),
+    ({ commentContent }: { commentContent: string }) =>
+      createReply({ parentComment: commentId, commentContent }),
     {
       onSuccess() {
         queryClient.invalidateQueries(["comments", postId.postId]);
-        
       },
       onMutate(comment: any) {
         queryClient.setQueryData(["comments", postId.postId], (prev: any) => {
           return prev?.filter((comments: any) => comment.id !== comments.id);
-        })
+        });
       },
-      
     }
   );
 
@@ -39,11 +37,12 @@ function ReplyForm({commentId}:{commentId:string}) {
           />
         </Form.Item>
         <Form.Item>
-          <Button 
-            type="primary" 
-            htmlType="submit" 
-            disabled={isLoading} 
-            style={{ marginLeft: "85%" }}>
+          <Button
+            type="primary"
+            htmlType="submit"
+            disabled={isLoading}
+            style={{ marginLeft: "85%" }}
+          >
             Submit
           </Button>
         </Form.Item>

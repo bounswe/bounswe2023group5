@@ -2,6 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import {
   PropsWithChildren,
+  ReactNode,
   createContext,
   useContext,
   useEffect,
@@ -53,7 +54,7 @@ const useAuth = (): UseAuthProps => {
 };
 
 // AuthProvider component
-const AuthProvider = ({ children }: PropsWithChildren<{}>) => {
+const AuthProvider = ({ children }: { children?: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null); // Initialize to fetch from local storage or server if needed
 
   useEffect(() => {

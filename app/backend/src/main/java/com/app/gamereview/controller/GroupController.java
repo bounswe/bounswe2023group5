@@ -6,15 +6,14 @@ import com.app.gamereview.dto.response.tag.AddGroupTagResponseDto;
 import com.app.gamereview.model.Group;
 import com.app.gamereview.model.User;
 import com.app.gamereview.service.GroupService;
-import com.app.gamereview.service.ReviewService;
+import com.app.gamereview.util.JwtUtil;
 import com.app.gamereview.util.validation.annotation.AdminRequired;
 import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -25,9 +24,6 @@ import java.util.List;
 @RequestMapping("/api/group")
 @Validated
 public class GroupController {
-
-	@Value("${SECRET_KEY}")
-	private String secret_key = "${SECRET_KEY}";
 
 	private final GroupService groupService;
 
@@ -40,14 +36,25 @@ public class GroupController {
 
 	@GetMapping("/get-all")
 	public ResponseEntity<List<GetGroupResponseDto>> getReviews(
-			@ParameterObject GetAllGroupsFilterRequestDto filter) {
-		List<GetGroupResponseDto> groups = groupService.getAllGroups(filter);
+			@ParameterObject GetAllGroupsFilterRequestDto filter, @RequestHeader(name = HttpHeaders.AUTHORIZATION, required = false) String Authorization) {
+
+		String email;
+        if (JwtUtil.validateToken(Authorization)) email = JwtUtil.extractSubject(Authorization);
+        else email = "";
+
+        List<GetGroupResponseDto> groups = groupService.getAllGroups(filter, email);
 		return ResponseEntity.ok(groups);
 	}
 
 	@GetMapping("/get")
-	public ResponseEntity<GetGroupResponseDto> getGroup(@RequestParam String id) {
-		GetGroupResponseDto group = groupService.getGroupById(id);
+	public ResponseEntity<GetGroupResponseDto> getGroup(
+			@RequestParam String id, @RequestHeader(name = HttpHeaders.AUTHORIZATION, required = false) String Authorization) {
+
+		String email;
+		if (JwtUtil.validateToken(Authorization)) email = JwtUtil.extractSubject(Authorization);
+		else email = "";
+
+		GetGroupResponseDto group = groupService.getGroupById(id, email);
 
 		return ResponseEntity.ok(group);
 	}
