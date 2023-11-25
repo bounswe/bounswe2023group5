@@ -7,22 +7,22 @@
     border: 1px solid #ccc;
     border-radius: 8px;
     transition: border-color 0.3s;
-    width: 30%;
-    height: 30%;
+    width: 20em;
+    height: 6em;
     background-color: $violet-light-30;
   }
   
   .achievement:hover {
     border-color: #007bff; /* Highlight border on hover */
-    width: 30%;
-    height: 30%;
+    width: 20em;
+    height: 6em;
   }
   
   .icon {
     margin-right: 10px;
     border-radius: 10%;
-    width: 30%;
-    height: 30%;
+    width: 25%;
+    height: 100%;
   }
   
   .achievement_content {

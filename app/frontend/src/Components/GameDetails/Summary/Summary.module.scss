@@ -47,3 +47,11 @@
   font-size: 0.8em;
   white-space: pre-wrap;
 }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+    margin-left: 10px;
+  }

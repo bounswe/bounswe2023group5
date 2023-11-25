@@ -79,13 +79,16 @@ function Summary({ game }: { game: any }) {
 
       {!isLoadingAchievements && achievements.length > 0 &&
       <div>
-      <div className={styles.title}>Achievements</div>{
-      achievements.map(
-        (achievement: any) =>
-            !achievement.isDeleted && (
-            <Achievement props={achievement} key={achievement.id} />
-            )
+        <div className={styles.title}>Achievements</div>
+        <div className={styles.row}>
+        { 
+          achievements.map(
+          (achievement: any) =>
+              !achievement.isDeleted && (
+              <Achievement props={achievement} key={achievement.id} />
+              )
         )}
+        </div>
       </div>
       }
       
