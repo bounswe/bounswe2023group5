@@ -30,13 +30,22 @@
 
   }
   
-  .hovered .achievement_title {
+  .hovered .achievementTitle {
     visibility: hidden;
   }
-  .achievement_title {
+  .achievementTitle {
     visibility: visible;
     font-size: 18px;
   }
+
+  .hovered .achievementGame {
+    visibility: hidden;
+  }
+  .achievementGame {
+    visibility: visible;
+    font-size: 14px;
+  }
+  
   
   .achievement_description {
     font-size: 14px;

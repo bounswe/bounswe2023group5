@@ -9,6 +9,5 @@ export const getAchievementByGame = async ({ gameId }: { gameId: string }) => {
         },
       }
     );
-    console.log(response.data)
     return response.data;
   };

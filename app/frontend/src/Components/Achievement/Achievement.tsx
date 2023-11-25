@@ -7,7 +7,6 @@ function Achievement ({ props }:{ props: any }) {
   const [isHovered, setIsHovered] = useState(false);
   const handleMouseOver = () => {
     setIsHovered(true);
-    console.log("hovered");
   };
 
   const handleMouseLeave = () => {
@@ -28,6 +27,7 @@ function Achievement ({ props }:{ props: any }) {
             <div className={styles.achievement_content}>
                 <div className={styles.row}>
                     <h3 className={`${styles.achievementTitle} ${isHovered ? styles.hovered : ''}`}>{props.title}</h3>
+                    <h3 className={`${styles.achievementGame} ${isHovered ? styles.hovered : ''}`}>{props.game.gameName}</h3>
                     <p className={`${styles.floatingDescription} ${isHovered ? styles.hovered : ''}`}>{props.description}</p>
                 </div>
             </div>
