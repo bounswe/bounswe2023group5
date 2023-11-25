@@ -36,7 +36,7 @@ public class GetGame : MonoBehaviour
         if (request.responseCode == 200)
         {
             response = request.downloadHandler.text;
-            var _GetGameResponseData = JsonConvert.DeserializeObject<GetGameResponse>(response);
+            var _GetGameResponseData = JsonConvert.DeserializeObject<GameDetail>(response);
 
             Debug.Log("Success to create forum post: " + response);
         }

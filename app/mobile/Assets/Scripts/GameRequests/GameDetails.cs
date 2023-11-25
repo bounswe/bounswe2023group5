@@ -42,14 +42,14 @@ public class GameDetails : MonoBehaviour
     private double ratingCount;
     private string releaseDate;
     private string forum;
-    private string[] playerTypes;
-    private string[] genre;
-    private string production;
-    private string duration;
-    private string[] platforms;
-    private string[] artStyles;
-    private string developer;
-    private string[] otherTags;
+    private TagResponse[] playerTypes;
+    private TagResponse[] genre;
+    private TagResponse production;
+    private TagResponse duration;
+    private TagResponse[] platforms;
+    private TagResponse[] artStyles;
+    private TagResponse developer;
+    private TagResponse[] otherTags;
     private string minSystemReq;
     
 
@@ -110,10 +110,14 @@ public class GameDetails : MonoBehaviour
         summaryManager.gameObject.SetActive(false);
         getAllReviews.gameObject.SetActive(false);
         forumManager.gameObject.SetActive(true);
+
+        if (forum != null)
+        {
+            // 3 parameters are required
+            forumManager.ListForumPosts(new [] {"forum", "sortBy", "sortDirection"},
+                new [] {forum, "CREATION_DATE", "ASCENDING"});
+        }
         
-        // 3 parameters are required
-        forumManager.ListForumPosts(new [] {"forum", "sortBy", "sortDirection"},
-            new [] {forum, "CREATION_DATE", "ASCENDING"});
     }
     
 
@@ -142,7 +146,7 @@ public class GameDetails : MonoBehaviour
 
         var response = request.downloadHandler.text;
         Debug.Log(response);
-        var _gamesData = JsonConvert.DeserializeObject<GetGameResponse>(response);
+        var _gamesData = JsonConvert.DeserializeObject<GameDetail>(response);
         
 
         if (request.responseCode != 200 || _gamesData == null)
@@ -153,25 +157,25 @@ public class GameDetails : MonoBehaviour
         else
         {
             // Set all the variables corresponding to fields
-            id = _gamesData.game.id;
-            createdAt = _gamesData.game.createdAt;
-            isDeleted = _gamesData.game.isDeleted;
-            gameName = _gamesData.game.gameName;
-            gameDescription = _gamesData.game.gameDescription;
-            gameIcon = _gamesData.game.gameIcon;
-            overallRating = _gamesData.game.overallRating;
-            ratingCount = _gamesData.game.ratingCount;
-            releaseDate = _gamesData.game.releaseDate;
-            forum = _gamesData.game.forum;
-            playerTypes = _gamesData.game.playerTypes;
-            genre = _gamesData.game.genre;
-            production = _gamesData.game.production;
-            duration = _gamesData.game.duration;
-            platforms = _gamesData.game.platforms;
-            artStyles = _gamesData.game.artStyles;
-            developer = _gamesData.game.developer;
-            otherTags = _gamesData.game.otherTags;
-            minSystemReq = _gamesData.game.minSystemReq;
+            id = _gamesData.id;
+            createdAt = _gamesData.createdAt;
+            isDeleted = _gamesData.isDeleted;
+            gameName = _gamesData.gameName;
+            gameDescription = _gamesData.gameDescription;
+            gameIcon = _gamesData.gameIcon;
+            overallRating = _gamesData.overallRating;
+            ratingCount = _gamesData.ratingCount;
+            releaseDate = _gamesData.releaseDate;
+            forum = _gamesData.forum;
+            playerTypes = _gamesData.playerTypes;
+            genre = _gamesData.genre;
+            production = _gamesData.production;
+            duration = _gamesData.duration;
+            platforms = _gamesData.platforms;
+            artStyles = _gamesData.artStyles;
+            developer = _gamesData.developer;
+            otherTags = _gamesData.otherTags;
+            minSystemReq = _gamesData.minSystemReq;
 
             // Set the image 
             string pictureURL = "http://ec2-16-16-166-22.eu-north-1.compute.amazonaws.com/";

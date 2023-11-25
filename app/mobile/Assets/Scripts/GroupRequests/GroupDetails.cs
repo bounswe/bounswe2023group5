@@ -64,8 +64,8 @@ public class GroupDetails : MonoBehaviour
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
 
         colors = new Colors();
-        // Below will change
-        Init();
+        
+        // Init();
     }
     
     /*
@@ -81,11 +81,10 @@ public class GroupDetails : MonoBehaviour
     }
     */
 
-    public void Init(/*string _groupId*/)
+    public void Init(string _groupId)
     {
-        // FOR TEST PURPOSES, WILL CHANGE
-        // groupId = _groupId;
-        groupId = "8e418111-3445-4ea2-9567-aeb0d26d5a79";
+        groupId = _groupId;
+        // groupId = "8e418111-3445-4ea2-9567-aeb0d26d5a79";
         OnClickedDescriptionButton();
         GetGroupDescription();
     }
@@ -241,10 +240,10 @@ public class GroupDetails : MonoBehaviour
         if (request.responseCode == 200)
         {
             response = request.downloadHandler.text;
-            var _GetGameResponseData = JsonConvert.DeserializeObject<GetGameResponse>(response);
+            var _GetGameResponseData = JsonConvert.DeserializeObject<GameDetail>(response);
 
             StartCoroutine(LoadImageFromURL(pictureURL + 
-                                            _GetGameResponseData.game.gameIcon, gameImage));
+                                            _GetGameResponseData.gameIcon, gameImage));
 
 
             Debug.Log("Success to get game: " + response);

@@ -199,10 +199,11 @@ public class CanvasManager : MonoBehaviour
         deleteTagPage.SetActive(false);
     }
 
-    public void ShowGroupDetailsPage()
+    public void ShowGroupDetailsPage(string groupId)
     {
         groupDetailsPage.SetActive(true);
         groupsPage.SetActive(false);
+        groupDetailsPage.GetComponent<GroupDetails>().Init(groupId);
     }
 
     public void HideGroupDetailsPage()
