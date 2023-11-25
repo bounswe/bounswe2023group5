@@ -3,6 +3,10 @@ package com.app.gamereview.service;
 import com.app.gamereview.dto.request.comment.CreateCommentRequestDto;
 import com.app.gamereview.dto.request.comment.EditCommentRequestDto;
 import com.app.gamereview.dto.request.comment.ReplyCommentRequestDto;
+import com.app.gamereview.dto.request.post.GetPostListFilterRequestDto;
+import com.app.gamereview.dto.response.post.GetPostListResponseDto;
+import com.app.gamereview.enums.SortDirection;
+import com.app.gamereview.enums.SortType;
 import com.app.gamereview.enums.UserRole;
 import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.exception.ResourceNotFoundException;
@@ -13,13 +17,16 @@ import com.app.gamereview.repository.PostRepository;
 import com.app.gamereview.repository.ProfileRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CommentService {
@@ -157,5 +164,19 @@ public class CommentService {
         commentToDelete.setIsDeleted(true);
 
         return commentRepository.save(commentToDelete);
+    }
+
+    public List<Comment> getUserCommentList(User user) {
+
+        Query query = new Query();
+
+        query.addCriteria(Criteria.where("commenter").is(user.getId()));
+
+        Sort.Direction sortDirection = Sort.Direction.DESC; // Default sorting direction (you can change it to ASC if needed)
+
+        query.with(Sort.by(sortDirection, "createdAt"));
+
+
+        return mongoTemplate.find(query, Comment.class);
     }
 }
