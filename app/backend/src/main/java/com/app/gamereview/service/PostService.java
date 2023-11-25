@@ -129,18 +129,21 @@ public class PostService {
     }
 
 
-    public GetPostDetailResponseDto getPostById(String id, User user) {
+    public GetPostDetailResponseDto getPostById(String id, String email) {
         Optional<Post> post = postRepository.findById(id);
+        Optional<User> loggedInUser = userRepository.findByEmailAndIsDeletedFalse(email);
+        String loggedInUserId = loggedInUser.map(User::getId).orElse(null);
 
         if (post.isEmpty()) {
             throw new ResourceNotFoundException("The post with the given id was not found");
         }
         Optional<Forum> forum = forumRepository.findById(post.get().getForum());
-
         if (forum.isPresent()) {
-            List<String> bannedUsers = forum.get().getBannedUsers();
-            if (bannedUsers.contains(user.getId())) {
-                throw new ResourceNotFoundException("You cannot see the post because you are banned.");
+            if(loggedInUserId != null){
+                List<String> bannedUsers = forum.get().getBannedUsers();
+                if (bannedUsers.contains(loggedInUserId)) {
+                    throw new ResourceNotFoundException("You cannot see the post because you are banned.");
+                }
             }
         }
 
