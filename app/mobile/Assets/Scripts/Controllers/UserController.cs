@@ -4,7 +4,6 @@
 
 public class UserChangeRoleRequest
 {
-    public string id;
     public string userRole;
 }
 
@@ -37,5 +36,6 @@ public class User
     public string email;
     public string role;
     public bool isVerified;
+    public string[] achievements;
     public bool verified;
 }

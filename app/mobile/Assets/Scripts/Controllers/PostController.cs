@@ -24,6 +24,7 @@ public class PostCreateRequest
     public string postImage;
     public string forum;
     public string[] tags;
+    public string achievement;
 }
 
 // For GetPostListRequest send no body. Only specify the parameters
@@ -37,8 +38,9 @@ public class GetPostListResponse
     public string id;
     public string title;
     public string postContent;
+    //public string postImage;
     public User poster;
-    // public int userVote;
+    public string userVote;
     public string lastEditedAt;
     public string createdAt;
     public bool isEdited;
@@ -101,22 +103,22 @@ public class PostComment
     public string lastEditedAt;
     public string createdAt;
     public bool isEdited;
+    public bool isDeleted;
     public int overallVote;
     public int voteCount;
+    public PostComment[] replies;
 }
 
 public class PostResponse
 {
-    public string id;
-    public string createdAt;
-    public bool isDeleted;
     public string title;
     public string postContent;
     public string postImage;
     public string poster;
     public string forum;
+    public AchievementResponse achievement;
     public string lastEditedAt;
-    public string[] tags;
+    public TagResponse[] tags;
     public bool inappropriate;
     public bool locked;
     public int overallVote;

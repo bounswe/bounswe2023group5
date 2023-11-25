@@ -81,6 +81,7 @@ public class GroupDetails : MonoBehaviour
     }
     */
 
+
     public void Init(string _groupId)
     {
         groupId = _groupId;

@@ -4,7 +4,11 @@ namespace Utilities
 {
     public class Colors
     {
-        
+        private string[] colorList = new[]
+        {
+            "#8ECAE6", "#219EBC", "#023047", "#FFB703", "#FB8500",
+            "#845A6D", "#A1E8AF", "#F5EE9E"
+        };
 
         public Color skyBlue;
         public Color blueGreen;
@@ -70,8 +74,7 @@ namespace Utilities
 
         private void initializeColor(out Color color, string hex)
         {
-            UnityEngine.ColorUtility.TryParseHtmlString( hex,
-                out color);
+            UnityEngine.ColorUtility.TryParseHtmlString( hex, out color);
         }
         
         
