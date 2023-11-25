@@ -81,7 +81,6 @@ public class PostService {
         if (filter.getSearch() != null && !filter.getSearch().isBlank()) {
             query.addCriteria(Criteria.where("title").regex(filter.getSearch(), "i"));
         }
-
         if (filter.getSortBy() != null) {
             Sort.Direction sortDirection = Sort.Direction.DESC; // Default sorting direction (you can change it to ASC if needed)
             if (filter.getSortDirection() != null) {
@@ -337,5 +336,20 @@ public class PostService {
         postToDelete.setIsDeleted(true);
 
         return postRepository.save(postToDelete);
+    }
+
+    public List<Post> getUserPostList(User user) {
+
+        Query query = new Query();
+
+        query.addCriteria(Criteria.where("poster").is(user.getId()));
+
+        Sort.Direction sortDirection = Sort.Direction.DESC; // Default sorting direction (you can change it to ASC if needed)
+
+        query.with(Sort.by(sortDirection, "createdAt"));
+
+
+        return mongoTemplate.find(query, Post.class);
+
     }
 }
