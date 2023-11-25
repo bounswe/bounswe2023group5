@@ -57,6 +57,7 @@ public class ProfileService {
             activity.setTypeId(review.getId());
             activity.setParentId(review.getGameId());
             activity.setType(ActivityType.REVIEW);
+            activity.setParentType("GAME");
             activity.setDescription(review.getReviewDescription());
             activity.setCreatedAt(review.getCreatedAt());
             lastActivities.add(activity);
