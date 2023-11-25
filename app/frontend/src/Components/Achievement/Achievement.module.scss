@@ -1,0 +1,73 @@
+@import "../../colors";
+.achievement {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.3s;
+    width: 30%;
+    height: 30%;
+    background-color: $orange-dark-10;
+  }
+  
+  .achievement:hover {
+    border-color: #007bff; /* Highlight border on hover */
+    width: 30%;
+    height: 30%;
+  }
+  
+  .icon {
+    margin-right: 10px;
+    border-radius: 10%;
+    width: 30%;
+    height: 30%;
+  }
+  
+  .achievement_content {
+    flex: 1;
+
+  }
+  
+  .hovered .achievement_title {
+    visibility: hidden;
+  }
+  .achievement_title {
+    visibility: visible;
+    font-size: 18px;
+  }
+  
+  .achievement_description {
+    font-size: 14px;
+    color: #555;
+  }
+
+  .hovered .floatingDescription {
+    visibility: visible;
+    background-color: $orange-dark-10;
+    color: #fff;
+    text-align: center;
+    align-items: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    z-index: 1;
+  }
+  .floatingDescription {
+
+    visibility: hidden;
+    background-color: $orange-dark-10;
+    color: #fff;
+    text-align: center  ;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+  }
+  .row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+    margin-left: 10px;
+  }
