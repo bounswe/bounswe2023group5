@@ -1,35 +1,32 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class ForumDeletePost : MonoBehaviour
+public class DeleteGameAchievement : MonoBehaviour
 {
-    [SerializeField] private string title;
-    [SerializeField] private string postContent;
-    private string postID;
+    private string id;
+    private Dictionary<string, string> queryParams = new Dictionary<string, string>();
 
     private void Start()
     {
-        Init(new[] {"id"},new[] {"b73d132b-a3e3-4776-bbe6-01c2ce0d2d2c"});
+        queryParams.Add("id", "b73d132b-a3e3-4776-bbe6-01c2ce0d2d2c");
+        Init(queryParams);
     }
 
-    public void Init(string[] pars, string[] vals)
+    public void Init(Dictionary<string, string> queryParams)
     {
-        postID = ListToQueryParameters.GetValueOfParam(
-            pars, vals, "id" );
-        
-        if (postID == "")
+        id = DictionaryToQueryParameters.GetValueOfParam(
+            queryParams, "id" );
+        if (id == "")
         {
             Debug.Log("Id must be specified");
         }
-        string url = AppVariables.HttpServerUrl + "/post/delete" + 
-                     ListToQueryParameters.ListToQueryParams(pars, vals);
+        string url = AppVariables.HttpServerUrl + "/achievement/delete" + 
+                     DictionaryToQueryParameters.DictionaryToQuery(queryParams);
         StartCoroutine(Delete(url));
     }
-    
+
     IEnumerator Delete(string url)
     {
         var request = new UnityWebRequest(url, "DELETE");
@@ -41,11 +38,11 @@ public class ForumDeletePost : MonoBehaviour
         if (request.responseCode == 200)
         {
             response = request.downloadHandler.text;
-            Debug.Log("Success to delete forum post detail: " + response);
+            Debug.Log("Success to delete game achievement: " + response);
         }
         else
         {
-            Debug.Log("Error to delete forum post detail: " + response);
+            Debug.Log("Error to delete game achievement: " + response);
         }
         request.downloadHandler.Dispose();
     }

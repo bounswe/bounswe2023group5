@@ -82,7 +82,7 @@ public class GameDetail
     public string gameDescription;
     public string gameIcon;
     public double overallRating;
-    public int ratingCount;
+    public double ratingCount;
     public string releaseDate;
     public string forum;
     public string[] playerTypes;
