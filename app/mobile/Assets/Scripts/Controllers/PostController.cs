@@ -41,7 +41,6 @@ public class GetPostListResponse
     //public string postImage;
     public User poster;
     public string userVote;
-    // public Achievement achievement;
     public string lastEditedAt;
     public string createdAt;
     public bool isEdited;
