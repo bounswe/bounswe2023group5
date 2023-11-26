@@ -205,11 +205,11 @@ public class ProfileService {
         return profileRepository.save(editedProfile);
     }
 
-    public ProfilePageResponseDto getProfile(String id, String email) {
-        Optional<Profile> optionalProfile = profileRepository.findById(id);
+    public ProfilePageResponseDto getProfile(String userId, String email) {
+        Optional<Profile> optionalProfile = profileRepository.findByUserIdAndIsDeletedFalse(userId);
 
         if (optionalProfile.isEmpty() || optionalProfile.get().getIsDeleted()) {
-            throw new ResourceNotFoundException("The profile with the given id is not found.");
+            throw new ResourceNotFoundException("The profile for the given user id is not found.");
         }
 
         Profile profile = optionalProfile.get();
