@@ -16,10 +16,24 @@ export async function createAchievement({
   game: string;
 }) {
   const gameId = (await getGames(undefined, game))[0].id;
-  console.log(gameId);
   const response = await axios.post(
     `${import.meta.env.VITE_APP_API_URL}/achievement/create`,
     { title, description, icon, type, game: gameId }
+  );
+  return response;
+}
+
+export async function deleteAchievementByName({
+  title,
+  game,
+}: {
+  title: string;
+  game: string;
+}) {
+  const response = await axios.delete(
+    `${
+      import.meta.env.VITE_APP_API_URL
+    }/achievement/delete-by-name?achievementName=${title}&gameName=${game}`
   );
   return response;
 }
