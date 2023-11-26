@@ -1,32 +1,29 @@
-import { EditFilled, PlusOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Modal, Radio, Upload } from "antd";
+import { EditFilled } from "@ant-design/icons";
+import { Button, Form, Input, Modal, Radio } from "antd";
 import { useState } from "react";
 import { editProfile } from "../../Services/profile";
+import UploadArea from "../UploadArea/UploadArea";
 
 function EditProfile({ editableFields }: { editableFields: any }) {
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
+  const [imageUrl, setImageUrl] = useState<string | undefined>();
+
   const showModal = () => {
     setOpen(true);
   };
 
   const handleConfirm = async (data: any) => {
     setConfirmLoading(true);
-    console.log(data);
-    await editProfile(data);
+    const newdata = { ...data, ...{ profilePhoto: imageUrl } };
+    console.log(newdata);
+    await editProfile(newdata);
     setOpen(false);
     setConfirmLoading(false);
   };
 
   const handleCancel = () => {
     setOpen(false);
-  };
-
-  const normFile = (e: any) => {
-    if (Array.isArray(e)) {
-      return e;
-    }
-    return e?.fileList;
   };
 
   const onFinish = async (data: any) => {
@@ -68,24 +65,17 @@ function EditProfile({ editableFields }: { editableFields: any }) {
           layout="horizontal"
           id="editProfileForm"
         >
-          <Form.Item
-            label="Profile Photo"
-            name="profilePhoto"
-            valuePropName="fileList"
-            getValueFromEvent={normFile}
-          >
-            <Upload action="/upload.do" listType="picture-card">
-              <div>
-                <PlusOutlined />
-                <div style={{ marginTop: 8 }}>Upload</div>
-              </div>
-            </Upload>
+          <Form.Item label="Profile Photo">
+            <UploadArea
+              style={{ height: "200px", width: "200px" }}
+              onUpload={setImageUrl}
+            />
           </Form.Item>
           <Form.Item label="Username" name="username">
             <Input defaultValue={editableFields?.username} />
           </Form.Item>
           <Form.Item label="Privacy" name="isPrivate">
-            <Radio.Group>
+            <Radio.Group value={editableFields?.isPrivate ? true : false}>
               <Radio value={true}> private </Radio>
               <Radio value={false}> public </Radio>
             </Radio.Group>
