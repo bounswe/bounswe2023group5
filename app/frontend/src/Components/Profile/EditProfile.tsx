@@ -13,7 +13,6 @@ function EditProfile({ profile }: { profile: any }) {
   const [form] = useForm();
 
   useEffect(() => {
-    console.log(profile);
     form.setFieldsValue(profile);
     form.setFieldValue("username", profile?.user?.username);
     setImageUrl(profile?.profilePhoto);
