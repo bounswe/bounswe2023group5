@@ -70,7 +70,6 @@ function EditProfile({ profile }: { profile: any }) {
           display: "flex",
           flexDirection: "column",
         }}
-        forceRender={true}
         footer={[
           <Button
             key="submit"
