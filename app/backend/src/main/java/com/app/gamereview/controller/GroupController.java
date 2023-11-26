@@ -35,7 +35,7 @@ public class GroupController {
 	}
 
 	@GetMapping("/get-all")
-	public ResponseEntity<List<GetGroupResponseDto>> getReviews(
+	public ResponseEntity<List<GetGroupResponseDto>> getGroups(
 			@ParameterObject GetAllGroupsFilterRequestDto filter, @RequestHeader(name = HttpHeaders.AUTHORIZATION, required = false) String Authorization) {
 
 		String email;
