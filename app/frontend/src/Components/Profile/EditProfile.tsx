@@ -3,26 +3,40 @@ import { Button, Form, Input, Modal, Radio } from "antd";
 import { useState } from "react";
 import { editProfile } from "../../Services/profile";
 import UploadArea from "../UploadArea/UploadArea";
+import { QueryClient, useMutation } from "react-query";
+import { message } from "antd";
 
 function EditProfile({ profile }: { profile: any }) {
   const profileId = profile.id;
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string | undefined>();
+  const queryClient = new QueryClient();
 
   const showModal = () => {
     setOpen(true);
   };
 
+  const { mutate: edit } = useMutation(
+    (data: any) => editProfile(data, profileId),
+    {
+      onSuccess() {
+        queryClient.invalidateQueries(["profile", profile.user.id]);
+        setConfirmLoading(false);
+        setOpen(false);
+      },
+      onError(error: any) {
+        message.error(error.message);
+        setConfirmLoading(false);
+      },
+    }
+  );
+
   const handleConfirm = async (data: any) => {
     setConfirmLoading(true);
     const newdata = { ...data, ...{ profilePhoto: imageUrl } };
     console.log(newdata);
-    try {
-      await editProfile(newdata, profileId);
-    } catch (error) {}
-    setOpen(false);
-    setConfirmLoading(false);
+    edit(newdata);
   };
 
   const handleCancel = () => {
@@ -48,6 +62,7 @@ function EditProfile({ profile }: { profile: any }) {
           display: "flex",
           flexDirection: "column",
         }}
+        forceRender={true}
         footer={[
           <Button
             key="submit"
