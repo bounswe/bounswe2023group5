@@ -75,6 +75,15 @@ function ForumPost({
         />
       </div>
 
+      {post.postImage && (
+        <div className={styles.imgConatiner}>
+          <img
+            height="30px"
+            src={`${import.meta.env.VITE_APP_IMG_URL}${post.postImage}`}
+          />
+        </div>
+      )}
+
       <div className={styles.titleContainer}>
         <div className={styles.title}>{post.title}</div>
         {isAdmin && (

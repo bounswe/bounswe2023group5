@@ -58,11 +58,14 @@ function CreateGame() {
     },
   });
 
-  const uploadImageMutation = useMutation(uploadImage, {
-    onError: () => {
-      alert("We cannot upload the image");
-    },
-  });
+  const uploadImageMutation = useMutation(
+    (i: any) => uploadImage(i, "game-icons"),
+    {
+      onError: () => {
+        alert("We cannot upload the image");
+      },
+    }
+  );
   const handleClick = async () => {
     const gameIcon = await uploadImageMutation.mutateAsync(
       fileList[0].originFileObj
