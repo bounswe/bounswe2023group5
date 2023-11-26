@@ -133,7 +133,7 @@ public class ProfileService {
 
         Profile editedProfile = profile.get();
 
-        if (request.getUsername() != null && !request.getUsername().isEmpty()) {
+        if (request.getUsername() != null && !request.getUsername().isEmpty() && !request.getUsername().equals(user.getUsername())) {
             Optional<User> userToUpdate = userRepository.findByUsername(request.getUsername());
             if (userToUpdate.isPresent()) {
                 throw new BadRequestException("Requested username is not available.");
