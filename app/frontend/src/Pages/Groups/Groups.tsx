@@ -77,7 +77,7 @@ function Groups() {
             defaultValue={null}
             options={membershipOptions}
             onChange={setMembershipPolicy}
-            style={{ width: "20%" }}
+            style={{ width: "15%" }}
           />
           <Button onClick={toggleSortDir}>
             {sortDir === "DESCENDING" ? (
@@ -91,7 +91,7 @@ function Groups() {
             defaultValue={sortBy}
             value={"CREATION_DATE"}
             onChange={setSortBy}
-            style={{ width: "120px" }}
+            style={{ flex: 1 }}
           />
           <Select
             placeholder="Filter by game"
