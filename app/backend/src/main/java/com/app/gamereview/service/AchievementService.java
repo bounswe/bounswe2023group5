@@ -120,6 +120,38 @@ public class AchievementService {
         return achievementToDelete;
     }
 
+    public Achievement deleteAchievement(String achievementName, String gameName) {
+        List<Achievement> achievementWithName = achievementRepository.findByTitleAndIsDeletedFalse(achievementName);
+
+        if (achievementWithName.isEmpty()) {
+            throw new ResourceNotFoundException("Achievement with the given name is not found.");
+        }
+
+        Optional<Game> gameWithName = gameRepository.findByGameNameAndIsDeletedFalse(gameName);
+
+        if (gameWithName.isEmpty()) {
+            throw new ResourceNotFoundException("Game with the given name is not found.");
+        }
+
+        Achievement achievementToDelete = null;
+
+        for (Achievement achievement : achievementWithName) {
+            Optional<Game> game = gameRepository.findByIdAndIsDeletedFalse(achievement.getGame());
+            if (game.isPresent() && game.get().getGameName().equals(gameName)) {
+                achievementToDelete = achievement;
+            }
+        }
+
+        if (achievementToDelete == null) {
+            throw new ResourceNotFoundException("There is no achievement with the given name in the game.");
+        }
+
+        achievementToDelete.setIsDeleted(true);
+
+        achievementRepository.save(achievementToDelete);
+        return achievementToDelete;
+    }
+
     public List<String> grantAchievement(GrantAchievementRequestDto request) {
         Optional<Achievement> achievementOptional = achievementRepository.findByIdAndIsDeletedFalse(request.getAchievementId());
 
