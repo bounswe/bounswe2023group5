@@ -108,19 +108,21 @@ public class PostComment
     public int voteCount;
     public PostComment[] replies;
 }
-
 public class PostResponse
 {
+    public string id;
+    public string createdAt;
+    public bool isDeleted;
     public string title;
     public string postContent;
     public string postImage;
     public string poster;
     public string forum;
-    public AchievementResponse achievement;
     public string lastEditedAt;
     public TagResponse[] tags;
     public bool inappropriate;
     public bool locked;
     public int overallVote;
     public int voteCount;
+    public string achievement;
 }

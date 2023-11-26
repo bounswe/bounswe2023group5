@@ -1,17 +1,28 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
+using TMPro;
+using UnityEngine.UI;
 
 public class ForumCreatePost : MonoBehaviour
 {
-    [SerializeField] private string title;
-    [SerializeField] private string postContent;
-    [SerializeField] private string postImage;
-    [SerializeField] private string forumID;
-    [SerializeField] private string[] tags;
+    [SerializeField] private TMP_InputField titleInputField;
+    [SerializeField] private TMP_InputField postContentInputField;
+    private CanvasManager canvasManager;
+    [SerializeField] private Button createPostButton;
+    [SerializeField] private Button backButton;
+    [SerializeField] private TMP_Text errorText;
+
+    private string forumID;
+
+    private void Awake()
+    {
+        canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
+        
+        createPostButton.onClick.AddListener(OnCreatePostButtonClicked);
+        backButton.onClick.AddListener(OnBackButtonClicked);
+    }
 
     private void Start()
     {
@@ -21,16 +32,37 @@ public class ForumCreatePost : MonoBehaviour
     public void Init(string _forumID)
     {
         forumID = _forumID;
+    }
+
+    public void OnCreatePostButtonClicked()
+    {
+        string title = titleInputField.text;
+        string postContent = postContentInputField.text;
+        string postImage = "";
+        string tags = "";
+
+        if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(postContent))
+        {
+            ShowError("Title and post content are required.");
+            return;
+        }
+
+        string[] tagArray = string.IsNullOrEmpty(tags) ? new string[0] : tags.Split(',');
+
         string url = AppVariables.HttpServerUrl + "/post/create";
-        var postCreateRequest = new PostCreateRequest();
-        postCreateRequest.title = title;
-        postCreateRequest.postContent = postContent;
-        postCreateRequest.postImage = postImage;
-        postCreateRequest.forum = forumID;
-        postCreateRequest.tags = tags;
+        var postCreateRequest = new PostCreateRequest
+        {
+            title = title,
+            postContent = postContent,
+            postImage = postImage,
+            forum = forumID,
+            tags = tagArray
+        };
+
         string bodyJsonString = JsonUtility.ToJson(postCreateRequest);
         StartCoroutine(Post(url, bodyJsonString));
     }
+
     IEnumerator Post(string url, string bodyJsonString)
     {
         var request = new UnityWebRequest(url, "POST");
@@ -40,18 +72,30 @@ public class ForumCreatePost : MonoBehaviour
         request.SetRequestHeader("Content-Type", "application/json");
         request.SetRequestHeader("Authorization", PersistenceManager.UserToken);
         yield return request.SendWebRequest();
-        string response = "";
+
         if (request.responseCode == 200)
         {
-            response = request.downloadHandler.text;
-            Debug.Log("Success to create forum post: " + response);
+            Debug.Log("Success to create forum post: " + request.downloadHandler.text);
+            canvasManager.HideCreatePostPage();
         }
         else
         {
-            Debug.Log("Error to create forum post: " + response);
+            ShowError("Error: " + request.responseCode);
+            Debug.Log("Error to create forum post: " + request.downloadHandler.text);
         }
+
         request.downloadHandler.Dispose();
         request.uploadHandler.Dispose();
     }
     
+    private void OnBackButtonClicked()
+    {
+        canvasManager.HideCreatePostPage();
+        canvasManager.ShowForumPage();
+    }
+
+    private void ShowError(string errorMessage)
+    {
+        errorText.text = errorMessage;
+    }
 }

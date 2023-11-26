@@ -24,7 +24,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject deleteTagPage;
     [SerializeField] private GameObject groupDetailsPage;
     [SerializeField] private GameObject groupsPage;
-
+    [SerializeField] private GameObject createPostPage;
     
     public void ShowSignUpPage()
     {
@@ -221,4 +221,13 @@ public class CanvasManager : MonoBehaviour
         groupsPage.SetActive(false);
     }
     
+    public void ShowCreatePostPage()
+    {
+        createPostPage.SetActive(true);
+    }
+
+    public void HideCreatePostPage()
+    {
+        createPostPage.SetActive(false);
+    }
 }
