@@ -4,9 +4,10 @@ import styles from "./Profile.module.scss";
 import { useQueryClient } from "react-query";
 import { Popover } from "antd";
 import { useState } from "react";
+import EditProfile from "../../Components/Profile/EditProfile";
 const subPages = ["Activities", "Games", "Eklenir Daha"];
 function Profile() {
-  const { user, isLoading } = useAuth();
+  const { user, isLoading, profile } = useAuth();
   const [subPage, setSubPage] = useState(subPages[0]);
   return (
     <div className={styles.profilePage}>
@@ -17,6 +18,9 @@ function Profile() {
       ) : (
         <>
           <div className={styles.profileCard}>
+            <div className={styles.edit}>
+              <EditProfile profile={profile} />
+            </div>
             <div className={styles.profilePicture}>
               <img src="../../../assets/images/guru.jpeg" />
             </div>
@@ -26,19 +30,49 @@ function Profile() {
                 <span>{user.email}</span>
               </div>
               <div className={styles.socialContainer}>
-                <div style={{ backgroundColor: "#000000" }}>
+                <a
+                  href={profile.steamProfile}
+                  style={{ backgroundColor: "#000000" }}
+                >
                   <img src="/icons/steam.svg" />{" "}
-                  <Popover content={"wtf"}>Steam Account</Popover>
-                </div>
-                <div style={{ backgroundColor: "#0071bc" }}>
+                  <Popover
+                    content={
+                      <a href={profile.steamProfile}>{profile.steamProfile}</a>
+                    }
+                  >
+                    Steam Account
+                  </Popover>
+                </a>
+                <a
+                  href={profile.epicGamesProfile}
+                  style={{ backgroundColor: "#0071bc" }}
+                >
                   <img src="/icons/epic_games.svg" />{" "}
-                  <Popover content={"wtf"}>Epic Account</Popover>
-                </div>
-                <div style={{ backgroundColor: "#107c10" }}>
+                  <Popover
+                    content={
+                      <a href={profile.epicGamesProfile}>
+                        {profile.epicGamesProfile}
+                      </a>
+                    }
+                  >
+                    Epic Account
+                  </Popover>
+                </a>
+                <a
+                  href={profile.xboxProfile}
+                  style={{ backgroundColor: "#107c10" }}
+                >
                   {" "}
                   <img src="/icons/xbox.svg" />
-                  <Popover content={"wtf"}> Xbox Account</Popover>
-                </div>
+                  <Popover
+                    content={
+                      <a href={profile.xboxProfile}>{profile.xboxProfile}</a>
+                    }
+                  >
+                    {" "}
+                    Xbox Account
+                  </Popover>
+                </a>
               </div>
             </div>
           </div>

@@ -7,6 +7,7 @@
   height: 100%;
   width: 100%;
   padding: 2em;
+
   gap: 1em;
 
   .profileError {
@@ -23,6 +24,13 @@
     background-color: $yellow-light-30;
     border-radius: 0.5em;
     padding: 0.5em;
+    position: relative;
+
+    .edit {
+      position: absolute;
+      top: 1em;
+      right: 1em;
+    }
 
     .profilePicture {
       flex: 1 1 0;
@@ -66,7 +74,7 @@
         align-items: center;
         gap: 2em;
 
-        & > div {
+        & > a {
           background-color: pink;
           height: 3em;
           width: 10em;
@@ -77,6 +85,7 @@
           align-items: center;
           justify-content: space-between;
           padding-right: 0.5em;
+          text-decoration: none;
 
           img {
             height: 100%;

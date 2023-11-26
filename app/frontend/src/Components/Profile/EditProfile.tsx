@@ -4,10 +4,8 @@ import { useState } from "react";
 import { editProfile } from "../../Services/profile";
 import UploadArea from "../UploadArea/UploadArea";
 
-function EditProfile(
-  { editableFields }: { editableFields: any },
-  profileId: string
-) {
+function EditProfile({ profile }: { profile: any }) {
+  const profileId = profile.id;
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string | undefined>();
@@ -77,22 +75,22 @@ function EditProfile(
             />
           </Form.Item>
           <Form.Item label="Username" name="username">
-            <Input defaultValue={editableFields?.username} />
+            <Input defaultValue={profile?.username} />
           </Form.Item>
           <Form.Item label="Privacy" name="isPrivate">
-            <Radio.Group value={editableFields?.isPrivate ? true : false}>
+            <Radio.Group value={profile?.isPrivate ? true : false}>
               <Radio value={true}> private </Radio>
               <Radio value={false}> public </Radio>
             </Radio.Group>
           </Form.Item>
           <Form.Item label="Steam Profile" name="steamProfile">
-            <Input defaultValue={editableFields?.steamProfile} />
+            <Input defaultValue={profile?.steamProfile} />
           </Form.Item>
           <Form.Item label="Epic Games Profile" name="epicGamesProfile">
-            <Input defaultValue={editableFields?.epicGamesProfile} />
+            <Input defaultValue={profile?.epicGamesProfile} />
           </Form.Item>
           <Form.Item label="XBOX Profile" name="xboxProfile">
-            <Input defaultValue={editableFields?.xboxProfile} />
+            <Input defaultValue={profile?.xboxProfile} />
           </Form.Item>
         </Form>
       </Modal>
