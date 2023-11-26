@@ -40,7 +40,7 @@ public class ProfileController {
         return ResponseEntity.ok(reviews);
     }
 
-    @PostMapping("/get")
+    @GetMapping("/get")
     public ResponseEntity<ProfilePageResponseDto> getProfile(@RequestParam String userId, @RequestHeader(name = HttpHeaders.AUTHORIZATION, required = false) String Authorization) {
         String email;
         if (JwtUtil.validateToken(Authorization)) email = JwtUtil.extractSubject(Authorization);
