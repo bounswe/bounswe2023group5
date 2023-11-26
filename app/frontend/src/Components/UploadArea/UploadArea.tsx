@@ -34,6 +34,7 @@ const UploadArea: React.FC<UploadAreaProps> = ({ style, onUpload }) => {
           customRequest={({ file }) => handleUpload(file)}
           className={styles.dragger}
           showUploadList={false}
+          accept="image/*"
         >
           <p className="ant-upload-text">
             Click or drag file to this area to upload
@@ -42,7 +43,7 @@ const UploadArea: React.FC<UploadAreaProps> = ({ style, onUpload }) => {
       ) : (
         <div className={styles.imagePreview}>
           <img
-            src={imageUrl}
+            src={`${import.meta.env.VITE_APP_IMG_URL}${imageUrl}`}
             alt="Uploaded"
             style={{ maxWidth: "100%", maxHeight: "100%" }}
           />
