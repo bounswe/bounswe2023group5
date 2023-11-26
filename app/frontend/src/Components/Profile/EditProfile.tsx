@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { editProfile } from "../../Services/profile";
 import UploadArea from "../UploadArea/UploadArea";
 import { useForm } from "antd/es/form/Form";
-import { QueryClient, useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { message } from "antd";
 
 function EditProfile({ profile }: { profile: any }) {
@@ -12,7 +12,7 @@ function EditProfile({ profile }: { profile: any }) {
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string | undefined>();
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
   const [form] = useForm();
 
   useEffect(() => {

@@ -25,6 +25,8 @@ public class GetPostListResponseDto {
 
   private VoteChoice userVote;
 
+  private String postImage;
+
   // TODO avatar
 
   private LocalDateTime lastEditedAt;
