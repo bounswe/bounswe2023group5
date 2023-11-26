@@ -38,7 +38,7 @@
     }
 
     .profileDetails {
-      flex: 2 2 0;
+      flex: 3 3 0;
 
       .profileName {
         height: 50%;
@@ -47,25 +47,43 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        gap: 0.5em;
         h1 {
           all: unset;
-          font-size: 2em;
+          font-size: 2.5em;
           font-weight: bold;
-          color: $prussian-blue-dark-20;
+          color: $prussian-blue-dark-40;
         }
         span {
-          color: $color-accent;
-          opacity: 80%;
+          color: $orange-dark-10;
+          font-size: 1.5em;
         }
       }
 
-      .ratingContainer {
+      .socialContainer {
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 20px;
-        font-size: 50px;
-        color: $yellow;
+        gap: 2em;
+
+        & > div {
+          background-color: pink;
+          height: 3em;
+          width: 10em;
+          border-radius: 0.5em;
+          padding: 0.5em;
+          color: white;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-right: 0.5em;
+
+          img {
+            height: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+          }
+        }
       }
     }
   }
