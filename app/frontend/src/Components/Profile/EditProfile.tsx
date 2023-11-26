@@ -4,7 +4,10 @@ import { useState } from "react";
 import { editProfile } from "../../Services/profile";
 import UploadArea from "../UploadArea/UploadArea";
 
-function EditProfile({ editableFields }: { editableFields: any }) {
+function EditProfile(
+  { editableFields }: { editableFields: any },
+  profileId: string
+) {
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string | undefined>();
@@ -18,10 +21,14 @@ function EditProfile({ editableFields }: { editableFields: any }) {
     const newdata = { ...data, ...{ profilePhoto: imageUrl } };
     console.log(newdata);
     try {
-      await editProfile(newdata, editableFields.id);
+      await editProfile(newdata, profileId);
     } catch (error) {}
     setOpen(false);
     setConfirmLoading(false);
+  };
+
+  const handleCancel = () => {
+    setOpen(false);
   };
 
   const onFinish = async (data: any) => {
@@ -36,6 +43,7 @@ function EditProfile({ editableFields }: { editableFields: any }) {
       <Modal
         title="Edit Profile"
         open={open}
+        onCancel={handleCancel}
         style={{
           maxWidth: "70%",
           minWidth: "700px",
