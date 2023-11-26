@@ -17,13 +17,11 @@ function EditProfile({ editableFields }: { editableFields: any }) {
     setConfirmLoading(true);
     const newdata = { ...data, ...{ profilePhoto: imageUrl } };
     console.log(newdata);
-    await editProfile(newdata);
+    try {
+      await editProfile(newdata, editableFields.id);
+    } catch (error) {}
     setOpen(false);
     setConfirmLoading(false);
-  };
-
-  const handleCancel = () => {
-    setOpen(false);
   };
 
   const onFinish = async (data: any) => {
@@ -38,7 +36,6 @@ function EditProfile({ editableFields }: { editableFields: any }) {
       <Modal
         title="Edit Profile"
         open={open}
-        onCancel={handleCancel}
         style={{
           maxWidth: "70%",
           minWidth: "700px",

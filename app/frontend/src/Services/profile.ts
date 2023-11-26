@@ -8,7 +8,7 @@ export async function editProfile({username, isPrivate, profilePhoto, steamProfi
         steamProfile: string,
         epicGamesProfile: string,
         xboxProfile: string
-    }) {
+    }, profileId: string) {
     await axios.post(
         import.meta.env.VITE_APP_API_URL + "/profile/edit", {
             username,
@@ -17,5 +17,5 @@ export async function editProfile({username, isPrivate, profilePhoto, steamProfi
             steamProfile,
             epicGamesProfile,
             xboxProfile
-        });
+        }, {params: {id: profileId}});
 }
