@@ -1,6 +1,5 @@
 import axios from "axios";
-const FOLDER = "game-icons";
-export const uploadImage = async (image: any) => {
+export const uploadImage = async (image: any, folder: string) => {
   const formData = new FormData();
   formData.append("image", image);
   const config = {
@@ -11,7 +10,7 @@ export const uploadImage = async (image: any) => {
   };
 
   const response = await axios.post(
-    `${import.meta.env.VITE_APP_API_URL}/image/upload?folder=${FOLDER}`,
+    `${import.meta.env.VITE_APP_API_URL}/image/upload?folder=${folder}`,
     formData,
     config
   );
