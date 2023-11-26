@@ -41,12 +41,12 @@ public class ProfileController {
     }
 
     @PostMapping("/get")
-    public ResponseEntity<ProfilePageResponseDto> getProfile(@RequestParam String id, @RequestHeader(name = HttpHeaders.AUTHORIZATION, required = false) String Authorization) {
+    public ResponseEntity<ProfilePageResponseDto> getProfile(@RequestParam String userId, @RequestHeader(name = HttpHeaders.AUTHORIZATION, required = false) String Authorization) {
         String email;
         if (JwtUtil.validateToken(Authorization)) email = JwtUtil.extractSubject(Authorization);
         else email = "";
 
-        ProfilePageResponseDto profile = profileService.getProfile(id, email);
+        ProfilePageResponseDto profile = profileService.getProfile(userId, email);
         return ResponseEntity.ok(profile);
     }
 
