@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import { getAchievementByGame } from "../../Services/achievement";
-import Achievement from "../../Components/Achievement/Achievement";
+import Achievement from "../../Components/Achievement/Achievement/Achievement";
 
 
 function Achievements(){

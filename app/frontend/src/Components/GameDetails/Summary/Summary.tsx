@@ -2,7 +2,7 @@ import { Typography } from "antd";
 import TagRenderer from "../../TagRenderer/TagRenderer";
 import styles from "./Summary.module.scss";
 import { getAchievementByGame } from "../../../Services/achievement";
-import Achievement from "../../Achievement/Achievement";
+import Achievement from "../../Achievement/Achievement/Achievement";
 import { useQuery } from "react-query";
 
 
