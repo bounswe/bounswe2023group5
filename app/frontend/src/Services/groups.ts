@@ -18,8 +18,11 @@ export async function getGroups(
         membershipPolicy,
         sortBy,
         sortDirection,
+        
       },
     }
   );
   return response.data;
 }
+
+
