@@ -44,9 +44,12 @@ function Groups() {
     "DESCENDING"
   );
 
+  console.log("tags here: ", tags);
+
   const { data: groups } = useQuery(
     ["groups", title, gameName, tags, membershipPolicy, sortBy, sortDir],
-    () => getGroups(title, gameName, tags, membershipPolicy, sortBy, sortDir)
+    () =>
+      getGroups({ tags, title, gameName, membershipPolicy, sortBy, sortDir })
   );
 
   const toggleSortDir = () => {
