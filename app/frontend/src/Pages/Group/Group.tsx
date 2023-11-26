@@ -10,9 +10,11 @@ import TagRenderer from "../../Components/TagRenderer/TagRenderer";
 import { Button, Modal } from "antd";
 import { useState } from "react";
 import MemberList from "../../Components/MemberList/MemberList";
+import { useAuth } from "../../Components/Hooks/useAuth";
 
 function Group() {
   const { groupId } = useParams();
+  const { user } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -47,6 +49,8 @@ function Group() {
   const handleClick = () => {
     deleteGroupMutation.mutate(groupId as string);
   };
+
+  console.log(user);
   return (
     <div className={styles.container}>
       <div className={styles.info}>
@@ -62,9 +66,12 @@ function Group() {
             <Button type="primary" onClick={showModal}>
               {`Members (${group?.members.length || 0})`}
             </Button>
-            <Button type="primary" onClick={handleClick} danger>
-              Delete Group
-            </Button>
+            {(user?.role === "ADMIN" ||
+              group?.moderators.includes(user.id)) && (
+              <Button type="primary" onClick={handleClick} danger>
+                Delete Group
+              </Button>
+            )}
           </div>
         </div>
       </div>
