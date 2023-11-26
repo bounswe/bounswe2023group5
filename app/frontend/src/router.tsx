@@ -21,6 +21,7 @@ import Groups from "./Pages/Groups/Groups";
 import Group from "./Pages/Group/Group";
 import CreateGroup from "./Pages/CreateGroup/CreateGroup";
 import Profile from "./Pages/Profile/Profile";
+import CreateAchievement from "./Pages/Admin/Achievement/CreateAchievement/CreateAchievement";
 
 axios.defaults.headers.common["Content-Type"] = "application/json";
 
@@ -109,6 +110,10 @@ const router = createBrowserRouter([
         path: "profile",
         element: <Profile />,
       },
+      {
+        path: "create-achievement",
+        element: <CreateAchievement />,
+      }
     ],
   },
   {
