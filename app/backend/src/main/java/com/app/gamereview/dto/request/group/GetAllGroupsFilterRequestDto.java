@@ -26,4 +26,6 @@ public class GetAllGroupsFilterRequestDto {
 
     @ValidSortDirection(allowedValues = {SortDirection.ASCENDING, SortDirection.DESCENDING})
     private String sortDirection = SortDirection.DESCENDING.name();
+
+    private Boolean withDeleted = false;
 }
