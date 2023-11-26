@@ -127,7 +127,7 @@ public class PostService {
         }
 
         return new GetPostListResponseDto(post.getId(), post.getTitle(), post.getPostContent(),
-                posterObject, userVoteChoice, post.getLastEditedAt(), post.getCreatedAt(), isEdited, tags,
+                posterObject, userVoteChoice, post.getPostImage(), post.getLastEditedAt(), post.getCreatedAt(), isEdited, tags,
                 post.getInappropriate(), post.getOverallVote(), post.getVoteCount(), commentCount);
     }
 
