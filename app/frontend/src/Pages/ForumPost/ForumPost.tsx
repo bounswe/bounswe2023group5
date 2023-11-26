@@ -54,7 +54,7 @@ function ForumPost() {
     <div className={styles.container}>
       {!isLoading && (
         <div className={styles.postContainer}>
-          {user.id === post.poster.id && (
+          {user?.id === post.poster.id && (
             <div className={styles.edit}>
               <Button
                 onClick={() =>
