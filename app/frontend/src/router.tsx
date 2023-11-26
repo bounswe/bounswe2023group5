@@ -20,6 +20,7 @@ import GiveAdminPermission from "./Pages/Admin/User/GiveAdminPermission/GiveAdmi
 import Groups from "./Pages/Groups/Groups";
 import Group from "./Pages/Group/Group";
 import CreateGroup from "./Pages/CreateGroup/CreateGroup";
+import Profile from "./Pages/Profile/Profile";
 
 axios.defaults.headers.common["Content-Type"] = "application/json";
 
@@ -103,6 +104,10 @@ const router = createBrowserRouter([
       {
         path: "admin-permission",
         element: <GiveAdminPermission />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
       },
     ],
   },
