@@ -88,6 +88,9 @@ public class GroupService {
         if (filter.getTags() != null && !filter.getTags().isEmpty()) {
             query.addCriteria(Criteria.where("tags").in(filter.getTags()));
         }
+        if (!filter.getWithDeleted()) {
+            query.addCriteria(Criteria.where("isDeleted").is(filter.getWithDeleted()));
+        }
         if (filter.getGameName() != null && !filter.getGameName().isBlank()) {
             String gameName = filter.getGameName();
             Optional<Game> game = gameRepository.findByGameNameAndIsDeletedFalse(gameName);
