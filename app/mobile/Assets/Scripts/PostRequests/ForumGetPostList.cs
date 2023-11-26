@@ -32,7 +32,7 @@ public class ForumGetPostList : MonoBehaviour
             $"{AppVariables.HttpServerUrl}/post/get-post-list" +
                 ListToQueryParameters.ListToQueryParams(pars, vals);
         
-
+        Debug.Log(url);
         /*
         string url = AppVariables.HttpServerUrl + "/post/get-post-list?forum="
                                                 + forumId +"&sortBy=CREATION_DATE"+
@@ -53,7 +53,8 @@ public class ForumGetPostList : MonoBehaviour
         request.SetRequestHeader("Content-Type", "application/json");
         yield return request.SendWebRequest();
         var response = request.downloadHandler.text;
-        Debug.Log(response);
+        Debug.Log("Url: " + url);
+        Debug.Log("Response: " + response);
         var _forumData = JsonConvert.DeserializeObject<GetPostListResponse[]>(response);
         if (request.responseCode != 200 || _forumData == null)
         {

@@ -41,11 +41,11 @@ public class ForumDeletePost : MonoBehaviour
         if (request.responseCode == 200)
         {
             response = request.downloadHandler.text;
-            Debug.Log("Success to get forum post detail: " + response);
+            Debug.Log("Success to delete forum post detail: " + response);
         }
         else
         {
-            Debug.Log("Error to get forum post detail: " + response);
+            Debug.Log("Error to delete forum post detail: " + response);
         }
         request.downloadHandler.Dispose();
     }

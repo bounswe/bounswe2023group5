@@ -81,7 +81,9 @@ public class PostService {
         if (filter.getSearch() != null && !filter.getSearch().isBlank()) {
             query.addCriteria(Criteria.where("title").regex(filter.getSearch(), "i"));
         }
-
+        if (filter.getTags() != null && !filter.getTags().isEmpty()) {
+            query.addCriteria(Criteria.where("tags").in(filter.getTags()));
+        }
         if (filter.getSortBy() != null) {
             Sort.Direction sortDirection = Sort.Direction.DESC; // Default sorting direction (you can change it to ASC if needed)
             if (filter.getSortDirection() != null) {
@@ -125,23 +127,26 @@ public class PostService {
         }
 
         return new GetPostListResponseDto(post.getId(), post.getTitle(), post.getPostContent(),
-                posterObject, userVoteChoice, post.getLastEditedAt(), post.getCreatedAt(), isEdited, tags,
+                posterObject, userVoteChoice, post.getPostImage(), post.getLastEditedAt(), post.getCreatedAt(), isEdited, tags,
                 post.getInappropriate(), post.getOverallVote(), post.getVoteCount(), commentCount);
     }
 
 
-    public GetPostDetailResponseDto getPostById(String id, User user) {
+    public GetPostDetailResponseDto getPostById(String id, String email) {
         Optional<Post> post = postRepository.findById(id);
+        Optional<User> loggedInUser = userRepository.findByEmailAndIsDeletedFalse(email);
+        String loggedInUserId = loggedInUser.map(User::getId).orElse(null);
 
         if (post.isEmpty()) {
             throw new ResourceNotFoundException("The post with the given id was not found");
         }
         Optional<Forum> forum = forumRepository.findById(post.get().getForum());
-
         if (forum.isPresent()) {
-            List<String> bannedUsers = forum.get().getBannedUsers();
-            if (bannedUsers.contains(user.getId())) {
-                throw new ResourceNotFoundException("You cannot see the post because you are banned.");
+            if(loggedInUserId != null){
+                List<String> bannedUsers = forum.get().getBannedUsers();
+                if (bannedUsers.contains(loggedInUserId)) {
+                    throw new ResourceNotFoundException("You cannot see the post because you are banned.");
+                }
             }
         }
 
@@ -337,5 +342,20 @@ public class PostService {
         postToDelete.setIsDeleted(true);
 
         return postRepository.save(postToDelete);
+    }
+
+    public List<Post> getUserPostList(User user) {
+
+        Query query = new Query();
+
+        query.addCriteria(Criteria.where("poster").is(user.getId()));
+
+        Sort.Direction sortDirection = Sort.Direction.DESC; // Default sorting direction (you can change it to ASC if needed)
+
+        query.with(Sort.by(sortDirection, "createdAt"));
+
+
+        return mongoTemplate.find(query, Post.class);
+
     }
 }

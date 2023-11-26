@@ -640,6 +640,7 @@ MonoBehaviour:
   tags: {fileID: 641350918226314024}
   quota: {fileID: 7468482570102772284}
   members: {fileID: 8243948531220401575}
+  groupDetailsButton: {fileID: 1046734466098547572}
 --- !u!1 &4551603567668359430
 GameObject:
   m_ObjectHideFlags: 0
