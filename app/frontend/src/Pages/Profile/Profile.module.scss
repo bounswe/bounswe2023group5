@@ -26,9 +26,9 @@
 
     .profilePicture {
       flex: 1 1 0;
-      aspect-ratio: 1.8;
+      aspect-ratio: 1;
       overflow: hidden;
-      border-radius: 0.5em;
+      border-radius: 100%;
 
       img {
         object-fit: cover;

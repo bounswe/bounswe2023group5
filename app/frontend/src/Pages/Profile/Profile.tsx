@@ -12,7 +12,7 @@ function Profile() {
         <>
           <div className={styles.profileCard}>
             <div className={styles.profilePicture}>
-              {/* Profile picture goes here */}
+              <img src="../../../assets/images/guru.jpeg" />
             </div>
             <div className={styles.profileDetails}>
               <div className={styles.profileName}>

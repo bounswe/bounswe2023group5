@@ -9,6 +9,8 @@ import {
   useState,
 } from "react";
 import { me } from "../../Services/me";
+import { useQuery } from "react-query";
+import { getProfile } from "../../Services/profile";
 
 type User = any;
 
@@ -28,6 +30,7 @@ interface UseAuthProps extends AuthContextProps {
   setToken: (token: string) => void;
   isLoggedIn: boolean;
   logOut: () => void;
+  profile: any;
 }
 
 // Custom hook to use auth
@@ -50,7 +53,21 @@ const useAuth = (): UseAuthProps => {
     location.reload();
   }
 
-  return { user, setUser, token, setToken, isLoggedIn: !!user, logOut };
+  const { data: profile } = useQuery(
+    ["profile", user?.id],
+    () => getProfile(user?.id),
+    { enabled: !!user }
+  );
+
+  return {
+    user,
+    setUser,
+    token,
+    setToken,
+    isLoggedIn: !!user,
+    logOut,
+    profile,
+  };
 };
 
 // AuthProvider component
