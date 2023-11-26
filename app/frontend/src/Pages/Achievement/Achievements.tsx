@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
 import { getAchievementByGame } from "../../Services/achievement";
 import Achievement from "../../Components/Achievement/Achievement/Achievement";
+import SquareAchievement from "../../Components/Achievement/SquareAchievement/SquareAchievement";
 
 
 function Achievements(){
@@ -19,7 +20,7 @@ function Achievements(){
             achievements.map(
             (achievement: any) =>
                 !achievement.isDeleted && (
-                <Achievement props={achievement} key={achievement.id} />
+                <SquareAchievement props={achievement} key={achievement.id} />
                 )
             )}
         </div>
