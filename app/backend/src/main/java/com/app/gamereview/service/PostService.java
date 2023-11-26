@@ -81,6 +81,9 @@ public class PostService {
         if (filter.getSearch() != null && !filter.getSearch().isBlank()) {
             query.addCriteria(Criteria.where("title").regex(filter.getSearch(), "i"));
         }
+        if (filter.getTags() != null && !filter.getTags().isEmpty()) {
+            query.addCriteria(Criteria.where("tags").in(filter.getTags()));
+        }
         if (filter.getSortBy() != null) {
             Sort.Direction sortDirection = Sort.Direction.DESC; // Default sorting direction (you can change it to ASC if needed)
             if (filter.getSortDirection() != null) {
