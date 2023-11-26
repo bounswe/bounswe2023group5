@@ -193,7 +193,7 @@ public class GroupService {
             GetGroupDetailResponseDto.MemberInfo memberInfo = new GetGroupDetailResponseDto.MemberInfo();
             memberInfo.id = memberId;
             memberInfo.username = user.get().getUsername();
-            memberInfo.photoUrl = "";
+            memberInfo.photoUrl = profileOfMember.get().getProfilePhoto();
 
             memberInfos.add(memberInfo);
         }
