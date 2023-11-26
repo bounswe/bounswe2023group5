@@ -96,6 +96,9 @@ public class GroupService {
             }
             query.addCriteria(Criteria.where("gameId").is(game.get().getId()));
         }
+        if (!filter.getWithDeleted()) {
+            query.addCriteria(Criteria.where("isDeleted").in(filter.getWithDeleted()));
+        }
         if (filter.getSortBy() != null) {
             Sort.Direction sortDirection = Sort.Direction.DESC;
             if (filter.getSortDirection() != null) {
