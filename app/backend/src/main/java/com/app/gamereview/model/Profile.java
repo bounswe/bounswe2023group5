@@ -34,11 +34,31 @@ public class Profile extends BaseModel {
 
     private Boolean isPostedYet = false;
 
-    // TODO add other fields and necessary logic (visit class diagram)
+    private Boolean isPrivate = false;
 
-    public void addAchievement(String achievementId){
-        if(!achievements.contains(achievementId)){
+    private String profilePhoto;
+
+    private List<String> games = new ArrayList<>();  // ids of games
+
+    private String steamProfile;
+
+    private String epicGamesProfile;
+
+    private String xboxProfile;
+
+    public void addAchievement(String achievementId) {
+        if (!achievements.contains(achievementId)) {
             achievements.add(achievementId);
         }
+    }
+
+    public void addGame(String gameId) {
+        if (!games.contains(gameId)) {
+            games.add(gameId);
+        }
+    }
+
+    public void removeGame(String gameId) {
+        games.remove(gameId);
     }
 }
