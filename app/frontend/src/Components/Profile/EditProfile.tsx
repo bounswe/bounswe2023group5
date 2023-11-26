@@ -1,14 +1,23 @@
 import { EditFilled } from "@ant-design/icons";
 import { Button, Form, Input, Modal, Radio } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { editProfile } from "../../Services/profile";
 import UploadArea from "../UploadArea/UploadArea";
+import { useForm } from "antd/es/form/Form";
 
 function EditProfile({ profile }: { profile: any }) {
   const profileId = profile.id;
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string | undefined>();
+  const [form] = useForm();
+
+  useEffect(() => {
+    console.log(profile);
+    form.setFieldsValue(profile);
+    form.setFieldValue("username", profile?.user?.username);
+    setImageUrl(profile?.profilePhoto);
+  }, [profile]);
 
   const showModal = () => {
     setOpen(true);
@@ -60,6 +69,7 @@ function EditProfile({ profile }: { profile: any }) {
             Confirm Changes
           </Button>,
         ]}
+        forceRender
       >
         <Form
           onFinish={onFinish}
@@ -67,6 +77,7 @@ function EditProfile({ profile }: { profile: any }) {
           wrapperCol={{ span: 14 }}
           layout="horizontal"
           id="editProfileForm"
+          form={form}
         >
           <Form.Item label="Profile Photo">
             <UploadArea
@@ -75,22 +86,22 @@ function EditProfile({ profile }: { profile: any }) {
             />
           </Form.Item>
           <Form.Item label="Username" name="username">
-            <Input defaultValue={profile?.username} />
+            <Input />
           </Form.Item>
           <Form.Item label="Privacy" name="isPrivate">
-            <Radio.Group value={profile?.isPrivate ? true : false}>
+            <Radio.Group>
               <Radio value={true}> private </Radio>
               <Radio value={false}> public </Radio>
             </Radio.Group>
           </Form.Item>
           <Form.Item label="Steam Profile" name="steamProfile">
-            <Input defaultValue={profile?.steamProfile} />
+            <Input />
           </Form.Item>
           <Form.Item label="Epic Games Profile" name="epicGamesProfile">
-            <Input defaultValue={profile?.epicGamesProfile} />
+            <Input />
           </Form.Item>
           <Form.Item label="XBOX Profile" name="xboxProfile">
-            <Input defaultValue={profile?.xboxProfile} />
+            <Input />
           </Form.Item>
         </Form>
       </Modal>
