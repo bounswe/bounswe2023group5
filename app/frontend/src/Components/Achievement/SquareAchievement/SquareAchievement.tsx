@@ -3,21 +3,19 @@ import styles from "./SquareAchievement.module.scss";
 import { Tooltip } from "antd";
 import { useNavigate } from "react-router-dom";
 
-function SquareAchievement({ props }: { props: any }) {
+function SquareAchievement({ props, onClick }: { props: any, onClick?: any }) {
 
 
   const navigate = useNavigate();
 
   function handleClick() {
-    if (props.onClick) {
-      props.onClick();
-      console.log("props.onClick: ");
+    if (onClick) {
+      onClick();
     } else {
       if (!props.game) {
         return;
         
       }
-      console.log("gameId: ", props.game);
       const gameId = props.game;
       navigate(`/game/detail/${gameId}`);
     }

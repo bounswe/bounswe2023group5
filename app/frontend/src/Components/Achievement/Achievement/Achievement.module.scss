@@ -25,15 +25,12 @@
   height: 100%;
 }
 
-.achievement_content {
-  flex: 1;
-}
-
 .hovered .achievementTitle {
   visibility: hidden;
 }
 .achievementTitle {
   visibility: visible;
+  width: 10em;
   font-size: 18px;
 }
 
@@ -45,10 +42,6 @@
   font-size: 14px;
 }
 
-.achievement_description {
-  font-size: 14px;
-  color: #555;
-}
 .hovered .floatingDescription {
   visibility: visible;
   color: #fff;

@@ -44,33 +44,20 @@ function Achievement({ props }: { props: any }) {
           className={styles.icon}
         ></img>
 
-        <div className={styles.achievement_content}>
-          <div className={styles.row}>
-            <h3
-              className={`${styles.achievementTitle} ${
-                isHovered ? styles.hovered : ""
-              }`}
-            >
-              {props.title}
-            </h3>
-            {props.game && (
-              <h3
-                className={`${styles.achievementGame} ${
-                  isHovered ? styles.hovered : ""
-                }`}
-              >
-                {props.game.gameName}
-              </h3>
-            )}
-            <p
-              className={`${styles.floatingDescription} ${
-                isHovered ? styles.hovered : ""
-              }`}
-            >
-              {props.description}
-            </p>
-          </div>
+
+        <div className={styles.row}>
+          <h3
+            className={styles.achievementTitle} 
+          >
+            {props.title}
+          </h3>
+          <p
+            className={styles.floatingDescription}
+          >
+            {props.description}
+          </p>
         </div>
+
       </div>
     </div>
   );
