@@ -13,11 +13,8 @@ function AntdConfigProvider({ children }: { children: ReactNode }) {
       colorBgBase: getThemeColor("color-background"),
       colorTextBase: getThemeColor("color-text"),
       colorPrimary: getThemeColor("color-primary"),
-    },
-    components: {
-      Input: {
-        activeBg: getThemeColor("color-container-background"),
-      },
+      colorBgContainer: "#fefdf5",
+      colorBorder: "#ddd68e",
     },
   };
   return <ConfigProvider theme={theme}>{children}</ConfigProvider>;
