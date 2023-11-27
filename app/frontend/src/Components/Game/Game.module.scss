@@ -46,8 +46,12 @@
   display: flex;
   padding: 1rem;
   text-wrap: wrap;
+  position: relative;
 }
 
 .button {
-  align-self: flex-end;
+  position: absolute;
+
+  right: 0.5em;
+  bottom: 0.5em;
 }
