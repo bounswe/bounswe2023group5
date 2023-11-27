@@ -15,12 +15,16 @@ public class ForumPost : MonoBehaviour
     [SerializeField] private TMP_Text overallVote;
     [SerializeField] private TMP_Text tags;
     [SerializeField] private TMP_Text userName;
+
+    [SerializeField] private Button forumPostComments;
+    [SerializeField] private ForumPostComments commentManager;
     // [SerializeField] private Button gameDetailsButton;
     private CanvasManager canvasManager;
+    private string postId;
 
     private void Awake()
     {
-       //  gameDetailsButton.onClick.AddListener(OnClickedGameDetailsButton);
+        forumPostComments.onClick.AddListener(OnClickedForumPostComments);
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
     }
 
@@ -33,7 +37,18 @@ public class ForumPost : MonoBehaviour
         postContent.text = postInfo.postContent;
         lastEditedAt.text = postInfo.lastEditedAt;
         overallVote.text = Convert.ToString(postInfo.overallVote);
-        userName.text = postInfo.poster.username;
+        if (postInfo.poster == null)
+        {
+            userName.text = "(anonymous)";
+        }
+        else
+        {
+            userName.text = postInfo.poster.username;
+
+        }
+        postId = postInfo.id;
+        
+        Debug.Log("Post id is "+ postId);
 
         tags.text = "";
         foreach (var tag in postInfo.tags)
@@ -52,6 +67,7 @@ public class ForumPost : MonoBehaviour
         }
     }
 
+    
     private IEnumerator LoadImageFromURL(string imageUrl, Image targetImage)
     {
         UnityWebRequest request = UnityWebRequestTexture.GetTexture(imageUrl);
@@ -68,9 +84,15 @@ public class ForumPost : MonoBehaviour
         }
     }
     
-    private void OnClickedGameDetailsButton()
+    private void OnClickedForumPostComments()
     {
         // Debug.Log("Game Details Button Clicked");
         // canvasManager.ShowGameDetailsPage(gameID);
+        //GameObject postComments = GameObject.Find("PostComments");
+        //postComments.SetActive(true);
+
+        canvasManager.ShowPostComments();
+        commentManager.gameObject.SetActive(true);
+        commentManager.Init(postId);
     }
 }
