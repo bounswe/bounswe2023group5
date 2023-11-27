@@ -85,7 +85,9 @@ function Summary({ game }: { game: any }) {
           achievements.map(
           (achievement: any) =>
               !achievement.isDeleted && (
-              <Achievement props={achievement} key={achievement.id} />
+              <div className={styles.achievementContainer}>
+                <Achievement props={achievement} key={achievement.id} />
+              </div>
               )
         )}
         </div>
