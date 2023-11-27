@@ -110,16 +110,16 @@ function ForumPostForm() {
                 <div className={styles.achievements}>
                   {achievements?.map((a: any) => (
                     <div
-                      onClick={() => {
+                      
+                      className={clsx(achievement === a.id && styles.active)}
+                    >
+                      <SquareAchievement props={a} onClick={() => {
                         if (achievement === a.id) {
                           setAchievement(null);
                         } else {
                           setAchievement(a.id);
                         }
-                      }}
-                      className={clsx(achievement === a.id && styles.active)}
-                    >
-                      <SquareAchievement props={a} />
+                      }} />
                     </div>
                   ))}
                 </div>

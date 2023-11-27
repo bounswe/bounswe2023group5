@@ -1,0 +1,32 @@
+@import "../../../colors";
+
+.container {
+  display: flex;
+
+  padding: 1.5em;
+  flex-direction: column;
+  gap: 1em;
+
+  .btn {
+    width: 8em;
+    button {
+      background-color: $blue-green;
+      color: white;
+    }
+  }
+
+  .achievements {
+    display: flex;
+    flex-wrap: wrap;
+    flex-wrap: wrap;
+    background-color: $orange-light-60;
+    padding: 1em;
+    border-radius: 0.5em;
+    gap: 1em;
+
+    &.expand {
+      flex-direction: column;
+      flex-wrap: nowrap;
+    }
+  }
+}

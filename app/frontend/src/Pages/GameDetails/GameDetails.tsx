@@ -9,7 +9,7 @@ import { PacmanLoader } from "react-spinners";
 import Reviews from "../../Components/GameDetails/Review/Reviews";
 import Forum from "../../Components/Forum/Forum";
 import { formatDate } from "../../Library/utils/formatDate";
-import { getAchievementByGame } from "../../Services/achievement";
+import { Rate } from "antd";
 
 function GameDetails() {
   const { gameId } = useParams();
@@ -18,7 +18,7 @@ function GameDetails() {
     getGame(gameId!)
   );
 
-  const score = data.overallRating;
+  const score = data?.overallRating;
   const [searchParams] = useSearchParams();
 
   const [subPage, setSubPage] = useState<"summary" | "reviews" | "forum">(
@@ -47,12 +47,15 @@ function GameDetails() {
                 <span>{formatDate(date)}</span>
               </div>
               <div className={styles.starsContainer}>
-                {[1, 1, 1, 1, 1].map((_, index) =>
-                  index <= score - 1 ? (
-                    <StarFilled key={index} />
-                  ) : (
-                    <StarOutlined key={index} />
-                  )
+                {score ? (
+                  <Rate
+                    allowHalf
+                    style={{ fontSize: "50px" }}
+                    disabled
+                    defaultValue={Math.round(score * 2) / 2}
+                  />
+                ) : (
+                  "No rate is given for this game yet. Be the first one!"
                 )}
               </div>
             </div>
@@ -77,7 +80,7 @@ function GameDetails() {
                 data?.forum ? (
                   <Forum
                     forumId={data.forum}
-                    redirect={`/game/${gameId}?subPage=forum`}
+                    redirect={`/game/detail/${gameId}?subPage=forum`}
                     gameId={gameId}
                   />
                 ) : (
