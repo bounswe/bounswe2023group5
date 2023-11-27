@@ -120,6 +120,9 @@ public class PostService {
 
         List<Tag> tags = new ArrayList<>();
 
+        Optional<Achievement> postAchievementOptional = achievementRepository.findByIdAndIsDeletedFalse(post.getAchievement());
+        Achievement postAchievement = postAchievementOptional.orElse(null);
+
         // Fetch tags individually
         for (String tagId : post.getTags()) {
             Optional<Tag> tag = tagRepository.findById(tagId);
@@ -127,8 +130,8 @@ public class PostService {
         }
 
         return new GetPostListResponseDto(post.getId(), post.getTitle(), post.getPostContent(),
-                posterObject, userVoteChoice, post.getPostImage(), post.getLastEditedAt(), post.getCreatedAt(), isEdited, tags,
-                post.getInappropriate(), post.getOverallVote(), post.getVoteCount(), commentCount);
+                posterObject, userVoteChoice, post.getPostImage(), postAchievement, post.getLastEditedAt(), post.getCreatedAt(), isEdited,
+                tags, post.getInappropriate(), post.getOverallVote(), post.getVoteCount(), commentCount);
     }
 
 
@@ -151,6 +154,12 @@ public class PostService {
         }
 
         GetPostDetailResponseDto postDto = modelMapper.map(post, GetPostDetailResponseDto.class);
+
+        Optional<Vote> userVote = voteRepository.findByTypeIdAndVotedBy(id, user.getId());
+
+        VoteChoice userVoteChoice = userVote.map(Vote::getChoice).orElse(null);
+
+        postDto.setUserVote(userVoteChoice);
 
         Optional<Achievement> postAchievement = achievementRepository.findByIdAndIsDeletedFalse(post.get().getAchievement());
 
