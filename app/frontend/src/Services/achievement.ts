@@ -44,3 +44,11 @@ export async function getGameAchievements(id: string) {
 
   return res.data;
 }
+
+export async function grantAchievement(userId: string, achievementId: string) {
+  const response = await axios.post(
+    `${import.meta.env.VITE_APP_API_URL}/achievement/grant-achievement`,
+    { userId, achievementId }
+  );
+  return response;
+}

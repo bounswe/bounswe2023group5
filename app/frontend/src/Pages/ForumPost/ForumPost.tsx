@@ -1,6 +1,6 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import styles from "./ForumPost.module.scss";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { getPost } from "../../Services/forum";
 import { getCommentList } from "../../Services/comment";
 import CommentForm from "../../Components/Comment/CommentForm/CommentForm.tsx";
@@ -16,10 +16,12 @@ import {
   WarningOutlined,
 } from "@ant-design/icons";
 import clsx from "clsx";
-import { Button } from "antd";
+import { Button, message } from "antd";
 import { useState } from "react";
 import TagRenderer from "../../Components/TagRenderer/TagRenderer.tsx";
 import { twj } from "tw-to-css";
+import Achievement from "../../Components/Achievement/Achievement/Achievement.tsx";
+import { grantAchievement } from "../../Services/achievement.ts";
 
 function ForumPost() {
   const { isLoggedIn, user } = useAuth();
@@ -43,6 +45,15 @@ function ForumPost() {
   );
 
   const [isCommenting, setCommenting] = useState(false);
+
+  const { mutate: grant } = useMutation(
+    () => grantAchievement(user.id, post.achievement),
+    {
+      onSuccess() {
+        message.success(`Achievement Granted`);
+      },
+    }
+  );
 
   const toggleCommenting = () => {
     setCommenting(!isCommenting);
@@ -102,6 +113,14 @@ function ForumPost() {
               />
             </div>
           )}
+          {post.achievement && (
+            <div className={styles.achievement}>
+              <Achievement props={post.achievement} />
+              {user.role === "ADMIN" && (
+                <Button onClick={() => grant()}>Grant Achievement</Button>
+              )}
+            </div>
+          )}
           <span className={styles.body}>{post.postContent}</span>
           <div style={twj("flex gap-2 pt-2")}>
             <Button
@@ -125,7 +144,7 @@ function ForumPost() {
 
       <div className={styles.commentTitle}>Comments</div>
       {!isLoadingComments &&
-        comments.map(
+        comments?.map(
           (comment: any) =>
             !comment.isDeleted && (
               <Comment comment={comment} postId={postId!} key={comment.id} />

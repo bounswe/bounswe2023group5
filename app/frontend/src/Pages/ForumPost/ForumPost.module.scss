@@ -9,7 +9,7 @@
 
   .postContainer {
     display: grid;
-    grid-template-rows: 80px min-content 250px;
+    grid-template-rows: 80px min-content min-content 250px;
     border-radius: 0.5em;
     padding: 1em;
     background-color: $celadon;
@@ -18,11 +18,17 @@
     grid-template-areas:
       "t"
       "i"
+      "a"
       "b";
     .edit {
       position: absolute;
       top: 0.5em;
       right: 0.5em;
+    }
+    .achievement {
+      display: flex;
+      align-items: center;
+      grid-area: a;
     }
     .title {
       grid-area: t;
