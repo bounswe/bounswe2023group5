@@ -11,6 +11,7 @@ import UploadArea from "../../Components/UploadArea/UploadArea";
 import { getGameAchievements } from "../../Services/achievement";
 import SquareAchievement from "../../Components/Achievement/SquareAchievement/SquareAchievement";
 import clsx from "clsx";
+import { useAuth } from "../../Components/Hooks/useAuth";
 
 function ForumPostForm() {
   const [form] = useForm();
@@ -21,6 +22,7 @@ function ForumPostForm() {
   const [imageUrl, setImageUrl] = useState<string | undefined>();
   const [achievement, setAchievement] = useState<any>(null);
   const gameId = searchParams.get("gameId");
+  const { refreshProfile } = useAuth();
 
   const { data: achievements } = useQuery(
     ["achievement", gameId],
@@ -80,6 +82,7 @@ function ForumPostForm() {
       onSuccess() {
         queryClient.invalidateQueries(["post", editId]);
         queryClient.invalidateQueries(["forum", searchParams.get("forumId")]);
+        refreshProfile();
 
         navigate(searchParams.get("redirect") ?? "/");
       },

@@ -4,9 +4,11 @@ import styles from "./ReviewInput.module.scss";
 import { CheckOutlined } from "@ant-design/icons";
 import { useMutation, useQueryClient } from "react-query";
 import { postReview } from "../../../Services/review";
+import { useAuth } from "../../Hooks/useAuth";
 const { TextArea } = Input;
 
 function ReviewInput({ gameId }: { gameId: string }) {
+  const { refreshProfile } = useAuth();
   const [content, setContent] = useState("");
   const [rating, setRating] = useState(0);
 
@@ -17,6 +19,7 @@ function ReviewInput({ gameId }: { gameId: string }) {
     {
       onSuccess() {
         queryClient.invalidateQueries(["reviews", gameId]);
+        refreshProfile();
       },
       onMutate(review: any) {
         queryClient.setQueriesData(["reviews", gameId], (prev: any) => [

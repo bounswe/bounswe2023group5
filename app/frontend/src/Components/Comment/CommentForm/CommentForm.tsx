@@ -3,8 +3,10 @@ import styles from "./CommentForm.module.scss";
 import { Button, Form, Input } from "antd";
 import { useMutation, useQueryClient } from "react-query";
 import { createComment } from "../../../Services/comment";
+import { useAuth } from "../../Hooks/useAuth";
 
 function CommentForm() {
+  const { refreshProfile } = useAuth();
   const postId = useParams();
   const [form] = Form.useForm();
   const queryClient = useQueryClient();
@@ -15,6 +17,7 @@ function CommentForm() {
     {
       onSuccess() {
         queryClient.invalidateQueries(["comments", postId.postId]);
+        refreshProfile();
       },
       onMutate(comment: any) {
         queryClient.setQueryData(["comments", postId.postId], (prev: any) => {

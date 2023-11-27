@@ -9,7 +9,7 @@ import {
   useState,
 } from "react";
 import { me } from "../../Services/me";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { getProfile } from "../../Services/profile";
 import { useNavigate } from "react-router-dom";
 
@@ -33,11 +33,14 @@ interface UseAuthProps extends AuthContextProps {
   logOut: () => void;
   profile: any;
   isLoading: boolean;
+  refreshProfile: () => void;
 }
 
 // Custom hook to use auth
 const useAuth = (): UseAuthProps => {
   const context = useContext(AuthContext);
+  const queryClient = useQueryClient();
+
   if (!context) {
     throw new Error("useAuth must be used within an AuthProvider");
   }
@@ -61,6 +64,10 @@ const useAuth = (): UseAuthProps => {
     { enabled: !!user }
   );
 
+  function refreshProfile() {
+    queryClient.invalidateQueries(["profile", user?.id]);
+  }
+
   return {
     user,
     setUser,
@@ -70,6 +77,7 @@ const useAuth = (): UseAuthProps => {
     logOut,
     profile,
     isLoading: !user || isLoading,
+    refreshProfile,
   };
 };
 
