@@ -30,10 +30,12 @@ export async function deleteAchievementByName({
   title: string;
   game: string;
 }) {
+  let query = `?achievementName=${title}`;
+  if (game) {
+    query = query + `&gameName=${game}`;
+  }
   const response = await axios.delete(
-    `${
-      import.meta.env.VITE_APP_API_URL
-    }/achievement/delete-by-name?achievementName=${title}&gameName=${game}`
+    `${import.meta.env.VITE_APP_API_URL}/achievement/delete-by-name$`
   );
   return response;
 }
