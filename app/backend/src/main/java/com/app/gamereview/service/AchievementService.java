@@ -14,6 +14,7 @@ import com.app.gamereview.repository.GameRepository;
 import com.app.gamereview.repository.ProfileRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -120,33 +121,47 @@ public class AchievementService {
         return achievementToDelete;
     }
 
-    public Achievement deleteAchievement(String achievementName, String gameName) {
+    public Achievement deleteAchievement(String achievementName, @RequestParam(required = false)String gameName) {
         List<Achievement> achievementWithName = achievementRepository.findByTitleAndIsDeletedFalse(achievementName);
 
         if (achievementWithName.isEmpty()) {
             throw new ResourceNotFoundException("Achievement with the given name is not found.");
         }
 
-        Optional<Game> gameWithName = gameRepository.findByGameNameAndIsDeletedFalse(gameName);
-
-        if (gameWithName.isEmpty()) {
-            throw new ResourceNotFoundException("Game with the given name is not found.");
-        }
-
         Achievement achievementToDelete = null;
 
-        for (Achievement achievement : achievementWithName) {
-            Optional<Game> game = gameRepository.findByIdAndIsDeletedFalse(achievement.getGame());
-            if (game.isPresent() && game.get().getGameName().equals(gameName)) {
-                achievementToDelete = achievement;
-            }
-        }
+        if(gameName != null){
+            Optional<Game> gameWithName = gameRepository.findByGameNameAndIsDeletedFalse(gameName);
 
-        if (achievementToDelete == null) {
-            throw new ResourceNotFoundException("There is no achievement with the given name in the game.");
+            if (gameWithName.isEmpty()) {
+                throw new ResourceNotFoundException("Game with the given name is not found.");
+            }
+
+            for (Achievement achievement : achievementWithName) {
+                Optional<Game> game = gameRepository.findByIdAndIsDeletedFalse(achievement.getGame());
+                if (game.isPresent() && game.get().getGameName().equals(gameName)) {
+                    achievementToDelete = achievement;
+                }
+            }
+
+            if (achievementToDelete == null) {
+                throw new ResourceNotFoundException("There is no achievement with the given name in the game.");
+            }
+
+        }
+        else{
+            Optional<Achievement> achievement = achievementRepository.findByTitle(achievementName);
+
+            if(achievement.isEmpty() || achievement.get().getIsDeleted()){
+                throw new ResourceNotFoundException("Meta achievement with the given name is not found");
+            }
+
+            achievementToDelete = achievement.get();
+
         }
 
         achievementToDelete.setIsDeleted(true);
+
 
         achievementRepository.save(achievementToDelete);
         return achievementToDelete;
