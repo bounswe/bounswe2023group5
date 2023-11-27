@@ -155,7 +155,7 @@ public class PostService {
 
         GetPostDetailResponseDto postDto = modelMapper.map(post, GetPostDetailResponseDto.class);
 
-        Optional<Vote> userVote = voteRepository.findByTypeIdAndVotedBy(id, user.getId());
+        Optional<Vote> userVote = voteRepository.findByTypeIdAndVotedBy(id, loggedInUserId);
 
         VoteChoice userVoteChoice = userVote.map(Vote::getChoice).orElse(null);
 
