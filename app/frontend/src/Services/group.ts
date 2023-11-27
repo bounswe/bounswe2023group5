@@ -39,3 +39,15 @@ export async function createGroup(
   );
   return response.data;
 }
+
+export async function joinGroup(groupId: string) {
+  const response = await axios.post(
+    `${import.meta.env.VITE_APP_API_URL}/group/join`, null, {params: {id: groupId}});
+    return response.data;
+}
+
+export async function leaveGroup(groupId: string) {
+  const response = await axios.post(
+    `${import.meta.env.VITE_APP_API_URL}/group/leave`, null, {params: {id: groupId}});
+    return response.data;
+}

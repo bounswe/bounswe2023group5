@@ -46,7 +46,7 @@
     }
 
     .profileDetails {
-      flex: 3 3 0;
+      flex: 3.5 3.5 0;
 
       .profileName {
         height: 60%;
@@ -74,6 +74,12 @@
         align-items: center;
         gap: 2em;
         height: auto;
+
+        & > span {
+          color: $orange;
+          font-size: 1.3em;
+          opacity: 50%;
+        }
 
         & > a {
           background-color: pink;

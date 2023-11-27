@@ -9,6 +9,7 @@ import { PacmanLoader } from "react-spinners";
 import Reviews from "../../Components/GameDetails/Review/Reviews";
 import Forum from "../../Components/Forum/Forum";
 import { formatDate } from "../../Library/utils/formatDate";
+import { getAchievementByGame } from "../../Services/achievement";
 
 function GameDetails() {
   const { gameId } = useParams();

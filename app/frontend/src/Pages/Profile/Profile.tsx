@@ -5,6 +5,7 @@ import { useQueryClient } from "react-query";
 import { Popover } from "antd";
 import { useState } from "react";
 import EditProfile from "../../Components/Profile/EditProfile";
+import ProfileIcon from "../../Components/Icons/ProfileIcon";
 const subPages = ["Activities", "Games", "Eklenir Daha"];
 function Profile() {
   const { user, isLoading, profile } = useAuth();
@@ -22,11 +23,15 @@ function Profile() {
               <EditProfile profile={profile} key={profile?.id} />
             </div>
             <div className={styles.profilePicture}>
-              <img
-                src={`${import.meta.env.VITE_APP_IMG_URL}${
-                  profile.profilePhoto
-                }`}
-              />
+              {profile.profilePhoto ? (
+                <img
+                  src={`${import.meta.env.VITE_APP_IMG_URL}${
+                    profile.profilePhoto
+                  }`}
+                />
+              ) : (
+                <ProfileIcon />
+              )}
             </div>
             <div className={styles.profileDetails}>
               <div className={styles.profileName}>
@@ -39,7 +44,9 @@ function Profile() {
                   profile.epicGamesProfile ||
                   profile.xboxProfileProfile
                 ) && (
-                  <span>Add your game accounts by editing your profile!</span>
+                  <span>
+                    Add your game accounts here by editing your profile!
+                  </span>
                 )}
                 {profile.steamProfile && (
                   <a

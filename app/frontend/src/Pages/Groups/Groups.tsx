@@ -8,12 +8,16 @@ import Search from "antd/es/input/Search";
 import { useState } from "react";
 import { getGroups } from "../../Services/groups";
 import {
+  PlusOutlined,
   SortAscendingOutlined,
   SortDescendingOutlined,
 } from "@ant-design/icons";
 import { getTags } from "../../Services/tags";
+import { useNavigate } from "react-router-dom";
 
 function Groups() {
+  const navigate = useNavigate();
+
   const membershipOptions = [
     { value: "PRIVATE", label: "Private" },
     { value: "PUBLIC", label: "Public" },
@@ -44,9 +48,12 @@ function Groups() {
     "DESCENDING"
   );
 
+  console.log("tags here: ", tags);
+
   const { data: groups } = useQuery(
     ["groups", title, gameName, tags, membershipPolicy, sortBy, sortDir],
-    () => getGroups(title, gameName, tags, membershipPolicy, sortBy, sortDir)
+    () =>
+      getGroups({ tags, title, gameName, membershipPolicy, sortBy, sortDir })
   );
 
   const toggleSortDir = () => {
@@ -74,7 +81,7 @@ function Groups() {
             defaultValue={null}
             options={membershipOptions}
             onChange={setMembershipPolicy}
-            style={{ width: "20%" }}
+            style={{ width: "15%" }}
           />
           <Button onClick={toggleSortDir}>
             {sortDir === "DESCENDING" ? (
@@ -88,7 +95,7 @@ function Groups() {
             defaultValue={sortBy}
             value={"CREATION_DATE"}
             onChange={setSortBy}
-            style={{ width: "120px" }}
+            style={{ flex: 1 }}
           />
           <Select
             placeholder="Filter by game"
@@ -103,6 +110,15 @@ function Groups() {
             style={{ width: "30%" }}
             options={tagOptions}
           />
+        </div>
+        <div style={{ alignSelf: "flex-end" }}>
+          <Button
+            icon={<PlusOutlined />}
+            onClick={() => navigate("/group/create")}
+            style={{ backgroundColor: "#ff824d" }}
+          >
+            Create Group
+          </Button>
         </div>
         {groups &&
           groups.map((group: any) =>
