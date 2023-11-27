@@ -121,7 +121,7 @@ public class AchievementService {
         return achievementToDelete;
     }
 
-    public Achievement deleteAchievement(String achievementName, @RequestParam(required = false)String gameName) {
+    public Achievement deleteAchievement(String achievementName, String gameName) {
         List<Achievement> achievementWithName = achievementRepository.findByTitleAndIsDeletedFalse(achievementName);
 
         if (achievementWithName.isEmpty()) {
