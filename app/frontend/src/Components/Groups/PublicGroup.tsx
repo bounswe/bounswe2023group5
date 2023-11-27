@@ -1,12 +1,40 @@
 import { TeamOutlined, UserOutlined } from "@ant-design/icons";
 import styles from "./PublicGroup.module.scss";
-import { Button } from "antd";
+import { Button, message } from "antd";
 import TagRenderer from "../TagRenderer/TagRenderer";
 import { formatDate } from "../../Library/utils/formatDate";
 import { useNavigate } from "react-router-dom";
+import { useMutation, useQueryClient } from "react-query";
+import { joinGroup, leaveGroup } from "../../Services/group";
 
 function PublicGroup({ group }: { group: any }) {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const { mutate: join } = useMutation(
+    (groupId: string) => joinGroup(groupId),
+    {
+      onSuccess() {
+        queryClient.invalidateQueries(["groups"]);
+      },
+      onError(error: any) {
+        message.error(error.response.data);
+      },
+    }
+  );
+
+  const { mutate: leave } = useMutation(
+    (groupId: string) => leaveGroup(groupId),
+    {
+      onSuccess() {
+        queryClient.invalidateQueries(["groups"]);
+      },
+      onError(error: any) {
+        message.error(error.response.data);
+      },
+    }
+  );
+
   return (
     <div className={styles.group}>
       <div className={styles.header}>
@@ -26,7 +54,7 @@ function PublicGroup({ group }: { group: any }) {
       </div>
       <div className={styles.body}>
         <div className={styles.imgContainer}>
-          <img src="../../../assets/images/guru.jpeg"></img>
+          <img src="../../../assets/images/group.png"></img>
         </div>
         <div className={styles.content}>
           <div className={styles.description}>
@@ -43,7 +71,13 @@ function PublicGroup({ group }: { group: any }) {
               </div>
             </div>
             <div style={{ display: "flex", gap: "3px" }}>
-              <Button>Join</Button>
+              {group.userJoined ? (
+                <Button type="dashed" onClick={() => leave(group.id)}>
+                  Leave
+                </Button>
+              ) : (
+                <Button onClick={() => join(group.id)}>Join</Button>
+              )}
               <Button onClick={() => navigate(`/group/detail/${group.id}`)}>
                 Group Details
               </Button>

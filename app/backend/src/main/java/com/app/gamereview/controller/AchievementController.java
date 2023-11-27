@@ -58,7 +58,7 @@ public class AchievementController {
     @DeleteMapping("/delete-by-name")
     @AuthorizationRequired
     @AdminRequired
-    public ResponseEntity<Achievement> deleteAchievementByName(@RequestParam String achievementName, @RequestParam String gameName,
+    public ResponseEntity<Achievement> deleteAchievementByName(@RequestParam String achievementName, @RequestParam(required = false) String gameName,
                                                                @RequestHeader String Authorization, HttpServletRequest request) {
         Achievement achievement = achievementService.deleteAchievement(achievementName, gameName);
         return ResponseEntity.ok(achievement);

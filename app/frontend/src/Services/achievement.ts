@@ -1,20 +1,17 @@
 import axios from "axios";
 import { getGames } from "./games";
-import Search from "antd/es/input/Search";
 
 export const getAchievementByGame = async ({ gameId }: { gameId: string }) => {
-    const response = await axios.get(
-      import.meta.env.VITE_APP_API_URL + "/achievement/get-game-achievements",
-      {
-        params: {
-          gameId,
-        },
-      }
-    );
-    return response.data;
-  };
-
-
+  const response = await axios.get(
+    import.meta.env.VITE_APP_API_URL + "/achievement/get-game-achievements",
+    {
+      params: {
+        gameId,
+      },
+    }
+  );
+  return response.data;
+};
 
 export async function createAchievement({
   title,
@@ -29,8 +26,11 @@ export async function createAchievement({
   type: string;
   game: string;
 }) {
-  const gameId = (await getGames(undefined, game))[0].id;
-  console.log(gameId);
+  let gameId = undefined;
+  if (game) {
+    gameId = (await getGames(undefined, game))[0].id;
+  }
+
   const response = await axios.post(
     `${import.meta.env.VITE_APP_API_URL}/achievement/create`,
     { title, description, icon, type, game: gameId }
@@ -38,3 +38,35 @@ export async function createAchievement({
   return response;
 }
 
+export async function deleteAchievementByName({
+  title,
+  game,
+}: {
+  title: string;
+  game: string;
+}) {
+  let query = `?achievementName=${title}`;
+  if (game) {
+    query += `&gameName=${game}`;
+  }
+  const response = await axios.delete(
+    `${import.meta.env.VITE_APP_API_URL}/achievement/delete-by-name${query}`
+  );
+}
+
+export async function getGameAchievements(id: string) {
+  const res = await axios.get(
+    `${import.meta.env.VITE_APP_API_URL}/achievement/get-game-achievements`,
+    { params: { gameId: id } }
+  );
+
+  return res.data;
+}
+
+export async function grantAchievement(userId: string, achievementId: string) {
+  const response = await axios.post(
+    `${import.meta.env.VITE_APP_API_URL}/achievement/grant-achievement`,
+    { userId, achievementId }
+  );
+  return response;
+}

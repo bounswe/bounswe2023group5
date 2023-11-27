@@ -3,6 +3,8 @@ import styles from "./DeleteTag.module.scss";
 import { useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { deleteTag, getTags } from "../../../../Services/tags";
+import { NotificationUtil } from "../../../../Library/utils/notification";
+import { handleAxiosError } from "../../../../Library/utils/handleError";
 
 function DeleteTag() {
   const [name, setName] = useState("");
@@ -11,15 +13,20 @@ function DeleteTag() {
 
   const deleteTagMutation = useMutation(deleteTag, {
     onSuccess: async () => {
-      alert("You successfully delete the tag.");
+      NotificationUtil.success("You successfully delete the tag.");
     },
-    onError: () => {
-      alert("Something went wrong");
+    onError: (error) => {
+      handleAxiosError(error);
     },
   });
 
   const handleClick = () => {
-    deleteTagMutation.mutate(tags.find((tag) => tag.name === name).id);
+    const tag = tags.find((tag) => tag.name === name);
+    if (!tag) {
+      NotificationUtil.error("Tag does not exists");
+      return;
+    }
+    deleteTagMutation.mutate(tag.id);
   };
 
   return (

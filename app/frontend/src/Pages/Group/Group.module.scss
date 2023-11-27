@@ -51,6 +51,13 @@
         justify-content: center;
         align-items: center;
       }
+
+      .moderation {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        gap: 1rem;
+      }
     }
   }
 

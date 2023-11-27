@@ -48,10 +48,16 @@
   white-space: pre-wrap;
 }
 
-  .row {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    position: relative;
-    margin-left: 10px;
-  }
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  margin-left: 10px;
+  max-width: 100%;
+}
+
+.achievementContainer{
+  margin: 5px;
+}

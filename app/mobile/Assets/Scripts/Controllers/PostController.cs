@@ -106,7 +106,21 @@ public class PostComment
     public bool isDeleted;
     public int overallVote;
     public int voteCount;
-    public PostComment[] replies;
+    public CommentReply[] replies;
+}
+
+public class CommentReply
+{
+    public string id;
+    public string commentContent;
+    public User commenter;
+    public string post;
+    public string lastEditedAt;
+    public string createdAt;
+    public bool isEdited;
+    public bool isDeleted;
+    public int overallVote;
+    public int voteCount;
 }
 
 public class PostResponse

@@ -3,16 +3,20 @@ import styles from "./GiveAdminPermission.module.scss";
 import { useState } from "react";
 import { useMutation } from "react-query";
 import { giveAdminPermission } from "../../../../Services/user";
+import { NotificationUtil } from "../../../../Library/utils/notification";
+import { handleError } from "../../../../Library/utils/handleError";
 
 function GiveAdminPermission() {
   const [username, setUsername] = useState("");
 
   const giveAdminPermissionMutation = useMutation(giveAdminPermission, {
     onSuccess: async () => {
-      alert(`You successfully give admin permission to username ${username}.`);
+      NotificationUtil.success(
+        `You successfully give admin permission to username ${username}.`
+      );
     },
-    onError: () => {
-      alert("Something went wrong");
+    onError: (error) => {
+      handleError(error);
     },
   });
 

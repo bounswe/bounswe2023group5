@@ -17,15 +17,20 @@ import { truncateWithEllipsis } from "../../../Library/utils/truncate";
 import { useNavigate } from "react-router-dom";
 import TagRenderer from "../../TagRenderer/TagRenderer";
 import { twj } from "tw-to-css";
+import { NotificationUtil } from "../../../Library/utils/notification";
+import { handleAxiosError } from "../../../Library/utils/handleError";
+import SquareAchievement from "../../Achievement/SquareAchievement/SquareAchievement";
 
 function ForumPost({
   post,
   forumId,
   redirect = "/",
+  gameId,
 }: {
   post: any;
   forumId: string;
   redirect?: string;
+  gameId?: string;
 }) {
   const { user, isLoggedIn } = useAuth();
   const navigate = useNavigate();
@@ -33,10 +38,10 @@ function ForumPost({
   const isAdmin = user?.role === "ADMIN";
   const deletePostMutation = useMutation(deletePost, {
     onSuccess: async () => {
-      alert("You successfully delete the post.");
+      NotificationUtil.success("You successfully delete the post.");
     },
-    onError: () => {
-      alert("Something went wrong");
+    onError: (error) => {
+      handleAxiosError(error);
     },
   });
 
@@ -75,12 +80,15 @@ function ForumPost({
         />
       </div>
 
-      {post.postImage && (
+      {(post.postImage || post.achievement) && (
         <div className={styles.imgConatiner}>
-          <img
-            height="30px"
-            src={`${import.meta.env.VITE_APP_IMG_URL}${post.postImage}`}
-          />
+          {post.postImage && (
+            <img
+              height="30px"
+              src={`${import.meta.env.VITE_APP_IMG_URL}${post.postImage}`}
+            />
+          )}
+          {post.achievement && <SquareAchievement props={post.achievement} />}
         </div>
       )}
 
@@ -99,7 +107,7 @@ function ForumPost({
       </div>
 
       <div className={styles.meta}>
-        <span>{post.poster.username}</span>
+        <span>{post.poster?.username}</span>
         <span>{post.createdAt && formatDate(post.createdAt)}</span>
         <WarningOutlined
           style={twj("text-red-500 text-lg cursor-pointer")}
@@ -108,16 +116,22 @@ function ForumPost({
         />
       </div>
       <div className={styles.readMore}>
-        <Button onClick={() => navigate(`/forum/detail/${forumId}/${post.id}`)}>
+        <Button
+          onClick={() =>
+            navigate(`/forum/detail/${forumId}/${post.id}?back=${redirect}`)
+          }
+        >
           Read More
         </Button>
       </div>
-      {user?.id === post.poster.id && (
+      {user?.id === post.poster?.id && (
         <div className={styles.edit}>
           <Button
             onClick={() =>
               navigate(
-                `/forum/form?forumId=${forumId}&&redirect=${redirect}&&editId=${post.id}`
+                `/forum/form?forumId=${forumId}&&redirect=${redirect}&&editId=${
+                  post.id
+                }${gameId ? `&&gameId=${gameId}` : ``}`
               )
             }
           >

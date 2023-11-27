@@ -13,6 +13,8 @@ import { useMutation } from "react-query";
 import postRegister from "../../Services/Register";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 import { userAgreementText } from "./Register.const";
+import { NotificationUtil } from "../../Library/utils/notification";
+import { handleAxiosError } from "../../Library/utils/handleError";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -27,16 +29,15 @@ function Register() {
   const registerMutation = useMutation(postRegister, {
     onSuccess: async (data) => {
       if (data.status === 500) {
-        alert("Something went wrong.");
+        NotificationUtil.error("Something went wrong");
         return;
       }
-
-      alert("You registered successfully.");
+      NotificationUtil.success("You registered successfully.");
 
       navigate("/login");
     },
-    onError: () => {
-      alert("You cannot be registered.");
+    onError: (error: any) => {
+      handleAxiosError(error);
     },
   });
 
@@ -44,11 +45,11 @@ function Register() {
     // check whether email is valid email address
     // check whether passwords are match
     if (email.indexOf("@") === -1) {
-      alert("Please enter a valid email address!");
+      NotificationUtil.error("Please enter a valid email address!");
     } else if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+      NotificationUtil.error("Passwords do not match!");
     } else if (agreeTerm === false) {
-      alert("Please agree with our user agreement!");
+      NotificationUtil.error("Please agree with our user agreement!");
     } else {
       registerMutation.mutate({ username, email, password });
     }
@@ -138,7 +139,7 @@ function Register() {
             />
             <Checkbox
               onChange={handleAgreeTerm}
-              value={agreeTerm}
+              checked={agreeTerm}
               className={styles.agreeCheckbox}
               disabled={isModalOpen}
             >
