@@ -19,10 +19,23 @@ public static class DictionaryToQueryParameters
             {
                 queryParamsString =  queryParamsString + "&";
             }
-
-            queryParamsString += $"{entry.Key}={entry.Value}";
+            if (entry.Value == "" && entry.Value == null)
+            {
+                continue;
+            }
+            if (entry.Value == "true")
+            {
+                queryParamsString += $"{entry.Key}={true}";
+            }
+            else if (entry.Value == "false")
+            {
+                queryParamsString += $"{entry.Key}={false}";
+            }
+            else
+            {
+                queryParamsString += $"{entry.Key}={entry.Value}";
+            }
         }
-
         return queryParamsString;
     }
     
@@ -39,7 +52,6 @@ public static class DictionaryToQueryParameters
                 return entry.Value;
             }
         }
-
         return "";
     }
     
