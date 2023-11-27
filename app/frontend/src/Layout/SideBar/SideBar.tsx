@@ -8,7 +8,7 @@ import {
 import type { MenuProps } from "antd";
 import { ConfigProvider, Menu } from "antd";
 import styles from "./SideBar.module.scss";
-import Profile from "../../Components/Icons/Profile";
+import ProfileIcon from "../../Components/Icons/ProfileIcon";
 import { clsx } from "clsx";
 import { getThemeColor } from "../../Components/Providers/AntdConfigProvider";
 import { useAuth } from "../../Components/Hooks/useAuth";
@@ -74,7 +74,7 @@ function SideBar() {
 
         <div className={styles.profilePic}>
           {isLoggedIn ? (
-            <Profile />
+            <ProfileIcon />
           ) : (
             <img src="../../../assets/images/guru.jpeg"></img>
           )}

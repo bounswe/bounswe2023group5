@@ -1,7 +1,7 @@
 package com.app.gamereview.service;
 
 import com.app.gamereview.dto.request.group.*;
-import com.app.gamereview.dto.request.review.CreateReviewRequestDto;
+import com.app.gamereview.dto.response.group.GetGroupDetailResponseDto;
 import com.app.gamereview.dto.response.group.GetGroupResponseDto;
 import com.app.gamereview.dto.response.tag.AddGroupTagResponseDto;
 import com.app.gamereview.enums.*;
@@ -10,7 +10,6 @@ import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.*;
 import com.app.gamereview.repository.*;
 import com.app.gamereview.util.UtilExtensions;
-import com.app.gamereview.util.validation.annotation.ValidMemberPolicy;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +32,10 @@ public class GroupService {
 
     private final TagRepository tagRepository;
 
+    private final UserRepository userRepository;
+
+    private final ProfileRepository profileRepository;
+
     private final MongoTemplate mongoTemplate;
 
     private final ModelMapper modelMapper;
@@ -43,6 +46,8 @@ public class GroupService {
             GameRepository gameRepository,
             ForumRepository forumRepository,
             TagRepository tagRepository,
+            UserRepository userRepository,
+            ProfileRepository profileRepository,
             MongoTemplate mongoTemplate,
             ModelMapper modelMapper
     ) {
@@ -50,6 +55,8 @@ public class GroupService {
         this.gameRepository = gameRepository;
         this.forumRepository = forumRepository;
         this.tagRepository = tagRepository;
+        this.userRepository = userRepository;
+        this.profileRepository = profileRepository;
         this.mongoTemplate = mongoTemplate;
         this.modelMapper = modelMapper;
 
@@ -64,12 +71,26 @@ public class GroupService {
         modelMapper.addMappings(new PropertyMap<Group, GetGroupResponseDto>() {
             @Override
             protected void configure() {
-                skip().setTags(null); // Exclude id from mapping
+                skip().setTags(null);
+            }
+        });
+
+        modelMapper.addMappings(new PropertyMap<Group, GetGroupDetailResponseDto>() {
+            @Override
+            protected void configure() {
+                skip().setTags(null);
+                skip().setModerators(null);
+                skip().setMembers(null);
+                skip().setBannedMembers(null);
             }
         });
     }
 
-    public List<GetGroupResponseDto> getAllGroups(GetAllGroupsFilterRequestDto filter){
+    public List<GetGroupResponseDto> getAllGroups(GetAllGroupsFilterRequestDto filter, String email){
+
+        Optional<User> loggedInUser = userRepository.findByEmailAndIsDeletedFalse(email);
+        String loggedInUserId = loggedInUser.map(User::getId).orElse(null);
+
         Query query = new Query();
 
         // search for title
@@ -90,6 +111,9 @@ public class GroupService {
                 return new ArrayList<>();
             }
             query.addCriteria(Criteria.where("gameId").is(game.get().getId()));
+        }
+        if (!filter.getWithDeleted()) {
+            query.addCriteria(Criteria.where("isDeleted").in(filter.getWithDeleted()));
         }
         if (filter.getSortBy() != null) {
             Sort.Direction sortDirection = Sort.Direction.DESC;
@@ -116,13 +140,19 @@ public class GroupService {
                 tag.ifPresent(dto::populateTag);
             }
 
+            dto.setUserJoined(group.getMembers().contains(loggedInUserId));
+
             responseDtos.add(dto);
         }
 
         return responseDtos;
     }
 
-    public GetGroupResponseDto getGroupById(String groupId){
+    public GetGroupDetailResponseDto getGroupById(String groupId, String email){
+
+        Optional<User> loggedInUser = userRepository.findByEmailAndIsDeletedFalse(email);
+        String loggedInUserId = loggedInUser.map(User::getId).orElse(null);
+
         Optional<Group> isGroupExists = groupRepository.findByIdAndIsDeletedFalse(groupId);
 
         if(isGroupExists.isEmpty()){
@@ -130,13 +160,41 @@ public class GroupService {
         }
 
         Group group = isGroupExists.get();
-        GetGroupResponseDto dto = modelMapper.map(group, GetGroupResponseDto.class);
+        GetGroupDetailResponseDto dto = modelMapper.map(group, GetGroupDetailResponseDto.class);
+
         for(String tagId : group.getTags()){
             Optional<Tag> tag = tagRepository.findById(tagId);
             tag.ifPresent(dto::populateTag);
         }
 
+        dto.setMembers(mapMemberIdsToMemberInfos(group.getMembers()));
+        dto.setModerators(mapMemberIdsToMemberInfos(group.getModerators()));
+        dto.setBannedMembers(mapMemberIdsToMemberInfos(group.getBannedMembers()));
+
+        dto.setUserJoined(group.getMembers().contains(loggedInUserId));
+
         return dto;
+    }
+
+    public List<GetGroupDetailResponseDto.MemberInfo> mapMemberIdsToMemberInfos(List<String> memberIds){
+        List<GetGroupDetailResponseDto.MemberInfo> memberInfos = new ArrayList<>();
+
+        for(String memberId : memberIds){
+
+            Optional<Profile> profileOfMember = profileRepository.findByUserIdAndIsDeletedFalse(memberId);
+            Optional<User> user = userRepository.findByIdAndIsDeletedFalse(memberId);
+
+            if(user.isEmpty() || profileOfMember.isEmpty())
+                continue;
+
+            GetGroupDetailResponseDto.MemberInfo memberInfo = new GetGroupDetailResponseDto.MemberInfo();
+            memberInfo.id = memberId;
+            memberInfo.username = user.get().getUsername();
+            memberInfo.photoUrl = profileOfMember.get().getProfilePhoto();
+
+            memberInfos.add(memberInfo);
+        }
+        return memberInfos;
     }
 
     public Group createGroup(CreateGroupRequestDto request, User user){
@@ -152,6 +210,9 @@ public class GroupService {
                 Optional<Tag> tag = tagRepository.findByIdAndIsDeletedFalse(tagId);
                 if(tag.isEmpty()){
                     throw new ResourceNotFoundException("One of the added tag is not found");
+                }
+                if(!tag.get().getTagType().name().equals(TagType.GROUP.name())){
+                    throw new BadRequestException("Groups can only be tagged with group tags");
                 }
             }
         }
@@ -236,6 +297,10 @@ public class GroupService {
 
         if(findTag.isEmpty() || findTag.get().getIsDeleted()){
             throw new ResourceNotFoundException("Tag does not exist");
+        }
+
+        if(!findTag.get().getTagType().name().equals(TagType.GROUP.name())){
+            throw new BadRequestException("Only GROUP tags can be added to groups");
         }
 
         Group group = findGroup.get();
@@ -361,6 +426,23 @@ public class GroupService {
         }
 
         group.get().removeModerator(userId);
+        groupRepository.save(group.get());
+
+        return true;
+    }
+
+    public Boolean unbanUser(String groupId, String userId, User user) {
+        Optional<Group> group = groupRepository.findById(groupId);
+
+        if (group.isEmpty() || group.get().getIsDeleted()) {
+            throw new ResourceNotFoundException("The group with the given id is not found.");
+        }
+
+        if (!(group.get().getModerators().contains(user.getId()) || UserRole.ADMIN.equals(user.getRole()))) {
+            throw new BadRequestException("Only the moderator or the admin can unban user.");
+        }
+
+        group.get().removeBannedUser(userId);
         groupRepository.save(group.get());
 
         return true;

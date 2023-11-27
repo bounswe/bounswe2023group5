@@ -39,6 +39,8 @@ public class GetGroupResponseDto {
 
     private LocalDateTime createdAt;
 
+    private Boolean userJoined;
+
     public void populateTag(Tag tag){
         this.tags.add(tag);
     }

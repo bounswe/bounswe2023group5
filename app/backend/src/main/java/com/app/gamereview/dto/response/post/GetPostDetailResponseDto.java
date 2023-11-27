@@ -1,6 +1,7 @@
 package com.app.gamereview.dto.response.post;
 
 import com.app.gamereview.model.Achievement;
+import com.app.gamereview.enums.VoteChoice;
 import com.app.gamereview.model.Tag;
 import com.app.gamereview.model.User;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,8 @@ public class GetPostDetailResponseDto {
     private String postImage;
 
     private User poster;
+
+    private VoteChoice userVote;
 
     private String forum;
 

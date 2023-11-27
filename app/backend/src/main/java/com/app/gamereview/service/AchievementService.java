@@ -8,10 +8,10 @@ import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.Achievement;
 import com.app.gamereview.model.Game;
-import com.app.gamereview.model.User;
+import com.app.gamereview.model.Profile;
 import com.app.gamereview.repository.AchievementRepository;
 import com.app.gamereview.repository.GameRepository;
-import com.app.gamereview.repository.UserRepository;
+import com.app.gamereview.repository.ProfileRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -25,22 +25,22 @@ public class AchievementService {
 
     private final GameRepository gameRepository;
 
-    private final UserRepository userRepository;
+    private final ProfileRepository profileRepository;
 
     private final ModelMapper modelMapper;
 
-    public AchievementService(AchievementRepository achievementRepository, GameRepository gameRepository, UserRepository userRepository, ModelMapper modelMapper) {
+    public AchievementService(AchievementRepository achievementRepository, GameRepository gameRepository, ProfileRepository profileRepository, ModelMapper modelMapper) {
         this.achievementRepository = achievementRepository;
         this.gameRepository = gameRepository;
-        this.userRepository = userRepository;
+        this.profileRepository = profileRepository;
         this.modelMapper = modelMapper;
     }
 
     public Achievement createAchievement(CreateAchievementRequestDto achievementRequestDto) {
 
-        if (achievementRequestDto.getType().equals(AchievementType.GAME.toString())) {
+        String gameId = achievementRequestDto.getGame();
 
-            String gameId = achievementRequestDto.getGame();
+        if (achievementRequestDto.getType().equals(AchievementType.GAME.toString())) {
 
             if (gameId == null) {
                 throw new BadRequestException("Game id cannot be empty for game achievements.");
@@ -52,7 +52,9 @@ public class AchievementService {
                 throw new ResourceNotFoundException("Game with the given is not found.");
             }
         } else {
-            achievementRequestDto.setGame("-1");
+            if (gameId != null) {
+                throw new BadRequestException("Meta achievements cannot be linked to any game.");
+            }
         }
 
         List<Achievement> achievementsSameName = achievementRepository.findByTitleAndIsDeletedFalse(achievementRequestDto.getTitle());
@@ -118,6 +120,38 @@ public class AchievementService {
         return achievementToDelete;
     }
 
+    public Achievement deleteAchievement(String achievementName, String gameName) {
+        List<Achievement> achievementWithName = achievementRepository.findByTitleAndIsDeletedFalse(achievementName);
+
+        if (achievementWithName.isEmpty()) {
+            throw new ResourceNotFoundException("Achievement with the given name is not found.");
+        }
+
+        Optional<Game> gameWithName = gameRepository.findByGameNameAndIsDeletedFalse(gameName);
+
+        if (gameWithName.isEmpty()) {
+            throw new ResourceNotFoundException("Game with the given name is not found.");
+        }
+
+        Achievement achievementToDelete = null;
+
+        for (Achievement achievement : achievementWithName) {
+            Optional<Game> game = gameRepository.findByIdAndIsDeletedFalse(achievement.getGame());
+            if (game.isPresent() && game.get().getGameName().equals(gameName)) {
+                achievementToDelete = achievement;
+            }
+        }
+
+        if (achievementToDelete == null) {
+            throw new ResourceNotFoundException("There is no achievement with the given name in the game.");
+        }
+
+        achievementToDelete.setIsDeleted(true);
+
+        achievementRepository.save(achievementToDelete);
+        return achievementToDelete;
+    }
+
     public List<String> grantAchievement(GrantAchievementRequestDto request) {
         Optional<Achievement> achievementOptional = achievementRepository.findByIdAndIsDeletedFalse(request.getAchievementId());
 
@@ -125,24 +159,24 @@ public class AchievementService {
             throw new ResourceNotFoundException("Achievement with the given id is not found.");
         }
 
-        Optional<User> userOptional = userRepository.findByIdAndIsDeletedFalse(request.getUserId());
+        Optional<Profile> profileOptional = profileRepository.findByUserIdAndIsDeletedFalse(request.getUserId());
 
-        if (userOptional.isEmpty()) {
-            throw new ResourceNotFoundException("User with the given id is not found.");
+        if (profileOptional.isEmpty()) {
+            throw new ResourceNotFoundException("Profile of the given user is not found.");
         }
 
-        User userToGrant = userOptional.get();
+        Profile profileToGrant = profileOptional.get();
 
-        List<String> userAchievements = userToGrant.getAchievements();
+        List<String> userAchievements = profileToGrant.getAchievements();
 
         if (userAchievements.contains(request.getAchievementId())) {
             throw new BadRequestException("User already has the given achievement.");
         }
 
-        userToGrant.getAchievements().add(request.getAchievementId());
+        profileToGrant.getAchievements().add(request.getAchievementId());
 
-        userRepository.save(userToGrant);
-        return userToGrant.getAchievements();
+        profileRepository.save(profileToGrant);
+        return profileToGrant.getAchievements();
     }
 
     public List<Achievement> getGameAchievements(String gameId) {

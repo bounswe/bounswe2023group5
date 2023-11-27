@@ -1,20 +1,20 @@
 package com.app.gamereview.controller;
 
 import com.app.gamereview.dto.request.group.*;
+import com.app.gamereview.dto.response.group.GetGroupDetailResponseDto;
 import com.app.gamereview.dto.response.group.GetGroupResponseDto;
 import com.app.gamereview.dto.response.tag.AddGroupTagResponseDto;
 import com.app.gamereview.model.Group;
 import com.app.gamereview.model.User;
 import com.app.gamereview.service.GroupService;
-import com.app.gamereview.service.ReviewService;
+import com.app.gamereview.util.JwtUtil;
 import com.app.gamereview.util.validation.annotation.AdminRequired;
 import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -26,9 +26,6 @@ import java.util.List;
 @Validated
 public class GroupController {
 
-	@Value("${SECRET_KEY}")
-	private String secret_key = "${SECRET_KEY}";
-
 	private final GroupService groupService;
 
 	@Autowired
@@ -39,15 +36,26 @@ public class GroupController {
 	}
 
 	@GetMapping("/get-all")
-	public ResponseEntity<List<GetGroupResponseDto>> getReviews(
-			@ParameterObject GetAllGroupsFilterRequestDto filter) {
-		List<GetGroupResponseDto> groups = groupService.getAllGroups(filter);
+	public ResponseEntity<List<GetGroupResponseDto>> getGroups(
+			@ParameterObject GetAllGroupsFilterRequestDto filter, @RequestHeader(name = HttpHeaders.AUTHORIZATION, required = false) String Authorization) {
+
+		String email;
+        if (JwtUtil.validateToken(Authorization)) email = JwtUtil.extractSubject(Authorization);
+        else email = "";
+
+        List<GetGroupResponseDto> groups = groupService.getAllGroups(filter, email);
 		return ResponseEntity.ok(groups);
 	}
 
 	@GetMapping("/get")
-	public ResponseEntity<GetGroupResponseDto> getGroup(@RequestParam String id) {
-		GetGroupResponseDto group = groupService.getGroupById(id);
+	public ResponseEntity<GetGroupDetailResponseDto> getGroup(
+			@RequestParam String id, @RequestHeader(name = HttpHeaders.AUTHORIZATION, required = false) String Authorization) {
+
+		String email;
+		if (JwtUtil.validateToken(Authorization)) email = JwtUtil.extractSubject(Authorization);
+		else email = "";
+
+		GetGroupDetailResponseDto group = groupService.getGroupById(id, email);
 
 		return ResponseEntity.ok(group);
 	}
@@ -133,6 +141,14 @@ public class GroupController {
 	@PutMapping("/remove-moderator")
 	public ResponseEntity<Boolean> removeModerator(@RequestParam String groupId, @RequestParam String userId, @RequestHeader String Authorization, HttpServletRequest request) {
 		Boolean result = groupService.removeModerator(groupId, userId);
+		return ResponseEntity.ok(result);
+	}
+
+	@AuthorizationRequired
+	@PutMapping("/unban-user")
+	public ResponseEntity<Boolean> unbanUser(@RequestParam String groupId, @RequestParam String userId, @RequestHeader String Authorization, HttpServletRequest request) {
+		User user = (User) request.getAttribute("authenticatedUser");
+		Boolean result = groupService.unbanUser(groupId, userId, user);
 		return ResponseEntity.ok(result);
 	}
 }

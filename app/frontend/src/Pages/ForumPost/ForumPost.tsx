@@ -54,7 +54,7 @@ function ForumPost() {
     <div className={styles.container}>
       {!isLoading && (
         <div className={styles.postContainer}>
-          {user.id === post.poster.id && (
+          {user?.id === post.poster.id && (
             <div className={styles.edit}>
               <Button
                 onClick={() =>
@@ -94,6 +94,14 @@ function ForumPost() {
             <h2>{post.title}</h2>
             <TagRenderer tags={post.tags} />
           </div>{" "}
+          {post.postImage && (
+            <div className={styles.image}>
+              <img
+                height="30px"
+                src={`${import.meta.env.VITE_APP_IMG_URL}${post.postImage}`}
+              />
+            </div>
+          )}
           <span className={styles.body}>{post.postContent}</span>
           <div style={twj("flex gap-2 pt-2")}>
             <Button

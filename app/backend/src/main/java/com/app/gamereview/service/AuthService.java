@@ -9,8 +9,10 @@ import com.app.gamereview.dto.response.user.UserResponseDto;
 import com.app.gamereview.enums.UserRole;
 import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.exception.ResourceNotFoundException;
+import com.app.gamereview.model.Profile;
 import com.app.gamereview.model.ResetCode;
 import com.app.gamereview.model.User;
+import com.app.gamereview.repository.ProfileRepository;
 import com.app.gamereview.repository.ResetCodeRepository;
 import com.app.gamereview.repository.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -30,14 +32,17 @@ public class AuthService {
 
 	private final UserRepository userRepository;
 
+	private final ProfileRepository profileRepository;
+
 	private final ResetCodeRepository resetCodeRepository;
 
 	private final ModelMapper modelMapper;
 
 	@Autowired
-	public AuthService(UserRepository userRepository, ResetCodeRepository resetCodeRepository,
-			ModelMapper modelMapper) {
+	public AuthService(UserRepository userRepository, ProfileRepository profileRepository,
+					   ResetCodeRepository resetCodeRepository, ModelMapper modelMapper) {
 		this.userRepository = userRepository;
+		this.profileRepository = profileRepository;
 		this.resetCodeRepository = resetCodeRepository;
 		this.modelMapper = modelMapper;
 	}
@@ -60,6 +65,12 @@ public class AuthService {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
 		String hashedPassword = passwordEncoder.encode(registerUserRequestDto.getPassword());
 		userToCreate.setPassword(hashedPassword);
+
+		// user's profile is being created
+		Profile profileToCreate = new Profile();
+		profileToCreate.setUserId(userToCreate.getId());
+		profileRepository.save(profileToCreate);
+
 		return userRepository.save(userToCreate);
 	}
 

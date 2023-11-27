@@ -53,6 +53,16 @@ function Main() {
           </li>
         </ul>
       </div>
+      <div>
+        <h3 className={styles.itemHeader}>4) Achievement</h3>
+        <ul>
+          <li>
+            <Button type="link" onClick={() => navigate("/create-achievement")}>
+              Create Achievement
+            </Button>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 }

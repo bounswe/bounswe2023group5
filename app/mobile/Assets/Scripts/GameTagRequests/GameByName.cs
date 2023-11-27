@@ -35,7 +35,7 @@ public class GameByName : MonoBehaviour
         if (request.responseCode != null && request.responseCode == 200)
         {
             response = request.downloadHandler.text;
-            var _GameByNameResponseData = JsonConvert.DeserializeObject<GetGameResponse>(response);
+            var _GameByNameResponseData = JsonConvert.DeserializeObject<GameDetail>(response);
 
             Debug.Log("Success to create forum post: " + response);
         }
