@@ -94,7 +94,7 @@ public class ProfileGroup{
     public string title;
     public string description;
     public string membershipPolicy;
-    public TagResponse[]  tags;
+    public string[]  tags;
     public string gameId;
     public string forumId;
     public int quota;
