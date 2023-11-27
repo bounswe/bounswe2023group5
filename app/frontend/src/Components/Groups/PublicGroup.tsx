@@ -54,7 +54,7 @@ function PublicGroup({ group }: { group: any }) {
       </div>
       <div className={styles.body}>
         <div className={styles.imgContainer}>
-          <img src="../../../assets/images/guru.jpeg"></img>
+          <img src="../../../assets/images/group.png"></img>
         </div>
         <div className={styles.content}>
           <div className={styles.description}>

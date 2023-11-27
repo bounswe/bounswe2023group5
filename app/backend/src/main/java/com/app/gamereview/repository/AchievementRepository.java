@@ -10,6 +10,8 @@ public interface AchievementRepository extends MongoRepository<Achievement, Stri
 
     List<Achievement> findByTitleAndIsDeletedFalse(String title);
 
+    Optional<Achievement> findByTitle(String title);
+
     Optional<Achievement> findByIdAndIsDeletedFalse(String id);
 
     List<Achievement> findByGameAndIsDeletedFalse(String game);
