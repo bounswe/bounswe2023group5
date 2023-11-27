@@ -156,6 +156,10 @@ public class AchievementService {
                 throw new ResourceNotFoundException("Meta achievement with the given name is not found");
             }
 
+            if(achievement.get().getType() == AchievementType.GAME){
+                throw new BadRequestException("Cannot delete game achievement without specifying the game");
+            }
+
             achievementToDelete = achievement.get();
 
         }
