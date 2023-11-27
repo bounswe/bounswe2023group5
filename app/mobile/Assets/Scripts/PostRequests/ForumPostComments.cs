@@ -1,24 +1,42 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
+using TMPro;
+using UnityEngine.UI;
 using static CommentController;
 
 public class ForumPostComments : MonoBehaviour
 {
     [SerializeField] private string title;
     [SerializeField] private string postContent;
-    private string postID;
-
-    private void Start()
+    [SerializeField] private GameObject forumPost;
+    [SerializeField] private ScrollRect scrollRect;
+    [SerializeField] private Transform commentParent;
+    private List<CommentBox> commentPages = new List<CommentBox>();
+    [SerializeField] private string postID;
+    private CanvasManager canvasManager;
+    [SerializeField] private TMP_InputField commentInputField;
+    [SerializeField] private Button addCommentButton;
+    [SerializeField] private Button exitButton;
+    
+    private void Awake()
     {
-        Init(new[] {"id"},new[] {"b73d132b-a3e3-4776-bbe6-01c2ce0d2d2c"});
+        addCommentButton.onClick.AddListener(addComment);
+        exitButton.onClick.AddListener(exit);
+        canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
     }
 
-    public void Init(string[] pars, string[] vals)
+    public void Init(string id, GetPostListResponse postInfoVal )
     {
-        postID = ListToQueryParameters.GetValueOfParam(pars, vals, "id");
+        postID = id;
+        
+        
+        //GameObject postComments = GameObject.Find("PostComments");
+        //postComments.SetActive(true);
+
         
         if (string.IsNullOrEmpty(postID))
         {
@@ -27,7 +45,7 @@ public class ForumPostComments : MonoBehaviour
         }
         
         string url = AppVariables.HttpServerUrl + "/post/get-post-comments" + 
-                     ListToQueryParameters.ListToQueryParams(pars, vals);
+                     ListToQueryParameters.ListToQueryParams(new []{"id"}, new []{postID});
         StartCoroutine(Get(url));
     }
     
@@ -42,6 +60,18 @@ public class ForumPostComments : MonoBehaviour
         if (request.responseCode == 200)
         {
             response = request.downloadHandler.text;
+            
+            var _gamesData = JsonConvert.DeserializeObject<PostComment[]>(response);
+            
+            foreach (var gameData in _gamesData)
+            {
+                CommentBox newComment = Instantiate(Resources.Load<CommentBox>("Prefabs/CommentPage"), commentParent);
+                commentPages.Add(newComment);
+                //newComment.Init(gameData);
+            }
+            Canvas.ForceUpdateCanvases();
+            scrollRect.verticalNormalizedPosition = 1;
+            
             Debug.Log("Success to get forum post comments: " + response);
         }
         else
@@ -51,7 +81,22 @@ public class ForumPostComments : MonoBehaviour
         request.downloadHandler.Dispose();
     }
 
+    private void addComment()
+    {
+        CommentCreateRequest req = new CommentCreateRequest();
+        req.commentContent = commentInputField.text;
+        req.post = postID;
+        
+        CreateComment(req);
+    }
 
+    private void exit()
+    {
+        canvasManager.HidePostComments();
+    }
+    
+    
+    
     public void ReplyToComment(CommentReplyRequest commentReplyRequest)
     {
         string url = AppVariables.HttpServerUrl + "/comment/reply";
