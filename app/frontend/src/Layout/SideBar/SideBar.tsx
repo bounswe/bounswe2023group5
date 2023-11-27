@@ -13,6 +13,7 @@ import { clsx } from "clsx";
 import { getThemeColor } from "../../Components/Providers/AntdConfigProvider";
 import { useAuth } from "../../Components/Hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import { twj } from "tw-to-css";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -83,12 +84,16 @@ function SideBar() {
           {!isLoggedIn ? (
             <img src="../../../assets/images/guru.jpeg"></img>
           ) : profile && profile.profilePhoto ? (
-            <img src={profile.profilePhoto}></img>
+            <img
+              src={`${import.meta.env.VITE_APP_IMG_URL}${profile.profilePhoto}`}
+            ></img>
           ) : (
             <ProfileIcon />
           )}
         </div>
-        {!collapsed && isLoggedIn && <div>{user.username}</div>}
+        {!collapsed && isLoggedIn && (
+          <div style={twj("font-bold")}>{user.username}</div>
+        )}
         {!collapsed && !isLoggedIn && <div>Game Guru</div>}
         {isLoggedIn && (
           <Menu
