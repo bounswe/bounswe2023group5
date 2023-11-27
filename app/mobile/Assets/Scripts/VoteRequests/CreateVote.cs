@@ -11,12 +11,12 @@ public class CreateVote : MonoBehaviour
     [SerializeField] private string choice;
 
 
-    private void Start()
+    private void Awake()
     {
-        Init();
+        Debug.Log("CreateVote is active");
     }
 
-    public void Init()
+    public void Init(string voteType, string typeId, string choice)
     {
         string url = AppVariables.HttpServerUrl + "/vote/create";
         var achievementCreateRequest = new CreateVoteRequest();

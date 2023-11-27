@@ -11,6 +11,7 @@ public class GetTag : MonoBehaviour
 {
     // id of the tag
     [SerializeField] private string id;
+    private string color;
 
     private void Start()
     {
@@ -38,6 +39,7 @@ public class GetTag : MonoBehaviour
             var _GetTagResponseData = JsonConvert.DeserializeObject<TagResponse>(response);
 
             // Do things with _GetTagResponseData 
+            color = _GetTagResponseData.color;
             
             Debug.Log("Success to create forum post: " + response);
         }

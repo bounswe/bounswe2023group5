@@ -13,7 +13,7 @@ public class ForumPostDetail : MonoBehaviour
 
     private void Start()
     {
-        Init(new[] {"id"},new[] {"b73d132b-a3e3-4776-bbe6-01c2ce0d2d2c"});
+        //Init(new[] {"id"},new[] {"b73d132b-a3e3-4776-bbe6-01c2ce0d2d2c"});
     }
 
     public void Init(string[] pars, string[] vals)
