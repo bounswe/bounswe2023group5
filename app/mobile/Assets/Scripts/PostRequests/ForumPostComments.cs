@@ -4,6 +4,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
+using TMPro;
 using UnityEngine.UI;
 using static CommentController;
 
@@ -17,15 +18,21 @@ public class ForumPostComments : MonoBehaviour
     private List<CommentBox> commentPages = new List<CommentBox>();
     [SerializeField] private string postID;
     private CanvasManager canvasManager;
-
+    [SerializeField] private TMP_InputField commentInputField;
+    [SerializeField] private Button addCommentButton;
+    [SerializeField] private Button exitButton;
+    
     private void Awake()
     {
+        addCommentButton.onClick.AddListener(addComment);
+        exitButton.onClick.AddListener(exit);
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
     }
 
-    public void Init(string id)
+    public void Init(string id, GetPostListResponse postInfoVal )
     {
         postID = id;
+        
         
         //GameObject postComments = GameObject.Find("PostComments");
         //postComments.SetActive(true);
@@ -74,7 +81,22 @@ public class ForumPostComments : MonoBehaviour
         request.downloadHandler.Dispose();
     }
 
+    private void addComment()
+    {
+        CommentCreateRequest req = new CommentCreateRequest();
+        req.commentContent = commentInputField.text;
+        req.post = postID;
+        
+        CreateComment(req);
+    }
 
+    private void exit()
+    {
+        canvasManager.HidePostComments();
+    }
+    
+    
+    
     public void ReplyToComment(CommentReplyRequest commentReplyRequest)
     {
         string url = AppVariables.HttpServerUrl + "/comment/reply";

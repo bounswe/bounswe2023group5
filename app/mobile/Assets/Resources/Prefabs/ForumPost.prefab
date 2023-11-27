@@ -37,7 +37,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 577.0237, y: -243.86691}
+  m_AnchoredPosition: {x: 538, y: -207}
   m_SizeDelta: {x: 202.0472, y: 61.7338}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &47981556259895911
@@ -489,7 +489,7 @@ MonoBehaviour:
   tags: {fileID: 2118135838575496079}
   userName: {fileID: 2118135838328443308}
   forumPostComments: {fileID: 6871115662713779652}
-  commentManager: {fileID: 4573438353805369569, guid: a063cc2f0621b7cc4b23338f9f07f259, type: 3}
+  commentManager: {fileID: 0}
 --- !u!1 &2118135838575496065
 GameObject:
   m_ObjectHideFlags: 0

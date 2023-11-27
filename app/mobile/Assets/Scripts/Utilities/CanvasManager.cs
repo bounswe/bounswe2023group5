@@ -24,7 +24,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject deleteTagPage;
     [SerializeField] private GameObject groupDetailsPage;
     [SerializeField] private GameObject groupsPage;
-    [SerializeField] private GameObject postComments;
+    public GameObject postComments;
     
     public void ShowSignUpPage()
     {
@@ -224,6 +224,11 @@ public class CanvasManager : MonoBehaviour
     public void ShowPostComments()
     {
         postComments.SetActive(true);
+    }
+    
+    public void HidePostComments()
+    {
+        postComments.SetActive(false);
     }
     
 }

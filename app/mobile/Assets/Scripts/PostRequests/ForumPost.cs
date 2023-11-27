@@ -17,19 +17,22 @@ public class ForumPost : MonoBehaviour
     [SerializeField] private TMP_Text userName;
 
     [SerializeField] private Button forumPostComments;
-    [SerializeField] private ForumPostComments commentManager;
+    [SerializeField] private openComment commentManager;
     // [SerializeField] private Button gameDetailsButton;
     private CanvasManager canvasManager;
     private string postId;
+    private GetPostListResponse postInfoVal;
 
     private void Awake()
     {
-        forumPostComments.onClick.AddListener(OnClickedForumPostComments);
+        commentManager = FindObjectOfType(typeof(openComment)) as openComment;
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
+        forumPostComments.onClick.AddListener(OnClickedForumPostComments);
     }
 
     public void Init(GetPostListResponse postInfo)
     {
+        postInfoVal = postInfo;
         string url = "http://ec2-16-16-166-22.eu-north-1.compute.amazonaws.com/";
         // StartCoroutine(LoadImageFromURL(url + gameInfo.gameIcon, gameImage));
         // poster.text = postInfo.poster;
@@ -92,7 +95,6 @@ public class ForumPost : MonoBehaviour
         //postComments.SetActive(true);
 
         canvasManager.ShowPostComments();
-        commentManager.gameObject.SetActive(true);
-        commentManager.Init(postId);
+        commentManager.openLocalPostComment(postId, postInfoVal);
     }
 }
