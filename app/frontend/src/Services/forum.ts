@@ -36,12 +36,14 @@ export const createPost = async ({
   postImage,
   forum,
   tags = [],
+  achievement,
 }: {
   title: string;
   postContent: string;
   postImage?: string;
   forum: string;
   tags?: string[];
+  achievement?: string;
 }) => {
   const response = await axios.post(
     import.meta.env.VITE_APP_API_URL + "/post/create",
@@ -51,6 +53,7 @@ export const createPost = async ({
       postImage,
       forum,
       tags,
+      achievement,
     }
   );
   return response.data;

@@ -25,9 +25,11 @@ const sortOptions = [
 function Forum({
   forumId,
   redirect = "/",
+  gameId,
 }: {
   forumId: string;
   redirect?: string;
+  gameId?: string;
 }) {
   const { isLoggedIn } = useAuth();
   const [filterTags, setFilterTags] = useState([]);
@@ -73,7 +75,11 @@ function Forum({
         {isLoggedIn && (
           <Button
             onClick={() =>
-              navigate(`/forum/form?forumId=${forumId}&&redirect=${redirect}`)
+              navigate(
+                `/forum/form?forumId=${forumId}&&redirect=${redirect}${
+                  gameId ? `&&gameId=${gameId}` : ``
+                }`
+              )
             }
           >
             <PlusCircleOutlined /> Add Post
@@ -120,6 +126,7 @@ function Forum({
             post={post}
             forumId={forumId}
             redirect={redirect}
+            gameId={gameId}
           />
         ))}
       </div>

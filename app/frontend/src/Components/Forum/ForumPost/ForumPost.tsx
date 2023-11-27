@@ -22,10 +22,12 @@ function ForumPost({
   post,
   forumId,
   redirect = "/",
+  gameId,
 }: {
   post: any;
   forumId: string;
   redirect?: string;
+  gameId?: string;
 }) {
   const { user, isLoggedIn } = useAuth();
   const navigate = useNavigate();
@@ -99,7 +101,7 @@ function ForumPost({
       </div>
 
       <div className={styles.meta}>
-        <span>{post.poster.username}</span>
+        <span>{post.poster?.username}</span>
         <span>{post.createdAt && formatDate(post.createdAt)}</span>
         <WarningOutlined
           style={twj("text-red-500 text-lg cursor-pointer")}
@@ -112,12 +114,14 @@ function ForumPost({
           Read More
         </Button>
       </div>
-      {user?.id === post.poster.id && (
+      {user?.id === post.poster?.id && (
         <div className={styles.edit}>
           <Button
             onClick={() =>
               navigate(
-                `/forum/form?forumId=${forumId}&&redirect=${redirect}&&editId=${post.id}`
+                `/forum/form?forumId=${forumId}&&redirect=${redirect}&&editId=${
+                  post.id
+                }${gameId ? `&&gameId=${gameId}` : ``}`
               )
             }
           >

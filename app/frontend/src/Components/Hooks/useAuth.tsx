@@ -11,6 +11,7 @@ import {
 import { me } from "../../Services/me";
 import { useQuery } from "react-query";
 import { getProfile } from "../../Services/profile";
+import { useNavigate } from "react-router-dom";
 
 type User = any;
 
@@ -51,7 +52,7 @@ const useAuth = (): UseAuthProps => {
 
   function logOut() {
     Cookies.remove("token");
-    location.reload();
+    location.replace("/");
   }
 
   const { data: profile, isLoading } = useQuery(

@@ -5,4 +5,17 @@
   border-radius: 0.5em;
   background-color: $violet-light-60;
   margin: 2.5em;
+
+  .achievements {
+    display: flex;
+    flex-wrap: wrap;
+    & > div {
+      cursor: pointer;
+      border-radius: 0.5em;
+      &.active {
+        border: 2px solid $orange;
+        margin: -2px;
+      }
+    }
+  }
 }

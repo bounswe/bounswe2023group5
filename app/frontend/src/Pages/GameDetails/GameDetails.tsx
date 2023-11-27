@@ -78,6 +78,7 @@ function GameDetails() {
                   <Forum
                     forumId={data.forum}
                     redirect={`/game/${gameId}?subPage=forum`}
+                    gameId={gameId}
                   />
                 ) : (
                   <>No forum on this game.</>
