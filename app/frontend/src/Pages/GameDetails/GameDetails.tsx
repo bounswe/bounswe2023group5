@@ -18,7 +18,7 @@ function GameDetails() {
     getGame(gameId!)
   );
 
-  const score = 4;
+  const score = data.overallRating;
   const [searchParams] = useSearchParams();
 
   const [subPage, setSubPage] = useState<"summary" | "reviews" | "forum">(
