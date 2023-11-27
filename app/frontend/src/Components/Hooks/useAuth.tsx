@@ -11,6 +11,7 @@ import {
 import { me } from "../../Services/me";
 import { useQuery } from "react-query";
 import { getProfile } from "../../Services/profile";
+import { useNavigate } from "react-router-dom";
 
 type User = any;
 
@@ -51,7 +52,7 @@ const useAuth = (): UseAuthProps => {
 
   function logOut() {
     Cookies.remove("token");
-    location.reload();
+    location.replace("/");
   }
 
   const { data: profile, isLoading } = useQuery(
@@ -75,6 +76,7 @@ const useAuth = (): UseAuthProps => {
 // AuthProvider component
 const AuthProvider = ({ children }: { children?: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null); // Initialize to fetch from local storage or server if needed
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -82,7 +84,10 @@ const AuthProvider = ({ children }: { children?: ReactNode }) => {
       axios.defaults.headers.common["Authorization"] = `${token}`;
       me().then((res) => {
         setUser?.(res.data);
+        setLoading(false);
       });
+    } else {
+      setLoading(false);
     }
   }, []);
 
@@ -91,7 +96,11 @@ const AuthProvider = ({ children }: { children?: ReactNode }) => {
     setUser,
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {!loading && children}
+    </AuthContext.Provider>
+  );
 };
 
 export { useAuth, AuthProvider };

@@ -34,7 +34,7 @@ function Game(props: any) {
               : game.gameDescription}
           </p>
           <Button
-            onClick={() => navigate(`/game/${game.id}`)}
+            onClick={() => navigate(`/game/detail/${game.id}`)}
             className={styles.button}
           >
             Details
