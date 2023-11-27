@@ -61,7 +61,7 @@ function Games() {
               enterButton
               className={styles.search}
               onSearch={setSearchText}
-              style={{ width: "400px", margin: "auto" }}
+              style={{ width: "400px" }}
             />
           </div>
           <div className={styles.filter}>
