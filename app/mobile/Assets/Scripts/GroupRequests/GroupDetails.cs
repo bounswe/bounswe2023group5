@@ -47,10 +47,11 @@ public class GroupDetails : MonoBehaviour
     private string gameId;
     private string forumId;
     private int quota;
-    private string[] moderators;
-    private string[] members;
-    private string[] bannedMembers;
+    private GroupMember[] moderators;
+    private GroupMember[] members;
+    private GroupMember[] bannedMembers;
     private bool avatarOnly;
+    private bool userJoined;
     private string createdAt;
     
 
@@ -101,8 +102,8 @@ public class GroupDetails : MonoBehaviour
     private void OnClickedDescriptionButton()
     {
         descriptionButton.image.color = colors.blueGreen;
-        forumButton.image.color = colors.prussianBlue;
-        membersButton.image.color = colors.prussianBlue;
+        forumButton.image.color = colors.prussianBlueLight;
+        membersButton.image.color = colors.prussianBlueLight;
         
         descriptionManager.gameObject.SetActive(true);
         forumManager.gameObject.SetActive(false);
@@ -111,9 +112,9 @@ public class GroupDetails : MonoBehaviour
     
     private void OnClickedForumButton()
     {
-        descriptionButton.image.color = colors.prussianBlue;
+        descriptionButton.image.color = colors.prussianBlueLight;
         forumButton.image.color = colors.blueGreen;
-        membersButton.image.color = colors.prussianBlue;
+        membersButton.image.color = colors.prussianBlueLight;
         
         descriptionManager.gameObject.SetActive(false);
         forumManager.gameObject.SetActive(true);
@@ -126,16 +127,16 @@ public class GroupDetails : MonoBehaviour
     
     private void OnClickedMembersButton()
     {
-        descriptionButton.image.color = colors.prussianBlue;
-        forumButton.image.color = colors.prussianBlue;
+        descriptionButton.image.color = colors.prussianBlueLight;
+        forumButton.image.color = colors.prussianBlueLight;
         membersButton.image.color = colors.blueGreen;
         
         descriptionManager.gameObject.SetActive(false);
         forumManager.gameObject.SetActive(false);
         getAllMembers.gameObject.SetActive(true);
         
-        getAllMembers.GetMemberList(new []{"id"}, new []{groupId});
-        Debug.Log("Returned from GetMemberList");
+        getAllMembers.GetMemberList(moderators, members, bannedMembers, PersistenceManager.id, groupId);
+        //Debug.Log("Returned from GetMemberList");
     }
     
     
@@ -208,6 +209,7 @@ public class GroupDetails : MonoBehaviour
             bannedMembers = _groupData.bannedMembers;
             avatarOnly = _groupData.avatarOnly;
             createdAt = _groupData.createdAt;
+            userJoined = _groupData.userJoined;
 
             // Set the image via call to GetGame
             StartCoroutine(GetGameImage(gameId));

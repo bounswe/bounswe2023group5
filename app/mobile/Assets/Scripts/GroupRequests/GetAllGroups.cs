@@ -39,7 +39,7 @@ public class GetAllGroups : MonoBehaviour
         if (request.responseCode == 200)
         {
             response = request.downloadHandler.text;
-            var _groupsData = JsonConvert.DeserializeObject<GroupResponse[]>(response);
+            var _groupsData = JsonConvert.DeserializeObject<GroupGetAllResponse[]>(response);
             Debug.Log("Success to get all groups: " + response);
             foreach (var groupData in _groupsData)
             {

@@ -44,14 +44,14 @@ public class BanUser : MonoBehaviour
                          new[]{"groupId", "userId"},
                          new []{groupId, userId});
         
-        StartCoroutine(Put(url));
+        StartCoroutine(PutBanUser(url));
 
 
         // Delete this user from user list
 
     }
 
-    IEnumerator Put(string url)
+    IEnumerator PutBanUser(string url)
     {
         var request = new UnityWebRequest(url, "Put");
         request.downloadHandler = new DownloadHandlerBuffer();
