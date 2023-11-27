@@ -17,6 +17,8 @@ import { truncateWithEllipsis } from "../../../Library/utils/truncate";
 import { useNavigate } from "react-router-dom";
 import TagRenderer from "../../TagRenderer/TagRenderer";
 import { twj } from "tw-to-css";
+import { NotificationUtil } from "../../../Library/utils/notification";
+import { handleAxiosError } from "../../../Library/utils/handleError";
 import SquareAchievement from "../../Achievement/SquareAchievement/SquareAchievement";
 
 function ForumPost({
@@ -36,10 +38,10 @@ function ForumPost({
   const isAdmin = user?.role === "ADMIN";
   const deletePostMutation = useMutation(deletePost, {
     onSuccess: async () => {
-      alert("You successfully delete the post.");
+      NotificationUtil.success("You successfully delete the post.");
     },
-    onError: () => {
-      alert("Something went wrong");
+    onError: (error) => {
+      handleAxiosError(error);
     },
   });
 

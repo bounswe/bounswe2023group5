@@ -33,6 +33,7 @@ public class GroupPage : MonoBehaviour
         membershipPolicy.text = groupInfo.membershipPolicy;
         //tags.text = groupInfo.tags;
         quota.text = groupInfo.quota.ToString();
+        members.text = groupInfo.members.Length.ToString();
         groupId = groupInfo.id;
         //members.text = groupInfo.members;
     }

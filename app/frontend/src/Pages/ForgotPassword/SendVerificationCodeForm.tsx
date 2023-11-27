@@ -4,6 +4,8 @@ import { Form, Input, Button } from "antd";
 import { MailOutlined } from "@ant-design/icons";
 import { useMutation } from "react-query";
 import { postEmail } from "../../Services/ForgotPassword";
+import { handleAxiosError } from "../../Library/utils/handleError";
+import { NotificationUtil } from "../../Library/utils/notification";
 
 interface SendVerificationCodeFormProps {
   codeInputVisible: boolean;
@@ -19,20 +21,19 @@ const SendVerificationCodeForm: React.FC<SendVerificationCodeFormProps> = ({
   const emailMutation = useMutation(postEmail, {
     onSuccess: (data) => {
       if (data.status === 404) {
-        alert("Please enter a valid email address.");
+        NotificationUtil.error("Please enter a valid email address.");
         return;
-      } else if (data.status === 500) {
-        alert("Something went wrong.");
-        return;
-      } else if (data.status === 400) {
-        alert("Bad Request");
+      } else if (data.status === 500 || data.status === 400) {
+        NotificationUtil.error("Something went wrong.");
         return;
       }
-      alert("Verification code is sent to your email address.");
+      NotificationUtil.success(
+        "Verification code is sent to your email address."
+      );
       setCodeInputVisible(true);
     },
-    onError: () => {
-      alert("Please enter a valid email address.");
+    onError: (error) => {
+      handleAxiosError(error);
     },
   });
 
