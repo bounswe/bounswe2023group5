@@ -6,7 +6,8 @@ import { Popover } from "antd";
 import { useState } from "react";
 import EditProfile from "../../Components/Profile/EditProfile";
 import ProfileIcon from "../../Components/Icons/ProfileIcon";
-const subPages = ["Activities", "Games", "Eklenir Daha"];
+import ProfileAchievements from "../../Components/Profile/ProfileAchievements/ProfileAchievements";
+const subPages = ["Achievements", "Last Activities"];
 function Profile() {
   const { user, isLoading, profile } = useAuth();
   const [subPage, setSubPage] = useState(subPages[0]);
@@ -104,10 +105,19 @@ function Profile() {
           </div>
           <div className={styles.profileMenu}>
             {subPages.map((item) => (
-              <button onClick={() => setSubPage(item)}>{item}</button>
+              <button
+                onClick={() => setSubPage(item)}
+                className={subPage === item ? styles.active : ""}
+              >
+                {item}
+              </button>
             ))}
           </div>
-          <div className={styles.profileContent}>{subPage}</div>
+          <div className={styles.profileContent}>
+            {subPage === "Achievements" && (
+              <ProfileAchievements achievements={profile.achievements} />
+            )}
+          </div>
         </>
       )}
     </div>

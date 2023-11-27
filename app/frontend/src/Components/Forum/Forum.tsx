@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./Forum.module.scss";
 import { useQuery } from "react-query";
 import { getPostList } from "../../Services/forum";
-import { Button, Input, Select } from "antd";
+import { Button, Input, Select, Spin } from "antd";
 import {
   FilterOutlined,
   PlusCircleOutlined,
@@ -15,6 +15,8 @@ import ForumPost from "./ForumPost/ForumPost";
 import { useState } from "react";
 import { useDebounce } from "usehooks-ts";
 import { getTags } from "../../Services/tags";
+import { PacmanLoader } from "react-spinners";
+import { twj } from "tw-to-css";
 const sortOptions = [
   { label: "Creation Date", value: "CREATION_DATE" },
   { label: "Edit Date", value: "EDIT_DATE" },
@@ -128,7 +130,11 @@ function Forum({
             redirect={redirect}
             gameId={gameId}
           />
-        ))}
+        )) ?? (
+          <div style={twj("flex justify-center items-center p-10")}>
+            <PacmanLoader color="#1b4559" />
+          </div>
+        )}
       </div>
     </div>
   );
