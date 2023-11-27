@@ -5,6 +5,8 @@ import SingleSelect from "../../../../Components/SingleSelect/SingleSelect";
 import { useMutation, useQuery } from "react-query";
 import { updateTag, getTags, getTagById } from "../../../../Services/tags";
 import { SketchPicker } from "react-color";
+import { NotificationUtil } from "../../../../Library/utils/notification";
+import { handleError } from "../../../../Library/utils/handleError";
 
 function UpdateTag() {
   const [name, setName] = useState("");
@@ -18,8 +20,11 @@ function UpdateTag() {
 
   const { data: updatedTag } = useQuery(["updatedTags", name, tags], () => {
     if (tags) {
-      const id = tags.find((tag) => tag.name === name).id;
-      return getTagById(id);
+      const tag = tags.find((tag) => tag.name === name);
+      if (!tag) {
+        return;
+      }
+      return getTagById(tag.id);
     }
   });
 
@@ -37,10 +42,10 @@ function UpdateTag() {
 
   const updateTagMutation = useMutation(updateTag, {
     onSuccess: async () => {
-      alert("You successfully update tag.");
+      NotificationUtil.success("You successfully update tag.");
     },
-    onError: () => {
-      alert("Something went wrong");
+    onError: (error) => {
+      handleError(error);
     },
   });
 
@@ -49,9 +54,13 @@ function UpdateTag() {
   };
 
   const handleClick = () => {
-    const id = tags.find((tag) => tag.name === name).id;
+    const tag = tags.find((tag) => tag.name === name);
+    if (!tag) {
+      NotificationUtil.error("Tag does not exists");
+      return;
+    }
     updateTagMutation.mutate({
-      id,
+      id: tag.id,
       name: updatedName,
       tagType: updatedType,
       color: updatedColor,

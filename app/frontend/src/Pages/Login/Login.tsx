@@ -11,6 +11,8 @@ import { Button, Input } from "antd";
 import { useMutation } from "react-query";
 import { useAuth } from "../../Components/Hooks/useAuth";
 import postLogin from "../../Services/Login";
+import { NotificationUtil } from "../../Library/utils/notification";
+import { handleAxiosError } from "../../Library/utils/handleError";
 
 function Login() {
   const { setUser, setToken } = useAuth();
@@ -22,10 +24,10 @@ function Login() {
   const loginMutation = useMutation(postLogin, {
     onSuccess: async (data) => {
       if (data.status === 404) {
-        alert("Please enter a valid email address.");
+        NotificationUtil.error("Please enter a valid email address.");
         return;
       } else if (data.status === 500) {
-        alert("Something went wrong.");
+        NotificationUtil.error("Something went wrong.");
         return;
       }
 
@@ -33,11 +35,12 @@ function Login() {
 
       setUser(responseData.user);
       setToken(responseData.token);
+      NotificationUtil.success("You successfully logged in");
 
       navigate("/");
     },
-    onError: () => {
-      alert("Your email or password is incorrect.");
+    onError: (error) => {
+      handleAxiosError(error);
     },
   });
 

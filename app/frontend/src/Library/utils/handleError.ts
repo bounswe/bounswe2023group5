@@ -1,4 +1,5 @@
 import { message } from "antd";
+import { NotificationUtil } from "./notification";
 
 export function handleError(error: any) {
   {
@@ -11,5 +12,12 @@ export function handleError(error: any) {
     }
     message.error(text);
     console.error(error as Error);
+  }
+}
+
+export function handleAxiosError(error: any) {
+  {
+    const errorMessage = error.response.data || `An error occurred`;
+    NotificationUtil.error(errorMessage);
   }
 }
