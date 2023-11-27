@@ -24,12 +24,11 @@ public class GroupUpdateRequest
 
 public class GroupResponse{
     public string id;
+    public string createdAt;
     public string title;
     public string description;
     public string membershipPolicy;
     public TagResponse[]  tags;
-    public string createdAt;
-    public bool isDeleted;
     public string gameId;
     public string forumId;
     public int quota;
@@ -94,4 +93,10 @@ public class GroupRemoveTagRequest
 {
     public string groupId;
     public string tagId;
+}
+
+public class GroupMember
+{
+    public string userName;
+    public string userImage;
 }

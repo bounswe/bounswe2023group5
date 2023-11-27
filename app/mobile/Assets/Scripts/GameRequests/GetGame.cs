@@ -23,11 +23,11 @@ public class GetGame : MonoBehaviour
                      ListToQueryParameters.ListToQueryParams(new[] { "gameId" },
                          new[] { gameId });
         
-        StartCoroutine(Post(url));
+        StartCoroutine(Get(url));
     }
-    IEnumerator Post(string url)
+    IEnumerator Get(string url)
     {
-        var request = new UnityWebRequest(url, "POST");
+        var request = new UnityWebRequest(url, "GET");
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
 
