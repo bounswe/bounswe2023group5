@@ -1,6 +1,11 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  useLocation,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import styles from "./ForumPost.module.scss";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { getPost } from "../../Services/forum";
 import { getCommentList } from "../../Services/comment";
 import CommentForm from "../../Components/Comment/CommentForm/CommentForm.tsx";
@@ -14,17 +19,23 @@ import {
   UpOutlined,
   CommentOutlined,
   WarningOutlined,
+  BackwardOutlined,
+  ArrowLeftOutlined,
 } from "@ant-design/icons";
 import clsx from "clsx";
-import { Button } from "antd";
+import { Button, message } from "antd";
 import { useState } from "react";
 import TagRenderer from "../../Components/TagRenderer/TagRenderer.tsx";
 import { twj } from "tw-to-css";
+import Achievement from "../../Components/Achievement/Achievement/Achievement.tsx";
+import { grantAchievement } from "../../Services/achievement.ts";
+import { formatDate } from "../../Library/utils/formatDate.ts";
 
 function ForumPost() {
   const { isLoggedIn, user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const [searchParams] = useSearchParams();
   const { postId, forumId } = useParams();
   const { data: post, isLoading } = useQuery(["post", postId], () =>
     getPost(postId!)
@@ -44,6 +55,15 @@ function ForumPost() {
 
   const [isCommenting, setCommenting] = useState(false);
 
+  const { mutate: grant } = useMutation(
+    () => grantAchievement(user.id, post.achievement.id),
+    {
+      onSuccess() {
+        message.success(`Achievement Granted`);
+      },
+    }
+  );
+
   const toggleCommenting = () => {
     setCommenting(!isCommenting);
     console.log(isCommenting);
@@ -52,6 +72,12 @@ function ForumPost() {
 
   return (
     <div className={styles.container}>
+      <div
+        className={styles.backButton}
+        onClick={() => navigate(searchParams.get("back") ?? "/")}
+      >
+        <ArrowLeftOutlined />
+      </div>
       {!isLoading && (
         <div className={styles.postContainer}>
           {user?.id === post.poster.id && (
@@ -92,6 +118,7 @@ function ForumPost() {
             </div>
 
             <h2>{post.title}</h2>
+
             <TagRenderer tags={post.tags} />
           </div>{" "}
           {post.postImage && (
@@ -102,30 +129,46 @@ function ForumPost() {
               />
             </div>
           )}
-          <span className={styles.body}>{post.postContent}</span>
-          <div style={twj("flex gap-2 pt-2")}>
-            <Button
-              size="small"
-              icon={<CommentOutlined style={{ color: "#555064" }} />}
-              onClick={() => {
-                toggleCommenting();
-              }}
-            >
-              Comment{" "}
-            </Button>
-            <WarningOutlined
-              style={twj("text-red-500 text-lg cursor-pointer")}
-              type="text"
-              alt="report"
-            />
+          {post.achievement && (
+            <div className={styles.achievement}>
+              <Achievement props={post.achievement} />
+              {user.role === "ADMIN" && (
+                <Button onClick={() => grant()}>Grant Achievement</Button>
+              )}
+            </div>
+          )}
+          <span className={styles.body}>
+            {post.postContent}
+            <span className={styles.postDetails}>
+              <span>Poster: {post.poster?.username}</span>
+              <span>Last edit: {formatDate(post.lastEditedAt)}</span>
+            </span>
+          </span>
+          <div className={styles.comment}>
+            <div style={twj("flex gap-2 pt-2")}>
+              <Button
+                size="small"
+                icon={<CommentOutlined style={{ color: "#555064" }} />}
+                onClick={() => {
+                  toggleCommenting();
+                }}
+              >
+                Comment{" "}
+              </Button>
+              <WarningOutlined
+                style={twj("text-red-500 text-lg cursor-pointer")}
+                type="text"
+                alt="report"
+              />
+            </div>
+            {isCommenting && <CommentForm />}
           </div>
-          {isCommenting && <CommentForm />}
         </div>
       )}
 
       <div className={styles.commentTitle}>Comments</div>
       {!isLoadingComments &&
-        comments.map(
+        comments?.map(
           (comment: any) =>
             !comment.isDeleted && (
               <Comment comment={comment} postId={postId!} key={comment.id} />

@@ -37,3 +37,20 @@ export async function createAchievement({
   );
   return response;
 }
+
+export async function getGameAchievements(id: string) {
+  const res = await axios.get(
+    `${import.meta.env.VITE_APP_API_URL}/achievement/get-game-achievements`,
+    { params: { gameId: id } }
+  );
+
+  return res.data;
+}
+
+export async function grantAchievement(userId: string, achievementId: string) {
+  const response = await axios.post(
+    `${import.meta.env.VITE_APP_API_URL}/achievement/grant-achievement`,
+    { userId, achievementId }
+  );
+  return response;
+}
