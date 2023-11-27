@@ -24,15 +24,14 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background-color: $prussian-blue-dark-20;
-
+  background-color:  $vanilla-light-40;
   padding: 0.5em;
   margin-bottom: 1.5em;
   border-radius: 0.5em;
 }
 
 .header {
-  color: $blue-green-light-10;
+  color: $violet-dark-20;
 }
 
 .search {
@@ -40,7 +39,7 @@
   margin-right: 1rem;
 }
 .filter {
-  background-color: $blue-green-dark-20;
+  background-color: $vanilla-light-70;
   padding: 1em;
   margin-bottom: 2em;
 
