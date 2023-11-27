@@ -122,23 +122,25 @@ function ForumPost() {
             </div>
           )}
           <span className={styles.body}>{post.postContent}</span>
-          <div style={twj("flex gap-2 pt-2")}>
-            <Button
-              size="small"
-              icon={<CommentOutlined style={{ color: "#555064" }} />}
-              onClick={() => {
-                toggleCommenting();
-              }}
-            >
-              Comment{" "}
-            </Button>
-            <WarningOutlined
-              style={twj("text-red-500 text-lg cursor-pointer")}
-              type="text"
-              alt="report"
-            />
+          <div className={styles.comment}>
+            <div style={twj("flex gap-2 pt-2")}>
+              <Button
+                size="small"
+                icon={<CommentOutlined style={{ color: "#555064" }} />}
+                onClick={() => {
+                  toggleCommenting();
+                }}
+              >
+                Comment{" "}
+              </Button>
+              <WarningOutlined
+                style={twj("text-red-500 text-lg cursor-pointer")}
+                type="text"
+                alt="report"
+              />
+            </div>
+            {isCommenting && <CommentForm />}
           </div>
-          {isCommenting && <CommentForm />}
         </div>
       )}
 
