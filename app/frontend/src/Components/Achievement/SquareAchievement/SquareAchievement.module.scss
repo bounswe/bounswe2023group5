@@ -1,0 +1,54 @@
+@import "../../../colors";
+.achievement {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.3s;
+  width: 100px;
+  height: 100px;
+  background-color: $violet-light-30;
+}
+
+.icon {
+  border-radius: 10%;
+  width: 100%;
+  height: 100%;
+}
+
+.achievement_content {
+  flex: 1;
+}
+
+.achievementTitle {
+  visibility: visible;
+  font-size: 18px;
+}
+
+.achievementGame {
+  visibility: visible;
+  font-size: 14px;
+}
+
+.achievement_description {
+  font-size: 14px;
+  color: #555;
+}
+
+.floatingDescription {
+  visibility: hidden;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+  padding: 0;
+}

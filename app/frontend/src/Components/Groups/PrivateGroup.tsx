@@ -38,8 +38,12 @@ function PrivateGroup({ group }: { group: any }) {
               </div>
             </div>
             <div style={{ display: "flex", gap: "3px" }}>
-              <Button>Apply</Button>
-              <Button onClick={() => navigate(`/group/${group.id}`)}>
+              {group.userJoined ? (
+                <Button disabled>Joined</Button>
+              ) : (
+                <Button>Apply</Button>
+              )}
+              <Button onClick={() => navigate(`/group/detail/${group.id}`)}>
                 Group Details
               </Button>
             </div>

@@ -1,5 +1,5 @@
 import { formatDate } from "../../../Library/utils/formatDate";
-import styles from "./reply.module.scss";
+import styles from "./Reply.module.scss";
 import { DeleteOutlined, DownOutlined, UpOutlined } from "@ant-design/icons";
 import { useVote } from "../../Hooks/useVote";
 import { Button } from "antd";

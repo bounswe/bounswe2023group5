@@ -67,12 +67,13 @@ public class GameAddTagResponse
 // For GetGame request, send no body but only gameId
 // as a query parameter
 
-
+// Instead of GetGameResponse, GameDetail's are being returned
+/*
 public class GetGameResponse
 {
     public GameDetail game;
 }
-
+*/
 public class GameDetail
 {
     public string id;
@@ -82,19 +83,19 @@ public class GameDetail
     public string gameDescription;
     public string gameIcon;
     public double overallRating;
-    public int ratingCount;
+    public double ratingCount;
     public string releaseDate;
     public string forum;
-    public string[] playerTypes;
-    public string[] genre;
-    public string production;
-    public string duration;
-    public string[] platforms;
-    public string[] artStyles;
-    public string developer;
-    public string[] otherTags;
+    public TagResponse[] playerTypes;
+    public TagResponse[] genre;
+    public TagResponse production;
+    public TagResponse duration;
+    public TagResponse[] platforms;
+    public TagResponse[] artStyles;
+    public TagResponse developer;
+    public TagResponse[] otherTags;
     public string minSystemReq;
-    public string[] allTags;
+    // public TagResponse[] allTags;
 }
 
 // For GetAllTagsRequest send gameId as a query parameter

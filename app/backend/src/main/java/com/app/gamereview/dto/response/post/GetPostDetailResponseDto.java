@@ -1,8 +1,9 @@
 package com.app.gamereview.dto.response.post;
 
+import com.app.gamereview.model.Achievement;
+import com.app.gamereview.enums.VoteChoice;
 import com.app.gamereview.model.Tag;
 import com.app.gamereview.model.User;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,10 +24,13 @@ public class GetPostDetailResponseDto {
 
     private User poster;
 
-    @NotNull
+    private VoteChoice userVote;
+
     private String forum;
 
     // TODO avatar
+
+    private Achievement achievement;
 
     private LocalDateTime lastEditedAt;
 

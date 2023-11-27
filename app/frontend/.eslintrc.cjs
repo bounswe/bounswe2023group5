@@ -15,5 +15,8 @@ module.exports = {
       { allowConstantExport: true },
     ],
     "@typescript-eslint/no-unused-vars": "warn", // or 'off' to completely ignore unused variables
+    "@typescript-eslint/no-explicit-any": "warn", // Changes error to a warning for 'no-explicit-any'
+    "no-useless-catch": "warn", // Changes error to a warning for 'no-useless-catch'
+    "@typescript-eslint/no-non-null-asserted-optional-chain": "warn",
   },
 };

@@ -8,6 +8,12 @@ import { handleError } from "./Library/utils/handleError.ts";
 import axios from "axios";
 
 const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      retryDelay: 0,
+    },
+  },
   queryCache: new QueryCache({
     onError(error) {
       handleError(error);

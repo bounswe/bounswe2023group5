@@ -3,6 +3,7 @@ package com.app.gamereview.dto.response.post;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.app.gamereview.model.Achievement;
 import com.app.gamereview.enums.VoteChoice;
 import com.app.gamereview.model.Tag;
 import com.app.gamereview.model.User;
@@ -25,6 +26,10 @@ public class GetPostListResponseDto {
 
   private VoteChoice userVote;
 
+  private String postImage;
+
+  private Achievement achievement;
+
   // TODO avatar
 
   private LocalDateTime lastEditedAt;
@@ -46,5 +51,4 @@ public class GetPostListResponseDto {
   // TODO reports
   // TODO comments
   // TODO annotations
-  // TODO achievements
 }

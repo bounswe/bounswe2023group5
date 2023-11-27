@@ -5,13 +5,13 @@ import java.util.List;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class CreatePostRequestDto {
 
   @NotBlank(message = "Post title cannot be empty.")
@@ -33,5 +33,8 @@ public class CreatePostRequestDto {
           message = "One of the tags has invalid Id (UUID) format")String> tags;
 
   // TODO annotations
-  // TODO achievements
+
+  @Pattern(regexp = "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+          message = "Achievement has invalid Id (UUID) format")
+  private String achievement;
 }

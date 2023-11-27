@@ -2,12 +2,16 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import {
   PropsWithChildren,
+  ReactNode,
   createContext,
   useContext,
   useEffect,
   useState,
 } from "react";
 import { me } from "../../Services/me";
+import { useQuery } from "react-query";
+import { getProfile } from "../../Services/profile";
+import { useNavigate } from "react-router-dom";
 
 type User = any;
 
@@ -27,6 +31,8 @@ interface UseAuthProps extends AuthContextProps {
   setToken: (token: string) => void;
   isLoggedIn: boolean;
   logOut: () => void;
+  profile: any;
+  isLoading: boolean;
 }
 
 // Custom hook to use auth
@@ -46,15 +52,31 @@ const useAuth = (): UseAuthProps => {
 
   function logOut() {
     Cookies.remove("token");
-    location.reload();
+    location.replace("/");
   }
 
-  return { user, setUser, token, setToken, isLoggedIn: !!user, logOut };
+  const { data: profile, isLoading } = useQuery(
+    ["profile", user?.id],
+    () => getProfile(user?.id),
+    { enabled: !!user }
+  );
+
+  return {
+    user,
+    setUser,
+    token,
+    setToken,
+    isLoggedIn: !!user,
+    logOut,
+    profile,
+    isLoading: !user || isLoading,
+  };
 };
 
 // AuthProvider component
-const AuthProvider = ({ children }: PropsWithChildren<{}>) => {
+const AuthProvider = ({ children }: { children?: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null); // Initialize to fetch from local storage or server if needed
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -62,7 +84,10 @@ const AuthProvider = ({ children }: PropsWithChildren<{}>) => {
       axios.defaults.headers.common["Authorization"] = `${token}`;
       me().then((res) => {
         setUser?.(res.data);
+        setLoading(false);
       });
+    } else {
+      setLoading(false);
     }
   }, []);
 
@@ -71,7 +96,11 @@ const AuthProvider = ({ children }: PropsWithChildren<{}>) => {
     setUser,
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {!loading && children}
+    </AuthContext.Provider>
+  );
 };
 
 export { useAuth, AuthProvider };

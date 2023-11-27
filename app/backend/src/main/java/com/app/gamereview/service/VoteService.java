@@ -6,10 +6,7 @@ import com.app.gamereview.enums.VoteChoice;
 import com.app.gamereview.enums.VoteType;
 import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.*;
-import com.app.gamereview.repository.CommentRepository;
-import com.app.gamereview.repository.PostRepository;
-import com.app.gamereview.repository.ReviewRepository;
-import com.app.gamereview.repository.VoteRepository;
+import com.app.gamereview.repository.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +24,10 @@ public class VoteService {
 
     private final ReviewRepository reviewRepository;
 
+    private final ProfileRepository profileRepository;
+
+    private final AchievementRepository achievementRepository;
+
     private final MongoTemplate mongoTemplate;
 
     private final ModelMapper modelMapper;
@@ -37,12 +38,16 @@ public class VoteService {
     public VoteService(
             VoteRepository voteRepository,
             ReviewRepository reviewRepository,
+            ProfileRepository profileRepository,
+            AchievementRepository achievementRepository,
             MongoTemplate mongoTemplate,
             ModelMapper modelMapper,
             PostRepository postRepository,
             CommentRepository commentRepository) {
         this.voteRepository = voteRepository;
         this.reviewRepository = reviewRepository;
+        this.profileRepository = profileRepository;
+        this.achievementRepository = achievementRepository;
         this.mongoTemplate = mongoTemplate;
         this.modelMapper = modelMapper;
         this.postRepository = postRepository;
@@ -92,6 +97,22 @@ public class VoteService {
         Vote voteToCreate = modelMapper.map(requestDto, Vote.class);
         voteToCreate.setVotedBy(user.getId());
 
+        Query query = new Query();
+        query.addCriteria(Criteria.where("userId").is(user.getId()));
+        Profile profile = mongoTemplate.findOne(query, Profile.class);
+
+        if(profile == null){
+            throw new ResourceNotFoundException("Profile of the user does not exist");
+        }
+
+        if(!profile.getIsVotedYet()){      // first vote of the user
+            Optional<Achievement> achievement =
+                    achievementRepository.findByIdAndIsDeletedFalse("eb558639-32ca-413f-b842-c3788287dd05");
+            achievement.ifPresent(value -> profile.addAchievement(value.getId()));
+            profile.setIsVotedYet(true);
+        }
+
+
         GetAllVotesFilterRequestDto filter = new GetAllVotesFilterRequestDto();
         filter.setVotedBy(user.getId());
         filter.setTypeId(requestDto.getTypeId());
@@ -103,6 +124,9 @@ public class VoteService {
         // if user has voted this same thing before with the SAME CHOICE
         if (!prevVote.isEmpty() &&
                 prevVote.get(0).getChoice().name().equals(requestDto.getChoice())) {
+
+            profile.setVoteCount(profile.getVoteCount() - 1);
+            profileRepository.save(profile);
 
             if (requestDto.getVoteType().equals(VoteType.REVIEW.name())) {
                 // delete previous vote
@@ -141,6 +165,8 @@ public class VoteService {
         // if user has voted this same thing before but CHANGED HIS CHOICE
         else if (!prevVote.isEmpty() &&
                 !prevVote.get(0).getChoice().name().equals(requestDto.getChoice())) {
+
+            profileRepository.save(profile);
 
             if (requestDto.getVoteType().equals(VoteType.REVIEW.name())) {
                 // delete previous vote
@@ -190,6 +216,9 @@ public class VoteService {
         }
         // user votes something first time
         else {
+
+            profile.setVoteCount(profile.getVoteCount() + 1);
+            profileRepository.save(profile);
 
             if (requestDto.getVoteType().equals(VoteType.REVIEW.name())) {
                 // add new vote

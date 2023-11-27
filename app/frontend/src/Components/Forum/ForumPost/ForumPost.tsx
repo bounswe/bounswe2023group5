@@ -17,15 +17,18 @@ import { truncateWithEllipsis } from "../../../Library/utils/truncate";
 import { useNavigate } from "react-router-dom";
 import TagRenderer from "../../TagRenderer/TagRenderer";
 import { twj } from "tw-to-css";
+import SquareAchievement from "../../Achievement/SquareAchievement/SquareAchievement";
 
 function ForumPost({
   post,
   forumId,
   redirect = "/",
+  gameId,
 }: {
   post: any;
   forumId: string;
   redirect?: string;
+  gameId?: string;
 }) {
   const { user, isLoggedIn } = useAuth();
   const navigate = useNavigate();
@@ -75,6 +78,18 @@ function ForumPost({
         />
       </div>
 
+      {(post.postImage || post.achievement) && (
+        <div className={styles.imgConatiner}>
+          {post.postImage && (
+            <img
+              height="30px"
+              src={`${import.meta.env.VITE_APP_IMG_URL}${post.postImage}`}
+            />
+          )}
+          {post.achievement && <SquareAchievement props={post.achievement} />}
+        </div>
+      )}
+
       <div className={styles.titleContainer}>
         <div className={styles.title}>{post.title}</div>
         {isAdmin && (
@@ -90,7 +105,7 @@ function ForumPost({
       </div>
 
       <div className={styles.meta}>
-        <span>{post.poster.username}</span>
+        <span>{post.poster?.username}</span>
         <span>{post.createdAt && formatDate(post.createdAt)}</span>
         <WarningOutlined
           style={twj("text-red-500 text-lg cursor-pointer")}
@@ -99,16 +114,22 @@ function ForumPost({
         />
       </div>
       <div className={styles.readMore}>
-        <Button onClick={() => navigate(`/forum/detail/${forumId}/${post.id}`)}>
+        <Button
+          onClick={() =>
+            navigate(`/forum/detail/${forumId}/${post.id}?back=${redirect}`)
+          }
+        >
           Read More
         </Button>
       </div>
-      {user?.id === post.poster.id && (
+      {user?.id === post.poster?.id && (
         <div className={styles.edit}>
           <Button
             onClick={() =>
               navigate(
-                `/forum/form?forumId=${forumId}&&redirect=${redirect}&&editId=${post.id}`
+                `/forum/form?forumId=${forumId}&&redirect=${redirect}&&editId=${
+                  post.id
+                }${gameId ? `&&gameId=${gameId}` : ``}`
               )
             }
           >

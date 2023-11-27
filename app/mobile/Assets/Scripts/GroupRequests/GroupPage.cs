@@ -13,16 +13,20 @@ public class GroupPage : MonoBehaviour
     [SerializeField] private TMP_Text tags;
     [SerializeField] private TMP_Text quota;
     [SerializeField] private TMP_Text members;
+    [SerializeField] private Button groupDetailsButton;
+
+    private string groupId;
     
     private CanvasManager canvasManager;
 
 
     private void Awake()
     {
+        groupDetailsButton.onClick.AddListener(OnClickedGroupDetailsButton);
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
     }
 
-    public void Init(GroupResponse groupInfo)
+    public void Init(GroupGetAllResponse groupInfo)
     {
         title.text = groupInfo.title;
         describtion.text = groupInfo.description;
@@ -30,12 +34,15 @@ public class GroupPage : MonoBehaviour
         //tags.text = groupInfo.tags;
         quota.text = groupInfo.quota.ToString();
         members.text = groupInfo.members.Length.ToString();
+        groupId = groupInfo.id;
+        //members.text = groupInfo.members;
     }
 
     
     
-    private void OnClickedGameDetailsButton()
+    private void OnClickedGroupDetailsButton()
     {
         // Debug.Log("Game Details Button Clicked");
+        canvasManager.ShowGroupDetailsPage(groupId);
     }
 }

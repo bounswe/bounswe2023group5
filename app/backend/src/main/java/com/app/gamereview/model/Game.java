@@ -123,9 +123,12 @@ public class Game extends BaseModel {
 		allTags.addAll(platforms);
 		allTags.addAll(artStyles);
 		allTags.addAll(otherTags);
-		allTags.add(production);
-		allTags.add(duration);
-		allTags.add(developer);
+		if(production != null)
+			allTags.add(production);
+		if(duration != null)
+			allTags.add(duration);
+		if(developer != null)
+			allTags.add(developer);
 
 		return allTags;
 	}
