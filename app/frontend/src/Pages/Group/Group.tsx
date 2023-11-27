@@ -11,6 +11,8 @@ import { Button, Modal } from "antd";
 import { useState } from "react";
 import MemberList from "../../Components/MemberList/MemberList";
 import { useAuth } from "../../Components/Hooks/useAuth";
+import { NotificationUtil } from "../../Library/utils/notification";
+import { handleError } from "../../Library/utils/handleError";
 
 function Group() {
   const { groupId } = useParams();
@@ -38,11 +40,11 @@ function Group() {
 
   const deleteGroupMutation = useMutation(deleteGroup, {
     onSuccess: async () => {
-      alert(`You successfully delete the group`);
+      NotificationUtil.success(`You successfully delete the group`);
       navigate("/groups");
     },
-    onError: () => {
-      alert("Something went wrong");
+    onError: (error) => {
+      handleError(error);
     },
   });
 

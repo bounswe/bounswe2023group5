@@ -6,6 +6,8 @@ import { Button, Input } from "antd";
 import { deleteAchievementByName } from "../../../../Services/achievement";
 import { getGames } from "../../../../Services/games";
 import SingleSelect from "../../../../Components/SingleSelect/SingleSelect";
+import { handleError } from "../../../../Library/utils/handleError";
+import { NotificationUtil } from "../../../../Library/utils/notification";
 
 function DeleteAchievement() {
   const [title, setTitle] = useState("");
@@ -13,10 +15,10 @@ function DeleteAchievement() {
 
   const deleteAchievementMutation = useMutation(deleteAchievementByName, {
     onSuccess: async () => {
-      alert("You successfully delete the achievement.");
+      NotificationUtil.success("You successfully delete the achievement.");
     },
-    onError: () => {
-      alert("Something went wrong");
+    onError: (error) => {
+      handleError(error);
     },
   });
 
