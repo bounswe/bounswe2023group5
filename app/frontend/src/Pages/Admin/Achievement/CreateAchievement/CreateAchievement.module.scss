@@ -12,15 +12,12 @@
   }
 
   .select {
-    width: 100%;
+    width: 50%;
+    margin: 2rem 0;
   }
 
   .input {
     margin-bottom: 2rem;
-    &WithMargin {
-      margin-bottom: 2rem;
-      margin-top: 2rem;
-    }
   }
   .colorHeader {
     color: #6ea2bb;
