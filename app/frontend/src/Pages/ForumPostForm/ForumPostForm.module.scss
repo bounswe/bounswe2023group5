@@ -9,6 +9,7 @@
   .achievements {
     display: flex;
     flex-wrap: wrap;
+    gap: 1em;
     & > div {
       cursor: pointer;
       border-radius: 0.5em;

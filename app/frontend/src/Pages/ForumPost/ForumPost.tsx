@@ -1,4 +1,9 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  useLocation,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import styles from "./ForumPost.module.scss";
 import { useMutation, useQuery } from "react-query";
 import { getPost } from "../../Services/forum";
@@ -14,6 +19,8 @@ import {
   UpOutlined,
   CommentOutlined,
   WarningOutlined,
+  BackwardOutlined,
+  ArrowLeftOutlined,
 } from "@ant-design/icons";
 import clsx from "clsx";
 import { Button, message } from "antd";
@@ -22,11 +29,13 @@ import TagRenderer from "../../Components/TagRenderer/TagRenderer.tsx";
 import { twj } from "tw-to-css";
 import Achievement from "../../Components/Achievement/Achievement/Achievement.tsx";
 import { grantAchievement } from "../../Services/achievement.ts";
+import { formatDate } from "../../Library/utils/formatDate.ts";
 
 function ForumPost() {
   const { isLoggedIn, user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const [searchParams] = useSearchParams();
   const { postId, forumId } = useParams();
   const { data: post, isLoading } = useQuery(["post", postId], () =>
     getPost(postId!)
@@ -47,7 +56,7 @@ function ForumPost() {
   const [isCommenting, setCommenting] = useState(false);
 
   const { mutate: grant } = useMutation(
-    () => grantAchievement(user.id, post.achievement),
+    () => grantAchievement(user.id, post.achievement.id),
     {
       onSuccess() {
         message.success(`Achievement Granted`);
@@ -63,6 +72,12 @@ function ForumPost() {
 
   return (
     <div className={styles.container}>
+      <div
+        className={styles.backButton}
+        onClick={() => navigate(searchParams.get("back") ?? "/")}
+      >
+        <ArrowLeftOutlined />
+      </div>
       {!isLoading && (
         <div className={styles.postContainer}>
           {user?.id === post.poster.id && (
@@ -103,6 +118,7 @@ function ForumPost() {
             </div>
 
             <h2>{post.title}</h2>
+
             <TagRenderer tags={post.tags} />
           </div>{" "}
           {post.postImage && (
@@ -121,7 +137,13 @@ function ForumPost() {
               )}
             </div>
           )}
-          <span className={styles.body}>{post.postContent}</span>
+          <span className={styles.body}>
+            {post.postContent}
+            <span className={styles.postDetails}>
+              <span>Poster: {post.poster?.username}</span>
+              <span>Last edit: {formatDate(post.lastEditedAt)}</span>
+            </span>
+          </span>
           <div className={styles.comment}>
             <div style={twj("flex gap-2 pt-2")}>
               <Button

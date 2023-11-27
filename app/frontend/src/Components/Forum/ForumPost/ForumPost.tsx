@@ -17,6 +17,7 @@ import { truncateWithEllipsis } from "../../../Library/utils/truncate";
 import { useNavigate } from "react-router-dom";
 import TagRenderer from "../../TagRenderer/TagRenderer";
 import { twj } from "tw-to-css";
+import SquareAchievement from "../../Achievement/SquareAchievement/SquareAchievement";
 
 function ForumPost({
   post,
@@ -77,12 +78,15 @@ function ForumPost({
         />
       </div>
 
-      {post.postImage && (
+      {(post.postImage || post.achievement) && (
         <div className={styles.imgConatiner}>
-          <img
-            height="30px"
-            src={`${import.meta.env.VITE_APP_IMG_URL}${post.postImage}`}
-          />
+          {post.postImage && (
+            <img
+              height="30px"
+              src={`${import.meta.env.VITE_APP_IMG_URL}${post.postImage}`}
+            />
+          )}
+          {post.achievement && <SquareAchievement props={post.achievement} />}
         </div>
       )}
 
@@ -110,7 +114,11 @@ function ForumPost({
         />
       </div>
       <div className={styles.readMore}>
-        <Button onClick={() => navigate(`/forum/detail/${forumId}/${post.id}`)}>
+        <Button
+          onClick={() =>
+            navigate(`/forum/detail/${forumId}/${post.id}?back=${redirect}`)
+          }
+        >
           Read More
         </Button>
       </div>

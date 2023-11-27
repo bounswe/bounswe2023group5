@@ -4,8 +4,24 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  padding: 2.5em;
+  padding: 2em;
   position: relative;
+
+  .backButton {
+    color: $prussian-blue;
+    margin: 0.4em;
+    font-size: 30px;
+    cursor: pointer;
+    // Transition for smooth scaling
+    transition: transform 0.3s ease;
+    flex-grow: 0;
+    width: min-content;
+
+    &:hover {
+      // Scale up the button on hover
+      transform: scale(1.2);
+    }
+  }
 
   .postContainer {
     display: grid;
@@ -88,6 +104,17 @@
       padding: 0.5em;
       background-color: $celadon-light-30;
       border-radius: 0.5em;
+      position: relative;
+
+      .postDetails {
+        position: absolute;
+        right: 0.5em;
+        bottom: 0.5em;
+        font-size: 0.8em;
+        opacity: 80%;
+        display: flex;
+        gap: 1em;
+      }
     }
 
     .comment {

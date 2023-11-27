@@ -17,12 +17,14 @@
 
   .imgConatiner {
     grid-area: i;
-    aspect-ratio: 1;
     padding: 0.5em;
-    img {
+    display: flex;
+    gap: 1em;
+    & > img {
       object-fit: contain;
       height: 100%;
-      width: 100%;
+      width: auto;
+      aspect-ratio: 1;
     }
   }
 
