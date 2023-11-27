@@ -53,7 +53,7 @@ public class GetProfileResponse
 {
     public string id;
     public User user;
-    public Achievement[] achievements;
+    public AchievementResponse[] achievements;
     public int reviewCount;
     public int voteCount;
     public int commentCount;
@@ -94,7 +94,7 @@ public class ProfileGroup{
     public string title;
     public string description;
     public string membershipPolicy;
-    public TagResponse[]  tags;
+    public string[]  tags;
     public string gameId;
     public string forumId;
     public int quota;
