@@ -11,6 +11,8 @@ import SingleSelect from "../../../../Components/SingleSelect/SingleSelect";
 import { createGame } from "../../../../Services/games";
 import { InboxOutlined } from "@ant-design/icons";
 import { uploadImage } from "../../../../Services/image";
+import { NotificationUtil } from "../../../../Library/utils/notification";
+import { handleAxiosError } from "../../../../Library/utils/handleError";
 
 function CreateGame() {
   // add gameIcon, duration, min system, developer and othertags req field
@@ -51,18 +53,21 @@ function CreateGame() {
 
   const addGameMutation = useMutation(createGame, {
     onSuccess: async () => {
-      alert("You successfully create game.");
+      NotificationUtil.success("You successfully create game.");
     },
-    onError: () => {
-      alert("Something went wrong");
+    onError: (error) => {
+      handleAxiosError(error);
     },
   });
 
-  const uploadImageMutation = useMutation(uploadImage, {
-    onError: () => {
-      alert("We cannot upload the image");
-    },
-  });
+  const uploadImageMutation = useMutation(
+    (i: any) => uploadImage(i, "game-icons"),
+    {
+      onError: () => {
+        handleAxiosError(error);
+      },
+    }
+  );
   const handleClick = async () => {
     const gameIcon = await uploadImageMutation.mutateAsync(
       fileList[0].originFileObj
@@ -89,7 +94,7 @@ function CreateGame() {
 
     fileList.map((file) => {
       if (file.type.indexOf("image") === -1) {
-        alert("You can only upload image files!");
+        NotificationUtil.error("You can only upload image files!");
         setFileList([]);
       } else {
         setFileList([file]);

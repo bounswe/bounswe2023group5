@@ -5,6 +5,8 @@ import SingleSelect from "../../../../Components/SingleSelect/SingleSelect";
 import { useMutation, useQuery } from "react-query";
 import { addTag, getTags } from "../../../../Services/tags";
 import { SketchPicker } from "react-color";
+import { NotificationUtil } from "../../../../Library/utils/notification";
+import { handleAxiosError } from "../../../../Library/utils/handleError";
 
 function CreateTag() {
   const [name, setName] = useState("");
@@ -19,10 +21,10 @@ function CreateTag() {
 
   const addTagMutation = useMutation(addTag, {
     onSuccess: async () => {
-      alert("You successfully create tag.");
+      NotificationUtil.success("You successfully create tag.");
     },
-    onError: () => {
-      alert("Something went wrong");
+    onError: (error) => {
+      handleAxiosError(error);
     },
   });
 

@@ -4,9 +4,13 @@ import { Button, Form, Input, Select } from "antd";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { createPost, editPost, getPost } from "../../Services/forum";
 import { twj } from "tw-to-css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "antd/es/form/Form";
 import { getTags } from "../../Services/tags";
+import UploadArea from "../../Components/UploadArea/UploadArea";
+import { getGameAchievements } from "../../Services/achievement";
+import SquareAchievement from "../../Components/Achievement/SquareAchievement/SquareAchievement";
+import clsx from "clsx";
 
 function ForumPostForm() {
   const [form] = useForm();
@@ -14,6 +18,15 @@ function ForumPostForm() {
   const navigate = useNavigate();
   const editId = searchParams.get("editId");
   const queryClient = useQueryClient();
+  const [imageUrl, setImageUrl] = useState<string | undefined>();
+  const [achievement, setAchievement] = useState<any>(null);
+  const gameId = searchParams.get("gameId");
+
+  const { data: achievements } = useQuery(
+    ["achievement", gameId],
+    () => getGameAchievements(gameId!),
+    { enabled: !!gameId }
+  );
 
   const { data: editedPost, isLoading: editLoading } = useQuery(
     ["post", editId],
@@ -56,6 +69,8 @@ function ForumPostForm() {
           title,
           postContent,
           tags,
+          postImage: imageUrl,
+          achievement: achievement || undefined,
         });
       } else {
         return editPost({ id: editId!, title, postContent });
@@ -81,14 +96,46 @@ function ForumPostForm() {
         >
           <Input placeholder="Come up with a totes cool title my dude" />
         </Form.Item>
-        <Form.Item name="tags" label="Tags">
-          <Select
-            allowClear
-            mode="multiple"
-            placeholder="You can add tags to your post."
-            options={tagOptions}
-          />
-        </Form.Item>
+        {!editId && (
+          <>
+            <Form.Item label="Image">
+              <UploadArea
+                style={twj("bg-gray-50 my-2")}
+                onUpload={setImageUrl}
+              />
+            </Form.Item>
+
+            {gameId && (
+              <Form.Item label="Achievements">
+                <div className={styles.achievements}>
+                  {achievements?.map((a: any) => (
+                    <div
+                      
+                      className={clsx(achievement === a.id && styles.active)}
+                    >
+                      <SquareAchievement props={a} onClick={() => {
+                        if (achievement === a.id) {
+                          setAchievement(null);
+                        } else {
+                          setAchievement(a.id);
+                        }
+                      }} />
+                    </div>
+                  ))}
+                </div>
+              </Form.Item>
+            )}
+
+            <Form.Item name="tags" label="Tags">
+              <Select
+                allowClear
+                mode="multiple"
+                placeholder="You can add tags to your post, amazing innit."
+                options={tagOptions}
+              />
+            </Form.Item>
+          </>
+        )}
         <Form.Item
           name="postContent"
           rules={[{ required: true, message: "Please enter post content" }]}

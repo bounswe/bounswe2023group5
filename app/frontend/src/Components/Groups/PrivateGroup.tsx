@@ -21,7 +21,7 @@ function PrivateGroup({ group }: { group: any }) {
       </div>
       <div className={styles.body}>
         <div className={styles.imgContainer}>
-          <img src="../../../assets/images/guru.jpeg"></img>
+          <img src="../../../assets/images/group.png"></img>
         </div>
         <div className={styles.content}>
           <div className={styles.description}>
@@ -38,7 +38,11 @@ function PrivateGroup({ group }: { group: any }) {
               </div>
             </div>
             <div style={{ display: "flex", gap: "3px" }}>
-              <Button>Apply</Button>
+              {group.userJoined ? (
+                <Button disabled>Joined</Button>
+              ) : (
+                <Button>Apply</Button>
+              )}
               <Button onClick={() => navigate(`/group/detail/${group.id}`)}>
                 Group Details
               </Button>

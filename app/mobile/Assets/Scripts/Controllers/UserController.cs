@@ -4,7 +4,6 @@
 
 public class UserChangeRoleRequest
 {
-    public string id;
     public string userRole;
 }
 
@@ -15,6 +14,8 @@ public class UserGetAllRequest
     public bool isDeleted;
 }
 
+// The response is an array of objects [{}], not an object of array of objects {[{}]}.
+// Therefore cannot use UserGetAllResponse is deserialization. 
 public class UserGetAllResponse
 {
     public User[] users;

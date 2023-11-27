@@ -42,4 +42,17 @@ public class ForumService {
         return true;
     }
 
+    public Boolean unbanUser(String forumId, String userId) {
+        Optional<Forum> forum = forumRepository.findById(forumId);
+
+        if (forum.isEmpty() || forum.get().getIsDeleted()) {
+            throw new ResourceNotFoundException("The forum with the given id is not found.");
+        }
+
+        forum.get().removeBannedUser(userId);
+        forumRepository.save(forum.get());
+
+        return true;
+    }
+
 }

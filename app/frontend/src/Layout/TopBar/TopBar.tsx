@@ -94,7 +94,6 @@ function TopBar() {
       <Menu
         className={styles.menu}
         mode="horizontal"
-        defaultSelectedKeys={["games"]}
         items={isLoggedIn ? itemsLoggedIn : itemsNotLoggedIn}
         theme="dark"
         onClick={({ key }) => {

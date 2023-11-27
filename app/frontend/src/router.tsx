@@ -20,8 +20,12 @@ import GiveAdminPermission from "./Pages/Admin/User/GiveAdminPermission/GiveAdmi
 import Groups from "./Pages/Groups/Groups";
 import Group from "./Pages/Group/Group";
 import CreateGroup from "./Pages/CreateGroup/CreateGroup";
+import Achievement from "./Components/Achievement/Achievement/Achievement";
+import Achievements from "./Pages/Achievement/Achievements";
+import Profile from "./Pages/Profile/Profile";
 import CreateAchievement from "./Pages/Admin/Achievement/CreateAchievement/CreateAchievement";
 import DeleteAchievement from "./Pages/Admin/Achievement/DeleteAchievement/DeleteAchievement";
+
 
 axios.defaults.headers.common["Content-Type"] = "application/json";
 
@@ -41,7 +45,7 @@ const router = createBrowserRouter([
         element: <HelloWorld />,
       },
       {
-        path: "game/:gameId",
+        path: "game/detail/:gameId",
         element: <GameDetails />,
       },
       {
@@ -69,6 +73,10 @@ const router = createBrowserRouter([
             element: <ForumPost />,
           },
         ],
+      },
+      {
+        path: "achievements",
+        element: <Achievements />,
       },
       {
         path: "games",
@@ -107,8 +115,13 @@ const router = createBrowserRouter([
         element: <GiveAdminPermission />,
       },
       {
+        path: "profile",
+        element: <Profile />,
+      },
+      {
         path: "create-achievement",
         element: <CreateAchievement />,
+
       },
       {
         path: "delete-achievement",
@@ -131,6 +144,10 @@ const router = createBrowserRouter([
   {
     path: "register",
     element: <Register />,
+  },
+  {
+    path: "profile",
+    element: <Profile />,
   },
 ]);
 

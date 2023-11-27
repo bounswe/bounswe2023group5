@@ -6,6 +6,7 @@ import com.app.gamereview.dto.response.auth.LoginUserResponseDto;
 import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.User;
+import com.app.gamereview.repository.ProfileRepository;
 import com.app.gamereview.repository.UserRepository;
 import com.app.gamereview.util.JwtUtil;
 import org.junit.jupiter.api.Test;
@@ -31,6 +32,9 @@ public class AuthServiceTest {
 
     @Mock
     private UserRepository userRepository;
+
+    @Mock
+    private ProfileRepository profileRepository;
 
     @Mock
     private ModelMapper modelMapper;

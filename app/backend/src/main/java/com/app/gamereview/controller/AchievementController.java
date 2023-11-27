@@ -55,6 +55,15 @@ public class AchievementController {
         return ResponseEntity.ok(achievement);
     }
 
+    @DeleteMapping("/delete-by-name")
+    @AuthorizationRequired
+    @AdminRequired
+    public ResponseEntity<Achievement> deleteAchievementByName(@RequestParam String achievementName, @RequestParam(required = false) String gameName,
+                                                               @RequestHeader String Authorization, HttpServletRequest request) {
+        Achievement achievement = achievementService.deleteAchievement(achievementName, gameName);
+        return ResponseEntity.ok(achievement);
+    }
+
     @GetMapping("/get-game-achievements")
     public ResponseEntity<List<Achievement>> getGameAchievements(@RequestParam String gameId) {
         List<Achievement> gameAchievements = achievementService.getGameAchievements(gameId);

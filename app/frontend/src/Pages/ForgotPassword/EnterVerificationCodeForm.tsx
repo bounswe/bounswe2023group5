@@ -4,6 +4,8 @@ import { Form, Input, Button } from "antd";
 import { useMutation } from "react-query";
 import { postCode, postEmail } from "../../Services/ForgotPassword";
 import { useAuth } from "../../Components/Hooks/useAuth";
+import { NotificationUtil } from "../../Library/utils/notification";
+import { handleAxiosError } from "../../Library/utils/handleError";
 
 interface EnterVerificationCodeFormProps {
   isVerified: boolean;
@@ -19,10 +21,10 @@ const EnterVerificationCodeForm: React.FC<EnterVerificationCodeFormProps> = ({
   const codeMutation = useMutation(postCode, {
     onSuccess: async (data) => {
       if (data.status === 400) {
-        alert("Please enter a valid code");
+        NotificationUtil.error("Please enter a valid code");
         return;
       } else if (data.status === 500) {
-        alert("Something went wrong.");
+        NotificationUtil.error("Something went wrong.");
         return;
       }
 
@@ -31,8 +33,8 @@ const EnterVerificationCodeForm: React.FC<EnterVerificationCodeFormProps> = ({
 
       setIsVerified(true);
     },
-    onError: () => {
-      alert("Something went wrong.");
+    onError: (error) => {
+      handleAxiosError(error);
     },
   });
 
@@ -45,19 +47,18 @@ const EnterVerificationCodeForm: React.FC<EnterVerificationCodeFormProps> = ({
   const emailMutation = useMutation(postEmail, {
     onSuccess: (data) => {
       if (data.status === 404) {
-        alert("Please enter a valid email address.");
+        NotificationUtil.error("Please enter a valid email address.");
         return;
-      } else if (data.status === 500) {
-        alert("Something went wrong.");
-        return;
-      } else if (data.status === 400) {
-        alert("Bad Request");
+      } else if (data.status === 500 || data.status === 400) {
+        NotificationUtil.error("Something went wrong.");
         return;
       }
-      alert("Verification code is sent to your email address.");
+      NotificationUtil.success(
+        "Verification code is sent to your email address."
+      );
     },
-    onError: () => {
-      alert("Please enter a valid email address.");
+    onError: (error) => {
+      handleAxiosError(error);
     },
   });
 

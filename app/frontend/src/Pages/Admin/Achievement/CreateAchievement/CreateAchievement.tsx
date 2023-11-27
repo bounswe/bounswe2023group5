@@ -7,6 +7,7 @@ import SingleSelect from "../../../../Components/SingleSelect/SingleSelect";
 import { InboxOutlined } from "@ant-design/icons";
 import { uploadImage } from "../../../../Services/image";
 import { createAchievement } from "../../../../Services/achievement";
+import { getGames } from "../../../../Services/games";
 
 function CreateAchievement() {
   const ACHIEVEMENT_TYPES = ["GAME", "META"];
@@ -28,8 +29,14 @@ function CreateAchievement() {
     },
   });
 
-  const onChange = (_filterKey: string, value: string[] | string) => {
+  const { data: games } = useQuery(["games"], () => getGames());
+
+  const onChangeType = (_filterKey: string, value: string) => {
     setType(value as string);
+  };
+
+  const onChangeGame = (_filterKey: string, value: string) => {
+    setGame(value as string);
   };
 
   const uploadImageMutation = useMutation(uploadImage, {
@@ -93,7 +100,7 @@ function CreateAchievement() {
           filterKey="type"
           elements={ACHIEVEMENT_TYPES}
           reset={false}
-          onChange={onChange}
+          onChange={onChangeType}
         ></SingleSelect>
 
         <h4 className={styles.colorHeader}>Achievement Icon</h4>
@@ -112,12 +119,14 @@ function CreateAchievement() {
           <p className="ant-upload-hint">You can only upload one image file.</p>
         </Dragger>
 
-        <Input
-          placeholder="Game"
-          value={game}
-          className={styles.inputWithMargin}
-          onChange={(event) => setGame(event.target.value)}
-        />
+        <SingleSelect
+          className={styles.select}
+          title="Game"
+          elements={games.map((game) => game.gameName)}
+          onChange={onChangeGame}
+          reset={false}
+        ></SingleSelect>
+        <br></br>
 
         <Button className={styles.filterButton} onClick={handleClick}>
           Create Achievement

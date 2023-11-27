@@ -2,7 +2,7 @@ import { SVGProps } from "react";
 
 interface Props extends SVGProps<SVGSVGElement> {}
 
-function Profile(props: Props) {
+function ProfileIcon(props: Props) {
   return (
     <svg
       id="SvgjsSvg1035"
@@ -31,4 +31,4 @@ function Profile(props: Props) {
   );
 }
 
-export default Profile;
+export default ProfileIcon;

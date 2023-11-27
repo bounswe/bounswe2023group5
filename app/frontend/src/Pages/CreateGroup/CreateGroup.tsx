@@ -20,7 +20,7 @@ function CreateGroup() {
   const { data: tagOptions } = useQuery(
     ["tagOptions", "forumPost"],
     async () => {
-      const data = await getTags({ tagType: "GENRE" });
+      const data = await getTags({ tagType: "GROUP" });
       return data.map((item: { name: any; id: any }) => ({
         label: item.name,
         value: item.id,
