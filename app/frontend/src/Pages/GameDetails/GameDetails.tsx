@@ -18,7 +18,7 @@ function GameDetails() {
     getGame(gameId!)
   );
 
-  const score = data.overallRating;
+  const score = data?.overallRating;
   const [searchParams] = useSearchParams();
 
   const [subPage, setSubPage] = useState<"summary" | "reviews" | "forum">(
@@ -77,7 +77,7 @@ function GameDetails() {
                 data?.forum ? (
                   <Forum
                     forumId={data.forum}
-                    redirect={`/game/${gameId}?subPage=forum`}
+                    redirect={`/game/detail/${gameId}?subPage=forum`}
                     gameId={gameId}
                   />
                 ) : (

@@ -30,6 +30,7 @@ import { twj } from "tw-to-css";
 import Achievement from "../../Components/Achievement/Achievement/Achievement.tsx";
 import { grantAchievement } from "../../Services/achievement.ts";
 import { formatDate } from "../../Library/utils/formatDate.ts";
+import { handleError } from "../../Library/utils/handleError.ts";
 
 function ForumPost() {
   const { isLoggedIn, user } = useAuth();
@@ -56,10 +57,14 @@ function ForumPost() {
   const [isCommenting, setCommenting] = useState(false);
 
   const { mutate: grant } = useMutation(
-    () => grantAchievement(user.id, post.achievement.id),
+    () => grantAchievement(post.poster.id, post.achievement.id),
     {
       onSuccess() {
         message.success(`Achievement Granted`);
+      },
+
+      onError(err: any) {
+        handleError(err);
       },
     }
   );
@@ -132,7 +137,7 @@ function ForumPost() {
           {post.achievement && (
             <div className={styles.achievement}>
               <Achievement props={post.achievement} />
-              {user.role === "ADMIN" && (
+              {user?.role === "ADMIN" && (
                 <Button onClick={() => grant()}>Grant Achievement</Button>
               )}
             </div>

@@ -1,77 +1,75 @@
 @import "../../../colors";
 .achievement {
-    display: flex;
-    align-items: center;
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    transition: border-color 0.3s;
-    width: 20em;
-    height: 6em;
-    background-color: $violet-light-30;
-  }
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.3s;
+  width: 20em;
+  height: 6em;
+  background-color: $violet-light-30;
+}
 
-  .achievement:hover {
-    border-color: #007bff; /* Highlight border on hover */
-    width: 20em;
-    height: 6em;
-  }
+.achievement:hover {
+  border-color: #007bff; /* Highlight border on hover */
+  width: 20em;
+  height: 6em;
+}
 
-  .icon {
-    margin-right: 10px;
-    border-radius: 10%;
-    width: 25%;
-    height: 100%;
-  }
+.icon {
+  margin-right: 10px;
+  border-radius: 10%;
+  width: 25%;
+  height: 100%;
+}
 
-  .achievement_content {
-    flex: 1;
-  }
-  
-  .hovered .achievementTitle {
-    visibility: hidden;
-  }
-  .achievementTitle {
-    visibility: visible;
-    font-size: 18px;
-  }
+.achievement_content {
+  flex: 1;
+}
 
-  .hovered .achievementGame {
-    visibility: hidden;
-  }
-  .achievementGame {
-    visibility: visible;
-    font-size: 14px;
-  }
-  
-  
-  .achievement_description {
-    font-size: 14px;
-    color: #555;
-  }
-  .hovered .floatingDescription {
-    visibility: visible;
-    color: #fff;
-    text-align: center;
-    align-items: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    z-index: 1;
-  }
-  .floatingDescription {
-    visibility: hidden;
-    color: #fff;
-    text-align: center  ;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 1;
-  }
-  .row {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    position: relative;
-    margin-left: 10px;
-  }
+.hovered .achievementTitle {
+  visibility: hidden;
+}
+.achievementTitle {
+  visibility: visible;
+  font-size: 18px;
+}
+
+.hovered .achievementGame {
+  visibility: hidden;
+}
+.achievementGame {
+  visibility: visible;
+  font-size: 14px;
+}
+
+.achievement_description {
+  font-size: 14px;
+  color: #555;
+}
+.hovered .floatingDescription {
+  visibility: visible;
+  color: #fff;
+  text-align: center;
+  align-items: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  z-index: 1;
+}
+.floatingDescription {
+  visibility: hidden;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  margin-left: 10px;
+}

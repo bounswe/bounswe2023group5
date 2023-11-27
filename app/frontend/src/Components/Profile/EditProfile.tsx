@@ -28,7 +28,10 @@ function EditProfile({ profile }: { profile: any }) {
   const { mutate: edit } = useMutation(
     (data: any) => editProfile(data, profileId),
     {
-      onSuccess() {
+      onSuccess(_, data: any) {
+        if (data.username) {
+          location.reload();
+        }
         queryClient.invalidateQueries(["profile", profile.user.id]);
         setConfirmLoading(false);
         setOpen(false);
