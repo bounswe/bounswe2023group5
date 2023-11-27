@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import styles from "./CreateAchievement.module.scss";
 import "react-datepicker/dist/react-datepicker.css";
 import { Button, Input, Upload } from "antd";
@@ -9,7 +9,10 @@ import { uploadImage } from "../../../../Services/image";
 import { createAchievement } from "../../../../Services/achievement";
 import { getGames } from "../../../../Services/games";
 import { NotificationUtil } from "../../../../Library/utils/notification";
-import { handleError } from "../../../../Library/utils/handleError";
+import {
+  handleAxiosError,
+  handleError,
+} from "../../../../Library/utils/handleError";
 
 function CreateAchievement() {
   const ACHIEVEMENT_TYPES = ["GAME", "META"];
@@ -41,11 +44,14 @@ function CreateAchievement() {
     setGame(value as string);
   };
 
-  const uploadImageMutation = useMutation(uploadImage, {
-    onError: (error) => {
-      handleError(error);
-    },
-  });
+  const uploadImageMutation = useMutation(
+    (i: any) => uploadImage(i, "achievement-icons"),
+    {
+      onError: (error) => {
+        handleAxiosError(error);
+      },
+    }
+  );
   const handleClick = async () => {
     const icon = await uploadImageMutation.mutateAsync(
       fileList[0].originFileObj
