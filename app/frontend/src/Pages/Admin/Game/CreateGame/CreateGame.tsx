@@ -60,18 +60,11 @@ function CreateGame() {
     },
   });
 
-
-  const uploadImageMutation = useMutation(uploadImage, {
-    onError: (error) => {
-      handleAxiosError(error);
-    },
-  });
-
   const uploadImageMutation = useMutation(
     (i: any) => uploadImage(i, "game-icons"),
     {
       onError: () => {
-         handleAxiosError(error);
+        handleAxiosError(error);
       },
     }
   );
