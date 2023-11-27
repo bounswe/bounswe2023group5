@@ -26,7 +26,7 @@ public class GroupPage : MonoBehaviour
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
     }
 
-    public void Init(GroupResponse groupInfo)
+    public void Init(GroupGetAllResponse groupInfo)
     {
         title.text = groupInfo.title;
         describtion.text = groupInfo.description;
