@@ -31,5 +31,11 @@ public class Forum extends BaseModel {
 
   public void addBannedUser(String id){
     bannedUsers.add(id);
+    if(!(bannedUsers.contains(id))){
+      bannedUsers.add(id);
+    }
+  }
+  public void removeBannedUser(String id) {
+    bannedUsers.remove(id);
   }
 }

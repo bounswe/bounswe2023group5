@@ -24,12 +24,28 @@ public class GroupUpdateRequest
 
 public class GroupResponse{
     public string id;
+    public string createdAt;
     public string title;
     public string description;
     public string membershipPolicy;
     public TagResponse[]  tags;
+    public string gameId;
+    public string forumId;
+    public int quota;
+    public GroupMember[]  moderators;
+    public GroupMember[] members;
+    public GroupMember[] bannedMembers;
+    public bool avatarOnly;
+    public bool userJoined;
+}
+
+public class GroupGetAllResponse{
+    public string id;
     public string createdAt;
-    public bool isDeleted;
+    public string title;
+    public string description;
+    public string membershipPolicy;
+    public TagResponse[]  tags;
     public string gameId;
     public string forumId;
     public int quota;
@@ -37,6 +53,7 @@ public class GroupResponse{
     public string[] members;
     public string[] bannedMembers;
     public bool avatarOnly;
+    public bool userJoined;
 }
 
 // Header parameters:
@@ -94,4 +111,11 @@ public class GroupRemoveTagRequest
 {
     public string groupId;
     public string tagId;
+}
+
+public class GroupMember
+{
+    public string id;
+    public string userName;
+    public string photoUrl;
 }

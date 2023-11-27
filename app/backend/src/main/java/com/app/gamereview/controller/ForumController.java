@@ -37,4 +37,12 @@ public class ForumController {
         Boolean result = forumService.banUser(forumId, userId);
         return ResponseEntity.ok(result);
     }
+
+    @AuthorizationRequired
+    @AdminRequired
+    @PutMapping("/unban-user")
+    public ResponseEntity<Boolean> unbanUser(@RequestParam String forumId, @RequestParam String userId, @RequestHeader String Authorization, HttpServletRequest request) {
+        Boolean result = forumService.unbanUser(forumId, userId);
+        return ResponseEntity.ok(result);
+    }
 }

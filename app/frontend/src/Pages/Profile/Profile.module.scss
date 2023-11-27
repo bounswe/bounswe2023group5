@@ -1,0 +1,143 @@
+@import "../../colors";
+
+.profilePage {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  height: 100%;
+  width: 100%;
+  padding: 2em;
+
+  gap: 1em;
+
+  .profileError {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .profileCard {
+    display: flex;
+    justify-content: flex-start;
+    background-color: $yellow-light-30;
+    border-radius: 0.5em;
+    padding: 0.5em;
+    position: relative;
+
+    .edit {
+      position: absolute;
+      top: 1em;
+      right: 1em;
+    }
+
+    .profilePicture {
+      flex: 1 1 0;
+      aspect-ratio: 1;
+      overflow: hidden;
+      border-radius: 100%;
+
+      img {
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+      }
+    }
+
+    .profileDetails {
+      flex: 3.5 3.5 0;
+
+      .profileName {
+        height: 60%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 0.5em;
+        h1 {
+          all: unset;
+          font-size: 2.5em;
+          font-weight: bold;
+          color: $prussian-blue-dark-40;
+        }
+        span {
+          color: $orange-dark-10;
+          font-size: 1.5em;
+        }
+      }
+
+      .socialContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2em;
+        height: auto;
+
+        & > span {
+          color: $orange;
+          font-size: 1.3em;
+          opacity: 50%;
+        }
+
+        & > a {
+          background-color: pink;
+          height: 3em;
+          width: 10em;
+          border-radius: 0.5em;
+          padding: 0.5em;
+          color: white;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-right: 0.5em;
+          text-decoration: none;
+
+          img {
+            height: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+          }
+        }
+      }
+    }
+  }
+
+  .profileMenu {
+    background-color: $prussian-blue-dark-40;
+    color: $color-text-light;
+    height: 3.5em;
+    border-radius: 0.5em;
+    display: flex;
+    justify-content: stretch;
+    align-items: stretch;
+    overflow: hidden;
+
+    button {
+      all: unset;
+      flex: 1 1 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 150ms ease-in-out;
+      text-transform: capitalize;
+
+      &:hover,
+      &.active {
+        background-color: $blue-green;
+        color: $color-text;
+      }
+      &:active {
+        transition: all 50ms ease-in-out;
+        background-color: $blue-green-light-20;
+      }
+    }
+  }
+
+  .profileContent {
+    background-color: $violet-light-80;
+    border-radius: 0.5em;
+    flex: 1 0 0px;
+  }
+}

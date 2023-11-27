@@ -37,6 +37,8 @@ public class PostService {
 
     private final UserRepository userRepository;
 
+    private final ProfileRepository profileRepository;
+
     private final TagRepository tagRepository;
     private final CommentRepository commentRepository;
 
@@ -48,10 +50,15 @@ public class PostService {
     private final ModelMapper modelMapper;
 
     @Autowired
-    public PostService(PostRepository postRepository, ForumRepository forumRepository, UserRepository userRepository, TagRepository tagRepository, CommentRepository commentRepository, VoteRepository voteRepository, AchievementRepository achievementRepository, MongoTemplate mongoTemplate, ModelMapper modelMapper) {
+    public PostService(PostRepository postRepository, ForumRepository forumRepository, UserRepository userRepository,
+                       ProfileRepository profileRepository, TagRepository tagRepository,
+                       CommentRepository commentRepository, VoteRepository voteRepository,
+                       AchievementRepository achievementRepository, MongoTemplate mongoTemplate,
+                       ModelMapper modelMapper) {
         this.postRepository = postRepository;
         this.forumRepository = forumRepository;
         this.userRepository = userRepository;
+        this.profileRepository = profileRepository;
         this.tagRepository = tagRepository;
         this.commentRepository = commentRepository;
         this.voteRepository = voteRepository;
@@ -74,7 +81,9 @@ public class PostService {
         if (filter.getSearch() != null && !filter.getSearch().isBlank()) {
             query.addCriteria(Criteria.where("title").regex(filter.getSearch(), "i"));
         }
-
+        if (filter.getTags() != null && !filter.getTags().isEmpty()) {
+            query.addCriteria(Criteria.where("tags").in(filter.getTags()));
+        }
         if (filter.getSortBy() != null) {
             Sort.Direction sortDirection = Sort.Direction.DESC; // Default sorting direction (you can change it to ASC if needed)
             if (filter.getSortDirection() != null) {
@@ -111,6 +120,9 @@ public class PostService {
 
         List<Tag> tags = new ArrayList<>();
 
+        Optional<Achievement> postAchievementOptional = achievementRepository.findByIdAndIsDeletedFalse(post.getAchievement());
+        Achievement postAchievement = postAchievementOptional.orElse(null);
+
         // Fetch tags individually
         for (String tagId : post.getTags()) {
             Optional<Tag> tag = tagRepository.findById(tagId);
@@ -118,27 +130,36 @@ public class PostService {
         }
 
         return new GetPostListResponseDto(post.getId(), post.getTitle(), post.getPostContent(),
-                posterObject, userVoteChoice, post.getLastEditedAt(), post.getCreatedAt(), isEdited, tags,
-                post.getInappropriate(), post.getOverallVote(), post.getVoteCount(), commentCount);
+                posterObject, userVoteChoice, post.getPostImage(), postAchievement, post.getLastEditedAt(), post.getCreatedAt(), isEdited,
+                tags, post.getInappropriate(), post.getOverallVote(), post.getVoteCount(), commentCount);
     }
 
 
-    public GetPostDetailResponseDto getPostById(String id, User user) {
+    public GetPostDetailResponseDto getPostById(String id, String email) {
         Optional<Post> post = postRepository.findById(id);
+        Optional<User> loggedInUser = userRepository.findByEmailAndIsDeletedFalse(email);
+        String loggedInUserId = loggedInUser.map(User::getId).orElse(null);
 
         if (post.isEmpty()) {
             throw new ResourceNotFoundException("The post with the given id was not found");
         }
         Optional<Forum> forum = forumRepository.findById(post.get().getForum());
-
         if (forum.isPresent()) {
-            List<String> bannedUsers = forum.get().getBannedUsers();
-            if (bannedUsers.contains(user.getId())) {
-                throw new ResourceNotFoundException("You cannot see the post because you are banned.");
+            if(loggedInUserId != null){
+                List<String> bannedUsers = forum.get().getBannedUsers();
+                if (bannedUsers.contains(loggedInUserId)) {
+                    throw new ResourceNotFoundException("You cannot see the post because you are banned.");
+                }
             }
         }
 
         GetPostDetailResponseDto postDto = modelMapper.map(post, GetPostDetailResponseDto.class);
+
+        Optional<Vote> userVote = voteRepository.findByTypeIdAndVotedBy(id, loggedInUserId);
+
+        VoteChoice userVoteChoice = userVote.map(Vote::getChoice).orElse(null);
+
+        postDto.setUserVote(userVoteChoice);
 
         Optional<Achievement> postAchievement = achievementRepository.findByIdAndIsDeletedFalse(post.get().getAchievement());
 
@@ -170,7 +191,7 @@ public class PostService {
         if (forum.isPresent()) {
             List<String> bannedUsers = forum.get().getBannedUsers();
             if (bannedUsers.contains(user.getId())) {
-                throw new ResourceNotFoundException("You cannot see the comments because you are banne from this forum.");
+                throw new ResourceNotFoundException("You cannot see the comments because you are banned from this forum.");
             }
         }
         List<Comment> comments = commentRepository.findByPost(postId);
@@ -232,10 +253,12 @@ public class PostService {
             throw new ResourceNotFoundException("Forum is not found.");
         }
 
-        Optional<Achievement> achievementOptional = achievementRepository.findById(request.getAchievement());
+        if(request.getAchievement() != null){   // if achievement is assigned
+            Optional<Achievement> achievementOptional = achievementRepository.findById(request.getAchievement());
 
-        if (achievementOptional.isEmpty()) {
-            throw new ResourceNotFoundException("Achievement is not found.");
+            if (achievementOptional.isEmpty()) {
+                throw new ResourceNotFoundException("Achievement is not found.");
+            }
         }
 
         if (request.getTags() != null) {
@@ -248,6 +271,25 @@ public class PostService {
         } else {
             request.setTags(new ArrayList<>());
         }
+
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("userId").is(user.getId()));
+        Profile profile = mongoTemplate.findOne(query, Profile.class);
+
+        if(profile == null){
+            throw new ResourceNotFoundException("Profile of the user does not exist");
+        }
+
+        if(!profile.getIsPostedYet()){      // first post of the user
+            Optional<Achievement> achievement =
+                    achievementRepository.findByIdAndIsDeletedFalse("88f359cc-8ca3-4286-bc13-1b44262ee9f4");
+            achievement.ifPresent(value -> profile.addAchievement(value.getId()));
+            profile.setIsPostedYet(true);
+        }
+
+        profile.setPostCount(profile.getPostCount() + 1);
+        profileRepository.save(profile);
 
         Post postToCreate = modelMapper.map(request, Post.class);
         postToCreate.setPoster(user.getId());
@@ -295,10 +337,34 @@ public class PostService {
             throw new BadRequestException("Only the user that created the post or the admin can delete it.");
         }
 
+        Query query = new Query();
+        query.addCriteria(Criteria.where("userId").is(user.getId()));
+        Profile profile = mongoTemplate.findOne(query, Profile.class);
+        if(profile == null){
+            throw new ResourceNotFoundException("Profile of the user does not exist");
+        }
+        profile.setPostCount(profile.getPostCount() - 1);
+        profileRepository.save(profile);
+
         Post postToDelete = post.get();
 
         postToDelete.setIsDeleted(true);
 
         return postRepository.save(postToDelete);
+    }
+
+    public List<Post> getUserPostList(User user) {
+
+        Query query = new Query();
+
+        query.addCriteria(Criteria.where("poster").is(user.getId()));
+
+        Sort.Direction sortDirection = Sort.Direction.DESC; // Default sorting direction (you can change it to ASC if needed)
+
+        query.with(Sort.by(sortDirection, "createdAt"));
+
+
+        return mongoTemplate.find(query, Post.class);
+
     }
 }

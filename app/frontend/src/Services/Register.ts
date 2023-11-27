@@ -1,6 +1,7 @@
 import axios from "axios";
 async function postRegister(formData: any) {
   try {
+    console.log(formData)
     const response = await axios.post(
       `${import.meta.env.VITE_APP_API_URL}/auth/register`,
       formData,

@@ -23,11 +23,11 @@ public class GetGame : MonoBehaviour
                      ListToQueryParameters.ListToQueryParams(new[] { "gameId" },
                          new[] { gameId });
         
-        StartCoroutine(Post(url));
+        StartCoroutine(Get(url));
     }
-    IEnumerator Post(string url)
+    IEnumerator Get(string url)
     {
-        var request = new UnityWebRequest(url, "POST");
+        var request = new UnityWebRequest(url, "GET");
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
 
@@ -36,7 +36,7 @@ public class GetGame : MonoBehaviour
         if (request.responseCode == 200)
         {
             response = request.downloadHandler.text;
-            var _GetGameResponseData = JsonConvert.DeserializeObject<GetGameResponse>(response);
+            var _GetGameResponseData = JsonConvert.DeserializeObject<GameDetail>(response);
 
             Debug.Log("Success to create forum post: " + response);
         }

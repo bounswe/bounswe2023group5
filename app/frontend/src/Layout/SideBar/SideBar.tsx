@@ -8,10 +8,12 @@ import {
 import type { MenuProps } from "antd";
 import { ConfigProvider, Menu } from "antd";
 import styles from "./SideBar.module.scss";
-import Profile from "../../Components/Icons/Profile";
+import ProfileIcon from "../../Components/Icons/ProfileIcon";
 import { clsx } from "clsx";
 import { getThemeColor } from "../../Components/Providers/AntdConfigProvider";
 import { useAuth } from "../../Components/Hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import { twj } from "tw-to-css";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -31,25 +33,31 @@ function createItem(
   } as MenuItem;
 }
 
-const items: MenuItem[] = [
-  createItem("My Games", "sub1", <AppstoreOutlined />, [
-    createItem("Minecraft", "5"),
-    createItem("Rounds", "6"),
-    createItem("Dota", "7"),
-    createItem("Stardoll", "8"),
-  ]),
-
-  createItem("My Groups", "sub2", <TeamOutlined />, [
-    createItem("RoundsAndRounds", "9"),
-    createItem("D0TA", "10"),
-  ]),
-];
-
 function SideBar() {
   const [collapsed, setCollapsed] = useState(false);
+  const navigate = useNavigate();
 
-  const { user, isLoggedIn } = useAuth();
+  const { user, isLoggedIn, profile } = useAuth();
 
+  const items: MenuItem[] = [
+    createItem(
+      "My Games",
+      "game",
+      <AppstoreOutlined />,
+      profile?.games
+        .slice(0, 5)
+        .map((game: any) => createItem(game.gameName, game.id))
+    ),
+
+    createItem(
+      "My Groups",
+      "group",
+      <TeamOutlined />,
+      profile?.groups
+        .slice(0, 5)
+        .map((group: any) => createItem(group.title, group.id))
+    ),
+  ];
   return (
     <ConfigProvider
       theme={{
@@ -73,20 +81,29 @@ function SideBar() {
         </button>
 
         <div className={styles.profilePic}>
-          {isLoggedIn ? (
-            <Profile />
-          ) : (
+          {!isLoggedIn ? (
             <img src="../../../assets/images/guru.jpeg"></img>
+          ) : profile && profile.profilePhoto ? (
+            <img
+              src={`${import.meta.env.VITE_APP_IMG_URL}${profile.profilePhoto}`}
+            ></img>
+          ) : (
+            <ProfileIcon />
           )}
         </div>
-        {!collapsed && isLoggedIn && <div>{user.username}</div>}
+        {!collapsed && isLoggedIn && (
+          <div style={twj("font-bold")}>{user.username}</div>
+        )}
         {!collapsed && !isLoggedIn && <div>Game Guru</div>}
         {isLoggedIn && (
           <Menu
-            defaultOpenKeys={["sub1"]}
+            defaultOpenKeys={["my-games"]}
             mode="inline"
             inlineCollapsed={collapsed}
             items={items}
+            onClick={({ keyPath }) =>
+              navigate(`${keyPath[1]}/detail/${keyPath[0]}`)
+            }
           />
         )}
       </div>
