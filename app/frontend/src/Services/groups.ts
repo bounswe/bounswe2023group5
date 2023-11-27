@@ -1,13 +1,20 @@
 import axios from "axios";
 
-export async function getGroups(
-  title?: string,
-  gameName?: string,
-  tags = [],
-  membershipPolicy?: string,
+export async function getGroups({
+  tags,
+  title,
+  gameName,
+  membershipPolicy,
   sortBy = "CREATION_DATE",
-  sortDirection = "DESCENDING"
-) {
+  sortDir = "DESCENDING"
+}: {
+  tags?: string[];
+  title?: string;
+  gameName?: string;
+  membershipPolicy?: string,
+  sortBy?: string;
+  sortDir?: string;
+} ) {
   const response = await axios.get(
     import.meta.env.VITE_APP_API_URL + "/group/get-all",
     {
@@ -17,9 +24,11 @@ export async function getGroups(
         tags,
         membershipPolicy,
         sortBy,
-        sortDirection,
+        sortDir,
+        
       },
     }
   );
   return response.data;
 }
+

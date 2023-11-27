@@ -7,6 +7,7 @@
   height: 100%;
   width: 100%;
   padding: 2em;
+
   gap: 1em;
 
   .profileError {
@@ -23,6 +24,13 @@
     background-color: $yellow-light-30;
     border-radius: 0.5em;
     padding: 0.5em;
+    position: relative;
+
+    .edit {
+      position: absolute;
+      top: 1em;
+      right: 1em;
+    }
 
     .profilePicture {
       flex: 1 1 0;
@@ -38,34 +46,60 @@
     }
 
     .profileDetails {
-      flex: 2 2 0;
+      flex: 3.5 3.5 0;
 
       .profileName {
-        height: 50%;
+        height: 60%;
         width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        gap: 0.5em;
         h1 {
           all: unset;
-          font-size: 2em;
+          font-size: 2.5em;
           font-weight: bold;
-          color: $prussian-blue-dark-20;
+          color: $prussian-blue-dark-40;
         }
         span {
-          color: $color-accent;
-          opacity: 80%;
+          color: $orange-dark-10;
+          font-size: 1.5em;
         }
       }
 
-      .ratingContainer {
+      .socialContainer {
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 20px;
-        font-size: 50px;
-        color: $yellow;
+        gap: 2em;
+        height: auto;
+
+        & > span {
+          color: $orange;
+          font-size: 1.3em;
+          opacity: 50%;
+        }
+
+        & > a {
+          background-color: pink;
+          height: 3em;
+          width: 10em;
+          border-radius: 0.5em;
+          padding: 0.5em;
+          color: white;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-right: 0.5em;
+          text-decoration: none;
+
+          img {
+            height: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+          }
+        }
       }
     }
   }

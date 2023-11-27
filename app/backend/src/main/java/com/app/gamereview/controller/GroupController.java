@@ -1,6 +1,7 @@
 package com.app.gamereview.controller;
 
 import com.app.gamereview.dto.request.group.*;
+import com.app.gamereview.dto.response.group.GetGroupDetailResponseDto;
 import com.app.gamereview.dto.response.group.GetGroupResponseDto;
 import com.app.gamereview.dto.response.tag.AddGroupTagResponseDto;
 import com.app.gamereview.model.Group;
@@ -35,7 +36,7 @@ public class GroupController {
 	}
 
 	@GetMapping("/get-all")
-	public ResponseEntity<List<GetGroupResponseDto>> getReviews(
+	public ResponseEntity<List<GetGroupResponseDto>> getGroups(
 			@ParameterObject GetAllGroupsFilterRequestDto filter, @RequestHeader(name = HttpHeaders.AUTHORIZATION, required = false) String Authorization) {
 
 		String email;
@@ -47,14 +48,14 @@ public class GroupController {
 	}
 
 	@GetMapping("/get")
-	public ResponseEntity<GetGroupResponseDto> getGroup(
+	public ResponseEntity<GetGroupDetailResponseDto> getGroup(
 			@RequestParam String id, @RequestHeader(name = HttpHeaders.AUTHORIZATION, required = false) String Authorization) {
 
 		String email;
 		if (JwtUtil.validateToken(Authorization)) email = JwtUtil.extractSubject(Authorization);
 		else email = "";
 
-		GetGroupResponseDto group = groupService.getGroupById(id, email);
+		GetGroupDetailResponseDto group = groupService.getGroupById(id, email);
 
 		return ResponseEntity.ok(group);
 	}

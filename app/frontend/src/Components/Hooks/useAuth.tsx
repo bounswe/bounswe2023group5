@@ -31,6 +31,7 @@ interface UseAuthProps extends AuthContextProps {
   isLoggedIn: boolean;
   logOut: () => void;
   profile: any;
+  isLoading: boolean;
 }
 
 // Custom hook to use auth
@@ -53,7 +54,7 @@ const useAuth = (): UseAuthProps => {
     location.reload();
   }
 
-  const { data: profile } = useQuery(
+  const { data: profile, isLoading } = useQuery(
     ["profile", user?.id],
     () => getProfile(user?.id),
     { enabled: !!user }
@@ -67,6 +68,7 @@ const useAuth = (): UseAuthProps => {
     isLoggedIn: !!user,
     logOut,
     profile,
+    isLoading: !user || isLoading,
   };
 };
 

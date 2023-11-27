@@ -81,6 +81,9 @@ public class PostService {
         if (filter.getSearch() != null && !filter.getSearch().isBlank()) {
             query.addCriteria(Criteria.where("title").regex(filter.getSearch(), "i"));
         }
+        if (filter.getTags() != null && !filter.getTags().isEmpty()) {
+            query.addCriteria(Criteria.where("tags").in(filter.getTags()));
+        }
         if (filter.getSortBy() != null) {
             Sort.Direction sortDirection = Sort.Direction.DESC; // Default sorting direction (you can change it to ASC if needed)
             if (filter.getSortDirection() != null) {
@@ -117,6 +120,9 @@ public class PostService {
 
         List<Tag> tags = new ArrayList<>();
 
+        Optional<Achievement> postAchievementOptional = achievementRepository.findByIdAndIsDeletedFalse(post.getAchievement());
+        Achievement postAchievement = postAchievementOptional.orElse(null);
+
         // Fetch tags individually
         for (String tagId : post.getTags()) {
             Optional<Tag> tag = tagRepository.findById(tagId);
@@ -124,27 +130,36 @@ public class PostService {
         }
 
         return new GetPostListResponseDto(post.getId(), post.getTitle(), post.getPostContent(),
-                posterObject, userVoteChoice, post.getLastEditedAt(), post.getCreatedAt(), isEdited, tags,
-                post.getInappropriate(), post.getOverallVote(), post.getVoteCount(), commentCount);
+                posterObject, userVoteChoice, post.getPostImage(), postAchievement, post.getLastEditedAt(), post.getCreatedAt(), isEdited,
+                tags, post.getInappropriate(), post.getOverallVote(), post.getVoteCount(), commentCount);
     }
 
 
-    public GetPostDetailResponseDto getPostById(String id, User user) {
+    public GetPostDetailResponseDto getPostById(String id, String email) {
         Optional<Post> post = postRepository.findById(id);
+        Optional<User> loggedInUser = userRepository.findByEmailAndIsDeletedFalse(email);
+        String loggedInUserId = loggedInUser.map(User::getId).orElse(null);
 
         if (post.isEmpty()) {
             throw new ResourceNotFoundException("The post with the given id was not found");
         }
         Optional<Forum> forum = forumRepository.findById(post.get().getForum());
-
         if (forum.isPresent()) {
-            List<String> bannedUsers = forum.get().getBannedUsers();
-            if (bannedUsers.contains(user.getId())) {
-                throw new ResourceNotFoundException("You cannot see the post because you are banned.");
+            if(loggedInUserId != null){
+                List<String> bannedUsers = forum.get().getBannedUsers();
+                if (bannedUsers.contains(loggedInUserId)) {
+                    throw new ResourceNotFoundException("You cannot see the post because you are banned.");
+                }
             }
         }
 
         GetPostDetailResponseDto postDto = modelMapper.map(post, GetPostDetailResponseDto.class);
+
+        Optional<Vote> userVote = voteRepository.findByTypeIdAndVotedBy(id, loggedInUserId);
+
+        VoteChoice userVoteChoice = userVote.map(Vote::getChoice).orElse(null);
+
+        postDto.setUserVote(userVoteChoice);
 
         Optional<Achievement> postAchievement = achievementRepository.findByIdAndIsDeletedFalse(post.get().getAchievement());
 
