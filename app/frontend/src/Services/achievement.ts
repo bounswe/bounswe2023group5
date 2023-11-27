@@ -26,10 +26,12 @@ export async function createAchievement({
   type: string;
   game: string;
 }) {
+
   let gameId = undefined;
   if (game) {
     gameId = (await getGames(undefined, game))[0].id;
   }
+
 
   const response = await axios.post(
     `${import.meta.env.VITE_APP_API_URL}/achievement/create`,
@@ -37,6 +39,21 @@ export async function createAchievement({
   );
   return response;
 }
+
+
+export async function deleteAchievementByName({
+  title,
+  game,
+}: {
+  title: string;
+  game: string;
+}) {
+  let query = `?achievementName=${title}`;
+  if (game) {
+    query += `&gameName=${game}`;
+  }
+  const response = await axios.delete(
+    `${import.meta.env.VITE_APP_API_URL}/achievement/delete-by-name${query}`
 
 export async function getGameAchievements(id: string) {
   const res = await axios.get(
@@ -51,6 +68,7 @@ export async function grantAchievement(userId: string, achievementId: string) {
   const response = await axios.post(
     `${import.meta.env.VITE_APP_API_URL}/achievement/grant-achievement`,
     { userId, achievementId }
+
   );
   return response;
 }

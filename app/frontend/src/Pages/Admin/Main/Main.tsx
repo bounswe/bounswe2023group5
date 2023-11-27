@@ -61,6 +61,11 @@ function Main() {
               Create Achievement
             </Button>
           </li>
+          <li>
+            <Button type="link" onClick={() => navigate("/delete-achievement")}>
+              Delete Achievement
+            </Button>
+          </li>
         </ul>
       </div>
     </div>
