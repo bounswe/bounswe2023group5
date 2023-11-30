@@ -1,8 +1,11 @@
 package com.app.gamereview.service;
 
 import com.app.gamereview.dto.request.review.CreateReviewRequestDto;
+import com.app.gamereview.dto.request.review.GetAllReviewsFilterRequestDto;
 import com.app.gamereview.dto.request.review.UpdateReviewRequestDto;
 import com.app.gamereview.dto.response.review.GetAllReviewsResponseDto;
+import com.app.gamereview.enums.SortDirection;
+import com.app.gamereview.enums.SortType;
 import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.Game;
 import com.app.gamereview.model.Profile;
@@ -22,10 +25,12 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 public class ReviewServiceTest {
@@ -60,6 +65,48 @@ public class ReviewServiceTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    void testGetAllReviews() {
+        // Arrange
+        GetAllReviewsFilterRequestDto filter = new GetAllReviewsFilterRequestDto();
+        filter.setGameId("exampleGameId");
+        filter.setReviewedBy("exampleUserId");
+        filter.setWithDeleted(false);
+        filter.setSortBy(SortType.CREATION_DATE.name());
+        filter.setSortDirection(SortDirection.DESCENDING.name());
+
+        Review review1 = new Review();
+        review1.setId("1");
+        review1.setGameId("exampleGameId");
+        review1.setReviewedBy("exampleUserId");
+        review1.setReviewDescription("Review 1");
+        review1.setRating(5);
+
+        Review review2 = new Review();
+        review1.setId("2");
+        review1.setGameId("exampleGameId");
+        review1.setReviewedBy("exampleUserId");
+        review1.setReviewDescription("Review 2");
+        review1.setRating(4);
+
+        List<Review> mockReviews = new ArrayList<>();
+        mockReviews.add(review1);
+        mockReviews.add(review2);
+
+        User user = new User();
+        user.setId("exampleUserId");
+        user.setEmail("user@example.com");
+
+        when(userRepository.findByEmailAndIsDeletedFalse(anyString())).thenReturn(Optional.of(user));
+        when(mongoTemplate.find(any(Query.class), eq(Review.class))).thenReturn(new ArrayList<>());
+
+        // Act
+        List<GetAllReviewsResponseDto> result = reviewService.getAllReviews(filter, "user@example.com");
+
+        // Assert
+        assertNotNull(result);
     }
 
     @Test
