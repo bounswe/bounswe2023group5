@@ -61,11 +61,12 @@ public class AchievementServiceTest {
         when(gameRepository.findByIdAndIsDeletedFalse(anyString())).thenReturn(Optional.of(new Game()));
         when(achievementRepository.findByTitleAndIsDeletedFalse(anyString())).thenReturn(new ArrayList<>());
         when(modelMapper.map(any(CreateAchievementRequestDto.class), eq(Achievement.class))).thenReturn(achievement);
+        when(achievementRepository.save(any(Achievement.class))).thenReturn(achievement);
         // Act
         Achievement result = achievementService.createAchievement(requestDto);
 
         // Assert
-        //Assertions.assertNotNull(result);
+        Assertions.assertNotNull(result);
         verify(achievementRepository, times(1)).save(any(Achievement.class));
     }
 
@@ -79,11 +80,13 @@ public class AchievementServiceTest {
 
         when(achievementRepository.findByTitleAndIsDeletedFalse(anyString())).thenReturn(new ArrayList<>());
         when(modelMapper.map(any(CreateAchievementRequestDto.class), eq(Achievement.class))).thenReturn(achievement);
+        when(achievementRepository.save(any(Achievement.class))).thenReturn(achievement);
+
         // Act
         Achievement result = achievementService.createAchievement(requestDto);
 
         // Assert
-        //Assertions.assertNotNull(result);
+        Assertions.assertNotNull(result);
         verify(achievementRepository, times(1)).save(any(Achievement.class));
     }
 
