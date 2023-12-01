@@ -4,6 +4,7 @@ import com.app.gamereview.dto.request.achievement.CreateAchievementRequestDto;
 import com.app.gamereview.dto.request.achievement.GrantAchievementRequestDto;
 import com.app.gamereview.dto.request.achievement.UpdateAchievementRequestDto;
 import com.app.gamereview.enums.AchievementType;
+import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.Achievement;
 import com.app.gamereview.model.Game;
 import com.app.gamereview.model.Profile;
@@ -90,7 +91,6 @@ public class AchievementServiceTest {
         verify(achievementRepository, times(1)).save(any(Achievement.class));
     }
 
-    // Add more test cases for other scenarios (e.g., validation failures, duplicate achievements, etc.)
 
     @Test
     void testUpdateAchievement_Success() {
@@ -112,8 +112,6 @@ public class AchievementServiceTest {
         verify(achievementRepository, times(1)).save(any(Achievement.class));
     }
 
-    // Add more test cases for other scenarios (e.g., updating with duplicate title, updating non-existent achievement, etc.)
-
     @Test
     void testDeleteAchievementById_Success() {
         // Arrange
@@ -131,7 +129,21 @@ public class AchievementServiceTest {
         verify(achievementRepository, times(1)).save(any(Achievement.class));
     }
 
-    // Add more test cases for other scenarios (e.g., deleting non-existent achievement, deleting already deleted achievement, etc.)
+    @Test
+    void testDeleteAchievement_NotFoundById() {
+        // Arrange
+        String achievementId = "nonExistentAchievementId";
+
+        when(achievementRepository.findByIdAndIsDeletedFalse(anyString())).thenReturn(Optional.empty());
+
+        // Act and Assert
+        Assertions.assertThrows(ResourceNotFoundException.class,
+                () -> achievementService.deleteAchievement(achievementId),
+                "Should throw ResourceNotFoundException when achievement is not found by ID");
+
+        // Verify
+        verify(achievementRepository, times(1)).findByIdAndIsDeletedFalse(anyString());
+    }
 
     @Test
     void testDeleteAchievementByNameAndGame_Success() {
@@ -158,8 +170,6 @@ public class AchievementServiceTest {
         verify(achievementRepository, times(1)).save(any(Achievement.class));
     }
 
-    // Add more test cases for other scenarios (e.g., deleting with non-existent game, deleting with non-existent achievement, etc.)
-
     @Test
     void testGrantAchievement_Success() {
         // Arrange
@@ -178,8 +188,6 @@ public class AchievementServiceTest {
         Assertions.assertNotNull(result);
         verify(profileRepository, times(1)).save(any(Profile.class));
     }
-
-    // Add more test cases for other scenarios (e.g., granting with non-existent achievement, granting with non-existent user, etc.)
 
     @Test
     void testGetGameAchievements_Success() {
