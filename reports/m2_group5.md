@@ -1349,5 +1349,6 @@ Regarding our plans for implementing functionalities associated with annotations
 
 - [Zeynep Baydemir](https://github.com/bounswe/bounswe2023group5/wiki/Zeynep-Baydemir-Individual-Contributions-%E2%80%90-451-Milestone-2)
 
-
+## 12. Pre-Release
+[Here](https://github.com/bounswe/bounswe2023group5/releases/tag/customer-milestone-2) is the Pre-Release of the application
 
