@@ -76,11 +76,11 @@ General test plan for the project | [#795](https://github.com/bounswe/bounswe202
 
 | Description | Issue | Assignee | Due | Duration |
 | --- | --- | --- | --- | --- |
-| Implement notification page                               | #782 | Ali            | 11.12.2023 | 2hrs     |
-| Link notifications to the sidebar                         | #782 | Ali            | 11.12.2023 | 2hrs     |
+| Implement notification page                               | [#963](https://github.com/bounswe/bounswe2023group5/issues/963) | Ali            | 11.12.2023 | 2hrs     |
+| Link notifications to the sidebar                         | [#964](https://github.com/bounswe/bounswe2023group5/issues/964) | Ali            | 11.12.2023 | 2hrs     |
 | Home page implementation                                  | [#955](https://github.com/bounswe/bounswe2023group5/issues/955) | Alperen        | 12.12.2023 | 2hrs     |
 | Add group image to the groups                             | [#949](https://github.com/bounswe/bounswe2023group5/issues/949) | Alperen, Çisel | 11.12.2023 | 1hr    |
-| Implement apply group functionality                       | #782 | Ali            | 12.12.2023 | 2hrs     |
+| Implement apply group functionality                       | [#965](https://github.com/bounswe/bounswe2023group5/issues/965) | Ali            | 12.12.2023 | 2hrs     |
 | Implement character addition functionality for admins     | [#958](https://github.com/bounswe/bounswe2023group5/issues/958) | Arda           | 11.12.2023 | 2hrs     |
 | Implement character linking functionality for forum posts | [#957](https://github.com/bounswe/bounswe2023group5/issues/957) | Alperen        | 10.12.2023 | 2hrs     |
 | Put characters in game details' pages                     | [#959](https://github.com/bounswe/bounswe2023group5/issues/959) | Arda           | 11.12.2023 | 2hrs     |
