@@ -32,9 +32,9 @@
 | Generated unit test reports | [#793](https://github.com/bounswe/bounswe2023group5/issues/793) | Team | 30.11.2023 | | 2hrs | 1.5hrs |
 General test plan for the project | [#795](https://github.com/bounswe/bounswe2023group5/issues/795) | Team | 30.11.2023 | | 3hrs | 3hrs |
 | Status/Plans for functionalities associated with annotations | [#798](https://github.com/bounswe/bounswe2023group5/issues/798) | Team | 30.11.2023 | | 2.5hrs | 2hrs |
-| Implementing Achievement Component - FE                 | [#775](https://github.com/bounswe/bounswe2023group5/issues/775) | Ali Başaran  | 26.11.2023 | | 3 hr | 3.5hrs|
+| Implementing Achievement Component - FE                 | [#775](https://github.com/bounswe/bounswe2023group5/issues/775) | Ali Başaran  | 26.11.2023 | [#845](https://github.com/bounswe/bounswe2023group5/pull/845) | 3 hr | 3.5hrs|
 | Integrate Achievement Component to Posts - FE | [#776](https://github.com/bounswe/bounswe2023group5/issues/776) | Alperen Bırçak   | 27.11.2023 | | 2 hr | 2.5hrs|
-| Integrate Achievement Component to Games Page - FE              | [#777](https://github.com/bounswe/bounswe2023group5/issues/777) | Ali Başaran   | 27.11.2023 | | 2 hr| 3hrs |
+| Integrate Achievement Component to Games Page - FE              | [#777](https://github.com/bounswe/bounswe2023group5/issues/777) | Ali Başaran   | 27.11.2023 | [#845](https://github.com/bounswe/bounswe2023group5/pull/845) | 2 hr| 3hrs |
 | Integrate Achievement Component to Profile - FE| [#779](https://github.com/bounswe/bounswe2023group5/issues/779) | Alperen Bırçak   | 27.11.2023 | | 2 hr| 2hrs |
 | Profile Page Implementation - FE| [#780](https://github.com/bounswe/bounswe2023group5/issues/780) | Alperen Bırçak   | 27.11.2023 | | 4 hr| 4hrs |
 | Beautify Admin Main Page Styles - FE           | [#787](https://github.com/bounswe/bounswe2023group5/issues/787) | Arda Kabadayı  | 28.11.2023 | [#898](https://github.com/bounswe/bounswe2023group5/pull/898) | 1 hr| 1hr| 
