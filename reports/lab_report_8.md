@@ -96,6 +96,7 @@ General test plan for the project | [#795](https://github.com/bounswe/bounswe202
 | Edit Game Endpoint Implementation - BE | [#823](https://github.com/bounswe/bounswe2023group5/issues/823) | Can Uzduran | 11.12.2023 | 1.5hrs |
 | Delete Game Endpoint Implementation - BE | [#962](https://github.com/bounswe/bounswe2023group5/issues/962) | Can Uzduran | 11.12.2023 | 1hrs |
 | Implementation of Relevant Homepage Endpoints - BE | [#960](https://github.com/bounswe/bounswe2023group5/issues/960) | Can Uzduran | 11.12.2023 | 2hrs |
+| Notifications Implementation - MOBILE | [#946](https://github.com/bounswe/bounswe2023group5/issues/946) | Bilal Atım | 13.12.2023 | 4hrs |
 
 ## Uncompleted requirements sorted by their priority
 #### 1-Annotation
