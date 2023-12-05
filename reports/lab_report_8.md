@@ -44,7 +44,7 @@ General test plan for the project | [#795](https://github.com/bounswe/bounswe202
 | Create Achievement Page - FE                 | [#821](https://github.com/bounswe/bounswe2023group5/issues/821) |  Arda Kabadayı | 28.11.2023 | | 2 hrs | 2.5 hrs|
 | Unban user from group and forum | [#803](https://github.com/bounswe/bounswe2023group5/issues/803) | Zeynep Baydemir | 27.11.2023 |  [#820](https://github.com/bounswe/bounswe2023group5/pull/820) | 1.5hrs | 1hrs |
 | Last activities in profile endpoint | [#804](https://github.com/bounswe/bounswe2023group5/issues/804) | Zeynep Baydemir | 27.11.2023 | [#841](https://github.com/bounswe/bounswe2023group5/pull/841) | 3hrs | 3.5hrs |
-| Profile Page Implementation - BE | [#822](https://github.com/bounswe/bounswe2023group5/issues/822) | Halis Bal | 27.11.2023 | | 3hrs | 4hrs |
+| Profile Page Implementation - BE | [#822](https://github.com/bounswe/bounswe2023group5/issues/822) | Halis Bal | 27.11.2023 | [#854](https://github.com/bounswe/bounswe2023group5/pull/854) | 3hrs | 4hrs |
 | Create Group Details Page - MOBILE | [#799](https://github.com/bounswe/bounswe2023group5/issues/799) | Said Yolcu | 28.11.2023 | | 5hrs | 4hrs |
 | Modifying Forum Page With Agreed UI Design Decisions - MOBILE | [#801](https://github.com/bounswe/bounswe2023group5/issues/801) | Said Yolcu | 27.11.2023 | | 1.5hrs | 2hrs |
 | Creating achievement entity | [#805](https://github.com/bounswe/bounswe2023group5/issues/805) | Deniz Ünal | 25.11.2023 | | 2hrs | 1.5hrs |
@@ -85,6 +85,8 @@ General test plan for the project | [#795](https://github.com/bounswe/bounswe202
 | Implement Character Component                             | #782 | Çisel          | 10.12.2023 | 2hrs     |
 | Implement edit/delete game functionality                  | #782 | Arda           | 10.12.2023 | 2hrs     |
 | Implement notification model and achievement notifications | [#950](https://github.com/bounswe/bounswe2023group5/issues/950) | Zeynep Baydemir | 12.12.2023| 3.5 hrs|
+| Implementing Additional Notification Creation Logic | [#951](https://github.com/bounswe/bounswe2023group5/issues/951) | Halis Bal | 12.12.2023| 4 hrs|
+
 ## Uncompleted requirements sorted by the priorit
 #### 1-Annotation
 The annotation functionality is very important because stakeholders value implementation of W3 Standarts very highly. Also, the annotation functionality will improve the UX of the application for users which are not very familiar with the discussed gaming topics.
