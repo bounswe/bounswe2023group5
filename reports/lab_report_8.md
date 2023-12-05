@@ -58,9 +58,8 @@ General test plan for the project | [#795](https://github.com/bounswe/bounswe202
 | Modifying ProfilePage with Agreed UI Design Decisions - MOBILE | [#815](https://github.com/bounswe/bounswe2023group5/issues/815) | Bilal Atım | 27.11.2023 | | 3hrs | 2.5hrs |
 | Create Post Page - MOBILE | [#796](https://github.com/bounswe/bounswe2023group5/issues/796) | Ege Ekşi | 28.11.2023 | | 4hrs | 4.5hrs|
 | Modifying Review Page with Agreed UI Design Decisions - MOBILE | [#797](https://github.com/bounswe/bounswe2023group5/issues/797) | Ege Ekşi | 28.11.2023 | | 2hrs | 3hrs | 
-| Create Game Page Arrangement - MOBILE | [#816](https://github.com/bounswe/bounswe2023group5/issues/816) | Harun Sami Çelik | 28.11.2023 | | 3hrs | 3.5hrs |
-| Updating Navigation Drop Buttons - MOBILE | [#817](https://github.com/bounswe/bounswe2023group5/issues/817) | Harun Sami Çelik | 28.11.2023 | | 1hrs | 1.5hrs |
-| Modifying Games Page with Agreed UI Design Decisions - MOBILE| [#818](https://github.com/bounswe/bounswe2023group5/issues/818) | Harun Sami Çelik | 28.11.2023 | | 2hrs | 2hrs |
+| Updating Navigation Drop Buttons - MOBILE | [#817](https://github.com/bounswe/bounswe2023group5/issues/817) | Harun Sami Çelik | 28.11.2023 | [#890](https://github.com/bounswe/bounswe2023group5/pull/890) | 1hrs | 1.5hrs |
+| Modifying Games Page with Agreed UI Design Decisions - MOBILE| [#818](https://github.com/bounswe/bounswe2023group5/issues/818) | Harun Sami Çelik | 28.11.2023 | [#890](https://github.com/bounswe/bounswe2023group5/pull/902) | 2hrs | 2hrs |
 ## Completed tasks that were not planned for the week
 | Description | Issue | Assignee | Due | Duration |
 | --- | --- | --- | --- | --- |
@@ -86,6 +85,7 @@ General test plan for the project | [#795](https://github.com/bounswe/bounswe202
 | Implement edit/delete game functionality                  | #782 | Arda           | 10.12.2023 | 2hrs     |
 | Implement notification model and achievement notifications | [#950](https://github.com/bounswe/bounswe2023group5/issues/950) | Zeynep Baydemir | 12.12.2023| 3.5 hrs|
 | Implementing Additional Notification Creation Logic | [#951](https://github.com/bounswe/bounswe2023group5/issues/951) | Halis Bal | 12.12.2023| 4 hrs|
+| Implementation of Displaying Last Activities - MOBILE | [#952](https://github.com/bounswe/bounswe2023group5/issues/952) | Harun Sami Çelik| 12.12.2023| 3.5 hrs|
 
 ## Uncompleted requirements sorted by the priorit
 #### 1-Annotation
