@@ -85,16 +85,16 @@ General test plan for the project | [#795](https://github.com/bounswe/bounswe202
 | Implement Character Component                             | #782 | Çisel          | 10.12.2023 | 2hrs     |
 | Implement edit/delete game functionality                  | #782 | Arda           | 10.12.2023 | 2hrs     |
 
-## Uncompleted requirements sorted by the priority
-1. Annotation
+## Uncompleted requirements sorted by the priorit
+#### 1-Annotation
 The annotation functionality is very important because stakeholders value implementation of W3 Standarts very highly. Also, the annotation functionality will improve the UX of the application for users which are not very familiar with the discussed gaming topics.
-2. Character
+#### 2-Character
 The character feature is very important because a lot of games are defined by their characters. Seen this information in the application would be helpful for users. Also a lot of games share common characters and this could be helpful for recommendation feature implementation.
-3. Recommendation
+#### 3-Recommendation
 A good recommendation functionality will increase user engagement and retention. That is why we care about this functionality.
-4. Promotion
+#### 4-Promotion
 The promotion functionality will be one of the revenue generators for our application. However it is not very domain specific and could be implemented after a meaningful amount of users that are actively using the application.
-5. Notification
+#### 5-Notification
 The notification functionality will improve the UX of our application but it is not very crucial for the functionality of the platform.
 
 ## Risks
