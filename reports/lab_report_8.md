@@ -93,6 +93,9 @@ General test plan for the project | [#795](https://github.com/bounswe/bounswe202
 | adding character entity and related endpoints | [#953](https://github.com/bounswe/bounswe2023group5/issues/953) | Deniz Ünal | 11.12.2023| 4 hrs |
 | adding image functionality to groups | [#954](https://github.com/bounswe/bounswe2023group5/issues/954) | Deniz Ünal | 11.12.2023| 30 mins |
 | Home Page Implementation - MOBILE | [#945](https://github.com/bounswe/bounswe2023group5/issues/945) | Ege Ekşi | 12.12.2023| 4 hrs|
+| Edit Game Endpoint Implementation - BE | [#823](https://github.com/bounswe/bounswe2023group5/issues/823) | Can Uzduran | 11.12.2023 | 1.5hrs |
+| Delete Game Endpoint Implementation - BE | [#962](https://github.com/bounswe/bounswe2023group5/issues/962) | Can Uzduran | 11.12.2023 | 1hrs |
+| Implementation of Relevant Homepage Endpoints - BE | [#960](https://github.com/bounswe/bounswe2023group5/issues/960) | Can Uzduran | 11.12.2023 | 2hrs |
 
 ## Uncompleted requirements sorted by their priority
 #### 1-Annotation
