@@ -1,4 +1,4 @@
-## CMPE352 Fundamentals of Software Engineering 2023 Spring - GROUP 5
+## CMPE451 Project Development In Software Engineering 2023 Fall - GROUP 5
 
 [![Watch on GitHub](https://img.shields.io/github/watchers/bounswe/bounswe2023group5.svg?style=social)](https://github.com/bounswe/bounswe2023group5/watchers)
 [![Star on GitHub](https://img.shields.io/github/stars/bounswe/bounswe2023group5.svg?style=social)](https://github.com/bounswe/bounswe2023group5/stargazers)
