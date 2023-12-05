@@ -88,7 +88,7 @@ General test plan for the project | [#795](https://github.com/bounswe/bounswe202
 | Put characters in game details' pages                     | [#959](https://github.com/bounswe/bounswe2023group5/issues/959) | Arda           | 11.12.2023 | 2hrs     |
 | Implement Character Detail Modal                          | [#948](https://github.com/bounswe/bounswe2023group5/issues/948)| Çisel          | 12.12.2023 | 4hrs     |
 | Implement Character Component                             | [#947](https://github.com/bounswe/bounswe2023group5/issues/947) | Çisel          | 10.12.2023 | 2hrs     |
-| Implement edit/delete game functionality                  | [#961](https://github.com/bounswe/bounswe2023group5/issues/961) | Arda           | 10.12.2023 | 2hrs     |
+| Implement edit/delete game functionality                  | [#961](https://github.com/bounswe/bounswe2023group5/issues/961) | Arda           | 10.12.2023 | 3hrs     |
 | Implement notification model and achievement notifications | [#950](https://github.com/bounswe/bounswe2023group5/issues/950) | Zeynep Baydemir | 12.12.2023| 3.5 hrs|
 | Implementing Additional Notification Creation Logic | [#951](https://github.com/bounswe/bounswe2023group5/issues/951) | Halis Bal | 12.12.2023| 4 hrs|
 | Implementation of Displaying Last Activities - MOBILE | [#952](https://github.com/bounswe/bounswe2023group5/issues/952) | Harun Sami Çelik| 12.12.2023| 3.5 hrs|
