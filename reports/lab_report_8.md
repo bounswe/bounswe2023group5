@@ -48,8 +48,8 @@ General test plan for the project | [#795](https://github.com/bounswe/bounswe202
 | Create Group Details Page - MOBILE | [#799](https://github.com/bounswe/bounswe2023group5/issues/799) | Said Yolcu | 28.11.2023 | | 5hrs | 4hrs |
 | Modifying Forum Page With Agreed UI Design Decisions - MOBILE | [#801](https://github.com/bounswe/bounswe2023group5/issues/801) | Said Yolcu | 27.11.2023 | | 1.5hrs | 2hrs |
 | Creating achievement entity | [#805](https://github.com/bounswe/bounswe2023group5/issues/805) | Deniz Ünal | 25.11.2023 | | 2hrs | 1.5hrs |
-| Achievement CRUD endpoints and grant-achievement endpoint | [#806](https://github.com/bounswe/bounswe2023group5/issues/806) | Deniz Ünal | 25.11.2023 | | 4hrs | 3.5hrs|
-| get-game-achievements endpoint and adding achievements to posts | [#807](https://github.com/bounswe/bounswe2023group5/issues/807) | Deniz Ünal | 25.11.2023 | | 2hrs | 2.5hrs|
+| Achievement CRUD endpoints and grant-achievement endpoint | [#806](https://github.com/bounswe/bounswe2023group5/issues/806) | Deniz Ünal | 25.11.2023 | [#826](https://github.com/bounswe/bounswe2023group5/pull/826), [#846](https://github.com/bounswe/bounswe2023group5/pull/846) | 4hrs | 3.5hrs|
+| get-game-achievements endpoint and adding achievements to posts | [#807](https://github.com/bounswe/bounswe2023group5/issues/807) | Deniz Ünal | 25.11.2023 | [#826](https://github.com/bounswe/bounswe2023group5/pull/826), [#873](https://github.com/bounswe/bounswe2023group5/pull/873) | 2hrs | 2.5hrs|
 | Adding "How do we test ?" Section to Lab Report - BE | [#812](https://github.com/bounswe/bounswe2023group5/issues/812) | Can Uzduran | 22.11.2023 | | 30mins | 30 mins|
 | Get achievements of user and implementation of other related functionalities | [#810](https://github.com/bounswe/bounswe2023group5/issues/810) | Can Uzduran | 27.11.2023 | | 2hrs | 2hrs|
 | Implement Necessary Functionalities for Earned Achievements (Meta Achievements) | [#790](https://github.com/bounswe/bounswe2023group5/issues/790) | Can Uzduran | 27.11.2023 | | 3hrs | 4hrs|
@@ -86,6 +86,8 @@ General test plan for the project | [#795](https://github.com/bounswe/bounswe202
 | Implement notification model and achievement notifications | [#950](https://github.com/bounswe/bounswe2023group5/issues/950) | Zeynep Baydemir | 12.12.2023| 3.5 hrs|
 | Implementing Additional Notification Creation Logic | [#951](https://github.com/bounswe/bounswe2023group5/issues/951) | Halis Bal | 12.12.2023| 4 hrs|
 | Implementation of Displaying Last Activities - MOBILE | [#952](https://github.com/bounswe/bounswe2023group5/issues/952) | Harun Sami Çelik| 12.12.2023| 3.5 hrs|
+| adding character entity and related endpoints | [#953](https://github.com/bounswe/bounswe2023group5/issues/953) | Deniz Ünal | 11.12.2023| 4 hrs |
+| adding image functionality to groups | [#954](https://github.com/bounswe/bounswe2023group5/issues/954) | Deniz Ünal | 11.12.2023| 30 mins |
 
 ## Uncompleted requirements sorted by the priorit
 #### 1-Annotation
