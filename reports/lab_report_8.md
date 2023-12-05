@@ -67,6 +67,8 @@ General test plan for the project | [#795](https://github.com/bounswe/bounswe202
 | --- | --- | --- | --- | --- |
 | Preparing The Presentation Slides For MS2  | [#908](https://github.com/bounswe/bounswe2023group5/issues/908) | Alperen, Çisel | 28.11.2023 |1hr|
 | Delete Achievement Page  | [#868](https://github.com/bounswe/bounswe2023group5/issues/868) | Arda | 28.11.2023 |2hr|
+| Vote Functionality Implementation - MOBILE | [#813](https://github.com/bounswe/bounswe2023group5/issues/813) | Bilal Atım | 28.11.2023 |2hr|
+| Add App Icon and Change App Name for Mobile App - MOBILE | [#843](https://github.com/bounswe/bounswe2023group5/issues/843) | Bilal Atım | 26.11.2023 |30 minutes|
 
 ## Planned Vs. Actual
 
