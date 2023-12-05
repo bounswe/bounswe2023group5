@@ -80,8 +80,8 @@ General test plan for the project | [#795](https://github.com/bounswe/bounswe202
 | Implement character addition functionality for admins     | #782 | Arda           | 11.12.2023 | 2hrs     |
 | Implement character linking functionality for forum posts | [#957](https://github.com/bounswe/bounswe2023group5/issues/957) | Alperen        | 10.12.2023 | 2hrs     |
 | Put characters in game details' pages                     | #782 | Arda           | 11.12.2023 | 2hrs     |
-| Implement Character Detail Modal                          | #782 | Çisel          | 12.12.2023 | 2hrs     |
-| Implement Character Component                             | #782 | Çisel          | 10.12.2023 | 2hrs     |
+| Implement Character Detail Modal                          | [#948](https://github.com/bounswe/bounswe2023group5/issues/948)| Çisel          | 12.12.2023 | 4hrs     |
+| Implement Character Component                             | [#947](https://github.com/bounswe/bounswe2023group5/issues/947) | Çisel          | 10.12.2023 | 2hrs     |
 | Implement edit/delete game functionality                  | #782 | Arda           | 10.12.2023 | 2hrs     |
 | Implement notification model and achievement notifications | [#950](https://github.com/bounswe/bounswe2023group5/issues/950) | Zeynep Baydemir | 12.12.2023| 3.5 hrs|
 | Implementing Additional Notification Creation Logic | [#951](https://github.com/bounswe/bounswe2023group5/issues/951) | Halis Bal | 12.12.2023| 4 hrs|
