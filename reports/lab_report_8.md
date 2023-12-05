@@ -48,7 +48,7 @@ General test plan for the project | [#795](https://github.com/bounswe/bounswe202
 | Unban user from group and forum | [#803](https://github.com/bounswe/bounswe2023group5/issues/803) | Zeynep Baydemir | 27.11.2023 |  [#820](https://github.com/bounswe/bounswe2023group5/pull/820) | 1.5hrs | 1hrs |
 | Last activities in profile endpoint | [#804](https://github.com/bounswe/bounswe2023group5/issues/804) | Zeynep Baydemir | 27.11.2023 | [#841](https://github.com/bounswe/bounswe2023group5/pull/841) | 3hrs | 3.5hrs |
 | Profile Page Implementation - BE | [#822](https://github.com/bounswe/bounswe2023group5/issues/822) | Halis Bal | 27.11.2023 | [#854](https://github.com/bounswe/bounswe2023group5/pull/854) | 3hrs | 4hrs |
-| Create Group Details Page - MOBILE | [#799](https://github.com/bounswe/bounswe2023group5/issues/799) | Said Yolcu | 28.11.2023 | | 5hrs | 4hrs |
+| Create Group Details Page - MOBILE | [#799](https://github.com/bounswe/bounswe2023group5/issues/799) | Said Yolcu | 28.11.2023 | [#839](https://github.com/bounswe/bounswe2023group5/pull/839) | 5hrs | 4hrs |
 | Modifying Forum Page With Agreed UI Design Decisions - MOBILE | [#801](https://github.com/bounswe/bounswe2023group5/issues/801) | Said Yolcu | 27.11.2023 | | 1.5hrs | 2hrs |
 | Creating achievement entity | [#805](https://github.com/bounswe/bounswe2023group5/issues/805) | Deniz Ünal | 25.11.2023 | | 2hrs | 1.5hrs |
 | Achievement CRUD endpoints and grant-achievement endpoint | [#806](https://github.com/bounswe/bounswe2023group5/issues/806) | Deniz Ünal | 25.11.2023 | [#826](https://github.com/bounswe/bounswe2023group5/pull/826), [#846](https://github.com/bounswe/bounswe2023group5/pull/846) | 4hrs | 3.5hrs|
@@ -99,6 +99,7 @@ General test plan for the project | [#795](https://github.com/bounswe/bounswe202
 | Delete Game Endpoint Implementation - BE | [#962](https://github.com/bounswe/bounswe2023group5/issues/962) | Can Uzduran | 11.12.2023 | 1hrs |
 | Implementation of Relevant Homepage Endpoints - BE | [#960](https://github.com/bounswe/bounswe2023group5/issues/960) | Can Uzduran | 11.12.2023 | 2hrs |
 | Notifications Implementation - MOBILE | [#946](https://github.com/bounswe/bounswe2023group5/issues/946) | Bilal Atım | 13.12.2023 | 4hrs |
+| Avatar Functionality Implementation - MOBILE | [#943](https://github.com/bounswe/bounswe2023group5/issues/943) | Said Yolcu | 12.12.2023 | 4hrs |
 
 ## Uncompleted requirements sorted by their priority
 #### 1-Annotation
