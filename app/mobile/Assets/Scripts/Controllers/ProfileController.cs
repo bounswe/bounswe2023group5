@@ -53,7 +53,7 @@ public class GetProfileResponse
 {
     public string id;
     public User user;
-    // public Achievement[] achievements;
+    public AchievementResponse[] achievements;
     public int reviewCount;
     public int voteCount;
     public int commentCount;

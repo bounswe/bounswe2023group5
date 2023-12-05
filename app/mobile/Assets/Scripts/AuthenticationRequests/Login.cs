@@ -26,7 +26,7 @@ public class Login : MonoBehaviour
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
         if (!string.IsNullOrEmpty(PersistenceManager.UserToken))
         {
-            canvasManager.ShowHomePage();
+            canvasManager.ShowGamesPage();
             canvasManager.HideLogInPage();
         }
         
@@ -94,7 +94,7 @@ public class Login : MonoBehaviour
             DOVirtual.DelayedCall(2f, () =>
             {
                 canvasManager.HideLogInPage();
-                canvasManager.ShowHomePage();
+                canvasManager.ShowGamesPage();
             });
             
         }

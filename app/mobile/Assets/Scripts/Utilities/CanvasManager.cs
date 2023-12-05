@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,10 +26,46 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject groupDetailsPage;
     [SerializeField] private GameObject groupsPage;
     public GameObject postComments;
-    
+    private GameObject currentActivePage;
+
+    private void Awake()
+    {
+        currentActivePage = logInPage;
+    }
+
+    private bool iQuit = false;
+    public GameObject quitobject;
+
+    void Update()
+    {
+        if (iQuit == true)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Application.Quit();
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            quitobject.SetActive(true);
+            iQuit = true;
+            StartCoroutine(QuitingTimer());
+
+        }
+    }
+
+    IEnumerator QuitingTimer()
+    {
+        yield return new WaitForSeconds(3);
+        iQuit = false;
+        quitobject.SetActive(false);
+    }
+
     public void ShowSignUpPage()
     {
         signUpPage.SetActive(true);
+        currentActivePage.SetActive(false);
+        currentActivePage = signUpPage;
     }
     
     public void HideSignUpPage()
@@ -39,6 +76,8 @@ public class CanvasManager : MonoBehaviour
     public void ShowLogInPage()
     {
         logInPage.SetActive(true);
+        currentActivePage.SetActive(false);
+        currentActivePage = logInPage;
     }
     
     public void HideLogInPage()
@@ -49,6 +88,8 @@ public class CanvasManager : MonoBehaviour
     public void ShowForgetPasswordPage()
     {
         forgetPasswordPage.SetActive(true);
+        currentActivePage.SetActive(false);
+        currentActivePage = forgetPasswordPage;
     }
     
     public void HideForgetPasswordPage()
@@ -60,6 +101,8 @@ public class CanvasManager : MonoBehaviour
     public void ShowChangePasswordPage()
     {
         changePasswordPage.SetActive(true);
+        currentActivePage.SetActive(false);
+        currentActivePage = changePasswordPage;
     }
     
     public void HideChangePasswordPage()
@@ -70,6 +113,8 @@ public class CanvasManager : MonoBehaviour
     public void ShowChangeForgetPasswordPage()
     {
         changeForgetPasswordPage.SetActive(true);
+        currentActivePage.SetActive(false);
+        currentActivePage = changeForgetPasswordPage;
     }
     
     public void HideChangeForgetPasswordPage()
@@ -80,6 +125,8 @@ public class CanvasManager : MonoBehaviour
     public void ShowResetPasswordPage()
     {
         resetPasswordPage.SetActive(true);
+        currentActivePage.SetActive(false);
+        currentActivePage = resetPasswordPage;
     }
     
     public void HideResetPasswordPage()
@@ -90,9 +137,8 @@ public class CanvasManager : MonoBehaviour
     public void ShowHomePage()
     {
         homePage.SetActive(true);
-        forumPage.SetActive(false);
-        gamesPage.SetActive(false);
-        profilePage.SetActive(false);
+        currentActivePage?.SetActive(false);
+        currentActivePage = homePage;
     }
 
     public void HideHomePage()
@@ -106,34 +152,33 @@ public class CanvasManager : MonoBehaviour
     }
     
     
-    public void ShowForumPage()
+    public void ShowGroupPage()
     {
-        forumPage.SetActive(true);
-        homePage.SetActive(false);
-        gamesPage.SetActive(false);
-        profilePage.SetActive(false);
+        groupsPage.SetActive(true);
+        currentActivePage.SetActive(false);
+        currentActivePage = groupsPage;
     }
     
     public void ShowGamesPage()
     {
+        currentActivePage?.SetActive(false);
         gamesPage.SetActive(true);
-        homePage.SetActive(false);
-        forumPage.SetActive(false);
-        profilePage.SetActive(false);
+        currentActivePage = gamesPage;
     }
     
     public void ShowProfilePage()
     {
         profilePage.SetActive(true);
-        homePage.SetActive(false);
-        forumPage.SetActive(false);
-        gamesPage.SetActive(false);
+        currentActivePage.SetActive(false);
+        currentActivePage = profilePage;
     }
     
     public void ShowGameDetailsPage(string gameID)
     {
         gameDetailsPage.SetActive(true);
         gameDetailsPage.GetComponent<GameDetails>().Init(gameID);
+        currentActivePage.SetActive(false);
+        currentActivePage = gameDetailsPage;
     }
     
     public void HideGameDetailsPage()
@@ -144,6 +189,8 @@ public class CanvasManager : MonoBehaviour
     public void ShowDeleteAccountPage()
     {
         deleteAccountPage.SetActive(true);
+        currentActivePage.SetActive(false);
+        currentActivePage = deleteAccountPage;
     }
     
     public void HideDeleteAccountPage()
@@ -155,48 +202,64 @@ public class CanvasManager : MonoBehaviour
     {
         adminControlPanelPage.SetActive(false);
         createGamePage.SetActive(true);
+        currentActivePage.SetActive(false);
+        currentActivePage = createGamePage;
     }
     
     public void ShowCreateTagPage()
     {
         adminControlPanelPage.SetActive(false);
         createTagPage.SetActive(true);
+        currentActivePage.SetActive(false);
+        currentActivePage = createTagPage;
     }
 
     public void HideCreateTagPage()
     {
         adminControlPanelPage.SetActive(true);
         createTagPage.SetActive(false);
+        currentActivePage.SetActive(false);
+        currentActivePage = adminControlPanelPage;
     }
 
     public void ShowAdminControlPanelPage()
     {
         adminControlPanelPage.SetActive(true);
         profilePage.SetActive(false);
+        currentActivePage.SetActive(false);
+        currentActivePage = adminControlPanelPage;
     }
 
     public void ShowUpdateTagPage()
     {
         adminControlPanelPage.SetActive(false);
         updateTagPage.SetActive(true);
+        currentActivePage.SetActive(false);
+        currentActivePage = updateTagPage;
     }
     
     public void HideUpdateTagPage()
     {
         adminControlPanelPage.SetActive(true);
         updateTagPage.SetActive(false);
+        currentActivePage.SetActive(false);
+        currentActivePage = adminControlPanelPage;
     }
     
     public void ShowDeleteTagPage()
     {
         adminControlPanelPage.SetActive(false);
         deleteTagPage.SetActive(true);
+        currentActivePage.SetActive(false);
+        currentActivePage = deleteTagPage;
     }
     
     public void HideDeleteTagPage()
     {
         adminControlPanelPage.SetActive(true);
         deleteTagPage.SetActive(false);
+        currentActivePage.SetActive(false);
+        currentActivePage = adminControlPanelPage;
     }
 
     public void ShowGroupDetailsPage(string groupId)
@@ -204,6 +267,8 @@ public class CanvasManager : MonoBehaviour
         groupDetailsPage.SetActive(true);
         groupsPage.SetActive(false);
         groupDetailsPage.GetComponent<GroupDetails>().Init(groupId);
+        currentActivePage.SetActive(false);
+        currentActivePage = groupDetailsPage;
     }
 
     public void HideGroupDetailsPage()
@@ -214,6 +279,8 @@ public class CanvasManager : MonoBehaviour
     public void ShowGroupsPage()
     {
         groupsPage.SetActive(true);
+        currentActivePage.SetActive(false);
+        currentActivePage = groupsPage;
     }
 
     public void HideGroupsPage()
