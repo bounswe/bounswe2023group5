@@ -16,6 +16,9 @@
 - We added followed games and joined groups to sidebar.
 - We implemented edit profile functionality.
 - We prepared the second milestone report.
+- We will implement the home page this week.
+- We will implement the notification functionality this week.
+- We will implement the character feature this week.
 
 ## What was planned for the week? How did it go?
 | Description                                                                | Issue                                                           | Assignee         | Due        | PR  | Estimated Duration | Actual Duration |
@@ -90,7 +93,7 @@ General test plan for the project | [#795](https://github.com/bounswe/bounswe202
 | adding character entity and related endpoints | [#953](https://github.com/bounswe/bounswe2023group5/issues/953) | Deniz Ünal | 11.12.2023| 4 hrs |
 | adding image functionality to groups | [#954](https://github.com/bounswe/bounswe2023group5/issues/954) | Deniz Ünal | 11.12.2023| 30 mins |
 
-## Uncompleted requirements sorted by the priorit
+## Uncompleted requirements sorted by their priority
 #### 1-Annotation
 The annotation functionality is very important because stakeholders value implementation of W3 Standarts very highly. Also, the annotation functionality will improve the UX of the application for users which are not very familiar with the discussed gaming topics.
 #### 2-Character
