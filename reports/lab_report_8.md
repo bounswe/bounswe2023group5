@@ -55,9 +55,9 @@ General test plan for the project | [#795](https://github.com/bounswe/bounswe202
 | get-game-achievements endpoint and adding achievements to posts | [#807](https://github.com/bounswe/bounswe2023group5/issues/807) | Deniz Ünal | 25.11.2023 | [#826](https://github.com/bounswe/bounswe2023group5/pull/826), [#873](https://github.com/bounswe/bounswe2023group5/pull/873) | 2hrs | 2.5hrs|
 | Adding "How do we test ?" Section to Lab Report - BE | [#812](https://github.com/bounswe/bounswe2023group5/issues/812) | Can Uzduran | 22.11.2023 | - | 30mins | 30 mins|
 | Implement Necessary Functionalities for Earned Achievements (Meta Achievements) | [#790](https://github.com/bounswe/bounswe2023group5/issues/790) | Can Uzduran | 27.11.2023 | [#833](https://github.com/bounswe/bounswe2023group5/pull/833) | 3hrs | 4hrs|
-| Profile Page Implementation - MOBILE | [#813](https://github.com/bounswe/bounswe2023group5/issues/813) | Bilal Atım | 28.11.2023 | | 5hrs | 4hrs |
-| Achievement Functionality Implementation - MOBILE | [#814](https://github.com/bounswe/bounswe2023group5/issues/814) | Bilal Atım | 29.11.2023 | | 4hrs | 3hrs|
-| Modifying ProfilePage with Agreed UI Design Decisions - MOBILE | [#815](https://github.com/bounswe/bounswe2023group5/issues/815) | Bilal Atım | 27.11.2023 | | 3hrs | 2.5hrs |
+| Profile Page Implementation - MOBILE | [#813](https://github.com/bounswe/bounswe2023group5/issues/813) | Bilal Atım | 28.11.2023 | [#879](https://github.com/bounswe/bounswe2023group5/pull/879) | 5hrs | 4hrs |
+| Achievement Functionality Implementation - MOBILE | [#814](https://github.com/bounswe/bounswe2023group5/issues/814) | Bilal Atım | 29.11.2023 | [#837](https://github.com/bounswe/bounswe2023group5/pull/837) | 4hrs | 3hrs|
+| Modifying ProfilePage with Agreed UI Design Decisions - MOBILE | [#815](https://github.com/bounswe/bounswe2023group5/issues/815) | Bilal Atım | 27.11.2023 | [#890](https://github.com/bounswe/bounswe2023group5/pull/890) | 3hrs | 2.5hrs |
 | Create Post Page - MOBILE | [#796](https://github.com/bounswe/bounswe2023group5/issues/796) | Ege Ekşi | 28.11.2023 | - | 4hrs | 4.5hrs|
 | Modifying Review Page with Agreed UI Design Decisions - MOBILE | [#797](https://github.com/bounswe/bounswe2023group5/issues/797) | Ege Ekşi | 28.11.2023 | - | 2hrs | 3hrs | 
 | Updating Navigation Drop Buttons - MOBILE | [#817](https://github.com/bounswe/bounswe2023group5/issues/817) | Harun Sami Çelik | 28.11.2023 | [#890](https://github.com/bounswe/bounswe2023group5/pull/890) | 1hrs | 1.5hrs |
