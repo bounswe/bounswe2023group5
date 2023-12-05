@@ -63,6 +63,7 @@ General test plan for the project | [#795](https://github.com/bounswe/bounswe202
 ## Completed tasks that were not planned for the week
 | Description | Issue | Assignee | Due | Duration |
 | --- | --- | --- | --- | --- |
+| Preparing The Presentation Slides For MS2  | [#908](https://github.com/bounswe/bounswe2023group5/issues/908) | Alperen, Çisel | 28.11.2023 |1hr|
 
 ## Planned Vs. Actual
 
