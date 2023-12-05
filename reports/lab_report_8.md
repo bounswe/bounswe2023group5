@@ -37,10 +37,10 @@ General test plan for the project | [#795](https://github.com/bounswe/bounswe202
 | Integrate Achievement Component to Games Page - FE              | [#777](https://github.com/bounswe/bounswe2023group5/issues/777) | Ali Başaran   | 27.11.2023 | | 2 hr| 3hrs |
 | Integrate Achievement Component to Profile - FE| [#779](https://github.com/bounswe/bounswe2023group5/issues/779) | Alperen Bırçak   | 27.11.2023 | | 2 hr| 2hrs |
 | Profile Page Implementation - FE| [#780](https://github.com/bounswe/bounswe2023group5/issues/780) | Alperen Bırçak   | 27.11.2023 | | 4 hr| 4hrs |
-| Beautify Admin Main Page Styles - FE           | [#787](https://github.com/bounswe/bounswe2023group5/issues/787) | Arda Kabadayı  | 28.11.2023 | | 1 hr| 1hr| 
+| Beautify Admin Main Page Styles - FE           | [#787](https://github.com/bounswe/bounswe2023group5/issues/787) | Arda Kabadayı  | 28.11.2023 | [#898](https://github.com/bounswe/bounswe2023group5/pull/898) | 1 hr| 1hr| 
 | Beautify Input Components Styles - FE | [#788](https://github.com/bounswe/bounswe2023group5/issues/788) | Çisel Zümbül  | 28.11.2023 |[#886](https://github.com/bounswe/bounswe2023group5/pull/886) | 2hr | 30mins | 
-| Replace Alert with Toast For All Requests Success or Error case - FE                  | [#794](https://github.com/bounswe/bounswe2023group5/issues/794) | Arda Kabadayı  | 28.11.2023 | | 1 hr | 1.5hrs| 
-| Adding Last Activites to Profile Page - FE                  | [#781](https://github.com/bounswe/bounswe2023group5/issues/781) | Arda Kabadayı  | 27.11.2023 | | 2hr | 2hrs|
+| Replace Alert with Toast For All Requests Success or Error case - FE                  | [#794](https://github.com/bounswe/bounswe2023group5/issues/794) | Arda Kabadayı  | 28.11.2023 | [#889](https://github.com/bounswe/bounswe2023group5/pull/889)| 1 hr | 1.5hrs| 
+| Adding Last Activites to Profile Page - FE                  | [#781](https://github.com/bounswe/bounswe2023group5/issues/781) | Arda Kabadayı  | 27.11.2023 | [#899](https://github.com/bounswe/bounswe2023group5/pull/899)| 2hr | 2hrs|
  | Implementing Group's Join - FE                 | [#786](https://github.com/bounswe/bounswe2023group5/issues/786) | Çisel Zümbül  | 27.11.2023 | [#871](https://github.com/bounswe/bounswe2023group5/pull/871)| 1 hrs | 1hr|
   | Implementing Edit Profile Page - FE                 | [#792](https://github.com/bounswe/bounswe2023group5/issues/792) | Çisel Zümbül  | 28.11.2023 |[#866](https://github.com/bounswe/bounswe2023group5/pull/866) | 2 hrs | 3hrs |
 | Link Followed Games and Joined Groups in Sidebar - FE                 | [#800](https://github.com/bounswe/bounswe2023group5/issues/800) | Çisel Zümbül  | 28.11.2023 | [#867](https://github.com/bounswe/bounswe2023group5/pull/867) | 2 hrs  | 1 hr|
