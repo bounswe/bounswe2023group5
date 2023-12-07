@@ -338,6 +338,7 @@ public class GameService {
 		gameToUpdate.setGameName(request.getGameName());
 		gameToUpdate.setGameDescription(request.getGameDescription());
 		gameToUpdate.setGameIcon(request.getGameIcon());
+		gameToUpdate.setReleaseDate(request.getReleaseDate());
 		gameToUpdate.setMinSystemReq(request.getMinSystemReq());
 		gameRepository.save(gameToUpdate);
 
