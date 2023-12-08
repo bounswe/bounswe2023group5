@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.app.gamereview.dto.request.game.CreateGameRequestDto;
-import com.app.gamereview.dto.request.game.AddGameTagRequestDto;
-import com.app.gamereview.dto.request.game.RemoveGameTagRequestDto;
+import com.app.gamereview.dto.request.game.*;
 import com.app.gamereview.dto.response.group.GetGroupResponseDto;
 import com.app.gamereview.dto.response.tag.AddGameTagResponseDto;
 import com.app.gamereview.dto.response.tag.GetAllTagsOfGameResponseDto;
@@ -28,7 +26,6 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import com.app.gamereview.dto.request.game.GetGameListRequestDto;
 import com.app.gamereview.dto.response.game.GetGameListResponseDto;
 import com.app.gamereview.model.Game;
 import com.app.gamereview.repository.GameRepository;
@@ -328,6 +325,24 @@ public class GameService {
 
 		gameToCreate.setForum(correspondingForum.getId());
 		return gameRepository.save(gameToCreate);
+	}
+
+	public Game editGame(String id, UpdateGameRequestDto request){
+		Optional<Game> findGame = gameRepository.findByIdAndIsDeletedFalse(id);
+
+		if(findGame.isEmpty()){
+			throw new ResourceNotFoundException("Game is not found");
+		}
+
+		Game gameToUpdate = findGame.get();
+		gameToUpdate.setGameName(request.getGameName());
+		gameToUpdate.setGameDescription(request.getGameDescription());
+		gameToUpdate.setGameIcon(request.getGameIcon());
+		gameToUpdate.setReleaseDate(request.getReleaseDate());
+		gameToUpdate.setMinSystemReq(request.getMinSystemReq());
+		gameRepository.save(gameToUpdate);
+
+		return gameToUpdate;
 	}
 
 
