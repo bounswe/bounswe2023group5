@@ -35,7 +35,6 @@ public class NotificationController {
     @AuthorizationRequired
     @GetMapping("/get-notifications")
     public ResponseEntity<List<Notification>> getNotificationList( @RequestHeader String Authorization, HttpServletRequest request) {
-
         User user = (User) request.getAttribute("authenticatedUser");
         List<Notification> notifications = notificationService.getNotificationList(user.getId());
         return ResponseEntity.ok(notifications);

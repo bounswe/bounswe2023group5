@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface NotificationRepository extends MongoRepository<Notification, String> {
 
-    Optional<Notification> findByUserIdAndIsDeletedFalse(String userId);
+    Optional<Notification> findByUserAndIsDeletedFalse(String userId);
 
 }
