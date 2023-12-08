@@ -285,6 +285,7 @@ public class GroupService {
         groupToUpdate.setMembershipPolicy(MembershipPolicy.valueOf(request.getMembershipPolicy()));
         groupToUpdate.setQuota(request.getQuota());
         groupToUpdate.setAvatarOnly(request.getAvatarOnly());
+        groupToUpdate.setGroupIcon(request.getGroupIcon());
         groupRepository.save(groupToUpdate);
         return groupToUpdate;
     }
