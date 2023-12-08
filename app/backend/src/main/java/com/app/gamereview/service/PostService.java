@@ -4,13 +4,11 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import com.app.gamereview.dto.request.notification.CreateNotificationRequestDto;
 import com.app.gamereview.dto.response.comment.CommentReplyResponseDto;
 import com.app.gamereview.dto.response.comment.GetPostCommentsResponseDto;
 import com.app.gamereview.dto.response.post.GetPostDetailResponseDto;
-import com.app.gamereview.enums.SortDirection;
-import com.app.gamereview.enums.SortType;
-import com.app.gamereview.enums.UserRole;
-import com.app.gamereview.enums.VoteChoice;
+import com.app.gamereview.enums.*;
 import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.model.*;
 import com.app.gamereview.repository.*;
@@ -48,12 +46,15 @@ public class PostService {
 
     private final MongoTemplate mongoTemplate;
     private final ModelMapper modelMapper;
+    private final NotificationService notificationService;
+
 
     @Autowired
     public PostService(PostRepository postRepository, ForumRepository forumRepository, UserRepository userRepository,
                        ProfileRepository profileRepository, TagRepository tagRepository,
                        CommentRepository commentRepository, VoteRepository voteRepository,
                        AchievementRepository achievementRepository, MongoTemplate mongoTemplate,
+                       NotificationService notificationService,
                        ModelMapper modelMapper) {
         this.postRepository = postRepository;
         this.forumRepository = forumRepository;
@@ -65,6 +66,8 @@ public class PostService {
         this.achievementRepository = achievementRepository;
         this.mongoTemplate = mongoTemplate;
         this.modelMapper = modelMapper;
+        this.notificationService = notificationService;
+
     }
 
     public List<GetPostListResponseDto> getPostList(GetPostListFilterRequestDto filter, String email) {
@@ -286,6 +289,11 @@ public class PostService {
                     achievementRepository.findByIdAndIsDeletedFalse("88f359cc-8ca3-4286-bc13-1b44262ee9f4");
             achievement.ifPresent(value -> profile.addAchievement(value.getId()));
             profile.setIsPostedYet(true);
+            CreateNotificationRequestDto createNotificationRequestDto= new CreateNotificationRequestDto();
+            createNotificationRequestDto.setParentType(NotificationParent.ACHIEVEMENT);
+            createNotificationRequestDto.setMessage("You got first post achievement with posting to forum "+ forum.get().getName());
+            createNotificationRequestDto.setUser(user.getId());
+            notificationService.createNotification(createNotificationRequestDto);
         }
 
         profile.setPostCount(profile.getPostCount() + 1);
