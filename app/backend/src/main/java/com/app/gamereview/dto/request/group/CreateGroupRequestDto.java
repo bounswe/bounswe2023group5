@@ -32,6 +32,8 @@ public class CreateGroupRequestDto {
             message = "Game has Invalid Id (UUID) format")
     private String gameId;      // id of related game
 
+    private String groupIcon;
+
     @Positive(message = "Quota cannot be negative or zero")
     private int quota;
 
