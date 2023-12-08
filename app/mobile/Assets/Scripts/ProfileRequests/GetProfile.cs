@@ -22,6 +22,9 @@ public class GetProfile : MonoBehaviour
     [SerializeField] private Button adminPanelButton;
     private string role;
     private CanvasManager canvasManager;
+    
+    [SerializeField] private GameObject achievementParent;
+    [SerializeField] private GameObject achievementPrefab;
 
     private void Start()
     {
@@ -55,6 +58,23 @@ public class GetProfile : MonoBehaviour
             role = profileResponseData.user.role;
             SetProfilButton();
             StartCoroutine(LoadImageFromURL(profileResponseData.profilePhoto, userAvatarImage));
+            if (profileResponseData.steamProfile != null)
+            {
+                steamProfile.SetActive(true);
+            }
+            if (profileResponseData.epicGamesProfile != null)
+            {
+                epikProfile.SetActive(true);
+            }
+            if (profileResponseData.xboxProfile != null)
+            {
+                xBoxProfile.SetActive(true);
+            }
+
+            foreach (var achievement in profileResponseData.achievements)
+            {
+                Instantiate(achievementPrefab, achievementParent.transform).GetComponent<AchievementPopUp>().Init(achievement);
+            }
             
             
         }

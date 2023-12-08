@@ -2,6 +2,8 @@ import { Button, List, Select } from "antd";
 import styles from "./MemberList.module.scss";
 import { useMutation } from "react-query";
 import { banUserFromGroup } from "../../Services/group";
+import { NotificationUtil } from "../../Library/utils/notification";
+import { handleError } from "../../Library/utils/handleError";
 interface MemberListData {
   id: string;
   username: string;
@@ -17,10 +19,10 @@ function MemberList({
 }) {
   const banUserMutation = useMutation(banUserFromGroup, {
     onSuccess: async () => {
-      alert(`You successfully banned the user`);
+      NotificationUtil.success("You successfully banned the user");
     },
-    onError: () => {
-      alert("Something went wrong");
+    onError: (error) => {
+      handleError(error);
     },
   });
 

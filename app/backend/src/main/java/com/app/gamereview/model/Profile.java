@@ -1,7 +1,9 @@
 package com.app.gamereview.model;
 
 import com.app.gamereview.model.common.BaseModel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -13,6 +15,8 @@ import java.util.List;
 @TypeAlias("Profile")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Profile extends BaseModel {
     private String userId;      // user the profile is linked to
 

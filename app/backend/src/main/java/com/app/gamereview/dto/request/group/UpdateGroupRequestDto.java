@@ -25,6 +25,8 @@ public class UpdateGroupRequestDto {
     @ValidMemberPolicy(allowedValues = {MembershipPolicy.PUBLIC, MembershipPolicy.PRIVATE})
     private String membershipPolicy;
 
+    private String groupIcon;
+
     @Positive(message = "Quota cannot be negative or zero")
     private int quota;
 

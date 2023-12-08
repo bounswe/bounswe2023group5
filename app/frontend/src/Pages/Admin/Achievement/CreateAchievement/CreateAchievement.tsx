@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useMutation, useQuery } from "react-query";
+import { useMutation } from "react-query";
 import styles from "./CreateAchievement.module.scss";
 import "react-datepicker/dist/react-datepicker.css";
 import { Button, Input, Upload } from "antd";
@@ -8,6 +8,8 @@ import { InboxOutlined } from "@ant-design/icons";
 import { uploadImage } from "../../../../Services/image";
 import { createAchievement } from "../../../../Services/achievement";
 import { getGames } from "../../../../Services/games";
+import { NotificationUtil } from "../../../../Library/utils/notification";
+import { handleError } from "../../../../Library/utils/handleError";
 
 function CreateAchievement() {
   const ACHIEVEMENT_TYPES = ["GAME", "META"];
@@ -22,10 +24,10 @@ function CreateAchievement() {
 
   const createAchievementMutation = useMutation(createAchievement, {
     onSuccess: async () => {
-      alert("You successfully create achievement.");
+      NotificationUtil.success("You successfully create achievement.");
     },
-    onError: () => {
-      alert("Something went wrong");
+    onError: (error) => {
+      handleError(error);
     },
   });
 
@@ -40,8 +42,8 @@ function CreateAchievement() {
   };
 
   const uploadImageMutation = useMutation(uploadImage, {
-    onError: () => {
-      alert("We cannot upload the image");
+    onError: (error) => {
+      handleError(error);
     },
   });
   const handleClick = async () => {
@@ -70,7 +72,7 @@ function CreateAchievement() {
 
     fileList.map((file) => {
       if (file.type.indexOf("image") === -1) {
-        alert("You can only upload image files!");
+        NotificationUtil.error("You can only upload image files!");
         setFileList([]);
       } else {
         setFileList([file]);

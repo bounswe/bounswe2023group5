@@ -1,9 +1,6 @@
 package com.app.gamereview.controller;
 
-import com.app.gamereview.dto.request.game.CreateGameRequestDto;
-import com.app.gamereview.dto.request.game.GetGameListRequestDto;
-import com.app.gamereview.dto.request.game.AddGameTagRequestDto;
-import com.app.gamereview.dto.request.game.RemoveGameTagRequestDto;
+import com.app.gamereview.dto.request.game.*;
 import com.app.gamereview.dto.response.game.GameDetailResponseDto;
 import com.app.gamereview.dto.response.game.GetGameListResponseDto;
 import com.app.gamereview.dto.response.tag.AddGameTagResponseDto;
@@ -12,6 +9,7 @@ import com.app.gamereview.model.Game;
 import com.app.gamereview.service.GameService;
 import com.app.gamereview.util.validation.annotation.AdminRequired;
 import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,5 +85,23 @@ public class GameController {
 										   @RequestHeader String Authorization) {
 		Game gameToCreate = gameService.createGame(createGameRequestDto);
 		return ResponseEntity.ok(gameToCreate);
+	}
+
+	@AuthorizationRequired
+	@PutMapping("/update")
+	public ResponseEntity<Game> editGame(@RequestParam String id,
+										   @Valid @RequestBody UpdateGameRequestDto updateGameRequestDto,
+										   @RequestHeader String Authorization, HttpServletRequest request) {
+		Game updatedGame = gameService.editGame(id, updateGameRequestDto);
+		return ResponseEntity.ok(updatedGame);
+	}
+
+	@AuthorizationRequired
+	@AdminRequired
+	@DeleteMapping("/delete")
+	public ResponseEntity<Boolean> deleteGame(@RequestParam String id, @RequestHeader String Authorization,
+											  HttpServletRequest request) {
+		Boolean isDeleted = gameService.deleteGame(id);
+		return ResponseEntity.ok(isDeleted);
 	}
 }

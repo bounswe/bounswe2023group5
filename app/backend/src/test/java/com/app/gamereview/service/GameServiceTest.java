@@ -1,4 +1,4 @@
-package com.app.gamereview.services;
+package com.app.gamereview.service;
 
 import com.app.gamereview.dto.response.tag.GetAllTagsOfGameResponseDto;
 import com.app.gamereview.exception.ResourceNotFoundException;

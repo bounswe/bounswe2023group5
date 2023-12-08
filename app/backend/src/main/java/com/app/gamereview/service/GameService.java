@@ -1,14 +1,8 @@
 package com.app.gamereview.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import com.app.gamereview.dto.request.game.CreateGameRequestDto;
-import com.app.gamereview.dto.request.game.AddGameTagRequestDto;
-import com.app.gamereview.dto.request.game.RemoveGameTagRequestDto;
-import com.app.gamereview.dto.response.group.GetGroupResponseDto;
+import com.app.gamereview.dto.request.game.*;
+import com.app.gamereview.dto.response.game.GameDetailResponseDto;
+import com.app.gamereview.dto.response.game.GetGameListResponseDto;
 import com.app.gamereview.dto.response.tag.AddGameTagResponseDto;
 import com.app.gamereview.dto.response.tag.GetAllTagsOfGameResponseDto;
 import com.app.gamereview.enums.ForumType;
@@ -16,9 +10,10 @@ import com.app.gamereview.enums.TagType;
 import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.Forum;
-import com.app.gamereview.model.Group;
+import com.app.gamereview.model.Game;
 import com.app.gamereview.model.Tag;
 import com.app.gamereview.repository.ForumRepository;
+import com.app.gamereview.repository.GameRepository;
 import com.app.gamereview.repository.TagRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
@@ -28,11 +23,10 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import com.app.gamereview.dto.request.game.GetGameListRequestDto;
-import com.app.gamereview.dto.response.game.GetGameListResponseDto;
-import com.app.gamereview.model.Game;
-import com.app.gamereview.repository.GameRepository;
-import com.app.gamereview.dto.response.game.GameDetailResponseDto;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class GameService {
@@ -328,6 +322,38 @@ public class GameService {
 
 		gameToCreate.setForum(correspondingForum.getId());
 		return gameRepository.save(gameToCreate);
+	}
+
+	public Game editGame(String id, UpdateGameRequestDto request){
+		Optional<Game> findGame = gameRepository.findByIdAndIsDeletedFalse(id);
+
+		if(findGame.isEmpty()){
+			throw new ResourceNotFoundException("Game is not found");
+		}
+
+		Game gameToUpdate = findGame.get();
+		gameToUpdate.setGameName(request.getGameName());
+		gameToUpdate.setGameDescription(request.getGameDescription());
+		gameToUpdate.setGameIcon(request.getGameIcon());
+		gameToUpdate.setReleaseDate(request.getReleaseDate());
+		gameToUpdate.setMinSystemReq(request.getMinSystemReq());
+		gameRepository.save(gameToUpdate);
+
+		return gameToUpdate;
+	}
+
+	public Boolean deleteGame(String id){
+		Optional<Game> findGame = gameRepository.findByIdAndIsDeletedFalse(id);
+
+		if(findGame.isEmpty()){
+			throw new ResourceNotFoundException("Game is not found");
+		}
+
+		Game gameToDelete = findGame.get();
+		gameToDelete.setIsDeleted(true);
+		gameRepository.save(gameToDelete);
+
+		return true;
 	}
 
 

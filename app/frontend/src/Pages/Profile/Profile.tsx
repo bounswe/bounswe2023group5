@@ -7,6 +7,7 @@ import { useState } from "react";
 import EditProfile from "../../Components/Profile/EditProfile";
 import ProfileIcon from "../../Components/Icons/ProfileIcon";
 import ProfileAchievements from "../../Components/Profile/ProfileAchievements/ProfileAchievements";
+import LastActivities from "../../Components/LastActivities/LastActivities";
 const subPages = ["Achievements", "Last Activities"];
 function Profile() {
   const { user, isLoading, profile } = useAuth();
@@ -117,6 +118,7 @@ function Profile() {
             {subPage === "Achievements" && (
               <ProfileAchievements achievements={profile.achievements} />
             )}
+            {subPage === "Last Activities" && <LastActivities />}
           </div>
         </>
       )}
