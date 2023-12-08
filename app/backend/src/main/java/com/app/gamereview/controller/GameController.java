@@ -95,4 +95,13 @@ public class GameController {
 		Game updatedGame = gameService.editGame(id, updateGameRequestDto);
 		return ResponseEntity.ok(updatedGame);
 	}
+
+	@AuthorizationRequired
+	@AdminRequired
+	@DeleteMapping("/delete")
+	public ResponseEntity<Boolean> deleteGame(@RequestParam String id, @RequestHeader String Authorization,
+											  HttpServletRequest request) {
+		Boolean isDeleted = gameService.deleteGame(id);
+		return ResponseEntity.ok(isDeleted);
+	}
 }
