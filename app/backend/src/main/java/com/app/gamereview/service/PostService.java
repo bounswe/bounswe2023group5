@@ -369,7 +369,20 @@ public class PostService {
 
     }
 
-    public List<Post> getHomePagePosts(HomePagePostsFilterRequestDto filter){
+    public List<Post> getHomepagePosts(HomePagePostsFilterRequestDto filter, String email){
+        if(email == null){
+            return getHomePagePostsOfGuest(filter);
+        }
+        Optional<User> findUser = userRepository.findByEmailAndIsDeletedFalse(email);
+
+        if(findUser.isEmpty()){
+            throw new ResourceNotFoundException("User not found");
+        }
+
+        return getHomePagePostsOfUser(filter, findUser.get());
+    }
+
+    public List<Post> getHomePagePostsOfGuest(HomePagePostsFilterRequestDto filter){
         Query query = new Query();
         query.addCriteria(Criteria.where("type").is(ForumType.GAME.name()));
         List<Forum> gameForums = mongoTemplate.find(query, Forum.class);
