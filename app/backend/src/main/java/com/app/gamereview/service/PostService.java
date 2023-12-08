@@ -4,13 +4,11 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import com.app.gamereview.dto.request.home.HomePagePostsFilterRequestDto;
 import com.app.gamereview.dto.response.comment.CommentReplyResponseDto;
 import com.app.gamereview.dto.response.comment.GetPostCommentsResponseDto;
 import com.app.gamereview.dto.response.post.GetPostDetailResponseDto;
-import com.app.gamereview.enums.SortDirection;
-import com.app.gamereview.enums.SortType;
-import com.app.gamereview.enums.UserRole;
-import com.app.gamereview.enums.VoteChoice;
+import com.app.gamereview.enums.*;
 import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.model.*;
 import com.app.gamereview.repository.*;
@@ -35,6 +33,8 @@ public class PostService {
 
     private final ForumRepository forumRepository;
 
+    private final GameRepository gameRepository;
+
     private final UserRepository userRepository;
 
     private final ProfileRepository profileRepository;
@@ -50,13 +50,14 @@ public class PostService {
     private final ModelMapper modelMapper;
 
     @Autowired
-    public PostService(PostRepository postRepository, ForumRepository forumRepository, UserRepository userRepository,
-                       ProfileRepository profileRepository, TagRepository tagRepository,
-                       CommentRepository commentRepository, VoteRepository voteRepository,
-                       AchievementRepository achievementRepository, MongoTemplate mongoTemplate,
-                       ModelMapper modelMapper) {
+    public PostService(PostRepository postRepository, ForumRepository forumRepository, GameRepository gameRepository,
+                       UserRepository userRepository, ProfileRepository profileRepository,
+                       TagRepository tagRepository, CommentRepository commentRepository,
+                       VoteRepository voteRepository, AchievementRepository achievementRepository,
+                       MongoTemplate mongoTemplate, ModelMapper modelMapper) {
         this.postRepository = postRepository;
         this.forumRepository = forumRepository;
+        this.gameRepository = gameRepository;
         this.userRepository = userRepository;
         this.profileRepository = profileRepository;
         this.tagRepository = tagRepository;
@@ -366,5 +367,133 @@ public class PostService {
 
         return mongoTemplate.find(query, Post.class);
 
+    }
+
+    public List<Post> getHomePagePosts(HomePagePostsFilterRequestDto filter){
+        Query query = new Query();
+        query.addCriteria(Criteria.where("type").is(ForumType.GAME.name()));
+        List<Forum> gameForums = mongoTemplate.find(query, Forum.class);
+        List<Post> postsToShow = new ArrayList<>();
+
+        for(Forum forum : gameForums){
+            postsToShow.addAll(postRepository.findByForumAndIsDeletedFalse(forum.getId()));
+        }
+
+        if(filter.getSortBy().equals(SortType.CREATION_DATE.name())){
+            if(filter.getSortDirection().equals(SortDirection.DESCENDING.name())){
+                // descending
+                postsToShow.sort(Comparator.comparing(Post::getCreatedAt, Comparator.reverseOrder()));
+            }
+            else{
+                // ascending
+                postsToShow.sort(Comparator.comparing(Post::getCreatedAt));
+            }
+        }
+        else if(filter.getSortBy().equals(SortType.OVERALL_VOTE.name())){
+            if(filter.getSortDirection().equals(SortDirection.DESCENDING.name())){
+                // descending
+                postsToShow.sort(Comparator.comparing(Post::getOverallVote, Comparator.reverseOrder()));
+            }
+            else{
+                // ascending
+                postsToShow.sort(Comparator.comparing(Post::getOverallVote));
+            }
+        }
+        else if(filter.getSortBy().equals(SortType.VOTE_COUNT.name())){
+            if(filter.getSortDirection().equals(SortDirection.DESCENDING.name())){
+                // descending
+                postsToShow.sort(Comparator.comparing(Post::getVoteCount, Comparator.reverseOrder()));
+            }
+            else{
+                // ascending
+                postsToShow.sort(Comparator.comparing(Post::getVoteCount));
+            }
+        }
+
+        return postsToShow.subList(0, Math.min(20, postsToShow.size()));
+    }
+
+    public List<Post> getHomePagePostsOfUser(HomePagePostsFilterRequestDto filter, User user){
+        Optional<Profile> findProfile = profileRepository.findByUserIdAndIsDeletedFalse(user.getId());
+
+        if(findProfile.isEmpty()) {
+            throw new ResourceNotFoundException("User doesn't have any profile, unexpected error has occurred");
+        }
+
+        Profile profileOfUser = findProfile.get();
+        List<String> gameIds = profileOfUser.getGames();
+
+        List<Post> postsToShow = new ArrayList<>();
+
+        // get game posts (games that user follows)
+        for(String gameId : gameIds){
+            Optional<Game> findGame = gameRepository.findByIdAndIsDeletedFalse(gameId);
+
+            if(findGame.isEmpty()){
+                continue;
+            }
+
+            String forumId = findGame.get().getForum();
+
+            postsToShow.addAll(postRepository.findByForumAndIsDeletedFalse(forumId));
+        }
+
+        // get group posts (groups that user is a member of)
+        Query query = new Query();
+        query.addCriteria(Criteria.where("members").in(user.getId()));
+        List<Group> groupsUserIsMemberOf = mongoTemplate.find(query, Group.class);
+
+        for(Group group : groupsUserIsMemberOf){
+            postsToShow.addAll(postRepository.findByForumAndIsDeletedFalse(group.getForumId()));
+        }
+
+        if(filter.getSortBy().equals(SortType.CREATION_DATE.name())){
+            if(filter.getSortDirection().equals(SortDirection.DESCENDING.name())){
+                // descending
+                postsToShow.sort(Comparator.comparing(Post::getCreatedAt, Comparator.reverseOrder()));
+            }
+            else{
+                // ascending
+                postsToShow.sort(Comparator.comparing(Post::getCreatedAt));
+            }
+        }
+        else if(filter.getSortBy().equals(SortType.OVERALL_VOTE.name())){
+            if(filter.getSortDirection().equals(SortDirection.DESCENDING.name())){
+                // descending
+                postsToShow.sort(Comparator.comparing(Post::getOverallVote, Comparator.reverseOrder()));
+            }
+            else{
+                // ascending
+                postsToShow.sort(Comparator.comparing(Post::getOverallVote));
+            }
+        }
+        else if(filter.getSortBy().equals(SortType.VOTE_COUNT.name())){
+            if(filter.getSortDirection().equals(SortDirection.DESCENDING.name())){
+                // descending
+                postsToShow.sort(Comparator.comparing(Post::getVoteCount, Comparator.reverseOrder()));
+            }
+            else{
+                // ascending
+                postsToShow.sort(Comparator.comparing(Post::getVoteCount));
+            }
+        }
+
+        if(postsToShow.size() < 20){    // complete to 20
+            Query postQuery = new Query();
+            postQuery.addCriteria(Criteria.where("isDeleted").is(false));
+            postQuery.with(Sort.by(Sort.Order.desc("overallVote")));
+            List<Post> allPosts = mongoTemplate.find(postQuery,Post.class);
+            int toAdd = 20 - postsToShow.size();
+            for(Post post : allPosts){
+                if(!postsToShow.contains(post)){
+                    postsToShow.add(post);
+                    toAdd--;
+                }
+                if(toAdd == 0)
+                    break;
+            }
+        }
+
+        return postsToShow.subList(0, Math.min(20, postsToShow.size()));
     }
 }
