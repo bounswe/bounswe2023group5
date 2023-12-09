@@ -1,27 +1,24 @@
-package com.app.gamereview.model;
+package com.app.gamereview.dto.request.character;
 
-import com.app.gamereview.model.common.BaseModel;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 import java.util.Map;
 
-@Document(collection = "Character")
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Character extends BaseModel {
+public class UpdateCharacterRequestDto {
+
     private String name;
 
     private String icon;
 
-    private List<String> games;
+    private List<@Pattern(regexp = "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+            message = "Game has invalid Id (UUID) format")String> games;
 
     private String type;
 
@@ -41,6 +38,5 @@ public class Character extends BaseModel {
 
     private String age;
 
-    @Field("customFields")
     private Map<String, String> customFields;
 }
