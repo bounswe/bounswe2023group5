@@ -5,10 +5,7 @@ import com.app.gamereview.dto.request.review.CreateReviewRequestDto;
 import com.app.gamereview.dto.request.review.GetAllReviewsFilterRequestDto;
 import com.app.gamereview.dto.request.review.UpdateReviewRequestDto;
 import com.app.gamereview.dto.response.review.GetAllReviewsResponseDto;
-import com.app.gamereview.enums.NotificationParent;
-import com.app.gamereview.enums.SortDirection;
-import com.app.gamereview.enums.SortType;
-import com.app.gamereview.enums.UserRole;
+import com.app.gamereview.enums.*;
 import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.*;
@@ -166,8 +163,11 @@ public class ReviewService {
             achievement.ifPresent(value -> profile.addAchievement(value.getId()));
             profile.setIsReviewedYet(true);
             CreateNotificationRequestDto createNotificationRequestDto= new CreateNotificationRequestDto();
+            String message = NotificationMessage.FIRST_REVIEW_ACHIEVEMENT.getMessageTemplate()
+                    .replace("{user_name}", user.getUsername())
+                    .replace("{game_name}", reviewedGame.getGameName());
             createNotificationRequestDto.setParentType(NotificationParent.ACHIEVEMENT);
-            createNotificationRequestDto.setMessage("You got first review achievement with reviewing "+ reviewedGame.getGameName());
+            createNotificationRequestDto.setMessage(message);
             createNotificationRequestDto.setUser(user.getId());
             notificationService.createNotification(createNotificationRequestDto);
         }

@@ -1,12 +1,7 @@
 package com.app.gamereview.service;
 
 import com.app.gamereview.dto.request.notification.CreateNotificationRequestDto;
-import com.app.gamereview.dto.request.post.GetPostListFilterRequestDto;
-import com.app.gamereview.dto.request.tag.CreateTagRequestDto;
-import com.app.gamereview.dto.response.post.GetPostListResponseDto;
 import com.app.gamereview.model.Notification;
-import com.app.gamereview.model.Post;
-import com.app.gamereview.model.Tag;
 import com.app.gamereview.repository.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import static com.app.gamereview.enums.SortDirection.DESCENDING;
-
 @Service
 public class NotificationService {
     private final NotificationRepository notificationRepository;
@@ -40,7 +31,6 @@ public class NotificationService {
     public List<Notification> getNotificationList(String userId) {
         Query query = new Query();
         query.addCriteria(Criteria.where("user").is(userId));
-        System.out.println(userId);
         query.with(Sort.by(Sort.Direction.DESC, "createdAt"));
         List<Notification> notificationList = mongoTemplate.find(query, Notification.class);
         return notificationList;

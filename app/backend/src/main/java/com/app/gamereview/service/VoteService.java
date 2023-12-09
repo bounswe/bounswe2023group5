@@ -3,6 +3,7 @@ package com.app.gamereview.service;
 import com.app.gamereview.dto.request.notification.CreateNotificationRequestDto;
 import com.app.gamereview.dto.request.vote.CreateVoteRequestDto;
 import com.app.gamereview.dto.request.vote.GetAllVotesFilterRequestDto;
+import com.app.gamereview.enums.NotificationMessage;
 import com.app.gamereview.enums.NotificationParent;
 import com.app.gamereview.enums.VoteChoice;
 import com.app.gamereview.enums.VoteType;
@@ -118,8 +119,10 @@ public class VoteService {
             achievement.ifPresent(value -> profile.addAchievement(value.getId()));
             profile.setIsVotedYet(true);
             CreateNotificationRequestDto createNotificationRequestDto= new CreateNotificationRequestDto();
+            String message = NotificationMessage.FIRST_VOTE_ACHIEVEMENT.getMessageTemplate()
+                    .replace("{user_name}", user.getUsername());
+            createNotificationRequestDto.setMessage(message);
             createNotificationRequestDto.setParentType(NotificationParent.ACHIEVEMENT);
-            createNotificationRequestDto.setMessage("You got first vote achievement");
             createNotificationRequestDto.setUser(user.getId());
             notificationService.createNotification(createNotificationRequestDto);
         }

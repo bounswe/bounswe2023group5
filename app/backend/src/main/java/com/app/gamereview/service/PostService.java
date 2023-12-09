@@ -290,8 +290,11 @@ public class PostService {
             achievement.ifPresent(value -> profile.addAchievement(value.getId()));
             profile.setIsPostedYet(true);
             CreateNotificationRequestDto createNotificationRequestDto= new CreateNotificationRequestDto();
+            String message = NotificationMessage.FIRST_POST_ACHIEVEMENT.getMessageTemplate()
+                    .replace("{user_name}", user.getUsername())
+                    .replace("{forum_name}", forum.get().getName());
+            createNotificationRequestDto.setMessage(message);
             createNotificationRequestDto.setParentType(NotificationParent.ACHIEVEMENT);
-            createNotificationRequestDto.setMessage("You got first post achievement with posting to forum "+ forum.get().getName());
             createNotificationRequestDto.setUser(user.getId());
             notificationService.createNotification(createNotificationRequestDto);
         }
