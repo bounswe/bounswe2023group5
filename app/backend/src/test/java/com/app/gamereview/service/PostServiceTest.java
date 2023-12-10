@@ -1,5 +1,6 @@
 package com.app.gamereview.service;
 
+import com.app.gamereview.dto.request.notification.CreateNotificationRequestDto;
 import com.app.gamereview.dto.request.post.CreatePostRequestDto;
 import com.app.gamereview.dto.request.post.EditPostRequestDto;
 import com.app.gamereview.dto.request.post.GetPostListFilterRequestDto;
@@ -46,6 +47,9 @@ public class PostServiceTest {
     private CommentRepository commentRepository;
 
     @Mock
+    private NotificationRepository notificationRepository;
+
+    @Mock
     private VoteRepository voteRepository;
 
     @Mock
@@ -59,6 +63,8 @@ public class PostServiceTest {
 
     @InjectMocks
     private PostService postService;
+    @Mock
+    private NotificationService notificationService;
 
     @BeforeEach
     void setUp() {
@@ -143,22 +149,28 @@ public class PostServiceTest {
     void testCreatePost_Success() {
         // Arrange
         CreatePostRequestDto request = new CreatePostRequestDto();
+        Forum forum = new Forum();
+        forum.setId("forumId");
+        forum.setName("forumName");
         request.setForum("forumId");
         request.setTags(Collections.singletonList("tagId"));
         User user = new User();
         user.setId("userId");
+        user.setUsername("username");
         Profile profile = new Profile();
         profile.setUserId(user.getId());
 
         Post post = new Post();
 
+        Notification notification = new Notification();
 
-        when(forumRepository.findById(anyString())).thenReturn(Optional.of(new Forum()));
+        when(forumRepository.findById(anyString())).thenReturn(Optional.of(forum));
         when(achievementRepository.findById(anyString())).thenReturn(Optional.of(new Achievement()));
         when(tagRepository.findById(anyString())).thenReturn(Optional.of(new Tag()));
         when(userRepository.findByEmailAndIsDeletedFalse(anyString())).thenReturn(Optional.of(user));
         when(profileRepository.save(any(Profile.class))).thenReturn(profile);
         when(postRepository.save(any(Post.class))).thenReturn(post);
+        when(notificationService.createNotification(any(CreateNotificationRequestDto.class))).thenReturn(notification);
         when(mongoTemplate.findOne(any(Query.class), eq(Profile.class))).thenReturn(profile);
         when(modelMapper.map(any(CreatePostRequestDto.class), eq(Post.class))).thenReturn(post);
         // Act

@@ -55,7 +55,7 @@ public class PostService {
     public PostService(PostRepository postRepository, ForumRepository forumRepository, UserRepository userRepository,
                        ProfileRepository profileRepository, TagRepository tagRepository,
                        CommentRepository commentRepository, VoteRepository voteRepository,
-                       AchievementRepository achievementRepository, MongoTemplate mongoTemplate,
+                       AchievementRepository achievementRepository, GameRepository gameRepository, MongoTemplate mongoTemplate,
                        NotificationService notificationService,
                        ModelMapper modelMapper) {
 
