@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface NotificationRepository extends MongoRepository<Notification, String> {
 
     Optional<Notification> findByUserAndIsDeletedFalse(String userId);
-
+    Optional<Notification> findByParentAndUser(String parent, String user);
 }
