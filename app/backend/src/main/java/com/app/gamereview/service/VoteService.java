@@ -1,7 +1,10 @@
 package com.app.gamereview.service;
 
+import com.app.gamereview.dto.request.notification.CreateNotificationRequestDto;
 import com.app.gamereview.dto.request.vote.CreateVoteRequestDto;
 import com.app.gamereview.dto.request.vote.GetAllVotesFilterRequestDto;
+import com.app.gamereview.enums.NotificationMessage;
+import com.app.gamereview.enums.NotificationParent;
 import com.app.gamereview.enums.VoteChoice;
 import com.app.gamereview.enums.VoteType;
 import com.app.gamereview.exception.ResourceNotFoundException;
@@ -33,6 +36,8 @@ public class VoteService {
     private final ModelMapper modelMapper;
     private final PostRepository postRepository;
     private final CommentRepository commentRepository;
+    private final NotificationService notificationService;
+
 
     @Autowired
     public VoteService(
@@ -43,7 +48,8 @@ public class VoteService {
             MongoTemplate mongoTemplate,
             ModelMapper modelMapper,
             PostRepository postRepository,
-            CommentRepository commentRepository) {
+            CommentRepository commentRepository,
+            NotificationService notificationService) {
         this.voteRepository = voteRepository;
         this.reviewRepository = reviewRepository;
         this.profileRepository = profileRepository;
@@ -52,6 +58,8 @@ public class VoteService {
         this.modelMapper = modelMapper;
         this.postRepository = postRepository;
         this.commentRepository = commentRepository;
+        this.notificationService = notificationService;
+
 
         modelMapper.addMappings(new PropertyMap<CreateVoteRequestDto, Vote>() {
             @Override
@@ -110,6 +118,13 @@ public class VoteService {
                     achievementRepository.findByIdAndIsDeletedFalse("eb558639-32ca-413f-b842-c3788287dd05");
             achievement.ifPresent(value -> profile.addAchievement(value.getId()));
             profile.setIsVotedYet(true);
+            CreateNotificationRequestDto createNotificationRequestDto= new CreateNotificationRequestDto();
+            String message = NotificationMessage.FIRST_VOTE_ACHIEVEMENT.getMessageTemplate()
+                    .replace("{user_name}", user.getUsername());
+            createNotificationRequestDto.setMessage(message);
+            createNotificationRequestDto.setParentType(NotificationParent.ACHIEVEMENT);
+            createNotificationRequestDto.setUser(user.getId());
+            notificationService.createNotification(createNotificationRequestDto);
         }
 
 
