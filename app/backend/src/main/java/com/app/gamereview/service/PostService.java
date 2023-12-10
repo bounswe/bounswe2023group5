@@ -254,11 +254,13 @@ public class PostService {
 
     public Post createPost(CreatePostRequestDto request, User user) {
 
-        Optional<Forum> forum = forumRepository.findById(request.getForum());
+        Optional<Forum> optionalForum = forumRepository.findById(request.getForum());
 
-        if (forum.isEmpty()) {
+        if (optionalForum.isEmpty()) {
             throw new ResourceNotFoundException("Forum is not found.");
         }
+
+        Forum forum = optionalForum.get();
 
         if(request.getAchievement() != null){   // if achievement is assigned
             Optional<Achievement> achievementOptional = achievementRepository.findById(request.getAchievement());
@@ -296,7 +298,7 @@ public class PostService {
             CreateNotificationRequestDto createNotificationRequestDto= new CreateNotificationRequestDto();
             String message = NotificationMessage.FIRST_POST_ACHIEVEMENT.getMessageTemplate()
                     .replace("{user_name}", user.getUsername())
-                    .replace("{forum_name}", forum.get().getName());
+                    .replace("{forum_name}", forum.getName());
             createNotificationRequestDto.setMessage(message);
             createNotificationRequestDto.setParentType(NotificationParent.ACHIEVEMENT);
             createNotificationRequestDto.setUser(user.getId());
@@ -311,7 +313,34 @@ public class PostService {
         postToCreate.setLastEditedAt(postToCreate.getCreatedAt());
         postToCreate.setInappropriate(false);
         postToCreate.setLocked(false);
-        return postRepository.save(postToCreate);
+        Post savedPost = postRepository.save(postToCreate);
+
+        if(forum.getType() == ForumType.GROUP){
+            Group group = mongoTemplate.findById(forum.getParent(), Group.class);
+            if(group != null){
+                if(group.getMembershipPolicy() == MembershipPolicy.PRIVATE) {
+                    // send notification to group members
+                    List<String> members = group.getMembers();
+                    for(String member : members){
+                        if(!member.equals(user.getId())){
+                            Optional<User> userOptional = userRepository.findById(member);
+                            if(userOptional.isPresent()){
+                                User memberUser = userOptional.get();
+                                CreateNotificationRequestDto createNotificationRequestDto = new CreateNotificationRequestDto();
+                                String message = NotificationMessage.NEW_POST_IN_PRIVATE_GROUP.getMessageTemplate()
+                                        .replace("{user_name}", memberUser.getUsername())
+                                        .replace("{group_title}", group.getTitle());
+                                createNotificationRequestDto.setMessage(message);
+                                createNotificationRequestDto.setParentType(NotificationParent.POST);
+                                createNotificationRequestDto.setParent(savedPost.getId());
+                                createNotificationRequestDto.setUser(member);
+                                notificationService.createNotification(createNotificationRequestDto);                            }
+                        }
+                    }
+                }
+            }
+        }
+        return savedPost;
     }
 
     public Post editPost(String id, EditPostRequestDto request, User user) {

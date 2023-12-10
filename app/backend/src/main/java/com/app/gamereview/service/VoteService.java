@@ -18,6 +18,8 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +38,8 @@ public class VoteService {
     private final ModelMapper modelMapper;
     private final PostRepository postRepository;
     private final CommentRepository commentRepository;
+    private final NotificationRepository notificationRepository;
+    private final UserRepository userRepository;
     private final NotificationService notificationService;
 
 
@@ -45,6 +49,8 @@ public class VoteService {
             ReviewRepository reviewRepository,
             ProfileRepository profileRepository,
             AchievementRepository achievementRepository,
+            NotificationRepository notificationRepository,
+            UserRepository userRepository,
             MongoTemplate mongoTemplate,
             ModelMapper modelMapper,
             PostRepository postRepository,
@@ -54,10 +60,12 @@ public class VoteService {
         this.reviewRepository = reviewRepository;
         this.profileRepository = profileRepository;
         this.achievementRepository = achievementRepository;
+        this.notificationRepository = notificationRepository;
         this.mongoTemplate = mongoTemplate;
         this.modelMapper = modelMapper;
         this.postRepository = postRepository;
         this.commentRepository = commentRepository;
+        this.userRepository = userRepository;
         this.notificationService = notificationService;
 
 
@@ -250,6 +258,42 @@ public class VoteService {
                 Post post = optionalPost.get();
                 post.addVote(choice);
                 postRepository.save(post);
+
+
+                if(post.getVoteCount() == 1 && notificationRepository.findByParentAndUser(post.getId(), user.getId()).isEmpty()) {
+                    CreateNotificationRequestDto createNotificationRequestDto= new CreateNotificationRequestDto();
+                    Optional<User> optionalUser = userRepository.findById(post.getPoster());
+                    if(optionalUser.isPresent()) {
+                        User poster = optionalUser.get();
+                        String message = NotificationMessage.FIRST_VOTE_OF_THE_POST.getMessageTemplate()
+                                .replace("{user_name}", poster.getUsername())
+                                .replace("{post_title}", post.getTitle());
+                        createNotificationRequestDto.setMessage(message);
+                        createNotificationRequestDto.setParentType(NotificationParent.POST);
+                        createNotificationRequestDto.setParent(post.getId());
+                        createNotificationRequestDto.setUser(post.getPoster());
+                        notificationService.createNotification(createNotificationRequestDto);
+                    }
+                }
+
+                List<Integer> notificationVoteCounts = new ArrayList<>(Arrays.asList(5, 10, 15));
+                if(notificationVoteCounts.contains(post.getOverallVote())) {
+                    CreateNotificationRequestDto createNotificationRequestDto= new CreateNotificationRequestDto();
+                    Optional<User> optionalUser = userRepository.findById(post.getPoster());
+                    if(optionalUser.isPresent()) {
+                        User poster = optionalUser.get();
+                        String message = NotificationMessage.NTH_VOTE_OF_THE_POST.getMessageTemplate()
+                                .replace("{user_name}", poster.getUsername())
+                                .replace("{post_title}", post.getTitle())
+                                .replace("{overall_vote}", String.valueOf(post.getOverallVote()));
+                        createNotificationRequestDto.setMessage(message);
+                        createNotificationRequestDto.setParentType(NotificationParent.POST);
+                        createNotificationRequestDto.setParent(post.getId());
+                        createNotificationRequestDto.setUser(post.getPoster());
+                        notificationService.createNotification(createNotificationRequestDto);
+                    }
+                }
+
                 return voteRepository.save(voteToCreate);
             } else if (requestDto.getVoteType().equals(VoteType.COMMENT.name())) {
                 // delete previous vote
