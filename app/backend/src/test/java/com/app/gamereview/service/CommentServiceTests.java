@@ -39,6 +39,8 @@ class CommentServiceTests {
     @Mock
     private CommentRepository commentRepository;
     @Mock
+    private UserRepository userRepository;
+    @Mock
     private NotificationRepository notificationRepository;
     @Mock
     private MongoTemplate mongoTemplate;
