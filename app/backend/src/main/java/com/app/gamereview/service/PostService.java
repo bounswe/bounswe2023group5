@@ -3,7 +3,7 @@ package com.app.gamereview.service;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
-
+import com.app.gamereview.dto.request.notification.CreateNotificationRequestDto;
 import com.app.gamereview.dto.request.home.HomePagePostsFilterRequestDto;
 import com.app.gamereview.dto.response.comment.CommentReplyResponseDto;
 import com.app.gamereview.dto.response.comment.GetPostCommentsResponseDto;
@@ -48,13 +48,17 @@ public class PostService {
 
     private final MongoTemplate mongoTemplate;
     private final ModelMapper modelMapper;
+    private final NotificationService notificationService;
+
 
     @Autowired
-    public PostService(PostRepository postRepository, ForumRepository forumRepository, GameRepository gameRepository,
-                       UserRepository userRepository, ProfileRepository profileRepository,
-                       TagRepository tagRepository, CommentRepository commentRepository,
-                       VoteRepository voteRepository, AchievementRepository achievementRepository,
-                       MongoTemplate mongoTemplate, ModelMapper modelMapper) {
+    public PostService(PostRepository postRepository, ForumRepository forumRepository, UserRepository userRepository,
+                       ProfileRepository profileRepository, TagRepository tagRepository,
+                       CommentRepository commentRepository, VoteRepository voteRepository,
+                       AchievementRepository achievementRepository, MongoTemplate mongoTemplate,
+                       NotificationService notificationService,
+                       ModelMapper modelMapper) {
+
         this.postRepository = postRepository;
         this.forumRepository = forumRepository;
         this.gameRepository = gameRepository;
@@ -66,6 +70,8 @@ public class PostService {
         this.achievementRepository = achievementRepository;
         this.mongoTemplate = mongoTemplate;
         this.modelMapper = modelMapper;
+        this.notificationService = notificationService;
+
     }
 
     public List<GetPostListResponseDto> getPostList(GetPostListFilterRequestDto filter, String email) {
@@ -287,6 +293,14 @@ public class PostService {
                     achievementRepository.findByIdAndIsDeletedFalse("88f359cc-8ca3-4286-bc13-1b44262ee9f4");
             achievement.ifPresent(value -> profile.addAchievement(value.getId()));
             profile.setIsPostedYet(true);
+            CreateNotificationRequestDto createNotificationRequestDto= new CreateNotificationRequestDto();
+            String message = NotificationMessage.FIRST_POST_ACHIEVEMENT.getMessageTemplate()
+                    .replace("{user_name}", user.getUsername())
+                    .replace("{forum_name}", forum.get().getName());
+            createNotificationRequestDto.setMessage(message);
+            createNotificationRequestDto.setParentType(NotificationParent.ACHIEVEMENT);
+            createNotificationRequestDto.setUser(user.getId());
+            notificationService.createNotification(createNotificationRequestDto);
         }
 
         profile.setPostCount(profile.getPostCount() + 1);

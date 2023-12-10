@@ -3,11 +3,10 @@ package com.app.gamereview.service;
 import com.app.gamereview.dto.request.comment.CreateCommentRequestDto;
 import com.app.gamereview.dto.request.comment.EditCommentRequestDto;
 import com.app.gamereview.dto.request.comment.ReplyCommentRequestDto;
+import com.app.gamereview.dto.request.notification.CreateNotificationRequestDto;
 import com.app.gamereview.dto.request.post.GetPostListFilterRequestDto;
 import com.app.gamereview.dto.response.post.GetPostListResponseDto;
-import com.app.gamereview.enums.SortDirection;
-import com.app.gamereview.enums.SortType;
-import com.app.gamereview.enums.UserRole;
+import com.app.gamereview.enums.*;
 import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.*;
@@ -37,17 +36,21 @@ public class CommentService {
     private final AchievementRepository achievementRepository;
     private final ModelMapper modelMapper;
     private final MongoTemplate mongoTemplate;
+    private final NotificationService notificationService;
+
 
     @Autowired
     public CommentService(PostRepository postRepository, CommentRepository commentRepository,
                           ProfileRepository profileRepository, AchievementRepository achievementRepository,
-                          MongoTemplate mongoTemplate, ModelMapper modelMapper) {
+                          MongoTemplate mongoTemplate, ModelMapper modelMapper, NotificationService notificationService) {
         this.postRepository = postRepository;
         this.commentRepository = commentRepository;
         this.profileRepository = profileRepository;
         this.achievementRepository = achievementRepository;
         this.modelMapper = modelMapper;
         this.mongoTemplate = mongoTemplate;
+        this.notificationService = notificationService;
+
     }
 
 
@@ -72,6 +75,14 @@ public class CommentService {
                     achievementRepository.findByIdAndIsDeletedFalse("af009796-6799-42d4-ae40-9adbb92657c4");
             achievement.ifPresent(value -> profile.addAchievement(value.getId()));
             profile.setIsCommentedYet(true);
+            CreateNotificationRequestDto createNotificationRequestDto= new CreateNotificationRequestDto();
+            String message = NotificationMessage.FIRST_COMMENT_ACHIEVEMENT.getMessageTemplate()
+                    .replace("{user_name}", user.getUsername())
+                    .replace("{post_title}", post.get().getTitle());
+            createNotificationRequestDto.setMessage(message);
+            createNotificationRequestDto.setParentType(NotificationParent.ACHIEVEMENT);
+            createNotificationRequestDto.setUser(user.getId());
+            notificationService.createNotification(createNotificationRequestDto);
         }
 
         profile.setCommentCount(profile.getCommentCount() + 1);
