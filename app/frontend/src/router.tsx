@@ -25,6 +25,7 @@ import Achievements from "./Pages/Achievement/Achievements";
 import Profile from "./Pages/Profile/Profile";
 import CreateAchievement from "./Pages/Admin/Achievement/CreateAchievement/CreateAchievement";
 import DeleteAchievement from "./Pages/Admin/Achievement/DeleteAchievement/DeleteAchievement";
+import Notifications from "./Pages/Notifications/Notifications";
 
 
 axios.defaults.headers.common["Content-Type"] = "application/json";
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
       {
         path: "achievements",
         element: <Achievements />,
+      },
+      {
+        path: "notifications",
+        element: <Notifications />,
       },
       {
         path: "games",
