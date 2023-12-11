@@ -56,7 +56,15 @@ function Group() {
   return (
     <div className={styles.container}>
       <div className={styles.info}>
-        <div className={styles.game}>{game && <Game game={game} />}</div>
+        <div className={styles.game}>
+          <img
+            src={
+              group?.groupIcon
+                ? `${import.meta.env.VITE_APP_IMG_URL}${group.groupIcon}`
+                : "../../../assets/images/group.png"
+            }
+          ></img>
+        </div>
         <div className={styles.meta}>
           <div className={styles.name}>
             <h1>{group?.title}</h1>
