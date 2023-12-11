@@ -4,5 +4,12 @@
     display: flex;
     gap: 1em;
     flex-direction: column;
+    .filterContainer {
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+      gap: 0.5em;
+      padding: 0.5em;
+    }
   }
 }
