@@ -71,6 +71,7 @@ public class ForumPostComments : MonoBehaviour
             
             foreach (var gameData in _gamesData)
             {
+                Debug.Log("game data is:\n" + gameData);
                 CommentBox newComment = Instantiate(Resources.Load<CommentBox>("Prefabs/CommentPage"), commentParent);
                 commentPages.Add(newComment);
                 newComment.Init(gameData);

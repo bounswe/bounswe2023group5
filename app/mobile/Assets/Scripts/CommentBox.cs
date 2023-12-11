@@ -35,7 +35,7 @@ public class CommentBox : MonoBehaviour
         
         commentContent.text = postInfo.commentContent;
         commenter.text = postInfo.commenter.username;
-        lastEditedAt.text = postInfo.lastEditedAt;
+        // lastEditedAt.text = postInfo.lastEditedAt;
         overallVote.text = Convert.ToString(postInfo.overallVote);
 
        

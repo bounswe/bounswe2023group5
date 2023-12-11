@@ -1029,6 +1029,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 649565043}
     m_Modifications:
+    - target: {fileID: 4573438353279511234, guid: a063cc2f0621b7cc4b23338f9f07f259, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4573438353279511235, guid: a063cc2f0621b7cc4b23338f9f07f259, type: 3}
+      propertyPath: m_Viewport
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4573438353279511235, guid: a063cc2f0621b7cc4b23338f9f07f259, type: 3}
+      propertyPath: m_Horizontal
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4573438353279511235, guid: a063cc2f0621b7cc4b23338f9f07f259, type: 3}
+      propertyPath: m_VerticalScrollbar
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4573438353279511235, guid: a063cc2f0621b7cc4b23338f9f07f259, type: 3}
+      propertyPath: m_HorizontalScrollbar
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4573438353308445350, guid: a063cc2f0621b7cc4b23338f9f07f259, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
