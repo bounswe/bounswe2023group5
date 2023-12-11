@@ -56,7 +56,7 @@ function Group() {
   return (
     <div className={styles.container}>
       <div className={styles.info}>
-        <div className={styles.game}>
+        <div className={styles.groupImage}>
           <img
             src={
               group?.groupIcon
