@@ -77,7 +77,7 @@ function Group() {
               {`Members (${group?.members.length || 0})`}
             </Button>
             {(user?.role === "ADMIN" ||
-              group?.moderators.includes(user.id)) && (
+              group?.moderators.includes(user?.id)) && (
               <Button type="primary" onClick={handleClick} danger>
                 Delete Group
               </Button>
