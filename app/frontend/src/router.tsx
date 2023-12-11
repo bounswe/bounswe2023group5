@@ -25,7 +25,7 @@ import Achievements from "./Pages/Achievement/Achievements";
 import Profile from "./Pages/Profile/Profile";
 import CreateAchievement from "./Pages/Admin/Achievement/CreateAchievement/CreateAchievement";
 import DeleteAchievement from "./Pages/Admin/Achievement/DeleteAchievement/DeleteAchievement";
-
+import CreateCharacter from "./Pages/Admin/Character/CreateCharacter/CreateCharacter";
 
 axios.defaults.headers.common["Content-Type"] = "application/json";
 
@@ -111,6 +111,10 @@ const router = createBrowserRouter([
         element: <BanUser />,
       },
       {
+        path: "add-character",
+        element: <CreateCharacter />,
+      },
+      {
         path: "admin-permission",
         element: <GiveAdminPermission />,
       },
@@ -121,7 +125,6 @@ const router = createBrowserRouter([
       {
         path: "create-achievement",
         element: <CreateAchievement />,
-
       },
       {
         path: "delete-achievement",
