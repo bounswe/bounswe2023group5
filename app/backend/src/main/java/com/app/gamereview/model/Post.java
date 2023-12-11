@@ -51,6 +51,8 @@ public class Post extends BaseModel {
 
   private String achievement;
 
+  private String character;
+
   public void addVote(VoteChoice choice){
     voteCount += 1;
     if(choice.name().equals("UPVOTE")){
