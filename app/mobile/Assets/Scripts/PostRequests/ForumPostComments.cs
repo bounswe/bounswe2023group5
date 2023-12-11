@@ -29,7 +29,7 @@ public class ForumPostComments : MonoBehaviour
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
     }
 
-    public void Init(string id, GetPostListResponse postInfoVal )
+    public void Init(string id/*, GetPostListResponse postInfoVal */)
     {
         postID = id;
         
@@ -67,7 +67,7 @@ public class ForumPostComments : MonoBehaviour
             {
                 CommentBox newComment = Instantiate(Resources.Load<CommentBox>("Prefabs/CommentPage"), commentParent);
                 commentPages.Add(newComment);
-                //newComment.Init(gameData);
+                newComment.Init(gameData);
             }
             Canvas.ForceUpdateCanvases();
             scrollRect.verticalNormalizedPosition = 1;

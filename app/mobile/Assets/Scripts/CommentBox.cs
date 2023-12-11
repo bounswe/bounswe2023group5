@@ -29,12 +29,12 @@ public class CommentBox : MonoBehaviour
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
     }
 
-    public void Init(Comment postInfo)
+    public void Init(PostComment postInfo)
     {
         string url = "http://ec2-16-16-166-22.eu-north-1.compute.amazonaws.com/";
         
         commentContent.text = postInfo.commentContent;
-        commenter.text = postInfo.commenter;
+        commenter.text = postInfo.commenter.username;
         lastEditedAt.text = postInfo.lastEditedAt;
         overallVote.text = Convert.ToString(postInfo.overallVote);
 

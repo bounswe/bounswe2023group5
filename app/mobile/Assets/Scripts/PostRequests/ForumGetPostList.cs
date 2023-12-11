@@ -13,6 +13,7 @@ public class ForumGetPostList : MonoBehaviour
     [SerializeField] private ScrollRect scrollRect;
     [SerializeField] private Transform forumPageParent;
     private List<ForumPost> forumPosts = new List<ForumPost>();
+    [SerializeField] private ForumPostComments commentManager;
     
     private void Awake()
     {
@@ -66,7 +67,7 @@ public class ForumGetPostList : MonoBehaviour
             {
                 ForumPost newForumPost = Instantiate(Resources.Load<ForumPost>("Prefabs/ForumPost"), forumPageParent);
                 forumPosts.Add(newForumPost);
-                newForumPost.Init(postData);
+                newForumPost.Init(postData, commentManager);
             }
             Canvas.ForceUpdateCanvases();
             scrollRect.verticalNormalizedPosition = 1;
