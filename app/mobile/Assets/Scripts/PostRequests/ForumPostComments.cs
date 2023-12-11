@@ -51,6 +51,12 @@ public class ForumPostComments : MonoBehaviour
     
     IEnumerator Get(string url)
     {
+        foreach (var commentPage in commentPages)
+        {
+            Destroy(commentPage.gameObject);
+        }
+        commentPages.Clear();
+        
         var request = new UnityWebRequest(url, "GET");
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
