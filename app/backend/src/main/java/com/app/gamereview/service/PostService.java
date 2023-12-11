@@ -7,6 +7,7 @@ import com.app.gamereview.dto.request.notification.CreateNotificationRequestDto;
 import com.app.gamereview.dto.request.home.HomePagePostsFilterRequestDto;
 import com.app.gamereview.dto.response.comment.CommentReplyResponseDto;
 import com.app.gamereview.dto.response.comment.GetPostCommentsResponseDto;
+import com.app.gamereview.dto.response.home.HomePagePostResponseDto;
 import com.app.gamereview.dto.response.post.GetPostDetailResponseDto;
 import com.app.gamereview.enums.*;
 import com.app.gamereview.exception.BadRequestException;
@@ -35,6 +36,8 @@ public class PostService {
 
     private final GameRepository gameRepository;
 
+    private final GroupRepository groupRepository;
+
     private final UserRepository userRepository;
 
     private final ProfileRepository profileRepository;
@@ -56,7 +59,7 @@ public class PostService {
                        ProfileRepository profileRepository, TagRepository tagRepository,
                        CommentRepository commentRepository, VoteRepository voteRepository,
                        AchievementRepository achievementRepository, GameRepository gameRepository, MongoTemplate mongoTemplate,
-                       NotificationService notificationService,
+                       NotificationService notificationService, GroupRepository groupRepository,
                        ModelMapper modelMapper) {
 
         this.postRepository = postRepository;
@@ -71,7 +74,7 @@ public class PostService {
         this.mongoTemplate = mongoTemplate;
         this.modelMapper = modelMapper;
         this.notificationService = notificationService;
-
+        this.groupRepository = groupRepository;
     }
 
     public List<GetPostListResponseDto> getPostList(GetPostListFilterRequestDto filter, String email) {
@@ -412,7 +415,7 @@ public class PostService {
 
     }
 
-    public List<Post> getHomepagePosts(HomePagePostsFilterRequestDto filter, String email){
+    public List<HomePagePostResponseDto> getHomepagePosts(HomePagePostsFilterRequestDto filter, String email){
         if(email == null){
             return getHomePagePostsOfGuest(filter);
         }
@@ -425,7 +428,7 @@ public class PostService {
         return getHomePagePostsOfUser(filter, findUser.get());
     }
 
-    public List<Post> getHomePagePostsOfGuest(HomePagePostsFilterRequestDto filter){
+    public List<HomePagePostResponseDto> getHomePagePostsOfGuest(HomePagePostsFilterRequestDto filter){
         Query query = new Query();
         query.addCriteria(Criteria.where("type").is(ForumType.GAME.name()));
         List<Forum> gameForums = mongoTemplate.find(query, Forum.class);
@@ -466,10 +469,55 @@ public class PostService {
             }
         }
 
-        return postsToShow.subList(0, Math.min(20, postsToShow.size()));
+        List<Post> first20 = postsToShow.subList(0, Math.min(20, postsToShow.size()));
+
+        List<HomePagePostResponseDto> first20dto = new ArrayList<>();
+
+        for(Post post : first20){
+            HomePagePostResponseDto dto = modelMapper.map(post,HomePagePostResponseDto.class);
+
+            Optional<Forum> findForum = forumRepository.findByIdAndIsDeletedFalse(post.getForum());
+
+            if(findForum.isEmpty()){
+                continue;
+            }
+
+            Forum forumOfPost = findForum.get();
+
+            dto.setType(forumOfPost.getType());
+            dto.setTypeId(forumOfPost.getParent());
+
+            String typeName = null;
+
+            if(forumOfPost.getType().equals(ForumType.GROUP)){
+                Optional<Group> findGroup = groupRepository.findByIdAndIsDeletedFalse(forumOfPost.getParent());
+
+                if(findGroup.isEmpty()){
+                    throw new ResourceNotFoundException("Group not found");
+                }
+
+                typeName = findGroup.get().getTitle();
+            }
+
+            else if(forumOfPost.getType().equals(ForumType.GAME)){
+                Optional<Game> findGame = gameRepository.findByIdAndIsDeletedFalse(forumOfPost.getParent());
+
+                if(findGame.isEmpty()){
+                    throw new ResourceNotFoundException("Game not found");
+                }
+
+                typeName = findGame.get().getGameName();
+            }
+
+            dto.setTypeName(typeName);
+
+            first20dto.add(dto);
+        }
+
+        return first20dto;
     }
 
-    public List<Post> getHomePagePostsOfUser(HomePagePostsFilterRequestDto filter, User user){
+    public List<HomePagePostResponseDto> getHomePagePostsOfUser(HomePagePostsFilterRequestDto filter, User user){
         Optional<Profile> findProfile = profileRepository.findByUserIdAndIsDeletedFalse(user.getId());
 
         if(findProfile.isEmpty()) {
@@ -550,6 +598,51 @@ public class PostService {
             }
         }
 
-        return postsToShow.subList(0, Math.min(20, postsToShow.size()));
+        List<Post> first20 = postsToShow.subList(0, Math.min(20, postsToShow.size()));
+
+        List<HomePagePostResponseDto> first20dto = new ArrayList<>();
+
+        for(Post post : first20){
+            HomePagePostResponseDto dto = modelMapper.map(post,HomePagePostResponseDto.class);
+
+            Optional<Forum> findForum = forumRepository.findByIdAndIsDeletedFalse(post.getForum());
+
+            if(findForum.isEmpty()){
+                continue;
+            }
+
+            Forum forumOfPost = findForum.get();
+
+            dto.setType(forumOfPost.getType());
+            dto.setTypeId(forumOfPost.getParent());
+
+            String typeName = null;
+
+            if(forumOfPost.getType().equals(ForumType.GROUP)){
+                Optional<Group> findGroup = groupRepository.findByIdAndIsDeletedFalse(forumOfPost.getParent());
+
+                if(findGroup.isEmpty()){
+                    throw new ResourceNotFoundException("Group not found");
+                }
+
+                typeName = findGroup.get().getTitle();
+            }
+
+            else if(forumOfPost.getType().equals(ForumType.GAME)){
+                Optional<Game> findGame = gameRepository.findByIdAndIsDeletedFalse(forumOfPost.getParent());
+
+                if(findGame.isEmpty()){
+                    throw new ResourceNotFoundException("Game not found");
+                }
+
+                typeName = findGame.get().getGameName();
+            }
+
+            dto.setTypeName(typeName);
+
+            first20dto.add(dto);
+        }
+
+        return first20dto;
     }
 }
