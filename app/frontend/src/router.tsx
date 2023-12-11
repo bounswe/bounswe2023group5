@@ -20,13 +20,11 @@ import GiveAdminPermission from "./Pages/Admin/User/GiveAdminPermission/GiveAdmi
 import Groups from "./Pages/Groups/Groups";
 import Group from "./Pages/Group/Group";
 import CreateGroup from "./Pages/CreateGroup/CreateGroup";
-import Achievement from "./Components/Achievement/Achievement/Achievement";
 import Achievements from "./Pages/Achievement/Achievements";
 import Profile from "./Pages/Profile/Profile";
 import CreateAchievement from "./Pages/Admin/Achievement/CreateAchievement/CreateAchievement";
 import DeleteAchievement from "./Pages/Admin/Achievement/DeleteAchievement/DeleteAchievement";
-
-
+import Char from "./Pages/Char/Char";
 axios.defaults.headers.common["Content-Type"] = "application/json";
 
 const router = createBrowserRouter([
@@ -121,11 +119,14 @@ const router = createBrowserRouter([
       {
         path: "create-achievement",
         element: <CreateAchievement />,
-
       },
       {
         path: "delete-achievement",
         element: <DeleteAchievement />,
+      },
+      {
+        path: "char",
+        element: <Char />,
       },
     ],
   },
