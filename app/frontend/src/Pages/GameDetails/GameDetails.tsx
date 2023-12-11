@@ -66,24 +66,25 @@ function GameDetails() {
               />
             </div>
             <div className={styles.titleContainer}>
-              {isFollowing ? (
-                <Button
-                  type="primary"
-                  className={styles.followButton}
-                  onClick={() => unfollow()}
-                  style={twj("opacity-50")}
-                >
-                  Unfollow
-                </Button>
-              ) : (
-                <Button
-                  type="primary"
-                  className={styles.followButton}
-                  onClick={() => follow()}
-                >
-                  Follow
-                </Button>
-              )}
+              {isLoggedIn &&
+                (isFollowing ? (
+                  <Button
+                    type="primary"
+                    className={styles.followButton}
+                    onClick={() => unfollow()}
+                    style={twj("opacity-50")}
+                  >
+                    Unfollow
+                  </Button>
+                ) : (
+                  <Button
+                    type="primary"
+                    className={styles.followButton}
+                    onClick={() => follow()}
+                  >
+                    Follow
+                  </Button>
+                ))}
 
               <div className={styles.name}>
                 <h1>{data?.gameName}</h1>

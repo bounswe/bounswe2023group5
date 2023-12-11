@@ -26,11 +26,17 @@ function ForumPost({
   forumId,
   redirect = "/",
   gameId,
+  type = "STANDARD",
+  typeName,
+  typeId,
 }: {
   post: any;
   forumId: string;
   redirect?: string;
   gameId?: string;
+  type?: "STANDARD" | "GROUP" | "GAME";
+  typeName?: string;
+  typeId?: string;
 }) {
   const { user, isLoggedIn } = useAuth();
   const navigate = useNavigate();
@@ -57,8 +63,11 @@ function ForumPost({
       ["post", post.id],
     ],
   });
+  const typeStyle =
+    type === "GAME" ? styles.game : type === "GROUP" ? styles.group : undefined;
+
   return (
-    <div className={styles.container}>
+    <div className={clsx(styles.container, typeStyle)}>
       <div className={styles.vote}>
         <Button
           type="primary"
@@ -116,6 +125,21 @@ function ForumPost({
         />
       </div>
       <div className={styles.readMore}>
+        {type !== "STANDARD" && (
+          <Button
+            onClick={() =>
+              type === "GAME"
+                ? navigate(`/game/detail/${typeId}?subPage=forum`)
+                : navigate(`/group/detail/${typeId}?subPage=forum`)
+            }
+            style={twj(
+              "bg-transparent border-2 border-white text-sm font-bold"
+            )}
+            size="small"
+          >
+            {typeName}
+          </Button>
+        )}
         <Button
           onClick={() =>
             navigate(`/forum/detail/${forumId}/${post.id}?back=${redirect}`)

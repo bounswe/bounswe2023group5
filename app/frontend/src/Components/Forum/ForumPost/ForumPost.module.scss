@@ -3,6 +3,9 @@
 .container {
   position: relative;
   background-color: $celadon;
+  &.group {
+    background-color: $yellow-light-40;
+  }
   border-radius: 0.5em;
   display: grid;
   gap: 0.5em;
@@ -87,6 +90,9 @@
     position: absolute;
     bottom: 0.5em;
     right: 0.5em;
+    display: flex;
+    gap: 1em;
+    align-items: center;
   }
   .edit {
     position: absolute;
