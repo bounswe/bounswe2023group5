@@ -20,6 +20,9 @@ public class CreateCharacterRequestDto {
     @NotEmpty(message = "Character icon cannot be empty.")
     private String icon;
 
+    @NotEmpty(message = "Character description cannot be empty.")
+    private String description;
+
     @NotEmpty(message = "Game list cannot be empty.")
     private List<@Pattern(regexp = "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
             message = "Game has invalid Id (UUID) format")String> games;

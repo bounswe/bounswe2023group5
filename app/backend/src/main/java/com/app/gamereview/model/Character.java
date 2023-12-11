@@ -21,6 +21,8 @@ public class Character extends BaseModel {
 
     private String icon;
 
+    private String description;
+
     private List<String> games;
 
     private String type;
