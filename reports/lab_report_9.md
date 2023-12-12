@@ -27,8 +27,8 @@
 | Implement notification model and achievement notifications | [#950](https://github.com/bounswe/bounswe2023group5/issues/950) | Zeynep Baydemir | 12.12.2023| https://github.com/bounswe/bounswe2023group5/pull/972 | 3.5 hrs | 4 hrs |
 | Implementing Additional Notification Creation Logic | [#951](https://github.com/bounswe/bounswe2023group5/issues/951) | Halis Bal | 12.12.2023| | 4 hrs| 4.5 hrs |
 | Implementation of Displaying Last Activities - MOBILE | [#952](https://github.com/bounswe/bounswe2023group5/issues/952) | Harun Sami Çelik| 12.12.2023| [#993](https://github.com/bounswe/bounswe2023group5/pull/993) | 3.5 hrs| 4 hrs |
-| adding character entity and related endpoints | [#953](https://github.com/bounswe/bounswe2023group5/issues/953) | Deniz Ünal | 11.12.2023| | 4 hrs | 3.5 hrs |
-| adding image functionality to groups | [#954](https://github.com/bounswe/bounswe2023group5/issues/954) | Deniz Ünal | 11.12.2023| | 30 mins | 1 hrs |
+| adding character entity and related endpoints | [#953](https://github.com/bounswe/bounswe2023group5/issues/953) | Deniz Ünal | 11.12.2023| [#973](https://github.com/bounswe/bounswe2023group5/pull/973), [#991](https://github.com/bounswe/bounswe2023group5/pull/991) | 4 hrs | 3.5 hrs |
+| adding image functionality to groups | [#954](https://github.com/bounswe/bounswe2023group5/issues/954) | Deniz Ünal | 11.12.2023| [#969](https://github.com/bounswe/bounswe2023group5/pull/969) | 30 mins | 1 hrs |
 | Edit Game Endpoint Implementation - BE | [#823](https://github.com/bounswe/bounswe2023group5/issues/823) | Can Uzduran | 11.12.2023 | | 1.5hrs | 2 hrs |
 | Delete Game Endpoint Implementation - BE | [#962](https://github.com/bounswe/bounswe2023group5/issues/962) | Can Uzduran | 11.12.2023 | | 1hrs | 1 hrs |
 | Implementation of Relevant Homepage Endpoints - BE | [#960](https://github.com/bounswe/bounswe2023group5/issues/960) | Can Uzduran | 11.12.2023 | | 2hrs | 1.5 hrs |
@@ -66,6 +66,7 @@
 | Implementation of Recommendation System for Games  | [#1013](https://github.com/bounswe/bounswe2023group5/issues/1013) | Can Uzduran | 19.12.2023 | 4hrs |
 | Comment Redesign - MOBILE | [#1004](https://github.com/bounswe/bounswe2023group5/issues/1004) | Said Yolcu | 21.12.2023 | 2 hrs |
 | Forum Post Redesign - MOBILE | [#1003](https://github.com/bounswe/bounswe2023group5/issues/1003) | Said Yolcu | 20.12.2023 | 2 hrs |
+| Researching annotation web standards | [#1014](https://github.com/bounswe/bounswe2023group5/issues/1014) | Deniz Ünal, Halis Bal | 17.12.2023 | 4 hrs |
 
 
 ## Risks
