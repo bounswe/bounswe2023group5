@@ -16,7 +16,7 @@
 | -------------------------------------------------------------------------- | --------------------------------------------------------------- | ---------------- | ---------- | --- | ------------------ | --------------- |
 | Implement notification page                               | [#963](https://github.com/bounswe/bounswe2023group5/issues/963) | Ali            | 11.12.2023 | | 3hrs     | 3.5 hrs |
 | Link notifications to the sidebar                         | [#964](https://github.com/bounswe/bounswe2023group5/issues/964) | Ali            | 11.12.2023 | | 2hrs     | 1.5 hrs |
-| Home page implementation                                  | [#955](https://github.com/bounswe/bounswe2023group5/issues/955) | Alperen        | 12.12.2023 | | 2hrs     | 1.5 hrs |
+| Home page implementation                                  | [#955](https://github.com/bounswe/bounswe2023group5/issues/955) | Alperen        | 12.12.2023 | [#983](https://github.com/bounswe/bounswe2023group5/pull/983) | 2hrs     | 1.5 hrs |
 | Add group image to the groups                             | [#949](https://github.com/bounswe/bounswe2023group5/issues/949) | Alperen, Çisel | 11.12.2023 | [#985](https://github.com/bounswe/bounswe2023group5/pull/985)| 1hr    | 30mins |
 | Implement apply group functionality                       | [#965](https://github.com/bounswe/bounswe2023group5/issues/965) | Ali            | 12.12.2023 | | 3hrs     | 3 hrs |
 | Implement character addition functionality for admins     | [#958](https://github.com/bounswe/bounswe2023group5/issues/958) | Arda           | 11.12.2023 | | 2hrs     | 2.5 hrs |
@@ -51,9 +51,10 @@
 | --- | --- | --- | --- | --- |
 | Annotation Functionality Implementation - MOBILE | [#944](https://github.com/bounswe/bounswe2023group5/issues/944) | Mobile Team | 19.12.2023| 8 hrs|
 | Implementing Filter For Games Page - MOBILE | [#995](https://github.com/bounswe/bounswe2023group5/issues/995) | Ege Ekşi , Harun Sami Çelik | 19.12.2023| 4 hrs|
-| Implement character linking functionality for forum posts | #957 | Alperen        | 19.12.2023 | 2hrs     |
+| Implement character linking functionality for forum posts | [#957](https://github.com/bounswe/bounswe2023group5/issues/957)
+ | Alperen        | 19.12.2023 | 2hrs     |
 | Home page visual improvements | [#1007](https://github.com/bounswe/bounswe2023group5/issues/1007)| Çisel Zümbül    | 21.12.2023 | 2hrs     |
-| Home page recommendation carousels | #957 | Alperen      | 19.12.2023 | 2hrs     |
+| Home page recommendation carousels | [#1010](https://github.com/bounswe/bounswe2023group5/issues/1010) | Alperen      | 19.12.2023 | 2hrs     |
 | Annotation front-end entegration | #957 | Arda      | 19.12.2023 | 2hrs     |
 | Promotion front end implementation |[#998](https://github.com/bounswe/bounswe2023group5/issues/998)| Ali     | 19.12.2023 | 3hrs     |
 | Apply Group Enhancements | [#999](https://github.com/bounswe/bounswe2023group5/issues/999) | Ali     | 19.12.2023 | 3hrs     |
