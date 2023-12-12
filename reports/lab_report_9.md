@@ -29,9 +29,9 @@
 | Implementation of Displaying Last Activities - MOBILE | [#952](https://github.com/bounswe/bounswe2023group5/issues/952) | Harun Sami Çelik| 12.12.2023| [#993](https://github.com/bounswe/bounswe2023group5/pull/993) | 3.5 hrs| 4 hrs |
 | adding character entity and related endpoints | [#953](https://github.com/bounswe/bounswe2023group5/issues/953) | Deniz Ünal | 11.12.2023| [#973](https://github.com/bounswe/bounswe2023group5/pull/973), [#991](https://github.com/bounswe/bounswe2023group5/pull/991) | 4 hrs | 3.5 hrs |
 | adding image functionality to groups | [#954](https://github.com/bounswe/bounswe2023group5/issues/954) | Deniz Ünal | 11.12.2023| [#969](https://github.com/bounswe/bounswe2023group5/pull/969) | 30 mins | 1 hrs |
-| Edit Game Endpoint Implementation - BE | [#823](https://github.com/bounswe/bounswe2023group5/issues/823) | Can Uzduran | 11.12.2023 | | 1.5hrs | 2 hrs |
-| Delete Game Endpoint Implementation - BE | [#962](https://github.com/bounswe/bounswe2023group5/issues/962) | Can Uzduran | 11.12.2023 | | 1hrs | 1 hrs |
-| Implementation of Relevant Homepage Endpoints - BE | [#960](https://github.com/bounswe/bounswe2023group5/issues/960) | Can Uzduran | 11.12.2023 | | 2hrs | 1.5 hrs |
+| Edit Game Endpoint Implementation - BE | [#823](https://github.com/bounswe/bounswe2023group5/issues/823) | Can Uzduran | 11.12.2023 | [#967](https://github.com/bounswe/bounswe2023group5/pull/967) | 1.5hrs | 2 hrs |
+| Delete Game Endpoint Implementation - BE | [#962](https://github.com/bounswe/bounswe2023group5/issues/962) | Can Uzduran | 11.12.2023 |[#968](https://github.com/bounswe/bounswe2023group5/pull/968) | 1hrs | 1 hrs |
+| Implementation of Relevant Homepage Endpoints - BE | [#960](https://github.com/bounswe/bounswe2023group5/issues/960) | Can Uzduran | 11.12.2023 | [#970](https://github.com/bounswe/bounswe2023group5/pull/970) | 2hrs | 1.5 hrs |
 | Notifications Implementation - MOBILE | [#946](https://github.com/bounswe/bounswe2023group5/issues/946) | Bilal Atım | 13.12.2023 | | 4hrs | 4.5 hrs |
 
 ## Completed tasks that were not planned for the week
