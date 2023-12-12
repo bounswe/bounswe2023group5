@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class GetProfile : MonoBehaviour
@@ -25,9 +28,19 @@ public class GetProfile : MonoBehaviour
     
     [SerializeField] private GameObject achievementParent;
     [SerializeField] private GameObject achievementPrefab;
-
-    private void Start()
+    [SerializeField] private GameObject gamePageContent;
+    [SerializeField] private GameObject groupPageContent;
+    
+    [SerializeField] private GameObject gameSection;
+    [SerializeField] private GameObject groupSection;
+    [SerializeField] private GameObject reviewSection;
+    [SerializeField] private GameObject recentActivitiesSection;
+    
+    private List<GameObject> allObjects = new List<GameObject>();
+    private GetProfileResponse profileResponseData;
+    private void OnEnable()
     {
+        queryParams.Clear();
         queryParams.Add("userId", PersistenceManager.id);
         Init();
     }
@@ -42,6 +55,8 @@ public class GetProfile : MonoBehaviour
     
     IEnumerator Get(string url)
     {
+        allObjects.ForEach(Destroy);
+        allObjects.Clear();
         var request = new UnityWebRequest(url, "GET");
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
@@ -52,7 +67,8 @@ public class GetProfile : MonoBehaviour
         {
             response = request.downloadHandler.text;
             Debug.Log("Success to get profile: " + response);
-            var profileResponseData = JsonConvert.DeserializeObject<GetProfileResponse>(response);
+            profileResponseData = JsonConvert.DeserializeObject<GetProfileResponse>(response);
+            PersistenceManager.ProfileId = profileResponseData.id;
             usernameText.text = profileResponseData.user.username;
             userTypeText.text = profileResponseData.user.role;
             role = profileResponseData.user.role;
@@ -73,9 +89,10 @@ public class GetProfile : MonoBehaviour
 
             foreach (var achievement in profileResponseData.achievements)
             {
-                Instantiate(achievementPrefab, achievementParent.transform).GetComponent<AchievementPopUp>().Init(achievement);
+                GameObject achievementObject = Instantiate(achievementPrefab, achievementParent.transform);
+                achievementObject.GetComponent<AchievementPopUp>().Init(achievement);
+                allObjects.Add(achievementObject);
             }
-            
             
         }
         else
@@ -93,7 +110,6 @@ public class GetProfile : MonoBehaviour
         {
             Debug.Log("Role: "+ PersistenceManager.Role);
             adminPanelButton.gameObject.SetActive(true);
-            adminPanelButton.onClick.AddListener(onClickOpenAdminPanel);
             canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
         }
         // Otherwise make it invisible
@@ -104,12 +120,7 @@ public class GetProfile : MonoBehaviour
             
         }
     }
-    
-    private void onClickOpenAdminPanel()
-    {
-        canvasManager.ShowAdminControlPanelPage();
-    }
-    
+
     private IEnumerator LoadImageFromURL(string imageUrl, Image targetImage)
     {
         UnityWebRequest request = UnityWebRequestTexture.GetTexture(imageUrl);
@@ -124,6 +135,76 @@ public class GetProfile : MonoBehaviour
             Texture2D texture = DownloadHandlerTexture.GetContent(request);
             targetImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
         }
+    }
+    
+    private GameObject lastObject;
+    private List<GamePage> gamePages = new List<GamePage>();
+    public void ShowMyGames()
+    {
+        gamePages.ForEach(Destroy);
+        gamePages.Clear();
+        if (lastObject != null)
+        {
+            lastObject.SetActive(false);
+        }
+        gameSection.SetActive(true);
+        lastObject = gameSection;
+        GamePage gamePagePrefab = Resources.Load<GamePage>("Prefabs/GamePage");
+        foreach (var gameData in profileResponseData.games)
+        {
+            GameListEntry gameListEntry = new GameListEntry();
+            gameListEntry.id = gameData.id;
+            gameListEntry.gameName = gameData.gameName;
+            gameListEntry.gameDescription = gameData.gameDescription;
+            gameListEntry.gameIcon = gameData.gameIcon;
+            GamePage gamePageObject = Instantiate(gamePagePrefab, gamePageContent.transform);
+            gamePageObject.Init(gameListEntry);
+            gamePages.Add(gamePageObject);
+        }
+    }
+    private List<GroupPage> groupPages = new List<GroupPage>();
+    public void ShowMyGroups()
+    {
+        groupPages.ForEach(Destroy);
+        groupPages.Clear();
+        if (lastObject != null)
+        {
+            lastObject.SetActive(false);
+        }
+        groupSection.SetActive(true);
+        lastObject = groupSection;
+        GroupPage groupPagePrefab = Resources.Load<GroupPage>("Prefabs/GroupPage");
+        foreach (var gameData in profileResponseData.groups)
+        {
+            GroupGetAllResponse gameListEntry = new GroupGetAllResponse();
+            gameListEntry.id = gameData.id;
+            gameListEntry.title = gameData.title;
+            gameListEntry.description = gameData.description;
+            gameListEntry.membershipPolicy = gameData.membershipPolicy;
+            gameListEntry.quota = gameData.quota;
+            gameListEntry.members = gameData.members;
+            GroupPage groupPageObject = Instantiate(groupPagePrefab, gamePageContent.transform);
+            groupPageObject.Init(gameListEntry);
+            groupPages.Add(groupPageObject);
+        }
+    }
+    public void ShowMyReviews()
+    {
+        if (lastObject != null)
+        {
+            lastObject.SetActive(false);
+        }
+        reviewSection.SetActive(true);
+        lastObject = reviewSection;
+    }
+    public void ShowRecentActivities()
+    {
+        if (lastObject != null)
+        {
+            lastObject.SetActive(false);
+        }
+        recentActivitiesSection.SetActive(true);
+        lastObject = recentActivitiesSection;
     }
     
 }
