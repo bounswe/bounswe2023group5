@@ -49,6 +49,8 @@
 
 | Description | Issue | Assignee | Due | Duration |
 | --- | --- | --- | --- | --- |
+| Annotation Functionality Implementation - MOBILE | [#944](https://github.com/bounswe/bounswe2023group5/issues/944) | Mobile Team | 19.12.2023| 8 hrs|
+| Implementing Filter For Games Page - MOBILE | [#995](https://github.com/bounswe/bounswe2023group5/issues/995) | Ege Ekşi , Harun Sami Çelik | 19.12.2023| 4 hrs|
 
 ## Risks
 
