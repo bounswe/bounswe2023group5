@@ -24,7 +24,7 @@
 | Implement Character Detail Modal                          | [#948](https://github.com/bounswe/bounswe2023group5/issues/948)| Çisel          | 12.12.2023 | | 4hrs     | 3.5 hrs |
 | Implement Character Component                             | [#947](https://github.com/bounswe/bounswe2023group5/issues/947) | Çisel          | 10.12.2023 | | 2hrs     | 2 hrs |
 | Implement edit/delete game functionality                  | [#961](https://github.com/bounswe/bounswe2023group5/issues/961) | Arda           | 10.12.2023 | | 3hrs     | 3.5 hrs |
-| Implement notification model and achievement notifications | [#950](https://github.com/bounswe/bounswe2023group5/issues/950) | Zeynep Baydemir | 12.12.2023| | 3.5 hrs | 4 hrs |
+| Implement notification model and achievement notifications | [#950](https://github.com/bounswe/bounswe2023group5/issues/950) | Zeynep Baydemir | 12.12.2023| https://github.com/bounswe/bounswe2023group5/pull/972 | 3.5 hrs | 4 hrs |
 | Implementing Additional Notification Creation Logic | [#951](https://github.com/bounswe/bounswe2023group5/issues/951) | Halis Bal | 12.12.2023| | 4 hrs| 4.5 hrs |
 | Implementation of Displaying Last Activities - MOBILE | [#952](https://github.com/bounswe/bounswe2023group5/issues/952) | Harun Sami Çelik| 12.12.2023| | 3.5 hrs| 4 hrs |
 | adding character entity and related endpoints | [#953](https://github.com/bounswe/bounswe2023group5/issues/953) | Deniz Ünal | 11.12.2023| | 4 hrs | 3.5 hrs |
@@ -62,6 +62,9 @@
 | Last Activities Refactor | #957 | Çisel    | 19.12.2023 | 2hrs     |
 | Login/Register Enhancements | #957 | Arda   | 15.12.2023 | 2hrs     |
 | Change Password Backend Integration | #957 | Çisel  | 15.12.2023 | 2hrs     |
+| Recommendation Related to Group  | [#1002](https://github.com/bounswe/bounswe2023group5/issues/1002) | Zeynep Baydemir  | 19.12.2023 | 4hrs     |
+
+
 
 ## Risks
 
