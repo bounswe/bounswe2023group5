@@ -54,7 +54,7 @@
 | Implement character linking functionality for forum posts | [#957](https://github.com/bounswe/bounswe2023group5/issues/957)| Alperen        | 19.12.2023 | 2hrs     |
 | Home page visual improvements | [#1007](https://github.com/bounswe/bounswe2023group5/issues/1007)| Çisel Zümbül    | 21.12.2023 | 2hrs     |
 | Home page recommendation carousels | [#1010](https://github.com/bounswe/bounswe2023group5/issues/1010) | Alperen      | 19.12.2023 | 2hrs     |
-| Annotation front-end entegration | [#1011](https://github.com/bounswe/bounswe2023group5/issues/1011) | Arda      | 19.12.2023 | 2hrs     |
+| Annotation front-end entegration | [#1011](https://github.com/bounswe/bounswe2023group5/issues/1011) | Arda      | 19.12.2023 | 6hrs     |
 | Promotion front end implementation |[#998](https://github.com/bounswe/bounswe2023group5/issues/998)| Ali     | 19.12.2023 | 3hrs     |
 | Apply Group Enhancements | [#999](https://github.com/bounswe/bounswe2023group5/issues/999) | Ali     | 19.12.2023 | 3hrs     |
 | Comment Functionality Enhancements | [#1000](https://github.com/bounswe/bounswe2023group5/issues/1000) | Ali     | 19.12.2023 | 2hrs     |
