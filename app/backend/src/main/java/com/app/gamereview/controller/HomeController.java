@@ -1,6 +1,7 @@
 package com.app.gamereview.controller;
 
 import com.app.gamereview.dto.request.home.HomePagePostsFilterRequestDto;
+import com.app.gamereview.dto.response.home.HomePagePostResponseDto;
 import com.app.gamereview.model.Post;
 import com.app.gamereview.model.User;
 import com.app.gamereview.service.PostService;
@@ -29,13 +30,13 @@ public class HomeController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Post>> getHomePagePosts(@ParameterObject HomePagePostsFilterRequestDto filter,
+	public ResponseEntity<List<HomePagePostResponseDto>> getHomePagePosts(@ParameterObject HomePagePostsFilterRequestDto filter,
 													   @RequestHeader(name = HttpHeaders.AUTHORIZATION,
 															   required = false) String Authorization){
 		String email = null;
 		if (JwtUtil.validateToken(Authorization))
 			email = JwtUtil.extractSubject(Authorization);
-		List<Post> postsToShow = postService.getHomepagePosts(filter, email);
+		List<HomePagePostResponseDto> postsToShow = postService.getHomepagePosts(filter, email);
 		return ResponseEntity.ok(postsToShow);
 	}
 
