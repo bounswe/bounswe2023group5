@@ -70,7 +70,7 @@ function CreateAchievement() {
       return;
     }
 
-    fileList.map((file) => {
+    fileList?.map((file) => {
       if (file.type.indexOf("image") === -1) {
         NotificationUtil.error("You can only upload image files!");
         setFileList([]);
@@ -124,7 +124,7 @@ function CreateAchievement() {
         <SingleSelect
           className={styles.select}
           title="Game"
-          elements={games.map((game) => game.gameName)}
+          elements={games?.map((game) => game.gameName)}
           onChange={onChangeGame}
           reset={false}
         ></SingleSelect>

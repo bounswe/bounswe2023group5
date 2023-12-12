@@ -24,6 +24,7 @@ import Achievements from "./Pages/Achievement/Achievements";
 import Profile from "./Pages/Profile/Profile";
 import CreateAchievement from "./Pages/Admin/Achievement/CreateAchievement/CreateAchievement";
 import DeleteAchievement from "./Pages/Admin/Achievement/DeleteAchievement/DeleteAchievement";
+import HomePage from "./Pages/HomePage/HomePage";
 import Char from "./Pages/Char/Char";
 import UpdateGame from "./Pages/Admin/Game/UpdateGame/UpdateGame";
 import DeleteGame from "./Pages/Admin/Game/DeleteGame/DeleteGame";
@@ -34,7 +35,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     loader: async () => {
-      return redirect("/games");
+      return redirect("/home");
     },
   },
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: "hello",
         element: <HelloWorld />,
+      },
+      {
+        path: "home",
+        element: <HomePage />,
       },
       {
         path: "game/detail/:gameId",
