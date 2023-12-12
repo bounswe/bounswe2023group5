@@ -38,12 +38,14 @@ export const createGame = async ({
 };
 
 export const updateGame = async ({
+  id,
   name,
   description,
   releaseDate,
   gameIcon,
   minSystemReq,
 }: {
+  id: string;
   name: string;
   description: string;
   releaseDate: Date | null;
@@ -51,7 +53,7 @@ export const updateGame = async ({
   minSystemReq: string;
 }) => {
   const response = await axios.put(
-    `${import.meta.env.VITE_APP_API_URL}/game/update`,
+    `${import.meta.env.VITE_APP_API_URL}/game/update?id=${id}`,
     {
       gameName: name,
       gameDescription: description,

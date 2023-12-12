@@ -14,6 +14,7 @@ import SingleSelect from "../../../../Components/SingleSelect/SingleSelect";
 import { getGame } from "../../../../Services/gamedetail";
 
 function UpdateGame() {
+  const [id, setId] = useState("");
   const [game, setGame] = useState(null);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -51,6 +52,7 @@ function UpdateGame() {
     }
 
     updateGameMutation.mutate({
+      id,
       name,
       description,
       releaseDate,
@@ -80,9 +82,9 @@ function UpdateGame() {
   };
 
   const onGameChange = async (_filterKey: string, value: string) => {
-    console.log("değişti");
     let updatedGame = games.find((game) => game.gameName === value);
     updatedGame = await getGame(updatedGame.id);
+    setId(updatedGame.id);
     setGame(updatedGame);
     console.log(updatedGame);
     setName(updatedGame.gameName);
