@@ -41,7 +41,7 @@
 ## Planned Vs. Actual
 
 * We have not implemented character linking functionality for forum posts for our frontend application , we will complete it this week.
-* We have not implemented avatar functionality implementation for our mobile application , we will complete it this week.
+* We have not implemented character functionality for our mobile application , we will complete it this week.
 * We have not implemented home page for our mobile application , we will complete it this week.
 
 
@@ -63,7 +63,8 @@
 | Login/Register Enhancements | #957 | Arda   | 15.12.2023 | 2hrs     |
 | Change Password Backend Integration | #957 | Çisel  | 15.12.2023 | 2hrs     |
 | Recommendation Related to Group  | [#1002](https://github.com/bounswe/bounswe2023group5/issues/1002) | Zeynep Baydemir  | 19.12.2023 | 4hrs     |
-
+| Comment Redesign - MOBILE | [#1004](https://github.com/bounswe/bounswe2023group5/issues/1004) | Said Yolcu | 21.12.2023 | 2 hrs |
+| Forum Post Redesign - MOBILE | [#1003](https://github.com/bounswe/bounswe2023group5/issues/1003) | Said Yolcu | 20.12.2023 | 2 hrs |
 
 
 ## Risks
