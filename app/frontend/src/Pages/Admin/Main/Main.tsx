@@ -55,6 +55,11 @@ function Main() {
       key: "achievement",
       dataIndex: "achievement",
     },
+    {
+      title: "Character",
+      key: "character",
+      dataIndex: "character",
+    },
   ];
 
   const data = [
@@ -64,6 +69,7 @@ function Main() {
       tag: AddButton("Create Tag", "/create-tag"),
       user: DeleteButton("Ban User", "/ban-user"),
       achievement: AddButton("Create Achievement", "/create-achievement"),
+      character: AddButton("Add Character", "/add-character"),
     },
     {
       key: "2",
