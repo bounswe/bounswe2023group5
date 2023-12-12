@@ -13,6 +13,7 @@ public class CreateTag : MonoBehaviour
 {
     [SerializeField] private TMP_InputField tagName;
     [SerializeField] private TMP_Dropdown tagTypeDropdown;
+    [SerializeField] private TMP_Text tagTypeDropdownText;
     [SerializeField] private TMP_Dropdown colorDropdown;
     [SerializeField] private Button createTagButton;
     [SerializeField] private RawImage colorImage;
@@ -80,8 +81,8 @@ public class CreateTag : MonoBehaviour
     private void OnTagTypeValueChanged(int index)
     {
         // Get the selected item's text
+        tagTypeDropdownText.text = tagTypeDropdown.options[index].text;
         tagType = tagTypeDropdown.options[index].text;
-
         // Print the selected item's text to the console
         Debug.Log("Selected Item: " + tagType);
     }

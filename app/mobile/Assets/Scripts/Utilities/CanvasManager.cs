@@ -25,6 +25,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject deleteTagPage;
     [SerializeField] private GameObject groupDetailsPage;
     [SerializeField] private GameObject groupsPage;
+    [SerializeField] private GameObject editProfilePage;
     public GameObject postComments;
     private GameObject currentActivePage;
 
@@ -34,7 +35,6 @@ public class CanvasManager : MonoBehaviour
     }
 
     private bool iQuit = false;
-    public GameObject quitobject;
 
     void Update()
     {
@@ -47,10 +47,8 @@ public class CanvasManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            quitobject.SetActive(true);
             iQuit = true;
             StartCoroutine(QuitingTimer());
-
         }
     }
 
@@ -58,7 +56,6 @@ public class CanvasManager : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         iQuit = false;
-        quitobject.SetActive(false);
     }
 
     public void ShowSignUpPage()
@@ -75,8 +72,8 @@ public class CanvasManager : MonoBehaviour
 
     public void ShowLogInPage()
     {
+        currentActivePage?.SetActive(false);
         logInPage.SetActive(true);
-        currentActivePage.SetActive(false);
         currentActivePage = logInPage;
     }
     
@@ -296,6 +293,13 @@ public class CanvasManager : MonoBehaviour
     public void HidePostComments()
     {
         postComments.SetActive(false);
+    }
+    
+    public void ShowEditProfilePage()
+    {
+        editProfilePage.SetActive(true);
+        currentActivePage.SetActive(false);
+        currentActivePage = editProfilePage;
     }
     
 }
