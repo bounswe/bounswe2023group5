@@ -51,6 +51,19 @@
 | --- | --- | --- | --- | --- |
 | Annotation Functionality Implementation - MOBILE | [#944](https://github.com/bounswe/bounswe2023group5/issues/944) | Mobile Team | 19.12.2023| 8 hrs|
 | Implementing Filter For Games Page - MOBILE | [#995](https://github.com/bounswe/bounswe2023group5/issues/995) | Ege Ekşi , Harun Sami Çelik | 19.12.2023| 4 hrs|
+| Description | Issue | Assignee | Due |Estimated Duration |
+| --- | --- | --- | --- | --- |
+| Implement character linking functionality for forum posts | #957 | Alperen        | 19.12.2023 | 2hrs     |
+| Home page visual improvements | #957 | Çisel      | 19.12.2023 | 2hrs     |
+| Home page recommendation carousels | #957 | Alperen      | 19.12.2023 | 2hrs     |
+| Annotation front-end entegration | #957 | Arda      | 19.12.2023 | 2hrs     |
+| Promotion front end implementation | #957 | Ali     | 19.12.2023 | 2hrs     |
+| Apply Group Enhancements | #957 | Ali     | 19.12.2023 | 3hrs     |
+| Comment Functionality Enhancements | #957 | Ali     | 19.12.2023 | 2hrs     |
+| Forum Enhancements | #957 | Çisel    | 19.12.2023 | 2hrs     |
+| Last Activities Refactor | #957 | Çisel    | 19.12.2023 | 2hrs     |
+| Login/Register Enhancements | #957 | Arda   | 15.12.2023 | 2hrs     |
+| Change Password Backend Integration | #957 | Çisel  | 15.12.2023 | 2hrs     |
 
 ## Risks
 
