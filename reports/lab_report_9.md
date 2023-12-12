@@ -32,7 +32,7 @@
 | Edit Game Endpoint Implementation - BE | [#823](https://github.com/bounswe/bounswe2023group5/issues/823) | Can Uzduran | 11.12.2023 | [#967](https://github.com/bounswe/bounswe2023group5/pull/967) | 1.5hrs | 2 hrs |
 | Delete Game Endpoint Implementation - BE | [#962](https://github.com/bounswe/bounswe2023group5/issues/962) | Can Uzduran | 11.12.2023 |[#968](https://github.com/bounswe/bounswe2023group5/pull/968) | 1hrs | 1 hrs |
 | Implementation of Relevant Homepage Endpoints - BE | [#960](https://github.com/bounswe/bounswe2023group5/issues/960) | Can Uzduran | 11.12.2023 | [#970](https://github.com/bounswe/bounswe2023group5/pull/970) | 2hrs | 1.5 hrs |
-| Notifications Implementation - MOBILE | [#946](https://github.com/bounswe/bounswe2023group5/issues/946) | Bilal Atım | 13.12.2023 | | 4hrs | 4.5 hrs |
+| Notifications Implementation - MOBILE | [#946](https://github.com/bounswe/bounswe2023group5/issues/946) | Bilal Atım | 13.12.2023 | [#994](https://github.com/bounswe/bounswe2023group5/pull/994) | 4hrs | 3 hrs |
 
 ## Completed tasks that were not planned for the week
 | Description | Issue | Assignee | Due | Duration |
@@ -67,7 +67,7 @@
 | Comment Redesign - MOBILE | [#1004](https://github.com/bounswe/bounswe2023group5/issues/1004) | Said Yolcu | 21.12.2023 | 2 hrs |
 | Forum Post Redesign - MOBILE | [#1003](https://github.com/bounswe/bounswe2023group5/issues/1003) | Said Yolcu | 20.12.2023 | 2 hrs |
 | Researching annotation web standards | [#1014](https://github.com/bounswe/bounswe2023group5/issues/1014) | Deniz Ünal, Halis Bal | 17.12.2023 | 4 hrs |
-
+| Solve Upload Image From Local Problem | [#1001](https://github.com/bounswe/bounswe2023group5/issues/1001) | Bilal Atım | 20.12.2023 | 5 hrs |
 
 ## Risks
 
