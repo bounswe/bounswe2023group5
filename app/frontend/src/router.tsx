@@ -25,6 +25,9 @@ import Profile from "./Pages/Profile/Profile";
 import CreateAchievement from "./Pages/Admin/Achievement/CreateAchievement/CreateAchievement";
 import DeleteAchievement from "./Pages/Admin/Achievement/DeleteAchievement/DeleteAchievement";
 import Char from "./Pages/Char/Char";
+import UpdateGame from "./Pages/Admin/Game/UpdateGame/UpdateGame";
+import DeleteGame from "./Pages/Admin/Game/DeleteGame/DeleteGame";
+
 axios.defaults.headers.common["Content-Type"] = "application/json";
 
 const router = createBrowserRouter([
@@ -103,6 +106,10 @@ const router = createBrowserRouter([
       {
         path: "create-game",
         element: <CreateGame />,
+      },
+      {
+        path: "delete-game",
+        element: <DeleteGame />,
       },
       {
         path: "ban-user",

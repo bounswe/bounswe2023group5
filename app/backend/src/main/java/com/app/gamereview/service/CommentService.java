@@ -3,18 +3,14 @@ package com.app.gamereview.service;
 import com.app.gamereview.dto.request.comment.CreateCommentRequestDto;
 import com.app.gamereview.dto.request.comment.EditCommentRequestDto;
 import com.app.gamereview.dto.request.comment.ReplyCommentRequestDto;
+import com.app.gamereview.dto.request.notification.CreateNotificationRequestDto;
 import com.app.gamereview.dto.request.post.GetPostListFilterRequestDto;
 import com.app.gamereview.dto.response.post.GetPostListResponseDto;
-import com.app.gamereview.enums.SortDirection;
-import com.app.gamereview.enums.SortType;
-import com.app.gamereview.enums.UserRole;
+import com.app.gamereview.enums.*;
 import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.exception.ResourceNotFoundException;
 import com.app.gamereview.model.*;
-import com.app.gamereview.repository.AchievementRepository;
-import com.app.gamereview.repository.CommentRepository;
-import com.app.gamereview.repository.PostRepository;
-import com.app.gamereview.repository.ProfileRepository;
+import com.app.gamereview.repository.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -35,19 +31,25 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final ProfileRepository profileRepository;
     private final AchievementRepository achievementRepository;
+    private final UserRepository userRepository;
     private final ModelMapper modelMapper;
     private final MongoTemplate mongoTemplate;
+    private final NotificationService notificationService;
+
 
     @Autowired
-    public CommentService(PostRepository postRepository, CommentRepository commentRepository,
+    public CommentService(PostRepository postRepository, CommentRepository commentRepository, UserRepository userRepository,
                           ProfileRepository profileRepository, AchievementRepository achievementRepository,
-                          MongoTemplate mongoTemplate, ModelMapper modelMapper) {
+                          MongoTemplate mongoTemplate, ModelMapper modelMapper, NotificationService notificationService) {
         this.postRepository = postRepository;
         this.commentRepository = commentRepository;
         this.profileRepository = profileRepository;
         this.achievementRepository = achievementRepository;
+        this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.mongoTemplate = mongoTemplate;
+        this.notificationService = notificationService;
+
     }
 
 
@@ -72,6 +74,14 @@ public class CommentService {
                     achievementRepository.findByIdAndIsDeletedFalse("af009796-6799-42d4-ae40-9adbb92657c4");
             achievement.ifPresent(value -> profile.addAchievement(value.getId()));
             profile.setIsCommentedYet(true);
+            CreateNotificationRequestDto createNotificationRequestDto= new CreateNotificationRequestDto();
+            String message = NotificationMessage.FIRST_COMMENT_ACHIEVEMENT.getMessageTemplate()
+                    .replace("{user_name}", user.getUsername())
+                    .replace("{post_title}", post.get().getTitle());
+            createNotificationRequestDto.setMessage(message);
+            createNotificationRequestDto.setParentType(NotificationParent.ACHIEVEMENT);
+            createNotificationRequestDto.setUser(user.getId());
+            notificationService.createNotification(createNotificationRequestDto);
         }
 
         profile.setCommentCount(profile.getCommentCount() + 1);
@@ -80,7 +90,25 @@ public class CommentService {
         Comment commentToCreate = modelMapper.map(request, Comment.class);
         commentToCreate.setCommenter(user.getId());
         commentToCreate.setLastEditedAt(commentToCreate.getCreatedAt());
-        return commentRepository.save(commentToCreate);
+
+        Comment savedComment = commentRepository.save(commentToCreate);
+
+        if(!user.getId().equals(post.get().getPoster())){
+            CreateNotificationRequestDto createNotificationRequestDto= new CreateNotificationRequestDto();
+            Optional<User> postOwner = userRepository.findByIdAndIsDeletedFalse(post.get().getPoster());
+            if (postOwner.isPresent()) {
+                String message = NotificationMessage.NEW_COMMENT_FOR_THE_POST.getMessageTemplate()
+                        .replace("{user_name}", postOwner.get().getUsername())
+                        .replace("{post_title}", post.get().getTitle());
+                createNotificationRequestDto.setMessage(message);
+                createNotificationRequestDto.setParentType(NotificationParent.POST);
+                createNotificationRequestDto.setParent(post.get().getId());
+                createNotificationRequestDto.setUser(post.get().getPoster());
+                notificationService.createNotification(createNotificationRequestDto);
+            }
+        }
+
+        return savedComment;
     }
 
     public Comment replyComment(ReplyCommentRequestDto request, User user) {
@@ -113,7 +141,27 @@ public class CommentService {
         commentToCreate.setCommenter(user.getId());
         commentToCreate.setLastEditedAt(commentToCreate.getCreatedAt());
         commentToCreate.setPost(parentComment.get().getPost());
-        return commentRepository.save(commentToCreate);
+
+        Comment savedComment = commentRepository.save(commentToCreate);
+
+        if(!user.getId().equals(parentComment.get().getCommenter())){
+            CreateNotificationRequestDto createNotificationRequestDto= new CreateNotificationRequestDto();
+            Optional<Post> post = postRepository.findById(parentComment.get().getPost());
+            if (post.isPresent()) {
+                Optional<User> commentOwner = userRepository.findByIdAndIsDeletedFalse(parentComment.get().getCommenter());
+                if (commentOwner.isPresent()) {
+                    String message = NotificationMessage.NEW_REPLY_FOR_THE_COMMENT.getMessageTemplate()
+                            .replace("{user_name}", commentOwner.get().getUsername())
+                            .replace("{post_title}", post.get().getTitle());
+                    createNotificationRequestDto.setMessage(message);
+                    createNotificationRequestDto.setParentType(NotificationParent.COMMENT);
+                    createNotificationRequestDto.setParent(post.get().getId());
+                    createNotificationRequestDto.setUser(parentComment.get().getCommenter());
+                    notificationService.createNotification(createNotificationRequestDto);
+                }
+            }
+        }
+        return savedComment;
     }
 
     public Comment editComment(String id, EditCommentRequestDto request, User user) {

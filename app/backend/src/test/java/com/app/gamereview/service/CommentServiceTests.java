@@ -8,10 +8,7 @@ import com.app.gamereview.model.Comment;
 import com.app.gamereview.model.Post;
 import com.app.gamereview.model.Profile;
 import com.app.gamereview.model.User;
-import com.app.gamereview.repository.CommentRepository;
-import com.app.gamereview.repository.PostRepository;
-import com.app.gamereview.repository.AchievementRepository;
-import com.app.gamereview.repository.ProfileRepository;
+import com.app.gamereview.repository.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -42,12 +39,18 @@ class CommentServiceTests {
     @Mock
     private CommentRepository commentRepository;
     @Mock
+    private UserRepository userRepository;
+    @Mock
+    private NotificationRepository notificationRepository;
+    @Mock
     private MongoTemplate mongoTemplate;
     @Mock
     private ModelMapper modelMapper;
 
     @InjectMocks
     private CommentService commentService;
+    @Mock
+    private NotificationService notificationService;
 
     private User user;
     private Post post;
@@ -58,9 +61,11 @@ class CommentServiceTests {
     void setUp() {
         user = new User();
         user.setId("user123");
+        user.setUsername("testuser");
 
         post = new Post();
         post.setId("post123");
+        post.setTitle("Test Post");
 
         profile = new Profile();
         profile.setUserId("user123");

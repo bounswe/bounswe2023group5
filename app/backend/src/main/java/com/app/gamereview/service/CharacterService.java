@@ -74,6 +74,13 @@ public class CharacterService {
             characterToUpdate.setIcon(requestDto.getIcon());
         }
 
+        if (requestDto.getDescription() != null) {
+            if (requestDto.getDescription().isBlank()) {
+                throw new BadRequestException("Character description cannot be blank.");
+            }
+            characterToUpdate.setDescription(requestDto.getDescription());
+        }
+
         if (requestDto.getGames() != null) {
 
             if (requestDto.getGames().isEmpty()) {
