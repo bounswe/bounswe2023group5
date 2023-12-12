@@ -79,3 +79,13 @@ export async function deleteGroup(groupId: string) {
   );
   return response.data;
 }
+
+export async function applyGroup(groupId: string) {
+  const response = await axios.post(
+    `${import.meta.env.VITE_APP_API_URL}/group/apply?groupId=${groupId}`,
+    {
+      message: "I want to join this group!",
+    }
+  );
+  return response.data;
+}

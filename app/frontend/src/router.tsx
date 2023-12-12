@@ -26,6 +26,7 @@ import Profile from "./Pages/Profile/Profile";
 import CreateAchievement from "./Pages/Admin/Achievement/CreateAchievement/CreateAchievement";
 import DeleteAchievement from "./Pages/Admin/Achievement/DeleteAchievement/DeleteAchievement";
 import Notifications from "./Pages/Notifications/Notifications";
+import ReviewApplication from "./Pages/ReviewApplication/ReviewApplication";
 
 
 axios.defaults.headers.common["Content-Type"] = "application/json";
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
           {
             path: "detail/:groupId",
             element: <Group />,
+          },
+          {
+            path: "review-application/:groupId",
+            element: <ReviewApplication />,
           },
         ],
       },
