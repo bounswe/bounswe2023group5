@@ -55,7 +55,7 @@
 | Home page visual improvements | #957 | Çisel      | 19.12.2023 | 2hrs     |
 | Home page recommendation carousels | #957 | Alperen      | 19.12.2023 | 2hrs     |
 | Annotation front-end entegration | #957 | Arda      | 19.12.2023 | 2hrs     |
-| Promotion front end implementation |[#998](https://github.com/bounswe/bounswe2023group5/issues/998)| Ali     | 19.12.2023 | 2hrs     |
+| Promotion front end implementation |[#998](https://github.com/bounswe/bounswe2023group5/issues/998)| Ali     | 19.12.2023 | 3hrs     |
 | Apply Group Enhancements | [#999](https://github.com/bounswe/bounswe2023group5/issues/999) | Ali     | 19.12.2023 | 3hrs     |
 | Comment Functionality Enhancements | [#1000](https://github.com/bounswe/bounswe2023group5/issues/1000) | Ali     | 19.12.2023 | 2hrs     |
 | Forum Enhancements | #957 | Çisel    | 19.12.2023 | 2hrs     |
