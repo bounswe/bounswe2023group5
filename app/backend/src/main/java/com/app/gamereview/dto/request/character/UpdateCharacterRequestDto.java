@@ -17,6 +17,8 @@ public class UpdateCharacterRequestDto {
 
     private String icon;
 
+    private String description;
+
     private List<@Pattern(regexp = "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
             message = "Game has invalid Id (UUID) format")String> games;
 

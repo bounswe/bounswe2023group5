@@ -36,3 +36,11 @@ export const createGame = async ({
 
   return response.data;
 };
+
+export const deleteGame = async (id: string) => {
+  const response = await axios.delete(
+    `${import.meta.env.VITE_APP_API_URL}/game/delete?id=${id}`
+  );
+
+  return response.data;
+};
