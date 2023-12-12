@@ -18,8 +18,6 @@ public class UpdateTag : MonoBehaviour
     [SerializeField] private Button updateTagButton;
     [SerializeField] private RawImage colorImage;
     [SerializeField] private TMP_Text infoText;
-    [SerializeField] private Button exitButton;
-    [SerializeField] private Button queryButton;
     
     private CanvasManager canvasManager;
     private string tagType;
@@ -47,8 +45,6 @@ public class UpdateTag : MonoBehaviour
         
         // Add listeners
         updateTagButton.onClick.AddListener(OnClickedUpdateTag);
-        queryButton.onClick.AddListener(OnClickedQueryTag);
-        exitButton.onClick.AddListener(OnClickedExit);
         tagTypeDropdown.onValueChanged.AddListener(OnTagTypeValueChanged);
         colorDropdown.onValueChanged.AddListener(OnColorValueChanged);
     }
@@ -175,10 +171,6 @@ public class UpdateTag : MonoBehaviour
         request.uploadHandler.Dispose();
     }
     
-    private void OnClickedExit()
-    {
-        canvasManager.HideUpdateTagPage();
-    }
     
     private void OnTagTypeValueChanged(int index)
     {
@@ -214,6 +206,7 @@ public class UpdateTag : MonoBehaviour
         }
 
         isQueryClicked = true;
+        
         
         string url = AppVariables.HttpServerUrl + "/tag/get-all" +
                      ListToQueryParameters.ListToQueryParams(
@@ -254,6 +247,12 @@ public class UpdateTag : MonoBehaviour
             Debug.Log("Success to update tag: " + response);
 
             tagExists = true;
+            
+            newTagName.transform.parent.gameObject.SetActive(true);
+            tagTypeDropdown.transform.parent.gameObject.SetActive(true);
+            colorDropdown.transform.parent.gameObject.SetActive(true);
+            colorImage.gameObject.SetActive(true);
+            updateTagButton.gameObject.SetActive(true);
         }
         else
         {

@@ -61,6 +61,11 @@ export const updateGame = async ({
       gameIcon,
       minSystemReq: minSystemReq || "4GB RAM", // will be changed
     }
+
+export const deleteGame = async (id: string) => {
+  const response = await axios.delete(
+    `${import.meta.env.VITE_APP_API_URL}/game/delete?id=${id}`
+
   );
 
   return response.data;

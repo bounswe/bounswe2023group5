@@ -21,7 +21,7 @@ public class LogOut : MonoBehaviour
     private void DoLogOut()
     {
         // Delete the token
-        PersistenceManager.UserToken = "";
+        PersistenceManager.UserToken = null;
         PersistenceManager.UserName = "";
         PersistenceManager.id = "";
         PersistenceManager.Password = "";

@@ -56,6 +56,9 @@ public class PostServiceTest {
     private AchievementRepository achievementRepository;
 
     @Mock
+    private CharacterRepository characterRepository;
+
+    @Mock
     private MongoTemplate mongoTemplate;
 
     @Mock
@@ -104,12 +107,14 @@ public class PostServiceTest {
         tagList.add("tag");
         post.setTags(tagList);
         post.setAchievement("");
+        post.setCharacter("");
 
         when(postRepository.findById(anyString())).thenReturn(Optional.of(post));
         when(userRepository.findByEmailAndIsDeletedFalse(anyString())).thenReturn(Optional.of(loggedInUser));
         when(forumRepository.findById(anyString())).thenReturn(Optional.of(new Forum()));
         when(voteRepository.findByTypeIdAndVotedBy(anyString(), anyString())).thenReturn(Optional.empty());
         when(achievementRepository.findByIdAndIsDeletedFalse(anyString())).thenReturn(Optional.empty());
+        when(characterRepository.findByIdAndIsDeletedFalse(anyString())).thenReturn(Optional.empty());
         when(tagRepository.findById(anyString())).thenReturn(Optional.empty());
         when(modelMapper.map(any(Optional.class), eq(GetPostDetailResponseDto.class))).thenReturn(new GetPostDetailResponseDto());
 
@@ -120,6 +125,7 @@ public class PostServiceTest {
         Assertions.assertNotNull(result);
         verify(voteRepository, times(1)).findByTypeIdAndVotedBy(anyString(), anyString());
         verify(achievementRepository, times(1)).findByIdAndIsDeletedFalse(anyString());
+        verify(characterRepository, times(1)).findByIdAndIsDeletedFalse(anyString());
         verify(tagRepository, times(1)).findById(anyString());
     }
 

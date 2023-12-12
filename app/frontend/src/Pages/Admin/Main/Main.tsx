@@ -74,6 +74,7 @@ function Main() {
     },
     {
       key: "3",
+      game: DeleteButton("Delete Game", "/delete-game"),
       tag: DeleteButton("Delete Tag", "/delete-tag"),
     },
   ];

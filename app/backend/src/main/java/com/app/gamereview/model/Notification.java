@@ -18,6 +18,17 @@ public class Notification extends BaseModel {
     private NotificationParent parentType;
     private String message;
     private String user;
+    private Boolean isRead = false;
 
+    public Notification(Notification notification) {
+        this.parent = notification.getParent();
+        this.parentType = notification.getParentType();
+        this.message = notification.getMessage();
+        this.user = notification.getUser();
+        this.isRead = notification.getIsRead();
+    }
 
+    public void setIsRead(Boolean isRead) {
+        this.isRead = isRead;
+    }
 }

@@ -14,7 +14,6 @@ public class DeleteTag : MonoBehaviour
     [SerializeField] private TMP_InputField tagName;
     [SerializeField] private Button deleteTagButton;
     [SerializeField] private TMP_Text infoText;
-    [SerializeField] private Button exitButton;
     
     private CanvasManager canvasManager;
     private string tagType;
@@ -42,7 +41,6 @@ public class DeleteTag : MonoBehaviour
         
         // Add listeners
         deleteTagButton.onClick.AddListener(OnClickedDeleteTag);
-        exitButton.onClick.AddListener(OnClickedExit);
     }
 
     public void OnEnable()

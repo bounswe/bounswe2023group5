@@ -7,6 +7,7 @@ import com.app.gamereview.model.Achievement;
 import com.app.gamereview.enums.VoteChoice;
 import com.app.gamereview.model.Tag;
 import com.app.gamereview.model.User;
+import com.app.gamereview.model.Character;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,6 +30,8 @@ public class GetPostListResponseDto {
   private String postImage;
 
   private Achievement achievement;
+
+  private Character character;
 
   // TODO avatar
 

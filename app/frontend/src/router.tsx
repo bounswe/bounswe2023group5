@@ -25,6 +25,10 @@ import Profile from "./Pages/Profile/Profile";
 import CreateAchievement from "./Pages/Admin/Achievement/CreateAchievement/CreateAchievement";
 import DeleteAchievement from "./Pages/Admin/Achievement/DeleteAchievement/DeleteAchievement";
 import UpdateGame from "./Pages/Admin/Game/UpdateGame/UpdateGame";
+import HomePage from "./Pages/HomePage/HomePage";
+import Char from "./Pages/Char/Char";
+import UpdateGame from "./Pages/Admin/Game/UpdateGame/UpdateGame";
+import DeleteGame from "./Pages/Admin/Game/DeleteGame/DeleteGame";
 
 axios.defaults.headers.common["Content-Type"] = "application/json";
 
@@ -32,7 +36,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     loader: async () => {
-      return redirect("/games");
+      return redirect("/home");
     },
   },
   {
@@ -42,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: "hello",
         element: <HelloWorld />,
+      },
+      {
+        path: "home",
+        element: <HomePage />,
       },
       {
         path: "game/detail/:gameId",
@@ -110,6 +118,10 @@ const router = createBrowserRouter([
         element: <UpdateGame />,
       },
       {
+        path: "delete-game",
+        element: <DeleteGame />,
+      },
+      {
         path: "ban-user",
         element: <BanUser />,
       },
@@ -128,6 +140,10 @@ const router = createBrowserRouter([
       {
         path: "delete-achievement",
         element: <DeleteAchievement />,
+      },
+      {
+        path: "char",
+        element: <Char />,
       },
     ],
   },
