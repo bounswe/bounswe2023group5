@@ -14,11 +14,11 @@
 ## What was planned for the week? How did it go?
 | Description                                                                | Issue                                                           | Assignee         | Due        | PR  | Estimated Duration | Actual Duration |
 | -------------------------------------------------------------------------- | --------------------------------------------------------------- | ---------------- | ---------- | --- | ------------------ | --------------- |
-| Implement notification page                               | [#963](https://github.com/bounswe/bounswe2023group5/issues/963) | Ali            | 11.12.2023 | | 3hrs     | 3.5 hrs |
-| Link notifications to the sidebar                         | [#964](https://github.com/bounswe/bounswe2023group5/issues/964) | Ali            | 11.12.2023 | | 2hrs     | 1.5 hrs |
+| Implement notification page                               | [#963](https://github.com/bounswe/bounswe2023group5/issues/963) | Ali            | 11.12.2023 |[#996](https://github.com/bounswe/bounswe2023group5/pull/996) | 3hrs     | 3.5 hrs |
+| Link notifications to the sidebar                         | [#964](https://github.com/bounswe/bounswe2023group5/issues/964) | Ali            | 11.12.2023 |[#996](https://github.com/bounswe/bounswe2023group5/pull/996) | 2hrs     | 1.5 hrs |
 | Home page implementation                                  | [#955](https://github.com/bounswe/bounswe2023group5/issues/955) | Alperen        | 12.12.2023 | [#983](https://github.com/bounswe/bounswe2023group5/pull/983) | 2hrs     | 1.5 hrs |
 | Add group image to the groups                             | [#949](https://github.com/bounswe/bounswe2023group5/issues/949) | Alperen, Çisel | 11.12.2023 | [#985](https://github.com/bounswe/bounswe2023group5/pull/985)| 1hr    | 30mins |
-| Implement apply group functionality                       | [#965](https://github.com/bounswe/bounswe2023group5/issues/965) | Ali            | 12.12.2023 | | 3hrs     | 3 hrs |
+| Implement apply group functionality                       | [#965](https://github.com/bounswe/bounswe2023group5/issues/965) | Ali            | 12.12.2023 |[#996](https://github.com/bounswe/bounswe2023group5/pull/996) | 3hrs     | 3 hrs |
 | Implement character addition functionality for admins     | [#958](https://github.com/bounswe/bounswe2023group5/issues/958) | Arda           | 11.12.2023 | | 2hrs     | 2.5 hrs |
 | Put characters in game details' pages                     | [#959](https://github.com/bounswe/bounswe2023group5/issues/959) | Arda           | 11.12.2023 | | 2hrs     | 2 hrs |
 | Implement Character Detail Modal                          | [#948](https://github.com/bounswe/bounswe2023group5/issues/948)| Çisel          | 12.12.2023 | [#984](https://github.com/bounswe/bounswe2023group5/pull/984)| 4hrs     | 4.5 hrs |
