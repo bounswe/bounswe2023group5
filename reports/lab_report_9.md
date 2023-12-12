@@ -26,7 +26,7 @@
 | Implement edit/delete game functionality                  | [#961](https://github.com/bounswe/bounswe2023group5/issues/961) | Arda           | 10.12.2023 | | 3hrs     | 3.5 hrs |
 | Implement notification model and achievement notifications | [#950](https://github.com/bounswe/bounswe2023group5/issues/950) | Zeynep Baydemir | 12.12.2023| https://github.com/bounswe/bounswe2023group5/pull/972 | 3.5 hrs | 4 hrs |
 | Implementing Additional Notification Creation Logic | [#951](https://github.com/bounswe/bounswe2023group5/issues/951) | Halis Bal | 12.12.2023| | 4 hrs| 4.5 hrs |
-| Implementation of Displaying Last Activities - MOBILE | [#952](https://github.com/bounswe/bounswe2023group5/issues/952) | Harun Sami Çelik| 12.12.2023| | 3.5 hrs| 4 hrs |
+| Implementation of Displaying Last Activities - MOBILE | [#952](https://github.com/bounswe/bounswe2023group5/issues/952) | Harun Sami Çelik| 12.12.2023| [#993](https://github.com/bounswe/bounswe2023group5/pull/993) | 3.5 hrs| 4 hrs |
 | adding character entity and related endpoints | [#953](https://github.com/bounswe/bounswe2023group5/issues/953) | Deniz Ünal | 11.12.2023| | 4 hrs | 3.5 hrs |
 | adding image functionality to groups | [#954](https://github.com/bounswe/bounswe2023group5/issues/954) | Deniz Ünal | 11.12.2023| | 30 mins | 1 hrs |
 | Edit Game Endpoint Implementation - BE | [#823](https://github.com/bounswe/bounswe2023group5/issues/823) | Can Uzduran | 11.12.2023 | | 1.5hrs | 2 hrs |
