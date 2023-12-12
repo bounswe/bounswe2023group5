@@ -28,9 +28,7 @@ axios.defaults.headers.get["Content-Type"] = "application/json";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
+      <App />
     </QueryClientProvider>
   </React.StrictMode>
 );

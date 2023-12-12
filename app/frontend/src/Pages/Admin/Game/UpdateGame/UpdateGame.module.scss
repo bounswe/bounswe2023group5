@@ -1,0 +1,38 @@
+@import "../../../../colors";
+
+.container {
+  padding: 4rem;
+
+  .header {
+    color: green;
+  }
+
+  .form {
+    width: 40rem;
+  }
+
+  .select {
+    width: 100%;
+  }
+
+  .input {
+    margin-bottom: 2rem;
+  }
+  .colorHeader {
+    color: #6ea2bb;
+    margin: 2rem 0 0.5rem 0;
+  }
+
+  .datePicker {
+    display: block;
+    margin-bottom: 2rem;
+  }
+
+  .button {
+    width: 25%;
+  }
+
+  .picker {
+    margin-bottom: 2rem;
+  }
+}
