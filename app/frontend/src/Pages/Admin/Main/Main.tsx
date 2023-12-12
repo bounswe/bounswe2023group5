@@ -67,6 +67,7 @@ function Main() {
     },
     {
       key: "2",
+      game: EditButton("Update Game", "/update-game"),
       tag: EditButton("Update Tag", "/update-tag"),
       user: EditButton("Give Admin Permission", "/admin-permission"),
       achievement: DeleteButton("Delete Achievement", "/delete-achievement"),

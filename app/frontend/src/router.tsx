@@ -24,6 +24,7 @@ import Achievements from "./Pages/Achievement/Achievements";
 import Profile from "./Pages/Profile/Profile";
 import CreateAchievement from "./Pages/Admin/Achievement/CreateAchievement/CreateAchievement";
 import DeleteAchievement from "./Pages/Admin/Achievement/DeleteAchievement/DeleteAchievement";
+import UpdateGame from "./Pages/Admin/Game/UpdateGame/UpdateGame";
 import HomePage from "./Pages/HomePage/HomePage";
 import Char from "./Pages/Char/Char";
 import UpdateGame from "./Pages/Admin/Game/UpdateGame/UpdateGame";
@@ -111,6 +112,10 @@ const router = createBrowserRouter([
       {
         path: "create-game",
         element: <CreateGame />,
+      },
+      {
+        path: "update-game",
+        element: <UpdateGame />,
       },
       {
         path: "delete-game",

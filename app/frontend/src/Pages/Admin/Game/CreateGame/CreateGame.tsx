@@ -63,7 +63,7 @@ function CreateGame() {
   const uploadImageMutation = useMutation(
     (i: any) => uploadImage(i, "game-icons"),
     {
-      onError: () => {
+      onError: (error) => {
         handleAxiosError(error);
       },
     }
