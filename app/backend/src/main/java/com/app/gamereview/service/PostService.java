@@ -3,6 +3,8 @@ package com.app.gamereview.service;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import com.app.gamereview.dto.request.group.CreateGroupRequestDto;
 import com.app.gamereview.dto.request.notification.CreateNotificationRequestDto;
 import com.app.gamereview.dto.request.home.HomePagePostsFilterRequestDto;
 import com.app.gamereview.dto.response.comment.CommentReplyResponseDto;
@@ -15,6 +17,7 @@ import com.app.gamereview.model.*;
 import com.app.gamereview.model.Character;
 import com.app.gamereview.repository.*;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -79,6 +82,13 @@ public class PostService {
         this.modelMapper = modelMapper;
         this.notificationService = notificationService;
         this.groupRepository = groupRepository;
+
+        modelMapper.addMappings(new PropertyMap<Post, HomePagePostResponseDto>() {
+            @Override
+            protected void configure() {
+                skip().setTags(null); // Exclude tags from mapping
+            }
+        });
     }
 
     public List<GetPostListResponseDto> getPostList(GetPostListFilterRequestDto filter, String email) {
@@ -623,6 +633,7 @@ public class PostService {
 
         for(Post post : first20){
             HomePagePostResponseDto dto = modelMapper.map(post,HomePagePostResponseDto.class);
+            dto.setTags(populatedTags(post.getTags()));
 
             Optional<Forum> findForum = forumRepository.findByIdAndIsDeletedFalse(post.getForum());
 
@@ -663,5 +674,16 @@ public class PostService {
         }
 
         return first20dto;
+    }
+
+    public List<Tag> populatedTags(List<String> tagIds){
+        List<Tag> res = new ArrayList<>();
+
+        for(String tagId : tagIds){
+            Optional<Tag> findTag = tagRepository.findByIdAndIsDeletedFalse(tagId);
+            findTag.ifPresent(res::add);
+        }
+
+        return res;
     }
 }
