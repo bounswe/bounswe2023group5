@@ -7,11 +7,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 @Getter
 @Setter
-public abstract class BaseModel {
+public class BaseModel {
 
 	@Id
 	private String id;
@@ -25,6 +26,19 @@ public abstract class BaseModel {
 		this.id = UUID.randomUUID().toString(); // Generate a UUID during construction
 		this.createdAt = LocalDateTime.now();
 		this.isDeleted = false;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		BaseModel given = (BaseModel) o;
+		return id.equals(given.id);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
 	}
 
 }
