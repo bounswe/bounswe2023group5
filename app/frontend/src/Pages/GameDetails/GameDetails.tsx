@@ -4,15 +4,39 @@ import { useState } from "react";
 import Summary from "../../Components/GameDetails/Summary/Summary";
 import { useParams, useSearchParams } from "react-router-dom";
 import { getGame } from "../../Services/gamedetail";
-import { useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { PacmanLoader } from "react-spinners";
 import Reviews from "../../Components/GameDetails/Review/Reviews";
 import Forum from "../../Components/Forum/Forum";
 import { formatDate } from "../../Library/utils/formatDate";
-import { Rate } from "antd";
+import { Button, Rate } from "antd";
+import { useAuth } from "../../Components/Hooks/useAuth";
+import { addGame, removeGame } from "../../Services/profile";
+import { twj } from "tw-to-css";
 
 function GameDetails() {
+  const { user, isLoggedIn, profile } = useAuth();
   const { gameId } = useParams();
+  const queryClient = useQueryClient();
+
+  const isFollowing = !!profile?.games?.find((game: any) => game.id === gameId);
+
+  const { mutate: follow } = useMutation(
+    () => addGame({ profileId: profile.id, gameId: gameId! }),
+    {
+      onSuccess() {
+        queryClient.invalidateQueries(["profile"]);
+      },
+    }
+  );
+  const { mutate: unfollow } = useMutation(
+    () => removeGame({ profileId: profile.id, gameId: gameId! }),
+    {
+      onSuccess() {
+        queryClient.invalidateQueries(["profile"]);
+      },
+    }
+  );
 
   const { data, isLoading } = useQuery(["game", gameId], () =>
     getGame(gameId!)
@@ -42,6 +66,26 @@ function GameDetails() {
               />
             </div>
             <div className={styles.titleContainer}>
+              {isLoggedIn &&
+                (isFollowing ? (
+                  <Button
+                    type="primary"
+                    className={styles.followButton}
+                    onClick={() => unfollow()}
+                    style={twj("opacity-50")}
+                  >
+                    Unfollow
+                  </Button>
+                ) : (
+                  <Button
+                    type="primary"
+                    className={styles.followButton}
+                    onClick={() => follow()}
+                  >
+                    Follow
+                  </Button>
+                ))}
+
               <div className={styles.name}>
                 <h1>{data?.gameName}</h1>
                 <span>{formatDate(date)}</span>

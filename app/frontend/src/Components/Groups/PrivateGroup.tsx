@@ -21,7 +21,13 @@ function PrivateGroup({ group }: { group: any }) {
       </div>
       <div className={styles.body}>
         <div className={styles.imgContainer}>
-          <img src="../../../assets/images/group.png"></img>
+          <img
+            src={
+              group?.groupIcon
+                ? `${import.meta.env.VITE_APP_IMG_URL}${group.groupIcon}`
+                : "../../../assets/images/group.png"
+            }
+          ></img>
         </div>
         <div className={styles.content}>
           <div className={styles.description}>
