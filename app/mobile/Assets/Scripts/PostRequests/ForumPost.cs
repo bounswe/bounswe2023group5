@@ -96,6 +96,6 @@ public class ForumPost : MonoBehaviour
         //postComments.SetActive(true);
 
         canvasManager.ShowPostComments();
-        commentManager.Init(postId);
+        commentManager.Init(postId, postInfoVal);
     }
 }

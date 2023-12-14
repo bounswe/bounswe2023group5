@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -10,9 +11,9 @@ using static CommentController;
 
 public class ForumPostComments : MonoBehaviour
 {
-    [SerializeField] private string title;
-    [SerializeField] private string postContent;
-    [SerializeField] private GameObject forumPost;
+    //[SerializeField] private string title;
+    //[SerializeField] private string postContent;
+    //[SerializeField] private ForumPostDetail forumPost;
     [SerializeField] private ScrollRect scrollRect;
     [SerializeField] private Transform commentParent;
     private List<CommentBox> commentPages = new List<CommentBox>();
@@ -22,6 +23,15 @@ public class ForumPostComments : MonoBehaviour
     [SerializeField] private Button addCommentButton;
     [SerializeField] private Button exitButton;
     [SerializeField] private TMP_Text infoText;
+    private GetPostListResponse postInfo;
+    [SerializeField] private Image userImage;
+    // [SerializeField] private TMP_Text poster;
+    [SerializeField] private TMP_Text title;
+    [SerializeField] private TMP_Text postContent;
+    [SerializeField] private TMP_Text lastEditedAt;
+    [SerializeField] private TMP_Text overallVote;
+    [SerializeField] private TMP_Text tags;
+    [SerializeField] private TMP_Text userName;
     
     private void Awake()
     {
@@ -30,10 +40,42 @@ public class ForumPostComments : MonoBehaviour
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
     }
 
-    public void Init(string id/*, GetPostListResponse postInfoVal */)
+    public void Init(string id, GetPostListResponse postInfoVal )
     {
         postID = id;
         infoText.text = "";
+        postInfo = postInfoVal;
+        
+        // forumPost.Init(postID);
+        title.text = postInfo.title;
+        postContent.text = postInfo.postContent;
+        lastEditedAt.text = postInfo.lastEditedAt;
+        overallVote.text = Convert.ToString(postInfo.overallVote);
+        if (postInfo.poster == null)
+        {
+            userName.text = "(anonymous)";
+        }
+        else
+        {
+            userName.text = postInfo.poster.username;
+
+        }
+
+        tags.text = "";
+        foreach (var tag in postInfo.tags)
+        {
+            tags.text =  tags.text + tag + " ";
+        }
+        
+        if (postInfo.isEdited)
+        {
+            lastEditedAt.text += " (edited)";
+        }
+        else
+        {
+            // This will be deleted
+            lastEditedAt.text += " (not edited)";
+        }
         
         //GameObject postComments = GameObject.Find("PostComments");
         //postComments.SetActive(true);
