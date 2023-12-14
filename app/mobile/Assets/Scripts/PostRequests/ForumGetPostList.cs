@@ -67,6 +67,14 @@ public class ForumGetPostList : MonoBehaviour
             {
                 ForumPost newForumPost = Instantiate(Resources.Load<ForumPost>("Prefabs/ForumPost"), forumPageParent);
                 forumPosts.Add(newForumPost);
+                if (commentManager == null)
+                {
+                    Debug.Log("comment manager is null");
+                }
+                else
+                {
+                    Debug.Log("comment manager is not null");
+                }
                 newForumPost.Init(postData, commentManager);
             }
             Canvas.ForceUpdateCanvases();

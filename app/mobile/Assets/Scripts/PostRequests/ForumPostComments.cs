@@ -21,6 +21,7 @@ public class ForumPostComments : MonoBehaviour
     [SerializeField] private TMP_InputField commentInputField;
     [SerializeField] private Button addCommentButton;
     [SerializeField] private Button exitButton;
+    [SerializeField] private TMP_Text infoText;
     
     private void Awake()
     {
@@ -32,7 +33,7 @@ public class ForumPostComments : MonoBehaviour
     public void Init(string id/*, GetPostListResponse postInfoVal */)
     {
         postID = id;
-        
+        infoText.text = "";
         
         //GameObject postComments = GameObject.Find("PostComments");
         //postComments.SetActive(true);
@@ -91,6 +92,14 @@ public class ForumPostComments : MonoBehaviour
     private void addComment()
     {
         CommentCreateRequest req = new CommentCreateRequest();
+        if (string.IsNullOrWhiteSpace(commentInputField.text))
+        {
+            string message = "Comment content cannot be empty";
+            Debug.Log(message);
+            infoText.text = message;
+            infoText.color = Color.red;
+            return;
+        }
         req.commentContent = commentInputField.text;
         req.post = postID;
         
@@ -141,7 +150,7 @@ public class ForumPostComments : MonoBehaviour
         request.SetRequestHeader("Authorization", PersistenceManager.UserToken);
 
         yield return request.SendWebRequest();
-        HandleResponse(request);
+        HandleResponseComment(request);
     }
 
     IEnumerator Put(string url, string bodyJsonString)
@@ -166,6 +175,23 @@ public class ForumPostComments : MonoBehaviour
 
         yield return request.SendWebRequest();
         HandleResponse(request);
+    }
+    
+    private void HandleResponseComment(UnityWebRequest request)
+    {
+        string response = request.downloadHandler.text;
+        if (request.responseCode == 200)
+        {
+            Debug.Log("Success: " + response);
+            infoText.text = "Success to create comment";
+            infoText.color = Color.green;
+            commentInputField.text = "";
+        }
+        else
+        {
+            Debug.LogError("Error: " + response);
+        }
+        request.downloadHandler.Dispose();
     }
 
     private void HandleResponse(UnityWebRequest request)
