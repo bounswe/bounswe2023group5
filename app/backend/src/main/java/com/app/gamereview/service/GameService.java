@@ -436,14 +436,13 @@ public class GameService {
 	public int calculateSimilarityScore(Game based, Game candidate){
 		int score = 0;
 
-		List<String> candidateTags = candidate.getAllTags();
 		List<String> baseTags = based.getAllTags();
+		baseTags.retainAll(candidate.getAllTags());
+
 		for(String tagId : baseTags){
 			Optional<Tag> findTag = tagRepository.findByIdAndIsDeletedFalse(tagId);
 			if(findTag.isPresent()){
-				if(candidateTags.contains(tagId)){
-					score++;
-				}
+				score++;
 				if(findTag.get().getTagType().equals(TagType.GENRE)){
 					score++;
 				}
