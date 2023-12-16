@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
 import { joinGroup, leaveGroup } from "../../Services/group";
 import { reviewApplication } from "../../Services/applications";
+import { NotificationUtil } from "../../Library/utils/notification";
 
 function Application({ application }: { application: any }) {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ function Application({ application }: { application: any }) {
     {
       onSuccess() {
         queryClient.invalidateQueries(["applications"]);
+        NotificationUtil.success("You successfully approved the application");
       },
       onError(error: any) {
         message.error(error.response.data);
@@ -31,6 +33,7 @@ function Application({ application }: { application: any }) {
     {
       onSuccess() {
         queryClient.invalidateQueries(["applications"]);
+        NotificationUtil.success("You successfully rejected the application");
       },
       onError(error: any) {
         message.error(error.response.data);
