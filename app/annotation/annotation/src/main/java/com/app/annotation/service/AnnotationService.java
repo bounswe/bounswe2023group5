@@ -6,7 +6,6 @@ import com.app.annotation.dto.request.CreateAnnotationRequestDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -22,19 +21,10 @@ public class AnnotationService {
         this.modelMapper = modelMapper;
     }
 
-    public Annotation createAnnotation(CreateAnnotationRequestDto dto) {
+    public Map<String, Object> createAnnotation(CreateAnnotationRequestDto dto) {
+
         Annotation annotationToCreate = modelMapper.map(dto, Annotation.class);
 
-        return annotationRepository.save(annotationToCreate);
-    }
-
-    private Map<String, Object> convertAnnotationToJsonLd(Annotation annotation) {
-        Map<String, Object> annotationJson = new HashMap<>();
-        annotationJson.put("@context", "http://www.w3.org/ns/anno.jsonld");
-        annotationJson.put("type", "Annotation");
-        annotationJson.put("target", annotation.getTarget());
-        annotationJson.put("id", annotation.getId());
-
-        return annotationJson;
+        return annotationRepository.save(annotationToCreate).toJSON();
     }
 }
