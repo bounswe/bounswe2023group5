@@ -4,16 +4,20 @@ import styles from "./Summary.module.scss";
 import { getAchievementByGame } from "../../../Services/achievement";
 import Achievement from "../../Achievement/Achievement/Achievement";
 import { useQuery } from "react-query";
-
-
-
+import { getCharacterByGame } from "../../../Services/character";
+import CharacterDetails from "../../Character/CharacterDetails";
 
 function Summary({ game }: { game: any }) {
   const { data: achievements, isLoading: isLoadingAchievements } = useQuery(
     ["achievements", game.id],
     () => getAchievementByGame({ gameId: game.id! })
   );
-  
+
+  const { data: characters, isLoading: isLoadingCharacters } = useQuery(
+    ["characters", game.id],
+    () => getCharacterByGame(game.id)
+  );
+
   return (
     <div className={styles.summaryContainer}>
       <div className={styles.fieldContainer}>
@@ -76,26 +80,37 @@ function Summary({ game }: { game: any }) {
         </div>
       )}
 
-
-      {!isLoadingAchievements && achievements.length > 0 &&
-      <div>
-        <div className={styles.title}>Achievements</div>
-        <div className={styles.row}>
-        { 
-          achievements.map(
-          (achievement: any) =>
-              !achievement.isDeleted && (
-              <div className={styles.achievementContainer}>
-                <Achievement props={achievement} key={achievement.id} />
-              </div>
-              )
-        )}
+      {!isLoadingCharacters && characters.length > 0 && (
+        <div>
+          <div className={styles.charTitle}>Characters</div>
+          <div className={styles.row}>
+            {characters.map(
+              (character: any) =>
+                !character.isDeleted && (
+                  <div className={styles.infoContainer}>
+                    <CharacterDetails character={character} />
+                  </div>
+                )
+            )}
+          </div>
         </div>
-      </div>
-      }
-      
-      
-      
+      )}
+
+      {!isLoadingAchievements && achievements.length > 0 && (
+        <div>
+          <div className={styles.title}>Achievements</div>
+          <div className={styles.row}>
+            {achievements.map(
+              (achievement: any) =>
+                !achievement.isDeleted && (
+                  <div className={styles.infoContainer}>
+                    <Achievement props={achievement} key={achievement.id} />
+                  </div>
+                )
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

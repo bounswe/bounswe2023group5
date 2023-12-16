@@ -58,6 +58,15 @@
   max-width: 100%;
 }
 
-.achievementContainer{
-  margin: 5px;
+.infoContainer {
+  margin: 0.5rem;
+}
+
+.charTitle {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  margin-left: 0.5em;
+  margin-top: 1em;
+  color: $orange-dark-60;
 }
