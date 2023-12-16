@@ -6,6 +6,7 @@ import com.app.gamereview.dto.response.game.GetGameListResponseDto;
 import com.app.gamereview.dto.response.tag.AddGameTagResponseDto;
 import com.app.gamereview.dto.response.tag.GetAllTagsOfGameResponseDto;
 import com.app.gamereview.model.Game;
+import com.app.gamereview.model.User;
 import com.app.gamereview.service.GameService;
 import com.app.gamereview.util.validation.annotation.AdminRequired;
 import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
@@ -17,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
 
 @RestController
@@ -103,5 +105,13 @@ public class GameController {
 											  HttpServletRequest request) {
 		Boolean isDeleted = gameService.deleteGame(id);
 		return ResponseEntity.ok(isDeleted);
+	}
+
+	@AuthorizationRequired
+	@GetMapping("/get-recommendations")
+	public ResponseEntity<List<Game>> getRecommendedGames(@RequestHeader String Authorization, HttpServletRequest request) {
+		User user = (User) request.getAttribute("authenticatedUser");
+		List<Game> games = gameService.getRecommendedGames(user);
+		return ResponseEntity.ok(games);
 	}
 }
