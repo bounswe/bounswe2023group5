@@ -14,6 +14,8 @@ public class ForumGetPostList : MonoBehaviour
     [SerializeField] private Transform forumPageParent;
     private List<ForumPost> forumPosts = new List<ForumPost>();
     [SerializeField] private ForumPostComments commentManager;
+    //[SerializeField] private CommentComments lcommentManager;
+    
     
     private void Awake()
     {
@@ -75,7 +77,17 @@ public class ForumGetPostList : MonoBehaviour
                 {
                     Debug.Log("comment manager is not null");
                 }
-                newForumPost.Init(postData, commentManager);
+                /*
+                if (lcommentManager == null)
+                {
+                    Debug.Log("layer 2 comment manager is null");
+                }
+                else
+                {
+                    Debug.Log("layer 2 comment manager is not null");
+                }
+                */
+                newForumPost.Init(postData, commentManager/*, lcommentManager*/);
             }
             Canvas.ForceUpdateCanvases();
             scrollRect.verticalNormalizedPosition = 1;

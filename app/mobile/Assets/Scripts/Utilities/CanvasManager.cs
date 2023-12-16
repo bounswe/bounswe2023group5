@@ -27,6 +27,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject groupsPage;
     [SerializeField] private GameObject editProfilePage;
     public GameObject postComments;
+    [SerializeField] private GameObject commentComments;
     private GameObject currentActivePage;
 
     private void Awake()
@@ -293,6 +294,16 @@ public class CanvasManager : MonoBehaviour
     public void HidePostComments()
     {
         postComments.SetActive(false);
+    }
+    
+    public void ShowCommentComments()
+    {
+        commentComments.SetActive(true);
+    }
+    
+    public void HideCommentComments()
+    {
+        commentComments.SetActive(false);
     }
     
     public void ShowEditProfilePage()
