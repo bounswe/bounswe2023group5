@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class ProfileActivities : MonoBehaviour
 {
+    [SerializeField] private GameObject activityParent;
+    [SerializeField] private GameObject activityPrefab;
 
     private void Start()
     {
@@ -13,7 +16,7 @@ public class ProfileActivities : MonoBehaviour
 
     public void Init()
     {
-        string url = AppVariables.HttpServerUrl + "/profile/get-activities";
+        string url = AppVariables.HttpServerUrl + "/profile/get-activites";
         StartCoroutine(Get(url));
     }
     
@@ -29,6 +32,11 @@ public class ProfileActivities : MonoBehaviour
         {
             response = request.downloadHandler.text;
             Debug.Log("Success to get profile activities: " + response);
+            var profileActivities = JsonConvert.DeserializeObject<ProfileActivity[]>(response);
+            foreach (var activityData in profileActivities)
+            {
+                Instantiate(activityPrefab, activityParent.transform).GetComponent<RecentActivities>().Init(activityData.description);
+            }
         }
         else
         {

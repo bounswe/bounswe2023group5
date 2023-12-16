@@ -6,7 +6,32 @@ export async function getProfile(id: string) {
   );
   return response.data;
 }
-
+export async function addGame({
+  profileId,
+  gameId,
+}: {
+  profileId: string;
+  gameId: string;
+}) {
+  const response = await axios.post(
+    `${import.meta.env.VITE_APP_API_URL}/profile/add-game?id=${profileId}`,
+    { game: gameId }
+  );
+  return response.data;
+}
+export async function removeGame({
+  profileId,
+  gameId,
+}: {
+  profileId: string;
+  gameId: string;
+}) {
+  const response = await axios.post(
+    `${import.meta.env.VITE_APP_API_URL}/profile/remove-game?id=${profileId}`,
+    { game: gameId }
+  );
+  return response.data;
+}
 export async function editProfile(
   {
     username,

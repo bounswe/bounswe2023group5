@@ -3,6 +3,8 @@ package com.app.gamereview.service;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import com.app.gamereview.dto.request.group.CreateGroupRequestDto;
 import com.app.gamereview.dto.request.notification.CreateNotificationRequestDto;
 import com.app.gamereview.dto.request.home.HomePagePostsFilterRequestDto;
 import com.app.gamereview.dto.response.comment.CommentReplyResponseDto;
@@ -12,8 +14,10 @@ import com.app.gamereview.dto.response.post.GetPostDetailResponseDto;
 import com.app.gamereview.enums.*;
 import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.model.*;
+import com.app.gamereview.model.Character;
 import com.app.gamereview.repository.*;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -49,6 +53,8 @@ public class PostService {
 
     private final AchievementRepository achievementRepository;
 
+    private final CharacterRepository characterRepository;
+
     private final MongoTemplate mongoTemplate;
     private final ModelMapper modelMapper;
     private final NotificationService notificationService;
@@ -58,7 +64,7 @@ public class PostService {
     public PostService(PostRepository postRepository, ForumRepository forumRepository, UserRepository userRepository,
                        ProfileRepository profileRepository, TagRepository tagRepository,
                        CommentRepository commentRepository, VoteRepository voteRepository,
-                       AchievementRepository achievementRepository, GameRepository gameRepository, MongoTemplate mongoTemplate,
+                       AchievementRepository achievementRepository, GameRepository gameRepository, CharacterRepository characterRepository, MongoTemplate mongoTemplate,
                        NotificationService notificationService, GroupRepository groupRepository,
                        ModelMapper modelMapper) {
 
@@ -71,10 +77,18 @@ public class PostService {
         this.commentRepository = commentRepository;
         this.voteRepository = voteRepository;
         this.achievementRepository = achievementRepository;
+        this.characterRepository = characterRepository;
         this.mongoTemplate = mongoTemplate;
         this.modelMapper = modelMapper;
         this.notificationService = notificationService;
         this.groupRepository = groupRepository;
+
+        modelMapper.addMappings(new PropertyMap<Post, HomePagePostResponseDto>() {
+            @Override
+            protected void configure() {
+                skip().setTags(null); // Exclude tags from mapping
+            }
+        });
     }
 
     public List<GetPostListResponseDto> getPostList(GetPostListFilterRequestDto filter, String email) {
@@ -133,6 +147,9 @@ public class PostService {
         Optional<Achievement> postAchievementOptional = achievementRepository.findByIdAndIsDeletedFalse(post.getAchievement());
         Achievement postAchievement = postAchievementOptional.orElse(null);
 
+        Optional<Character> postCharacterOptional = characterRepository.findByIdAndIsDeletedFalse(post.getCharacter());
+        Character postCharacter = postCharacterOptional.orElse(null);
+
         // Fetch tags individually
         for (String tagId : post.getTags()) {
             Optional<Tag> tag = tagRepository.findById(tagId);
@@ -140,7 +157,7 @@ public class PostService {
         }
 
         return new GetPostListResponseDto(post.getId(), post.getTitle(), post.getPostContent(),
-                posterObject, userVoteChoice, post.getPostImage(), postAchievement, post.getLastEditedAt(), post.getCreatedAt(), isEdited,
+                posterObject, userVoteChoice, post.getPostImage(), postAchievement, postCharacter, post.getLastEditedAt(), post.getCreatedAt(), isEdited,
                 tags, post.getInappropriate(), post.getOverallVote(), post.getVoteCount(), commentCount);
     }
 
@@ -174,6 +191,10 @@ public class PostService {
         Optional<Achievement> postAchievement = achievementRepository.findByIdAndIsDeletedFalse(post.get().getAchievement());
 
         postAchievement.ifPresent(postDto::setAchievement);
+
+        Optional<Character> postCharacter = characterRepository.findByIdAndIsDeletedFalse(post.get().getCharacter());
+
+        postCharacter.ifPresent(postDto::setCharacter);
 
         List<Tag> tags = new ArrayList<>();
 
@@ -270,6 +291,14 @@ public class PostService {
 
             if (achievementOptional.isEmpty()) {
                 throw new ResourceNotFoundException("Achievement is not found.");
+            }
+        }
+
+        if(request.getCharacter() != null){   // if character is assigned
+            Optional<Character> characterOptional = characterRepository.findById(request.getCharacter());
+
+            if (characterOptional.isEmpty()) {
+                throw new ResourceNotFoundException("Character is not found.");
             }
         }
 
@@ -604,6 +633,7 @@ public class PostService {
 
         for(Post post : first20){
             HomePagePostResponseDto dto = modelMapper.map(post,HomePagePostResponseDto.class);
+            dto.setTags(populatedTags(post.getTags()));
 
             Optional<Forum> findForum = forumRepository.findByIdAndIsDeletedFalse(post.getForum());
 
@@ -644,5 +674,16 @@ public class PostService {
         }
 
         return first20dto;
+    }
+
+    public List<Tag> populatedTags(List<String> tagIds){
+        List<Tag> res = new ArrayList<>();
+
+        for(String tagId : tagIds){
+            Optional<Tag> findTag = tagRepository.findByIdAndIsDeletedFalse(tagId);
+            findTag.ifPresent(res::add);
+        }
+
+        return res;
     }
 }

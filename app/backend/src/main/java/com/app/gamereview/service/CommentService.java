@@ -155,7 +155,7 @@ public class CommentService {
                             .replace("{post_title}", post.get().getTitle());
                     createNotificationRequestDto.setMessage(message);
                     createNotificationRequestDto.setParentType(NotificationParent.COMMENT);
-                    createNotificationRequestDto.setParent(parentComment.get().getId());
+                    createNotificationRequestDto.setParent(post.get().getId());
                     createNotificationRequestDto.setUser(parentComment.get().getCommenter());
                     notificationService.createNotification(createNotificationRequestDto);
                 }

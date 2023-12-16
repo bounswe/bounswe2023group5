@@ -12,19 +12,10 @@ export async function createGroup(
   tags: string[],
   membershipPolicy: string,
   quota: number,
-  avatarOnly: boolean,
   description: string,
-  gameId: string
+  gameId: string,
+  groupIcon: string
 ) {
-  console.log({
-    title,
-    tags,
-    membershipPolicy,
-    quota,
-    avatarOnly,
-    gameId,
-    description,
-  });
   const response = await axios.post(
     `${import.meta.env.VITE_APP_API_URL}/group/create`,
     {
@@ -32,9 +23,9 @@ export async function createGroup(
       tags,
       membershipPolicy,
       quota,
-      avatarOnly,
       gameId,
       description,
+      groupIcon,
     }
   );
   return response.data;
