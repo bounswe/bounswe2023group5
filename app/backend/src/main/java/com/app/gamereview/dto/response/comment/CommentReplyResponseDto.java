@@ -1,5 +1,6 @@
 package com.app.gamereview.dto.response.comment;
 
+import com.app.gamereview.enums.VoteChoice;
 import com.app.gamereview.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,6 +32,8 @@ public class CommentReplyResponseDto {
     private int overallVote; // overallVote = # of upvote - # of downvote
 
     private int voteCount;  // voteCount = # of upvote + # of downvote
+
+    private VoteChoice userVote;
 
     // TODO reports
     // TODO annotations
