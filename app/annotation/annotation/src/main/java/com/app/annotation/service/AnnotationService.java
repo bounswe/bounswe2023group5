@@ -12,6 +12,7 @@ import org.modelmapper.PropertyMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class AnnotationService {
@@ -58,5 +59,50 @@ public class AnnotationService {
         annotationToCreate.getTarget().setSelector(selectorList);
 
         return annotationRepository.save(annotationToCreate).toJSON();
+    }
+
+    public boolean deleteAnnotation(String id) {
+        if(!annotationRepository.existsById(id)) {
+            return false;
+        }
+        annotationRepository.deleteById(id);
+        return true;
+    }
+
+    public Map<String, Object> updateAnnotation(CreateAnnotationRequestDto dto) {
+        Optional<Annotation> annotation = annotationRepository.findById(dto.getId());
+        if (annotation.isEmpty()) {
+            return null;
+        }
+        Annotation annotationToUpdate = annotation.get();
+
+        Annotation updatedAnnotation = modelMapper.map(dto, Annotation.class);
+        List<Selector> selectorList = new ArrayList<>();
+        for (SelectorDto s : dto.getTarget().getSelector()) {
+            if (s.getType().equals("TextQuoteSelector")) {
+                selectorList.add(modelMapper.map(s, TextQuoteSelector.class));
+            } else if (s.getType().equals("TextPositionSelector")) {
+                selectorList.add(modelMapper.map(s, TextPositionSelector.class));
+            }
+            //TODO add more selectors if implemented in the future
+        }
+        updatedAnnotation.getTarget().setSelector(selectorList);
+
+        annotationToUpdate.setTarget(updatedAnnotation.getTarget());
+        annotationToUpdate.setBody(updatedAnnotation.getBody());
+        annotationToUpdate.setCreated(updatedAnnotation.getCreated());
+        annotationToUpdate.setCreator(updatedAnnotation.getCreator());
+        annotationToUpdate.setMotivation(updatedAnnotation.getMotivation());
+
+        return annotationRepository.save(annotationToUpdate).toJSON();
+    }
+
+    public List<Map<String, Object>> getAnnotations(String source) {
+        List<Annotation> annotations = annotationRepository.findAllByTargetSource(source);
+        List<Map<String, Object>> jsonAnnotations = new ArrayList<>();
+        for (Annotation a : annotations) {
+            jsonAnnotations.add(a.toJSON());
+        }
+        return jsonAnnotations;
     }
 }

@@ -3,11 +3,9 @@ package com.app.annotation.controller;
 import com.app.annotation.service.AnnotationService;
 import com.app.annotation.dto.request.CreateAnnotationRequestDto;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -26,4 +24,30 @@ public class AnnotationController {
         return ResponseEntity.ok(annotation);
     }
 
+    @DeleteMapping("/delete")
+    public ResponseEntity<Boolean> deleteAnnotation(@RequestParam String id) {
+        boolean isDeleted = annotationService.deleteAnnotation(id);
+        if (!isDeleted) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(true);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<Map<String, Object>> updateAnnotation(@RequestBody CreateAnnotationRequestDto dto) {
+        Map<String, Object> annotation = annotationService.updateAnnotation(dto);
+        if(annotation == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(annotation);
+    }
+
+    @GetMapping("/get-source-annotations")
+    public ResponseEntity<List<Map<String, Object>>> getAnnotation(@RequestParam String source) {
+        List<Map<String, Object>> annotations = annotationService.getAnnotations(source);
+        if(annotations == null || annotations.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(annotations);
+    }
 }
