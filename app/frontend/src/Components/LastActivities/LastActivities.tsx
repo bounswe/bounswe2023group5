@@ -1,6 +1,8 @@
 import { getActivities } from "../../Services/activities";
 import { useQuery } from "react-query";
 import styles from "./LastActivities.module.scss";
+import { CommentOutlined } from "@ant-design/icons";
+import { Card } from "antd";
 
 function LastActivities() {
   const activities = useQuery(["activites"], () => getActivities());
@@ -10,28 +12,37 @@ function LastActivities() {
       {!activities.data ? (
         <p>No activities</p>
       ) : (
-        activities.data.map((activity) => {
+        activities.data.map((activity: any) => {
           return (
             <>
               {activity.type === "COMMENT" ? (
-                <div className={styles.activity}>
-                  <p className={styles.content}>
-                    You commented {activity.description}
-                  </p>
-                </div>
+                <Card
+                  type="inner"
+                  title="You Commented"
+                  extra={<CommentOutlined />}
+                  size="small"
+                >
+                  {`"${activity.description}"`}
+                </Card>
               ) : activity.type === "REVIEW" ? (
-                <div className={styles.activity}>
-                  <p className={styles.content}>
-                    You reviewed {activity.description}
-                  </p>
-                </div>
+                <Card
+                  type="inner"
+                  title="You Reviewed"
+                  extra={<CommentOutlined />}
+                  size="small"
+                >
+                  {`"${activity.description}"`}
+                </Card>
               ) : (
                 activity.type === "POST" && (
-                  <div className={styles.activity}>
-                    <p className={styles.content}>
-                      You posted {activity.description}
-                    </p>
-                  </div>
+                  <Card
+                    type="inner"
+                    title="You Posted"
+                    extra={<CommentOutlined />}
+                    size="small"
+                  >
+                    {`"${activity.description}"`}
+                  </Card>
                 )
               )}
             </>
