@@ -7,6 +7,7 @@ import { useAuth } from "../../Hooks/useAuth";
 import { useMutation } from "react-query";
 import { deleteComment } from "../../../Services/comment";
 import { useQueryClient } from "react-query";
+import { NotificationUtil } from "../../../Library/utils/notification";
 
 function Reply({ reply }: { reply: any }) {
   const { upvote, downvote } = useVote({
@@ -23,6 +24,7 @@ function Reply({ reply }: { reply: any }) {
     {
       onSuccess() {
         queryClient.invalidateQueries(["comments", reply.post]);
+        NotificationUtil.success("You successfully delete the comment.");
       },
       onMutate(id: string) {
         queryClient.setQueriesData(["comments", reply.post], (prev: any) => {

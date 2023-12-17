@@ -7,10 +7,11 @@
   border-radius: 0.5em;
   display: grid;
   gap: 0.5em;
+  margin-bottom: 5px;
   grid-template-areas:
     "v t"
     "v m";
-  grid-template-rows: 50px 25px;
+
   grid-template-columns: 25px 1fr;
   .vote {
     justify-items: center;
