@@ -9,11 +9,10 @@ import com.app.gamereview.enums.ForumType;
 import com.app.gamereview.enums.TagType;
 import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.exception.ResourceNotFoundException;
-import com.app.gamereview.model.Forum;
-import com.app.gamereview.model.Game;
-import com.app.gamereview.model.Tag;
+import com.app.gamereview.model.*;
 import com.app.gamereview.repository.ForumRepository;
 import com.app.gamereview.repository.GameRepository;
+import com.app.gamereview.repository.ProfileRepository;
 import com.app.gamereview.repository.TagRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
@@ -23,9 +22,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,18 +33,21 @@ public class GameService {
 
 	private final ForumRepository forumRepository;
 
+	private final ProfileRepository profileRepository;
+
 	private final MongoTemplate mongoTemplate;
 	private final ModelMapper modelMapper;
 
 	@Autowired
 	public GameService(
 			GameRepository gameRepository,
-			MongoTemplate mongoTemplate,
-			TagRepository tagRepository, ForumRepository forumRepository, ModelMapper modelMapper) {
+			MongoTemplate mongoTemplate, TagRepository tagRepository, ForumRepository forumRepository,
+			ProfileRepository profileRepository, ModelMapper modelMapper) {
 		this.gameRepository = gameRepository;
 		this.tagRepository = tagRepository;
 		this.mongoTemplate = mongoTemplate;
 		this.forumRepository = forumRepository;
+		this.profileRepository = profileRepository;
 		this.modelMapper = modelMapper;
 
 		modelMapper.addMappings(new PropertyMap<Game, GameDetailResponseDto>() {
@@ -356,5 +356,100 @@ public class GameService {
 		return true;
 	}
 
+	public List<Game> getRecommendedGames(User user){
+		Optional<Profile> findProfile = profileRepository.findByUserIdAndIsDeletedFalse(user.getId());
 
+		if(findProfile.isEmpty()){
+			throw new ResourceNotFoundException("Profile of the user is not found, unexpected error has occurred");
+		}
+
+		Profile profile = findProfile.get();
+		List<String> followedGameIds = profile.getGames();
+
+		TreeSet<RecommendGameDto> recommendedGames = new TreeSet<>(Comparator.reverseOrder());
+
+		for(String gameId : followedGameIds){
+			recommendedGames.addAll(recommendationByGameId(gameId));
+		}
+
+		List<Game> recommendations = new ArrayList<>();
+
+		for(RecommendGameDto gameDto : recommendedGames){
+			recommendations.add(gameDto.getGame());
+		}
+
+		return recommendations;
+	}
+
+	public TreeSet<RecommendGameDto> recommendationByGameId(String gameId){
+		Optional<Game> findGame = gameRepository.findByIdAndIsDeletedFalse(gameId);
+
+		Set<String> idList = new HashSet<>();
+
+		if(findGame.isEmpty()){
+			throw new ResourceNotFoundException("Game is not found");
+		}
+
+		Game game = findGame.get();
+		idList.add(game.getId());
+
+		TreeSet<RecommendGameDto> scoreSet = new TreeSet<>(Comparator.reverseOrder());
+
+		String[] words = game.getGameName().split(" ",-2);
+		for(String word : words){
+			if(word.length() > 3){
+				String regexPattern = ".*" + word + ".*";
+				Query query = new Query();
+				query.addCriteria(Criteria.where("gameName").regex(regexPattern, "i"));
+				query.addCriteria(Criteria.where("_id").ne(game.getId()));
+				List<Game> similarNames = mongoTemplate.find(query, Game.class);
+				for(Game i : similarNames){
+					RecommendGameDto dto = new RecommendGameDto();
+					dto.setGame(i);
+					scoreSet.add(dto);
+					idList.add(dto.getGame().getId());
+				}
+			}
+		}
+
+		// List<Game> recommendations = new ArrayList<>();
+
+		Query allGamesQuery = new Query();	// all games except the base game
+		allGamesQuery.addCriteria(Criteria.where("isDeleted").is(false));
+		allGamesQuery.addCriteria(Criteria.where("_id").nin(idList));
+
+		List<Game> allGames = mongoTemplate.find(allGamesQuery, Game.class);
+
+		for(Game candidateGame : allGames){
+			int score = calculateSimilarityScore(game, candidateGame);
+			if(score != 0){
+				RecommendGameDto dto = new RecommendGameDto();
+				dto.setGame(candidateGame);
+				dto.setScore(score);
+				scoreSet.add(dto);
+			}
+		}
+
+		return scoreSet;
+	}
+
+	public int calculateSimilarityScore(Game based, Game candidate){
+		int score = 0;
+
+		List<String> baseTags = based.getAllTags();
+		baseTags.retainAll(candidate.getAllTags());
+
+		for(String tagId : baseTags){
+			Optional<Tag> findTag = tagRepository.findByIdAndIsDeletedFalse(tagId);
+			if(findTag.isPresent()){
+				score++;
+				if(findTag.get().getTagType().equals(TagType.GENRE)){
+					score++;
+				}
+			}
+		}
+		return score;
+	}
 }
+
+

@@ -28,7 +28,6 @@ import CreateCharacter from "./Pages/Admin/Character/CreateCharacter/CreateChara
 import UpdateGame from "./Pages/Admin/Game/UpdateGame/UpdateGame";
 import HomePage from "./Pages/HomePage/HomePage";
 import Char from "./Pages/Char/Char";
-import UpdateGame from "./Pages/Admin/Game/UpdateGame/UpdateGame";
 import DeleteGame from "./Pages/Admin/Game/DeleteGame/DeleteGame";
 
 axios.defaults.headers.common["Content-Type"] = "application/json";
