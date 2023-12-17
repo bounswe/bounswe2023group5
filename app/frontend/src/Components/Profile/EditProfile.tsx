@@ -60,7 +60,12 @@ function EditProfile({ profile }: { profile: any }) {
 
   return (
     <>
-      <Button icon={<EditFilled />} type="primary" onClick={showModal}>
+      <Button
+        size="small"
+        icon={<EditFilled />}
+        type="primary"
+        onClick={showModal}
+      >
         Edit Profile
       </Button>
       <Modal
