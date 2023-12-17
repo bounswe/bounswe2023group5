@@ -20,12 +20,15 @@ import GiveAdminPermission from "./Pages/Admin/User/GiveAdminPermission/GiveAdmi
 import Groups from "./Pages/Groups/Groups";
 import Group from "./Pages/Group/Group";
 import CreateGroup from "./Pages/CreateGroup/CreateGroup";
-import Achievement from "./Components/Achievement/Achievement/Achievement";
 import Achievements from "./Pages/Achievement/Achievements";
 import Profile from "./Pages/Profile/Profile";
 import CreateAchievement from "./Pages/Admin/Achievement/CreateAchievement/CreateAchievement";
 import DeleteAchievement from "./Pages/Admin/Achievement/DeleteAchievement/DeleteAchievement";
-
+import CreateCharacter from "./Pages/Admin/Character/CreateCharacter/CreateCharacter";
+import UpdateGame from "./Pages/Admin/Game/UpdateGame/UpdateGame";
+import HomePage from "./Pages/HomePage/HomePage";
+import Char from "./Pages/Char/Char";
+import DeleteGame from "./Pages/Admin/Game/DeleteGame/DeleteGame";
 
 axios.defaults.headers.common["Content-Type"] = "application/json";
 
@@ -33,7 +36,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     loader: async () => {
-      return redirect("/games");
+      return redirect("/home");
     },
   },
   {
@@ -43,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: "hello",
         element: <HelloWorld />,
+      },
+      {
+        path: "home",
+        element: <HomePage />,
       },
       {
         path: "game/detail/:gameId",
@@ -107,8 +114,20 @@ const router = createBrowserRouter([
         element: <CreateGame />,
       },
       {
+        path: "update-game",
+        element: <UpdateGame />,
+      },
+      {
+        path: "delete-game",
+        element: <DeleteGame />,
+      },
+      {
         path: "ban-user",
         element: <BanUser />,
+      },
+      {
+        path: "add-character",
+        element: <CreateCharacter />,
       },
       {
         path: "admin-permission",
@@ -121,11 +140,14 @@ const router = createBrowserRouter([
       {
         path: "create-achievement",
         element: <CreateAchievement />,
-
       },
       {
         path: "delete-achievement",
         element: <DeleteAchievement />,
+      },
+      {
+        path: "char",
+        element: <Char />,
       },
     ],
   },

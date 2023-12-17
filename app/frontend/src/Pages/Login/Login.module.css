@@ -7,27 +7,38 @@
 }
 
 .innerContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+  gap: 4rem;
+}
+
+.formContainer {
   padding: 2rem;
   border: 1px solid gray;
   border-radius: 10px;
-  margin-top: 10rem;
   width: 30rem;
   background-image: url("../../../assets/images/lol.jpeg");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .loginHeader {
-  color: orange;
+  color: white;
   margin-top: 0;
-  margin-bottom: 0.5rem;
+  margin-bottom: 2rem;
 }
 
 .loginInfo {
-  color: white;
-  font-weight: normal;
-  margin-top: 0;
-  margin-bottom: 1.5rem;
+  color: black;
+  font-weight: bold;
 }
 
 .loginForm {
@@ -36,7 +47,7 @@
 }
 
 .formElem {
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   width: 100%;
   padding: 0.4rem;
   font-size: 14px;
@@ -58,4 +69,10 @@
 
 .ant-input input {
   font-size: 20px;
+}
+
+.image {
+  width: 20rem;
+  height: 20rem;
+  border-radius: 50%;
 }
