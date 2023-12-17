@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @AllArgsConstructor
@@ -21,7 +23,7 @@ public class Target {
 
     private String source;
 
-    private Selector selector;
+    private List<Selector> selector;
 
     public Map<String, Object> toJSON() {
         Map<String, Object> json = new HashMap<>();
@@ -30,7 +32,14 @@ public class Target {
         if  (this.format != null) json.put("format", this.format);
         if  (this.textDirection != null) json.put("textDirection", this.textDirection);
         if  (this.source != null) json.put("source", this.source);
-        if  (this.selector != null) json.put("selector", this.selector.toJSON());
+        if  (this.selector != null) {
+            List<Map<String, Object>> selectorList = new ArrayList<>();
+
+            for (Selector s : this.selector) {
+                selectorList.add(s.toJSON());
+            }
+            json.put("selector", selectorList);
+        }
         return json;
     }
 }

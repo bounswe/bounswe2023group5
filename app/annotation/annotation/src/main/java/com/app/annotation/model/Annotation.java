@@ -36,10 +36,11 @@ public class Annotation {
     public Map<String, Object> toJSON() {
         Map<String, Object> json = new HashMap<>();
         json.put("@context", "http://www.w3.org/ns/anno.jsonld");
-        json.put("id", this.id);
+        if  (this.id != null) json.put("id", this.id);
+        if  (this.type != null) json.put("type", this.type);
         if  (this.motivation != null) json.put("motivation", this.motivation);
         if  (this.created != null) json.put("created", this.created);
-        json.put("target", this.target.toJSON());
+        if  (this.target != null) json.put("target", this.target.toJSON());
         if  (this.body != null) json.put("body", this.body.toJSON());
         if  (this.creator != null) json.put("creator", this.creator.toJSON());
         return json;
