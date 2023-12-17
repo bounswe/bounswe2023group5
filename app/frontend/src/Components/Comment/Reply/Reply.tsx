@@ -42,7 +42,7 @@ function Reply({ reply }: { reply: any }) {
           shape="circle"
           size="small"
           icon={<UpOutlined />}
-          onClick={downvote}
+          onClick={upvote}
           disabled={!isLoggedIn}
           //className={clsx(post?.userVote === "DOWNVOTE" && styles.active)}
         />
