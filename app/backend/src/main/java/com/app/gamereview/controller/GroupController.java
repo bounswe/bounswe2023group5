@@ -5,6 +5,7 @@ import com.app.gamereview.dto.response.group.GetGroupDetailResponseDto;
 import com.app.gamereview.dto.response.group.GetGroupResponseDto;
 import com.app.gamereview.dto.response.group.GroupApplicationResponseDto;
 import com.app.gamereview.dto.response.tag.AddGroupTagResponseDto;
+import com.app.gamereview.model.Game;
 import com.app.gamereview.model.Group;
 import com.app.gamereview.model.User;
 import com.app.gamereview.service.GroupService;
@@ -181,5 +182,13 @@ public class GroupController {
         User user = (User) request.getAttribute("authenticatedUser");
         List<GroupApplicationResponseDto> applications = groupService.listApplications(groupId, user);
         return ResponseEntity.ok(applications);
+    }
+
+    @AuthorizationRequired
+    @GetMapping("/get-recommendations")
+    public ResponseEntity<List<Group>> getRecommendedGroups(@RequestHeader String Authorization, HttpServletRequest request) {
+        User user = (User) request.getAttribute("authenticatedUser");
+        List<Group> groups = groupService.getRecommendedGroups(user);
+        return ResponseEntity.ok(groups);
     }
 }
