@@ -143,7 +143,7 @@ public class GroupDetails : MonoBehaviour
         
         // 3 parameters are required // Will be changed
         forumManager.ListForumPosts(new [] {"forum", "sortBy", "sortDirection"},
-            new [] {forumId, "CREATION_DATE", "ASCENDING"});
+            new [] {forumId, "CREATION_DATE", "ASCENDING"}, forumCreatePostManager);
     }
     
     private void OnClickedMembersButton()

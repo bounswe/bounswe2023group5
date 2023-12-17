@@ -14,12 +14,14 @@ public class ForumGetPostList : MonoBehaviour
     [SerializeField] private Transform forumPageParent;
     private List<ForumPost> forumPosts = new List<ForumPost>();
     [SerializeField] private ForumPostComments commentManager;
+    [SerializeField] private ForumCreatePost editPostManager;
     //[SerializeField] private CommentComments lcommentManager;
     
     
     private void Awake()
     {
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
+        // editPostManager = FindObjectOfType(typeof(ForumCreatePost)) as ForumCreatePost;
     }
 
     private void OnEnable()
@@ -28,8 +30,9 @@ public class ForumGetPostList : MonoBehaviour
     }
 
 
-    public void ListForumPosts(string[] pars, string[] vals)
+    public void ListForumPosts(string[] pars, string[] vals, ForumCreatePost forumCreatePostManager)
     {
+        editPostManager = forumCreatePostManager;
 
         string url =
             $"{AppVariables.HttpServerUrl}/post/get-post-list" +
@@ -77,17 +80,17 @@ public class ForumGetPostList : MonoBehaviour
                 {
                     Debug.Log("comment manager is not null");
                 }
-                /*
-                if (lcommentManager == null)
+                
+                if (editPostManager == null)
                 {
-                    Debug.Log("layer 2 comment manager is null");
+                    Debug.Log("edit post manager is null");
                 }
                 else
                 {
-                    Debug.Log("layer 2 comment manager is not null");
+                    Debug.Log("edit post manager is not null");
                 }
-                */
-                newForumPost.Init(postData, commentManager/*, lcommentManager*/);
+                
+                newForumPost.Init(postData, commentManager, editPostManager);
             }
             Canvas.ForceUpdateCanvases();
             scrollRect.verticalNormalizedPosition = 1;

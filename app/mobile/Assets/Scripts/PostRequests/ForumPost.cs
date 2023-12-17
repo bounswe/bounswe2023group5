@@ -24,8 +24,8 @@ public class ForumPost : MonoBehaviour
     [SerializeField] private Button noDelete;
     [SerializeField] private TMP_Text deleteText;
     
-    
     [SerializeField] private ForumPostComments commentManager;
+    [SerializeField] private ForumCreatePost editPostManager;
     // [SerializeField] private CommentComments L2commentManager;
     // [SerializeField] private Button gameDetailsButton;
     private CanvasManager canvasManager;
@@ -38,15 +38,17 @@ public class ForumPost : MonoBehaviour
         // commentManager = FindObjectOfType(typeof(openComment)) as openComment;
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
         forumPostComments.onClick.AddListener(OnClickedForumPostComments);
+        editPost.onClick.AddListener(OnClickedEditPost);
         deletePost.onClick.AddListener(OnClickedDeletePost);
         deletePanel.SetActive(false);
     }
 
-    public void Init(GetPostListResponse postInfo, ForumPostComments commentManagerInfo)
+    public void Init(GetPostListResponse postInfo, ForumPostComments commentManagerInfo,
+        ForumCreatePost editPostManagerInfo)
     {
         postInfoVal = postInfo;
         commentManager = commentManagerInfo;
-        // L2commentManager = L2commentManagerInfo;
+        editPostManager = editPostManagerInfo;
         string url = "http://ec2-16-16-166-22.eu-north-1.compute.amazonaws.com/";
         // StartCoroutine(LoadImageFromURL(url + gameInfo.gameIcon, gameImage));
         // poster.text = postInfo.poster;
@@ -124,6 +126,13 @@ public class ForumPost : MonoBehaviour
         commentManager.Init(postId, postInfoVal/*, L2commentManager*/);
     }
 
+    private void OnClickedEditPost()
+    {
+        editPostManager.Init(postId, postInfoVal);
+        canvasManager.ShowCreateEditPostPage();
+        
+    }
+    
     private void OnClickedDeletePost()
     {
         deletePanel.SetActive(true);

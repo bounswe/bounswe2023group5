@@ -891,6 +891,7 @@ MonoBehaviour:
   noDelete: {fileID: 4094814630010672526}
   deleteText: {fileID: 371817739071813168}
   commentManager: {fileID: 0}
+  editPostManager: {fileID: 0}
 --- !u!1 &2118135838575496065
 GameObject:
   m_ObjectHideFlags: 0
@@ -1587,10 +1588,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 72
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -2932,8 +2933,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -387, y: 106}
-  m_SizeDelta: {x: 256.7657, y: 50.6104}
+  m_AnchoredPosition: {x: -2.0763, y: 93}
+  m_SizeDelta: {x: 1026.6, y: 48.2145}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2205506456000987184
 CanvasRenderer:

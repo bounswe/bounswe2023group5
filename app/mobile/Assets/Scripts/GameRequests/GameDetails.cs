@@ -123,7 +123,7 @@ public class GameDetails : MonoBehaviour
         {
             // 3 parameters are required
             forumManager.ListForumPosts(new [] {"forum", "sortBy", "sortDirection"},
-                new [] {forum, "CREATION_DATE", "ASCENDING"});
+                new [] {forum, "CREATION_DATE", "ASCENDING"}, forumCreatePostManager);
         }
         
     }

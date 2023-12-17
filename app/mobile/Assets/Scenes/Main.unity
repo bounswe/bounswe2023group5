@@ -12591,6 +12591,10 @@ PrefabInstance:
       propertyPath: commentManager
       value: 
       objectReference: {fileID: 601480599}
+    - target: {fileID: 2922951152235992436, guid: 10191c5f37d48ad40996ba3d710a4d54, type: 3}
+      propertyPath: editPostManager
+      value: 
+      objectReference: {fileID: 1342219876}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10191c5f37d48ad40996ba3d710a4d54, type: 3}
 --- !u!1 &1438337194699085147
