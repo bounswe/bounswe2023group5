@@ -8,6 +8,7 @@ import { useMutation } from "react-query";
 import { deleteComment } from "../../../Services/comment";
 import { useQueryClient } from "react-query";
 import { NotificationUtil } from "../../../Library/utils/notification";
+import clsx from "clsx";
 
 function Reply({ reply }: { reply: any }) {
   const { upvote, downvote } = useVote({
@@ -44,7 +45,7 @@ function Reply({ reply }: { reply: any }) {
           icon={<UpOutlined />}
           onClick={upvote}
           disabled={!isLoggedIn}
-          //className={clsx(post?.userVote === "DOWNVOTE" && styles.active)}
+          className={clsx(reply?.userVote === "UPVOTE" && styles.active)}
         />
         <div style={{ fontWeight: "bold" }}>{reply.overallVote}</div>
         <Button
@@ -54,7 +55,7 @@ function Reply({ reply }: { reply: any }) {
           icon={<DownOutlined />}
           onClick={downvote}
           disabled={!isLoggedIn}
-          //className={clsx(post?.userVote === "DOWNVOTE" && styles.active)}
+          className={clsx(reply?.userVote === "DOWNVOTE" && styles.active)}
         />
       </div>
       <div className={styles.title}>{reply.commentContent}</div>
