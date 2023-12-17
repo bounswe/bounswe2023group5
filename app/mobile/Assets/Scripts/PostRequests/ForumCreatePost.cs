@@ -1,35 +1,83 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 using UnityEngine.Networking;
 
 public class ForumCreatePost : MonoBehaviour
 {
-    [SerializeField] private string title;
-    [SerializeField] private string postContent;
+    [SerializeField] private TMP_InputField title;
+    [SerializeField] private TMP_InputField postContent;
     [SerializeField] private string postImage;
     [SerializeField] private string forumID;
     [SerializeField] private string[] tags;
+    [SerializeField] private TMP_Text infoText;
+    [SerializeField] private Button createPost;
+    [SerializeField] private Button editPost;
+    [SerializeField] private Button exit;
+    
 
+    private CanvasManager canvasManager;
+    
+    
     private void Start()
     {
-        Init("b4036d6f-0e69-4df3-a935-a84750dc2bcd");
+        // Init("b4036d6f-0e69-4df3-a935-a84750dc2bcd");
+    }
+
+    private void Awake()
+    {
+        // commentManager = FindObjectOfType(typeof(openComment)) as openComment;
+        canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
+        createPost.onClick.AddListener(OnClickedCreatePost);
+        exit.onClick.AddListener(OnClickedExit);
     }
 
     public void Init(string _forumID)
     {
         forumID = _forumID;
+        title.text = "";
+        postContent.text = "";
+        tags = Array.Empty<String>();
+    }
+
+    private void OnClickedCreatePost()
+    {
+        if (title.text == "")
+        {
+            String message = "Title cannot be empty";
+            Debug.Log(message);
+            infoText.text = message;
+            return;
+        }
+
+        if (postContent.text == "")
+        {
+            String message = "Content cannot be empty";
+            Debug.Log(message);
+            infoText.text = message;
+            return;
+        }
+        
         string url = AppVariables.HttpServerUrl + "/post/create";
-        var postCreateRequest = new PostCreateRequest();
-        postCreateRequest.title = title;
-        postCreateRequest.postContent = postContent;
+        // This will be CHANGED to PostCreateRequest
+        var postCreateRequest = new PostCreateRequestBasic();
+        postCreateRequest.title = title.text;
+        postCreateRequest.postContent = postContent.text;
         postCreateRequest.postImage = postImage;
         postCreateRequest.forum = forumID;
         postCreateRequest.tags = tags;
+        
         string bodyJsonString = JsonUtility.ToJson(postCreateRequest);
         StartCoroutine(Post(url, bodyJsonString));
+        
+    }
+
+    public void OnClickedExit()
+    {
+        canvasManager.HideCreateEditPostPage();
     }
     IEnumerator Post(string url, string bodyJsonString)
     {
@@ -41,14 +89,18 @@ public class ForumCreatePost : MonoBehaviour
         request.SetRequestHeader("Authorization", PersistenceManager.UserToken);
         yield return request.SendWebRequest();
         string response = "";
+        response = request.downloadHandler.text;
         if (request.responseCode == 200)
         {
-            response = request.downloadHandler.text;
             Debug.Log("Success to create forum post: " + response);
+            infoText.text = "Success to create forum post";
+            infoText.color = Color.green;
         }
         else
         {
             Debug.Log("Error to create forum post: " + response);
+            infoText.text = "Error to create forum post";
+            infoText.color = Color.red;
         }
         request.downloadHandler.Dispose();
         request.uploadHandler.Dispose();

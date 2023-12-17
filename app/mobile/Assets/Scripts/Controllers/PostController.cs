@@ -25,6 +25,16 @@ public class PostCreateRequest
     public string forum;
     public string[] tags;
     public string achievement;
+    public string character;
+}
+
+public class PostCreateRequestBasic
+{
+    public string title;
+    public string postContent;
+    public string postImage;
+    public string forum;
+    public string[] tags;
 }
 
 // For GetPostListRequest send no body. Only specify the parameters
