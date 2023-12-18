@@ -29,6 +29,12 @@
       width: auto;
       aspect-ratio: 1;
     }
+
+    .character {
+      height: 100%;
+      aspect-ratio: 1;
+      width: auto;
+    }
   }
 
   .titleContainer {
@@ -38,9 +44,13 @@
     gap: 0.5rem;
     grid-area: t;
 
+    overflow: hidden;
+
     .title {
       font-weight: bold;
       font-size: 1.2em;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
   }
 

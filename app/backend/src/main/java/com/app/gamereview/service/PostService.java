@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import com.app.gamereview.dto.request.group.CreateGroupRequestDto;
 import com.app.gamereview.dto.request.notification.CreateNotificationRequestDto;
 import com.app.gamereview.dto.request.home.HomePagePostsFilterRequestDto;
 import com.app.gamereview.dto.response.comment.CommentReplyResponseDto;
@@ -232,7 +231,7 @@ public class PostService {
 
         // First, convert all comments to DTOs and identify top-level comments
         for (Comment comment : comments) {
-            GetPostCommentsResponseDto dto = convertToCommentDto(comment);
+            GetPostCommentsResponseDto dto = convertToCommentDto(comment, user.getId());
             commentMap.put(comment.getId(), dto);
 
             if (comment.getParentComment() == null) {
@@ -245,7 +244,7 @@ public class PostService {
             if (comment.getParentComment() != null) {
                 GetPostCommentsResponseDto parentDto = commentMap.get(comment.getParentComment());
                 if (parentDto != null) {
-                    parentDto.getReplies().add(convertToReplyDto(comment));
+                    parentDto.getReplies().add(convertToReplyDto(comment, user.getId()));
                 }
             }
         }
@@ -253,26 +252,32 @@ public class PostService {
         return topLevelComments;
     }
 
-    private GetPostCommentsResponseDto convertToCommentDto(Comment comment) {
+    private GetPostCommentsResponseDto convertToCommentDto(Comment comment, String loggedInUserId) {
         Boolean isEdited = comment.getCreatedAt().isBefore(comment.getLastEditedAt());
         String commenterId = comment.getCommenter();
         Optional<User> commenter = userRepository.findByIdAndIsDeletedFalse(commenterId);
+
+        Optional<Vote> userVote = voteRepository.findByTypeIdAndVotedBy(comment.getId(), loggedInUserId);
+        VoteChoice userVoteChoice = userVote.map(Vote::getChoice).orElse(null);
 
         User commenterObject = commenter.orElse(null);
         return new GetPostCommentsResponseDto(comment.getId(), comment.getCommentContent(), commenterObject,
                 comment.getPost(), comment.getLastEditedAt(), comment.getCreatedAt(), isEdited, comment.getIsDeleted(), comment.getOverallVote(),
-                comment.getVoteCount(), new ArrayList<>());
+                comment.getVoteCount(), new ArrayList<>(), userVoteChoice);
     }
 
-    private CommentReplyResponseDto convertToReplyDto(Comment comment) {
+    private CommentReplyResponseDto convertToReplyDto(Comment comment, String loggedInUserId) {
         Boolean isEdited = comment.getCreatedAt().isBefore(comment.getLastEditedAt());
         String commenterId = comment.getCommenter();
         Optional<User> commenter = userRepository.findByIdAndIsDeletedFalse(commenterId);
 
+        Optional<Vote> userVote = voteRepository.findByTypeIdAndVotedBy(comment.getId(), loggedInUserId);
+        VoteChoice userVoteChoice = userVote.map(Vote::getChoice).orElse(null);
+
         User commenterObject = commenter.orElse(null);
         return new CommentReplyResponseDto(comment.getId(), comment.getCommentContent(), commenterObject,
                 comment.getPost(), comment.getLastEditedAt(), comment.getCreatedAt(), isEdited, comment.getIsDeleted(), comment.getOverallVote(),
-                comment.getVoteCount());
+                comment.getVoteCount(), userVoteChoice);
     }
 
 
