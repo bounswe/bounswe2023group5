@@ -1,11 +1,13 @@
 package com.app.gamereview.dto.response.home;
 
 import com.app.gamereview.enums.ForumType;
+import com.app.gamereview.model.Tag;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -35,7 +37,7 @@ public class HomePagePostResponseDto {
 
     private LocalDateTime lastEditedAt;
 
-    private List<String> tags;
+    private List<Tag> tags = new ArrayList<>();
 
     private Boolean inappropriate;
 
