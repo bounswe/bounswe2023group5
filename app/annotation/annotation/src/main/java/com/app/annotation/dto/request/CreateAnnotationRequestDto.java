@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -17,7 +18,7 @@ public class CreateAnnotationRequestDto {
     private TargetDto target;
 
     @NotEmpty(message = "annotation body can not be empty.")
-    private BodyDto body;
+    private List<BodyDto> body;
 
     @NotEmpty(message = "annotation id can not be empty.")
     private String id;
