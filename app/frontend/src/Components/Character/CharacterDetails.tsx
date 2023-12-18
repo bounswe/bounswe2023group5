@@ -36,7 +36,6 @@ function CharacterDetails({ character }: { character: any }) {
           // Access colors from the palette
           if (palette) {
             setPalette(palette);
-            console.log(palette);
           }
         })
         .catch((error) => {

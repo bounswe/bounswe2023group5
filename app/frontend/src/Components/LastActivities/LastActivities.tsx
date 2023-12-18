@@ -4,7 +4,7 @@ import styles from "./LastActivities.module.scss";
 
 function LastActivities() {
   const activities = useQuery(["activites"], () => getActivities());
-  console.log(activities.data);
+
   return (
     <div className={styles.container}>
       {!activities.data ? (

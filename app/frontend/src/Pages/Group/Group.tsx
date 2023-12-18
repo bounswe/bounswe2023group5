@@ -52,7 +52,6 @@ function Group() {
     deleteGroupMutation.mutate(groupId as string);
   };
 
-  console.log(user);
   return (
     <div className={styles.container}>
       <div className={styles.info}>

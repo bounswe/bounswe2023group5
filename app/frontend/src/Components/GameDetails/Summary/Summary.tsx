@@ -43,17 +43,13 @@ function Summary({ game }: { game: any }) {
           import.meta.env.VITE_APP_ANNOTATION_API_URL
         }/annotation/get-source-annotations?source=${game.id}`
       )
-        .then(function (annotations) {
-          console.log(annotations);
-        })
+        .then(function (annotations) {})
         .catch((error) => {
           if (error instanceof SyntaxError) {
             return;
           }
           NotificationUtil.error("Error occurred while retrieving annotations");
         });
-
-      console.log(game);
 
       r.on("createAnnotation", async (annotation: any, _overrideId) => {
         try {
