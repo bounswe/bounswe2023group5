@@ -3,6 +3,7 @@ package com.app.gamereview.service;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
+
 import com.app.gamereview.dto.request.notification.CreateNotificationRequestDto;
 import com.app.gamereview.dto.request.home.HomePagePostsFilterRequestDto;
 import com.app.gamereview.dto.response.comment.CommentReplyResponseDto;
@@ -15,6 +16,7 @@ import com.app.gamereview.model.*;
 import com.app.gamereview.model.Character;
 import com.app.gamereview.repository.*;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -79,6 +81,13 @@ public class PostService {
         this.modelMapper = modelMapper;
         this.notificationService = notificationService;
         this.groupRepository = groupRepository;
+
+        modelMapper.addMappings(new PropertyMap<Post, HomePagePostResponseDto>() {
+            @Override
+            protected void configure() {
+                skip().setTags(null); // Exclude tags from mapping
+            }
+        });
     }
 
     public List<GetPostListResponseDto> getPostList(GetPostListFilterRequestDto filter, String email) {
@@ -222,7 +231,7 @@ public class PostService {
 
         // First, convert all comments to DTOs and identify top-level comments
         for (Comment comment : comments) {
-            GetPostCommentsResponseDto dto = convertToCommentDto(comment);
+            GetPostCommentsResponseDto dto = convertToCommentDto(comment, user.getId());
             commentMap.put(comment.getId(), dto);
 
             if (comment.getParentComment() == null) {
@@ -235,7 +244,7 @@ public class PostService {
             if (comment.getParentComment() != null) {
                 GetPostCommentsResponseDto parentDto = commentMap.get(comment.getParentComment());
                 if (parentDto != null) {
-                    parentDto.getReplies().add(convertToReplyDto(comment));
+                    parentDto.getReplies().add(convertToReplyDto(comment, user.getId()));
                 }
             }
         }
@@ -243,26 +252,32 @@ public class PostService {
         return topLevelComments;
     }
 
-    private GetPostCommentsResponseDto convertToCommentDto(Comment comment) {
+    private GetPostCommentsResponseDto convertToCommentDto(Comment comment, String loggedInUserId) {
         Boolean isEdited = comment.getCreatedAt().isBefore(comment.getLastEditedAt());
         String commenterId = comment.getCommenter();
         Optional<User> commenter = userRepository.findByIdAndIsDeletedFalse(commenterId);
+
+        Optional<Vote> userVote = voteRepository.findByTypeIdAndVotedBy(comment.getId(), loggedInUserId);
+        VoteChoice userVoteChoice = userVote.map(Vote::getChoice).orElse(null);
 
         User commenterObject = commenter.orElse(null);
         return new GetPostCommentsResponseDto(comment.getId(), comment.getCommentContent(), commenterObject,
                 comment.getPost(), comment.getLastEditedAt(), comment.getCreatedAt(), isEdited, comment.getIsDeleted(), comment.getOverallVote(),
-                comment.getVoteCount(), new ArrayList<>());
+                comment.getVoteCount(), new ArrayList<>(), userVoteChoice);
     }
 
-    private CommentReplyResponseDto convertToReplyDto(Comment comment) {
+    private CommentReplyResponseDto convertToReplyDto(Comment comment, String loggedInUserId) {
         Boolean isEdited = comment.getCreatedAt().isBefore(comment.getLastEditedAt());
         String commenterId = comment.getCommenter();
         Optional<User> commenter = userRepository.findByIdAndIsDeletedFalse(commenterId);
 
+        Optional<Vote> userVote = voteRepository.findByTypeIdAndVotedBy(comment.getId(), loggedInUserId);
+        VoteChoice userVoteChoice = userVote.map(Vote::getChoice).orElse(null);
+
         User commenterObject = commenter.orElse(null);
         return new CommentReplyResponseDto(comment.getId(), comment.getCommentContent(), commenterObject,
                 comment.getPost(), comment.getLastEditedAt(), comment.getCreatedAt(), isEdited, comment.getIsDeleted(), comment.getOverallVote(),
-                comment.getVoteCount());
+                comment.getVoteCount(), userVoteChoice);
     }
 
 
@@ -623,6 +638,7 @@ public class PostService {
 
         for(Post post : first20){
             HomePagePostResponseDto dto = modelMapper.map(post,HomePagePostResponseDto.class);
+            dto.setTags(populatedTags(post.getTags()));
 
             Optional<Forum> findForum = forumRepository.findByIdAndIsDeletedFalse(post.getForum());
 
@@ -663,5 +679,16 @@ public class PostService {
         }
 
         return first20dto;
+    }
+
+    public List<Tag> populatedTags(List<String> tagIds){
+        List<Tag> res = new ArrayList<>();
+
+        for(String tagId : tagIds){
+            Optional<Tag> findTag = tagRepository.findByIdAndIsDeletedFalse(tagId);
+            findTag.ifPresent(res::add);
+        }
+
+        return res;
     }
 }

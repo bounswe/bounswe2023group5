@@ -3,12 +3,13 @@ import styles from "./CreateGroup.module.scss";
 import { Button, Form, Input, InputNumber, Select, Switch } from "antd";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { twj } from "tw-to-css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "antd/es/form/Form";
 import { getTags } from "../../Services/tags";
 import FormItem from "antd/es/form/FormItem";
 import { getGames } from "../../Services/games";
 import { createGroup } from "../../Services/group";
+import UploadArea from "../../Components/UploadArea/UploadArea";
 
 function CreateGroup() {
   const [form] = useForm();
@@ -27,6 +28,7 @@ function CreateGroup() {
       }));
     }
   );
+  const [imageUrl, setImageUrl] = useState("");
 
   const { mutate: submit, isLoading } = useMutation(
     ({
@@ -34,33 +36,32 @@ function CreateGroup() {
       tags,
       membershipPolicy,
       quota,
-      avatarOnly,
       description,
       gameId,
+      imageUrl,
     }: {
       title: string;
       tags: string[];
       membershipPolicy: string;
       quota: number;
-      avatarOnly: boolean;
       description: string;
       gameId: string;
+      imageUrl: string;
     }) => {
       return createGroup(
         title,
         tags,
         membershipPolicy,
         quota,
-        avatarOnly,
         description,
-        gameId
+        gameId,
+        imageUrl,
       );
     },
     {
       onSuccess(data: any) {
-        console.log(data);
         const groupId = data.id;
-        console.log(groupId);
+        queryClient.invalidateQueries(["groups"]);
         navigate(`/group/detail/${groupId}`);
       },
     }
@@ -79,14 +80,19 @@ function CreateGroup() {
     }
   }
 
-  form.setFieldsValue({
-    membershipPolicy: membershipPolicy,
-    avatarOnly: avatarOnly,
-    quota: 3,
-  });
+  useEffect(() => {
+    form.setFieldsValue({
+      membershipPolicy: membershipPolicy,
+      avatarOnly: avatarOnly,
+      quota: 3,
+    });
+  }, []);
 
   return (
     <div className={styles.container}>
+      <div className={styles.row}>
+        <UploadArea style={twj("aspect-square")} onUpload={setImageUrl} />
+      </div>
       <Form onFinish={submit} layout="vertical" form={form}>
         <Form.Item
           name="title"
@@ -154,9 +160,7 @@ function CreateGroup() {
           >
             <Switch onChange={handleSwitchChange} />
           </Form.Item>
-          <Form.Item name="avatarOnly" label={"Avatar Only"}>
-            <Switch onChange={setAvatarOnly} />
-          </Form.Item>
+
           <Form.Item
             name="quota"
             label="Quota"
@@ -170,6 +174,7 @@ function CreateGroup() {
             <InputNumber min={1} max={10} defaultValue={3} />
           </Form.Item>
         </div>
+
         <Form.Item noStyle>
           <Button
             type="primary"

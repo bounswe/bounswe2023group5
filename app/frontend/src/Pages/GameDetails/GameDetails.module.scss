@@ -39,6 +39,13 @@
 
     .titleContainer {
       flex: 2 2 0;
+      position: relative;
+
+      .followButton {
+        position: absolute;
+        top: 1em;
+        right: 1em;
+      }
 
       .name {
         height: 50%;

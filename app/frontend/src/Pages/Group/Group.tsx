@@ -31,6 +31,7 @@ function Group() {
   );
 
   const showModal = () => {
+    console.log(group?.moderators);
     setIsModalOpen(true);
   };
 
@@ -52,11 +53,23 @@ function Group() {
     deleteGroupMutation.mutate(groupId as string);
   };
 
+  const handleReview = () => {
+    navigate(`/group/review-application/${groupId}`);
+  }
+
   console.log(user);
   return (
     <div className={styles.container}>
       <div className={styles.info}>
-        <div className={styles.game}>{game && <Game game={game} />}</div>
+        <div className={styles.groupImage}>
+          <img
+            src={
+              group?.groupIcon
+                ? `${import.meta.env.VITE_APP_IMG_URL}${group.groupIcon}`
+                : "../../../assets/images/group.png"
+            }
+          ></img>
+        </div>
         <div className={styles.meta}>
           <div className={styles.name}>
             <h1>{group?.title}</h1>
@@ -68,12 +81,22 @@ function Group() {
             <Button type="primary" onClick={showModal}>
               {`Members (${group?.members.length || 0})`}
             </Button>
+            {(group?.moderators.some((moderator:any) => moderator.id === user?.id) && group.membershipPolicy === "PRIVATE") && (
+              <div>
+              <Button type="primary" onClick={handleReview}>
+                Review Applications
+              </Button>
+              </div>
+            )}
             {(user?.role === "ADMIN" ||
-              group?.moderators.includes(user.id)) && (
+              group?.moderators.includes(user?.id)) && (
+              <div>
               <Button type="primary" onClick={handleClick} danger>
                 Delete Group
               </Button>
+              </div>
             )}
+            
           </div>
         </div>
       </div>

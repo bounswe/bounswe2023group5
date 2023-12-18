@@ -55,6 +55,11 @@ function Main() {
       key: "achievement",
       dataIndex: "achievement",
     },
+    {
+      title: "Character",
+      key: "character",
+      dataIndex: "character",
+    },
   ];
 
   const data = [
@@ -64,15 +69,18 @@ function Main() {
       tag: AddButton("Create Tag", "/create-tag"),
       user: DeleteButton("Ban User", "/ban-user"),
       achievement: AddButton("Create Achievement", "/create-achievement"),
+      character: AddButton("Add Character", "/add-character"),
     },
     {
       key: "2",
+      game: EditButton("Update Game", "/update-game"),
       tag: EditButton("Update Tag", "/update-tag"),
       user: EditButton("Give Admin Permission", "/admin-permission"),
       achievement: DeleteButton("Delete Achievement", "/delete-achievement"),
     },
     {
       key: "3",
+      game: DeleteButton("Delete Game", "/delete-game"),
       tag: DeleteButton("Delete Tag", "/delete-tag"),
     },
   ];
