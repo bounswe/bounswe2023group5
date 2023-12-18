@@ -56,6 +56,7 @@ public class ForumCreatePost : MonoBehaviour
         title.text = postInfoVal.title;
         postContent.text = postInfoVal.postContent;
         tags = Array.Empty<String>();
+        infoText.text = "";
         PageMode("edit");
     }
 
