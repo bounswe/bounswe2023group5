@@ -20,6 +20,8 @@ import { twj } from "tw-to-css";
 import { NotificationUtil } from "../../../Library/utils/notification";
 import { handleAxiosError } from "../../../Library/utils/handleError";
 import SquareAchievement from "../../Achievement/SquareAchievement/SquareAchievement";
+import Character from "../../Character/Character";
+import CharacterDetails from "../../Character/CharacterDetails";
 
 function ForumPost({
   post,
@@ -89,7 +91,7 @@ function ForumPost({
         />
       </div>
 
-      {(post.postImage || post.achievement) && (
+      {(post.postImage || post.achievement || post.character) && (
         <div className={styles.imgConatiner}>
           {post.postImage && (
             <img
@@ -98,6 +100,13 @@ function ForumPost({
             />
           )}
           {post.achievement && <SquareAchievement props={post.achievement} />}
+
+          {post.character && (
+            <CharacterDetails
+              character={post.character}
+              className={styles.character}
+            />
+          )}
         </div>
       )}
 

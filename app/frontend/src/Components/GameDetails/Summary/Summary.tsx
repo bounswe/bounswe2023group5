@@ -19,6 +19,8 @@ import {
 import { NotificationUtil } from "../../../Library/utils/notification.ts";
 import { useState } from "react";
 import { useAuth } from "../../Hooks/useAuth.tsx";
+import { getCharacterByGame } from "../../../Services/character";
+import CharacterDetails from "../../Character/CharacterDetails";
 
 function Summary({ game }: { game: any }) {
   const { user } = useAuth();
@@ -87,6 +89,10 @@ function Summary({ game }: { game: any }) {
       });
     }
   };
+  const { data: characters, isLoading: isLoadingCharacters } = useQuery(
+    ["characters", game.id],
+    () => getCharacterByGame(game.id)
+  );
 
   return (
     <div className={styles.summaryContainer}>
@@ -152,6 +158,22 @@ function Summary({ game }: { game: any }) {
         </div>
       )}
 
+      {!isLoadingCharacters && characters.length > 0 && (
+        <div>
+          <div className={styles.charTitle}>Characters</div>
+          <div className={styles.row}>
+            {characters.map(
+              (character: any) =>
+                !character.isDeleted && (
+                  <div className={styles.infoContainer}>
+                    <CharacterDetails character={character} />
+                  </div>
+                )
+            )}
+          </div>
+        </div>
+      )}
+
       {!isLoadingAchievements && achievements.length > 0 && (
         <div>
           <div className={styles.title}>Achievements</div>
@@ -160,6 +182,7 @@ function Summary({ game }: { game: any }) {
               (achievement: any) =>
                 !achievement.isDeleted && (
                   <div className={styles.achievementContainer}>
+                  <div className={styles.infoContainer}>
                     <Achievement props={achievement} key={achievement.id} />
                   </div>
                 )
