@@ -15,11 +15,9 @@ function PrivateGroup({ group }: { group: any }) {
       const response = await applyGroup(group.id);
       if (response) {
         NotificationUtil.success("You successfully applied to the group");
-      } else {
-        NotificationUtil.error("Something went wrong");
       }
-    } catch (error) {
-      NotificationUtil.error("Something went wrong");
+    } catch (error:any) {
+      NotificationUtil.error(error.response.data);
       console.log(error);
     }
   }
