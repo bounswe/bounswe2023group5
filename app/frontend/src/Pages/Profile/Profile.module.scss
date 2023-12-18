@@ -26,10 +26,10 @@
     padding: 0.5em;
     position: relative;
 
-    .edit {
-      position: absolute;
-      top: 1em;
-      right: 1em;
+    .settings {
+      display: flex;
+      justify-content: flex-end;
+      gap: 5px;
     }
 
     .profilePicture {
