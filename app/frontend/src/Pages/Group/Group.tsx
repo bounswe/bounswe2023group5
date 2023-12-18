@@ -81,7 +81,7 @@ function Group() {
             <Button type="primary" onClick={showModal}>
               {`Members (${group?.members.length || 0})`}
             </Button>
-            {(group?.moderators.some((moderator:any) => moderator.id === user?.id)) && (
+            {(group?.moderators.some((moderator:any) => moderator.id === user?.id) && group.membershipPolicy === "PRIVATE") && (
               <div>
               <Button type="primary" onClick={handleReview}>
                 Review Applications
