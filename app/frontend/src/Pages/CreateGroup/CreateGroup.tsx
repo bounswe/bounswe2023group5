@@ -38,6 +38,7 @@ function CreateGroup() {
       quota,
       description,
       gameId,
+      imageUrl,
     }: {
       title: string;
       tags: string[];
@@ -45,6 +46,7 @@ function CreateGroup() {
       quota: number;
       description: string;
       gameId: string;
+      imageUrl: string;
     }) => {
       return createGroup(
         title,
@@ -53,7 +55,7 @@ function CreateGroup() {
         quota,
         description,
         gameId,
-        imageUrl
+        imageUrl,
       );
     },
     {
