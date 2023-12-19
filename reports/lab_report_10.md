@@ -55,7 +55,7 @@
 
 | Description | Issue | Assignee | Due |Estimated Duration |
 | --- | --- | --- | --- | --- |
-| Prepare the scenarios for the final presentation | [#957](https://github.com/bounswe/bounswe2023group5/issues/957) | Frontend Team       | 26.12.2023 | 2hrs     |
+| Prepare the scenarios for the final presentation | [#1051](https://github.com/bounswe/bounswe2023group5/issues/1051) | Frontend Team       | 26.12.2023 | 2hrs     |
 | Home page visual improvements | [#1007](https://github.com/bounswe/bounswe2023group5/issues/1007)| Çisel    | 25.12.2023 | 3hrs     |
 | Home page recommendation carousels | [#1010](https://github.com/bounswe/bounswe2023group5/issues/1010) | Alperen      | 26.12.2023 | 2hrs     |
 | Promotion front end implementation |[#998](https://github.com/bounswe/bounswe2023group5/issues/998)| Ali     | 26.12.2023 | 3hrs     |
