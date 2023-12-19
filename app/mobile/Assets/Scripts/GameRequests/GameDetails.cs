@@ -20,6 +20,8 @@ public class GameDetails : MonoBehaviour
     [SerializeField] private GetAllReviews getAllReviews;
 
     [SerializeField] private ForumGetPostList forumManager;
+    [SerializeField] private Button addForumPost;
+    [SerializeField] private ForumCreatePost forumCreatePostManager;
 
     [SerializeField] private Button exitButton;
     private string gameId;
@@ -60,6 +62,7 @@ public class GameDetails : MonoBehaviour
         reviewsButton.onClick.AddListener(OnClickedReviewsButton);
         forumButton.onClick.AddListener(OnClickedForumButton);
         exitButton.onClick.AddListener(OnClickedExitButton);
+        addForumPost.onClick.AddListener(OnClickedAddPost);
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
     }
 
@@ -70,7 +73,12 @@ public class GameDetails : MonoBehaviour
         GetGameSummary();
     }
 
-    
+    public void ShowForumManager(bool b)
+    {
+        
+        forumManager.gameObject.SetActive(b);
+        addForumPost.gameObject.SetActive(b);
+    }
     
     private void OnClickedExitButton()
     {
@@ -86,7 +94,7 @@ public class GameDetails : MonoBehaviour
         
         summaryManager.gameObject.SetActive(true);
         getAllReviews.gameObject.SetActive(false);
-        forumManager.gameObject.SetActive(false);
+        ShowForumManager(false);
     }
     
     private void OnClickedReviewsButton()
@@ -97,7 +105,7 @@ public class GameDetails : MonoBehaviour
         
         summaryManager.gameObject.SetActive(false);
         getAllReviews.gameObject.SetActive(true);
-        forumManager.gameObject.SetActive(false);
+        ShowForumManager(false);
         getAllReviews.Init(new []{"gameId"},new []{gameId});
     }
     
@@ -109,15 +117,21 @@ public class GameDetails : MonoBehaviour
         
         summaryManager.gameObject.SetActive(false);
         getAllReviews.gameObject.SetActive(false);
-        forumManager.gameObject.SetActive(true);
+        ShowForumManager(true);
 
         if (forum != null)
         {
             // 3 parameters are required
             forumManager.ListForumPosts(new [] {"forum", "sortBy", "sortDirection"},
-                new [] {forum, "CREATION_DATE", "ASCENDING"});
+                new [] {forum, "CREATION_DATE", "ASCENDING"}, forumCreatePostManager);
         }
         
+    }
+
+    private void OnClickedAddPost()
+    {
+        forumCreatePostManager.Init(forum);
+        canvasManager.ShowCreateEditPostPage();
     }
     
 
