@@ -26,8 +26,7 @@
 | Change Password Backend and Profile Integration | [#1006](https://github.com/bounswe/bounswe2023group5/issues/1006)| Çisel Zümbül | 19.12.2023 | [#1030](https://github.com/bounswe/bounswe2023group5/pull/1030)| 1hr 30mins    | 1hr|
 | Recommendation Related to Group  | [#1002](https://github.com/bounswe/bounswe2023group5/issues/1002) | Zeynep Baydemir  | 19.12.2023 | [#1021](https://github.com/bounswe/bounswe2023group5/pull/1021) | 4hrs     | 3hrs 30mins |
 | Implementation of Recommendation System for Games  | [#1013](https://github.com/bounswe/bounswe2023group5/issues/1013) | Can Uzduran | 19.12.2023 | | 4hrs | 4hrs 30mins |
-| Comment Redesign - MOBILE | [#1004](https://github.com/bounswe/bounswe2023group5/issues/1004) | Said Yolcu | 21.12.2023 | | 2 hrs | 3hrs |
-| Forum Post Redesign - MOBILE | [#1003](https://github.com/bounswe/bounswe2023group5/issues/1003) | Said Yolcu | 20.12.2023 | | 2 hrs | 3hrs |
+| Forum Post Redesign - MOBILE | [#1003](https://github.com/bounswe/bounswe2023group5/issues/1003) | Said Yolcu | 20.12.2023 | [#1034](https://github.com/bounswe/bounswe2023group5/pull/1034) | 2 hrs | 3hrs |
 | Researching annotation web standards | [#1014](https://github.com/bounswe/bounswe2023group5/issues/1014) | Deniz Ünal, Halis Bal | 17.12.2023 | - | 4 hrs | 4hrs 20 mins|
 | Implementing the Annotation Service - Backend | [#1015](https://github.com/bounswe/bounswe2023group5/issues/1015) | Deniz Ünal, Halis Bal | 19.12.2023 | https://github.com/bounswe/bounswe2023group5/pull/1022, https://github.com/bounswe/bounswe2023group5/pull/1025 | 10 hrs | 12hrs|
 | Deploying the Annotation Service - Backend | [#1016](https://github.com/bounswe/bounswe2023group5/issues/1016) | Halis Bal | 19.12.2023 | - | 2 hrs | 6hrs |
@@ -49,6 +48,7 @@
 * We have not implemented the promotions functionality, we will complete it this week.
 * We couldn't find the time for some visual improvements for forum and homepage, we'll focus on them this week.
 * Homepage recommandation additions will be also added this week.
+* As comment redesign for mobile ([#1004](https://github.com/bounswe/bounswe2023group5/issues/1004)) is due 21.12.2023, it is not completed yet.
 
 
 ## Your plans for the next week
