@@ -46,6 +46,7 @@
 
 * We have not implemented filter for games page, we will complete it this week.
 * We have not implemented annotation functionality , we will complete it this week.
+* We have not implemented the promotions functionality, we will complete it this week.
 
 
 ## Your plans for the next week
