@@ -10,7 +10,7 @@
 - We implemented the home page for mobile this week.
 - We implemented the notification for mobile functionality this week.
 - We implemented the character feature for front-end this week.
-- - We implemented the promotion feature for front-end this week.
+- We implemented the promotion feature for front-end this week.
 
 ## What was planned for the week? How did it go?
 | Description                                                                | Issue                                                           | Assignee         | Due        | PR  | Estimated Duration | Actual Duration |
