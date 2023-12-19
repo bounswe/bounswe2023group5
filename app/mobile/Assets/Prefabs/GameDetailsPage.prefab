@@ -903,7 +903,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 162, y: -213.1}
+  m_AnchoredPosition: {x: 162, y: -213.09998}
   m_SizeDelta: {x: 118.8, y: 115}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2847515235870124167
@@ -1006,7 +1006,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3221878736303526020
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1766,6 +1766,7 @@ MonoBehaviour:
   scrollRect: {fileID: 1307744852161342675}
   forumPageParent: {fileID: 3174394764014732961}
   commentManager: {fileID: 0}
+  editPostManager: {fileID: 0}
 --- !u!1 &9096608093222309021
 GameObject:
   m_ObjectHideFlags: 0
