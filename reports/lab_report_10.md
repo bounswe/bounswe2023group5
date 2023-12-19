@@ -77,6 +77,8 @@
 | Generating and Analyzing the Coverage Report for Tests on Backend |[#1039](https://github.com/bounswe/bounswe2023group5/issues/1039)| Halis| 25.12.2023 | 3hrs    |
 | Refactoring Homepage Posts According to Promoted Game Forums |[#1043](https://github.com/bounswe/bounswe2023group5/issues/1043)| Zeynep Baydemir | 26.12.2023 | 2.5hrs|
 | Improving Group Recommendations |[#1044](https://github.com/bounswe/bounswe2023group5/issues/1044)| Zeynep Baydemir | 26.12.2023 | 2 hrs|
+| Improving Game Recommendations |[#1057](https://github.com/bounswe/bounswe2023group5/issues/1057)| Can Uzduran | 25.12.2023 | 2 hrs|
+| Game Promotion Implementation - BE  |[#1058](https://github.com/bounswe/bounswe2023group5/issues/1058)| Can Uzduran | 25.12.2023 | 3 hrs|
 | improve dockerization process |[#1042](https://github.com/bounswe/bounswe2023group5/issues/1042)| Deniz Ünal | 22.12.2023 | 1.5 hrs |
 | adding image annotation backend |[#1045](https://github.com/bounswe/bounswe2023group5/issues/1045)| Deniz Ünal | 23.12.2023 | 1 hrs |
 | Recommendation Implementation - MOBILE  |[#1046](https://github.com/bounswe/bounswe2023group5/issues/1046)| Ege Ekşi , Bilal Atım | 26.12.2023 | 4 hrs |
