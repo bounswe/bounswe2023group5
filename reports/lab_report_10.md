@@ -26,7 +26,7 @@
 | Last Activities Refactor | [#1005](https://github.com/bounswe/bounswe2023group5/issues/1005)  | Çisel Zümbül   | 18.12.2023 | | 3hrs     | 3hrs|
 | Login/Register Enhancements | [#1012](https://github.com/bounswe/bounswe2023group5/issues/1012) | Arda   | 15.12.2023 | | 2hrs     | 2hrs 40mins |
 | Change Password Backend and Profile Integration | [#1006](https://github.com/bounswe/bounswe2023group5/issues/1006)| Çisel Zümbül | 19.12.2023 | | 1hr 30mins    | 2hrs|
-| Recommendation Related to Group  | [#1002](https://github.com/bounswe/bounswe2023group5/issues/1002) | Zeynep Baydemir  | 19.12.2023 | | 4hrs     | 3hrs 30mins |
+| Recommendation Related to Group  | [#1002](https://github.com/bounswe/bounswe2023group5/issues/1002) | Zeynep Baydemir  | 19.12.2023 | [#1021](https://github.com/bounswe/bounswe2023group5/pull/1021) | 4hrs     | 3hrs 30mins |
 | Implementation of Recommendation System for Games  | [#1013](https://github.com/bounswe/bounswe2023group5/issues/1013) | Can Uzduran | 19.12.2023 | | 4hrs | 4hrs 30mins |
 | Comment Redesign - MOBILE | [#1004](https://github.com/bounswe/bounswe2023group5/issues/1004) | Said Yolcu | 21.12.2023 | | 2 hrs | 3hrs |
 | Forum Post Redesign - MOBILE | [#1003](https://github.com/bounswe/bounswe2023group5/issues/1003) | Said Yolcu | 20.12.2023 | | 2 hrs | 3hrs |
@@ -35,6 +35,8 @@
 | Deploying the Annotation Service - Backend | [#1016](https://github.com/bounswe/bounswe2023group5/issues/1016) | Halis Bal | 19.12.2023 | - | 2 hrs | 6hrs |
 | Solve Upload Image From Local Problem | [#1001](https://github.com/bounswe/bounswe2023group5/issues/1001) | Bilal Atım | 20.12.2023 | | 5 hrs | 5hrs |
 | Home Page Implementation - MOBILE | [#945](https://github.com/bounswe/bounswe2023group5/issues/945) | Ege Ekşi | 19.12.2023| | 4 hrs| 3hrs 30mins|
+
+
 
 ## Completed tasks that were not planned for the week
 | Description | Issue | Assignee | Due | Duration |
@@ -72,6 +74,8 @@
 | Writing Unit Tests for Character Service |[#1037](https://github.com/bounswe/bounswe2023group5/issues/1037)| Halis| 25.12.2023 | 1.5hrs    |
 | Writing Unit Tests for Notification Service |[#1038](https://github.com/bounswe/bounswe2023group5/issues/1038)| Halis| 25.12.2023 | 1.5hrs    |
 | Generating and Analyzing the Coverage Report for Tests on Backend |[#1039](https://github.com/bounswe/bounswe2023group5/issues/1039)| Halis| 25.12.2023 | 3hrs    |
+| Refactoring Homepage Posts According to Promoted Game Forums |[#1043](https://github.com/bounswe/bounswe2023group5/issues/1043)| Zeynep Baydemir | 26.12.2023 | 2.5hrs|
+| Improving Group Recommendations |[#1044](https://github.com/bounswe/bounswe2023group5/issues/1044)| Zeynep Baydemir | 26.12.2023 | 2 hrs|
 
 
 ## Risks
