@@ -33,8 +33,8 @@
 | Researching annotation web standards | [#1014](https://github.com/bounswe/bounswe2023group5/issues/1014) | Deniz Ünal, Halis Bal | 17.12.2023 | - | 4 hrs | 4hrs 20 mins|
 | Implementing the Annotation Service - Backend | [#1015](https://github.com/bounswe/bounswe2023group5/issues/1015) | Deniz Ünal, Halis Bal | 19.12.2023 | https://github.com/bounswe/bounswe2023group5/pull/1022, https://github.com/bounswe/bounswe2023group5/pull/1025 | 10 hrs | 12hrs|
 | Deploying the Annotation Service - Backend | [#1016](https://github.com/bounswe/bounswe2023group5/issues/1016) | Halis Bal | 19.12.2023 | - | 2 hrs | 6hrs |
-| Solve Upload Image From Local Problem | [#1001](https://github.com/bounswe/bounswe2023group5/issues/1001) | Bilal Atım | 20.12.2023 | | 5 hrs | 5hrs |
-| Home Page Implementation - MOBILE | [#945](https://github.com/bounswe/bounswe2023group5/issues/945) | Ege Ekşi | 19.12.2023| | 4 hrs| 3hrs 30mins|
+| Solve Upload Image From Local Problem | [#1001](https://github.com/bounswe/bounswe2023group5/issues/1001) | Bilal Atım | 20.12.2023 | [#1035](https://github.com/bounswe/bounswe2023group5/pull/1035) | 5 hrs | 5hrs |
+| Home Page Implementation - MOBILE | [#945](https://github.com/bounswe/bounswe2023group5/issues/945) | Ege Ekşi | 19.12.2023| [#1032](https://github.com/bounswe/bounswe2023group5/pull/1032) | 4 hrs| 3hrs 30mins|
 
 
 
@@ -78,6 +78,7 @@
 | Improving Group Recommendations |[#1044](https://github.com/bounswe/bounswe2023group5/issues/1044)| Zeynep Baydemir | 26.12.2023 | 2 hrs|
 | improve dockerization process |[#1042](https://github.com/bounswe/bounswe2023group5/issues/1042)| Deniz Ünal | 22.12.2023 | 1.5 hrs |
 | adding image annotation backend |[#1045](https://github.com/bounswe/bounswe2023group5/issues/1045)| Deniz Ünal | 23.12.2023 | 1 hrs |
+| Recommendation Implementation - MOBILE  |[#1046](https://github.com/bounswe/bounswe2023group5/issues/1046)| Ege Ekşi , Bilal Atım | 26.12.2023 | 4 hrs |
 
 
 ## Risks
