@@ -79,6 +79,8 @@
 | adding image annotation backend |[#1045](https://github.com/bounswe/bounswe2023group5/issues/1045)| Deniz Ünal | 23.12.2023 | 1 hrs |
 | Recommendation Implementation - MOBILE  |[#1046](https://github.com/bounswe/bounswe2023group5/issues/1046)| Ege Ekşi , Bilal Atım | 26.12.2023 | 4 hrs |
 | Forum Post Page Enhancements | [#1008](https://github.com/bounswe/bounswe2023group5/issues/1008) | Çisel Zümbül   | 24.12.2023 | 3hrs     |
+| Prepare User Scenarios For Final Milestone - MOBILE | [#1053](https://github.com/bounswe/bounswe2023group5/issues/1053) | Mobile Team | 26.12.2023 | 4 hrs |
+| Promotion Implementation - MOBILE | [#1052](https://github.com/bounswe/bounswe2023group5/issues/1052) | Said Yolcu, Harun Sami Çelik | 26.12.2023 | 3.5 hrs |
 
 ## Risks
 
