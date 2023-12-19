@@ -17,13 +17,12 @@
 | -------------------------------------------------------------------------- | --------------------------------------------------------------- | ---------------- | ---------- | --- | ------------------ | --------------- |
 | --- | --- | --- | --- | --- |
 | Implement character linking functionality for forum posts | [#957](https://github.com/bounswe/bounswe2023group5/issues/957)| Alperen        | 19.12.2023 |  [#1029](https://github.com/bounswe/bounswe2023group5/pull/1029) | 2hrs     | 2hrs 20mins |
-| Home page visual improvements | [#1007](https://github.com/bounswe/bounswe2023group5/issues/1007)| Çisel Zümbül    | 21.12.2023 | | 2hrs     |2hrs 40mins |
 | Annotation front-end entegration | [#1011](https://github.com/bounswe/bounswe2023group5/issues/1011) | Arda      | 19.12.2023 | | 6hrs     | 5hrs 30mins |
 | Apply Group Enhancements | [#999](https://github.com/bounswe/bounswe2023group5/issues/999) | Ali     | 19.12.2023 | [#1023](https://github.com/bounswe/bounswe2023group5/pull/1023)| 3hrs     | 4hrs |
 | Comment Functionality Enhancements | [#1000](https://github.com/bounswe/bounswe2023group5/issues/1000) | Ali     | 19.12.2023 | [#1028](https://github.com/bounswe/bounswe2023group5/pull/1028)| 2hrs     | 2hrs 30mins |
-| Last Activities Refactor | [#1005](https://github.com/bounswe/bounswe2023group5/issues/1005)  | Çisel Zümbül   | 18.12.2023 | | 3hrs     | 3hrs|
+| Last Activities Refactor | [#1005](https://github.com/bounswe/bounswe2023group5/issues/1005)  | Çisel Zümbül   | 18.12.2023 | [#1031](https://github.com/bounswe/bounswe2023group5/pull/1031)| 3hrs     | 3hrs|
 | Login/Register Enhancements | [#1012](https://github.com/bounswe/bounswe2023group5/issues/1012) | Arda   | 15.12.2023 | | 2hrs     | 2hrs 40mins |
-| Change Password Backend and Profile Integration | [#1006](https://github.com/bounswe/bounswe2023group5/issues/1006)| Çisel Zümbül | 19.12.2023 | | 1hr 30mins    | 2hrs|
+| Change Password Backend and Profile Integration | [#1006](https://github.com/bounswe/bounswe2023group5/issues/1006)| Çisel Zümbül | 19.12.2023 | [#1030](https://github.com/bounswe/bounswe2023group5/pull/1030)| 1hr 30mins    | 1hr|
 | Recommendation Related to Group  | [#1002](https://github.com/bounswe/bounswe2023group5/issues/1002) | Zeynep Baydemir  | 19.12.2023 | [#1021](https://github.com/bounswe/bounswe2023group5/pull/1021) | 4hrs     | 3hrs 30mins |
 | Implementation of Recommendation System for Games  | [#1013](https://github.com/bounswe/bounswe2023group5/issues/1013) | Can Uzduran | 19.12.2023 | | 4hrs | 4hrs 30mins |
 | Comment Redesign - MOBILE | [#1004](https://github.com/bounswe/bounswe2023group5/issues/1004) | Said Yolcu | 21.12.2023 | | 2 hrs | 3hrs |
