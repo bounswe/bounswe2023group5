@@ -69,7 +69,7 @@
 | Add Info Box For Promotions |[#998](https://github.com/bounswe/bounswe2023group5/issues/998)| Frontend Team | 25.12.2023 | 3hrs     |
 | Replace antd messages with notifications |[#1054](https://github.com/bounswe/bounswe2023group5/issues/1054)| Arda | 25.12.2023 | 30mins     |
 | Made sidebar sticky |[#1047](https://github.com/bounswe/bounswe2023group5/issues/1047)| Alperen| 25.12.2023 | 30mins    
-| Add Min System Requirement Field to Game Create |[#1055](https://github.com/bounswe/bounswe2023group5/issues/1055)| Arda| 26.12.2023 | 30mins    | 
+| Add Min System Requirement Field to Game Create |[#1055](https://github.com/bounswe/bounswe2023group5/issues/1055)| Arda| 25.12.2023 | 30mins    | 
 | Implement image annotations |[#1056](https://github.com/bounswe/bounswe2023group5/issues/1056)| Arda| 25.12.2023 | 5hrs    |
 | Implementing Additional Notification Cases |[#1036](https://github.com/bounswe/bounswe2023group5/issues/1036)| Halis| 25.12.2023 | 4hrs    |
 | Writing Unit Tests for Character Service |[#1037](https://github.com/bounswe/bounswe2023group5/issues/1037)| Halis| 25.12.2023 | 1.5hrs    |
