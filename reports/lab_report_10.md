@@ -21,7 +21,6 @@
 | Annotation front-end entegration | [#1011](https://github.com/bounswe/bounswe2023group5/issues/1011) | Arda      | 19.12.2023 | | 6hrs     | 5hrs 30mins |
 | Apply Group Enhancements | [#999](https://github.com/bounswe/bounswe2023group5/issues/999) | Ali     | 19.12.2023 | [#1023](https://github.com/bounswe/bounswe2023group5/pull/1023)| 3hrs     | 4hrs |
 | Comment Functionality Enhancements | [#1000](https://github.com/bounswe/bounswe2023group5/issues/1000) | Ali     | 19.12.2023 | [#1028](https://github.com/bounswe/bounswe2023group5/pull/1028)| 2hrs     | 2hrs 30mins |
-| Forum Post Page Enhancements | [#1008](https://github.com/bounswe/bounswe2023group5/issues/1008) | Çisel Zümbül   | 22.12.2023 | | 3hrs     | 4hrs |
 | Last Activities Refactor | [#1005](https://github.com/bounswe/bounswe2023group5/issues/1005)  | Çisel Zümbül   | 18.12.2023 | | 3hrs     | 3hrs|
 | Login/Register Enhancements | [#1012](https://github.com/bounswe/bounswe2023group5/issues/1012) | Arda   | 15.12.2023 | | 2hrs     | 2hrs 40mins |
 | Change Password Backend and Profile Integration | [#1006](https://github.com/bounswe/bounswe2023group5/issues/1006)| Çisel Zümbül | 19.12.2023 | | 1hr 30mins    | 2hrs|
@@ -56,13 +55,13 @@
 | Description | Issue | Assignee | Due |Estimated Duration |
 | --- | --- | --- | --- | --- |
 | Prepare the scenarios for the final presentation | [#957](https://github.com/bounswe/bounswe2023group5/issues/957) | Frontend Team       | 26.12.2023 | 2hrs     |
-| Home page visual improvements | [#1007](https://github.com/bounswe/bounswe2023group5/issues/1007)| Çisel Zümbül    | 26.12.2023 | 2hrs     |
+| Home page visual improvements | [#1007](https://github.com/bounswe/bounswe2023group5/issues/1007)| Çisel    | 25.12.2023 | 3hrs     |
 | Home page recommendation carousels | [#1010](https://github.com/bounswe/bounswe2023group5/issues/1010) | Alperen      | 26.12.2023 | 2hrs     |
 | Promotion front end implementation |[#998](https://github.com/bounswe/bounswe2023group5/issues/998)| Ali     | 26.12.2023 | 3hrs     |
 | Add form for the apply group fuctionality |[#1041](https://github.com/bounswe/bounswe2023group5/issues/1041)| Ali     | 26.12.2023 | 3hrs     |
 | Add an indicator for annotate-able areas |[#1049](https://github.com/bounswe/bounswe2023group5/issues/1049)| Alperen     | 26.12.2023 | 3hrs     |
-| Profile Game Store Account Link Fix|[#998](https://github.com/bounswe/bounswe2023group5/issues/998)| Çisel     | 26.12.2023 | 3hrs     |
-| Link New Notification Types To The Related Pages|[#998](https://github.com/bounswe/bounswe2023group5/issues/998)| Çisel   | 26.12.2023 | 3hrs     |
+| Profile Game Store Account Link Fix|[#1048](https://github.com/bounswe/bounswe2023group5/issues/1048)| Çisel     | 24.12.2023 |30 mins   |
+| Link New Notification Types To The Related Pages|[#1050](https://github.com/bounswe/bounswe2023group5/issues/150)| Çisel   | 25.12.2023 | 2hrs     |
 | Fix Grant Achievement Button Positioning and Style |[#1040](https://github.com/bounswe/bounswe2023group5/issues/1040)| Ali | 26.12.2023 | 2hrs     |
 | Add Info Box For Promotions |[#998](https://github.com/bounswe/bounswe2023group5/issues/998)| Frontend Team | 26.12.2023 | 3hrs     |
 | Replace antd messages with notifications |[#998](https://github.com/bounswe/bounswe2023group5/issues/998)| Arda | 26.12.2023 | 30mins     |
@@ -78,7 +77,7 @@
 | improve dockerization process |[#1042](https://github.com/bounswe/bounswe2023group5/issues/1042)| Deniz Ünal | 22.12.2023 | 1.5 hrs |
 | adding image annotation backend |[#1045](https://github.com/bounswe/bounswe2023group5/issues/1045)| Deniz Ünal | 23.12.2023 | 1 hrs |
 | Recommendation Implementation - MOBILE  |[#1046](https://github.com/bounswe/bounswe2023group5/issues/1046)| Ege Ekşi , Bilal Atım | 26.12.2023 | 4 hrs |
-
+| Forum Post Page Enhancements | [#1008](https://github.com/bounswe/bounswe2023group5/issues/1008) | Çisel Zümbül   | 24.12.2023 | 3hrs     |
 
 ## Risks
 
