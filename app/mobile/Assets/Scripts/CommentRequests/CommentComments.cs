@@ -9,7 +9,7 @@ using TMPro;
 using UnityEngine.UI;
 using static CommentController;
 
-public class ForumPostComments : MonoBehaviour
+public class CommentComments : MonoBehaviour
 {
     //[SerializeField] private string title;
     //[SerializeField] private string postContent;
@@ -17,23 +17,25 @@ public class ForumPostComments : MonoBehaviour
     [SerializeField] private ScrollRect scrollRect;
     [SerializeField] private Transform commentParent;
     private List<CommentBox> commentPages = new List<CommentBox>();
-    [SerializeField] private string postID;
+    // [SerializeField] private string postID;
+    [SerializeField] private string commentID;
     private CanvasManager canvasManager;
     [SerializeField] private TMP_InputField commentInputField;
     [SerializeField] private Button addCommentButton;
     [SerializeField] private Button exitButton;
     [SerializeField] private TMP_Text infoText;
-    private GetPostListResponse postInfo;
+    private PostComment commentInfo;
     [SerializeField] private Image userImage;
     // [SerializeField] private TMP_Text poster;
-    [SerializeField] private TMP_Text title;
-    [SerializeField] private TMP_Text postContent;
+    // [SerializeField] private TMP_Text title;
+    // [SerializeField] private TMP_Text postContent;
+    [SerializeField] private TMP_Text commentContent;
     [SerializeField] private TMP_Text lastEditedAt;
     [SerializeField] private TMP_Text overallVote;
     [SerializeField] private TMP_Text tags;
     [SerializeField] private TMP_Text userName;
+    private CommentReply[] replies;
 
-    [SerializeField] private CommentComments L2commentManager;
     
     private void Awake()
     {
@@ -42,38 +44,32 @@ public class ForumPostComments : MonoBehaviour
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
     }
 
-    public void Init(string id, GetPostListResponse postInfoVal /*, CommentComments L2commentManagerInfo*/)
+    public void Init(string id, PostComment postInfoVal )
     {
-        postID = id;
+        // postID = id;
+        commentID = id;
         infoText.text = "";
-        postInfo = postInfoVal;
-        // this.L2commentManager = L2commentManagerInfo;
-
-        if (L2commentManager == null)
-        {
-            Debug.Log("l2 comment manager is null");
-        }
-        else
-        {
-            Debug.Log("l2 comment manager is not null");
-
-        }
+        commentInfo = postInfoVal;
+        replies = commentInfo.replies;
         
+        Debug.Log("replies: "+ replies);
         // forumPost.Init(postID);
-        title.text = postInfo.title;
-        postContent.text = postInfo.postContent;
-        lastEditedAt.text = postInfo.lastEditedAt;
-        overallVote.text = Convert.ToString(postInfo.overallVote);
-        if (postInfo.poster == null)
+        // title.text = postInfo.title;
+        commentContent.text = commentInfo.commentContent;
+        lastEditedAt.text = commentInfo.lastEditedAt;
+        overallVote.text = Convert.ToString(commentInfo.overallVote);
+        if (commentInfo.commenter == null)
         {
             userName.text = "(anonymous)";
         }
         else
         {
-            userName.text = postInfo.poster.username;
+            userName.text = commentInfo.commenter.username;
 
         }
 
+        // Comments do not have tags
+        /*
         tags.text = "";
         foreach (var tag in postInfo.tags)
         {
@@ -89,23 +85,23 @@ public class ForumPostComments : MonoBehaviour
             // This will be deleted
             lastEditedAt.text += " (not edited)";
         }
+        */
         
         //GameObject postComments = GameObject.Find("PostComments");
         //postComments.SetActive(true);
 
         
-        if (string.IsNullOrEmpty(postID))
+        if (string.IsNullOrEmpty(commentID))
         {
             Debug.Log("Id must be specified");
             return;
         }
-        
-        string url = AppVariables.HttpServerUrl + "/post/get-post-comments" + 
-                     ListToQueryParameters.ListToQueryParams(new []{"id"}, new []{postID});
-        StartCoroutine(Get(url));
+
+        DisplayComments();
     }
     
-    IEnumerator Get(string url)
+    // Displays the reply comments
+    private void DisplayComments ()
     {
         foreach (var commentPage in commentPages)
         {
@@ -113,35 +109,18 @@ public class ForumPostComments : MonoBehaviour
         }
         commentPages.Clear();
         
-        var request = new UnityWebRequest(url, "GET");
-        request.downloadHandler = new DownloadHandlerBuffer();
-        request.SetRequestHeader("Content-Type", "application/json");
-        request.SetRequestHeader("Authorization", PersistenceManager.UserToken);
-        yield return request.SendWebRequest();
-        string response = "";
-        if (request.responseCode == 200)
+        
+        
+        foreach (var comment in replies)
         {
-            response = request.downloadHandler.text;
-            
-            var _gamesData = JsonConvert.DeserializeObject<PostComment[]>(response);
-            
-            foreach (var gameData in _gamesData)
-            {
-                Debug.Log("game data is:\n" + gameData);
-                CommentBox newComment = Instantiate(Resources.Load<CommentBox>("Prefabs/CommentPage"), commentParent);
-                commentPages.Add(newComment);
-                newComment.Init(gameData, L2commentManager);
-            }
-            Canvas.ForceUpdateCanvases();
-            scrollRect.verticalNormalizedPosition = 1;
-            
-            Debug.Log("Success to get forum post comments: " + response);
+            Debug.Log("comment reply is:\n" + comment);
+            CommentBox newComment = Instantiate(Resources.Load<CommentBox>("Prefabs/CommentPage"), commentParent);
+            commentPages.Add(newComment);
+            newComment.Init(comment);
         }
-        else
-        {
-            Debug.Log("Error to get forum post comments: " + response);
-        }
-        request.downloadHandler.Dispose();
+        Canvas.ForceUpdateCanvases();
+        scrollRect.verticalNormalizedPosition = 1;
+        
     }
 
     private void addComment()
@@ -156,14 +135,14 @@ public class ForumPostComments : MonoBehaviour
             return;
         }
         req.commentContent = commentInputField.text;
-        req.post = postID;
+        req.post = commentID;
         
         CreateComment(req);
     }
 
     private void exit()
     {
-        canvasManager.HidePostComments();
+        canvasManager.HideCommentComments();
     }
     
     

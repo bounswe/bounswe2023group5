@@ -17,22 +17,38 @@ public class ForumPost : MonoBehaviour
     [SerializeField] private TMP_Text userName;
 
     [SerializeField] private Button forumPostComments;
-    [SerializeField] private openComment commentManager;
+    [SerializeField] private Button deletePost;
+    [SerializeField] private Button editPost;
+    [SerializeField] private GameObject deletePanel;
+    [SerializeField] private Button yesDelete;
+    [SerializeField] private Button noDelete;
+    [SerializeField] private TMP_Text deleteText;
+    
+    [SerializeField] private ForumPostComments commentManager;
+    [SerializeField] private ForumCreatePost editPostManager;
+    // [SerializeField] private CommentComments L2commentManager;
     // [SerializeField] private Button gameDetailsButton;
     private CanvasManager canvasManager;
     private string postId;
+    private string userId;
     private GetPostListResponse postInfoVal;
 
     private void Awake()
     {
-        commentManager = FindObjectOfType(typeof(openComment)) as openComment;
+        // commentManager = FindObjectOfType(typeof(openComment)) as openComment;
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
         forumPostComments.onClick.AddListener(OnClickedForumPostComments);
+        editPost.onClick.AddListener(OnClickedEditPost);
+        deletePost.onClick.AddListener(OnClickedDeletePost);
+        deletePanel.SetActive(false);
     }
 
-    public void Init(GetPostListResponse postInfo)
+    public void Init(GetPostListResponse postInfo, ForumPostComments commentManagerInfo,
+        ForumCreatePost editPostManagerInfo)
     {
         postInfoVal = postInfo;
+        commentManager = commentManagerInfo;
+        editPostManager = editPostManagerInfo;
         string url = "http://ec2-16-16-166-22.eu-north-1.compute.amazonaws.com/";
         // StartCoroutine(LoadImageFromURL(url + gameInfo.gameIcon, gameImage));
         // poster.text = postInfo.poster;
@@ -47,7 +63,7 @@ public class ForumPost : MonoBehaviour
         else
         {
             userName.text = postInfo.poster.username;
-
+            userId = postInfo.poster.id;
         }
         postId = postInfo.id;
         
@@ -67,6 +83,18 @@ public class ForumPost : MonoBehaviour
         {
             // This will be deleted
             lastEditedAt.text += " (not edited)";
+        }
+
+        // User can delete and edit her own posts
+        if (userId == PersistenceManager.id)
+        {
+            deletePost.gameObject.SetActive(true);
+            editPost.gameObject.SetActive(true);
+        }
+        else
+        {
+            deletePost.gameObject.SetActive(false);
+            editPost.gameObject.SetActive(false);
         }
     }
 
@@ -95,6 +123,54 @@ public class ForumPost : MonoBehaviour
         //postComments.SetActive(true);
 
         canvasManager.ShowPostComments();
-        commentManager.openLocalPostComment(postId, postInfoVal);
+        commentManager.Init(postId, postInfoVal/*, L2commentManager*/);
+    }
+
+    private void OnClickedEditPost()
+    {
+        editPostManager.Init(postId, postInfoVal);
+        canvasManager.ShowCreateEditPostPage();
+        
+    }
+    
+    private void OnClickedDeletePost()
+    {
+        deletePanel.SetActive(true);
+        yesDelete.onClick.AddListener(OnClickedYesDelete);
+        noDelete.onClick.AddListener(OnClickedNoDelete);
+    }
+    
+    private void OnClickedYesDelete()
+    {
+        string url = AppVariables.HttpServerUrl + "/post/delete" + 
+                     ListToQueryParameters.ListToQueryParams(new []{"id"}, new []{postId});
+        StartCoroutine(Delete(url));
+    }
+    
+    IEnumerator Delete(string url)
+    {
+        var request = new UnityWebRequest(url, "DELETE");
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+        request.SetRequestHeader("Authorization", PersistenceManager.UserToken);
+        yield return request.SendWebRequest();
+        string response = "";
+        if (request.responseCode == 200)
+        {
+            response = request.downloadHandler.text;
+            Debug.Log("Success to delete forum post detail: " + response);
+            deleteText.text = "Post is successfully deleted";
+        }
+        else
+        {
+            Debug.Log("Error to delete forum post detail: " + response);
+            deleteText.text = "Error in deleting post";
+        }
+        request.downloadHandler.Dispose();
+    }
+    
+    private void OnClickedNoDelete()
+    {
+        deletePanel.SetActive(false);
     }
 }
