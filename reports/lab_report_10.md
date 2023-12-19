@@ -26,7 +26,7 @@
 | Login/Register Enhancements | [#1012](https://github.com/bounswe/bounswe2023group5/issues/1012) | Arda   | 15.12.2023 | | 2hrs     | 2hrs 40mins |
 | Change Password Backend and Profile Integration | [#1006](https://github.com/bounswe/bounswe2023group5/issues/1006)| Çisel Zümbül | 19.12.2023 | [#1030](https://github.com/bounswe/bounswe2023group5/pull/1030)| 1hr 30mins    | 1hr|
 | Recommendation Related to Group  | [#1002](https://github.com/bounswe/bounswe2023group5/issues/1002) | Zeynep Baydemir  | 19.12.2023 | [#1021](https://github.com/bounswe/bounswe2023group5/pull/1021) | 4hrs     | 3hrs 30mins |
-| Implementation of Recommendation System for Games  | [#1013](https://github.com/bounswe/bounswe2023group5/issues/1013) | Can Uzduran | 19.12.2023 | | 4hrs | 4hrs 30mins |
+| Implementation of Recommendation System for Games  | [#1013](https://github.com/bounswe/bounswe2023group5/issues/1013) | Can Uzduran | 19.12.2023 | [#1019](https://github.com/bounswe/bounswe2023group5/pull/1019) | 4hrs | 4hrs 30mins |
 | Forum Post Redesign - MOBILE | [#1003](https://github.com/bounswe/bounswe2023group5/issues/1003) | Said Yolcu | 20.12.2023 | [#1034](https://github.com/bounswe/bounswe2023group5/pull/1034) | 2 hrs | 3hrs |
 | Researching annotation web standards | [#1014](https://github.com/bounswe/bounswe2023group5/issues/1014) | Deniz Ünal, Halis Bal | 17.12.2023 | - | 4 hrs | 4hrs 20 mins|
 | Implementing the Annotation Service - Backend | [#1015](https://github.com/bounswe/bounswe2023group5/issues/1015) | Deniz Ünal, Halis Bal | 19.12.2023 | https://github.com/bounswe/bounswe2023group5/pull/1022, https://github.com/bounswe/bounswe2023group5/pull/1025 | 10 hrs | 12hrs|
