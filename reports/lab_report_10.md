@@ -61,13 +61,13 @@
 | Home page recommendation carousels | [#1010](https://github.com/bounswe/bounswe2023group5/issues/1010) | Alperen      | 26.12.2023 | 2hrs     |
 | Promotion front end implementation |[#998](https://github.com/bounswe/bounswe2023group5/issues/998)| Ali     | 26.12.2023 | 3hrs     |
 | Add form for the apply group fuctionality |[#1041](https://github.com/bounswe/bounswe2023group5/issues/1041)| Ali     | 26.12.2023 | 3hrs     |
-| Add an indicator for annotate-able areas |[#998](https://github.com/bounswe/bounswe2023group5/issues/998)| Alperen     | 26.12.2023 | 3hrs     |
+| Add an indicator for annotate-able areas |[#1049](https://github.com/bounswe/bounswe2023group5/issues/1049)| Alperen     | 26.12.2023 | 3hrs     |
 | Profile Game Store Account Link Fix|[#998](https://github.com/bounswe/bounswe2023group5/issues/998)| Çisel     | 26.12.2023 | 3hrs     |
 | Link New Notification Types To The Related Pages|[#998](https://github.com/bounswe/bounswe2023group5/issues/998)| Çisel   | 26.12.2023 | 3hrs     |
 | Fix Grant Achievement Button Positioning and Style |[#1040](https://github.com/bounswe/bounswe2023group5/issues/1040)| Ali | 26.12.2023 | 2hrs     |
 | Add Info Box For Promotions |[#998](https://github.com/bounswe/bounswe2023group5/issues/998)| Frontend Team | 26.12.2023 | 3hrs     |
 | Replace antd messages with notifications |[#998](https://github.com/bounswe/bounswe2023group5/issues/998)| Arda | 26.12.2023 | 30mins     |
-| Made sidebar sticky |[#998](https://github.com/bounswe/bounswe2023group5/issues/998)| Alperen| 26.12.2023 | 30mins    
+| Made sidebar sticky |[#1047](https://github.com/bounswe/bounswe2023group5/issues/1047)| Alperen| 26.12.2023 | 30mins    
 | Add Min System Requirement Field to Game Create |[#998](https://github.com/bounswe/bounswe2023group5/issues/998)| Arda| 26.12.2023 | 30mins    |
 | Implement image annotations |[#998](https://github.com/bounswe/bounswe2023group5/issues/998)| Arda| 26.12.2023 | 5hrs    |
 | Implementing Additional Notification Cases |[#1036](https://github.com/bounswe/bounswe2023group5/issues/1036)| Halis| 25.12.2023 | 4hrs    |
