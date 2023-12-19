@@ -17,7 +17,6 @@
 ## What was planned for the week? How did it go?
 | Description                                                                | Issue                                                           | Assignee         | Due        | PR  | Estimated Duration | Actual Duration |
 | -------------------------------------------------------------------------- | --------------------------------------------------------------- | ---------------- | ---------- | --- | ------------------ | --------------- |
-| --- | --- | --- | --- | --- |
 | Implement character linking functionality for forum posts | [#957](https://github.com/bounswe/bounswe2023group5/issues/957)| Alperen        | 19.12.2023 |  [#1029](https://github.com/bounswe/bounswe2023group5/pull/1029) | 2hrs     | 2hrs 20mins |
 | Annotation front-end entegration | [#1011](https://github.com/bounswe/bounswe2023group5/issues/1011) | Arda      | 19.12.2023 | [#1033](https://github.com/bounswe/bounswe2023group5/pull/1033) | 6hrs     | 5hrs 30mins |
 | Apply Group Enhancements | [#999](https://github.com/bounswe/bounswe2023group5/issues/999) | Ali     | 19.12.2023 | [#1023](https://github.com/bounswe/bounswe2023group5/pull/1023)| 3hrs     | 4hrs |
