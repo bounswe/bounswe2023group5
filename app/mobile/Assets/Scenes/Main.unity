@@ -4677,6 +4677,10 @@ PrefabInstance:
       propertyPath: commentManager
       value: 
       objectReference: {fileID: 601480599}
+    - target: {fileID: 6918450709577564822, guid: bbc632765f324709bac97ad6540588cb, type: 3}
+      propertyPath: editPostManager
+      value: 
+      objectReference: {fileID: 1342219876}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bbc632765f324709bac97ad6540588cb, type: 3}
 --- !u!1 &829542771 stripped
@@ -10850,6 +10854,10 @@ PrefabInstance:
       propertyPath: commentManager
       value: 
       objectReference: {fileID: 601480599}
+    - target: {fileID: 4449927190830197286, guid: 05adf7c79d08d6b83a774c1686ff0f18, type: 3}
+      propertyPath: editPostManager
+      value: 
+      objectReference: {fileID: 1342219876}
     - target: {fileID: 8395967044893703977, guid: 05adf7c79d08d6b83a774c1686ff0f18, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -213.09998
