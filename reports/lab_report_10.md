@@ -11,7 +11,7 @@
 - We implemented the character feature for front-end this week.
 - We implemented the promotion feature for front-end this week.
 - We implemented the recommendation feature for back-end this week.
-- We will finish the annotation implementation.
+- We will complete the annotation implementation.
 - We will implement the promotion feature.
 
 ## What was planned for the week? How did it go?
