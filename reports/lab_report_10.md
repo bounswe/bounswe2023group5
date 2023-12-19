@@ -16,9 +16,8 @@
 | Description                                                                | Issue                                                           | Assignee         | Due        | PR  | Estimated Duration | Actual Duration |
 | -------------------------------------------------------------------------- | --------------------------------------------------------------- | ---------------- | ---------- | --- | ------------------ | --------------- |
 | --- | --- | --- | --- | --- |
-| Implement character linking functionality for forum posts | [#957](https://github.com/bounswe/bounswe2023group5/issues/957)| Alperen        | 19.12.2023 | | 2hrs     | 2hrs 20mins |
+| Implement character linking functionality for forum posts | [#957](https://github.com/bounswe/bounswe2023group5/issues/957)| Alperen        | 19.12.2023 |  [#1029](https://github.com/bounswe/bounswe2023group5/pull/1029) | 2hrs     | 2hrs 20mins |
 | Home page visual improvements | [#1007](https://github.com/bounswe/bounswe2023group5/issues/1007)| Çisel Zümbül    | 21.12.2023 | | 2hrs     |2hrs 40mins |
-| Home page recommendation carousels | [#1010](https://github.com/bounswe/bounswe2023group5/issues/1010) | Alperen      | 19.12.2023 | | 2hrs     | 3hrs |
 | Annotation front-end entegration | [#1011](https://github.com/bounswe/bounswe2023group5/issues/1011) | Arda      | 19.12.2023 | | 6hrs     | 5hrs 30mins |
 | Apply Group Enhancements | [#999](https://github.com/bounswe/bounswe2023group5/issues/999) | Ali     | 19.12.2023 | [#1023](https://github.com/bounswe/bounswe2023group5/pull/1023)| 3hrs     | 4hrs |
 | Comment Functionality Enhancements | [#1000](https://github.com/bounswe/bounswe2023group5/issues/1000) | Ali     | 19.12.2023 | [#1028](https://github.com/bounswe/bounswe2023group5/pull/1028)| 2hrs     | 2hrs 30mins |
