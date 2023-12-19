@@ -73,7 +73,7 @@ public class GetProfile : MonoBehaviour
             userTypeText.text = profileResponseData.user.role;
             role = profileResponseData.user.role;
             SetProfilButton();
-            StartCoroutine(LoadImageFromURL(profileResponseData.profilePhoto, userAvatarImage));
+            StartCoroutine(LoadImageFromURL(AppVariables.HttpImageUrl+profileResponseData.profilePhoto, userAvatarImage));
             if (profileResponseData.steamProfile != null)
             {
                 steamProfile.SetActive(true);
@@ -122,20 +122,21 @@ public class GetProfile : MonoBehaviour
     }
 
     private IEnumerator LoadImageFromURL(string imageUrl, Image targetImage)
-    {
+    {   
         UnityWebRequest request = UnityWebRequestTexture.GetTexture(imageUrl);
         yield return request.SendWebRequest();
-
-        if(request.result != UnityWebRequest.Result.Success)
+        if (request.isNetworkError || request.isHttpError)
         {
-            // Debug.LogError("Failed to load image: " + request.error);
+            Debug.Log(request.error);
         }
         else
         {
-            Texture2D texture = DownloadHandlerTexture.GetContent(request);
-            targetImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+            Texture2D texture2;
+            texture2 = ((DownloadHandlerTexture) request.downloadHandler).texture;
+            Sprite sprite = Sprite.Create(texture2, new Rect(0, 0, texture2.width, texture2.height), new Vector2(0, 0));
+            targetImage.sprite = sprite;
         }
-    }
+    } 
     
     private GameObject lastObject;
     private List<GamePage> gamePages = new List<GamePage>();
