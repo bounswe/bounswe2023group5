@@ -21,28 +21,6 @@ public class AchievementPopUp : MonoBehaviour
         StartCoroutine(LoadImageFromURL(url, achievementImage));
     }
     
-    public IEnumerator UploadImage(byte[] image, string folder)
-    {
-        string url = $"{AppVariables.HttpServerUrl}/image/upload?folder={folder}";
-
-        WWWForm formData = new WWWForm();
-        formData.AddBinaryData("image", image, "image.png", "image/png");
-
-        UnityWebRequest request = UnityWebRequest.Post(url, formData);
-        request.SetRequestHeader("Content-Type", "multipart/form-data");
-
-        yield return request.SendWebRequest();
-
-        if (request.result == UnityWebRequest.Result.Success)
-        {
-            Debug.Log("Image upload successful!");
-            Debug.Log(request.downloadHandler.text); // Response data
-        }
-        else
-        {
-            Debug.LogError("Image upload failed: " + request.error);
-        }
-    }
     private bool isTitle = false;
     public void ChangeText()
     {
