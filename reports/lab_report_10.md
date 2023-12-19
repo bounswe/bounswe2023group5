@@ -20,8 +20,8 @@
 | Home page visual improvements | [#1007](https://github.com/bounswe/bounswe2023group5/issues/1007)| Çisel Zümbül    | 21.12.2023 | | 2hrs     |2hrs 40mins |
 | Home page recommendation carousels | [#1010](https://github.com/bounswe/bounswe2023group5/issues/1010) | Alperen      | 19.12.2023 | | 2hrs     | 3hrs |
 | Annotation front-end entegration | [#1011](https://github.com/bounswe/bounswe2023group5/issues/1011) | Arda      | 19.12.2023 | | 6hrs     | 5hrs 30mins |
-| Apply Group Enhancements | [#999](https://github.com/bounswe/bounswe2023group5/issues/999) | Ali     | 19.12.2023 | | 3hrs     | 4hrs |
-| Comment Functionality Enhancements | [#1000](https://github.com/bounswe/bounswe2023group5/issues/1000) | Ali     | 19.12.2023 | | 2hrs     | 2hrs 30mins |
+| Apply Group Enhancements | [#999](https://github.com/bounswe/bounswe2023group5/issues/999) | Ali     | 19.12.2023 | [#1023](https://github.com/bounswe/bounswe2023group5/pull/1023)| 3hrs     | 4hrs |
+| Comment Functionality Enhancements | [#1000](https://github.com/bounswe/bounswe2023group5/issues/1000) | Ali     | 19.12.2023 | [#1028](https://github.com/bounswe/bounswe2023group5/pull/1028)| 2hrs     | 2hrs 30mins |
 | Forum Post Page Enhancements | [#1008](https://github.com/bounswe/bounswe2023group5/issues/1008) | Çisel Zümbül   | 22.12.2023 | | 3hrs     | 4hrs |
 | Last Activities Refactor | [#1005](https://github.com/bounswe/bounswe2023group5/issues/1005)  | Çisel Zümbül   | 18.12.2023 | | 3hrs     | 3hrs|
 | Login/Register Enhancements | [#1012](https://github.com/bounswe/bounswe2023group5/issues/1012) | Arda   | 15.12.2023 | | 2hrs     | 2hrs 40mins |
