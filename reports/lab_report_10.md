@@ -31,9 +31,9 @@
 | Implementation of Recommendation System for Games  | [#1013](https://github.com/bounswe/bounswe2023group5/issues/1013) | Can Uzduran | 19.12.2023 | | 4hrs | 4hrs 30mins |
 | Comment Redesign - MOBILE | [#1004](https://github.com/bounswe/bounswe2023group5/issues/1004) | Said Yolcu | 21.12.2023 | | 2 hrs | 3hrs |
 | Forum Post Redesign - MOBILE | [#1003](https://github.com/bounswe/bounswe2023group5/issues/1003) | Said Yolcu | 20.12.2023 | | 2 hrs | 3hrs |
-| Researching annotation web standards | [#1014](https://github.com/bounswe/bounswe2023group5/issues/1014) | Deniz Ünal, Halis Bal | 17.12.2023 | | 4 hrs | 4hrs 20 mins|
-| Implementing the Annotation Service - Backend | [#1015](https://github.com/bounswe/bounswe2023group5/issues/1015) | Deniz Ünal, Halis Bal | 19.12.2023 | | 10 hrs | 12hrs|
-| Deploying the Annotation Service - Backend | [#1016](https://github.com/bounswe/bounswe2023group5/issues/1016) | Halis Bal | 19.12.2023 | | 2 hrs | 3hrs |
+| Researching annotation web standards | [#1014](https://github.com/bounswe/bounswe2023group5/issues/1014) | Deniz Ünal, Halis Bal | 17.12.2023 | - | 4 hrs | 4hrs 20 mins|
+| Implementing the Annotation Service - Backend | [#1015](https://github.com/bounswe/bounswe2023group5/issues/1015) | Deniz Ünal, Halis Bal | 19.12.2023 | https://github.com/bounswe/bounswe2023group5/pull/1022, https://github.com/bounswe/bounswe2023group5/pull/1025 | 10 hrs | 12hrs|
+| Deploying the Annotation Service - Backend | [#1016](https://github.com/bounswe/bounswe2023group5/issues/1016) | Halis Bal | 19.12.2023 | - | 2 hrs | 6hrs |
 | Solve Upload Image From Local Problem | [#1001](https://github.com/bounswe/bounswe2023group5/issues/1001) | Bilal Atım | 20.12.2023 | | 5 hrs | 5hrs |
 | Home Page Implementation - MOBILE | [#945](https://github.com/bounswe/bounswe2023group5/issues/945) | Ege Ekşi | 19.12.2023| | 4 hrs| 3hrs 30mins|
 
@@ -68,6 +68,10 @@
 | Made sidebar sticky |[#998](https://github.com/bounswe/bounswe2023group5/issues/998)| Alperen| 26.12.2023 | 30mins    
 | Add Min System Requirement Field to Game Create |[#998](https://github.com/bounswe/bounswe2023group5/issues/998)| Arda| 26.12.2023 | 30mins    |
 | Implement image annotations |[#998](https://github.com/bounswe/bounswe2023group5/issues/998)| Arda| 26.12.2023 | 5hrs    |
+| Implementing Additional Notification Cases |[#1036](https://github.com/bounswe/bounswe2023group5/issues/1036)| Halis| 25.12.2023 | 4hrs    |
+| Writing Unit Tests for Character Service |[#1037](https://github.com/bounswe/bounswe2023group5/issues/1037)| Halis| 25.12.2023 | 1.5hrs    |
+| Writing Unit Tests for Notification Service |[#1038](https://github.com/bounswe/bounswe2023group5/issues/1038)| Halis| 25.12.2023 | 1.5hrs    |
+| Generating and Analyzing the Coverage Report for Tests on Backend |[#1039](https://github.com/bounswe/bounswe2023group5/issues/1039)| Halis| 25.12.2023 | 3hrs    |
 
 
 ## Risks
