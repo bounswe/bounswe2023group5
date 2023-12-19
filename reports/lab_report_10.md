@@ -57,34 +57,34 @@
 
 | Description | Issue | Assignee | Due |Estimated Duration |
 | --- | --- | --- | --- | --- |
-| Prepare the scenarios for the final presentation | [#1051](https://github.com/bounswe/bounswe2023group5/issues/1051) | Frontend Team       | 26.12.2023 | 2hrs     |
+| Prepare the scenarios for the final presentation | [#1051](https://github.com/bounswe/bounswe2023group5/issues/1051) | Frontend Team       | 25.12.2023 | 2hrs     |
 | Home page visual improvements | [#1007](https://github.com/bounswe/bounswe2023group5/issues/1007)| Çisel    | 25.12.2023 | 3hrs     |
-| Home page recommendation carousels | [#1010](https://github.com/bounswe/bounswe2023group5/issues/1010) | Alperen      | 26.12.2023 | 2hrs     |
-| Promotion front end implementation |[#998](https://github.com/bounswe/bounswe2023group5/issues/998)| Ali     | 26.12.2023 | 3hrs     |
-| Add form for the apply group fuctionality |[#1041](https://github.com/bounswe/bounswe2023group5/issues/1041)| Ali     | 26.12.2023 | 3hrs     |
-| Add an indicator for annotate-able areas |[#1049](https://github.com/bounswe/bounswe2023group5/issues/1049)| Alperen     | 26.12.2023 | 3hrs     |
+| Home page recommendation carousels | [#1010](https://github.com/bounswe/bounswe2023group5/issues/1010) | Alperen      | 25.12.2023 | 2hrs     |
+| Promotion front end implementation |[#998](https://github.com/bounswe/bounswe2023group5/issues/998)| Ali     | 25.12.2023 | 3hrs     |
+| Add form for the apply group fuctionality |[#1041](https://github.com/bounswe/bounswe2023group5/issues/1041)| Ali     | 25.12.2023 | 3hrs     |
+| Add an indicator for annotate-able areas |[#1049](https://github.com/bounswe/bounswe2023group5/issues/1049)| Alperen     | 25.12.2023 | 3hrs     |
 | Profile Game Store Account Link Fix|[#1048](https://github.com/bounswe/bounswe2023group5/issues/1048)| Çisel     | 24.12.2023 |30 mins   |
 | Link New Notification Types To The Related Pages|[#1050](https://github.com/bounswe/bounswe2023group5/issues/150)| Çisel   | 25.12.2023 | 2hrs     |
-| Fix Grant Achievement Button Positioning and Style |[#1040](https://github.com/bounswe/bounswe2023group5/issues/1040)| Ali | 26.12.2023 | 2hrs     |
-| Add Info Box For Promotions |[#998](https://github.com/bounswe/bounswe2023group5/issues/998)| Frontend Team | 26.12.2023 | 3hrs     |
-| Replace antd messages with notifications |[#1054](https://github.com/bounswe/bounswe2023group5/issues/1054)| Arda | 26.12.2023 | 30mins     |
-| Made sidebar sticky |[#1047](https://github.com/bounswe/bounswe2023group5/issues/1047)| Alperen| 26.12.2023 | 30mins    
+| Fix Grant Achievement Button Positioning and Style |[#1040](https://github.com/bounswe/bounswe2023group5/issues/1040)| Ali | 25.12.2023 | 2hrs     |
+| Add Info Box For Promotions |[#998](https://github.com/bounswe/bounswe2023group5/issues/998)| Frontend Team | 25.12.2023 | 3hrs     |
+| Replace antd messages with notifications |[#1054](https://github.com/bounswe/bounswe2023group5/issues/1054)| Arda | 25.12.2023 | 30mins     |
+| Made sidebar sticky |[#1047](https://github.com/bounswe/bounswe2023group5/issues/1047)| Alperen| 25.12.2023 | 30mins    
 | Add Min System Requirement Field to Game Create |[#1055](https://github.com/bounswe/bounswe2023group5/issues/1055)| Arda| 26.12.2023 | 30mins    | 
-| Implement image annotations |[#1056](https://github.com/bounswe/bounswe2023group5/issues/1056)| Arda| 26.12.2023 | 5hrs    |
+| Implement image annotations |[#1056](https://github.com/bounswe/bounswe2023group5/issues/1056)| Arda| 25.12.2023 | 5hrs    |
 | Implementing Additional Notification Cases |[#1036](https://github.com/bounswe/bounswe2023group5/issues/1036)| Halis| 25.12.2023 | 4hrs    |
 | Writing Unit Tests for Character Service |[#1037](https://github.com/bounswe/bounswe2023group5/issues/1037)| Halis| 25.12.2023 | 1.5hrs    |
 | Writing Unit Tests for Notification Service |[#1038](https://github.com/bounswe/bounswe2023group5/issues/1038)| Halis| 25.12.2023 | 1.5hrs    |
 | Generating and Analyzing the Coverage Report for Tests on Backend |[#1039](https://github.com/bounswe/bounswe2023group5/issues/1039)| Halis| 25.12.2023 | 3hrs    |
-| Refactoring Homepage Posts According to Promoted Game Forums |[#1043](https://github.com/bounswe/bounswe2023group5/issues/1043)| Zeynep Baydemir | 26.12.2023 | 2.5hrs|
-| Improving Group Recommendations |[#1044](https://github.com/bounswe/bounswe2023group5/issues/1044)| Zeynep Baydemir | 26.12.2023 | 2 hrs|
+| Refactoring Homepage Posts According to Promoted Game Forums |[#1043](https://github.com/bounswe/bounswe2023group5/issues/1043)| Zeynep Baydemir | 25.12.2023 | 2.5hrs|
+| Improving Group Recommendations |[#1044](https://github.com/bounswe/bounswe2023group5/issues/1044)| Zeynep Baydemir | 25.12.2023 | 2 hrs|
 | Improving Game Recommendations |[#1057](https://github.com/bounswe/bounswe2023group5/issues/1057)| Can Uzduran | 25.12.2023 | 2 hrs|
 | Game Promotion Implementation - BE  |[#1058](https://github.com/bounswe/bounswe2023group5/issues/1058)| Can Uzduran | 25.12.2023 | 3 hrs|
 | improve dockerization process |[#1042](https://github.com/bounswe/bounswe2023group5/issues/1042)| Deniz Ünal | 22.12.2023 | 1.5 hrs |
 | adding image annotation backend |[#1045](https://github.com/bounswe/bounswe2023group5/issues/1045)| Deniz Ünal | 23.12.2023 | 1 hrs |
-| Recommendation Implementation - MOBILE  |[#1046](https://github.com/bounswe/bounswe2023group5/issues/1046)| Ege Ekşi , Bilal Atım | 26.12.2023 | 4 hrs |
+| Recommendation Implementation - MOBILE  |[#1046](https://github.com/bounswe/bounswe2023group5/issues/1046)| Ege Ekşi , Bilal Atım | 25.12.2023 | 4 hrs |
 | Forum Post Page Enhancements | [#1008](https://github.com/bounswe/bounswe2023group5/issues/1008) | Çisel Zümbül   | 24.12.2023 | 3hrs     |
-| Prepare User Scenarios For Final Milestone - MOBILE | [#1053](https://github.com/bounswe/bounswe2023group5/issues/1053) | Mobile Team | 26.12.2023 | 4 hrs |
-| Promotion Implementation - MOBILE | [#1052](https://github.com/bounswe/bounswe2023group5/issues/1052) | Said Yolcu, Harun Sami Çelik | 26.12.2023 | 3.5 hrs |
+| Prepare User Scenarios For Final Milestone - MOBILE | [#1053](https://github.com/bounswe/bounswe2023group5/issues/1053) | Mobile Team | 25.12.2023 | 4 hrs |
+| Promotion Implementation - MOBILE | [#1052](https://github.com/bounswe/bounswe2023group5/issues/1052) | Said Yolcu, Harun Sami Çelik | 25.12.2023 | 3.5 hrs |
 
 ## Risks
 
