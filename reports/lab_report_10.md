@@ -2,7 +2,7 @@
 
 **Team Name:** Video Game Community Platform - Group 5
 
-**Date:** 12.12.2023
+**Date:** 19.12.2023
 
 ## Progress Summary
 
@@ -46,6 +46,8 @@
 * We have not implemented filter for games page, we will complete it this week.
 * We have not implemented annotation functionality , we will complete it this week.
 * We have not implemented the promotions functionality, we will complete it this week.
+* We couldn't find the time for some visual improvements for forum and homepage, we'll focus on them this week.
+* Homepage recommandation additions will be also added this week.
 
 
 ## Your plans for the next week
