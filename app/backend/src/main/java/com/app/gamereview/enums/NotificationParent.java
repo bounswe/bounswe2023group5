@@ -1,8 +1,9 @@
 package com.app.gamereview.enums;
 
 public enum NotificationParent {
-     POST,
-     COMMENT,
-     ACHIEVEMENT
+    POST,
+    COMMENT,
+    ACHIEVEMENT,
+    GROUP
 
 }
