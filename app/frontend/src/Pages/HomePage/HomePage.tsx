@@ -9,6 +9,7 @@ import {
   SortAscendingOutlined,
   SortDescendingOutlined,
 } from "@ant-design/icons";
+import { PacmanLoader } from "react-spinners";
 const sortOptions = [
   { label: "Creation Date", value: "CREATION_DATE" },
   { label: "Overall Vote", value: "OVERALL_VOTE" },
@@ -30,37 +31,45 @@ function HomePage() {
   );
 
   return (
-    <div className={styles.pageContainer}>
-      <div className={styles.postsContainer}>
-        <div className={styles.filterContainer}>
-          <Button onClick={toggleSortDir}>
-            {sortDirection === "DESCENDING" ? (
-              <SortDescendingOutlined />
-            ) : (
-              <SortAscendingOutlined />
-            )}
-          </Button>
-          <Select
-            options={sortOptions}
-            value={sortBy}
-            onChange={setSortBy}
-            style={{ width: "120px" }}
-          />
+    <>
+      {isLoading ? (
+        <div className={styles.spinnerContainer}>
+          <PacmanLoader color="#1b4559" size={30} />
         </div>
-        {data?.map((post: any) => (
-          <ForumPost
-            post={post}
-            forumId={post.forum}
-            gameId={post.type === "GAME" && post.typeId}
-            redirect="/home"
-            type={post.type}
-            typeName={post.typeName}
-            typeId={post.typeId}
-            key={post.id}
-          />
-        ))}
-      </div>
-    </div>
+      ) : (
+        <div className={styles.pageContainer}>
+          <div className={styles.postsContainer}>
+            <div className={styles.filterContainer}>
+              <Button onClick={toggleSortDir}>
+                {sortDirection === "DESCENDING" ? (
+                  <SortDescendingOutlined />
+                ) : (
+                  <SortAscendingOutlined />
+                )}
+              </Button>
+              <Select
+                options={sortOptions}
+                value={sortBy}
+                onChange={setSortBy}
+                style={{ width: "120px" }}
+              />
+            </div>
+            {data?.map((post: any) => (
+              <ForumPost
+                post={post}
+                forumId={post.forum}
+                gameId={post.type === "GAME" && post.typeId}
+                redirect="/home"
+                type={post.type}
+                typeName={post.typeName}
+                typeId={post.typeId}
+                key={post.id}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
