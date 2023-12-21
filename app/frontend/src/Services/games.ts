@@ -12,12 +12,14 @@ export const createGame = async ({
   name,
   description,
   releaseDate,
+  minReq,
   gameIcon,
   ...tags
 }: {
   name: string;
   description: string;
   releaseDate: Date | null;
+  minReq: string;
   gameIcon: any;
   tags: any;
 }) => {
@@ -29,7 +31,7 @@ export const createGame = async ({
       releaseDate,
       ...tags,
       platforms: tags.platform,
-      minSystemReq: "4GBRAM", // will be changed
+      minSystemReq: minReq,
       gameIcon,
     }
   );
