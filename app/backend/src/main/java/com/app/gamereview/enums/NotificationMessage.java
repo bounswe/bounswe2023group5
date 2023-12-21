@@ -16,7 +16,7 @@ import lombok.Getter;
         BANNED_FROM_GROUP("Important Notice, {user_name}! 🚫 You have been banned from the '{group_title}' group. This may be due to a violation of our community guidelines or group rules. If you believe this is a mistake, you can contact the moderators for further clarification."),
         APPLICATION_ACCEPTED("Congratulations, {user_name}! 🎉 Your application to join the private group '{group_title}' has been accepted. Welcome to the group! Dive in and start engaging with your new community."),
         APPLICATION_REJECTED("Notification for {user_name}, 🚫 Your application to join the private group '{group_title}' has been reviewed and unfortunately, it has not been accepted at this time. This decision is based on our group criteria and community guidelines. We encourage you to review these guidelines and consider applying again in the future."),
-        NEW_GROUP_APPLICATION("Attention Moderators! 🌟 There is a new application for the private group '{group_title}'. Applicant: {applicant_name}. Please review the application and take appropriate action to maintain the integrity and quality of our group community.");
+        NEW_GROUP_APPLICATION("Attention Moderators! 🌟 There is a new application for the private group '{group_title}'. Applicant: {user_name}. Please review the application and take appropriate action to maintain the integrity and quality of our group community.");
         private final String messageTemplate;
     NotificationMessage(String messageTemplate) {
         this.messageTemplate = messageTemplate;
