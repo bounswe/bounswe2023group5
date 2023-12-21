@@ -564,11 +564,41 @@ public class GroupService {
             application.setReviewedAt(LocalDateTime.now());
             groupApplicationRepository.save(application);
 
+            // send APPLICATION_ACCEPTED notification to user
+            Optional<User> optionalUser = userRepository.findByIdAndIsDeletedFalse(application.getUser());
+            if (optionalUser.isPresent()) {
+                User appliedUser = optionalUser.get();
+                CreateNotificationRequestDto createNotificationRequestDto = new CreateNotificationRequestDto();
+                String message = NotificationMessage.APPLICATION_ACCEPTED.getMessageTemplate()
+                        .replace("{user_name}", appliedUser.getUsername())
+                        .replace("{group_title}", appliedGroup.getTitle());
+                createNotificationRequestDto.setMessage(message);
+                createNotificationRequestDto.setParentType(NotificationParent.GROUP);
+                createNotificationRequestDto.setParent(application.getGroup());
+                createNotificationRequestDto.setUser(appliedUser.getId());
+                notificationService.createNotification(createNotificationRequestDto);
+            }
+
         } else if (GroupApplicationReviewResult.REJECT.name().equals(dto.getResult())) {
             application.setStatus(GroupApplicationStatus.REJECTED);
             application.setReviewer(user.getId());
             application.setReviewedAt(LocalDateTime.now());
             groupApplicationRepository.save(application);
+
+            // send APPLICATION_REJECTED notification to user
+            Optional<User> optionalUser = userRepository.findByIdAndIsDeletedFalse(application.getUser());
+            if (optionalUser.isPresent()) {
+                User appliedUser = optionalUser.get();
+                CreateNotificationRequestDto createNotificationRequestDto = new CreateNotificationRequestDto();
+                String message = NotificationMessage.APPLICATION_REJECTED.getMessageTemplate()
+                        .replace("{user_name}", appliedUser.getUsername())
+                        .replace("{group_title}", appliedGroup.getTitle());
+                createNotificationRequestDto.setMessage(message);
+                createNotificationRequestDto.setParentType(NotificationParent.GROUP);
+                createNotificationRequestDto.setParent(application.getGroup());
+                createNotificationRequestDto.setUser(appliedUser.getId());
+                notificationService.createNotification(createNotificationRequestDto);
+            }
         } else {
             throw new BadRequestException("Invalid review result");
         }
