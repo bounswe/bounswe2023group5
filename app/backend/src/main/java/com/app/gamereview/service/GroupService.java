@@ -505,6 +505,24 @@ public class GroupService {
         request.setMessage(dto.getMessage());
         request.setStatus(GroupApplicationStatus.PENDING);
         groupApplicationRepository.save(request);
+
+        // send notification to moderators
+        List<String> moderators = group.getModerators();
+        for (String moderatorId : moderators) {
+            Optional<User> optionalModerator = userRepository.findByIdAndIsDeletedFalse(moderatorId);
+            if (optionalModerator.isPresent()) {
+                User moderator = optionalModerator.get();
+                CreateNotificationRequestDto createNotificationRequestDto = new CreateNotificationRequestDto();
+                String message = NotificationMessage.NEW_GROUP_APPLICATION.getMessageTemplate()
+                        .replace("{user_name}", user.getUsername())
+                        .replace("{group_title}", group.getTitle());
+                createNotificationRequestDto.setMessage(message);
+                createNotificationRequestDto.setParentType(NotificationParent.GROUP_APPLICATION);
+                createNotificationRequestDto.setParent(group.getId());
+                createNotificationRequestDto.setUser(moderator.getId());
+                notificationService.createNotification(createNotificationRequestDto);
+            }
+        }
         return true;
     }
 
