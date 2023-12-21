@@ -1,7 +1,7 @@
 package com.app.gamereview.service;
 
-import com.app.gamereview.dto.request.game.RecommendGameDto;
 import com.app.gamereview.dto.request.group.*;
+import com.app.gamereview.dto.request.notification.CreateNotificationRequestDto;
 import com.app.gamereview.dto.response.group.GetGroupDetailResponseDto;
 import com.app.gamereview.dto.response.group.GetGroupResponseDto;
 import com.app.gamereview.dto.response.group.GroupApplicationResponseDto;
@@ -44,6 +44,7 @@ public class GroupService {
 
     private final ModelMapper modelMapper;
     private final GameService gameService;
+    private final NotificationService notificationService;
 
     @Autowired
     public GroupService(
@@ -56,7 +57,8 @@ public class GroupService {
             GroupApplicationRepository groupApplicationRepository,
             MongoTemplate mongoTemplate,
             ModelMapper modelMapper,
-            GameService gameService
+            GameService gameService,
+            NotificationService notificationService
     ) {
         this.groupRepository = groupRepository;
         this.gameRepository = gameRepository;
@@ -68,6 +70,7 @@ public class GroupService {
         this.mongoTemplate = mongoTemplate;
         this.modelMapper = modelMapper;
         this.gameService = gameService;
+        this.notificationService = notificationService;
 
         modelMapper.addMappings(new PropertyMap<CreateGroupRequestDto, Group>() {
             @Override
@@ -406,6 +409,20 @@ public class GroupService {
         group.get().addBannedUser(userId);
         groupRepository.save(group.get());
 
+        Optional<User> optionalBannedUser = userRepository.findByIdAndIsDeletedFalse(userId);
+        if (optionalBannedUser.isPresent()) {
+            User bannedUser = optionalBannedUser.get();
+            CreateNotificationRequestDto createNotificationRequestDto = new CreateNotificationRequestDto();
+            String message = NotificationMessage.BANNED_FROM_GROUP.getMessageTemplate()
+                    .replace("{user_name}", bannedUser.getUsername())
+                    .replace("{group_title}", group.get().getTitle());
+            createNotificationRequestDto.setMessage(message);
+            createNotificationRequestDto.setParentType(NotificationParent.GROUP);
+            createNotificationRequestDto.setParent(group.get().getId());
+            createNotificationRequestDto.setUser(bannedUser.getId());
+            notificationService.createNotification(createNotificationRequestDto);
+        }
+
         return true;
     }
 
@@ -573,38 +590,39 @@ public class GroupService {
         dto.setStatus(application.getStatus());
         return dto;
     }
-    public List<Group> getRecommendedGroups(User user){
+
+    public List<Group> getRecommendedGroups(User user) {
         Optional<Profile> findProfile = profileRepository.findByUserIdAndIsDeletedFalse(user.getId());
 
-        if(findProfile.isEmpty()){
+        if (findProfile.isEmpty()) {
             throw new ResourceNotFoundException("Profile of the user is not found, unexpected error has occurred");
         }
 
         List<Group> memberGroups = groupRepository.findUserGroups(user.getId());
-        if(memberGroups.isEmpty()){
+        if (memberGroups.isEmpty()) {
             return Collections.emptyList();
         }
         TreeSet<RecommendGroupDto> recommendedGroups = new TreeSet<>(Comparator.reverseOrder());
-        for(Group group : memberGroups){
+        for (Group group : memberGroups) {
             String groupId = group.getId();
             recommendedGroups.addAll(recommendationByGroupId(groupId));
         }
 
         List<Group> recommendations = new ArrayList<>();
 
-        for(RecommendGroupDto groupDto : recommendedGroups){
+        for (RecommendGroupDto groupDto : recommendedGroups) {
             recommendations.add(groupDto.getGroup());
         }
 
         return recommendations;
     }
 
-    public TreeSet<RecommendGroupDto> recommendationByGroupId(String groupId){
+    public TreeSet<RecommendGroupDto> recommendationByGroupId(String groupId) {
         Optional<Group> findGroup = groupRepository.findByIdAndIsDeletedFalse(groupId);
 
         Set<String> idList = new HashSet<>();
 
-        if(findGroup.isEmpty()){
+        if (findGroup.isEmpty()) {
             throw new ResourceNotFoundException("Group is not found");
         }
 
@@ -613,15 +631,15 @@ public class GroupService {
 
         TreeSet<RecommendGroupDto> scoreSet = new TreeSet<>(Comparator.reverseOrder());
 
-        String[] words = group.getTitle().split(" ",-2);
-        for(String word : words){
-            if(word.length() > 3){
+        String[] words = group.getTitle().split(" ", -2);
+        for (String word : words) {
+            if (word.length() > 3) {
                 String regexPattern = ".*" + word + ".*";
                 Query query = new Query();
                 query.addCriteria(Criteria.where("title").regex(regexPattern, "i"));
                 query.addCriteria(Criteria.where("_id").ne(group.getId()));
                 List<Group> similarNames = mongoTemplate.find(query, Group.class);
-                for(Group i : similarNames){
+                for (Group i : similarNames) {
                     RecommendGroupDto dto = new RecommendGroupDto();
                     dto.setGroup(i);
                     scoreSet.add(dto);
@@ -630,15 +648,15 @@ public class GroupService {
             }
         }
 
-        Query allGroupsQuery = new Query();	// all games except the base game
+        Query allGroupsQuery = new Query();    // all games except the base game
         allGroupsQuery.addCriteria(Criteria.where("isDeleted").is(false));
         allGroupsQuery.addCriteria(Criteria.where("_id").nin(idList));
 
         List<Group> allGroups = mongoTemplate.find(allGroupsQuery, Group.class);
 
-        for(Group candidateGroup : allGroups){
+        for (Group candidateGroup : allGroups) {
             int score = calculateGroupSimilarityScore(group, candidateGroup);
-            if(score != 0){
+            if (score != 0) {
                 RecommendGroupDto dto = new RecommendGroupDto();
                 dto.setGroup(candidateGroup);
                 dto.setScore(score);
@@ -649,13 +667,13 @@ public class GroupService {
         return scoreSet;
     }
 
-    public int calculateGroupSimilarityScore(Group based, Group candidate){
+    public int calculateGroupSimilarityScore(Group based, Group candidate) {
         int score = 0;
         String gameId = based.getGameId();
         String candidateGameId = candidate.getGameId();
 
 
-        if(gameId.equals(candidateGameId)){
+        if (gameId.equals(candidateGameId)) {
             score += 10;
         }
         Game basedGame = gameRepository.findById(gameId).get();
@@ -667,16 +685,14 @@ public class GroupService {
         List<String> baseTags = based.getTags();
         baseTags.retainAll(candidate.getTags());
 
-        for(String tagId : baseTags){
+        for (String tagId : baseTags) {
             Optional<Tag> findTag = tagRepository.findByIdAndIsDeletedFalse(tagId);
-            if(findTag.isPresent()){
+            if (findTag.isPresent()) {
                 score++;
             }
         }
         return score;
     }
-
-
 
 
 }
