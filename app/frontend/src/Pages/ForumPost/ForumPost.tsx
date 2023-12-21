@@ -19,11 +19,10 @@ import {
   UpOutlined,
   CommentOutlined,
   WarningOutlined,
-  BackwardOutlined,
   ArrowLeftOutlined,
 } from "@ant-design/icons";
 import clsx from "clsx";
-import { Button, message } from "antd";
+import { Button } from "antd";
 import { useState } from "react";
 import TagRenderer from "../../Components/TagRenderer/TagRenderer.tsx";
 import { twj } from "tw-to-css";
@@ -32,6 +31,7 @@ import { grantAchievement } from "../../Services/achievement.ts";
 import { formatDate } from "../../Library/utils/formatDate.ts";
 import { handleError } from "../../Library/utils/handleError.ts";
 import CharacterDetails from "../../Components/Character/CharacterDetails.tsx";
+import { NotificationUtil } from "../../Library/utils/notification.ts";
 
 function ForumPost() {
   const { isLoggedIn, user } = useAuth();
@@ -61,7 +61,7 @@ function ForumPost() {
     () => grantAchievement(post.poster.id, post.achievement.id),
     {
       onSuccess() {
-        message.success(`Achievement Granted`);
+        NotificationUtil.success(`Achievement Granted`);
       },
 
       onError(err: any) {
