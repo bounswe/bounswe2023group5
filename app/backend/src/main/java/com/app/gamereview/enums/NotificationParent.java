@@ -4,6 +4,6 @@ public enum NotificationParent {
     POST,
     COMMENT,
     ACHIEVEMENT,
-    GROUP
-
+    GROUP,
+    GROUP_APPLICATION
 }
