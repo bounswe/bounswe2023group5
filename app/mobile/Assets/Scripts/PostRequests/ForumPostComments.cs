@@ -21,11 +21,13 @@ public class ForumPostComments : MonoBehaviour
     private CanvasManager canvasManager;
     [SerializeField] private TMP_InputField commentInputField;
     [SerializeField] private Button addCommentButton;
+    [SerializeField] private Button editCommentButton;
+    [SerializeField] private Button discardCommentButton;
     [SerializeField] private Button exitButton;
     [SerializeField] private TMP_Text infoText;
     private GetPostListResponse postInfo;
     [SerializeField] private Image userImage;
-    // [SerializeField] private TMP_Text poster;
+    
     [SerializeField] private TMP_Text title;
     [SerializeField] private TMP_Text postContent;
     [SerializeField] private TMP_Text lastEditedAt;
@@ -34,16 +36,24 @@ public class ForumPostComments : MonoBehaviour
     [SerializeField] private TMP_Text userName;
 
     [SerializeField] private CommentComments L2commentManager;
+
+    // will be used in comment edit mode
+    private string commentId;
     
     private void Awake()
     {
         addCommentButton.onClick.AddListener(addComment);
+        editCommentButton.onClick.AddListener(editComment);
+        discardCommentButton.onClick.AddListener(discardComment);
         exitButton.onClick.AddListener(exit);
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
     }
 
     public void Init(string id, GetPostListResponse postInfoVal /*, CommentComments L2commentManagerInfo*/)
     {
+        // Page is in add comment mode
+        AddCommentMode();
+        
         postID = id;
         infoText.text = "";
         postInfo = postInfoVal;
@@ -135,7 +145,7 @@ public class ForumPostComments : MonoBehaviour
                 Debug.Log("comment data is:\n" + comment);
                 CommentBox newComment = Instantiate(Resources.Load<CommentBox>("Prefabs/CommentPage"), commentParent);
                 commentPages.Add(newComment);
-                newComment.Init(comment, L2commentManager);
+                newComment.Init(comment, L2commentManager, this);
             }
             Canvas.ForceUpdateCanvases();
             scrollRect.verticalNormalizedPosition = 1;
@@ -163,7 +173,7 @@ public class ForumPostComments : MonoBehaviour
         req.commentContent = commentInputField.text;
         req.post = postID;
         
-        CreateComment(req);
+        DoCreateComment(req);
     }
 
     private void exit()
@@ -180,21 +190,65 @@ public class ForumPostComments : MonoBehaviour
         StartCoroutine(Post(url, bodyJsonString));
     }
 
-    public void EditComment(CommentEditRequest commentEditRequest)
+    private void AddCommentMode()
     {
-        string url = AppVariables.HttpServerUrl + "/comment/edit";
-        string bodyJsonString = JsonConvert.SerializeObject(commentEditRequest);
-        StartCoroutine(Put(url, bodyJsonString));
+        commentInputField.text = "";
+        commentId = "";
+        
+        // open the add comment button and close the edit comment button
+        addCommentButton.gameObject.SetActive(true);
+        editCommentButton.gameObject.SetActive(false);
+        discardCommentButton.gameObject.SetActive(true);
+    }
+    public void EditCommentMode(PostComment postCommentInfo)
+    {
+        commentInputField.text = postCommentInfo.commentContent;
+        commentId = postCommentInfo.id;
+        
+        // close the add comment button and open the edit comment button
+        addCommentButton.gameObject.SetActive(false);
+        editCommentButton.gameObject.SetActive(true);
+        discardCommentButton.gameObject.SetActive(true);
     }
 
-    public void CreateComment(CommentCreateRequest commentCreateRequest)
+    private void editComment()
+    {
+        CommentEditRequest req = new CommentEditRequest();
+        if (string.IsNullOrWhiteSpace(commentInputField.text))
+        {
+            string message = "Comment content cannot be empty";
+            Debug.Log(message);
+            infoText.text = message;
+            infoText.color = Color.red;
+            return;
+        }
+        req.commentContent = commentInputField.text;
+        
+        DoEditComment(req);
+    }
+    
+    private void discardComment()
+    {
+        AddCommentMode();
+    }
+    
+    public void DoEditComment(CommentEditRequest commentEditRequest)
+    {
+        string url = AppVariables.HttpServerUrl + "/comment/edit" + 
+                     ListToQueryParameters.ListToQueryParams(new []{"id"}, new []{commentId});
+        string bodyJsonString = JsonConvert.SerializeObject(commentEditRequest);
+        Debug.Log("body json for edit request is "+ bodyJsonString);
+        StartCoroutine(PostEdit(url, bodyJsonString));
+    }
+
+    public void DoCreateComment(CommentCreateRequest commentCreateRequest)
     {
         string url = AppVariables.HttpServerUrl + "/comment/create";
         string bodyJsonString = JsonConvert.SerializeObject(commentCreateRequest);
         StartCoroutine(Post(url, bodyJsonString));
     }
 
-    public void DeleteComment(string commentId)
+    public void DoDeleteComment(string commentId)
     {
         string url = AppVariables.HttpServerUrl + "/comment/delete?id=" + commentId;
         StartCoroutine(Delete(url));
@@ -210,7 +264,20 @@ public class ForumPostComments : MonoBehaviour
         request.SetRequestHeader("Authorization", PersistenceManager.UserToken);
 
         yield return request.SendWebRequest();
-        HandleResponseComment(request);
+        HandleResponseCreate(request);
+    }
+    
+    IEnumerator PostEdit(string url, string bodyJsonString)
+    {
+        var request = new UnityWebRequest(url, "POST");
+        byte[] bodyRaw = Encoding.UTF8.GetBytes(bodyJsonString);
+        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+        request.SetRequestHeader("Authorization", PersistenceManager.UserToken);
+
+        yield return request.SendWebRequest();
+        HandleResponseEdit(request);
     }
 
     IEnumerator Put(string url, string bodyJsonString)
@@ -223,7 +290,7 @@ public class ForumPostComments : MonoBehaviour
         request.SetRequestHeader("Authorization", PersistenceManager.UserToken);
 
         yield return request.SendWebRequest();
-        HandleResponse(request);
+        HandleResponseEdit(request);
     }
 
     IEnumerator Delete(string url)
@@ -237,7 +304,7 @@ public class ForumPostComments : MonoBehaviour
         HandleResponse(request);
     }
     
-    private void HandleResponseComment(UnityWebRequest request)
+    private void HandleResponseCreate(UnityWebRequest request)
     {
         string response = request.downloadHandler.text;
         if (request.responseCode == 200)
@@ -250,6 +317,30 @@ public class ForumPostComments : MonoBehaviour
         else
         {
             Debug.LogError("Error: " + response);
+            infoText.text = "Failure to create comment";
+            infoText.color = Color.red;
+        }
+        request.downloadHandler.Dispose();
+    }
+    
+    private void HandleResponseEdit(UnityWebRequest request)
+    {
+        string response = request.downloadHandler.text;
+        if (request.responseCode == 200)
+        {
+            Debug.Log("Success: " + response);
+            infoText.text = "Success to edit comment";
+            infoText.color = Color.green;
+            commentInputField.text = "";
+            
+            // If successfully edited the command, return to add command mode
+            AddCommentMode();
+        }
+        else
+        {
+            Debug.LogError("Error: " + response);
+            infoText.text = "Failure to edit comment";
+            infoText.color = Color.red;
         }
         request.downloadHandler.Dispose();
     }

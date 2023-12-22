@@ -32,7 +32,6 @@ public class CommentComments : MonoBehaviour
     [SerializeField] private TMP_Text commentContent;
     [SerializeField] private TMP_Text lastEditedAt;
     [SerializeField] private TMP_Text overallVote;
-    [SerializeField] private TMP_Text tags;
     [SerializeField] private TMP_Text userName;
     private CommentReply[] replies;
 
@@ -46,15 +45,13 @@ public class CommentComments : MonoBehaviour
 
     public void Init(string id, PostComment postInfoVal )
     {
-        // postID = id;
         commentID = id;
         infoText.text = "";
         commentInfo = postInfoVal;
         replies = commentInfo.replies;
         
         Debug.Log("replies: "+ replies);
-        // forumPost.Init(postID);
-        // title.text = postInfo.title;
+        
         commentContent.text = commentInfo.commentContent;
         lastEditedAt.text = commentInfo.lastEditedAt;
         overallVote.text = Convert.ToString(commentInfo.overallVote);
@@ -69,27 +66,6 @@ public class CommentComments : MonoBehaviour
         }
 
         // Comments do not have tags
-        /*
-        tags.text = "";
-        foreach (var tag in postInfo.tags)
-        {
-            tags.text =  tags.text + tag + " ";
-        }
-        
-        if (postInfo.isEdited)
-        {
-            lastEditedAt.text += " (edited)";
-        }
-        else
-        {
-            // This will be deleted
-            lastEditedAt.text += " (not edited)";
-        }
-        */
-        
-        //GameObject postComments = GameObject.Find("PostComments");
-        //postComments.SetActive(true);
-
         
         if (string.IsNullOrEmpty(commentID))
         {

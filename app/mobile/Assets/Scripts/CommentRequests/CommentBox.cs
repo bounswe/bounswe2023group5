@@ -23,6 +23,7 @@ public class CommentBox : MonoBehaviour
     [SerializeField] private TMP_Text deleteText;
     
     [SerializeField] private CommentComments commentManager;
+    [SerializeField] private ForumPostComments editCommentManager;
     
     // [SerializeField] private Button gameDetailsButton;
     private CanvasManager canvasManager;
@@ -43,17 +44,19 @@ public class CommentBox : MonoBehaviour
         
         // Add listeners to the buttons
         commentsButton.onClick.AddListener(OnClickedCommentsButton);
-        // editButton.onClick.AddListener(OnClickedEditButton);
+        editButton.onClick.AddListener(OnClickedEditButton);
         deleteButton.onClick.AddListener(OnClickedDeleteButton);
         deletePanel.SetActive(false);
     }
 
-    public void Init(PostComment commentInfo, CommentComments commentManagerInfo)
+    public void Init(PostComment commentInfo, CommentComments commentManagerInfo, 
+        ForumPostComments editCommentManagerInfo)
     {
         string url = "http://ec2-16-16-166-22.eu-north-1.compute.amazonaws.com/";
 
         PostCommentInfoVal = commentInfo;
         commentManager = commentManagerInfo;
+        editCommentManager = editCommentManagerInfo;
         
         commentContent.text = PostCommentInfoVal.commentContent;
         commenter.text = PostCommentInfoVal.commenter.username;
@@ -133,6 +136,15 @@ public class CommentBox : MonoBehaviour
         
         canvasManager.ShowCommentComments();
         commentManager.Init(commentId, PostCommentInfoVal);
+    }
+    
+    // Here we will use forumPostComments, which is already open and comment is part of this page
+    private void OnClickedEditButton()
+    {
+        // editCommentManager.Init(postId, postInfoVal);
+        // canvasManager.ShowCreateEditPostPage();
+        editCommentManager.EditCommentMode(PostCommentInfoVal);
+        
     }
     
     private void OnClickedDeleteButton()

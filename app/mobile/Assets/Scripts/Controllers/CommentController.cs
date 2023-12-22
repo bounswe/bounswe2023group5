@@ -10,7 +10,6 @@
 
     public class CommentEditRequest
     {
-        public string id;
         public string commentContent;
     }
 
