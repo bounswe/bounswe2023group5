@@ -14,10 +14,10 @@ public class openComment : MonoBehaviour
         
     }
 
-    public void openLocalPostComment(string id, GetPostListResponse postInfoVal)
+    public void openLocalPostComment(string id/*, GetPostListResponse postInfoVal*/)
     {
         forumPostComment.gameObject.SetActive(true);
-        forumPostComment.Init(id, postInfoVal);
+        //forumPostComment.Init(id/*, postInfoVal*/);
     }
 
     // Update is called once per frame

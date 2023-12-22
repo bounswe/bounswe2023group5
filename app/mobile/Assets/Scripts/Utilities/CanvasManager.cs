@@ -26,7 +26,9 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject groupDetailsPage;
     [SerializeField] private GameObject groupsPage;
     [SerializeField] private GameObject editProfilePage;
+    [SerializeField] private GameObject createEditPostPage;
     public GameObject postComments;
+    [SerializeField] private GameObject commentComments;
     private GameObject currentActivePage;
     private GameObject previousActivePage;
 
@@ -301,12 +303,32 @@ public class CanvasManager : MonoBehaviour
         postComments.SetActive(false);
     }
     
+    public void ShowCommentComments()
+    {
+        commentComments.SetActive(true);
+    }
+    
+    public void HideCommentComments()
+    {
+        commentComments.SetActive(false);
+    }
+    
     public void ShowEditProfilePage()
     {
         currentActivePage.SetActive(false);
         editProfilePage.SetActive(true);
         previousActivePage = currentActivePage;
         currentActivePage = editProfilePage;
+    }
+    
+    public void ShowCreateEditPostPage()
+    {
+        createEditPostPage.SetActive(true);
+    }
+    
+    public void HideCreateEditPostPage()
+    {
+        createEditPostPage.SetActive(false);
     }
     
 }

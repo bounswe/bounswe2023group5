@@ -73,7 +73,8 @@ public class GetProfile : MonoBehaviour
             userTypeText.text = profileResponseData.user.role;
             role = profileResponseData.user.role;
             SetProfilButton();
-            StartCoroutine(LoadImageFromURL(AppVariables.HttpImageUrl+profileResponseData.profilePhoto, userAvatarImage));
+            string profilUrl = AppVariables.HttpImageUrl + profileResponseData.profilePhoto;
+            StartCoroutine(LoadImageFromURL(profilUrl, userAvatarImage));
             if (profileResponseData.steamProfile != null)
             {
                 steamProfile.SetActive(true);

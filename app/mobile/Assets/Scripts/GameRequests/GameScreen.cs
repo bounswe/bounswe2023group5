@@ -3,29 +3,39 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class GameScreen : MonoBehaviour
 {
+    
+    [SerializeField] private TMP_Dropdown playerTypes;
+    [SerializeField] private TMP_Dropdown genre;
+    [SerializeField] private TMP_Dropdown production;
+    [SerializeField] private TMP_Dropdown platforms;
+    [SerializeField] private TMP_Dropdown artStyles;
+    [SerializeField] private TMP_InputField search;
 
-    private CanvasManager canvasManager;
     [SerializeField] private ScrollRect scrollRect;
     [SerializeField] private Transform gamePageParent;
-    private List<GamePage> gamePages = new List<GamePage>();
-
+    [SerializeField] private Button filterButton;
     
+    private List<GamePage> gamePages = new List<GamePage>();
+    private Dictionary<string,string> queryParams = new Dictionary<string, string>();
+
+
     private void Awake()
     {
-        canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
+        filterButton.onClick.AddListener(OnClickedFilter);
     }
 
     private void Start()
     {
         ListGames(null);
     }
-
+    
 
     private void ListGames(GetGameListRequest gameRequestData)
     {
@@ -42,6 +52,42 @@ public class GameScreen : MonoBehaviour
         */
         
         StartCoroutine(Post(url, bodyJsonString));
+    }
+
+    private void OnClickedFilter()
+    {
+        
+    }
+
+    private void ChangeFilterParameter(TMP_Dropdown dropdown, FilterType filterType)
+    {
+        switch (filterType)
+        {
+            case FilterType.PlayerType:
+                queryParams.Add("playerType", playerTypesArray[playerTypes.value]);
+                break;
+            case FilterType.Genre:
+                queryParams.Add("genre", genreArray[genre.value]);
+                break;
+            case FilterType.Production:
+                if (queryParams.ContainsKey("production"))
+                {
+                    queryParams["production"] = productionArray[production.value];
+                }
+                else
+                {
+                    queryParams.Add("production", productionArray[production.value]);
+                }
+                break;
+            case FilterType.Platforms:
+                queryParams.Add("platform", platformsArray[platforms.value]);
+                break;
+            case FilterType.ArtStyles:
+                queryParams.Add("artStyle", artStylesArray[artStyles.value]);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(filterType), filterType, null);
+        }
     }
 
     IEnumerator Post(string url, string bodyJsonString)
@@ -77,6 +123,86 @@ public class GameScreen : MonoBehaviour
         }
         request.downloadHandler.Dispose();
         request.uploadHandler.Dispose();
+    }
+    
+    private List<string> playerTypesArray = new List<string>();
+    private List<string> genreArray = new List<string>();
+    private List<string> productionArray = new List<string>();
+    private List<string> platformsArray = new List<string>();
+    private List<string> artStylesArray = new List<string>();
+    private List<string> playerTypesArrayID= new List<string>();
+    private List<string> genreArrayID = new List<string>();
+    private List<string> productionArrayID = new List<string>();
+    private List<string> platformsArrayID = new List<string>();
+    private List<string> artStylesArrayID = new List<string>();
+    IEnumerator GetAllTags(string url)
+    {
+        var request = new UnityWebRequest(url, "GET");
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+        yield return request.SendWebRequest();
+        string response = "";
+        if (request.responseCode == 200)
+        {
+            response = request.downloadHandler.text;
+            var allTagsResponseData = JsonConvert.DeserializeObject<TagResponse[]>(response);
+
+            // Do things with _GetAllTagsResponseData 
+            foreach (var tagResponse in allTagsResponseData)
+            {
+                switch (tagResponse.tagType)
+                {
+                    case "PLAYER_TYPE":
+                        playerTypesArray.Add(tagResponse.name);
+                        playerTypesArrayID.Add(tagResponse.id);
+                        break;
+                    case "GENRE":
+                        genreArray.Add(tagResponse.name);
+                        genreArrayID.Add(tagResponse.id);
+                        break;
+                    case "PLATFORM":
+                        platformsArray.Add(tagResponse.name);
+                        platformsArrayID.Add(tagResponse.id);
+                        break;
+                    case "ART_STYLE":
+                        artStylesArray.Add(tagResponse.name);
+                        artStylesArrayID.Add(tagResponse.id);
+                        break;
+                    case "PRODUCTION":
+                        productionArray.Add(tagResponse.name);
+                        productionArrayID.Add(tagResponse.id);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            Debug.Log("Success to get tags: " + response);
+            PopulateDropdown(playerTypes, playerTypesArray);
+            PopulateDropdown(genre, genreArray);
+            PopulateDropdown(production, productionArray);
+            PopulateDropdown(platforms, platformsArray);
+            PopulateDropdown(artStyles, artStylesArray);
+        }
+        else
+        {
+            Debug.Log("Error to get tags: " + response);
+        }
+        request.downloadHandler.Dispose();
+    }
+    
+    void PopulateDropdown (TMP_Dropdown dropdown, List<string> options) {
+        dropdown.ClearOptions ();
+        dropdown.AddOptions(options);
+    }
+    
+    enum FilterType
+    {
+        PlayerType,
+        Genre,
+        Production,
+        Platforms,
+        ArtStyles,
+        Developer
     }
 
 }
