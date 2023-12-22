@@ -1,5 +1,8 @@
 ﻿public class CommentController
 {
+    
+    // Header parameters:
+    // string Authorization
     public class CommentReplyRequest
     {
         public string commentContent;
@@ -8,6 +11,10 @@
 
     public class CommentReplyResponse : Comment { }
 
+    // Query parameters:
+    // string id
+    // Header parameters:
+    // string Authorization
     public class CommentEditRequest
     {
         public string commentContent;
@@ -15,6 +22,9 @@
 
     public class CommentEditResponse : Comment { }
 
+    
+    // Header parameters:
+    // string Authorization
     public class CommentCreateRequest
     {
         public string commentContent;
@@ -23,10 +33,12 @@
 
     public class CommentCreateResponse : Comment { }
 
-    public class CommentDeleteRequest
-    {
-        public string id;
-    }
+    // CommentDeleteRequest has no body
+    // Query parameters:
+    // string id
+    // Header parameters:
+    // string Authorization
+    
 
     public class CommentDeleteResponse : Comment { }
 }
