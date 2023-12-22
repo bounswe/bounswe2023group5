@@ -147,7 +147,7 @@ function CreateGame() {
         />
         <br></br>
         <Input
-          placeholder="Min Requirements"
+          placeholder="Min System Requirements"
           value={minReq}
           className={styles.input}
           onChange={(event) => setMinReq(event.target.value)}
