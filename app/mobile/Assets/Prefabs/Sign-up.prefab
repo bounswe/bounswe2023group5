@@ -1496,7 +1496,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6133525316397793625, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
       propertyPath: m_Transition
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6133525316397793625, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
       propertyPath: m_Interactable
@@ -1562,6 +1562,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   passwordInputField: {fileID: 3656364880902989386}
   passwordText: {fileID: 3656364881536741229}
+  unhidePasswordSprite: {fileID: 0}
+  hidePasswordSprite: {fileID: 0}
+  image: {fileID: 0}
 --- !u!1001 &190284390723901715
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1723,7 +1726,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6133525316397793625, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
       propertyPath: m_Transition
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6133525316397793625, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
       propertyPath: m_Interactable
@@ -1789,6 +1792,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   passwordInputField: {fileID: 3656364880890050758}
   passwordText: {fileID: 3656364881532187105}
+  unhidePasswordSprite: {fileID: 0}
+  hidePasswordSprite: {fileID: 0}
+  image: {fileID: 0}
 --- !u!1001 &3656364881888171269
 PrefabInstance:
   m_ObjectHideFlags: 0
