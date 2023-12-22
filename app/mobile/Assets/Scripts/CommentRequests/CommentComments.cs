@@ -22,6 +22,8 @@ public class CommentComments : MonoBehaviour
     private CanvasManager canvasManager;
     [SerializeField] private TMP_InputField commentInputField;
     [SerializeField] private Button addCommentButton;
+    [SerializeField] private Button editCommentButton;
+    [SerializeField] private Button discardCommentButton;
     [SerializeField] private Button exitButton;
     [SerializeField] private TMP_Text infoText;
     private PostComment commentInfo;
@@ -29,25 +31,38 @@ public class CommentComments : MonoBehaviour
     // [SerializeField] private TMP_Text poster;
     // [SerializeField] private TMP_Text title;
     // [SerializeField] private TMP_Text postContent;
+    
+    // Fields of parent comment
     [SerializeField] private TMP_Text commentContent;
     [SerializeField] private TMP_Text lastEditedAt;
     [SerializeField] private TMP_Text overallVote;
     [SerializeField] private TMP_Text userName;
+    [SerializeField] private Button deleteButton;
+    [SerializeField] private Button editButton;
+    [SerializeField] private Button commentsButton;
+    
     private CommentReply[] replies;
 
+    // will be used in reply edit mode
+    private string replyId;
     
     private void Awake()
     {
-        addCommentButton.onClick.AddListener(addComment);
+        addCommentButton.onClick.AddListener(addReply);
+        editCommentButton.onClick.AddListener(editReply);
+        discardCommentButton.onClick.AddListener(discardReply);
         exitButton.onClick.AddListener(exit);
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
     }
 
-    public void Init(string id, PostComment postInfoVal )
+    public void Init(string id, PostComment commentInfoVal )
     {
+        // Page is in add reply mode
+        AddReplyMode();
+        
         commentID = id;
         infoText.text = "";
-        commentInfo = postInfoVal;
+        commentInfo = commentInfoVal;
         replies = commentInfo.replies;
         
         Debug.Log("replies: "+ replies);
@@ -64,6 +79,11 @@ public class CommentComments : MonoBehaviour
             userName.text = commentInfo.commenter.username;
 
         }
+        
+        // On reply page many buttons should be set inactive
+        deleteButton.gameObject.SetActive(false);
+        editButton.gameObject.SetActive(false);
+        commentsButton.gameObject.SetActive(false);
 
         // Comments do not have tags
         
@@ -73,11 +93,11 @@ public class CommentComments : MonoBehaviour
             return;
         }
 
-        DisplayComments();
+        DisplayReplies();
     }
     
     // Displays the reply comments
-    private void DisplayComments ()
+    private void DisplayReplies ()
     {
         foreach (var commentPage in commentPages)
         {
@@ -91,34 +111,34 @@ public class CommentComments : MonoBehaviour
         {
             if (comment.isDeleted)
             {
-                Debug.Log("deleted comment reply is:\n" + comment);
+                Debug.Log("deleted comment reply by user \""+ comment.commenter.username+"\" is: " + comment.commentContent);
                 continue;
             }
-            Debug.Log("comment reply is:\n" + comment);
+            Debug.Log("comment reply by user \""+ comment.commenter.username+"\" is: " + comment.commentContent);
             CommentBox newComment = Instantiate(Resources.Load<CommentBox>("Prefabs/CommentPage"), commentParent);
             commentPages.Add(newComment);
-            newComment.Init(comment);
+            newComment.Init(comment, this);
         }
         Canvas.ForceUpdateCanvases();
         scrollRect.verticalNormalizedPosition = 1;
         
     }
 
-    private void addComment()
+    private void addReply()
     {
-        CommentCreateRequest req = new CommentCreateRequest();
+        CommentReplyRequest req = new CommentReplyRequest();
         if (string.IsNullOrWhiteSpace(commentInputField.text))
         {
-            string message = "Comment content cannot be empty";
+            string message = "Reply content cannot be empty";
             Debug.Log(message);
             infoText.text = message;
             infoText.color = Color.red;
             return;
         }
         req.commentContent = commentInputField.text;
-        req.post = commentID;
+        req.parentComment = commentID;
         
-        CreateComment(req);
+        ReplyToComment(req);
     }
 
     private void exit()
@@ -134,6 +154,58 @@ public class CommentComments : MonoBehaviour
         string bodyJsonString = JsonConvert.SerializeObject(commentReplyRequest);
         StartCoroutine(Post(url, bodyJsonString));
     }
+    
+    private void AddReplyMode()
+    {
+        commentInputField.text = "";
+        replyId = "";
+        
+        // open the add comment button and close the edit comment button
+        addCommentButton.gameObject.SetActive(true);
+        editCommentButton.gameObject.SetActive(false);
+        discardCommentButton.gameObject.SetActive(true);
+    }
+    
+    public void EditReplyMode(CommentReply replyInfo)
+    {
+        commentInputField.text = replyInfo.commentContent;
+        replyId = replyInfo.id;
+        
+        // close the add comment button and open the edit comment button
+        addCommentButton.gameObject.SetActive(false);
+        editCommentButton.gameObject.SetActive(true);
+        discardCommentButton.gameObject.SetActive(true);
+    }
+    
+    private void editReply()
+    {
+        CommentEditRequest req = new CommentEditRequest();
+        if (string.IsNullOrWhiteSpace(commentInputField.text))
+        {
+            string message = "Comment content cannot be empty";
+            Debug.Log(message);
+            infoText.text = message;
+            infoText.color = Color.red;
+            return;
+        }
+        req.commentContent = commentInputField.text;
+        
+        DoEditReply(req);
+    }
+
+    private void discardReply()
+    {
+        AddReplyMode();
+    }
+    
+    public void DoEditReply(CommentEditRequest commentEditRequest)
+    {
+        string url = AppVariables.HttpServerUrl + "/comment/edit" + 
+                     ListToQueryParameters.ListToQueryParams(new []{"id"}, new []{replyId});
+        string bodyJsonString = JsonConvert.SerializeObject(commentEditRequest);
+        Debug.Log("body json for edit request is "+ bodyJsonString);
+        StartCoroutine(PostEdit(url, bodyJsonString));
+    }
 
     public void EditComment(CommentEditRequest commentEditRequest)
     {
@@ -142,12 +214,16 @@ public class CommentComments : MonoBehaviour
         StartCoroutine(Put(url, bodyJsonString));
     }
 
+    // Comment creation is not done at this layer. Replying to comment in this layer is 
+    // equivalent to comment creation in the upper layer
+    /*
     public void CreateComment(CommentCreateRequest commentCreateRequest)
     {
         string url = AppVariables.HttpServerUrl + "/comment/create";
         string bodyJsonString = JsonConvert.SerializeObject(commentCreateRequest);
         StartCoroutine(Post(url, bodyJsonString));
     }
+    */
 
     public void DeleteComment(string commentId)
     {
@@ -165,7 +241,26 @@ public class CommentComments : MonoBehaviour
         request.SetRequestHeader("Authorization", PersistenceManager.UserToken);
 
         yield return request.SendWebRequest();
-        HandleResponseComment(request);
+        HandleResponseReply(request);
+        
+        request.uploadHandler.Dispose();
+        request.downloadHandler.Dispose();
+    }
+    
+    IEnumerator PostEdit(string url, string bodyJsonString)
+    {
+        var request = new UnityWebRequest(url, "POST");
+        byte[] bodyRaw = Encoding.UTF8.GetBytes(bodyJsonString);
+        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+        request.SetRequestHeader("Authorization", PersistenceManager.UserToken);
+
+        yield return request.SendWebRequest();
+        HandleResponseEdit(request);
+        
+        request.uploadHandler.Dispose();
+        request.downloadHandler.Dispose();
     }
 
     IEnumerator Put(string url, string bodyJsonString)
@@ -179,6 +274,9 @@ public class CommentComments : MonoBehaviour
 
         yield return request.SendWebRequest();
         HandleResponse(request);
+        
+        request.uploadHandler.Dispose();
+        request.downloadHandler.Dispose();
     }
 
     IEnumerator Delete(string url)
@@ -190,23 +288,48 @@ public class CommentComments : MonoBehaviour
 
         yield return request.SendWebRequest();
         HandleResponse(request);
+        
+        request.downloadHandler.Dispose();
     }
     
-    private void HandleResponseComment(UnityWebRequest request)
+    private void HandleResponseReply(UnityWebRequest request)
     {
         string response = request.downloadHandler.text;
         if (request.responseCode == 200)
         {
             Debug.Log("Success: " + response);
-            infoText.text = "Success to create comment";
+            infoText.text = "Success to create reply";
             infoText.color = Color.green;
             commentInputField.text = "";
         }
         else
         {
             Debug.LogError("Error: " + response);
+            infoText.text = "Failure to create reply";
+            infoText.color = Color.red;
         }
-        request.downloadHandler.Dispose();
+        
+    }
+    
+    private void HandleResponseEdit(UnityWebRequest request)
+    {
+        string response = request.downloadHandler.text;
+        if (request.responseCode == 200)
+        {
+            Debug.Log("Success: " + response);
+            infoText.text = "Success to edit reply";
+            infoText.color = Color.green;
+            commentInputField.text = "";
+            
+            // If successfully edited the command, return to add command mode
+            AddReplyMode();
+        }
+        else
+        {
+            Debug.LogError("Error: " + response);
+            infoText.text = "Failure to edit reply";
+            infoText.color = Color.red;
+        }
     }
 
     private void HandleResponse(UnityWebRequest request)
@@ -220,6 +343,5 @@ public class CommentComments : MonoBehaviour
         {
             Debug.LogError("Error: " + response);
         }
-        request.downloadHandler.Dispose();
     }
 }

@@ -14,7 +14,8 @@ public class CommentBox : MonoBehaviour
     [SerializeField] private TMP_Text overallVote;
     [SerializeField] private Button upvoteButton;
     [SerializeField] private Button downvoteButton;
-    [SerializeField] private Button commentsButton;
+    //[SerializeField] private Button commentsButton;
+    [SerializeField] private Button repliesButton;
     [SerializeField] private Button editButton;
     [SerializeField] private Button deleteButton;
     [SerializeField] private GameObject deletePanel;
@@ -24,6 +25,7 @@ public class CommentBox : MonoBehaviour
     
     [SerializeField] private CommentComments commentManager;
     [SerializeField] private ForumPostComments editCommentManager;
+    [SerializeField] private CommentComments editReplyManager;
     
     // [SerializeField] private Button gameDetailsButton;
     private CanvasManager canvasManager;
@@ -42,11 +44,7 @@ public class CommentBox : MonoBehaviour
     {
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
         
-        // Add listeners to the buttons
-        commentsButton.onClick.AddListener(OnClickedCommentsButton);
-        editButton.onClick.AddListener(OnClickedEditButton);
-        deleteButton.onClick.AddListener(OnClickedDeleteButton);
-        deletePanel.SetActive(false);
+        
     }
 
     public void Init(PostComment commentInfo, CommentComments commentManagerInfo, 
@@ -58,8 +56,14 @@ public class CommentBox : MonoBehaviour
         commentManager = commentManagerInfo;
         editCommentManager = editCommentManagerInfo;
         
+        // Add listeners to the buttons
+        //commentsButton.onClick.AddListener(OnClickedCommentsButton);
+        repliesButton.onClick.AddListener(OnClickedRepliesButton);
+        editButton.onClick.AddListener(OnClickedEditButton);
+        deleteButton.onClick.AddListener(OnClickedDeleteButton);
+        deletePanel.SetActive(false);
+        
         commentContent.text = PostCommentInfoVal.commentContent;
-        commenter.text = PostCommentInfoVal.commenter.username;
         // lastEditedAt.text = postInfo.lastEditedAt;
         overallVote.text = Convert.ToString(PostCommentInfoVal.overallVote);
         if (PostCommentInfoVal.commenter == null)
@@ -94,20 +98,48 @@ public class CommentBox : MonoBehaviour
        
     }
     
-    public void Init(CommentReply commentInfo)
+    public void Init(CommentReply commentInfo, CommentComments editReplyManagerInfo)
     {
         string url = "http://ec2-16-16-166-22.eu-north-1.compute.amazonaws.com/";
-
+        
+        editReplyManager = editReplyManagerInfo;
         commentInfoVal = commentInfo;
         
+        // Add listeners to the buttons
+        editButton.onClick.AddListener(OnClickedEditReplyButton);
+        deleteButton.onClick.AddListener(OnClickedDeleteButton);
+        deletePanel.SetActive(false);
+        
         commentContent.text = commentInfoVal.commentContent;
-        commenter.text = commentInfoVal.commenter.username;
         // lastEditedAt.text = postInfo.lastEditedAt;
         overallVote.text = Convert.ToString(commentInfoVal.overallVote);
+        if (commentInfoVal.commenter == null)
+        {
+            commenter.text = "(anonymous)";
+        }
+        else
+        {
+            commenter.text = commentInfoVal.commenter.username;
+            userId = commentInfoVal.commenter.id;
+
+        }
         
         commentId = commentInfoVal.id;
         // second layer commands do not need comments button
-        commentsButton.gameObject.SetActive(false);  
+        // commentsButton.gameObject.SetActive(false);  
+        repliesButton.gameObject.SetActive(false);  
+        
+        // User can delete and edit her own posts
+        if ( (!String.IsNullOrEmpty(userId)) && (userId == PersistenceManager.id))
+        {
+            deleteButton.gameObject.SetActive(true);
+            editButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            deleteButton.gameObject.SetActive(false);
+            editButton.gameObject.SetActive(false);
+        }
         
         Debug.Log("Comment id is "+ commentId);
        
@@ -129,7 +161,7 @@ public class CommentBox : MonoBehaviour
         }
     }
     
-    private void OnClickedCommentsButton()
+    private void OnClickedRepliesButton()
     {
         // Debug.Log("Game Details Button Clicked");
         // canvasManager.ShowGameDetailsPage(gameID);
@@ -144,6 +176,14 @@ public class CommentBox : MonoBehaviour
         // editCommentManager.Init(postId, postInfoVal);
         // canvasManager.ShowCreateEditPostPage();
         editCommentManager.EditCommentMode(PostCommentInfoVal);
+        
+    }
+    
+    private void OnClickedEditReplyButton()
+    {
+        // editCommentManager.Init(postId, postInfoVal);
+        // canvasManager.ShowCreateEditPostPage();
+        editReplyManager.EditReplyMode(commentInfoVal);
         
     }
     

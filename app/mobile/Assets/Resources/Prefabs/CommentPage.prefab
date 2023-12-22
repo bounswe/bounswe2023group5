@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2770262629649523075
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2225,7 +2225,7 @@ MonoBehaviour:
   overallVote: {fileID: 2619829604771929814}
   upvoteButton: {fileID: 7622714325932044936}
   downvoteButton: {fileID: 7622714324922238278}
-  commentsButton: {fileID: 605068606678545455}
+  repliesButton: {fileID: 605068606678545455}
   editButton: {fileID: 1159465147603691282}
   deleteButton: {fileID: 8126306684682522930}
   deletePanel: {fileID: 310278880785093367}
@@ -2233,6 +2233,8 @@ MonoBehaviour:
   noDelete: {fileID: 3591895195387574120}
   deleteText: {fileID: 4139086045820512135}
   commentManager: {fileID: 0}
+  editCommentManager: {fileID: 0}
+  editReplyManager: {fileID: 0}
 --- !u!1 &7622714325932044938
 GameObject:
   m_ObjectHideFlags: 0
