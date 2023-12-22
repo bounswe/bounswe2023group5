@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -13,9 +14,11 @@ public class ForumPost : MonoBehaviour
     [SerializeField] private TMP_Text postContent;
     [SerializeField] private TMP_Text lastEditedAt;
     [SerializeField] private TMP_Text overallVote;
-    [SerializeField] private TMP_Text tags;
+    [SerializeField] private ScrollRect tagScroll;
+    [SerializeField] private Transform tagPageParent;
     [SerializeField] private TMP_Text userName;
-
+    
+    
     [SerializeField] private Button forumPostComments;
     [SerializeField] private Button deletePost;
     [SerializeField] private Button editPost;
@@ -32,6 +35,7 @@ public class ForumPost : MonoBehaviour
     private string postId;
     private string userId;
     private GetPostListResponse postInfoVal;
+    private List<Tag> tagObjects = new List<Tag>();
 
     private void Awake()
     {
@@ -69,11 +73,7 @@ public class ForumPost : MonoBehaviour
         
         Debug.Log("Post id is "+ postId);
 
-        tags.text = "";
-        foreach (var tag in postInfo.tags)
-        {
-            tags.text =  tags.text + tag + " ";
-        }
+        AddTags(postInfo.tags);
         
         if (postInfo.isEdited)
         {
@@ -99,6 +99,25 @@ public class ForumPost : MonoBehaviour
             deletePost.gameObject.SetActive(false);
             editPost.gameObject.SetActive(false);
         }
+    }
+
+    private void AddTags(TagResponse[] tags)
+    {
+        foreach (var tagObj in tagObjects)
+        {
+            Destroy(tagObj.gameObject);
+        }
+        tagObjects.Clear();
+
+        foreach (var tag in tags)
+        {
+            Tag tagObj = Instantiate(Resources.Load<Tag>("Prefabs/Tag"), tagPageParent);
+            tagObjects.Add(tagObj);
+            tagObj.Init(tag);
+        }
+        Canvas.ForceUpdateCanvases();
+        tagScroll.horizontalNormalizedPosition = 1;
+        Debug.Log("Success to list tags");
     }
 
     
