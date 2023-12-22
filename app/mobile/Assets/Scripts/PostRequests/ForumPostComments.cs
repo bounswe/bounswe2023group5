@@ -125,12 +125,17 @@ public class ForumPostComments : MonoBehaviour
             
             var _gamesData = JsonConvert.DeserializeObject<PostComment[]>(response);
             
-            foreach (var gameData in _gamesData)
+            foreach (var comment in _gamesData)
             {
-                Debug.Log("game data is:\n" + gameData);
+                if (comment.isDeleted)
+                {
+                    Debug.Log("deleted comment reply is:\n" + comment);
+                    continue;
+                }
+                Debug.Log("comment data is:\n" + comment);
                 CommentBox newComment = Instantiate(Resources.Load<CommentBox>("Prefabs/CommentPage"), commentParent);
                 commentPages.Add(newComment);
-                newComment.Init(gameData, L2commentManager);
+                newComment.Init(comment, L2commentManager);
             }
             Canvas.ForceUpdateCanvases();
             scrollRect.verticalNormalizedPosition = 1;

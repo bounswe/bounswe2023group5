@@ -15,25 +15,37 @@ public class CommentBox : MonoBehaviour
     [SerializeField] private Button upvoteButton;
     [SerializeField] private Button downvoteButton;
     [SerializeField] private Button commentsButton;
+    [SerializeField] private Button editButton;
+    [SerializeField] private Button deleteButton;
+    [SerializeField] private GameObject deletePanel;
+    [SerializeField] private Button yesDelete;
+    [SerializeField] private Button noDelete;
+    [SerializeField] private TMP_Text deleteText;
+    
     [SerializeField] private CommentComments commentManager;
     
     // [SerializeField] private Button gameDetailsButton;
     private CanvasManager canvasManager;
 
-    private string id;
+    private string userId; // user id
+    private string commentId;
     private string  post;
     private bool isDeleted;
     private string parentComment; 
     private int voteCount;
-    private string commentId;
     private CommentReply[] replies;
     private PostComment PostCommentInfoVal;
     private CommentReply commentInfoVal;
 
     private void Awake()
     {
-        commentsButton.onClick.AddListener(OnClickedCommentsButton);
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
+        
+        // Add listeners to the buttons
+        commentsButton.onClick.AddListener(OnClickedCommentsButton);
+        // editButton.onClick.AddListener(OnClickedEditButton);
+        deleteButton.onClick.AddListener(OnClickedDeleteButton);
+        deletePanel.SetActive(false);
     }
 
     public void Init(PostComment commentInfo, CommentComments commentManagerInfo)
@@ -54,10 +66,26 @@ public class CommentBox : MonoBehaviour
         else
         {
             commenter.text = PostCommentInfoVal.commenter.username;
+            userId = PostCommentInfoVal.commenter.id;
 
         }
         commentId = PostCommentInfoVal.id;
         replies = commentInfo.replies;
+        
+        
+        deletePanel.gameObject.SetActive(false);
+        
+        // User can delete and edit her own posts
+        if ( (!String.IsNullOrEmpty(userId)) && (userId == PersistenceManager.id))
+        {
+            deleteButton.gameObject.SetActive(true);
+            editButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            deleteButton.gameObject.SetActive(false);
+            editButton.gameObject.SetActive(false);
+        }
         
         Debug.Log("Comment id is "+ commentId);
        
@@ -105,5 +133,46 @@ public class CommentBox : MonoBehaviour
         
         canvasManager.ShowCommentComments();
         commentManager.Init(commentId, PostCommentInfoVal);
+    }
+    
+    private void OnClickedDeleteButton()
+    {
+        deletePanel.SetActive(true);
+        yesDelete.onClick.AddListener(OnClickedYesDelete);
+        noDelete.onClick.AddListener(OnClickedNoDelete);
+    }
+    
+    private void OnClickedYesDelete()
+    {
+        string url = AppVariables.HttpServerUrl + "/comment/delete" + 
+                     ListToQueryParameters.ListToQueryParams(new []{"id"}, new []{commentId});
+        StartCoroutine(Delete(url));
+    }
+    
+    IEnumerator Delete(string url)
+    {
+        var request = new UnityWebRequest(url, "DELETE");
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+        request.SetRequestHeader("Authorization", PersistenceManager.UserToken);
+        yield return request.SendWebRequest();
+        string response = "";
+        response = request.downloadHandler.text;
+        if (request.responseCode == 200)
+        {
+            Debug.Log("Success to delete comment detail: " + response);
+            deleteText.text = "Comment is successfully deleted";
+        }
+        else
+        {
+            Debug.Log("Error to delete comment detail: " + response);
+            deleteText.text = "Error in deleting comment";
+        }
+        request.downloadHandler.Dispose();
+    }
+    
+    private void OnClickedNoDelete()
+    {
+        deletePanel.SetActive(false);
     }
 }

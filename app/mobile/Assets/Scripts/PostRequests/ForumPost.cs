@@ -84,9 +84,12 @@ public class ForumPost : MonoBehaviour
             // This will be deleted
             lastEditedAt.text += " (not edited)";
         }
+        
+        
+        deletePanel.gameObject.SetActive(false);
 
         // User can delete and edit her own posts
-        if (userId == PersistenceManager.id)
+        if ( (!String.IsNullOrEmpty(userId)) && (userId == PersistenceManager.id))
         {
             deletePost.gameObject.SetActive(true);
             editPost.gameObject.SetActive(true);
@@ -117,13 +120,9 @@ public class ForumPost : MonoBehaviour
     
     private void OnClickedForumPostComments()
     {
-        // Debug.Log("Game Details Button Clicked");
-        // canvasManager.ShowGameDetailsPage(gameID);
-        //GameObject postComments = GameObject.Find("PostComments");
-        //postComments.SetActive(true);
 
         canvasManager.ShowPostComments();
-        commentManager.Init(postId, postInfoVal/*, L2commentManager*/);
+        commentManager.Init(postId, postInfoVal);
     }
 
     private void OnClickedEditPost()

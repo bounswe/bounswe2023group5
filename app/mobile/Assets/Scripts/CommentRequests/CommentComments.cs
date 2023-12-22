@@ -113,6 +113,11 @@ public class CommentComments : MonoBehaviour
         
         foreach (var comment in replies)
         {
+            if (comment.isDeleted)
+            {
+                Debug.Log("deleted comment reply is:\n" + comment);
+                continue;
+            }
             Debug.Log("comment reply is:\n" + comment);
             CommentBox newComment = Instantiate(Resources.Load<CommentBox>("Prefabs/CommentPage"), commentParent);
             commentPages.Add(newComment);
