@@ -60,4 +60,6 @@ public class HomePagePostResponseDto {
     private LocalDateTime createdAt;
 
     private Boolean isDeleted;
+    private Boolean isPromoted;
+
 }

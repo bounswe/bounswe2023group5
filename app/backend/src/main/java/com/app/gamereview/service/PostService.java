@@ -468,6 +468,38 @@ public class PostService {
         List<Forum> gameForums = mongoTemplate.find(query, Forum.class);
         List<Post> postsToShow = new ArrayList<>();
 
+        Query allGamesQuery = new Query();
+        allGamesQuery.addCriteria(Criteria.where("isDeleted").is(false));
+        allGamesQuery.addCriteria(Criteria.where("isPromoted").is(true));
+        List<Game> promotedGames = mongoTemplate.find(allGamesQuery, Game.class);
+        int promotedCount = 0;
+        if(promotedGames.size() >= 2){
+            Collections.shuffle(promotedGames);
+            Game randomGame1 = promotedGames.get(0);
+            Game randomGame2 = promotedGames.get(1);
+            List<Post> game1Posts =  postRepository.findByForumAndIsDeletedFalse(randomGame1.getForum());
+            List<Post> game2Posts =  postRepository.findByForumAndIsDeletedFalse(randomGame2.getForum());
+            Collections.shuffle(game1Posts);
+            Collections.shuffle(game2Posts);
+            if(!game1Posts.isEmpty()){
+                postsToShow.add(game1Posts.get(0));
+                promotedCount++;
+            }
+            if(!game2Posts.isEmpty()){
+                postsToShow.add(game2Posts.get(0));
+                promotedCount++;
+            }
+        }else if(promotedGames.size() == 1){
+            Game promotedGame = promotedGames.get(0);
+            List<Post> posts =  postRepository.findByForumAndIsDeletedFalse(promotedGame.getForum());
+            Collections.shuffle(posts);
+            if(!posts.isEmpty()){
+                postsToShow.add(posts.get(0));
+                postsToShow.add(posts.get(1));
+                promotedCount= promotedCount+2;
+            }
+        }
+
         for(Forum forum : gameForums){
             postsToShow.addAll(postRepository.findByForumAndIsDeletedFalse(forum.getId()));
         }
@@ -506,7 +538,7 @@ public class PostService {
         List<Post> first20 = postsToShow.subList(0, Math.min(20, postsToShow.size()));
 
         List<HomePagePostResponseDto> first20dto = new ArrayList<>();
-
+        int index = 0;
         for(Post post : first20){
             HomePagePostResponseDto dto = modelMapper.map(post,HomePagePostResponseDto.class);
 
@@ -556,6 +588,12 @@ public class PostService {
 
             dto.setTypeName(typeName);
 
+            if(index<=promotedCount){
+                dto.setIsPromoted(true);
+            }else {
+                dto.setIsPromoted(false);
+            }
+            index++;
             first20dto.add(dto);
         }
 
@@ -643,10 +681,42 @@ public class PostService {
             }
         }
 
-        List<Post> first20 = postsToShow.subList(0, Math.min(20, postsToShow.size()));
-
         List<HomePagePostResponseDto> first20dto = new ArrayList<>();
 
+        Query allGamesQuery = new Query();
+        allGamesQuery.addCriteria(Criteria.where("isDeleted").is(false));
+        allGamesQuery.addCriteria(Criteria.where("isPromoted").is(true));
+        List<Game> promotedGames = mongoTemplate.find(allGamesQuery, Game.class);
+        int promotedCount = 0;
+        if(promotedGames.size() >= 2){
+            Collections.shuffle(promotedGames);
+            Game randomGame1 = promotedGames.get(0);
+            Game randomGame2 = promotedGames.get(1);
+            List<Post> game1Posts =  postRepository.findByForumAndIsDeletedFalse(randomGame1.getForum());
+            List<Post> game2Posts =  postRepository.findByForumAndIsDeletedFalse(randomGame2.getForum());
+            Collections.shuffle(game1Posts);
+            Collections.shuffle(game2Posts);
+            if(!game1Posts.isEmpty()){
+                postsToShow.add(0,game1Posts.get(0));
+                promotedCount++;
+            }
+            if(!game2Posts.isEmpty()){
+                postsToShow.add(0,game2Posts.get(0));
+                promotedCount++;
+            }
+        }else if(promotedGames.size() == 1){
+            Game promotedGame = promotedGames.get(0);
+            List<Post> posts =  postRepository.findByForumAndIsDeletedFalse(promotedGame.getForum());
+            Collections.shuffle(posts);
+            if(!posts.isEmpty()){
+                postsToShow.add(0,posts.get(0));
+                postsToShow.add(0,posts.get(1));
+                promotedCount = promotedCount +2;
+
+            }
+        }
+        List<Post> first20 = postsToShow.subList(0, Math.min(20, postsToShow.size()));
+        int index = 0;
         for(Post post : first20){
             HomePagePostResponseDto dto = modelMapper.map(post,HomePagePostResponseDto.class);
             dto.setTags(populatedTags(post.getTags()));
@@ -696,7 +766,12 @@ public class PostService {
             dto.setUserVote(getUserVote(post.getId(), user.getId()));
 
             dto.setTypeName(typeName);
-
+            if(index<=promotedCount){
+                dto.setIsPromoted(true);
+            }else {
+                dto.setIsPromoted(false);
+            }
+            index++;
             first20dto.add(dto);
         }
 
