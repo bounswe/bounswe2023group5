@@ -1,7 +1,11 @@
 package com.app.gamereview.dto.response.home;
 
 import com.app.gamereview.enums.ForumType;
+import com.app.gamereview.enums.VoteChoice;
+import com.app.gamereview.model.Achievement;
+import com.app.gamereview.model.Character;
 import com.app.gamereview.model.Tag;
+import com.app.gamereview.model.User;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,7 +26,13 @@ public class HomePagePostResponseDto {
 
     private String postImage;
 
-    private String poster;
+    private User poster;
+
+    private Achievement achievement;
+
+    private Character character;
+
+    private VoteChoice userVote;
 
     @NotNull
     private String forum;
