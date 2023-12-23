@@ -22,6 +22,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/group")
@@ -184,11 +185,16 @@ public class GroupController {
         return ResponseEntity.ok(applications);
     }
 
-    @AuthorizationRequired
     @GetMapping("/get-recommendations")
-    public ResponseEntity<List<Group>> getRecommendedGroups(@RequestHeader String Authorization, HttpServletRequest request) {
-        User user = (User) request.getAttribute("authenticatedUser");
-        List<Group> groups = groupService.getRecommendedGroups(user);
+    public ResponseEntity<List<Group>> getRecommendedGroups(@RequestHeader(name = HttpHeaders.AUTHORIZATION,
+            required = false) String Authorization) {
+        String email = "";
+        if(Authorization == null){
+            return ResponseEntity.ok(groupService.getRecommendedGroups(email));
+        }
+        if (JwtUtil.validateToken(Authorization))
+            email = JwtUtil.extractSubject(Authorization);
+        List<Group> groups = groupService.getRecommendedGroups(email);
         return ResponseEntity.ok(groups);
     }
 }
