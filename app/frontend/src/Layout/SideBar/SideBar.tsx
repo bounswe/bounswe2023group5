@@ -4,6 +4,7 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   AppstoreOutlined,
+  BellOutlined
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { ConfigProvider, Menu } from "antd";
@@ -39,6 +40,17 @@ function SideBar() {
 
   const { user, isLoggedIn, profile } = useAuth();
 
+  const handleClick = (e: any) => {
+    if(e.key[0] === "game"){
+      navigate(`/game/detail/${e.key[1]}`);
+    }else if(e.key[0] === "group"){
+      navigate(`/group/detail/${e.key[1]}`);
+    }else if(e.key[0] === "notification"){
+      navigate(`/notifications`);
+    }
+  }
+
+
   const items: MenuItem[] = [
     createItem(
       "My Games",
@@ -57,6 +69,11 @@ function SideBar() {
         .slice(0, 5)
         .map((group: any) => createItem(group.title, group.id))
     ),
+    createItem(
+      "Notifications",
+      "notification",
+      <BellOutlined />,
+    )
   ];
   return (
     <ConfigProvider
@@ -101,8 +118,13 @@ function SideBar() {
             mode="inline"
             inlineCollapsed={collapsed}
             items={items}
-            onClick={({ keyPath }) =>
-              navigate(`${keyPath[1]}/detail/${keyPath[0]}`)
+            onClick={({ keyPath }) => {
+                if(keyPath[1] === "game" || keyPath[1] === "group"){
+                  navigate(`${keyPath[1]}/detail/${keyPath[0]}`)
+                }else if(keyPath[0] === "notification"){
+                  navigate(`/notifications`)
+                }
+              }
             }
           />
         )}

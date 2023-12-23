@@ -31,6 +31,7 @@ import Achievement from "../../Components/Achievement/Achievement/Achievement.ts
 import { grantAchievement } from "../../Services/achievement.ts";
 import { formatDate } from "../../Library/utils/formatDate.ts";
 import { handleError } from "../../Library/utils/handleError.ts";
+import CharacterDetails from "../../Components/Character/CharacterDetails.tsx";
 
 function ForumPost() {
   const { isLoggedIn, user } = useAuth();
@@ -136,10 +137,18 @@ function ForumPost() {
           )}
           {post.achievement && (
             <div className={styles.achievement}>
+              <span>Achievement:</span>
               <Achievement props={post.achievement} />
               {user?.role === "ADMIN" && (
                 <Button onClick={() => grant()}>Grant Achievement</Button>
               )}
+            </div>
+          )}
+          {post.character && (
+            <div className={styles.character}>
+              <span>Character:</span>
+
+              <CharacterDetails character={post?.character} />
             </div>
           )}
           <span className={styles.body}>

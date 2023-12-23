@@ -1,18 +1,25 @@
 import { Button, Form, Input, Card, message } from "antd";
 import styles from "./ChangePassword.module.scss";
+import { changePassword } from "../../Services/changepassword";
+import { useNavigate } from "react-router-dom";
 
 const ChangePassword = () => {
   const [form] = Form.useForm();
+  const navigate = useNavigate();
 
-  const handleChangePassword = () => {
-    /*
-    const values = form.getFieldsValue();
-   
-    const body = {
-      email: values.email,
-      new_password: values.new_password,
-    };
-    */
+  const handleChangePassword = async (event: any) => {
+    const { currentPassword, newPassword } = event;
+    try {
+      const response = await changePassword(currentPassword, newPassword);
+      if (response?.status == 200) {
+        message.success("Password is changed successfully!");
+        navigate("/profile");
+      }
+    } catch (error: any) {
+      message.error(error.message);
+      return;
+    }
+
     message.success("Password is changed successfully!");
   };
 
@@ -29,23 +36,26 @@ const ChangePassword = () => {
         onFinishFailed={onFinishFailed}
         size="large"
       >
-        <Form.Item name="password" rules={[{ required: true, message: "" }]}>
+        <Form.Item
+          name="currentPassword"
+          rules={[{ required: true, message: "" }]}
+        >
           <Input placeholder="Password" />
         </Form.Item>
 
-        <Form.Item name="newpassword" rules={[{ required: true, message: "" }]}>
+        <Form.Item name="newPassword" rules={[{ required: true, message: "" }]}>
           <Input.Password placeholder="Enter a new password" />
         </Form.Item>
         <Form.Item
           name="conf-password"
-          dependencies={["newpassword"]}
+          dependencies={["newPassword"]}
           rules={[
             {
               required: true,
             },
             ({ getFieldValue }) => ({
               validator(_, value) {
-                if (!value || getFieldValue("newpassword") === value) {
+                if (!value || getFieldValue("newPassword") === value) {
                   return Promise.resolve();
                 }
                 return Promise.reject(

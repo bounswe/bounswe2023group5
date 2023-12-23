@@ -7,9 +7,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Document(collection = "Annotation")
 @Getter
@@ -23,7 +21,7 @@ public class Annotation {
 
     private Target target;
 
-    private Body body;
+    private List<Body> body;
 
     private String type;
 
@@ -41,7 +39,14 @@ public class Annotation {
         if  (this.motivation != null) json.put("motivation", this.motivation);
         if  (this.created != null) json.put("created", this.created);
         if  (this.target != null) json.put("target", this.target.toJSON());
-        if  (this.body != null) json.put("body", this.body.toJSON());
+        if  (this.body != null) {
+            List<Map<String, String>> bodyList = new ArrayList<>();
+
+            for (Body b : this.body) {
+                bodyList.add(b.toJSON());
+            }
+            json.put("body", bodyList);
+        }
         if  (this.creator != null) json.put("creator", this.creator.toJSON());
         return json;
     }
