@@ -21,9 +21,11 @@ import {
   WarningOutlined,
   BackwardOutlined,
   ArrowLeftOutlined,
+  VerifiedOutlined,
+  CheckOutlined,
 } from "@ant-design/icons";
 import clsx from "clsx";
-import { Button, message } from "antd";
+import { Button, Tooltip, message } from "antd";
 import { useState } from "react";
 import TagRenderer from "../../Components/TagRenderer/TagRenderer.tsx";
 import { twj } from "tw-to-css";
@@ -136,12 +138,17 @@ function ForumPost() {
             </div>
           )}
           {post.achievement && (
-            <div className={styles.achievement}>
-              <span>Achievement:</span>
-              <Achievement props={post.achievement} />
-              {user?.role === "ADMIN" && (
-                <Button onClick={() => grant()}>Grant Achievement</Button>
-              )}
+            <div>
+              
+              <div className={styles.achievement}>
+                  <span className={styles.mySpan}>Achievement:</span>
+                  <Achievement props={post.achievement} />
+                  {user?.role === "ADMIN" && (
+                    <Tooltip title="Grant Achievement" className={styles.grantButton} >
+                        <CheckOutlined onClick={() => grant()} />
+                    </Tooltip>
+                  )}
+              </div>
             </div>
           )}
           {post.character && (
