@@ -18,7 +18,7 @@ public class Login : MonoBehaviour
     [SerializeField] private Button signupButton;
     [SerializeField] private TMP_Text infoText;
     
-    private void Awake()
+    private void Start()
     {
         loginButton.onClick.AddListener(OnClickedLogin);
         forgetPasswordButton.onClick.AddListener(OnClickedForgetPassword);
@@ -26,7 +26,7 @@ public class Login : MonoBehaviour
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
         if (!string.IsNullOrEmpty(PersistenceManager.UserToken))
         {
-            canvasManager.ShowGamesPage();
+            canvasManager.ShowHomePage();
             canvasManager.HideLogInPage();
         }
         

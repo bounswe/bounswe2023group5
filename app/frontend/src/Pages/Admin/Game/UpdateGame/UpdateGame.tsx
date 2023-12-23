@@ -19,6 +19,7 @@ function UpdateGame() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [releaseDate, setReleaseDate] = useState<Date | null>(new Date());
+  const [minSystemReq, setMinSystemReq] = useState("");
   const [fileList, setFileList] = useState<any[]>([]);
 
   const { data: games } = useQuery(["games"], () => getGames());
@@ -57,7 +58,7 @@ function UpdateGame() {
       description,
       releaseDate,
       gameIcon: gameIcon || game?.gameIcon,
-      minSystemReq: game.minSystemReq,
+      minSystemReq,
     });
   };
 
@@ -86,9 +87,9 @@ function UpdateGame() {
     updatedGame = await getGame(updatedGame.id);
     setId(updatedGame.id);
     setGame(updatedGame);
-    console.log(updatedGame);
     setName(updatedGame.gameName);
     setDescription(updatedGame.gameDescription);
+    setMinSystemReq(updatedGame.minSystemReq);
 
     const dateObject = new Date(Date.parse(updatedGame.releaseDate));
 
@@ -149,6 +150,12 @@ function UpdateGame() {
             className={styles.datePicker}
           />
           <br></br>
+          <Input
+            placeholder="Min System Requirements"
+            value={minSystemReq}
+            className={styles.input}
+            onChange={(event) => setMinSystemReq(event.target.value)}
+          />
           <Button className={styles.filterButton} onClick={handleClick}>
             Update Game
           </Button>

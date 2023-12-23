@@ -3,29 +3,40 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class GameScreen : MonoBehaviour
 {
+    
+    [SerializeField] private MultySelectDopdown playerTypes;
+    [SerializeField] private MultySelectDopdown genre;
+    [SerializeField] private TMP_Dropdown production;
+    [SerializeField] private MultySelectDopdown platforms;
+    [SerializeField] private MultySelectDopdown artStyles;
+    [SerializeField] private TMP_InputField search;
 
-    private CanvasManager canvasManager;
     [SerializeField] private ScrollRect scrollRect;
     [SerializeField] private Transform gamePageParent;
-    private List<GamePage> gamePages = new List<GamePage>();
-
+    [SerializeField] private Button filterButton;
     
+    private List<GamePage> gamePages = new List<GamePage>();
+    private Dictionary<string,string> queryParams = new Dictionary<string, string>();
+
+
     private void Awake()
     {
-        canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
+        filterButton.onClick.AddListener(OnClickedFilter);
     }
 
     private void Start()
     {
         ListGames(null);
+        StartCoroutine(GetAllTags(AppVariables.HttpServerUrl + "/tag/get-all"));
     }
-
+    
 
     private void ListGames(GetGameListRequest gameRequestData)
     {
@@ -42,6 +53,38 @@ public class GameScreen : MonoBehaviour
         */
         
         StartCoroutine(Post(url, bodyJsonString));
+    }
+
+    private void OnClickedFilter()
+    {
+        
+    }
+
+    private void ChangeFilterParameter(TMP_Dropdown dropdown, FilterType filterType)
+    {
+        switch (filterType)
+        {
+            case FilterType.PlayerType:
+                break;
+            case FilterType.Genre:
+                break;
+            case FilterType.Production:
+                if (queryParams.ContainsKey("production"))
+                {
+                    queryParams["production"] = productionNameArray[production.value];
+                }
+                else
+                {
+                    queryParams.Add("production", productionNameArray[production.value]);
+                }
+                break;
+            case FilterType.Platforms:
+                break;
+            case FilterType.ArtStyles:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(filterType), filterType, null);
+        }
     }
 
     IEnumerator Post(string url, string bodyJsonString)
@@ -77,6 +120,83 @@ public class GameScreen : MonoBehaviour
         }
         request.downloadHandler.Dispose();
         request.uploadHandler.Dispose();
+    }
+    
+    private List<(string,string)> playerTypesArray = new List<(string,string)>();
+    private List<(string,string)> genreArray = new List<(string,string)>();
+    private List<(string,string)> platformsArray = new List<(string,string)>();
+    private List<(string,string)> artStylesArray = new List<(string,string)>();
+    private List<(string,string)> productionArray = new List<(string,string)>();
+    private List<string> productionNameArray = new List<string>();
+
+    IEnumerator GetAllTags(string url)
+    {
+        var request = new UnityWebRequest(url, "GET");
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+        yield return request.SendWebRequest();
+        string response = "";
+        if (request.responseCode == 200)
+        {
+            response = request.downloadHandler.text;
+            var allTagsResponseData = JsonConvert.DeserializeObject<TagResponse[]>(response);
+
+            // Do things with _GetAllTagsResponseData 
+            foreach (var tagResponse in allTagsResponseData)
+            {
+                switch (tagResponse.tagType)
+                {
+                    case "PLAYER_TYPE":
+                        playerTypesArray.Add((tagResponse.name,tagResponse.id));
+                        break;
+                    case "GENRE":
+                        genreArray.Add((tagResponse.name,tagResponse.id));
+                        break;
+                    case "PLATFORM":
+                        platformsArray.Add((tagResponse.name,tagResponse.id));
+                        break;
+                    case "ART_STYLE":
+                        artStylesArray.Add((tagResponse.name,tagResponse.id));
+                        break;
+                    case "PRODUCTION":
+                        productionArray.Add((tagResponse.name,tagResponse.id));
+                        productionNameArray.Add(tagResponse.name);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            Debug.Log("Success to get tags: " + response);
+            PopulateMultiSelectDropdown(playerTypes, playerTypesArray);
+            PopulateMultiSelectDropdown(genre, genreArray);
+            PopulateDropdown(production, productionNameArray);
+            PopulateMultiSelectDropdown(platforms, platformsArray);
+            PopulateMultiSelectDropdown(artStyles, artStylesArray);
+        }
+        else
+        {
+            Debug.Log("Error to get tags: " + response);
+        }
+        request.downloadHandler.Dispose();
+    }
+    
+    void PopulateDropdown (TMP_Dropdown dropdown, List<string> options) {
+        dropdown.ClearOptions ();
+        dropdown.AddOptions(options);
+    }
+    
+    void PopulateMultiSelectDropdown (MultySelectDopdown dropdown, List<(string,string)> options) {
+        dropdown.InitDropdown(options);
+    }
+    
+    enum FilterType
+    {
+        PlayerType,
+        Genre,
+        Production,
+        Platforms,
+        ArtStyles,
+        Developer
     }
 
 }
