@@ -48,16 +48,18 @@ function HomePage() {
           />
         </div>
         {data?.map((post: any) => (
-          <ForumPost
-            post={post}
-            forumId={post.forum}
-            gameId={post.type === "GAME" && post.typeId}
-            redirect="/home"
-            type={post.type}
-            typeName={post.typeName}
-            typeId={post.typeId}
-            key={post.id}
-          />
+          <div className={styles.postContainer}>
+            <ForumPost
+              post={post}
+              forumId={post.forum}
+              gameId={post.type === "GAME" && post.typeId}
+              redirect="/home"
+              type={post.type}
+              typeName={post.typeName}
+              typeId={post.typeId}
+              key={post.id}
+            />
+          </div>
         ))}
       </div>
     </div>
