@@ -31,6 +31,7 @@ import Char from "./Pages/Char/Char";
 import DeleteGame from "./Pages/Admin/Game/DeleteGame/DeleteGame";
 import Notifications from "./Pages/Notifications/Notifications";
 import ReviewApplication from "./Pages/ReviewApplication/ReviewApplication";
+import ApplyGroup from "./Pages/ApplyGroup/ApplyGroup";
 
 
 axios.defaults.headers.common["Content-Type"] = "application/json";
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
           {
             path: "review-application/:groupId",
             element: <ReviewApplication />,
+          },
+          {
+            path: "apply/:groupId",
+            element: <ApplyGroup />,
           },
         ],
       },
