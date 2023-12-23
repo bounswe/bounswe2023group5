@@ -4,18 +4,22 @@ import { useAuth } from "../../Components/Hooks/useAuth";
 import { getHomePosts } from "../../Services/home";
 import ForumPost from "../../Components/Forum/ForumPost/ForumPost";
 import { useState } from "react";
-import { Button, Pagination, PaginationProps, Select } from "antd";
+import { Button, Carousel, Pagination, PaginationProps, Select } from "antd";
 import {
   SortAscendingOutlined,
   SortDescendingOutlined,
 } from "@ant-design/icons";
+import {
+  getGameRecommendations,
+  getGroupRecommendations,
+} from "../../Services/recommendation";
 const sortOptions = [
   { label: "Creation Date", value: "CREATION_DATE" },
   { label: "Overall Vote", value: "OVERALL_VOTE" },
   { label: "Vote Count", value: "VOTE_COUNT" },
 ];
 function HomePage() {
-  const { user } = useAuth();
+  const { user, isLoading: userLoading } = useAuth();
   const [sortBy, setSortBy] = useState<string>(sortOptions[0].value);
   const [sortDirection, setSortDir] = useState<"ASCENDING" | "DESCENDING">(
     "DESCENDING"
@@ -27,8 +31,27 @@ function HomePage() {
       currentSortDir === "ASCENDING" ? "DESCENDING" : "ASCENDING"
     );
   };
-  const { data, isLoading } = useQuery(["home", user?.id], () =>
-    getHomePosts(sortDirection, sortBy as any)
+  const { data, isLoading } = useQuery(
+    ["home", user?.id],
+    () => getHomePosts(sortDirection, sortBy as any),
+    {
+      enabled: !userLoading,
+    }
+  );
+
+  const { data: games } = useQuery(
+    ["gamerec", user?.id],
+    getGameRecommendations,
+    {
+      enabled: !userLoading,
+    }
+  );
+  const { data: groups } = useQuery(
+    ["gamerec", user?.id],
+    getGroupRecommendations,
+    {
+      enabled: !userLoading,
+    }
   );
 
   const handleChange = (page: any, pageSize: any) => {
@@ -53,6 +76,7 @@ function HomePage() {
             style={{ width: "120px" }}
           />
         </div>
+        <div></div>
         {data?.map((post: any) => (
           <div className={styles.postContainer}>
             <ForumPost
