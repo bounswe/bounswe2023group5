@@ -6,7 +6,6 @@ import {
   DownOutlined,
   EditOutlined,
   UpOutlined,
-  WarningOutlined,
 } from "@ant-design/icons";
 import { useMutation } from "react-query";
 import { deletePost } from "../../../Services/forum";
@@ -127,11 +126,6 @@ function ForumPost({
       <div className={styles.meta}>
         <span>{post.poster?.username}</span>
         <span>{post.createdAt && formatDate(post.createdAt)}</span>
-        <WarningOutlined
-          style={twj("text-red-500 text-lg cursor-pointer")}
-          alt="report"
-          type="text"
-        />
       </div>
       <div className={styles.readMore}>
         {type !== "STANDARD" && (

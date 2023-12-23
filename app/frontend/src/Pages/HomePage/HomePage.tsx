@@ -4,7 +4,7 @@ import { useAuth } from "../../Components/Hooks/useAuth";
 import { getHomePosts } from "../../Services/home";
 import ForumPost from "../../Components/Forum/ForumPost/ForumPost";
 import { useState } from "react";
-import { Button, Select } from "antd";
+import { Button, Pagination, Select } from "antd";
 import {
   SortAscendingOutlined,
   SortDescendingOutlined,
@@ -61,6 +61,7 @@ function HomePage() {
             />
           </div>
         ))}
+        <Pagination defaultCurrent={1} total={50} />;
       </div>
     </div>
   );
