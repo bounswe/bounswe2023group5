@@ -26,7 +26,7 @@ public class Login : MonoBehaviour
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
         if (!string.IsNullOrEmpty(PersistenceManager.UserToken))
         {
-            canvasManager.ShowGamesPage();
+            canvasManager.ShowHomePage();
             canvasManager.HideLogInPage();
         }
         
