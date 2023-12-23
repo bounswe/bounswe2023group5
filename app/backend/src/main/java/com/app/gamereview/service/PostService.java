@@ -543,6 +543,17 @@ public class PostService {
                 typeName = findGame.get().getGameName();
             }
 
+            Optional<User> findPoster = userRepository.findByIdAndIsDeletedFalse(post.getPoster());
+            findPoster.ifPresent(dto::setPoster);
+
+            Optional<Achievement> findAchievement = achievementRepository.findByIdAndIsDeletedFalse(post.getAchievement());
+            findAchievement.ifPresent(dto::setAchievement);
+
+            Optional<Character> findCharacter = characterRepository.findByIdAndIsDeletedFalse(post.getCharacter());
+            findCharacter.ifPresent(dto::setCharacter);
+
+            dto.setUserVote(null);
+
             dto.setTypeName(typeName);
 
             first20dto.add(dto);
@@ -673,12 +684,33 @@ public class PostService {
                 typeName = findGame.get().getGameName();
             }
 
+            Optional<User> findPoster = userRepository.findByIdAndIsDeletedFalse(post.getPoster());
+            findPoster.ifPresent(dto::setPoster);
+
+            Optional<Achievement> findAchievement = achievementRepository.findByIdAndIsDeletedFalse(post.getAchievement());
+            findAchievement.ifPresent(dto::setAchievement);
+
+            Optional<Character> findCharacter = characterRepository.findByIdAndIsDeletedFalse(post.getCharacter());
+            findCharacter.ifPresent(dto::setCharacter);
+
+            dto.setUserVote(getUserVote(post.getId(), user.getId()));
+
             dto.setTypeName(typeName);
 
             first20dto.add(dto);
         }
 
         return first20dto;
+    }
+
+    public VoteChoice getUserVote(String postId, String userId){
+        Optional<Post> findPost = postRepository.findByIdAndIsDeletedFalse(postId);
+
+        if(findPost.isEmpty()) return null;
+
+        Optional<Vote> userVote = voteRepository.findByTypeIdAndVotedBy(postId,userId);
+
+        return userVote.map(Vote::getChoice).orElse(null);
     }
 
     public List<Tag> populatedTags(List<String> tagIds){
