@@ -10,6 +10,8 @@ public class Character : MonoBehaviour
 {
     [SerializeField] private Image charImage;
     [SerializeField] private Button charDetailsButton;
+
+    [SerializeField] private CharacterDetails characterDetailsManager;
     // Character Details will be given in the Init call
     // private CharDetailsPage charDetailsManager;
 
@@ -22,9 +24,9 @@ public class Character : MonoBehaviour
         charDetailsButton.onClick.AddListener(OnClickedCharDetails);
     }
 
-    public void Init( CharacterResponse charInfoVal/* , CharDetailsPage charDetailsManagerInfo */)
+    public void Init( CharacterResponse charInfoVal, CharacterDetails charDetailsManagerInfo )
     {
-        // charDetailsManager = charDetailsManagerInfo;
+        characterDetailsManager = charDetailsManagerInfo;
         charInfo = charInfoVal;
         
         // Load the character's image
@@ -35,6 +37,8 @@ public class Character : MonoBehaviour
     private void OnClickedCharDetails()
     {
         // Initialize and open the Character Details Page
+        canvasManager.ShowCharacterDetailsPage();
+        characterDetailsManager.Init(charInfo);
     }
     
     private IEnumerator LoadImageFromURL(string imageUrl, Image targetImage)

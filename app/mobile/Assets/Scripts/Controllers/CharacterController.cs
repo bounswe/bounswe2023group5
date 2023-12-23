@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class CharacterController
 {
     
@@ -30,7 +32,7 @@ public class CharacterRequest
     public string voiceActor;
     public string height;
     public string age;
-    public CustomFields customFields;
+    public Object customFields;
 }
 
 // CharacterGetGameCharactersRequest
@@ -64,12 +66,15 @@ public class CharacterResponse
     public string voiceActor;
     public string height;
     public string age;
-    public CustomFields customFields;
+    public Object customFields;
 }
 
+
+/*
 public class CustomFields
 {
     public string additionalProp1;
     public string additionalProp2;
     public string additionalProp3;
 }
+*/

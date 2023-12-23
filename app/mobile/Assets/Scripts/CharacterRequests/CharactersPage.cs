@@ -14,6 +14,7 @@ public class CharactersPage : MonoBehaviour
     [SerializeField] private Transform charObjParent;
     [SerializeField] private ScrollRect charScroll;
     [SerializeField] private Button exitButton;
+    [SerializeField] private CharacterDetails characterDetailsManager;
     private string gameId;
     private CanvasManager canvasManager;
 
@@ -79,7 +80,7 @@ public class CharactersPage : MonoBehaviour
         {
             Character tagObj = Instantiate(Resources.Load<Character>("Prefabs/Character"), charObjParent);
             charObjects.Add(tagObj);
-            tagObj.Init(character);
+            tagObj.Init(character, characterDetailsManager);
         }
         Canvas.ForceUpdateCanvases();
         charScroll.horizontalNormalizedPosition = 1;
