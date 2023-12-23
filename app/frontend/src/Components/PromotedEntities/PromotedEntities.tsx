@@ -1,6 +1,6 @@
-import { TeamOutlined, UserOutlined } from "@ant-design/icons";
+import { CrownFilled, TeamOutlined, UserOutlined } from "@ant-design/icons";
 import styles from "./PromotedEntities.module.scss";
-import { Button, Carousel, message } from "antd";
+import { Button, Carousel, Tooltip, message } from "antd";
 
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
@@ -27,8 +27,9 @@ function PromotedEntities({games}: {games: any[]}) {
                     <div key={game.id} className={styles.gameItem} >
                         <div className={styles.header} onClick={() => navigate(`/game/detail/${game.id}`)}>
                             <h1>{game.gameName}</h1>
-   
-                            <h1 className={styles.promotion}>{ "(PROMOTED)"}</h1>
+                            <Tooltip title="Promoted Game">
+                                <CrownFilled className={styles.crown}/>
+                            </Tooltip>
                         </div>
                     
                         <div className={styles.content}>
