@@ -17,6 +17,7 @@ export function useVote({
     (choice: "UPVOTE" | "DOWNVOTE") => createVote({ voteType, typeId, choice }),
     {
       onSuccess() {
+        queryClient.invalidateQueries(["home"]);
         if (invalidateKey) {
           queryClient.invalidateQueries(invalidateKey);
         }
