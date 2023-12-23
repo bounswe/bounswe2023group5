@@ -4,7 +4,7 @@ import { useAuth } from "../../Components/Hooks/useAuth";
 import { getHomePosts } from "../../Services/home";
 import ForumPost from "../../Components/Forum/ForumPost/ForumPost";
 import { useState } from "react";
-import { Button, Pagination, Select } from "antd";
+import { Button, Pagination, PaginationProps, Select } from "antd";
 import {
   SortAscendingOutlined,
   SortDescendingOutlined,
@@ -20,6 +20,8 @@ function HomePage() {
   const [sortDirection, setSortDir] = useState<"ASCENDING" | "DESCENDING">(
     "DESCENDING"
   );
+  const [pageData, setPageData] = useState<any[]>([]);
+
   const toggleSortDir = () => {
     setSortDir((currentSortDir) =>
       currentSortDir === "ASCENDING" ? "DESCENDING" : "ASCENDING"
@@ -28,6 +30,10 @@ function HomePage() {
   const { data, isLoading } = useQuery(["home", user?.id], () =>
     getHomePosts(sortDirection, sortBy as any)
   );
+
+  const handleChange = (page: any, pageSize: any) => {
+    setPageData(data?.slice((page - 1) * pageSize, page * pageSize));
+  };
 
   return (
     <div className={styles.pageContainer}>
@@ -61,7 +67,12 @@ function HomePage() {
             />
           </div>
         ))}
-        <Pagination defaultCurrent={1} total={50} />;
+        <Pagination
+          onChange={handleChange}
+          defaultCurrent={1}
+          total={20}
+          pageSize={5}
+        />
       </div>
     </div>
   );

@@ -1,12 +1,16 @@
+@import "../../colors";
+
 .pageContainer {
   padding: 1em;
   display: flex;
   justify-content: center;
+
   .postsContainer {
     display: flex;
     gap: 1em;
     flex-direction: column;
     width: 70%;
+    background-color: $orange-light-90;
     .filterContainer {
       display: flex;
       justify-content: flex-end;
