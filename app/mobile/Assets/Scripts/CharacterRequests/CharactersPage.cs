@@ -8,22 +8,36 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 
-public class CharacterPage : MonoBehaviour
+public class CharactersPage : MonoBehaviour
 {
     private List<Character> charObjects = new List<Character>();
     [SerializeField] private Transform charObjParent;
     [SerializeField] private ScrollRect charScroll;
+    [SerializeField] private Button exitButton;
     private string gameId;
+    private CanvasManager canvasManager;
 
     public void Awake()
     {
-        Init("841cbf45-90cc-47b7-a763-fa3a18218bf9");
+        // Init("841cbf45-90cc-47b7-a763-fa3a18218bf9");
+        exitButton.onClick.AddListener(exit);
+        canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
     }
 
     public void Init(string gameIdVal)
     {
         gameId = gameIdVal;
+        RemoveCharacters();
         ShowCharacters();
+    }
+
+    private void RemoveCharacters()
+    {
+        foreach (var charObj in charObjects)
+        {
+            Destroy(charObj.gameObject);
+        }
+        charObjects.Clear();
     }
 
     private void ShowCharacters()
@@ -59,11 +73,7 @@ public class CharacterPage : MonoBehaviour
     
     private void AddChacters(CharacterResponse[] characters)
     {
-        foreach (var charObj in charObjects)
-        {
-            Destroy(charObj.gameObject);
-        }
-        charObjects.Clear();
+        
 
         foreach (var character in characters)
         {
@@ -74,5 +84,10 @@ public class CharacterPage : MonoBehaviour
         Canvas.ForceUpdateCanvases();
         charScroll.horizontalNormalizedPosition = 1;
         Debug.Log("Success to list tags");
+    }
+
+    private void exit()
+    {
+        canvasManager.HideCharactersPage();
     }
 }
