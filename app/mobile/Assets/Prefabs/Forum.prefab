@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1429818203101475939
 RectTransform:
   m_ObjectHideFlags: 0
@@ -90,6 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 600be5d505c34b2cfb1e4bf1a7551762, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scrollRect: {fileID: 0}
   forumPageParent: {fileID: 3126411506773381386}
 --- !u!1 &4173911263195850364
 GameObject:
@@ -206,7 +207,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.075}
   m_AnchorMax: {x: 1, y: 0.79211605}
-  m_AnchoredPosition: {x: 0, y: 93.40006}
+  m_AnchoredPosition: {x: 0, y: 93.40039}
   m_SizeDelta: {x: 0, y: 17.806396}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &443396557558523846
@@ -314,7 +315,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000061035156, y: 0}
+  m_AnchoredPosition: {x: -0.00024414062, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &7459112389840065156
