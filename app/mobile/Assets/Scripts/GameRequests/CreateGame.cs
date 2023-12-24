@@ -44,8 +44,49 @@ public class CreateGame : MonoBehaviour
 
     private void OnClickedUploadImage()
     {
-        string path = FileController.PickAnImageFile();
-        StartCoroutine(LoadImage(path));
+        RequestPermissionAsynchronously();
+        
+        
+    }
+    private async void RequestPermissionAsynchronously( bool readPermissionOnly = false )
+    {
+        NativeFilePicker.Permission permission = await NativeFilePicker.RequestPermissionAsync( readPermissionOnly );
+        if (permission == NativeFilePicker.Permission.Granted || permission == NativeFilePicker.Permission.ShouldAsk)
+        {
+            Debug.Log( "Permission granted" );
+            string path = PickAnImageFile();
+            infoText.text = "path 1: " + path;
+        }
+        else
+        {
+            Debug.Log("Permission denied");
+            infoText.text = "permission denied";
+        }
+    }
+    
+    public string PickAnImageFile()			
+    {
+        // Don't attempt to import/export files if the file picker is already open
+        if( NativeFilePicker.IsFilePickerBusy() )
+            return "";
+        string _path = "";
+        // Pick a PDF file
+        string permission = NativeFilePicker.PickFile( ( path ) =>
+        {
+            if (path == null)
+            {
+                _path = "null";
+                Debug.Log("Operation cancelled");
+            }
+            else
+            {
+                infoText.text = "path 2: " + path;
+                _path = path;
+                StartCoroutine(LoadImage(path));
+            }
+        }, new string[] { "image/*" } );
+        Debug.Log( "Permission result: " + permission );
+        return permission;
     }
     
     IEnumerator LoadImage(string url)

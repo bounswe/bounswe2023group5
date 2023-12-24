@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -9,9 +10,8 @@ public class GroupPage : MonoBehaviour
 {
     [SerializeField] private TMP_Text title;
     [SerializeField] private TMP_Text describtion;
-    [SerializeField] private TMP_Text membershipPolicy;
     [SerializeField] private TMP_Text tags;
-    [SerializeField] private TMP_Text quota;
+    [SerializeField] private TMP_Text dateText;
     [SerializeField] private TMP_Text members;
     [SerializeField] private Button groupDetailsButton;
 
@@ -30,9 +30,9 @@ public class GroupPage : MonoBehaviour
     {
         title.text = groupInfo.title;
         describtion.text = groupInfo.description;
-        membershipPolicy.text = groupInfo.membershipPolicy;
         //tags.text = groupInfo.tags;
-        quota.text = groupInfo.quota.ToString();
+        string date = groupInfo.createdAt;
+        dateText.text = "since " + date.Substring(8, 2) + "/" + date.Substring(5, 2) + "/" + date.Substring(0, 4);
         members.text = groupInfo.members.Length.ToString();
         groupId = groupInfo.id;
         //members.text = groupInfo.members;
