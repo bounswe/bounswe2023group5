@@ -16,6 +16,7 @@ import {
 import GameReccomendation from "../../Components/ReccomendationCarousel/RecommendationItem/RecommendationItem";
 import { useElementSize } from "usehooks-ts";
 import RecommendationCarousel from "../../Components/ReccomendationCarousel/RecommendationCarousel";
+import { PacmanLoader } from "react-spinners";
 const sortOptions = [
   { label: "Creation Date", value: "CREATION_DATE" },
   { label: "Overall Vote", value: "OVERALL_VOTE" },
@@ -69,6 +70,7 @@ function HomePage() {
             name: game.gameName,
             link: `/game/detail/${game.id}`,
           }))}
+          loading={!games}
         />
         <RecommendationCarousel
           title="Recommended Groups!"
@@ -78,6 +80,7 @@ function HomePage() {
             link: `/group/detail/${group.id}`,
             showName: true,
           }))}
+          loading={!groups}
         />
         <div className={styles.filterContainer}>
           <Button onClick={toggleSortDir}>
@@ -95,22 +98,28 @@ function HomePage() {
           />
         </div>
 
-        {data
-          ?.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
-          .map((post: any) => (
-            <div className={styles.postContainer}>
-              <ForumPost
-                post={post}
-                forumId={post.forum}
-                gameId={post.type === "GAME" && post.typeId}
-                redirect="/home"
-                type={post.type}
-                typeName={post.typeName}
-                typeId={post.typeId}
-                key={post.id}
-              />
-            </div>
-          ))}
+        {data ? (
+          data
+            ?.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+            .map((post: any) => (
+              <div className={styles.postContainer}>
+                <ForumPost
+                  post={post}
+                  forumId={post.forum}
+                  gameId={post.type === "GAME" && post.typeId}
+                  redirect="/home"
+                  type={post.type}
+                  typeName={post.typeName}
+                  typeId={post.typeId}
+                  key={post.id}
+                />
+              </div>
+            ))
+        ) : (
+          <div className={styles.spinnerContainer}>
+            <PacmanLoader color="#1b4559" size={30} />
+          </div>
+        )}
         <Pagination
           style={{ alignSelf: "flex-end" }}
           onChange={setPage}

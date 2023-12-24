@@ -1,22 +1,16 @@
-import { TeamOutlined, UserOutlined } from "@ant-design/icons";
+import { TeamOutlined } from "@ant-design/icons";
 import styles from "./Application.module.scss";
-import { Button, message } from "antd";
-import TagRenderer from "../TagRenderer/TagRenderer";
-import { formatDate } from "../../Library/utils/formatDate";
-import { useNavigate } from "react-router-dom";
+import { Button } from "antd";
 import { useMutation, useQueryClient } from "react-query";
-import { joinGroup, leaveGroup } from "../../Services/group";
 import { reviewApplication } from "../../Services/applications";
 import { NotificationUtil } from "../../Library/utils/notification";
+import { handleAxiosError } from "../../Library/utils/handleError";
 
 
 function Application({ application }: { application: any }) {
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-
-
-  const { mutate: approve  } = useMutation(
+  const { mutate: approve } = useMutation(
     (applicationId: string) => reviewApplication(applicationId, "APPROVE"),
     {
       onSuccess() {
@@ -24,12 +18,12 @@ function Application({ application }: { application: any }) {
         NotificationUtil.success("You successfully approved the application");
       },
       onError(error: any) {
-        message.error(error.response.data);
+        handleAxiosError(error);
       },
     }
   );
 
-  const { mutate: reject  } = useMutation(
+  const { mutate: reject } = useMutation(
     (applicationId: string) => reviewApplication(applicationId, "REJECT"),
     {
       onSuccess() {
@@ -38,7 +32,7 @@ function Application({ application }: { application: any }) {
 
       },
       onError(error: any) {
-        message.error(error.response.data);
+        handleAxiosError(error);
       },
     }
   );
@@ -60,18 +54,16 @@ function Application({ application }: { application: any }) {
         </div>
       </div>
       <div className={styles.body}>
-        
         <div className={styles.content}>
           <div className={styles.description}>
             <span>{application?.message}</span>
           </div>
           <div className={styles.footer}>
-            <div style={{ display: "flex", gap: "40px" }}>
-            
-            </div>
+            <div style={{ display: "flex", gap: "40px" }}></div>
             <div style={{ display: "flex", gap: "3px" }}>
-              
-              <Button onClick={async () => approve(application.id)}>Accept</Button>
+              <Button onClick={async () => approve(application.id)}>
+                Accept
+              </Button>
               <Button onClick={async () => reject(application.id)}>
                 Reject
               </Button>
