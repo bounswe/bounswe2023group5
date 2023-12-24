@@ -1,0 +1,88 @@
+
+
+@import "../../colors";
+
+.container {
+  background-color: $violet-light-80;
+  border-radius: 0.5em;
+  overflow: hidden;
+  border: 3px solid $yellow;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+@media only screen and (max-width: 976px) {
+    .container {
+      flex: 0 1 100%;
+    }
+  }
+  
+@media only screen and (min-width: 976px) {
+.container {
+    flex: 0 1 calc(100% * (1 / 2) - 1rem);
+}
+}
+
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: $violet;
+  cursor: pointer;
+  h1{
+    margin-left: 10px;
+  }
+
+}
+
+.descriptionContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.description {
+  margin-left: 1rem;
+  margin-top: 0;
+  text-wrap: wrap;
+}
+
+.icon {
+  margin-right: 1rem;
+  border-radius: 10px;
+  width: 240px;
+  height: 200px;
+  cursor: pointer;
+}
+
+.content {
+  display: flex;
+  padding: 1rem;
+  text-wrap: wrap;
+  position: relative;
+  align-items: center;
+}
+
+.button {
+  position: absolute;
+
+  right: 0.5em;
+  bottom: 0.5em;
+}
+
+.promotion{
+    color: $orange-dark-60;
+}
+
+.crown{
+    color: $yellow-dark-20;
+    font-size: 1.5rem;
+    margin-left: 20px;
+    margin-right: 20px;
+}

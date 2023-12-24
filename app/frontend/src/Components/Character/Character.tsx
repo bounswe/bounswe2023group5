@@ -1,22 +1,25 @@
+import clsx from "clsx";
 import styles from "./Character.module.scss";
 
 function Character({
   onClick,
   name,
   imgUrl,
+  className,
 }: {
-  onClick: () => void;
+  onClick?: () => void;
   name: string;
   imgUrl: string;
+  className?: string;
 }) {
   return (
     <div>
       <div
-        className={styles.characterContainer}
+        className={clsx(styles.characterContainer, className)}
         style={{
           backgroundImage: `url(${imgUrl})`,
         }}
-        onClick={() => onClick()}
+        onClick={() => onClick?.()}
       >
         <div className={styles.fadeContainer}>
           <div

@@ -12,12 +12,14 @@ export const createGame = async ({
   name,
   description,
   releaseDate,
+  minReq,
   gameIcon,
   ...tags
 }: {
   name: string;
   description: string;
   releaseDate: Date | null;
+  minReq: string;
   gameIcon: any;
   tags: any;
 }) => {
@@ -29,7 +31,7 @@ export const createGame = async ({
       releaseDate,
       ...tags,
       platforms: tags.platform,
-      minSystemReq: "4GBRAM", // will be changed
+      minSystemReq: minReq,
       gameIcon,
     }
   );
@@ -61,11 +63,14 @@ export const updateGame = async ({
       gameIcon,
       minSystemReq: minSystemReq || "4GB RAM", // will be changed
     }
+  );
+
+  return response.data;
+};
 
 export const deleteGame = async (id: string) => {
   const response = await axios.delete(
     `${import.meta.env.VITE_APP_API_URL}/game/delete?id=${id}`
-
   );
 
   return response.data;

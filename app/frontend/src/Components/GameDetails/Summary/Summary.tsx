@@ -4,10 +4,7 @@ import styles from "./Summary.module.scss";
 import { getAchievementByGame } from "../../../Services/achievement";
 import Achievement from "../../Achievement/Achievement/Achievement";
 import { useQuery } from "react-query";
-import {
-  handleAxiosError,
-  handleError,
-} from "../../../Library/utils/handleError.ts";
+import { handleAxiosError } from "../../../Library/utils/handleError.ts";
 import { Recogito } from "@recogito/recogito-js";
 
 import "@recogito/recogito-js/dist/recogito.min.css";
@@ -17,8 +14,10 @@ import {
   updateAnnotation,
 } from "../../../Services/annotation.ts";
 import { NotificationUtil } from "../../../Library/utils/notification.ts";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../Hooks/useAuth.tsx";
+import { getCharacterByGame } from "../../../Services/character";
+import CharacterDetails from "../../Character/CharacterDetails";
 
 function Summary({ game }: { game: any }) {
   const { user } = useAuth();
@@ -28,7 +27,25 @@ function Summary({ game }: { game: any }) {
     () => getAchievementByGame({ gameId: game.id! })
   );
 
+  const pageUrl = window.location.href.replace("?back=/home", "");
+
   const isAdmin = user?.role === "ADMIN";
+
+  const hideTagField = () => {
+    const tagField = document.querySelector(".r6o-widget.r6o-tag");
+
+    if (tagField) {
+      tagField.style.display = "none";
+    }
+  };
+
+  useEffect(() => {
+    const textElement = document.querySelector("#textElement");
+
+    if (textElement) {
+      textElement.addEventListener("click", hideTagField);
+    }
+  }, [game]);
 
   const linkAnnotation = (elem: any) => {
     if (elem && isAnnotationsApplied === false) {
@@ -41,7 +58,7 @@ function Summary({ game }: { game: any }) {
       r.loadAnnotations(
         `${
           import.meta.env.VITE_APP_ANNOTATION_API_URL
-        }/annotation/get-source-annotations?source=${game.id}`
+        }/annotation/get-source-annotations?source=${pageUrl}`
       )
         .then(function (annotations) {})
         .catch((error) => {
@@ -51,10 +68,13 @@ function Summary({ game }: { game: any }) {
           NotificationUtil.error("Error occurred while retrieving annotations");
         });
 
-      r.on("createAnnotation", async (annotation: any, _overrideId) => {
-        try {
-          annotation.target = { ...annotation.target, source: game.id };
 
+      r.on("createAnnotation", async (annotation: any, overrideId) => {
+        try {
+          annotation.target = { ...annotation.target, source: pageUrl };
+          const newId = pageUrl + "/" + annotation.id.replace("#", "");
+          annotation.id = newId;
+          overrideId(newId);
           await createAnnotation(annotation);
           NotificationUtil.success("You successfully create the annotation");
         } catch (error) {
@@ -72,9 +92,13 @@ function Summary({ game }: { game: any }) {
         }
       });
 
+      r.on("selectAnnotation", async function (annotation: any) {
+        hideTagField();
+      });
+
       r.on("updateAnnotation", async function (annotation, _previous) {
         try {
-          annotation.target = { ...annotation.target, source: game.id };
+          annotation.target = { ...annotation.target, source: pageUrl };
           await updateAnnotation(annotation);
           NotificationUtil.success("You successfully update the annotation");
         } catch (error) {
@@ -83,6 +107,10 @@ function Summary({ game }: { game: any }) {
       });
     }
   };
+  const { data: characters, isLoading: isLoadingCharacters } = useQuery(
+    ["characters", game.id],
+    () => getCharacterByGame(game.id)
+  );
 
   return (
     <div className={styles.summaryContainer}>
@@ -137,7 +165,7 @@ function Summary({ game }: { game: any }) {
         )}
       </div>
       <div className={styles.summary}>
-        <Typography ref={(elem) => linkAnnotation(elem)}>
+        <Typography ref={(elem) => linkAnnotation(elem)} id="textElement">
           {game?.gameDescription}
         </Typography>
       </div>
@@ -145,6 +173,22 @@ function Summary({ game }: { game: any }) {
         <div className={styles.req}>
           <span>Min System Req: </span>
           {game.minSystemReq}
+        </div>
+      )}
+
+      {!isLoadingCharacters && characters.length > 0 && (
+        <div>
+          <div className={styles.charTitle}>Characters</div>
+          <div className={styles.row}>
+            {characters.map(
+              (character: any) =>
+                !character.isDeleted && (
+                  <div className={styles.infoContainer}>
+                    <CharacterDetails character={character} />
+                  </div>
+                )
+            )}
+          </div>
         </div>
       )}
 
@@ -156,7 +200,9 @@ function Summary({ game }: { game: any }) {
               (achievement: any) =>
                 !achievement.isDeleted && (
                   <div className={styles.achievementContainer}>
-                    <Achievement props={achievement} key={achievement.id} />
+                    <div className={styles.infoContainer}>
+                      <Achievement props={achievement} key={achievement.id} />
+                    </div>
                   </div>
                 )
             )}

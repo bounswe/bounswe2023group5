@@ -23,6 +23,8 @@ import Reply from "../Reply/Reply";
 import { useNavigate } from "react-router-dom";
 import CommentEditForm from "../CommentForm/CommentEditForm";
 import { twj } from "tw-to-css";
+import { NotificationUtil } from "../../../Library/utils/notification";
+import clsx from "clsx";
 
 function Comment({ comment, postId }: { comment: any; postId: string }) {
   const { upvote, downvote } = useVote({
@@ -32,13 +34,13 @@ function Comment({ comment, postId }: { comment: any; postId: string }) {
   });
 
   const { user, isLoggedIn } = useAuth();
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { mutate: removeComment } = useMutation(
     (id: string) => deleteComment(id),
     {
       onSuccess() {
         queryClient.invalidateQueries(["comments", postId]);
+        NotificationUtil.success("You successfully delete the comment.");
       },
       onMutate(id: string) {
         queryClient.setQueriesData(["comments", postId], (prev: any) => {
@@ -69,7 +71,7 @@ function Comment({ comment, postId }: { comment: any; postId: string }) {
             icon={<UpOutlined />}
             onClick={upvote}
             disabled={!isLoggedIn}
-            //className={clsx(post?.userVote === "UPVOTE" && styles.active)}
+            className={clsx(comment?.userVote === "UPVOTE" && styles.active)}
           />
           <div className={styles.title}>{comment.overallVote}</div>
 
@@ -80,7 +82,7 @@ function Comment({ comment, postId }: { comment: any; postId: string }) {
             icon={<DownOutlined />}
             onClick={downvote}
             disabled={!isLoggedIn}
-            //className={clsx(post?.userVote === "DOWNVOTE" && styles.active)}
+            className={clsx(comment?.userVote === "DOWNVOTE" && styles.active)}
           />
         </div>
 

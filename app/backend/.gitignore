@@ -36,4 +36,5 @@ build/
 *.env
 
 ### Image Files
-/images/
+images/*
+!images/README.md

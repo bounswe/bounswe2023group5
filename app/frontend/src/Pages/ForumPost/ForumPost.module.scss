@@ -1,4 +1,5 @@
 @import "../../colors";
+@import "@recogito/recogito-js/dist/recogito.min.css";
 
 .container {
   display: flex;
@@ -7,25 +8,30 @@
   padding: 2em;
   position: relative;
 
-  .backButton {
-    color: $prussian-blue;
-    margin: 0.4em;
-    font-size: 30px;
-    cursor: pointer;
-    // Transition for smooth scaling
-    transition: transform 0.3s ease;
-    flex-grow: 0;
-    width: min-content;
+  .topContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .backButton {
+      color: $prussian-blue;
+      margin: 0.4em;
+      font-size: 30px;
+      cursor: pointer;
+      // Transition for smooth scaling
+      transition: transform 0.3s ease;
+      flex-grow: 0;
+      width: min-content;
 
-    &:hover {
-      // Scale up the button on hover
-      transform: scale(1.2);
+      &:hover {
+        // Scale up the button on hover
+        transform: scale(1.2);
+      }
     }
   }
 
   .postContainer {
     display: grid;
-    grid-template-rows: 80px min-content min-content 250px min-content;
+    grid-template-rows: 80px min-content min-content min-content 250px min-content;
     border-radius: 0.5em;
     padding: 1em;
     background-color: $celadon;
@@ -35,6 +41,7 @@
       "t"
       "i"
       "a"
+      "c"
       "b"
       "m";
     .edit {
@@ -46,6 +53,37 @@
       display: flex;
       align-items: center;
       grid-area: a;
+      background-color: $vanilla-light-50;
+      border-radius: 0.5em;
+      padding: 0.5em;
+      span {
+        font-size: 1.5em;
+        font-weight: bold;
+        margin: 0em 2em;
+        opacity: 80%;
+      }
+    }
+
+    .mySpan {
+      font-size: 1.5em;
+      font-weight: bold;
+      margin: 0em 2em;
+      opacity: 80%;
+      background-color: $vanilla-light-50;
+    }
+    .character {
+      display: flex;
+      align-items: center;
+      grid-area: c;
+      background-color: $vanilla-light-50;
+      border-radius: 0.5em;
+      padding: 0.5em;
+      span {
+        font-size: 1.5em;
+        font-weight: bold;
+        margin: 0em 2em;
+        opacity: 80%;
+      }
     }
     .title {
       grid-area: t;
@@ -136,4 +174,31 @@
     margin-left: 3.5em;
     margin-top: 1em;
   }
+  .grantButton {
+    position: absolute;
+    margin-top: 5px;
+    margin-left: 20em;
+    padding: 0.6em 0.9em; 
+    font-size: 0.8em;
+    display: flex;
+    background-color: $orange-light-10  ; 
+    align-items: center;
+    justify-content: center ;
+    border-radius: 0.3em; 
+    color: white; 
+
+    right: 0.5em;
+
+    &:hover {
+      background-color: darken($orange, 10%);
+    }
+  }
 }
+
+// .r6o-widget.r6o-tag {
+//   display: none !important;
+// }
+
+// .r6o-editor .r6o-editor-inner .r6o-widget {
+//   display: none !important;
+// }

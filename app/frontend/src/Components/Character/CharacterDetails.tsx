@@ -10,7 +10,13 @@ import Vibrant from "node-vibrant";
 import styles from "./CharacterDetails.module.scss";
 import Character from "./Character";
 
-function CharacterDetails({ character }: { character: any }) {
+function CharacterDetails({
+  character,
+  className,
+}: {
+  character: any;
+  className?: string;
+}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [palette, setPalette] = useState({} as any);
 
@@ -93,7 +99,7 @@ function CharacterDetails({ character }: { character: any }) {
   if (character?.customFields !== undefined) {
     borderedItems = [
       ...defaultItems,
-      ...Object.keys(character?.customFields).map((key: any) => {
+      ...Object.keys(character?.customFields || {}).map((key: any) => {
         return {
           key: key,
           label: key,
@@ -111,6 +117,7 @@ function CharacterDetails({ character }: { character: any }) {
         imgUrl={imageUrl}
         name={character?.name}
         onClick={showModal}
+        className={className}
       ></Character>
       <ConfigProvider
         theme={{

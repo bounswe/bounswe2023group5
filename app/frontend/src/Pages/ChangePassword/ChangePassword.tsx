@@ -1,23 +1,32 @@
-import { Button, Form, Input, Card, message } from "antd";
+import { Button, Form, Input, Card } from "antd";
 import styles from "./ChangePassword.module.scss";
+import { changePassword } from "../../Services/changepassword";
+import { useNavigate } from "react-router-dom";
+import { NotificationUtil } from "../../Library/utils/notification";
+import { handleAxiosError } from "../../Library/utils/handleError";
 
 const ChangePassword = () => {
   const [form] = Form.useForm();
+  const navigate = useNavigate();
 
-  const handleChangePassword = () => {
-    /*
-    const values = form.getFieldsValue();
-   
-    const body = {
-      email: values.email,
-      new_password: values.new_password,
-    };
-    */
-    message.success("Password is changed successfully!");
+  const handleChangePassword = async (event: any) => {
+    const { currentPassword, newPassword } = event;
+    try {
+      const response = await changePassword(currentPassword, newPassword);
+      if (response?.status == 200) {
+        NotificationUtil.success("Password is changed successfully!");
+        navigate("/profile");
+      }
+    } catch (error: any) {
+      handleAxiosError(error);
+      return;
+    }
+
+    NotificationUtil.success("Password is changed successfully!");
   };
 
   const onFinishFailed = () => {
-    message.error("Couldn't change the password");
+    NotificationUtil.error("Couldn't change the password");
   };
 
   return (
@@ -29,23 +38,26 @@ const ChangePassword = () => {
         onFinishFailed={onFinishFailed}
         size="large"
       >
-        <Form.Item name="password" rules={[{ required: true, message: "" }]}>
+        <Form.Item
+          name="currentPassword"
+          rules={[{ required: true, message: "" }]}
+        >
           <Input placeholder="Password" />
         </Form.Item>
 
-        <Form.Item name="newpassword" rules={[{ required: true, message: "" }]}>
+        <Form.Item name="newPassword" rules={[{ required: true, message: "" }]}>
           <Input.Password placeholder="Enter a new password" />
         </Form.Item>
         <Form.Item
           name="conf-password"
-          dependencies={["newpassword"]}
+          dependencies={["newPassword"]}
           rules={[
             {
               required: true,
             },
             ({ getFieldValue }) => ({
               validator(_, value) {
-                if (!value || getFieldValue("newpassword") === value) {
+                if (!value || getFieldValue("newPassword") === value) {
                   return Promise.resolve();
                 }
                 return Promise.reject(
