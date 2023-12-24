@@ -2,6 +2,7 @@ package com.app.annotation.service;
 
 import com.app.annotation.dto.request.SelectorDto;
 import com.app.annotation.dto.request.TargetDto;
+import com.app.annotation.exception.BadRequestException;
 import com.app.annotation.model.*;
 import com.app.annotation.repository.AnnotationRepository;
 import com.app.annotation.dto.request.CreateAnnotationRequestDto;
@@ -36,22 +37,20 @@ public class AnnotationService {
 
     public Map<String, Object> createAnnotation(CreateAnnotationRequestDto dto) {
 
+        Optional<Annotation> prevAnnotation = annotationRepository.findById(dto.getId());
+
+        if (prevAnnotation.isPresent()) {
+            throw new BadRequestException("There is an annotation with same id.");
+        }
+
         Annotation annotationToCreate = modelMapper.map(dto, Annotation.class);
 
         List<Selector> selectorList = new ArrayList<>();
         for (SelectorDto s : dto.getTarget().getSelector()) {
-            if (s.getExact() != null) {
-                System.out.println(s.getType());
-                System.out.println(s.getExact());
-            }
-            if (s.getStart() != null) {
-                System.out.println(s.getType());
-                System.out.println(s.getStart());
-            }
-            if (s.getType().equals("TextQuoteSelector")) {
-                selectorList.add(modelMapper.map(s, TextQuoteSelector.class));
-            } else if (s.getType().equals("TextPositionSelector")) {
-                selectorList.add(modelMapper.map(s, TextPositionSelector.class));
+            switch (s.getType()) {
+                case "TextQuoteSelector" -> selectorList.add(modelMapper.map(s, TextQuoteSelector.class));
+                case "TextPositionSelector" -> selectorList.add(modelMapper.map(s, TextPositionSelector.class));
+                case "FragmentSelector" -> selectorList.add(modelMapper.map(s, FragmentSelector.class));
             }
             //TODO add more selectors if implemented in the future
         }
@@ -101,7 +100,38 @@ public class AnnotationService {
         List<Annotation> annotations = annotationRepository.findAllByTargetSource(source);
         List<Map<String, Object>> jsonAnnotations = new ArrayList<>();
         for (Annotation a : annotations) {
+
+            List<Selector> selectors = a.getTarget().getSelector();
+
+            boolean haveTextSelectors = true;
+
+            for (Selector s : selectors) {
+                if (!s.getType().equals("TextQuoteSelector") && !s.getType().equals("TextPositionSelector")) {
+                    haveTextSelectors = false;
+                    break;
+                }
+
+                // TODO change logic as more selectors are implemented in the future
+            }
+
+            if (!haveTextSelectors) {
+                continue;
+            }
+
             jsonAnnotations.add(a.toJSON());
+        }
+        return jsonAnnotations;
+    }
+
+    public List<Map<String, Object>> getImageAnnotations(String source) {
+        List<Annotation> annotations = annotationRepository.findAllByTargetSource(source);
+        List<Map<String, Object>> jsonAnnotations = new ArrayList<>();
+        for (Annotation a : annotations) {
+
+            if (a.getTarget().getSelector().size() == 1 && a.getTarget().getSelector().get(0).getType().equals("FragmentSelector")) {
+                jsonAnnotations.add(a.toJSON());
+            }
+            // TODO change logic if more image selectors are implemented in the future
         }
         return jsonAnnotations;
     }

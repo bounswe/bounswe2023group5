@@ -913,6 +913,58 @@ class GroupServiceTest {
         assertThrows(BadRequestException.class, () -> groupService.addModerator(groupId, userId, user));
         verify(groupRepository, never()).save(any());
     }
+    @Test
+    void testRemoveModeratorNotFound() {
+        String groupId = "groupId";
+        String userId = "userId";
+        String notGroupId = "groupId2";
+
+        Group group = new Group();
+        group.setId(groupId);
+        group.addModerator(userId);
+
+        User user = new User();
+        user.setId(userId);
+
+        when(groupRepository.findById(groupId)).thenReturn(Optional.of(group));
+
+        assertThrows(ResourceNotFoundException.class, () -> groupService.removeModerator(notGroupId, userId));
+        verify(groupRepository, never()).save(any());
+    }
+
+    @Test
+    void testRemoveModerator() {
+        // Arrange
+        String groupId = "groupId";
+        String moderatorId = "moderatorId";
+
+        Group group = new Group();
+        group.setId(groupId);
+        group.addModerator(moderatorId);
+
+        when(groupRepository.findById(groupId)).thenReturn(Optional.of(group));
+
+        boolean result = groupService.removeModerator(groupId, moderatorId);
+
+        assertTrue(result);
+        assertFalse(group.getModerators().contains(moderatorId));
+        verify(groupRepository, times(1)).save(group);
+    }
+
+    @Test
+    void testReviewApplicationNotFound() {
+        String applicationId = "nonexistent";
+        User user = new User();
+        user.setId("moderator1");
+
+        GroupApplicationReviewDto reviewDto = new GroupApplicationReviewDto();
+        reviewDto.setResult(GroupApplicationReviewResult.APPROVE.name());
+
+        when(groupApplicationRepository.findById(applicationId)).thenReturn(Optional.empty());
+
+        assertThrows(ResourceNotFoundException.class, () -> groupService.reviewApplication(applicationId, user, reviewDto));
+        verify(groupRepository, never()).save(any());
+    }
 
 
 

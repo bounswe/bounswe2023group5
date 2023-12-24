@@ -50,8 +50,6 @@ function Groups() {
     "DESCENDING"
   );
 
-  console.log("tags here: ", tags);
-
   const { data: groups } = useQuery(
     ["groups", title, gameName, tags, membershipPolicy, sortBy, sortDir],
     () =>

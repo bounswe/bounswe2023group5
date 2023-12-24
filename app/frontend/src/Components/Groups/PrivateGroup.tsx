@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { applyGroup } from "../../Services/group";
 import { NotificationUtil } from "../../Library/utils/notification";
 
+
 function PrivateGroup({ group }: { group: any }) {
   const navigate = useNavigate();
 
@@ -16,11 +17,10 @@ function PrivateGroup({ group }: { group: any }) {
       if (response) {
         NotificationUtil.success("You successfully applied to the group");
       }
-    } catch (error:any) {
+    } catch (error: any) {
       NotificationUtil.error(error.response.data);
-      console.log(error);
     }
-  }
+  };
 
   return (
     <div className={styles.group}>
