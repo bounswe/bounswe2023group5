@@ -133,8 +133,8 @@ public class GameDetails : MonoBehaviour
 
     private void OnClickedAddPost()
     {
-        forumCreatePostManager.Init(forum);
         canvasManager.ShowCreateEditPostPage();
+        forumCreatePostManager.Init(forum, gameId);
     }
 
     private void OnClickedCharacters()

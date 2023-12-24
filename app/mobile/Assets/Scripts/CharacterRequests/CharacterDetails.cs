@@ -19,6 +19,7 @@ public class CharacterDetails : MonoBehaviour
     [SerializeField] private Image charImage;
     [SerializeField] private Button exitButton;
 
+    [SerializeField] private TMP_Text name;
     [SerializeField] private TMP_Text description;
     [SerializeField] private TMP_Text Type1;
     [SerializeField] private TMP_Text Type2;
@@ -78,6 +79,7 @@ public class CharacterDetails : MonoBehaviour
 
         Debug.Log("charInfo is "+ customFieldsObj);
 
+        name.text = charInfo.name;
         description.text = charInfo.description;
         SetAttributes();
 

@@ -382,7 +382,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1398722379270767762
 RectTransform:
   m_ObjectHideFlags: 0
@@ -861,7 +861,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.058000002, y: 0.07423466}
   m_AnchorMax: {x: 0.92410433, y: 0.101}
-  m_AnchoredPosition: {x: 17.316772, y: -2.3239746}
+  m_AnchoredPosition: {x: 17.316772, y: -2.3237305}
   m_SizeDelta: {x: 3.3040848, y: 7.0619693}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7906183977601712305
@@ -2056,7 +2056,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.07443558, y: 0.59486854}
   m_AnchorMax: {x: 0.93165344, y: 0.9081143}
-  m_AnchoredPosition: {x: 0.07312012, y: -2.7559967}
+  m_AnchoredPosition: {x: 0.07312012, y: -2.756012}
   m_SizeDelta: {x: 104.162, y: 43.720802}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1357482192702060414
@@ -2841,7 +2841,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.058000002, y: 0.6155801}
   m_AnchorMax: {x: 0.64000005, y: 0.878}
-  m_AnchoredPosition: {x: 4.748413, y: 6.607849}
+  m_AnchoredPosition: {x: 4.748413, y: 6.60791}
   m_SizeDelta: {x: -131.88705, y: -127.59792}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6032480861278696399
@@ -3339,7 +3339,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.27786958, y: 0.11246429}
   m_AnchorMax: {x: 0.76883096, y: 0.14374112}
-  m_AnchoredPosition: {x: -4, y: -3}
+  m_AnchoredPosition: {x: -4, y: -5.611328}
   m_SizeDelta: {x: 27.655487, y: -1.918335}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7724776494833108565
@@ -4262,7 +4262,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.07443558, y: 0.10325146}
   m_AnchorMax: {x: 0.93165344, y: 0.7557486}
-  m_AnchoredPosition: {x: -1.4741211, y: -4.6909027}
+  m_AnchoredPosition: {x: -1.4741211, y: -4.690918}
   m_SizeDelta: {x: 5.5936, y: 3.5327988}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6616374065067762988
@@ -6267,6 +6267,14 @@ PrefabInstance:
     - target: {fileID: 476727993678959610, guid: 73a6178866a79a34d8b6b70bfcf746b8, type: 3}
       propertyPath: m_Name
       value: MultySelectDropDown
+      objectReference: {fileID: 0}
+    - target: {fileID: 534989200673795156, guid: 73a6178866a79a34d8b6b70bfcf746b8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1894850738985475029, guid: 73a6178866a79a34d8b6b70bfcf746b8, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 7.300003
       objectReference: {fileID: 0}
     - target: {fileID: 5090711684812649995, guid: 73a6178866a79a34d8b6b70bfcf746b8, type: 3}
       propertyPath: dropdownName
