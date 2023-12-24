@@ -85,7 +85,6 @@ public class GameDetails : MonoBehaviour
     
     private void OnClickedExitButton()
     {
-        canvasManager.ShowGamesPage();
         canvasManager.HideGameDetailsPage();
     }
     

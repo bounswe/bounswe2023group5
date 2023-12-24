@@ -116,7 +116,6 @@ public class GroupDetails : MonoBehaviour
     
     private void OnClickedExitButton()
     {
-        canvasManager.ShowGroupsPage();
         canvasManager.HideGroupDetailsPage();
     }
     
