@@ -15,7 +15,7 @@ public class CorsConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         final CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173", "http://ec2-51-20-78-40.eu-north-1.compute.amazonaws.com/"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173", "http://localhost", "http://ec2-51-20-78-40.eu-north-1.compute.amazonaws.com/"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowCredentials(true);
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Set-Cookie", "credentials"));
