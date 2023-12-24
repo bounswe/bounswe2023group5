@@ -1,4 +1,6 @@
-using UnityEngine;
+using System;
+using System.Collections.Generic;
+using Object = UnityEngine.Object;
 
 public class CharacterController
 {
@@ -51,7 +53,7 @@ public class CharacterRequest
 public class CharacterResponse
 {
     public string id;
-    public string createdAt;
+    public DateTime createdAt;
     public bool isDeleted;
     public string name;
     public string icon;
@@ -66,8 +68,9 @@ public class CharacterResponse
     public string voiceActor;
     public string height;
     public string age;
-    public Object customFields;
+    public Dictionary<string,string> customFields;
 }
+
 
 
 /*

@@ -20,7 +20,7 @@ public class HomeResponse
     public string postImage;
     public User poster;
     public AchievementResponse achievements;
-    public Character character;
+    public CharacterResponse character;
     public string userVote;
     public string forum;
     public string type;
@@ -38,25 +38,4 @@ public class HomeResponse
     
 }
 
-public class Character
-{
-    public string id;
-    public DateTime createdAt;
-    public bool isDeleted;
-    public string name;
-    public string icon;
-    public string description;
-    public string[] games;
-    public string type;
-    public string gender;
-    public string race;
-    public string status;
-    public string occupation;
-    public string birthDate;
-    public string voiceActor;
-    public string height;
-    public string age;
-    public Dictionary<string,string> customFields;
-    
-    
-}
+

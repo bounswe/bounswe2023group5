@@ -69,7 +69,7 @@ public class CharacterDetails : MonoBehaviour
     public void Init(CharacterResponse charInfoVal)
     {
         charInfo = charInfoVal;
-        customFieldsObj = charInfo.customFields;
+        //customFieldsObj = charInfo.customFields;
         customFields = charInfo.customFields.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public);
         customIndex = 0;
         customLength = customFields.Length;
