@@ -1,5 +1,5 @@
 import styles from "./GameDetails.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Summary from "../../Components/GameDetails/Summary/Summary";
 import { useParams, useSearchParams } from "react-router-dom";
 import { getGame } from "../../Services/gamedetail";
@@ -12,13 +12,28 @@ import { Button, Rate } from "antd";
 import { useAuth } from "../../Components/Hooks/useAuth";
 import { addGame, removeGame } from "../../Services/profile";
 import { twj } from "tw-to-css";
+import { Annotorious } from "@recogito/annotorious";
+import { handleAxiosError } from "../../Library/utils/handleError";
+import {
+  createAnnotation,
+  deleteAnnotation,
+  updateAnnotation,
+} from "../../Services/annotation";
+import { NotificationUtil } from "../../Library/utils/notification";
 
 function GameDetails() {
   const { user, isLoggedIn, profile } = useAuth();
   const { gameId } = useParams();
   const queryClient = useQueryClient();
 
+  const [isImageAnnotationsApplied, setIsImageAnnotationsApplied] =
+    useState(false);
+
   const isFollowing = !!profile?.games?.find((game: any) => game.id === gameId);
+
+  const pageUrl = window.location.href.replace("?back=/home", "");
+
+  const isAdmin = user?.role === "ADMIN";
 
   const { mutate: follow } = useMutation(
     () => addGame({ profileId: profile.id, gameId: gameId! }),
@@ -40,6 +55,21 @@ function GameDetails() {
   const { data, isLoading } = useQuery(["game", gameId], () =>
     getGame(gameId!)
   );
+  const hideTagField = () => {
+    const tagField = document.querySelector(".r6o-widget.r6o-tag");
+
+    if (tagField) {
+      tagField.style.display = "none";
+    }
+  };
+
+  useEffect(() => {
+    const imageElement = document.querySelector("#imageElement");
+
+    if (imageElement) {
+      imageElement.addEventListener("click", hideTagField);
+    }
+  }, [isLoading]);
 
   const score = data?.overallRating;
   const [searchParams] = useSearchParams();
@@ -49,6 +79,69 @@ function GameDetails() {
   );
 
   const date = data?.releaseDate;
+
+  const linkImageAnnotation = (elem: any) => {
+    if (elem && isImageAnnotationsApplied === false) {
+      const config = {
+        image: elem,
+        readOnly: !isAdmin,
+      };
+
+      const anno = new Annotorious(config);
+
+      setIsImageAnnotationsApplied(true);
+
+      anno
+        .loadAnnotations(
+          `${
+            import.meta.env.VITE_APP_ANNOTATION_API_URL
+          }/annotation/get-image-annotations?source=${pageUrl}`
+        )
+        .then(function (annotations) {})
+        .catch((error) => {
+          if (error instanceof SyntaxError) {
+            return;
+          }
+          NotificationUtil.error("Error occurred while retrieving annotations");
+        });
+
+      anno.on("createAnnotation", async (annotation: any, _overrideId) => {
+        try {
+          annotation.target = { ...annotation.target, source: pageUrl };
+          const newId = pageUrl + "/" + annotation.id.replace("#", "");
+          annotation.id = newId;
+          await createAnnotation(annotation);
+          NotificationUtil.success("You successfully create the annotation");
+        } catch (error) {
+          handleAxiosError(error);
+        }
+      });
+
+      anno.on("deleteAnnotation", async function (annotation: any) {
+        try {
+          const id = annotation.id;
+          await deleteAnnotation(id);
+          NotificationUtil.success("You successfully delete the annotation");
+        } catch (error) {
+          handleAxiosError(error);
+        }
+      });
+
+      anno.on("selectAnnotation", async function (annotation: any) {
+        hideTagField();
+      });
+
+      anno.on("updateAnnotation", async function (annotation, _previous) {
+        try {
+          annotation.target = { ...annotation.target, source: pageUrl };
+          await updateAnnotation(annotation);
+          NotificationUtil.success("You successfully update the annotation");
+        } catch (error) {
+          handleAxiosError(error);
+        }
+      });
+    }
+  };
   return (
     <div className={styles.container}>
       {isLoading ? (
@@ -58,8 +151,9 @@ function GameDetails() {
       ) : (
         <>
           <div className={styles.info}>
-            <div className={styles.pictureContainer}>
+            <div className={styles.pictureContainer} id="imageElement">
               <img
+                ref={(elem) => linkImageAnnotation(elem)}
                 src={`${import.meta.env.VITE_APP_IMG_URL}${data?.gameIcon}`}
                 alt={data.gameName}
               />
