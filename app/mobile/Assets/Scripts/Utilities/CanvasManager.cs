@@ -29,6 +29,8 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject createEditPostPage;
     public GameObject postComments;
     [SerializeField] private GameObject commentComments;
+    [SerializeField] private GameObject charactersPage;
+    [SerializeField] private GameObject characterDetailsPage;
     private GameObject currentActivePage;
     private GameObject previousActivePage;
 
@@ -329,6 +331,26 @@ public class CanvasManager : MonoBehaviour
     public void HideCreateEditPostPage()
     {
         createEditPostPage.SetActive(false);
+    }
+    
+    public void ShowCharactersPage()
+    {
+        charactersPage.SetActive(true);
+    }
+    
+    public void HideCharactersPage()
+    {
+        charactersPage.SetActive(false);
+    }
+    
+    public void ShowCharacterDetailsPage()
+    {
+        characterDetailsPage.SetActive(true);
+    }
+    
+    public void HideCharacterDetailsPage()
+    {
+        characterDetailsPage.SetActive(false);
     }
     
 }

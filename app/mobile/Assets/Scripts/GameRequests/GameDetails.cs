@@ -16,8 +16,10 @@ public class GameDetails : MonoBehaviour
     [SerializeField] private Button summaryButton;
     [SerializeField] private Button reviewsButton;
     [SerializeField] private Button forumButton;
+    [SerializeField] private Button charactersButton;
     [SerializeField] private GameObject summaryManager;
     [SerializeField] private GetAllReviews getAllReviews;
+    [SerializeField] private CharactersPage charactersPage;
 
     [SerializeField] private ForumGetPostList forumManager;
     [SerializeField] private Button addForumPost;
@@ -63,6 +65,7 @@ public class GameDetails : MonoBehaviour
         forumButton.onClick.AddListener(OnClickedForumButton);
         exitButton.onClick.AddListener(OnClickedExitButton);
         addForumPost.onClick.AddListener(OnClickedAddPost);
+        charactersButton.onClick.AddListener(OnClickedCharacters);
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
     }
 
@@ -130,8 +133,15 @@ public class GameDetails : MonoBehaviour
 
     private void OnClickedAddPost()
     {
-        forumCreatePostManager.Init(forum);
         canvasManager.ShowCreateEditPostPage();
+        forumCreatePostManager.Init(forum, gameId);
+    }
+
+    private void OnClickedCharacters()
+    {
+        // show characters page
+        canvasManager.ShowCharactersPage();
+        charactersPage.Init(gameId);
     }
     
 

@@ -32,13 +32,20 @@ public class ForumPostComments : MonoBehaviour
     [SerializeField] private TMP_Text postContent;
     [SerializeField] private TMP_Text lastEditedAt;
     [SerializeField] private TMP_Text overallVote;
-    [SerializeField] private TMP_Text tags;
+    [SerializeField] private ScrollRect tagScroll;
+    [SerializeField] private Transform tagPageParent;
     [SerializeField] private TMP_Text userName;
+    [SerializeField] private Character character;
+    [SerializeField] private ScrollRect achievementScroll;
 
     [SerializeField] private CommentComments L2commentManager;
+    [SerializeField] private CharacterDetails characterDetailsManager;
+
+    
 
     // will be used in comment edit mode
     private string commentId;
+    private List<Tag> tagObjects = new List<Tag>();
     
     private void Awake()
     {
@@ -49,7 +56,7 @@ public class ForumPostComments : MonoBehaviour
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
     }
 
-    public void Init(string id, GetPostListResponse postInfoVal /*, CommentComments L2commentManagerInfo*/)
+    public void Init(string id, GetPostListResponse postInfoVal )
     {
         // Page is in add comment mode
         AddCommentMode();
@@ -84,11 +91,14 @@ public class ForumPostComments : MonoBehaviour
 
         }
 
-        tags.text = "";
-        foreach (var tag in postInfo.tags)
+        AddTags(postInfo.tags);
+        character.gameObject.SetActive(false);
+        if (postInfo.character != null)
         {
-            tags.text =  tags.text + tag + " ";
+            character.gameObject.SetActive(true);
+            character.Init(postInfo.character, characterDetailsManager);
         }
+        
         
         if (postInfo.isEdited)
         {
@@ -113,6 +123,25 @@ public class ForumPostComments : MonoBehaviour
         string url = AppVariables.HttpServerUrl + "/post/get-post-comments" + 
                      ListToQueryParameters.ListToQueryParams(new []{"id"}, new []{postID});
         StartCoroutine(Get(url));
+    }
+    
+    private void AddTags(TagResponse[] tags)
+    {
+        foreach (var tagObj in tagObjects)
+        {
+            Destroy(tagObj.gameObject);
+        }
+        tagObjects.Clear();
+
+        foreach (var tag in tags)
+        {
+            Tag tagObj = Instantiate(Resources.Load<Tag>("Prefabs/Tag"), tagPageParent);
+            tagObjects.Add(tagObj);
+            tagObj.Init(tag);
+        }
+        Canvas.ForceUpdateCanvases();
+        tagScroll.horizontalNormalizedPosition = 1;
+        Debug.Log("Success to list tags");
     }
     
     IEnumerator Get(string url)

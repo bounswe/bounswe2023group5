@@ -162,8 +162,8 @@ public class GroupDetails : MonoBehaviour
     
     private void OnClickedAddPost()
     {
-        forumCreatePostManager.Init(forumId);
         canvasManager.ShowCreateEditPostPage();
+        forumCreatePostManager.Init(forumId, gameId);
     }
     
     
