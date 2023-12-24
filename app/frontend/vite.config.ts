@@ -9,4 +9,7 @@ export default defineConfig({
       localsConvention: "camelCaseOnly",
     },
   },
+  optimizeDeps: {
+    exclude: ["js-big-decimal"],
+  },
 });

@@ -1,0 +1,1 @@
+This directory is where the application stores its images, when it is run locally.

@@ -19,6 +19,7 @@ import {
   CommentOutlined,
   WarningOutlined,
   ArrowLeftOutlined,
+   CheckOutlined,
   InfoCircleOutlined,
 } from "@ant-design/icons";
 import clsx from "clsx";
@@ -40,6 +41,7 @@ import {
   updateAnnotation,
 } from "../../Services/annotation.ts";
 import { NotificationUtil } from "../../Library/utils/notification.ts";
+import CharacterDetails from "../../Components/Character/CharacterDetails.tsx";
 
 function ForumPost() {
   const { isLoggedIn, user } = useAuth();
@@ -89,7 +91,7 @@ function ForumPost() {
     () => grantAchievement(post.poster.id, post.achievement.id),
     {
       onSuccess() {
-        message.success(`Achievement Granted`);
+        NotificationUtil.success(`Achievement Granted`);
       },
 
       onError(err: any) {
@@ -227,11 +229,26 @@ function ForumPost() {
             </div>
           )}
           {post.achievement && (
-            <div className={styles.achievement}>
-              <Achievement props={post.achievement} />
-              {user?.role === "ADMIN" && (
-                <Button onClick={() => grant()}>Grant Achievement</Button>
-              )}
+            <div>
+              <div className={styles.achievement}>
+                <span className={styles.mySpan}>Achievement:</span>
+                <Achievement props={post.achievement} />
+                {user?.role === "ADMIN" && (
+                  <Tooltip
+                    title="Grant Achievement"
+                    className={styles.grantButton}
+                  >
+                    <CheckOutlined onClick={() => grant()} />
+                  </Tooltip>
+                )}
+              </div>
+            </div>
+          )}
+          {post.character && (
+            <div className={styles.character}>
+              <span>Character:</span>
+
+              <CharacterDetails character={post?.character} />
             </div>
           )}
           <span className={styles.body}>

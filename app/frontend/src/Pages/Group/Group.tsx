@@ -52,6 +52,13 @@ function Group() {
     deleteGroupMutation.mutate(groupId as string);
   };
 
+
+
+  const handleReview = () => {
+    navigate(`/group/review-application/${groupId}`);
+  };
+
+
   return (
     <div className={styles.container}>
       <div className={styles.info}>
@@ -75,11 +82,23 @@ function Group() {
             <Button type="primary" onClick={showModal}>
               {`Members (${group?.members.length || 0})`}
             </Button>
+            {group?.moderators.some(
+              (moderator: any) => moderator.id === user?.id
+            ) &&
+              group.membershipPolicy === "PRIVATE" && (
+                <div>
+                  <Button type="primary" onClick={handleReview}>
+                    Review Applications
+                  </Button>
+                </div>
+              )}
             {(user?.role === "ADMIN" ||
               group?.moderators.includes(user?.id)) && (
-              <Button type="primary" onClick={handleClick} danger>
-                Delete Group
-              </Button>
+              <div>
+                <Button type="primary" onClick={handleClick} danger>
+                  Delete Group
+                </Button>
+              </div>
             )}
           </div>
         </div>

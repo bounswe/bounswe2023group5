@@ -29,22 +29,24 @@ function CreateGroup() {
     }
   );
   const [imageUrl, setImageUrl] = useState("");
+  const [membershipPolicy, setMembershipPolicy] = useState("PUBLIC");
+  const [avatarOnly, setAvatarOnly] = useState(false);
 
   const { mutate: submit, isLoading } = useMutation(
     ({
       title,
       tags,
-      membershipPolicy,
       quota,
       description,
       gameId,
+      imageUrl,
     }: {
       title: string;
       tags: string[];
-      membershipPolicy: string;
       quota: number;
       description: string;
       gameId: string;
+      imageUrl: string;
     }) => {
       return createGroup(
         title,
@@ -53,7 +55,7 @@ function CreateGroup() {
         quota,
         description,
         gameId,
-        imageUrl
+        imageUrl,
       );
     },
     {
@@ -65,8 +67,7 @@ function CreateGroup() {
     }
   );
 
-  const [membershipPolicy, setMembershipPolicy] = useState("PUBLIC");
-  const [avatarOnly, setAvatarOnly] = useState(false);
+
 
   const gameList = useQuery(["games"], () => getGames());
 
@@ -81,7 +82,6 @@ function CreateGroup() {
   useEffect(() => {
     form.setFieldsValue({
       membershipPolicy: membershipPolicy,
-      avatarOnly: avatarOnly,
       quota: 3,
     });
   }, []);

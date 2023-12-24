@@ -20,7 +20,6 @@ function Achievement({ props }: { props: any }) {
       if (!props.game) {
         return;
       }
-
       const gameId = props.game;
       navigate(`/game/detail/${gameId}`);
     }

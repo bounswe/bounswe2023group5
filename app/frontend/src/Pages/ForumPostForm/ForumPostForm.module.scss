@@ -14,8 +14,8 @@
       cursor: pointer;
       border-radius: 0.5em;
       &.active {
-        border: 2px solid $orange;
-        margin: -2px;
+        outline: 2px solid $orange;
+        outline-offset: 4px;
       }
     }
   }

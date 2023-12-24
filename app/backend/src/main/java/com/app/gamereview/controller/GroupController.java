@@ -5,6 +5,7 @@ import com.app.gamereview.dto.response.group.GetGroupDetailResponseDto;
 import com.app.gamereview.dto.response.group.GetGroupResponseDto;
 import com.app.gamereview.dto.response.group.GroupApplicationResponseDto;
 import com.app.gamereview.dto.response.tag.AddGroupTagResponseDto;
+import com.app.gamereview.model.Game;
 import com.app.gamereview.model.Group;
 import com.app.gamereview.model.User;
 import com.app.gamereview.service.GroupService;
@@ -21,6 +22,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/group")
@@ -181,5 +183,18 @@ public class GroupController {
         User user = (User) request.getAttribute("authenticatedUser");
         List<GroupApplicationResponseDto> applications = groupService.listApplications(groupId, user);
         return ResponseEntity.ok(applications);
+    }
+
+    @GetMapping("/get-recommendations")
+    public ResponseEntity<List<Group>> getRecommendedGroups(@RequestHeader(name = HttpHeaders.AUTHORIZATION,
+            required = false) String Authorization) {
+        String email = "";
+        if(Authorization == null){
+            return ResponseEntity.ok(groupService.getRecommendedGroups(email));
+        }
+        if (JwtUtil.validateToken(Authorization))
+            email = JwtUtil.extractSubject(Authorization);
+        List<Group> groups = groupService.getRecommendedGroups(email);
+        return ResponseEntity.ok(groups);
     }
 }

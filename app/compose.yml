@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  frontend:
+    build: ./frontend
+    image: lastmusketeer/451_frontend:latest
+    ports:
+      - "80:5173"
+
+  backend:
+    build: ./backend
+    image: unaldenizzz/bounswe2023group5:latest
+    ports:
+      - "3001:8080"
+    volumes:
+      - type: bind
+        source: ./backend/images
+        target: /app/backend/images
+
+  annotation:
+    build: ./annotation/annotation
+    image: nopaew/bounswe2023group5annotation:latest
+    ports:
+      - "3002:8080"

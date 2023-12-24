@@ -6,8 +6,8 @@ using TMPro;
 using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
-using DG.Tweening;
 
 public class CreateGame : MonoBehaviour
 {
@@ -26,17 +26,47 @@ public class CreateGame : MonoBehaviour
     // public TMP_InputField summaryInputField;
     private CanvasManager canvasManager;
     [SerializeField] private Button createButton;
+    [SerializeField] private Button uploadImageButton;
+    [SerializeField] private Image uploadImage;
     [SerializeField] private TMP_Text infoText;
     
     private void Awake()
     {
         createButton.onClick.AddListener(OnClickedCreate);
+        uploadImageButton.onClick.AddListener(OnClickedUploadImage);
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
     }
 
     private void Start()
     {
         Init();
+    }
+
+    private void OnClickedUploadImage()
+    {
+        string path = FileController.PickAnImageFile();
+        StartCoroutine(LoadImage(path));
+    }
+    
+    IEnumerator LoadImage(string url)
+    {
+        // Load the image from the specified path
+        WWW www = new WWW("file://" + url);
+        yield return www;
+
+        // Check for errors during image loading
+        if (string.IsNullOrEmpty(www.error))
+        {
+            Sprite uploadImageSprite = Sprite.Create(www.texture, new Rect(0, 0, www.texture.width, www.texture.height), new Vector2(0.5f, 0.5f));
+            uploadImage.sprite = uploadImageSprite;
+            Color tempColor = uploadImage.color;
+            tempColor.a = 1f;
+            uploadImage.color = tempColor;
+        }
+        else
+        {
+            Debug.Log("Error loading image: " + www.error);
+        }
     }
 
     private void OnClickedCreate()
@@ -73,7 +103,6 @@ public class CreateGame : MonoBehaviour
             
         string bodyJsonString = JsonUtility.ToJson(createGameRequest);
         StartCoroutine(Post(url,bodyJsonString));
-       
     }
     
     IEnumerator Post(string url, string bodyJsonString)
@@ -89,13 +118,13 @@ public class CreateGame : MonoBehaviour
         if (request.responseCode == 200)
         {
             var _CreateGameResponseData = JsonConvert.DeserializeObject<GameDetail>(response);
-            Debug.Log("Success to create review: " + response);
+            Debug.Log("Success to create the game: " + response);
             infoText.text = "Successfully created the game";
             infoText.color = Color.green;
         }
         else
         {
-            Debug.Log("Error to create review: " + response);
+            Debug.Log("Error to create the game: " + response);
             infoText.text = "Unable to create the game";
             infoText.color = Color.red;
         }
