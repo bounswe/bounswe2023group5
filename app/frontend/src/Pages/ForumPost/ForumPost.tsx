@@ -19,7 +19,6 @@ import {
   CommentOutlined,
   WarningOutlined,
   ArrowLeftOutlined,
-  VerifiedOutlined,
   CheckOutlined,
 } from "@ant-design/icons";
 import clsx from "clsx";
@@ -43,7 +42,6 @@ import {
   updateAnnotation,
 } from "../../Services/annotation.ts";
 import { NotificationUtil } from "../../Library/utils/notification.ts";
-import { handleError } from "../../Library/utils/handleError.ts";
 import CharacterDetails from "../../Components/Character/CharacterDetails.tsx";
 
 function ForumPost() {
@@ -205,15 +203,17 @@ function ForumPost() {
           )}
           {post.achievement && (
             <div>
-              
               <div className={styles.achievement}>
-                  <span className={styles.mySpan}>Achievement:</span>
-                  <Achievement props={post.achievement} />
-                  {user?.role === "ADMIN" && (
-                    <Tooltip title="Grant Achievement" className={styles.grantButton} >
-                        <CheckOutlined onClick={() => grant()} />
-                    </Tooltip>
-                  )}
+                <span className={styles.mySpan}>Achievement:</span>
+                <Achievement props={post.achievement} />
+                {user?.role === "ADMIN" && (
+                  <Tooltip
+                    title="Grant Achievement"
+                    className={styles.grantButton}
+                  >
+                    <CheckOutlined onClick={() => grant()} />
+                  </Tooltip>
+                )}
               </div>
             </div>
           )}

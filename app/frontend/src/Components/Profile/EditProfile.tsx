@@ -46,7 +46,6 @@ function EditProfile({ profile }: { profile: any }) {
   const handleConfirm = async (data: any) => {
     setConfirmLoading(true);
     const newdata = { ...data, ...{ profilePhoto: imageUrl } };
-    console.log(newdata);
     edit(newdata);
   };
 

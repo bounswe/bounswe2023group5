@@ -45,17 +45,13 @@ function Summary({ game }: { game: any }) {
           import.meta.env.VITE_APP_ANNOTATION_API_URL
         }/annotation/get-source-annotations?source=${game.id}`
       )
-        .then(function (annotations) {
-          console.log(annotations);
-        })
+        .then(function (annotations) {})
         .catch((error) => {
           if (error instanceof SyntaxError) {
             return;
           }
           NotificationUtil.error("Error occurred while retrieving annotations");
         });
-
-      console.log(game);
 
       r.on("createAnnotation", async (annotation: any, _overrideId) => {
         try {
@@ -182,8 +178,9 @@ function Summary({ game }: { game: any }) {
               (achievement: any) =>
                 !achievement.isDeleted && (
                   <div className={styles.achievementContainer}>
-                  <div className={styles.infoContainer}>
-                    <Achievement props={achievement} key={achievement.id} />
+                    <div className={styles.infoContainer}>
+                      <Achievement props={achievement} key={achievement.id} />
+                    </div>
                   </div>
                 )
             )}
