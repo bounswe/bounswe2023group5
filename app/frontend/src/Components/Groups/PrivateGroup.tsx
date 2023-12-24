@@ -16,7 +16,6 @@ function PrivateGroup({ group }: { group: any }) {
     navigate(`/group/apply/${group.id}`);
   }
 
-  };
 
   return (
     <div className={styles.group}>

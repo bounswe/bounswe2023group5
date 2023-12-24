@@ -24,7 +24,7 @@ import Achievements from "./Pages/Achievement/Achievements";
 import Profile from "./Pages/Profile/Profile";
 import CreateAchievement from "./Pages/Admin/Achievement/CreateAchievement/CreateAchievement";
 import DeleteAchievement from "./Pages/Admin/Achievement/DeleteAchievement/DeleteAchievement";
-
+import ApplyGroup from "./Pages/ApplyGroup/ApplyGroup";
 import Notifications from "./Pages/Notifications/Notifications";
 import ReviewApplication from "./Pages/ReviewApplication/ReviewApplication";
 import CreateCharacter from "./Pages/Admin/Character/CreateCharacter/CreateCharacter";
