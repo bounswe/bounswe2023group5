@@ -1324,6 +1324,8 @@ MonoBehaviour:
   typeNameText: {fileID: 7629054119997690195}
   upVoteButton: {fileID: 1437522553441099059}
   downVoteButton: {fileID: 6640214146271297359}
+  typeButton: {fileID: 4789072620295142539}
+  readMoreButton: {fileID: 4357338461107521515}
 --- !u!1 &3922074333708533074
 GameObject:
   m_ObjectHideFlags: 0

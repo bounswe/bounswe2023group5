@@ -192,7 +192,10 @@ public class CanvasManager : MonoBehaviour
     
     public void HideGameDetailsPage()
     {
+        currentActivePage.SetActive(false);
         gameDetailsPage.SetActive(false);
+        previousActivePage.SetActive(true);
+        currentActivePage = previousActivePage;
     }
     
     public void ShowDeleteAccountPage()
@@ -279,7 +282,10 @@ public class CanvasManager : MonoBehaviour
 
     public void HideGroupDetailsPage()
     {
+        currentActivePage.SetActive(false);
         groupDetailsPage.SetActive(false);
+        previousActivePage.SetActive(true);
+        currentActivePage = previousActivePage;
     }
 
     public void ShowGroupsPage()
