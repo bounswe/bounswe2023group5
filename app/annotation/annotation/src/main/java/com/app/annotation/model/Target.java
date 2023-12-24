@@ -32,13 +32,17 @@ public class Target {
         if  (this.format != null) json.put("format", this.format);
         if  (this.textDirection != null) json.put("textDirection", this.textDirection);
         if  (this.source != null) json.put("source", this.source);
-        if  (this.selector != null) {
-            List<Map<String, Object>> selectorList = new ArrayList<>();
+        if  (this.selector != null && !this.selector.isEmpty()) {
+            if (this.selector.size() > 1) {
+                List<Map<String, Object>> selectorList = new ArrayList<>();
 
-            for (Selector s : this.selector) {
-                selectorList.add(s.toJSON());
+                for (Selector s : this.selector) {
+                    selectorList.add(s.toJSON());
+                }
+                json.put("selector", selectorList);
+            } else {
+                json.put("selector", this.selector.get(0).toJSON());
             }
-            json.put("selector", selectorList);
         }
         return json;
     }

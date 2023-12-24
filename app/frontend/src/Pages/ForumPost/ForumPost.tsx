@@ -10,7 +10,6 @@ import { getPost } from "../../Services/forum";
 import { getCommentList } from "../../Services/comment";
 import CommentForm from "../../Components/Comment/CommentForm/CommentForm.tsx";
 import Comment from "../../Components/Comment/Comment/Comment.tsx";
-
 import { useVote } from "../../Components/Hooks/useVote.tsx";
 import { useAuth } from "../../Components/Hooks/useAuth.tsx";
 import {
@@ -19,18 +18,29 @@ import {
   UpOutlined,
   CommentOutlined,
   WarningOutlined,
-  BackwardOutlined,
   ArrowLeftOutlined,
+   CheckOutlined,
+  InfoCircleOutlined,
 } from "@ant-design/icons";
 import clsx from "clsx";
-import { Button, message } from "antd";
-import { useState } from "react";
+import { Button, Tooltip, message } from "antd";
+import { useEffect, useState } from "react";
 import TagRenderer from "../../Components/TagRenderer/TagRenderer.tsx";
 import { twj } from "tw-to-css";
 import Achievement from "../../Components/Achievement/Achievement/Achievement.tsx";
 import { grantAchievement } from "../../Services/achievement.ts";
 import { formatDate } from "../../Library/utils/formatDate.ts";
-import { handleError } from "../../Library/utils/handleError.ts";
+import {
+  handleAxiosError,
+  handleError,
+} from "../../Library/utils/handleError.ts";
+import { Recogito } from "@recogito/recogito-js";
+import {
+  createAnnotation,
+  deleteAnnotation,
+  updateAnnotation,
+} from "../../Services/annotation.ts";
+import { NotificationUtil } from "../../Library/utils/notification.ts";
 import CharacterDetails from "../../Components/Character/CharacterDetails.tsx";
 
 function ForumPost() {
@@ -38,10 +48,14 @@ function ForumPost() {
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams] = useSearchParams();
+  const [isAnnotationsApplied, setIsAnnotationsApplied] = useState(false);
   const { postId, forumId } = useParams();
   const { data: post, isLoading } = useQuery(["post", postId], () =>
     getPost(postId!)
   );
+  const pageUrl = window.location.href.replace("?back=/home", "");
+
+  const isAdmin = user?.role === "ADMIN";
   const { upvote, downvote } = useVote({
     voteType: "POST",
     typeId: postId!,
@@ -55,13 +69,29 @@ function ForumPost() {
     () => getCommentList({ postId: postId! })
   );
 
+  const hideTagField = () => {
+    const tagField = document.querySelector(".r6o-widget.r6o-tag");
+
+    if (tagField) {
+      tagField.style.display = "none";
+    }
+  };
+
+  useEffect(() => {
+    const textElement = document.querySelector("#textElement");
+
+    if (textElement) {
+      textElement.addEventListener("click", hideTagField);
+    }
+  }, [isLoading]);
+
   const [isCommenting, setCommenting] = useState(false);
 
   const { mutate: grant } = useMutation(
     () => grantAchievement(post.poster.id, post.achievement.id),
     {
       onSuccess() {
-        message.success(`Achievement Granted`);
+        NotificationUtil.success(`Achievement Granted`);
       },
 
       onError(err: any) {
@@ -72,17 +102,80 @@ function ForumPost() {
 
   const toggleCommenting = () => {
     setCommenting(!isCommenting);
-    console.log(isCommenting);
-    console.log(post);
+  };
+
+  const linkAnnotation = (elem: any) => {
+    if (elem && isAnnotationsApplied === false) {
+      const r = new Recogito({
+        content: elem,
+        readOnly: !(user?.id === post.poster.id || isAdmin),
+      });
+      setIsAnnotationsApplied(true);
+
+      r.loadAnnotations(
+        `${
+          import.meta.env.VITE_APP_ANNOTATION_API_URL
+        }/annotation/get-source-annotations?source=${pageUrl}`
+      )
+        .then(function (annotations) {})
+        .catch((error) => {
+          if (error instanceof SyntaxError) {
+            return;
+          }
+          NotificationUtil.error("Error occurred while retrieving annotations");
+        });
+
+      r.on("createAnnotation", async (annotation: any, overrideId) => {
+        try {
+          annotation.target = { ...annotation.target, source: pageUrl };
+          const newId = pageUrl + "/" + annotation.id.replace("#", "");
+          annotation.id = newId;
+          overrideId(newId);
+          await createAnnotation(annotation);
+          NotificationUtil.success("You successfully create the annotation");
+        } catch (error) {
+          handleAxiosError(error);
+        }
+      });
+
+      r.on("deleteAnnotation", async function (annotation: any) {
+        try {
+          const id = annotation.id;
+          await deleteAnnotation(id);
+          NotificationUtil.success("You successfully delete the annotation");
+        } catch (error) {
+          handleAxiosError(error);
+        }
+      });
+
+      r.on("selectAnnotation", async function (annotation: any) {
+        hideTagField();
+      });
+
+      r.on("updateAnnotation", async function (annotation, _previous) {
+        try {
+          annotation.target = { ...annotation.target, source: pageUrl };
+          await updateAnnotation(annotation);
+          NotificationUtil.success("You successfully update the annotation");
+        } catch (error) {
+          handleAxiosError(error);
+        }
+      });
+    }
   };
 
   return (
     <div className={styles.container}>
-      <div
-        className={styles.backButton}
-        onClick={() => navigate(searchParams.get("back") ?? "/")}
-      >
-        <ArrowLeftOutlined />
+      <div className={styles.topContainer}>
+        <div
+          className={styles.backButton}
+          onClick={() => navigate(searchParams.get("back") ?? "/")}
+        >
+          <ArrowLeftOutlined />
+        </div>
+        <Tooltip title="This page is annotable. If you are an admin or the owner of the post, you can add, edit, and delete annotations to image or content of the post.">
+          <InfoCircleOutlined style={{ fontSize: "20px" }} />
+        </Tooltip>
       </div>
       {!isLoading && (
         <div className={styles.postContainer}>
@@ -136,12 +229,19 @@ function ForumPost() {
             </div>
           )}
           {post.achievement && (
-            <div className={styles.achievement}>
-              <span>Achievement:</span>
-              <Achievement props={post.achievement} />
-              {user?.role === "ADMIN" && (
-                <Button onClick={() => grant()}>Grant Achievement</Button>
-              )}
+            <div>
+              <div className={styles.achievement}>
+                <span className={styles.mySpan}>Achievement:</span>
+                <Achievement props={post.achievement} />
+                {user?.role === "ADMIN" && (
+                  <Tooltip
+                    title="Grant Achievement"
+                    className={styles.grantButton}
+                  >
+                    <CheckOutlined onClick={() => grant()} />
+                  </Tooltip>
+                )}
+              </div>
             </div>
           )}
           {post.character && (
@@ -152,7 +252,9 @@ function ForumPost() {
             </div>
           )}
           <span className={styles.body}>
-            {post.postContent}
+            <span id="textElement" ref={(elem) => linkAnnotation(elem)}>
+              {post.postContent}
+            </span>
             <span className={styles.postDetails}>
               <span>Poster: {post.poster?.username}</span>
               <span>Last edit: {formatDate(post.lastEditedAt)}</span>

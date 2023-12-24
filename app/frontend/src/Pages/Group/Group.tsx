@@ -37,7 +37,6 @@ function Group() {
   );
 
   const showModal = () => {
-    console.log(group?.moderators);
     setIsModalOpen(true);
   };
 

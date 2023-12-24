@@ -426,7 +426,10 @@ public class GameService {
 		List<Game> recommendations = new ArrayList<>();
 
 		for(RecommendGameDto gameDto : recommendedGames){
-			recommendations.add(gameDto.getGame());
+			Game gameToRecommend = gameDto.getGame();
+			if(!followedGameIds.contains(gameToRecommend.getId())){
+				recommendations.add(gameToRecommend);
+			}
 			if(recommendations.size() >= 10){	// get only top 10 recommendations
 				break;
 			}
