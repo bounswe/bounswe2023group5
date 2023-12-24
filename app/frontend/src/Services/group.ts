@@ -71,11 +71,11 @@ export async function deleteGroup(groupId: string) {
   return response.data;
 }
 
-export async function applyGroup(groupId: string) {
+export async function applyGroup(body:any) {
   const response = await axios.post(
-    `${import.meta.env.VITE_APP_API_URL}/group/apply?groupId=${groupId}`,
+    `${import.meta.env.VITE_APP_API_URL}/group/apply?groupId=${body.groupId}`,
     {
-      message: "I want to join this group!",
+      message: body.message,
     }
   );
   return response.data;
