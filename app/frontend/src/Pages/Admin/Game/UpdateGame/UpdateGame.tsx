@@ -85,6 +85,7 @@ function UpdateGame() {
     updatedGame = await getGame(updatedGame.id);
     setId(updatedGame.id);
     setGame(updatedGame);
+
     setName(updatedGame.gameName);
     setDescription(updatedGame.gameDescription);
     setMinSystemReq(updatedGame.minSystemReq);
