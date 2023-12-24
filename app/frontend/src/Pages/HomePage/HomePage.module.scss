@@ -1,15 +1,31 @@
+@import "../../colors";
+
 .pageContainer {
   padding: 1em;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+
   .postsContainer {
     display: flex;
     gap: 1em;
     flex-direction: column;
+    width: 70%;
+    overflow: hidden;
+    background-color: $vanilla-light-60;
+    padding: 10px;
+    border-radius: 0.5em;
+
     .filterContainer {
       display: flex;
       justify-content: flex-end;
       width: 100%;
       gap: 0.5em;
       padding: 0.5em;
+    }
+    .postContainer {
+      width: 100%;
     }
   }
 }

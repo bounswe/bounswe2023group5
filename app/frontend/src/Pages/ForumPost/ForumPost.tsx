@@ -44,7 +44,6 @@ import {
 } from "../../Services/annotation.ts";
 import { NotificationUtil } from "../../Library/utils/notification.ts";
 import CharacterDetails from "../../Components/Character/CharacterDetails.tsx";
-import { NotificationUtil } from "../../Library/utils/notification.ts";
 
 function ForumPost() {
   const { isLoggedIn, user } = useAuth();
