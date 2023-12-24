@@ -91,11 +91,12 @@
       justify-content: center;
       background-color: $vanilla-light-50;
       border-radius: 0.5em;
+      padding: 0.5em;
+
       img {
         height: 100%;
         width: auto;
         object-fit: contain;
-        padding: 0.5em;
       }
     }
 
