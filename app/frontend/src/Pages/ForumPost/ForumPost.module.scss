@@ -54,10 +54,17 @@
         font-size: 1.5em;
         font-weight: bold;
         margin: 0em 2em;
-        opacity: 50%;
+        opacity: 80%;
       }
     }
 
+    .mySpan {
+      font-size: 1.5em;
+      font-weight: bold;
+      margin: 0em 2em;
+      opacity: 80%;
+      background-color: $vanilla-light-50;
+    }
     .character {
       display: flex;
       align-items: center;
@@ -69,7 +76,7 @@
         font-size: 1.5em;
         font-weight: bold;
         margin: 0em 2em;
-        opacity: 50%;
+        opacity: 80%;
       }
     }
     .title {
@@ -159,5 +166,24 @@
     opacity: 80%;
     margin-left: 3.5em;
     margin-top: 1em;
+  }
+  .grantButton {
+    position: absolute;
+    margin-top: 5px;
+    margin-left: 20em;
+    padding: 0.6em 0.9em; 
+    font-size: 0.8em;
+    display: flex;
+    background-color: $orange-light-10  ; 
+    align-items: center;
+    justify-content: center ;
+    border-radius: 0.3em; 
+    color: white; 
+
+    right: 0.5em;
+
+    &:hover {
+      background-color: darken($orange, 10%);
+    }
   }
 }

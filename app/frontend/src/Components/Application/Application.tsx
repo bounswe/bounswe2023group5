@@ -6,6 +6,7 @@ import { reviewApplication } from "../../Services/applications";
 import { NotificationUtil } from "../../Library/utils/notification";
 import { handleAxiosError } from "../../Library/utils/handleError";
 
+
 function Application({ application }: { application: any }) {
   const queryClient = useQueryClient();
 
@@ -28,6 +29,7 @@ function Application({ application }: { application: any }) {
       onSuccess() {
         queryClient.invalidateQueries(["applications"]);
         NotificationUtil.success("You successfully rejected the application");
+
       },
       onError(error: any) {
         handleAxiosError(error);

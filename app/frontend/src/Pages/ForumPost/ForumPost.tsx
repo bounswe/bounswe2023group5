@@ -10,7 +10,6 @@ import { getPost } from "../../Services/forum";
 import { getCommentList } from "../../Services/comment";
 import CommentForm from "../../Components/Comment/CommentForm/CommentForm.tsx";
 import Comment from "../../Components/Comment/Comment/Comment.tsx";
-
 import { useVote } from "../../Components/Hooks/useVote.tsx";
 import { useAuth } from "../../Components/Hooks/useAuth.tsx";
 import {
@@ -20,16 +19,30 @@ import {
   CommentOutlined,
   WarningOutlined,
   ArrowLeftOutlined,
+  CheckOutlined,
 } from "@ant-design/icons";
 import clsx from "clsx";
-import { Button } from "antd";
+
+import { Button, Tooltip, message } from "antd";
 import { useState } from "react";
 import TagRenderer from "../../Components/TagRenderer/TagRenderer.tsx";
 import { twj } from "tw-to-css";
 import Achievement from "../../Components/Achievement/Achievement/Achievement.tsx";
 import { grantAchievement } from "../../Services/achievement.ts";
 import { formatDate } from "../../Library/utils/formatDate.ts";
-import { handleError } from "../../Library/utils/handleError.ts";
+import {
+  handleAxiosError,
+  handleError,
+} from "../../Library/utils/handleError.ts";
+import { Recogito } from "@recogito/recogito-js";
+
+import "@recogito/recogito-js/dist/recogito.min.css";
+import {
+  createAnnotation,
+  deleteAnnotation,
+  updateAnnotation,
+} from "../../Services/annotation.ts";
+import { NotificationUtil } from "../../Library/utils/notification.ts";
 import CharacterDetails from "../../Components/Character/CharacterDetails.tsx";
 import { NotificationUtil } from "../../Library/utils/notification.ts";
 
@@ -38,10 +51,13 @@ function ForumPost() {
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams] = useSearchParams();
+  const [isAnnotationsApplied, setIsAnnotationsApplied] = useState(false);
   const { postId, forumId } = useParams();
   const { data: post, isLoading } = useQuery(["post", postId], () =>
     getPost(postId!)
   );
+
+  const isAdmin = user?.role === "ADMIN";
   const { upvote, downvote } = useVote({
     voteType: "POST",
     typeId: postId!,
@@ -72,8 +88,60 @@ function ForumPost() {
 
   const toggleCommenting = () => {
     setCommenting(!isCommenting);
-    console.log(isCommenting);
-    console.log(post);
+  };
+
+  const linkAnnotation = (elem: any) => {
+    if (elem && isAnnotationsApplied === false) {
+      const r = new Recogito({
+        content: elem,
+        readOnly: !(user.id === post.poster.id || isAdmin),
+      });
+      setIsAnnotationsApplied(true);
+
+      r.loadAnnotations(
+        `${
+          import.meta.env.VITE_APP_ANNOTATION_API_URL
+        }/annotation/get-source-annotations?source=${postId}`
+      )
+        .then(function (annotations) {})
+        .catch((error) => {
+          if (error instanceof SyntaxError) {
+            return;
+          }
+          NotificationUtil.error("Error occurred while retrieving annotations");
+        });
+
+      r.on("createAnnotation", async (annotation: any, _overrideId) => {
+        try {
+          annotation.target = { ...annotation.target, source: postId };
+
+          await createAnnotation(annotation);
+          NotificationUtil.success("You successfully create the annotation");
+        } catch (error) {
+          handleAxiosError(error);
+        }
+      });
+
+      r.on("deleteAnnotation", async function (annotation: any) {
+        try {
+          const id = annotation.id;
+          await deleteAnnotation(id);
+          NotificationUtil.success("You successfully delete the annotation");
+        } catch (error) {
+          handleAxiosError(error);
+        }
+      });
+
+      r.on("updateAnnotation", async function (annotation, _previous) {
+        try {
+          annotation.target = { ...annotation.target, source: postId };
+          await updateAnnotation(annotation);
+          NotificationUtil.success("You successfully update the annotation");
+        } catch (error) {
+          handleAxiosError(error);
+        }
+      });
+    }
   };
 
   return (
@@ -136,12 +204,19 @@ function ForumPost() {
             </div>
           )}
           {post.achievement && (
-            <div className={styles.achievement}>
-              <span>Achievement:</span>
-              <Achievement props={post.achievement} />
-              {user?.role === "ADMIN" && (
-                <Button onClick={() => grant()}>Grant Achievement</Button>
-              )}
+            <div>
+              <div className={styles.achievement}>
+                <span className={styles.mySpan}>Achievement:</span>
+                <Achievement props={post.achievement} />
+                {user?.role === "ADMIN" && (
+                  <Tooltip
+                    title="Grant Achievement"
+                    className={styles.grantButton}
+                  >
+                    <CheckOutlined onClick={() => grant()} />
+                  </Tooltip>
+                )}
+              </div>
             </div>
           )}
           {post.character && (
@@ -152,7 +227,7 @@ function ForumPost() {
             </div>
           )}
           <span className={styles.body}>
-            {post.postContent}
+            <span ref={(elem) => linkAnnotation(elem)}>{post.postContent}</span>
             <span className={styles.postDetails}>
               <span>Poster: {post.poster?.username}</span>
               <span>Last edit: {formatDate(post.lastEditedAt)}</span>

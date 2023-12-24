@@ -50,6 +50,8 @@ public class Game extends BaseModel {
 
 	private String minSystemReq;
 
+	private Boolean isPromoted = false;
+
 	public Game(String gameName, String gameDescription, Date releaseDate, String minSystemReq) {
 		this.gameName = gameName;
 		this.gameDescription = gameDescription;

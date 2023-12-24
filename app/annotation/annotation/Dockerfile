@@ -1,6 +1,6 @@
-FROM eclipse-temurin:17-jdk-alpine
-WORKDIR /app
-VOLUME /app/images
-COPY target/*.jar /app/bounswe.jar
+FROM maven:3.9.6-eclipse-temurin-21-jammy
+WORKDIR /app/annotation
+COPY . /app/annotation
+RUN mvn clean install
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/app/bounswe.jar"]
+ENTRYPOINT ["java","-jar","/app/annotation/target/annotation-1.0-SNAPSHOT.jar"]
