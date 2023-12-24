@@ -43,8 +43,8 @@ public class GameController {
 	}
 
 	@GetMapping("get-game-list")
-	public ResponseEntity<List<Game>> getGames(@ParameterObject GetGameListRequestDto filter) {
-		List<Game> gameList = gameService.getGames(filter);
+	public ResponseEntity<List<GetGameListResponseDto>> getGames(@ParameterObject GetGameListRequestDto filter) {
+		List<GetGameListResponseDto> gameList = gameService.getGames(filter);
 		return ResponseEntity.ok(gameList);
 	}
 
@@ -120,5 +120,14 @@ public class GameController {
 			email = JwtUtil.extractSubject(Authorization);
 		List<Game> games = gameService.getRecommendedGames(email);
 		return ResponseEntity.ok(games);
+	}
+
+	@AuthorizationRequired
+	@AdminRequired
+	@PostMapping("/promote")
+	public ResponseEntity<Game> changePromotionStatus(@RequestParam String id,@RequestHeader String Authorization,
+											HttpServletRequest request){
+		Game gameToPromote = gameService.changePromotionStatusOfGame(id);
+		return ResponseEntity.ok(gameToPromote);
 	}
 }

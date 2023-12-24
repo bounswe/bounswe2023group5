@@ -639,33 +639,70 @@ public class GroupService {
         return dto;
     }
 
-    public List<Group> getRecommendedGroups(User user) {
-        Optional<Profile> findProfile = profileRepository.findByUserIdAndIsDeletedFalse(user.getId());
+    public List<Group> getRecommendedGroups(String email) {
+        Optional<User> optUser = userRepository.findByEmailAndIsDeletedFalse(email);
 
+        if(optUser.isEmpty()){
+            Query query = new Query();
+            query.addCriteria(Criteria.where("isDeleted").is(false));
+            query.limit(10);
+            return mongoTemplate.find(query, Group.class);
+        }
+        User user = optUser.get();
+
+        Optional<Profile> findProfile = profileRepository.findByUserIdAndIsDeletedFalse(user.getId());
         if (findProfile.isEmpty()) {
             throw new ResourceNotFoundException("Profile of the user is not found, unexpected error has occurred");
         }
-
+        List<Group> recommendations = new ArrayList<>();
         List<Group> memberGroups = groupRepository.findUserGroups(user.getId());
+        List<String> userGames = findProfile.get().getGames();
         if (memberGroups.isEmpty()) {
-            return Collections.emptyList();
+            if (userGames.isEmpty()){
+                Query query = new Query();
+                query.addCriteria(Criteria.where("isDeleted").is(false));
+                query.limit(10);
+                return mongoTemplate.find(query, Group.class);
+            }else{
+                List<Group> recommendationGameGroups = new ArrayList<>();
+                for(String gameId : userGames){
+                    Query query = new Query();
+                    query.addCriteria(Criteria.where("isDeleted").is(false));
+                    query.addCriteria(Criteria.where("gameId").is(gameId));
+                    query.limit(2);
+                    List<Group> gameGroups = mongoTemplate.find(query, Group.class);
+                    recommendationGameGroups.addAll(gameGroups);
+                    Collections.shuffle(recommendationGameGroups);
+                }
+                return recommendationGameGroups.subList(0, Math.min(10, recommendationGameGroups.size()));
+            }
         }
         TreeSet<RecommendGroupDto> recommendedGroups = new TreeSet<>(Comparator.reverseOrder());
         for (Group group : memberGroups) {
             String groupId = group.getId();
-            recommendedGroups.addAll(recommendationByGroupId(groupId));
+            recommendedGroups.addAll(recommendationByGroupId(groupId, user.getId()));
         }
-
-        List<Group> recommendations = new ArrayList<>();
-
+        if(!userGames.isEmpty()){
+            List<Group> recommendedGameGroups = new ArrayList<>();
+            for(String gameId : userGames){
+                Query query = new Query();
+                query.addCriteria(Criteria.where("isDeleted").is(false));
+                query.addCriteria(Criteria.where("gameId").is(gameId));
+                query.addCriteria(Criteria.where("members").nin(user.getId()));
+                query.limit(2);
+                List<Group> gameGroups = mongoTemplate.find(query, Group.class);
+                recommendedGameGroups.addAll(gameGroups);
+            }
+            recommendations.addAll(recommendedGameGroups);
+        }
         for (RecommendGroupDto groupDto : recommendedGroups) {
             recommendations.add(groupDto.getGroup());
         }
 
-        return recommendations;
+        return recommendations.subList(0, Math.min(10, recommendations.size()));
     }
 
-    public TreeSet<RecommendGroupDto> recommendationByGroupId(String groupId) {
+    public TreeSet<RecommendGroupDto> recommendationByGroupId(String groupId, String userId) {
         Optional<Group> findGroup = groupRepository.findByIdAndIsDeletedFalse(groupId);
 
         Set<String> idList = new HashSet<>();
@@ -686,6 +723,7 @@ public class GroupService {
                 Query query = new Query();
                 query.addCriteria(Criteria.where("title").regex(regexPattern, "i"));
                 query.addCriteria(Criteria.where("_id").ne(group.getId()));
+                query.addCriteria(Criteria.where("members").nin(userId));
                 List<Group> similarNames = mongoTemplate.find(query, Group.class);
                 for (Group i : similarNames) {
                     RecommendGroupDto dto = new RecommendGroupDto();
@@ -696,9 +734,10 @@ public class GroupService {
             }
         }
 
-        Query allGroupsQuery = new Query();    // all games except the base game
+        Query allGroupsQuery = new Query();
         allGroupsQuery.addCriteria(Criteria.where("isDeleted").is(false));
         allGroupsQuery.addCriteria(Criteria.where("_id").nin(idList));
+        allGroupsQuery.addCriteria(Criteria.where("members").nin(userId));
 
         List<Group> allGroups = mongoTemplate.find(allGroupsQuery, Group.class);
 

@@ -6,7 +6,6 @@ import {
   DownOutlined,
   EditOutlined,
   UpOutlined,
-  WarningOutlined,
 } from "@ant-design/icons";
 import { useMutation } from "react-query";
 import { deletePost } from "../../../Services/forum";
@@ -20,7 +19,6 @@ import { twj } from "tw-to-css";
 import { NotificationUtil } from "../../../Library/utils/notification";
 import { handleAxiosError } from "../../../Library/utils/handleError";
 import SquareAchievement from "../../Achievement/SquareAchievement/SquareAchievement";
-import Character from "../../Character/Character";
 import CharacterDetails from "../../Character/CharacterDetails";
 
 function ForumPost({
@@ -127,11 +125,6 @@ function ForumPost({
       <div className={styles.meta}>
         <span>{post.poster?.username}</span>
         <span>{post.createdAt && formatDate(post.createdAt)}</span>
-        <WarningOutlined
-          style={twj("text-red-500 text-lg cursor-pointer")}
-          alt="report"
-          type="text"
-        />
       </div>
       <div className={styles.readMore}>
         {type !== "STANDARD" && (

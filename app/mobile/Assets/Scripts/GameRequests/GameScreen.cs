@@ -23,7 +23,7 @@ public class GameScreen : MonoBehaviour
     [SerializeField] private Button filterButton;
     
     private List<GamePage> gamePages = new List<GamePage>();
-    private Dictionary<string,string> queryParams = new Dictionary<string, string>();
+    // private List<(string,string)> queryParams = new List<(string, string)>();
 
 
     private void Awake()
@@ -46,45 +46,48 @@ public class GameScreen : MonoBehaviour
         string bodyJsonString = (gameRequestData == null) ? "" :
             JsonConvert.SerializeObject(gameRequestData);
 
-        /*
-        var gameRequestData = new GetGameListRequest();
-        //todo: add filters
-        string bodyJsonString = JsonConvert.SerializeObject(gameRequestData);
-        */
-        
         StartCoroutine(Post(url, bodyJsonString));
     }
 
     private void OnClickedFilter()
     {
-        
+        GetGameListRequest gameRequestData = ChangeFilterParameter();
+        ListGames(gameRequestData);
     }
 
-    private void ChangeFilterParameter(TMP_Dropdown dropdown, FilterType filterType)
+    private GetGameListRequest ChangeFilterParameter()
     {
-        switch (filterType)
+        GetGameListRequest gameRequestData = new GetGameListRequest();
+        var playerTypesList = playerTypes.GetSelectedItems();
+        var genreList = genre.GetSelectedItems();
+        var platformsList = platforms.GetSelectedItems();
+        var artStylesList = artStyles.GetSelectedItems();
+        if (playerTypesList.Count > 0)
         {
-            case FilterType.PlayerType:
-                break;
-            case FilterType.Genre:
-                break;
-            case FilterType.Production:
-                if (queryParams.ContainsKey("production"))
-                {
-                    queryParams["production"] = productionNameArray[production.value];
-                }
-                else
-                {
-                    queryParams.Add("production", productionNameArray[production.value]);
-                }
-                break;
-            case FilterType.Platforms:
-                break;
-            case FilterType.ArtStyles:
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(filterType), filterType, null);
+            gameRequestData.playerTypes = playerTypesList.ConvertAll(x => x.Item2).ToArray();
         }
+        if (genreList.Count > 0)
+        {
+            gameRequestData.genre = genreList.ConvertAll(x => x.Item2).ToArray();
+        }
+        if (platformsList.Count > 0)
+        {
+            gameRequestData.platform = platformsList.ConvertAll(x => x.Item2).ToArray();
+        }
+        if (artStylesList.Count > 0)
+        {
+            gameRequestData.artStyle = artStylesList.ConvertAll(x => x.Item2).ToArray();
+        }
+        if (production.value != 0)
+        {
+            var productionValue = productionArray[production.value].Item2;
+            gameRequestData.production = productionValue;
+        }
+        if (search.text != "")
+        {
+            gameRequestData.search = search.text;
+        }
+        return gameRequestData;
     }
 
     IEnumerator Post(string url, string bodyJsonString)
@@ -140,7 +143,8 @@ public class GameScreen : MonoBehaviour
         {
             response = request.downloadHandler.text;
             var allTagsResponseData = JsonConvert.DeserializeObject<TagResponse[]>(response);
-
+            productionArray.Add(("All",""));
+            productionNameArray.Add("All");
             // Do things with _GetAllTagsResponseData 
             foreach (var tagResponse in allTagsResponseData)
             {

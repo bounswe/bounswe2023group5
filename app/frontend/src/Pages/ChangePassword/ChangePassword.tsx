@@ -1,7 +1,9 @@
-import { Button, Form, Input, Card, message } from "antd";
+import { Button, Form, Input, Card } from "antd";
 import styles from "./ChangePassword.module.scss";
 import { changePassword } from "../../Services/changepassword";
 import { useNavigate } from "react-router-dom";
+import { NotificationUtil } from "../../Library/utils/notification";
+import { handleAxiosError } from "../../Library/utils/handleError";
 
 const ChangePassword = () => {
   const [form] = Form.useForm();
@@ -12,19 +14,19 @@ const ChangePassword = () => {
     try {
       const response = await changePassword(currentPassword, newPassword);
       if (response?.status == 200) {
-        message.success("Password is changed successfully!");
+        NotificationUtil.success("Password is changed successfully!");
         navigate("/profile");
       }
     } catch (error: any) {
-      message.error(error.message);
+      handleAxiosError(error);
       return;
     }
 
-    message.success("Password is changed successfully!");
+    NotificationUtil.success("Password is changed successfully!");
   };
 
   const onFinishFailed = () => {
-    message.error("Couldn't change the password");
+    NotificationUtil.error("Couldn't change the password");
   };
 
   return (
