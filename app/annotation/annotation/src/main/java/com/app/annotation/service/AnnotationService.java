@@ -2,6 +2,7 @@ package com.app.annotation.service;
 
 import com.app.annotation.dto.request.SelectorDto;
 import com.app.annotation.dto.request.TargetDto;
+import com.app.annotation.exception.BadRequestException;
 import com.app.annotation.model.*;
 import com.app.annotation.repository.AnnotationRepository;
 import com.app.annotation.dto.request.CreateAnnotationRequestDto;
@@ -35,6 +36,12 @@ public class AnnotationService {
     }
 
     public Map<String, Object> createAnnotation(CreateAnnotationRequestDto dto) {
+
+        Optional<Annotation> prevAnnotation = annotationRepository.findById(dto.getId());
+
+        if (prevAnnotation.isPresent()) {
+            throw new BadRequestException("There is an annotation with same id.");
+        }
 
         Annotation annotationToCreate = modelMapper.map(dto, Annotation.class);
 
