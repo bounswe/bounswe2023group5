@@ -137,7 +137,7 @@ public class GetProfile : MonoBehaviour
             Sprite sprite = Sprite.Create(texture2, new Rect(0, 0, texture2.width, texture2.height), new Vector2(0, 0));
             targetImage.sprite = sprite;
         }
-    }
+    } 
     
     private GameObject lastObject;
     private List<GamePage> gamePages = new List<GamePage>();

@@ -1,10 +1,13 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Text;
+using Newtonsoft.Json;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using System.Linq;
 
 public class ForumCreatePost : MonoBehaviour
 {
@@ -12,24 +15,22 @@ public class ForumCreatePost : MonoBehaviour
     [SerializeField] private TMP_InputField postContent;
     [SerializeField] private string postImage;
     [SerializeField] private string forumID;
-    [SerializeField] private string[] tags;
+    [SerializeField] private List<string> tags = new List<string>();
     [SerializeField] private TMP_Text infoText;
     [SerializeField] private Button createPost;
     [SerializeField] private Button editPost;
     [SerializeField] private Button exit;
-
+    [SerializeField] private MultySelectDopdown tagDropdown;
 
     // This will be used in post edit
     private string postId;
     private bool isPageModeCreate;
     
+    
+    private List<(string,string)> postTypesArray = new List<(string,string)>();
+    
     private CanvasManager canvasManager;
     
-    
-    private void Start()
-    {
-        // Init("b4036d6f-0e69-4df3-a935-a84750dc2bcd");
-    }
 
     private void Awake()
     {
@@ -39,14 +40,19 @@ public class ForumCreatePost : MonoBehaviour
         editPost.onClick.AddListener(OnClickedEditPost);
         exit.onClick.AddListener(OnClickedExit);
     }
+    private void Start()
+    {
+        StartCoroutine(GetAllTags(AppVariables.HttpServerUrl + "/tag/get-all"));
+    }
 
     public void Init(string _forumID)
     {
         forumID = _forumID;
         title.text = "";
         postContent.text = "";
-        tags = Array.Empty<String>();
+        //tags = Array.Empty<String>();
         infoText.text = "";
+        PopulateMultiSelectDropdown(tagDropdown, postTypesArray);
         PageMode("create");
     }
     
@@ -55,10 +61,11 @@ public class ForumCreatePost : MonoBehaviour
         postId = _postID;
         title.text = postInfoVal.title;
         postContent.text = postInfoVal.postContent;
-        tags = Array.Empty<String>();
+        //tags = Array.Empty<String>();
         infoText.text = "";
         PageMode("edit");
     }
+    
 
     public void PageMode(String mode)
     {
@@ -67,11 +74,13 @@ public class ForumCreatePost : MonoBehaviour
             isPageModeCreate = true;
             createPost.gameObject.SetActive(true);
             editPost.gameObject.SetActive(false);
+            tagDropdown.gameObject.SetActive(true);
         }else if (mode == "edit")
         {
             isPageModeCreate = false;
             createPost.gameObject.SetActive(false);
             editPost.gameObject.SetActive(true);
+            tagDropdown.gameObject.SetActive(false);
         }
         else
         {
@@ -104,11 +113,23 @@ public class ForumCreatePost : MonoBehaviour
         postCreateRequest.postContent = postContent.text;
         postCreateRequest.postImage = postImage;
         postCreateRequest.forum = forumID;
-        postCreateRequest.tags = tags;
-        
+        GetTags();
+        postCreateRequest.tags = tags.ToArray();
         string bodyJsonString = JsonUtility.ToJson(postCreateRequest);
         StartCoroutine(PostCreate(url, bodyJsonString));
         
+    }
+
+    private void GetTags()
+    {
+        tags = new List<string>();
+        foreach (var item in tagDropdown.GetSelectedItems())
+        {
+            if (item.Item1 == "Post")
+            {
+                tags.Add(item.Item2);
+            }
+        }
     }
 
     private void OnClickedEditPost()
@@ -144,6 +165,46 @@ public class ForumCreatePost : MonoBehaviour
     {
         canvasManager.HideCreateEditPostPage();
     }
+    
+
+    IEnumerator GetAllTags(string url)
+    {
+        var request = new UnityWebRequest(url, "GET");
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+        yield return request.SendWebRequest();
+        string response = "";
+        if (request.responseCode == 200)
+        {
+            response = request.downloadHandler.text;
+            var allTagsResponseData = JsonConvert.DeserializeObject<TagResponse[]>(response);
+
+            // Do things with _GetAllTagsResponseData 
+            foreach (var tagResponse in allTagsResponseData)
+            {
+                switch (tagResponse.tagType)
+                {
+                    case "POST":
+                        postTypesArray.Add((tagResponse.name,tagResponse.id));
+                        break;
+                    default:
+                        break;
+                }
+            }
+            Debug.Log("Success to get tags: " + response);
+            PopulateMultiSelectDropdown(tagDropdown, postTypesArray);
+        }
+        else
+        {
+            Debug.Log("Error to get tags: " + response);
+        }
+        request.downloadHandler.Dispose();
+    }
+    
+    void PopulateMultiSelectDropdown (MultySelectDopdown dropdown, List<(string,string)> options) {
+        dropdown.InitDropdown(options);
+    }
+    
     IEnumerator PostCreate(string url, string bodyJsonString)
     {
         var request = new UnityWebRequest(url, "POST");

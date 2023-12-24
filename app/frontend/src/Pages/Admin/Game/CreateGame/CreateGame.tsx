@@ -15,10 +15,10 @@ import { NotificationUtil } from "../../../../Library/utils/notification";
 import { handleAxiosError } from "../../../../Library/utils/handleError";
 
 function CreateGame() {
-  // add gameIcon, duration, min system, developer and othertags req field
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [releaseDate, setReleaseDate] = useState<Date | null>(new Date());
+  const [minReq, setMinReq] = useState("");
   const [selectedTags, setSelectedTags] = useState<any>({
     playerTypes: [],
     genre: [],
@@ -78,6 +78,7 @@ function CreateGame() {
       description,
       releaseDate,
       gameIcon,
+      minReq,
       ...selectedTags,
     });
   };
@@ -145,6 +146,12 @@ function CreateGame() {
           className={styles.datePicker}
         />
         <br></br>
+        <Input
+          placeholder="Min System Requirements"
+          value={minReq}
+          className={styles.input}
+          onChange={(event) => setMinReq(event.target.value)}
+        />
         <MultipleSelect
           title="Player Types"
           filterKey="playerTypes"

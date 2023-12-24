@@ -50,4 +50,13 @@ public class AnnotationController {
         }
         return ResponseEntity.ok(annotations);
     }
+
+    @GetMapping("/get-image-annotations")
+    public ResponseEntity<List<Map<String, Object>>> getImageAnnotations(@RequestParam String source) {
+        List<Map<String, Object>> annotations = annotationService.getImageAnnotations(source);
+        if(annotations == null || annotations.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(annotations);
+    }
 }

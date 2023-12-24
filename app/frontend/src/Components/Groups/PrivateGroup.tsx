@@ -11,8 +11,11 @@ function PrivateGroup({ group }: { group: any }) {
   const navigate = useNavigate();
 
   const handleClick = async () => {
+
     navigate(`/group/apply/${group.id}`);
   }
+
+  };
 
   return (
     <div className={styles.group}>
