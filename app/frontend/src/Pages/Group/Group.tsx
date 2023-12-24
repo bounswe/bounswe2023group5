@@ -52,9 +52,12 @@ function Group() {
     deleteGroupMutation.mutate(groupId as string);
   };
 
+
+
   const handleReview = () => {
     navigate(`/group/review-application/${groupId}`);
   };
+
 
   return (
     <div className={styles.container}>

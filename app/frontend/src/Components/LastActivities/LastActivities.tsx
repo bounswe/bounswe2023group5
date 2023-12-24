@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 
 function LastActivities() {
   const activities = useQuery(["activites"], () => getActivities());
+
   return (
     <div className={styles.container}>
       {!activities.data ? (
