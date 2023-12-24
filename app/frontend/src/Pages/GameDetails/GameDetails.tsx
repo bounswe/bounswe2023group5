@@ -8,10 +8,11 @@ import { PacmanLoader } from "react-spinners";
 import Reviews from "../../Components/GameDetails/Review/Reviews";
 import Forum from "../../Components/Forum/Forum";
 import { formatDate } from "../../Library/utils/formatDate";
-import { Button, Rate } from "antd";
+import { Button, Rate, Tooltip } from "antd";
 import { useAuth } from "../../Components/Hooks/useAuth";
 import { addGame, removeGame } from "../../Services/profile";
 import { twj } from "tw-to-css";
+import { InfoCircleOutlined } from "@ant-design/icons";
 
 function GameDetails() {
   const { user, isLoggedIn, profile } = useAuth();
@@ -51,6 +52,11 @@ function GameDetails() {
   const date = data?.releaseDate;
   return (
     <div className={styles.container}>
+      <span>
+        <Tooltip title="This page is annotable. If you are an admin you can add, edit, and delete annotations to image or description of the game.">
+          <InfoCircleOutlined style={{ fontSize: "20px" }} />
+        </Tooltip>
+      </span>
       {isLoading ? (
         <div className={styles.errorContainer}>
           <PacmanLoader color="#1b4559" size={30} />

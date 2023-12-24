@@ -1,4 +1,5 @@
 @import "../../colors";
+@import "@recogito/recogito-js/dist/recogito.min.css";
 
 .container {
   display: flex;
@@ -7,19 +8,24 @@
   padding: 2em;
   position: relative;
 
-  .backButton {
-    color: $prussian-blue;
-    margin: 0.4em;
-    font-size: 30px;
-    cursor: pointer;
-    // Transition for smooth scaling
-    transition: transform 0.3s ease;
-    flex-grow: 0;
-    width: min-content;
+  .topContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .backButton {
+      color: $prussian-blue;
+      margin: 0.4em;
+      font-size: 30px;
+      cursor: pointer;
+      // Transition for smooth scaling
+      transition: transform 0.3s ease;
+      flex-grow: 0;
+      width: min-content;
 
-    &:hover {
-      // Scale up the button on hover
-      transform: scale(1.2);
+      &:hover {
+        // Scale up the button on hover
+        transform: scale(1.2);
+      }
     }
   }
 
@@ -187,3 +193,11 @@
     }
   }
 }
+
+// .r6o-widget.r6o-tag {
+//   display: none !important;
+// }
+
+// .r6o-editor .r6o-editor-inner .r6o-widget {
+//   display: none !important;
+// }

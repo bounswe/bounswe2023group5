@@ -222,7 +222,7 @@ public static class NativeFilePicker
 	#endregion
 
 	#region Import Functions
-	public static Permission PickFile( FilePickedCallback callback, params string[] allowedFileTypes )
+	public static string PickFile( FilePickedCallback callback, params string[] allowedFileTypes )
 	{
 		// If no file type is specified, allow all file types
 		if( allowedFileTypes == null || allowedFileTypes.Length == 0 )
@@ -235,7 +235,7 @@ public static class NativeFilePicker
 		}
 
 		Permission result = RequestPermission( true );
-		if( result == Permission.Granted && !IsFilePickerBusy() )
+		if( result == Permission.Granted )
 		{
 #if UNITY_EDITOR
 			// Accept Android and iOS UTIs when possible, for user's convenience
@@ -286,6 +286,7 @@ public static class NativeFilePicker
 				callback( pickedFile != "" ? pickedFile : null );
 #elif UNITY_ANDROID
 			AJC.CallStatic( "PickFiles", Context, new FPResultCallbackAndroid( callback, null, null ), false, SelectedFilePath, allowedFileTypes, "" );
+			return SelectedFilePath;
 #elif UNITY_IOS
 			FPResultCallbackiOS.Initialize( callback, null, null );
 			_NativeFilePicker_PickFile( allowedFileTypes, allowedFileTypes.Length );
@@ -295,7 +296,7 @@ public static class NativeFilePicker
 #endif
 		}
 
-		return result;
+		return "result";
 	}
 
 	public static Permission PickMultipleFiles( MultipleFilesPickedCallback callback, params string[] allowedFileTypes )

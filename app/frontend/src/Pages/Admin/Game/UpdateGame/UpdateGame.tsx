@@ -30,7 +30,6 @@ function UpdateGame() {
       NotificationUtil.success("You successfully update the game.");
     },
     onError: (error) => {
-      console.log(error);
       handleAxiosError(error);
     },
   });
@@ -46,7 +45,6 @@ function UpdateGame() {
   const handleClick = async () => {
     let gameIcon;
     if (fileList.length > 0) {
-      console.log(fileList);
       gameIcon = await uploadImageMutation.mutateAsync(
         fileList[0].originFileObj
       );
@@ -87,6 +85,7 @@ function UpdateGame() {
     updatedGame = await getGame(updatedGame.id);
     setId(updatedGame.id);
     setGame(updatedGame);
+
     setName(updatedGame.gameName);
     setDescription(updatedGame.gameDescription);
     setMinSystemReq(updatedGame.minSystemReq);

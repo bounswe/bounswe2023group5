@@ -27,41 +27,34 @@ function ReviewApplication() {
     { value: null, label: "All" },
   ];
 
-
-
   const groupId = window.location.pathname.split("/")[3];
 
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState([]);
-
-  console.log("tags here: ", tags);
 
   const { data: applications, isLoading: isLoadingComments } = useQuery(
     ["applications", groupId],
     () => getApplications({ groupId: groupId! })
   );
 
-
   return (
     <div className={styles.groupsPage}>
       <div className={styles.groupsContainer}>
-          <Search
-            placeholder="Search applications by applicant"
-            enterButton
-            className={styles.search}
-            onSearch={setTitle}
-            onChange={(e) => {
-              e.target.value === "" ? setTitle("") : "";
-            }}
-            style={{ width: "50%" }}
-          />
-          
+        <Search
+          placeholder="Search applications by applicant"
+          enterButton
+          className={styles.search}
+          onSearch={setTitle}
+          onChange={(e) => {
+            e.target.value === "" ? setTitle("") : "";
+          }}
+          style={{ width: "50%" }}
+        />
+
         {applications &&
-          applications.map((group: any) =>
-             (
-              <Application key={group.id} application={group}></Application>
-            )
-          )}
+          applications.map((group: any) => (
+            <Application key={group.id} application={group}></Application>
+          ))}
       </div>
     </div>
   );
