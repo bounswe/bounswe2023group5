@@ -3,8 +3,8 @@ import styles from "./HomePage.module.scss";
 import { useAuth } from "../../Components/Hooks/useAuth";
 import { getHomePosts } from "../../Services/home";
 import ForumPost from "../../Components/Forum/ForumPost/ForumPost";
-import { useState } from "react";
-import { Button, Pagination, Select } from "antd";
+import { useRef, useState } from "react";
+import { Button, Carousel, Pagination, Select } from "antd";
 import {
   SortAscendingOutlined,
   SortDescendingOutlined,
@@ -13,6 +13,9 @@ import {
   getGameRecommendations,
   getGroupRecommendations,
 } from "../../Services/recommendation";
+import GameReccomendation from "../../Components/ReccomendationCarousel/RecommendationItem/RecommendationItem";
+import { useElementSize } from "usehooks-ts";
+import RecommendationCarousel from "../../Components/ReccomendationCarousel/RecommendationCarousel";
 const sortOptions = [
   { label: "Creation Date", value: "CREATION_DATE" },
   { label: "Overall Vote", value: "OVERALL_VOTE" },
@@ -49,7 +52,7 @@ function HomePage() {
     }
   );
   const { data: groups } = useQuery(
-    ["gamerec", user?.id],
+    ["grouprec", user?.id],
     getGroupRecommendations,
     {
       enabled: !userLoading,
@@ -59,6 +62,23 @@ function HomePage() {
   return (
     <div className={styles.pageContainer}>
       <div className={styles.postsContainer}>
+        <RecommendationCarousel
+          title="Recommended Games!"
+          items={games?.map((game: any) => ({
+            image: game.gameIcon,
+            name: game.gameName,
+            link: `/game/detail/${game.id}`,
+          }))}
+        />
+        <RecommendationCarousel
+          title="Recommended Groups!"
+          items={groups?.map((group: any) => ({
+            image: group.groupIcon,
+            name: group.title,
+            link: `/group/detail/${group.id}`,
+            showName: true,
+          }))}
+        />
         <div className={styles.filterContainer}>
           <Button onClick={toggleSortDir}>
             {sortDirection === "DESCENDING" ? (
@@ -74,6 +94,7 @@ function HomePage() {
             style={{ width: "200px" }}
           />
         </div>
+
         {data
           ?.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
           .map((post: any) => (
