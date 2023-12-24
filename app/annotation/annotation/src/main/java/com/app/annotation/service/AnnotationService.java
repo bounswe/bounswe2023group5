@@ -40,18 +40,10 @@ public class AnnotationService {
 
         List<Selector> selectorList = new ArrayList<>();
         for (SelectorDto s : dto.getTarget().getSelector()) {
-            if (s.getExact() != null) {
-                System.out.println(s.getType());
-                System.out.println(s.getExact());
-            }
-            if (s.getStart() != null) {
-                System.out.println(s.getType());
-                System.out.println(s.getStart());
-            }
-            if (s.getType().equals("TextQuoteSelector")) {
-                selectorList.add(modelMapper.map(s, TextQuoteSelector.class));
-            } else if (s.getType().equals("TextPositionSelector")) {
-                selectorList.add(modelMapper.map(s, TextPositionSelector.class));
+            switch (s.getType()) {
+                case "TextQuoteSelector" -> selectorList.add(modelMapper.map(s, TextQuoteSelector.class));
+                case "TextPositionSelector" -> selectorList.add(modelMapper.map(s, TextPositionSelector.class));
+                case "FragmentSelector" -> selectorList.add(modelMapper.map(s, FragmentSelector.class));
             }
             //TODO add more selectors if implemented in the future
         }
