@@ -19,7 +19,7 @@ import {
   CommentOutlined,
   WarningOutlined,
   ArrowLeftOutlined,
-   CheckOutlined,
+  CheckOutlined,
   InfoCircleOutlined,
 } from "@ant-design/icons";
 import clsx from "clsx";
@@ -60,7 +60,6 @@ function ForumPost() {
   );
   const pageUrl = window.location.href.replace("?back=/home", "");
 
-  const pageUrl = window.location.href.replace("?back=/home", "");
   const isAdmin = user?.role === "ADMIN";
   const { upvote, downvote } = useVote({
     voteType: "POST",
@@ -76,10 +75,12 @@ function ForumPost() {
   );
 
   const hideTagField = () => {
-    const tagField = document.querySelector(".r6o-widget.r6o-tag");
+    const tagField = document.querySelectorAll(".r6o-widget.r6o-tag");
 
-    if (tagField) {
-      tagField.style.display = "none";
+    if (tagField && tagField.length > 0) {
+      for (const elem of tagField) {
+        elem.style.display = "none";
+      }
     }
   };
 
@@ -88,6 +89,14 @@ function ForumPost() {
 
     if (textElement) {
       textElement.addEventListener("click", hideTagField);
+    }
+  }, [isLoading]);
+
+  useEffect(() => {
+    const imageElement = document.querySelector("#imageElement");
+
+    if (imageElement) {
+      imageElement.addEventListener("click", hideTagField);
     }
   }, [isLoading]);
 
@@ -109,22 +118,6 @@ function ForumPost() {
   const toggleCommenting = () => {
     setCommenting(!isCommenting);
   };
-
-  const hideTagField = () => {
-    const tagField = document.querySelector(".r6o-widget.r6o-tag");
-
-    if (tagField) {
-      tagField.style.display = "none";
-    }
-  };
-
-  useEffect(() => {
-    const imageElement = document.querySelector("#imageElement");
-
-    if (imageElement) {
-      imageElement.addEventListener("click", hideTagField);
-    }
-  }, [isLoading]);
 
   const linkAnnotation = (elem: any) => {
     if (elem && isAnnotationsApplied === false) {
