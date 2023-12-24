@@ -22,6 +22,7 @@ import {
   CheckOutlined,
 } from "@ant-design/icons";
 import clsx from "clsx";
+
 import { Button, Tooltip, message } from "antd";
 import { useState } from "react";
 import TagRenderer from "../../Components/TagRenderer/TagRenderer.tsx";
@@ -75,7 +76,7 @@ function ForumPost() {
     () => grantAchievement(post.poster.id, post.achievement.id),
     {
       onSuccess() {
-        message.success(`Achievement Granted`);
+        NotificationUtil.success(`Achievement Granted`);
       },
 
       onError(err: any) {

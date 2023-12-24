@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { applyGroup } from "../../Services/group";
 import { NotificationUtil } from "../../Library/utils/notification";
 
+
 function PrivateGroup({ group }: { group: any }) {
   const navigate = useNavigate();
 
