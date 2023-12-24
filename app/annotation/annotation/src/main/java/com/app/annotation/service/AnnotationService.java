@@ -93,7 +93,38 @@ public class AnnotationService {
         List<Annotation> annotations = annotationRepository.findAllByTargetSource(source);
         List<Map<String, Object>> jsonAnnotations = new ArrayList<>();
         for (Annotation a : annotations) {
+
+            List<Selector> selectors = a.getTarget().getSelector();
+
+            boolean haveTextSelectors = true;
+
+            for (Selector s : selectors) {
+                if (!s.getType().equals("TextQuoteSelector") && !s.getType().equals("TextPositionSelector")) {
+                    haveTextSelectors = false;
+                    break;
+                }
+
+                // TODO change logic as more selectors are implemented in the future
+            }
+
+            if (!haveTextSelectors) {
+                continue;
+            }
+
             jsonAnnotations.add(a.toJSON());
+        }
+        return jsonAnnotations;
+    }
+
+    public List<Map<String, Object>> getImageAnnotations(String source) {
+        List<Annotation> annotations = annotationRepository.findAllByTargetSource(source);
+        List<Map<String, Object>> jsonAnnotations = new ArrayList<>();
+        for (Annotation a : annotations) {
+
+            if (a.getTarget().getSelector().size() == 1 && a.getTarget().getSelector().get(0).getType().equals("FragmentSelector")) {
+                jsonAnnotations.add(a.toJSON());
+            }
+            // TODO change logic if more image selectors are implemented in the future
         }
         return jsonAnnotations;
     }
