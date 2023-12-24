@@ -53,7 +53,7 @@ function Summary({ game }: { game: any }) {
       r.on("createAnnotation", async (annotation: any, _overrideId) => {
         try {
           annotation.target = { ...annotation.target, source: pageUrl };
-          annotation.id = pageUrl;
+          annotation.id = pageUrl + "/" + annotation.id;
           await createAnnotation(annotation);
           NotificationUtil.success("You successfully create the annotation");
         } catch (error) {
@@ -74,7 +74,7 @@ function Summary({ game }: { game: any }) {
       r.on("updateAnnotation", async function (annotation, _previous) {
         try {
           annotation.target = { ...annotation.target, source: pageUrl };
-          annotation.id = pageUrl;
+          annotation.id = pageUrl + "/" + annotation.id;
           await updateAnnotation(annotation);
           NotificationUtil.success("You successfully update the annotation");
         } catch (error) {
