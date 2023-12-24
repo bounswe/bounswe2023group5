@@ -16,11 +16,10 @@ function PrivateGroup({ group }: { group: any }) {
       if (response) {
         NotificationUtil.success("You successfully applied to the group");
       }
-    } catch (error:any) {
+    } catch (error: any) {
       NotificationUtil.error(error.response.data);
-      console.log(error);
     }
-  }
+  };
 
   return (
     <div className={styles.group}>
