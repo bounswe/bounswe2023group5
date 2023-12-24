@@ -14,7 +14,7 @@ import {
   updateAnnotation,
 } from "../../../Services/annotation.ts";
 import { NotificationUtil } from "../../../Library/utils/notification.ts";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../Hooks/useAuth.tsx";
 
 function Summary({ game }: { game: any }) {
@@ -25,9 +25,25 @@ function Summary({ game }: { game: any }) {
     () => getAchievementByGame({ gameId: game.id! })
   );
 
-  const pageUrl = window.location.href;
+  const pageUrl = window.location.href.replace("?back=/home", "");
 
   const isAdmin = user?.role === "ADMIN";
+
+  const hideTagField = () => {
+    const tagField = document.querySelector(".r6o-widget.r6o-tag");
+
+    if (tagField) {
+      tagField.style.display = "none";
+    }
+  };
+
+  useEffect(() => {
+    const textElement = document.querySelector("#textElement");
+
+    if (textElement) {
+      textElement.addEventListener("click", hideTagField);
+    }
+  }, [game]);
 
   const linkAnnotation = (elem: any) => {
     if (elem && isAnnotationsApplied === false) {
@@ -50,10 +66,12 @@ function Summary({ game }: { game: any }) {
           NotificationUtil.error("Error occurred while retrieving annotations");
         });
 
-      r.on("createAnnotation", async (annotation: any, _overrideId) => {
+      r.on("createAnnotation", async (annotation: any, overrideId) => {
         try {
           annotation.target = { ...annotation.target, source: pageUrl };
-          annotation.id = pageUrl + "/" + annotation.id;
+          const newId = pageUrl + "/" + annotation.id.replace("#", "");
+          annotation.id = newId;
+          overrideId(newId);
           await createAnnotation(annotation);
           NotificationUtil.success("You successfully create the annotation");
         } catch (error) {
@@ -71,10 +89,13 @@ function Summary({ game }: { game: any }) {
         }
       });
 
+      r.on("selectAnnotation", async function (annotation: any) {
+        hideTagField();
+      });
+
       r.on("updateAnnotation", async function (annotation, _previous) {
         try {
           annotation.target = { ...annotation.target, source: pageUrl };
-          annotation.id = pageUrl + "/" + annotation.id;
           await updateAnnotation(annotation);
           NotificationUtil.success("You successfully update the annotation");
         } catch (error) {
@@ -137,7 +158,7 @@ function Summary({ game }: { game: any }) {
         )}
       </div>
       <div className={styles.summary}>
-        <Typography ref={(elem) => linkAnnotation(elem)}>
+        <Typography ref={(elem) => linkAnnotation(elem)} id="textElement">
           {game?.gameDescription}
         </Typography>
       </div>
