@@ -10,11 +10,12 @@ import {
   SortDescendingOutlined,
 } from "@ant-design/icons";
 import { isEmpty } from "../../../Library/utils/isEmpty";
+import { useAuth } from "../../Hooks/useAuth";
 
 function Reviews({ gameId }: { gameId: string }) {
   const [reviewedBy, setReviewedBy] = useState();
   const [searchText, setSearchText] = useState("");
-
+  const { isLoggedIn } = useAuth();
   const { Search } = Input;
 
   const sortOptions = [
@@ -62,7 +63,7 @@ function Reviews({ gameId }: { gameId: string }) {
             style={{ width: "200px" }}
           />
         </div>
-        <ReviewInput gameId={gameId} />
+        {isLoggedIn && <ReviewInput gameId={gameId} />}
         {!isEmpty(reviews) ? (
           reviews
             ?.filter((review: any) => {
