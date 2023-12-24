@@ -36,7 +36,6 @@ function CreateGroup() {
     ({
       title,
       tags,
-      membershipPolicy,
       quota,
       description,
       gameId,
@@ -44,7 +43,6 @@ function CreateGroup() {
     }: {
       title: string;
       tags: string[];
-      membershipPolicy: string;
       quota: number;
       description: string;
       gameId: string;
