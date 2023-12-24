@@ -9,6 +9,7 @@ import { joinGroup, leaveGroup } from "../../Services/group";
 import { reviewApplication } from "../../Services/applications";
 import { NotificationUtil } from "../../Library/utils/notification";
 
+
 function Application({ application }: { application: any }) {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -34,6 +35,7 @@ function Application({ application }: { application: any }) {
       onSuccess() {
         queryClient.invalidateQueries(["applications"]);
         NotificationUtil.success("You successfully rejected the application");
+
       },
       onError(error: any) {
         message.error(error.response.data);

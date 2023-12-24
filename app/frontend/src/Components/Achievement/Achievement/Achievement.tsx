@@ -16,13 +16,10 @@ function Achievement({ props }: { props: any }) {
   function handleClick() {
     if (props.onClick) {
       props.onClick();
-      console.log("props.onClick: ");
     } else {
       if (!props.game) {
         return;
-        
       }
-      console.log("gameId: ", props.game);
       const gameId = props.game;
       navigate(`/game/detail/${gameId}`);
     }
@@ -44,20 +41,10 @@ function Achievement({ props }: { props: any }) {
           className={styles.icon}
         ></img>
 
-
         <div className={styles.row}>
-          <h3
-            className={styles.achievementTitle} 
-          >
-            {props.title}
-          </h3>
-          <p
-            className={styles.floatingDescription}
-          >
-            {props.description}
-          </p>
+          <h3 className={styles.achievementTitle}>{props.title}</h3>
+          <p className={styles.floatingDescription}>{props.description}</p>
         </div>
-
       </div>
     </div>
   );

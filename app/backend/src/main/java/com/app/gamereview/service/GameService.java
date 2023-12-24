@@ -16,6 +16,9 @@ import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.MatchOperation;
+import org.springframework.data.mongodb.core.aggregation.SampleOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
@@ -65,8 +68,20 @@ public class GameService {
 		});
 	}
 
-	public List<Game> getGames(GetGameListRequestDto filter) {
+	public List<GetGameListResponseDto> getGames(GetGameListRequestDto filter) {
+
+		MatchOperation matchStage = Aggregation.match(Criteria.where("isPromoted").is(true));
+		SampleOperation sampleStage = Aggregation.sample(2);
+
+		Aggregation aggregation = Aggregation.newAggregation(matchStage, sampleStage);
+
+		List<Game> randomPromotedGames = new ArrayList<>(mongoTemplate.aggregate(aggregation, "Game", Game.class).getMappedResults());
+		List<String> randomPromotedGamesIds = randomPromotedGames.stream().map(Game::getId).collect(Collectors.toList());
+
 		Query query = new Query();
+
+		query.addCriteria(Criteria.where("_id").nin(randomPromotedGamesIds));
+
 		if(filter != null) {
 			if (filter.getFindDeleted() == null || !filter.getFindDeleted()) {
 				query.addCriteria(Criteria.where("isDeleted").is(false));
@@ -91,11 +106,26 @@ public class GameService {
 			}
 		}
 
-		return mongoTemplate.find(query, Game.class);
+		List<Game> gamesList = mongoTemplate.find(query, Game.class);
+
+		randomPromotedGames.addAll(gamesList);
+
+		return randomPromotedGames.stream().map(this::mapToGetGameListResponseDto).collect(Collectors.toList());
+
 	}
 
 	public List<GetGameListResponseDto> getAllGames(GetGameListRequestDto filter) {
+		MatchOperation matchStage = Aggregation.match(Criteria.where("isPromoted").is(true));
+		SampleOperation sampleStage = Aggregation.sample(2);
+
+		Aggregation aggregation = Aggregation.newAggregation(matchStage, sampleStage);
+
+		List<Game> randomPromotedGames = new ArrayList<>(mongoTemplate.aggregate(aggregation, "Game", Game.class).getMappedResults());
+		List<String> randomPromotedGamesIds = randomPromotedGames.stream().map(Game::getId).collect(Collectors.toList());
+
 		Query query = new Query();
+
+		query.addCriteria(Criteria.where("_id").nin(randomPromotedGamesIds));
 		if(filter != null) {
 			if (filter.getFindDeleted() == null || !filter.getFindDeleted()) {
 				query.addCriteria(Criteria.where("isDeleted").is(false));
@@ -125,7 +155,9 @@ public class GameService {
 
 		List<Game> gamesList = mongoTemplate.find(query, Game.class);
 
-		return gamesList.stream().map(this::mapToGetGameListResponseDto).collect(Collectors.toList());
+		randomPromotedGames.addAll(gamesList);
+
+		return randomPromotedGames.stream().map(this::mapToGetGameListResponseDto).collect(Collectors.toList());
 	}
 
 	private GetGameListResponseDto mapToGetGameListResponseDto(Game game) {
@@ -474,6 +506,19 @@ public class GameService {
 			}
 		}
 		return score;
+	}
+
+	public Game changePromotionStatusOfGame(String id){
+		Optional<Game> findGame = gameRepository.findByIdAndIsDeletedFalse(id);
+
+		if(findGame.isEmpty()) {
+			throw new ResourceNotFoundException("Game is not found");
+		}
+
+		Game game = findGame.get();
+		game.setIsPromoted(!game.getIsPromoted());
+		gameRepository.save(game);
+		return game;
 	}
 }
 

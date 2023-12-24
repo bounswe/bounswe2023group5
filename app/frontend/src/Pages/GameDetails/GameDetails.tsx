@@ -1,4 +1,3 @@
-import { StarFilled, StarOutlined } from "@ant-design/icons";
 import styles from "./GameDetails.module.scss";
 import { useState } from "react";
 import Summary from "../../Components/GameDetails/Summary/Summary";

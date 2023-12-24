@@ -24,6 +24,9 @@ import Achievements from "./Pages/Achievement/Achievements";
 import Profile from "./Pages/Profile/Profile";
 import CreateAchievement from "./Pages/Admin/Achievement/CreateAchievement/CreateAchievement";
 import DeleteAchievement from "./Pages/Admin/Achievement/DeleteAchievement/DeleteAchievement";
+
+import Notifications from "./Pages/Notifications/Notifications";
+import ReviewApplication from "./Pages/ReviewApplication/ReviewApplication";
 import CreateCharacter from "./Pages/Admin/Character/CreateCharacter/CreateCharacter";
 import UpdateGame from "./Pages/Admin/Game/UpdateGame/UpdateGame";
 import HomePage from "./Pages/HomePage/HomePage";
@@ -31,6 +34,7 @@ import Char from "./Pages/Char/Char";
 import DeleteGame from "./Pages/Admin/Game/DeleteGame/DeleteGame";
 import Notifications from "./Pages/Notifications/Notifications";
 import ReviewApplication from "./Pages/ReviewApplication/ReviewApplication";
+
 
 
 axios.defaults.headers.common["Content-Type"] = "application/json";

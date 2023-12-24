@@ -17,7 +17,7 @@ export function handleError(error: any) {
 
 export function handleAxiosError(error: any) {
   {
-    const errorMessage = error.response.data || `An error occurred`;
+    const errorMessage = error?.response?.data || `An error occurred`;
     NotificationUtil.error(errorMessage);
   }
 }

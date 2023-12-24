@@ -27,4 +27,9 @@ public class SelectorDto {
 
     @Positive
     private Integer end;
+
+    private String value;
+
+    @Pattern(regexp = "^(https?|ftp)://[^\\s/$.?#].\\S*$", message = "Invalid URL")
+    private String conformsTo;
 }
