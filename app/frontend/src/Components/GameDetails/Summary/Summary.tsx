@@ -1,4 +1,4 @@
-import { Tooltip, Typography } from "antd";
+import { Typography } from "antd";
 import TagRenderer from "../../TagRenderer/TagRenderer";
 import styles from "./Summary.module.scss";
 import { getAchievementByGame } from "../../../Services/achievement";
@@ -16,7 +16,6 @@ import {
 import { NotificationUtil } from "../../../Library/utils/notification.ts";
 import { useState } from "react";
 import { useAuth } from "../../Hooks/useAuth.tsx";
-import { InfoCircleOutlined } from "@ant-design/icons";
 
 function Summary({ game }: { game: any }) {
   const { user } = useAuth();
