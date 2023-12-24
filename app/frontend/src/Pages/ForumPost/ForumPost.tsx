@@ -19,9 +19,10 @@ import {
   CommentOutlined,
   WarningOutlined,
   ArrowLeftOutlined,
+  InfoCircleOutlined,
 } from "@ant-design/icons";
 import clsx from "clsx";
-import { Button, message } from "antd";
+import { Button, Tooltip, message } from "antd";
 import { useState } from "react";
 import TagRenderer from "../../Components/TagRenderer/TagRenderer.tsx";
 import { twj } from "tw-to-css";
@@ -33,8 +34,6 @@ import {
   handleError,
 } from "../../Library/utils/handleError.ts";
 import { Recogito } from "@recogito/recogito-js";
-
-import "@recogito/recogito-js/dist/recogito.min.css";
 import {
   createAnnotation,
   deleteAnnotation,
@@ -52,6 +51,7 @@ function ForumPost() {
   const { data: post, isLoading } = useQuery(["post", postId], () =>
     getPost(postId!)
   );
+  const pageUrl = window.location.href;
 
   const isAdmin = user?.role === "ADMIN";
   const { upvote, downvote } = useVote({
@@ -97,7 +97,7 @@ function ForumPost() {
       r.loadAnnotations(
         `${
           import.meta.env.VITE_APP_ANNOTATION_API_URL
-        }/annotation/get-source-annotations?source=${postId}`
+        }/annotation/get-source-annotations?source=${pageUrl}`
       )
         .then(function (annotations) {})
         .catch((error) => {
@@ -109,8 +109,8 @@ function ForumPost() {
 
       r.on("createAnnotation", async (annotation: any, _overrideId) => {
         try {
-          annotation.target = { ...annotation.target, source: postId };
-
+          annotation.target = { ...annotation.target, source: pageUrl };
+          annotation.id = pageUrl;
           await createAnnotation(annotation);
           NotificationUtil.success("You successfully create the annotation");
         } catch (error) {
@@ -130,7 +130,8 @@ function ForumPost() {
 
       r.on("updateAnnotation", async function (annotation, _previous) {
         try {
-          annotation.target = { ...annotation.target, source: postId };
+          annotation.target = { ...annotation.target, source: pageUrl };
+          annotation.id = pageUrl;
           await updateAnnotation(annotation);
           NotificationUtil.success("You successfully update the annotation");
         } catch (error) {
@@ -142,11 +143,16 @@ function ForumPost() {
 
   return (
     <div className={styles.container}>
-      <div
-        className={styles.backButton}
-        onClick={() => navigate(searchParams.get("back") ?? "/")}
-      >
-        <ArrowLeftOutlined />
+      <div className={styles.topContainer}>
+        <div
+          className={styles.backButton}
+          onClick={() => navigate(searchParams.get("back") ?? "/")}
+        >
+          <ArrowLeftOutlined />
+        </div>
+        <Tooltip title="This page is annotable. If you are an admin or the owner of the post, you can add, edit, and delete annotations to image or content of the post.">
+          <InfoCircleOutlined style={{ fontSize: "20px" }} />
+        </Tooltip>
       </div>
       {!isLoading && (
         <div className={styles.postContainer}>
