@@ -2,7 +2,6 @@ import { useNavigate, useNavigation, useParams } from "react-router-dom";
 import styles from "./Group.module.scss";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import {
-  applyGroup,
   deleteGroup,
   getGroup,
   joinGroup,
@@ -11,7 +10,6 @@ import {
 import { formatDate } from "../../Library/utils/formatDate";
 import Forum from "../../Components/Forum/Forum";
 import { getGame } from "../../Services/gamedetail";
-import Game from "../../Components/Game/Game";
 import TagRenderer from "../../Components/TagRenderer/TagRenderer";
 import { Button, Modal, message } from "antd";
 import { useState } from "react";
@@ -28,12 +26,6 @@ function Group() {
   const queryClient = useQueryClient();
   const { data: group, isLoading } = useQuery(["group", groupId], () =>
     getGroup(groupId!)
-  );
-
-  const { data: game } = useQuery(
-    ["game", group?.gameId],
-    () => getGame(group?.gameId!),
-    { enabled: !!group }
   );
 
   const showModal = () => {
@@ -87,15 +79,7 @@ function Group() {
   );
 
   const apply = async () => {
-    try {
-      const response = await applyGroup(group.id);
-      if (response) {
-        NotificationUtil.success("You successfully applied to the group");
-      }
-    } catch (error: any) {
-      NotificationUtil.error(error.response.data);
-      console.log(error);
-    }
+    navigate(`/group/apply/${group.id}`);
   };
 
   return (

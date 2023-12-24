@@ -4,18 +4,13 @@ import { Button } from "antd";
 import TagRenderer from "../TagRenderer/TagRenderer";
 import { formatDate } from "../../Library/utils/formatDate";
 import { useNavigate } from "react-router-dom";
-import { applyGroup } from "../../Services/group";
-import { NotificationUtil } from "../../Library/utils/notification";
-
 
 function PrivateGroup({ group }: { group: any }) {
   const navigate = useNavigate();
 
   const handleClick = async () => {
-
     navigate(`/group/apply/${group.id}`);
-  }
-
+  };
 
   return (
     <div className={styles.group}>
