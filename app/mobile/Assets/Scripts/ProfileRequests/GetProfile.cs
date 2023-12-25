@@ -141,50 +141,8 @@ public class GetProfile : MonoBehaviour
         }
     } 
     
-    private IEnumerator UploadImageToURL(string imageUrl, Image targetImage)
-    {   
-        UnityWebRequest request = UnityWebRequestTexture.GetTexture(imageUrl);
-        yield return request.SendWebRequest();
-        if (request.isNetworkError || request.isHttpError)
-        {
-            Debug.Log(request.error);
-        }
-        else
-        {
-            Texture2D texture2;
-            texture2 = ((DownloadHandlerTexture) request.downloadHandler).texture;
-            Sprite sprite = Sprite.Create(texture2, new Rect(0, 0, texture2.width, texture2.height), new Vector2(0, 0));
-            targetImage.sprite = sprite;
-        }
-    } 
     
-    // IEnumerator UploadSprite(Texture2D texture, string folder)
-    // {
-    //     Texture2D textureNew = texture;
-    //     byte[] imageBytes = textureNew.EncodeToPNG();
-    //     string imageString = Convert.ToBase64String(imageBytes);
-    //     
-    //     WWWForm form = new WWWForm();
-    //     form.AddField("image", imageString);
-    //     
-    //     UnityWebRequest request = UnityWebRequest.Post($"{AppVariables.HttpServerUrl}/image/upload?folder={folder}", form);
-    //     request.chunkedTransfer = false;
-    //     request.downloadHandler = new DownloadHandlerBuffer();
-    //     // request.SetRequestHeader("Content-Type", "application/json");
-    //
-    //     yield return request.SendWebRequest();
-    //
-    //     if (request.result == UnityWebRequest.Result.Success)
-    //     {
-    //         Debug.Log("Image upload successful!");
-    //         Debug.Log(request.downloadHandler.text); // Response data
-    //     }
-    //     else
-    //     {
-    //         Debug.LogError("Image upload failed: " + request.error);
-    //     }
-    //     request.downloadHandler.Dispose();
-    // }
+
     
     private GameObject lastObject;
     private List<GamePage> gamePages = new List<GamePage>();
@@ -270,10 +228,6 @@ public class GetProfile : MonoBehaviour
     {
         Application.OpenURL(profileResponseData.xboxProfile);
     }
-
     
-    void OpenBrowser(string url_from_chat) {
-        Application.OpenURL(url_from_chat); // ←- Badness here; value isn’t sanitized
-    }
     
 }

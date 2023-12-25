@@ -33,12 +33,21 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject characterDetailsPage;
     private GameObject currentActivePage;
     private GameObject previousActivePage;
-
+    
+    public static CanvasManager instance;
     private void Awake()
     {
         currentActivePage = logInPage;
         previousActivePage = logInPage;
-
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            DestroyImmediate(gameObject);
+        }
     }
 
     private bool iQuit = false;

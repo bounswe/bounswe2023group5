@@ -71,6 +71,11 @@ public class HomePage : MonoBehaviour
         overallVote = homeInfo.overallVote;
         userNameText.text = homeInfo.poster?.username;
 
+        upVoteButton.interactable = homeInfo.userVote != "UPVOTE";
+        downVoteButton.interactable = homeInfo.userVote != "DOWNVOTE";
+        
+        
+
     }
 
     private IEnumerator LoadImageFromURL(string imageUrl, Image targetImage)
@@ -93,8 +98,8 @@ public class HomePage : MonoBehaviour
     public void OnClickedUpVote()
     {
         var achievementCreateRequest = new CreateVoteRequest();
-        achievementCreateRequest.voteType = voteType;
-        achievementCreateRequest.typeId = typeId;
+        achievementCreateRequest.voteType = "POST";
+        achievementCreateRequest.typeId = id;
         achievementCreateRequest.choice = "UPVOTE";
         string bodyJsonString = JsonUtility.ToJson(achievementCreateRequest);
         StartCoroutine(PostVote(bodyJsonString));
@@ -103,8 +108,8 @@ public class HomePage : MonoBehaviour
     public void OnClickedDownVote()
     {
         var achievementCreateRequest = new CreateVoteRequest();
-        achievementCreateRequest.voteType = voteType;
-        achievementCreateRequest.typeId = typeId;
+        achievementCreateRequest.voteType = "POST";
+        achievementCreateRequest.typeId = id;
         achievementCreateRequest.choice = "DOWNVOTE";
         string bodyJsonString = JsonUtility.ToJson(achievementCreateRequest);
         StartCoroutine(PostVote(bodyJsonString));
