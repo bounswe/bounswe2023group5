@@ -20,6 +20,8 @@ public class HomePage : MonoBehaviour
     [SerializeField] private Button downVoteButton;
     [SerializeField] private Button typeButton;
     [SerializeField] private Button readMoreButton;
+    [SerializeField] private Button deleteButton;
+    [SerializeField] private Button hideButton;
     
     private CanvasManager canvasManager;
     
@@ -37,6 +39,16 @@ public class HomePage : MonoBehaviour
         downVoteButton.onClick.AddListener(OnClickedDownVote);
         typeButton.onClick.AddListener(OnClickedTypeButton);
         readMoreButton.onClick.AddListener(OnClickedReadMoreButton);
+        deleteButton.onClick.AddListener(OnClickedDeleteButton);
+        hideButton.onClick.AddListener(OnClickedHideButton);
+        if (PersistenceManager.Role == "ADMIN")
+        {
+            deleteButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            deleteButton.gameObject.SetActive(false);
+        }
     }
 
     public void Init(HomeResponse homeInfo)
@@ -111,7 +123,38 @@ public class HomePage : MonoBehaviour
     
     private void OnClickedReadMoreButton()
     {
-        // canvasManager.ShowHomePageDetailsPage(id);
+        canvasManager.ShowPostComments(id);
+    }
+    
+    private void OnClickedDeleteButton()
+    {
+        StartCoroutine(DeletePost(AppVariables.HttpServerUrl + "/post/delete" + "?id=" + id));
+    }
+    
+    private void OnClickedHideButton()
+    {
+        Destroy(gameObject);
+    }
+    
+    IEnumerator DeletePost(string url)
+    {
+        var request = new UnityWebRequest(url, "DELETE");
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+        request.SetRequestHeader("Authorization", PersistenceManager.UserToken);
+        yield return request.SendWebRequest();
+        string response = "";
+        if (request.responseCode == 200)
+        {
+            response = request.downloadHandler.text;
+            Debug.Log("Success to delete post: " + response);
+            Destroy(gameObject);
+        }
+        else
+        {
+            Debug.Log("Error to delete post: " + response);
+        }
+        request.downloadHandler.Dispose();
     }
 
     IEnumerator PostVote(string bodyJsonString)

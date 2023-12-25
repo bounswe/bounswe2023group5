@@ -56,14 +56,17 @@ public class ForumPostComments : MonoBehaviour
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
     }
 
-    public void Init(string id, GetPostListResponse postInfoVal )
+    public void Init(string id)
     {
         // Page is in add comment mode
         AddCommentMode();
         
         postID = id;
+        string detailInfoURL = AppVariables.HttpServerUrl + "/post/get-post-detail" + 
+                     ListToQueryParameters.ListToQueryParams(new []{"id"}, new []{postID});
+        StartCoroutine(GetDetailedInfo(detailInfoURL));
+        
         infoText.text = "";
-        postInfo = postInfoVal;
         // this.L2commentManager = L2commentManagerInfo;
 
         if (L2commentManager == null)
@@ -76,53 +79,7 @@ public class ForumPostComments : MonoBehaviour
 
         }
         
-        // forumPost.Init(postID);
-        title.text = postInfo.title;
-        postContent.text = postInfo.postContent;
-        lastEditedAt.text = postInfo.lastEditedAt;
-        overallVote.text = Convert.ToString(postInfo.overallVote);
-        if (postInfo.poster == null)
-        {
-            userName.text = "(anonymous)";
-        }
-        else
-        {
-            userName.text = postInfo.poster.username;
 
-        }
-
-        AddTags(postInfo.tags);
-        character.gameObject.SetActive(false);
-        if (postInfo.character != null)
-        {
-            character.gameObject.SetActive(true);
-            character.Init(postInfo.character, characterDetailsManager);
-        }
-        
-        
-        if (postInfo.isEdited)
-        {
-            lastEditedAt.text += " (edited)";
-        }
-        else
-        {
-            // This will be deleted
-            lastEditedAt.text += " (not edited)";
-        }
-        
-        //GameObject postComments = GameObject.Find("PostComments");
-        //postComments.SetActive(true);
-
-        
-        if (string.IsNullOrEmpty(postID))
-        {
-            Debug.Log("Id must be specified");
-            return;
-        }
-        
-        string url = AppVariables.HttpServerUrl + "/post/get-post-comments" + 
-                     ListToQueryParameters.ListToQueryParams(new []{"id"}, new []{postID});
-        StartCoroutine(Get(url));
     }
     
     private void AddTags(TagResponse[] tags)
@@ -142,6 +99,77 @@ public class ForumPostComments : MonoBehaviour
         Canvas.ForceUpdateCanvases();
         tagScroll.horizontalNormalizedPosition = 1;
         Debug.Log("Success to list tags");
+    }
+    
+    IEnumerator GetDetailedInfo(string _url)
+    {
+
+        var request = new UnityWebRequest(_url, "GET");
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+        request.SetRequestHeader("Authorization", PersistenceManager.UserToken);
+        yield return request.SendWebRequest();
+        string response = "";
+        if (request.responseCode == 200)
+        {
+            response = request.downloadHandler.text;
+            
+            var _postData = JsonConvert.DeserializeObject<GetPostListResponse>(response);
+            
+            postInfo = _postData;
+            
+            // forumPost.Init(postID);
+            title.text = postInfo.title;
+            postContent.text = postInfo.postContent;
+            lastEditedAt.text = postInfo.lastEditedAt;
+            overallVote.text = Convert.ToString(postInfo.overallVote);
+            if (postInfo.poster == null)
+            {
+                userName.text = "(anonymous)";
+            }
+            else
+            {
+                userName.text = postInfo.poster.username;
+            }
+
+            AddTags(postInfo.tags);
+            character.gameObject.SetActive(false);
+            if (postInfo.character != null)
+            {
+                character.gameObject.SetActive(true);
+                character.Init(postInfo.character, characterDetailsManager);
+            }
+
+            if (postInfo.isEdited)
+            {
+                lastEditedAt.text += " (edited)";
+            }
+            else
+            {
+                // This will be deleted
+                lastEditedAt.text += " (not edited)";
+            }
+        
+            //GameObject postComments = GameObject.Find("PostComments");
+            //postComments.SetActive(true);
+
+        
+            if (string.IsNullOrEmpty(postID))
+            {
+                Debug.Log("Id must be specified");
+            }
+        
+            string url = AppVariables.HttpServerUrl + "/post/get-post-comments" + 
+                         ListToQueryParameters.ListToQueryParams(new []{"id"}, new []{postID});
+            StartCoroutine(Get(url));
+            
+            Debug.Log("Success to get forum post data: " + response);
+        }
+        else
+        {
+            Debug.Log("Error to get forum post data: " + response);
+        }
+        request.downloadHandler.Dispose();
     }
     
     IEnumerator Get(string url)

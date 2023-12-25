@@ -1326,6 +1326,8 @@ MonoBehaviour:
   downVoteButton: {fileID: 6640214146271297359}
   typeButton: {fileID: 4789072620295142539}
   readMoreButton: {fileID: 4357338461107521515}
+  deleteButton: {fileID: 6140498841096855110}
+  hideButton: {fileID: 497341199250292689}
 --- !u!1 &3922074333708533074
 GameObject:
   m_ObjectHideFlags: 0
@@ -1344,7 +1346,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8252636056040159584
 RectTransform:
   m_ObjectHideFlags: 0

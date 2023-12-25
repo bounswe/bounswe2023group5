@@ -71,12 +71,13 @@ public class PostCreateRequestBasic
 
 public class GetPostListResponse
 {
-    public string id;
     public string title;
     public string postContent;
+    public string postImage;
     public User poster;
     public string userVote;
     //public string postImage;
+    public string forum;
     public AchievementResponse achievement;
     public CharacterResponse character;
     public string lastEditedAt;
@@ -84,10 +85,9 @@ public class GetPostListResponse
     public bool isEdited;
     public TagResponse[] tags;
     public bool inappropriate;
+    public bool locked;
     public int overallVote;
     public int voteCount;
-    public int commentCount;
-    
 }
 
 
