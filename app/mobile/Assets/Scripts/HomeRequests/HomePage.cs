@@ -16,6 +16,7 @@ public class HomePage : MonoBehaviour
     [SerializeField] private TMP_Text dateText;
     [SerializeField] private TMP_Text voteText;
     [SerializeField] private TMP_Text typeNameText;
+    [SerializeField] private TMP_Text userNameText;
     [SerializeField] private Button upVoteButton;
     [SerializeField] private Button downVoteButton;
     [SerializeField] private Button typeButton;
@@ -68,7 +69,8 @@ public class HomePage : MonoBehaviour
         voteType = homeInfo.type;
         id = homeInfo.id;
         overallVote = homeInfo.overallVote;
-        
+        userNameText.text = homeInfo.poster?.username;
+
     }
 
     private IEnumerator LoadImageFromURL(string imageUrl, Image targetImage)
