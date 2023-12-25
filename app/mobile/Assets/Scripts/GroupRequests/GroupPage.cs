@@ -35,7 +35,8 @@ public class GroupPage : MonoBehaviour
         describtion.text = groupInfo.description;
         //tags.text = groupInfo.tags;
         string date = groupInfo.createdAt;
-        dateText.text = "since " + date.Substring(8, 2) + "/" + date.Substring(5, 2) + "/" + date.Substring(0, 4);
+
+        dateText.text = date == null ? "" : "since " + date.Substring(8, 2) + "/" + date.Substring(5, 2) + "/" + date.Substring(0, 4);
         members.text = groupInfo.members.Length.ToString();
         groupId = groupInfo.id;
         // var url = AppVariables.HttpImageUrl + groupInfo.groupIcon;

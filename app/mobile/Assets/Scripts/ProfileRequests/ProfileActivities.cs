@@ -35,7 +35,7 @@ public class ProfileActivities : MonoBehaviour
             var profileActivities = JsonConvert.DeserializeObject<ProfileActivity[]>(response);
             foreach (var activityData in profileActivities)
             {
-                Instantiate(activityPrefab, activityParent.transform).GetComponent<RecentActivities>().Init(activityData.description);
+                Instantiate(activityPrefab, activityParent.transform).GetComponent<RecentActivities>().Init(activityData.description, activityData.type);
             }
         }
         else

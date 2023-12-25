@@ -34,7 +34,7 @@ public class GetProfile : MonoBehaviour
     
     [SerializeField] private GameObject gameSection;
     [SerializeField] private GameObject groupSection;
-    [SerializeField] private GameObject reviewSection;
+    [SerializeField] private GameObject notificationSection;
     [SerializeField] private GameObject recentActivitiesSection;
     
     private List<GameObject> allObjects = new List<GameObject>();
@@ -145,7 +145,7 @@ public class GetProfile : MonoBehaviour
 
     
     private GameObject lastObject;
-    private List<GamePage> gamePages = new List<GamePage>();
+    private List<GameObject> gamePages = new List<GameObject>();
     public void ShowMyGames()
     {
         gamePages.ForEach(Destroy);
@@ -166,10 +166,10 @@ public class GetProfile : MonoBehaviour
             gameListEntry.gameIcon = gameData.gameIcon;
             GamePage gamePageObject = Instantiate(gamePagePrefab, gamePageContent.transform);
             gamePageObject.Init(gameListEntry);
-            gamePages.Add(gamePageObject);
+            gamePages.Add(gamePageObject.gameObject);
         }
     }
-    private List<GroupPage> groupPages = new List<GroupPage>();
+    private List<GameObject> groupPages = new List<GameObject>();
     public void ShowMyGroups()
     {
         groupPages.ForEach(Destroy);
@@ -190,19 +190,19 @@ public class GetProfile : MonoBehaviour
             gameListEntry.membershipPolicy = gameData.membershipPolicy;
             gameListEntry.quota = gameData.quota;
             gameListEntry.members = gameData.members;
-            GroupPage groupPageObject = Instantiate(groupPagePrefab, gamePageContent.transform);
+            GroupPage groupPageObject = Instantiate(groupPagePrefab, groupPageContent.transform);
             groupPageObject.Init(gameListEntry);
-            groupPages.Add(groupPageObject);
+            groupPages.Add(groupPageObject.gameObject);
         }
     }
-    public void ShowMyReviews()
+    public void ShowMyNotifications()
     {
         if (lastObject != null)
         {
             lastObject.SetActive(false);
         }
-        reviewSection.SetActive(true);
-        lastObject = reviewSection;
+        notificationSection.SetActive(true);
+        lastObject = notificationSection;
     }
     public void ShowRecentActivities()
     {
