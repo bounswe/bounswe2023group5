@@ -55,7 +55,7 @@ public class CharacterDetails : MonoBehaviour
     };
 
     private Object customFieldsObj;
-    private FieldInfo[] customFields;
+    // private FieldInfo[] customFields;
     private int customIndex;
     private int customLength;
 
@@ -70,9 +70,9 @@ public class CharacterDetails : MonoBehaviour
     {
         charInfo = charInfoVal;
         //customFieldsObj = charInfo.customFields;
-        customFields = charInfo.customFields.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public);
+        //customFields = charInfo.customFields.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public);
         customIndex = 0;
-        customLength = customFields.Length;
+        //customLength = customFields.Length;
         
         StartCoroutine(LoadImageFromURL(AppVariables.HttpImageUrl + charInfo.icon, charImage));
 
@@ -96,12 +96,13 @@ public class CharacterDetails : MonoBehaviour
         SetAttribute(Type7, Value7, 6);
         SetAttribute(Type8, Value8, 7);
         SetAttribute(Type9, Value9, 8);
-        SetRemainingAttributes();
+        // SetRemainingAttributes();
         
     }
 
     private void SetAttribute(TMP_Text typeObj, TMP_Text valueObj,int index)
     {
+        /*
         if(String.IsNullOrEmpty((string) GetFieldValue(charInfo, defaultFields[index])))
         {
             if (customIndex < customLength)
@@ -118,11 +119,13 @@ public class CharacterDetails : MonoBehaviour
         }
         else
         {
+        */
             typeObj.text = defaultFields[index];
             valueObj.text = (string)GetFieldValue(charInfo, defaultFields[index]);
-        }
+        //}
     }
 
+    /*
     private void SetRemainingAttributes()
     {
         if (customIndex < customLength)
@@ -156,6 +159,7 @@ public class CharacterDetails : MonoBehaviour
             Value12.text = "";
         }
     }
+    */
     
     static object GetFieldValue(object obj, string fieldName)
     {
