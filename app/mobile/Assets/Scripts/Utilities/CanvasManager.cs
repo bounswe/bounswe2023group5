@@ -301,24 +301,38 @@ public class CanvasManager : MonoBehaviour
         groupsPage.SetActive(false);
     }
     
-    public void ShowPostComments()
+    public void ShowPostComments(string id)
     {
+        currentActivePage.SetActive(false);
         postComments.SetActive(true);
+        postComments.GetComponent<ForumPostComments>().Init(id);
+        previousActivePage = currentActivePage;
+        currentActivePage = postComments;
     }
-    
+
     public void HidePostComments()
     {
+        currentActivePage.SetActive(false);
         postComments.SetActive(false);
+        previousActivePage.SetActive(true);
+        currentActivePage = previousActivePage;
     }
     
     public void ShowCommentComments()
     {
+        currentActivePage.SetActive(false);
         commentComments.SetActive(true);
+        previousActivePage = currentActivePage;
+        currentActivePage = commentComments;
     }
     
     public void HideCommentComments()
     {
+        
+        currentActivePage.SetActive(false);
         commentComments.SetActive(false);
+        previousActivePage.SetActive(true);
+        currentActivePage = previousActivePage;
     }
     
     public void ShowEditProfilePage()
@@ -331,32 +345,50 @@ public class CanvasManager : MonoBehaviour
     
     public void ShowCreateEditPostPage()
     {
+        currentActivePage.SetActive(false);
         createEditPostPage.SetActive(true);
+        previousActivePage = currentActivePage;
+        currentActivePage = editProfilePage;
     }
     
     public void HideCreateEditPostPage()
     {
+        currentActivePage.SetActive(false);
         createEditPostPage.SetActive(false);
+        previousActivePage.SetActive(true);
+        currentActivePage = previousActivePage;
     }
     
     public void ShowCharactersPage()
     {
+        currentActivePage.SetActive(false);
         charactersPage.SetActive(true);
+        previousActivePage = currentActivePage;
+        currentActivePage = editProfilePage;
     }
     
     public void HideCharactersPage()
     {
+        currentActivePage.SetActive(false);
         charactersPage.SetActive(false);
+        previousActivePage.SetActive(true);
+        currentActivePage = previousActivePage;
     }
     
     public void ShowCharacterDetailsPage()
     {
+        currentActivePage.SetActive(false);
         characterDetailsPage.SetActive(true);
+        previousActivePage = currentActivePage;
+        currentActivePage = editProfilePage;
     }
     
     public void HideCharacterDetailsPage()
     {
+        currentActivePage.SetActive(false);
         characterDetailsPage.SetActive(false);
+        previousActivePage.SetActive(true);
+        currentActivePage = previousActivePage;
     }
     
 }

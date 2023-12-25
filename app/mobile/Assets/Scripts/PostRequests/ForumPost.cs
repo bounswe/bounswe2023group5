@@ -69,7 +69,6 @@ public class ForumPost : MonoBehaviour
             userName.text = postInfo.poster.username;
             userId = postInfo.poster.id;
         }
-        postId = postInfo.id;
         
         Debug.Log("Post id is "+ postId);
 
@@ -139,9 +138,7 @@ public class ForumPost : MonoBehaviour
     
     private void OnClickedForumPostComments()
     {
-
-        canvasManager.ShowPostComments();
-        commentManager.Init(postId, postInfoVal);
+        canvasManager.ShowPostComments(postId);
     }
 
     private void OnClickedEditPost()
