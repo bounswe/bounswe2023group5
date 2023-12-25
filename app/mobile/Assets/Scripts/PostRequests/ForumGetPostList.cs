@@ -70,7 +70,7 @@ public class ForumGetPostList : MonoBehaviour
         {
             foreach (var postData in _forumData)
             {
-                ForumPost newForumPost = Instantiate(Resources.Load<ForumPost>("Prefabs/ForumPost"), forumPageParent);
+                ForumPost newForumPost = Instantiate(Resources.Load<ForumPost>("Prefabs/ForumPostNew"), forumPageParent);
                 forumPosts.Add(newForumPost);
                 if (commentManager == null)
                 {

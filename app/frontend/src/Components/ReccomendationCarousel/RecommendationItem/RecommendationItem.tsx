@@ -18,15 +18,22 @@ function RecommendationItem({
   return (
     <Link className={styles.container} to={link}>
       {index !== undefined && <span className={styles.index}>{index}</span>}
-      {image && (
+      {image ? (
         <img
           src={`${import.meta.env.VITE_APP_IMG_URL}${image}`}
-          alt="name of the game"
+          alt={name}
           width={120}
           height={100}
           className={styles.icon}
         ></img>
-      )}
+      ):
+      (<img
+        src={"../../../assets/images/group.png"}
+        alt={name}
+        width={120}
+        height={100}
+        className={styles.icon}
+      ></img>)}
       {showName && <span className={styles.showName}>{name}</span>}
       <div className={styles.overlay}>
         {!showName && <span className={styles.name}>{name}</span>}{" "}
