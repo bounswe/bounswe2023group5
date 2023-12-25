@@ -3,17 +3,11 @@ import styles from "./PromotedEntities.module.scss";
 import { Button, Carousel, Tooltip, message } from "antd";
 
 import { useNavigate } from "react-router-dom";
-import { useMutation, useQueryClient } from "react-query";
-import { joinGroup, leaveGroup } from "../../Services/group";
 import { truncateWithEllipsis } from "../../Library/utils/truncate";
-import GameConsole from "../../../assets/images/game-console.png";
 
 
 function PromotedEntities({games}: {games: any[]}) {
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
-
-
 
   return (
     
