@@ -153,7 +153,7 @@ public class CreateGame : MonoBehaviour
             WWWForm form = new WWWForm();
             form.AddBinaryData("image", imageBytes) ;
 
-            UnityWebRequest www = UnityWebRequest.Post("http://www.my-server.com/myform", form);
+            UnityWebRequest www = UnityWebRequest.Post($"{AppVariables.HttpServerUrl}/image/upload?folder={folder}", form);
             yield return www.SendWebRequest();
  
             if(www.isNetworkError || www.isHttpError) {
@@ -162,6 +162,7 @@ public class CreateGame : MonoBehaviour
             else {
                 Debug.Log("Form upload complete!");
             }
+            www.downloadHandler.Dispose();
     }
     // IEnumerator UploadSprite(Texture2D texture, string folder)
     // {
