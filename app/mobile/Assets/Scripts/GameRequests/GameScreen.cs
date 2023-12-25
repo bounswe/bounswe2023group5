@@ -32,10 +32,8 @@ public class GameScreen : MonoBehaviour
 
     private void Start()
     {
-        GetGameListRequest getGameListRequest = new GetGameListRequest();
-        getGameListRequest.findDeleted = false;
-        ListGames(getGameListRequest);
         StartCoroutine(GetAllTags(AppVariables.HttpServerUrl + "/tag/get-all"));
+        OnClickedFilter();
     }
     
 

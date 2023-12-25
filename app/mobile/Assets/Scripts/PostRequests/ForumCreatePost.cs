@@ -382,6 +382,10 @@ public class ForumCreatePost : MonoBehaviour
 
         foreach (var character in characters)
         {
+            if (character.isDeleted)
+            {
+                continue;
+            }
             Character charObj = Instantiate(Resources.Load<Character>("Prefabs/Character"), charObjParent);
             charObjects.Add(charObj);
             // will be inited differently

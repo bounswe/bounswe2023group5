@@ -98,6 +98,12 @@ public class ForumPost : MonoBehaviour
             deletePost.gameObject.SetActive(false);
             editPost.gameObject.SetActive(false);
         }
+        
+        // Admin can delete any post
+        if ( PersistenceManager.Role == "ADMIN")
+        {
+            deletePost.gameObject.SetActive(true);
+        }
     }
 
     private void AddTags(TagResponse[] tags)
