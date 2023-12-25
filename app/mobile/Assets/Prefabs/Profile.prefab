@@ -3291,7 +3291,7 @@ GameObject:
   - component: {fileID: 4461656867196700029}
   - component: {fileID: 8292354976042958758}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: Buttons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4870,6 +4870,7 @@ MonoBehaviour:
   achievementPrefab: {fileID: 7801361908739281145, guid: a62b23880b3b8e249bd325f8516a12dd, type: 3}
   gamePageContent: {fileID: 4139252263640768537}
   groupPageContent: {fileID: 929790915957928344}
+  notificationPageContent: {fileID: 3649734214548598534}
   gameSection: {fileID: 6035198958973930465}
   groupSection: {fileID: 7108359158660337043}
   notificationSection: {fileID: 6847508846455742095}

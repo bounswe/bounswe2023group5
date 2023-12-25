@@ -31,6 +31,7 @@ public class GetProfile : MonoBehaviour
     [SerializeField] private GameObject achievementPrefab;
     [SerializeField] private GameObject gamePageContent;
     [SerializeField] private GameObject groupPageContent;
+    [SerializeField] private GameObject notificationPageContent;
     
     [SerializeField] private GameObject gameSection;
     [SerializeField] private GameObject groupSection;
@@ -156,16 +157,16 @@ public class GetProfile : MonoBehaviour
         }
         gameSection.SetActive(true);
         lastObject = gameSection;
-        GamePage gamePagePrefab = Resources.Load<GamePage>("Prefabs/GamePage");
+        ProfileItem gamePagePrefab = Resources.Load<ProfileItem>("Prefabs/ProfileItem");
+        if (profileResponseData.games==null)
+        {
+            return;
+        }
         foreach (var gameData in profileResponseData.games)
         {
-            GameListEntry gameListEntry = new GameListEntry();
-            gameListEntry.id = gameData.id;
-            gameListEntry.gameName = gameData.gameName;
-            gameListEntry.gameDescription = gameData.gameDescription;
-            gameListEntry.gameIcon = gameData.gameIcon;
-            GamePage gamePageObject = Instantiate(gamePagePrefab, gamePageContent.transform);
-            gamePageObject.Init(gameListEntry);
+  
+            ProfileItem gamePageObject = Instantiate(gamePagePrefab, gamePageContent.transform);
+            gamePageObject.InitGamesPage(gameData.gameName, gameData.id);
             gamePages.Add(gamePageObject.gameObject);
         }
     }
@@ -180,18 +181,15 @@ public class GetProfile : MonoBehaviour
         }
         groupSection.SetActive(true);
         lastObject = groupSection;
-        GroupPage groupPagePrefab = Resources.Load<GroupPage>("Prefabs/GroupPage");
+        ProfileItem groupPagePrefab = Resources.Load<ProfileItem>("Prefabs/ProfileItem");
+        if (profileResponseData.groups==null)
+        {
+            return;
+        }
         foreach (var gameData in profileResponseData.groups)
         {
-            GroupGetAllResponse gameListEntry = new GroupGetAllResponse();
-            gameListEntry.id = gameData.id;
-            gameListEntry.title = gameData.title;
-            gameListEntry.description = gameData.description;
-            gameListEntry.membershipPolicy = gameData.membershipPolicy;
-            gameListEntry.quota = gameData.quota;
-            gameListEntry.members = gameData.members;
-            GroupPage groupPageObject = Instantiate(groupPagePrefab, groupPageContent.transform);
-            groupPageObject.Init(gameListEntry);
+            ProfileItem groupPageObject = Instantiate(groupPagePrefab, groupPageContent.transform);
+            groupPageObject.InitGroupPage(gameData.title, gameData.id);
             groupPages.Add(groupPageObject.gameObject);
         }
     }
@@ -203,6 +201,43 @@ public class GetProfile : MonoBehaviour
         }
         notificationSection.SetActive(true);
         lastObject = notificationSection;
+        queryParams.Add("isRead ", "true");
+        string url = AppVariables.HttpServerUrl + "/notification/get-notifications" +                      
+                     DictionaryToQueryParameters.DictionaryToQuery(queryParams);
+        StartCoroutine(GetNotification(url));
+    }
+    
+    private List<GameObject> notificationPages = new List<GameObject>();
+    IEnumerator GetNotification(string url)
+    {
+        notificationPages.ForEach(Destroy);
+        notificationPages.Clear();
+        var request = new UnityWebRequest(url, "GET");
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+        request.SetRequestHeader("Authorization", PersistenceManager.UserToken);
+        yield return request.SendWebRequest();
+        string response = "";
+        if (request.responseCode == 200)
+        {
+            response = request.downloadHandler.text;
+            Debug.Log("Success to get notifications: " + response);
+            
+            var notificationResponseData = JsonConvert.DeserializeObject<NotificationResponse[]>(response);
+            ProfileItem notificationPrefab = Resources.Load<ProfileItem>("Prefabs/ProfileItem");
+            foreach (var notification in notificationResponseData)
+            {
+                ProfileItem notificationPageObject = Instantiate(notificationPrefab, notificationPageContent.transform);
+                notificationPageObject.InitNotificationPage(notification.message);
+                notificationPages.Add(notificationPageObject.gameObject);
+            }
+            
+        }
+        else
+        {
+            Debug.Log("Error to get notifications: " + response);
+        }
+        request.downloadHandler.Dispose();
     }
     public void ShowRecentActivities()
     {
@@ -230,4 +265,16 @@ public class GetProfile : MonoBehaviour
     }
     
     
+}
+
+public class NotificationResponse
+{
+    public string id;
+    public DateTime createdAt;
+    public bool isDeleted;
+    public string parent;
+    public string parentType;
+    public string message;
+    public string user;
+    public bool isRead;
 }

@@ -32,7 +32,7 @@ public class EditProfileResponse
     public bool isDeleted;
     public string userId;
     public string[] achievements;
-    public int reviewCount;
+    public float reviewCount;
     public int voteCount;
     public int commentCount;
     public int postCount;
@@ -54,10 +54,10 @@ public class GetProfileResponse
     public string id;
     public User user;
     public AchievementResponse[] achievements;
-    public int reviewCount;
-    public int voteCount;
-    public int commentCount;
-    public int postCount;
+    public float reviewCount;
+    public float voteCount;
+    public float commentCount;
+    public float postCount;
     public bool isReviewedYet;
     public bool isVotedYet;
     public bool isCommentedYet;
@@ -79,12 +79,12 @@ public class ProfileReview
     public string createdAt;
     public bool isDeleted;
     public string reviewDescription;
-    public int rating;
+    public float rating;
     public string gameId;
     public string reviewedBy;
-    public int overallVote;
-    public int voteCount;
-    public int reportNum;
+    public float overallVote;
+    public float voteCount;
+    public float reportNum;
 }
 
 public class ProfileGroup{
@@ -97,7 +97,7 @@ public class ProfileGroup{
     public string[]  tags;
     public string gameId;
     public string forumId;
-    public int quota;
+    public float quota;
     public string[]  moderators;
     public string[] members;
     public string[] bannedMembers;
