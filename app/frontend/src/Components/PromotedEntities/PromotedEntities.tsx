@@ -4,18 +4,20 @@ import { Button, Carousel, Tooltip, message } from "antd";
 
 import { useNavigate } from "react-router-dom";
 import { truncateWithEllipsis } from "../../Library/utils/truncate";
+import { useElementSize } from "usehooks-ts";
 
 
 function PromotedEntities({games}: {games: any[]}) {
   const navigate = useNavigate();
+  const [containerRef, { width }] = useElementSize();
 
   return (
     
      (
-      <div className={styles.container}>
+      <div className={styles.container} ref={containerRef}>
         
 
-        <Carousel autoplay>
+        <Carousel autoplay  style={{ width: `${width}px` }}>
             {
                 games.map((game: any) => (
                     <div key={game.id} className={styles.gameItem} >

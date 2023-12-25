@@ -140,7 +140,7 @@ function Games() {
               Filter
             </Button>
           </div>
-          <div style={{width: "1070px", marginBottom: "10px"}}>
+          <div style={{width:"100%", marginBottom: "10px"}}>
               <PromotedEntities games={promotedEntities}/>
           </div>
           <div className={styles.games}>
