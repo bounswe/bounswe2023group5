@@ -13,11 +13,12 @@ public class GetProfile : MonoBehaviour
 {
     [SerializeField] private TMP_Text usernameText;
     [SerializeField] private TMP_Text userTypeText;
+    [SerializeField] private TMP_Text userEmailText;
     [SerializeField] private Image userAvatarImage;
     
-    [SerializeField] private GameObject steamProfile;
-    [SerializeField] private GameObject epikProfile;
-    [SerializeField] private GameObject xBoxProfile;
+    [SerializeField] private Button steamProfile;
+    [SerializeField] private Button epikProfile;
+    [SerializeField] private Button xBoxProfile;
     
     private string userId ;
     private Dictionary<string,string> queryParams = new Dictionary<string, string>();
@@ -44,7 +45,14 @@ public class GetProfile : MonoBehaviour
         queryParams.Add("userId", PersistenceManager.id);
         Init();
     }
-    
+
+    private void Awake()
+    {
+        steamProfile.onClick.AddListener(OnClickedSteamProfile);
+        epikProfile.onClick.AddListener(OnClickedEpikProfile);
+        xBoxProfile.onClick.AddListener(OnClickedXBoxProfile); 
+    }
+
 
     public void Init()
     { 
@@ -71,23 +79,15 @@ public class GetProfile : MonoBehaviour
             PersistenceManager.ProfileId = profileResponseData.id;
             usernameText.text = profileResponseData.user.username;
             userTypeText.text = profileResponseData.user.role;
+            userEmailText.text = profileResponseData.user.email;
             role = profileResponseData.user.role;
             SetProfilButton();
             string profilUrl = AppVariables.HttpImageUrl + profileResponseData.profilePhoto;
-            StartCoroutine(LoadImageFromURL(profilUrl, userAvatarImage));
-            if (profileResponseData.steamProfile != null)
-            {
-                steamProfile.SetActive(true);
-            }
-            if (profileResponseData.epicGamesProfile != null)
-            {
-                epikProfile.SetActive(true);
-            }
-            if (profileResponseData.xboxProfile != null)
-            {
-                xBoxProfile.SetActive(true);
-            }
-
+      
+            steamProfile.gameObject.SetActive(profileResponseData.steamProfile != null);
+            epikProfile.gameObject.SetActive(profileResponseData.epicGamesProfile != null);
+            xBoxProfile.gameObject.SetActive(profileResponseData.xboxProfile != null);
+            
             foreach (var achievement in profileResponseData.achievements)
             {
                 GameObject achievementObject = Instantiate(achievementPrefab, achievementParent.transform);
@@ -95,6 +95,7 @@ public class GetProfile : MonoBehaviour
                 allObjects.Add(achievementObject);
             }
             
+            StartCoroutine(LoadImageFromURL(profilUrl, userAvatarImage));
         }
         else
         {
@@ -136,7 +137,7 @@ public class GetProfile : MonoBehaviour
             texture2 = ((DownloadHandlerTexture) request.downloadHandler).texture;
             Sprite sprite = Sprite.Create(texture2, new Rect(0, 0, texture2.width, texture2.height), new Vector2(0, 0));
             targetImage.sprite = sprite;
-            StartCoroutine(UploadSprite(texture2, "profile"));
+            // StartCoroutine(UploadSprite(texture2, "profile"));
         }
     } 
     
@@ -157,33 +158,33 @@ public class GetProfile : MonoBehaviour
         }
     } 
     
-    IEnumerator UploadSprite(Texture2D texture, string folder)
-    {
-        Texture2D textureNew = texture;
-        byte[] imageBytes = textureNew.EncodeToPNG();
-        string imageString = Convert.ToBase64String(imageBytes);
-        
-        WWWForm form = new WWWForm();
-        form.AddField("image", imageString);
-        
-        UnityWebRequest request = UnityWebRequest.Post($"{AppVariables.HttpServerUrl}/image/upload?folder={folder}", form);
-        request.chunkedTransfer = false;
-        request.downloadHandler = new DownloadHandlerBuffer();
-        // request.SetRequestHeader("Content-Type", "application/json");
-
-        yield return request.SendWebRequest();
-
-        if (request.result == UnityWebRequest.Result.Success)
-        {
-            Debug.Log("Image upload successful!");
-            Debug.Log(request.downloadHandler.text); // Response data
-        }
-        else
-        {
-            Debug.LogError("Image upload failed: " + request.error);
-        }
-        request.downloadHandler.Dispose();
-    }
+    // IEnumerator UploadSprite(Texture2D texture, string folder)
+    // {
+    //     Texture2D textureNew = texture;
+    //     byte[] imageBytes = textureNew.EncodeToPNG();
+    //     string imageString = Convert.ToBase64String(imageBytes);
+    //     
+    //     WWWForm form = new WWWForm();
+    //     form.AddField("image", imageString);
+    //     
+    //     UnityWebRequest request = UnityWebRequest.Post($"{AppVariables.HttpServerUrl}/image/upload?folder={folder}", form);
+    //     request.chunkedTransfer = false;
+    //     request.downloadHandler = new DownloadHandlerBuffer();
+    //     // request.SetRequestHeader("Content-Type", "application/json");
+    //
+    //     yield return request.SendWebRequest();
+    //
+    //     if (request.result == UnityWebRequest.Result.Success)
+    //     {
+    //         Debug.Log("Image upload successful!");
+    //         Debug.Log(request.downloadHandler.text); // Response data
+    //     }
+    //     else
+    //     {
+    //         Debug.LogError("Image upload failed: " + request.error);
+    //     }
+    //     request.downloadHandler.Dispose();
+    // }
     
     private GameObject lastObject;
     private List<GamePage> gamePages = new List<GamePage>();
@@ -253,6 +254,26 @@ public class GetProfile : MonoBehaviour
         }
         recentActivitiesSection.SetActive(true);
         lastObject = recentActivitiesSection;
+    }
+    
+    private void OnClickedSteamProfile()
+    {
+        Application.OpenURL(profileResponseData.steamProfile);
+    }
+    
+    private void OnClickedEpikProfile()
+    {
+        Application.OpenURL(profileResponseData.epicGamesProfile);
+    }
+    
+    private void OnClickedXBoxProfile()
+    {
+        Application.OpenURL(profileResponseData.xboxProfile);
+    }
+
+    
+    void OpenBrowser(string url_from_chat) {
+        Application.OpenURL(url_from_chat); // ←- Badness here; value isn’t sanitized
     }
     
 }

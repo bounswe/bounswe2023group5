@@ -48,6 +48,7 @@ public class GroupGetAllResponse{
     public TagResponse[]  tags;
     public string gameId;
     public string forumId;
+    public string groupIcon;
     public int quota;
     public string[]  moderators;
     public string[] members;
