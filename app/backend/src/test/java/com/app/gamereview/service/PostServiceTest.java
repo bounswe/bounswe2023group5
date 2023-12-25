@@ -326,7 +326,7 @@ public class PostServiceTest {
         when(userRepository.findByIdAndIsDeletedFalse(any(String.class))).thenReturn(Optional.of(user));
         when(voteRepository.findByTypeIdAndVotedBy(any(String.class), any(String.class))).thenReturn(Optional.of(vote));
 
-        List<GetPostCommentsResponseDto> result = postService.getCommentList(postId, user);
+        List<GetPostCommentsResponseDto> result = postService.getCommentList(postId, userId);
 
         assertNotNull(result);
         assertEquals(1, result.size()); // Assuming only one top-level comment in the test data
