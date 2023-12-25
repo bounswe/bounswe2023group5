@@ -113,7 +113,7 @@ public class GameDetails : MonoBehaviour
         getAllReviews.Init(new []{"gameId"},new []{gameId});
     }
     
-    private void OnClickedForumButton()
+    public void OnClickedForumButton()
     {
         summaryButton.image.color = defaultColor;
         reviewsButton.image.color = defaultColor;

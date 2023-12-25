@@ -130,7 +130,7 @@ public class GroupDetails : MonoBehaviour
         getAllMembers.gameObject.SetActive(false);
     }
     
-    private void OnClickedForumButton()
+    public void OnClickedForumButton()
     {
         descriptionButton.image.color = colors.prussianBlueLight;
         forumButton.image.color = colors.blueGreen;

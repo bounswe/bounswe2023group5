@@ -370,6 +370,8 @@ public class CanvasManager : MonoBehaviour
         currentActivePage.SetActive(false);
         createEditPostPage.SetActive(false);
         previousActivePage.SetActive(true);
+        gameDetailsPage.GetComponent<GameDetails>().OnClickedForumButton();
+        groupDetailsPage.GetComponent<GroupDetails>().OnClickedForumButton();
         currentActivePage = previousActivePage;
     }
     
