@@ -31,10 +31,11 @@ public class GetProfile : MonoBehaviour
     [SerializeField] private GameObject achievementPrefab;
     [SerializeField] private GameObject gamePageContent;
     [SerializeField] private GameObject groupPageContent;
+    [SerializeField] private GameObject notificationPageContent;
     
     [SerializeField] private GameObject gameSection;
     [SerializeField] private GameObject groupSection;
-    [SerializeField] private GameObject reviewSection;
+    [SerializeField] private GameObject notificationSection;
     [SerializeField] private GameObject recentActivitiesSection;
     
     private List<GameObject> allObjects = new List<GameObject>();
@@ -141,53 +142,11 @@ public class GetProfile : MonoBehaviour
         }
     } 
     
-    private IEnumerator UploadImageToURL(string imageUrl, Image targetImage)
-    {   
-        UnityWebRequest request = UnityWebRequestTexture.GetTexture(imageUrl);
-        yield return request.SendWebRequest();
-        if (request.isNetworkError || request.isHttpError)
-        {
-            Debug.Log(request.error);
-        }
-        else
-        {
-            Texture2D texture2;
-            texture2 = ((DownloadHandlerTexture) request.downloadHandler).texture;
-            Sprite sprite = Sprite.Create(texture2, new Rect(0, 0, texture2.width, texture2.height), new Vector2(0, 0));
-            targetImage.sprite = sprite;
-        }
-    } 
     
-    // IEnumerator UploadSprite(Texture2D texture, string folder)
-    // {
-    //     Texture2D textureNew = texture;
-    //     byte[] imageBytes = textureNew.EncodeToPNG();
-    //     string imageString = Convert.ToBase64String(imageBytes);
-    //     
-    //     WWWForm form = new WWWForm();
-    //     form.AddField("image", imageString);
-    //     
-    //     UnityWebRequest request = UnityWebRequest.Post($"{AppVariables.HttpServerUrl}/image/upload?folder={folder}", form);
-    //     request.chunkedTransfer = false;
-    //     request.downloadHandler = new DownloadHandlerBuffer();
-    //     // request.SetRequestHeader("Content-Type", "application/json");
-    //
-    //     yield return request.SendWebRequest();
-    //
-    //     if (request.result == UnityWebRequest.Result.Success)
-    //     {
-    //         Debug.Log("Image upload successful!");
-    //         Debug.Log(request.downloadHandler.text); // Response data
-    //     }
-    //     else
-    //     {
-    //         Debug.LogError("Image upload failed: " + request.error);
-    //     }
-    //     request.downloadHandler.Dispose();
-    // }
+
     
     private GameObject lastObject;
-    private List<GamePage> gamePages = new List<GamePage>();
+    private List<GameObject> gamePages = new List<GameObject>();
     public void ShowMyGames()
     {
         gamePages.ForEach(Destroy);
@@ -198,20 +157,20 @@ public class GetProfile : MonoBehaviour
         }
         gameSection.SetActive(true);
         lastObject = gameSection;
-        GamePage gamePagePrefab = Resources.Load<GamePage>("Prefabs/GamePage");
+        ProfileItem gamePagePrefab = Resources.Load<ProfileItem>("Prefabs/ProfileItem");
+        if (profileResponseData.games==null)
+        {
+            return;
+        }
         foreach (var gameData in profileResponseData.games)
         {
-            GameListEntry gameListEntry = new GameListEntry();
-            gameListEntry.id = gameData.id;
-            gameListEntry.gameName = gameData.gameName;
-            gameListEntry.gameDescription = gameData.gameDescription;
-            gameListEntry.gameIcon = gameData.gameIcon;
-            GamePage gamePageObject = Instantiate(gamePagePrefab, gamePageContent.transform);
-            gamePageObject.Init(gameListEntry);
-            gamePages.Add(gamePageObject);
+  
+            ProfileItem gamePageObject = Instantiate(gamePagePrefab, gamePageContent.transform);
+            gamePageObject.InitGamesPage(gameData.gameName, gameData.id);
+            gamePages.Add(gamePageObject.gameObject);
         }
     }
-    private List<GroupPage> groupPages = new List<GroupPage>();
+    private List<GameObject> groupPages = new List<GameObject>();
     public void ShowMyGroups()
     {
         groupPages.ForEach(Destroy);
@@ -222,29 +181,64 @@ public class GetProfile : MonoBehaviour
         }
         groupSection.SetActive(true);
         lastObject = groupSection;
-        GroupPage groupPagePrefab = Resources.Load<GroupPage>("Prefabs/GroupPage");
+        ProfileItem groupPagePrefab = Resources.Load<ProfileItem>("Prefabs/ProfileItem");
+        if (profileResponseData.groups==null)
+        {
+            return;
+        }
         foreach (var gameData in profileResponseData.groups)
         {
-            GroupGetAllResponse gameListEntry = new GroupGetAllResponse();
-            gameListEntry.id = gameData.id;
-            gameListEntry.title = gameData.title;
-            gameListEntry.description = gameData.description;
-            gameListEntry.membershipPolicy = gameData.membershipPolicy;
-            gameListEntry.quota = gameData.quota;
-            gameListEntry.members = gameData.members;
-            GroupPage groupPageObject = Instantiate(groupPagePrefab, gamePageContent.transform);
-            groupPageObject.Init(gameListEntry);
-            groupPages.Add(groupPageObject);
+            ProfileItem groupPageObject = Instantiate(groupPagePrefab, groupPageContent.transform);
+            groupPageObject.InitGroupPage(gameData.title, gameData.id);
+            groupPages.Add(groupPageObject.gameObject);
         }
     }
-    public void ShowMyReviews()
+    public void ShowMyNotifications()
     {
+        queryParams.Clear();
         if (lastObject != null)
         {
             lastObject.SetActive(false);
         }
-        reviewSection.SetActive(true);
-        lastObject = reviewSection;
+        notificationSection.SetActive(true);
+        lastObject = notificationSection;
+        queryParams.Add("isRead ", "true");
+        string url = AppVariables.HttpServerUrl + "/notification/get-notifications" +                      
+                     DictionaryToQueryParameters.DictionaryToQuery(queryParams);
+        StartCoroutine(GetNotification(url));
+    }
+    
+    private List<GameObject> notificationPages = new List<GameObject>();
+    IEnumerator GetNotification(string url)
+    {
+        notificationPages.ForEach(Destroy);
+        notificationPages.Clear();
+        var request = new UnityWebRequest(url, "GET");
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+        request.SetRequestHeader("Authorization", PersistenceManager.UserToken);
+        yield return request.SendWebRequest();
+        string response = "";
+        if (request.responseCode == 200)
+        {
+            response = request.downloadHandler.text;
+            Debug.Log("Success to get notifications: " + response);
+            
+            var notificationResponseData = JsonConvert.DeserializeObject<NotificationResponse[]>(response);
+            ProfileItem notificationPrefab = Resources.Load<ProfileItem>("Prefabs/ProfileItem");
+            foreach (var notification in notificationResponseData)
+            {
+                ProfileItem notificationPageObject = Instantiate(notificationPrefab, notificationPageContent.transform);
+                notificationPageObject.InitNotificationPage(notification.message);
+                notificationPages.Add(notificationPageObject.gameObject);
+            }
+            
+        }
+        else
+        {
+            Debug.Log("Error to get notifications: " + response);
+        }
+        request.downloadHandler.Dispose();
     }
     public void ShowRecentActivities()
     {
@@ -270,10 +264,18 @@ public class GetProfile : MonoBehaviour
     {
         Application.OpenURL(profileResponseData.xboxProfile);
     }
+    
+    
+}
 
-    
-    void OpenBrowser(string url_from_chat) {
-        Application.OpenURL(url_from_chat); // ←- Badness here; value isn’t sanitized
-    }
-    
+public class NotificationResponse
+{
+    public string id;
+    public DateTime createdAt;
+    public bool isDeleted;
+    public string parent;
+    public string parentType;
+    public string message;
+    public string user;
+    public bool isRead;
 }

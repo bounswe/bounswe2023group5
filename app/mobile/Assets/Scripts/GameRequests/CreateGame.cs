@@ -114,41 +114,6 @@ public class CreateGame : MonoBehaviour
         }
     }
     
-    public class ImageUploadRequest
-    {
-        public string image;
-    }
-
-    IEnumerator ImagePost(Texture2D texture, string folder)
-    {
-        Texture2D textureNew = texture;
-        byte[] imageBytes = textureNew.EncodeToPNG();
-        string imageString = Convert.ToBase64String(imageBytes);
-        
-        ImageUploadRequest imageUploadRequest = new ImageUploadRequest();
-        imageUploadRequest.image = imageString;
-        string bodyJsonString = JsonUtility.ToJson(imageUploadRequest);
-        var request = new UnityWebRequest($"{AppVariables.HttpServerUrl}/image/upload?folder={folder}", "POST");
-        byte[] bodyRaw = Encoding.UTF8.GetBytes(bodyJsonString);
-        request.uploadHandler = (UploadHandler) new UploadHandlerRaw(bodyRaw);
-        request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
-        yield return request.SendWebRequest();
-        var response = request.downloadHandler.text;
-        if (request.responseCode == 200)
-        {
-            var _CreateGameResponseData = JsonConvert.DeserializeObject<GameDetail>(response);
-            Debug.Log("Success to upload image: " + response);
-        }
-        else
-        {
-            Debug.Log("Error to upload image: " + response);
-
-        }
-        
-        request.downloadHandler.Dispose();
-        request.uploadHandler.Dispose();
-      
-    }
 
     IEnumerator UploadSprite(Texture2D texture, string folder) {
             Texture2D textureNew = texture;
@@ -169,34 +134,6 @@ public class CreateGame : MonoBehaviour
             }
             www.downloadHandler.Dispose();
     }
-    // IEnumerator UploadSprite(Texture2D texture, string folder)
-    // {
-    //     Texture2D textureNew = texture;
-    //     byte[] imageBytes = textureNew.EncodeToPNG();
-    //     string imageString = Convert.ToBase64String(imageBytes);
-    //     
-    //     WWWForm form = new WWWForm();
-    //     form.AddField("image", imageString);
-    //     
-    //     UnityWebRequest request = UnityWebRequest.Post($"{AppVariables.HttpServerUrl}/image/upload?folder={folder}", form);
-    //     request.chunkedTransfer = false;
-    //     request.downloadHandler = new DownloadHandlerBuffer();
-    //     request.SetRequestHeader("Content-Type", "application/json");
-    //     // request.SetRequestHeader("Content-Type","multipart/form-data");
-    //
-    //     yield return request.SendWebRequest();
-    //
-    //     if (request.result == UnityWebRequest.Result.Success)
-    //     {
-    //         Debug.Log("Image upload successful!");
-    //         Debug.Log(request.downloadHandler.text); // Response data
-    //     }
-    //     else
-    //     {
-    //         Debug.LogError("Image upload failed: " + request.error);
-    //     }
-    //     request.downloadHandler.Dispose();
-    // }
 
     private void OnClickedCreate()
     {
