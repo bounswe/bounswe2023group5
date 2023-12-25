@@ -12,6 +12,7 @@ import { createGame, getGames } from "../../../../Services/games";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { createCharacter } from "../../../../Services/character";
+import TextArea from "antd/es/input/TextArea";
 
 function CreateCharacter() {
   const [name, setName] = useState("");
@@ -24,6 +25,7 @@ function CreateCharacter() {
   const [voiceActor, setVoiceActor] = useState("");
   const [height, setHeight] = useState("");
   const [age, setAge] = useState("");
+  const [description, setDescription] = useState("");
   const [characterGames, setCharacterGames] = useState<string[]>([]);
 
   const [fileList, setFileList] = useState<any[]>([]);
@@ -68,6 +70,7 @@ function CreateCharacter() {
       voiceActor,
       height,
       age,
+      description,
       games: gameIds,
       icon: gameIcon,
     });
@@ -192,7 +195,12 @@ function CreateCharacter() {
           className={styles.input}
           onChange={(event) => setAge(event.target.value)}
         />
-
+        <TextArea
+          placeholder="Description..."
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          rows={4}
+        />
         <Button className={styles.filterButton} onClick={handleClick}>
           Create Character
         </Button>
