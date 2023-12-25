@@ -351,11 +351,6 @@ function ForumPost() {
               >
                 Comment{" "}
               </Button>
-              <WarningOutlined
-                style={twj("text-red-500 text-lg cursor-pointer")}
-                type="text"
-                alt="report"
-              />
             </div>
             {isCommenting && <CommentForm />}
           </div>
