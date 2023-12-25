@@ -97,7 +97,7 @@ public class ForumPost : MonoBehaviour
         deletePanel.gameObject.SetActive(false);
 
         // User can delete and edit her own posts
-        if ( (!String.IsNullOrEmpty(userId)) && (userId == PersistenceManager.id) || (PersistenceManager.Role == "ADMIN"))
+        if ( (!String.IsNullOrEmpty(userId)) && (userId == PersistenceManager.id) )
         {
             deletePost.gameObject.SetActive(true);
             editPost.gameObject.SetActive(true);

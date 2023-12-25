@@ -94,6 +94,17 @@ public class CommentBox : MonoBehaviour
             editButton.gameObject.SetActive(false);
         }
         
+        // Admin can delete any comment
+        if ( PersistenceManager.Role == "ADMIN")
+        {
+            Debug.Log("I am an admin");
+            deleteButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("I am not an admin");
+        }
+        
         Debug.Log("Comment id is "+ commentId);
        
     }
@@ -144,7 +155,12 @@ public class CommentBox : MonoBehaviour
         // Admin can delete any comment
         if ( PersistenceManager.Role == "ADMIN")
         {
+            Debug.Log("I am an admin");
             deleteButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("I am not an admin");
         }
         
         Debug.Log("Comment id is "+ commentId);
