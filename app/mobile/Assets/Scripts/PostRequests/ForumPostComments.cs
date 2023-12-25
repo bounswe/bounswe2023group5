@@ -121,7 +121,7 @@ public class ForumPostComments : MonoBehaviour
             // forumPost.Init(postID);
             title.text = postInfo.title;
             postContent.text = postInfo.postContent;
-            lastEditedAt.text = postInfo.lastEditedAt;
+            lastEditedAt.text = postInfo.lastEditedAt.ToString("dd/MM/yyyy");
             overallVote.text = Convert.ToString(postInfo.overallVote);
             if (postInfo.poster == null)
             {
