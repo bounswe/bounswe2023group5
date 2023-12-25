@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 
 public class PostController
 {
@@ -80,7 +81,7 @@ public class GetPostListResponse
     public string forum;
     public AchievementResponse achievement;
     public CharacterResponse character;
-    public string lastEditedAt;
+    public DateTime lastEditedAt;
     public string createdAt;
     public bool isEdited;
     public TagResponse[] tags;
