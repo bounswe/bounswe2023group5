@@ -2,6 +2,8 @@
 
 .container {
   padding: 3rem;
+  width: 100%;
+  overflow: hidden;
 }
 
 .spinnerContainer {
@@ -12,19 +14,22 @@
 }
 
 .games {
-  display: flex;
-  flex-direction: row;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-  align-items: stretch;
-  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(
+    2,
+    1fr
+  ); /* Creates two columns with equal width */
+  gap: 1.5rem; /* Sets the gap between grid items */
+  align-items: stretch; /* Stretches the items to fill the container */
+
+  width: 100%; /* Sets the width of the grid container */
 }
 .headerContainer {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background-color:  $vanilla-light-40;
+  background-color: $vanilla-light-40;
   padding: 0.5em;
   margin-bottom: 1.5em;
   border-radius: 0.5em;
