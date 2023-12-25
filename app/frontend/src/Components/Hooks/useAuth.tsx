@@ -69,7 +69,7 @@ const useAuth = (): UseAuthProps => {
     isLoggedIn: !!user,
     logOut,
     profile,
-    isLoading: !user || isLoading,
+    isLoading: isLoading,
   };
 };
 

@@ -20,11 +20,11 @@ import {
   WarningOutlined,
   ArrowLeftOutlined,
   CheckOutlined,
+  InfoCircleOutlined,
 } from "@ant-design/icons";
 import clsx from "clsx";
-
 import { Button, Tooltip, message } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TagRenderer from "../../Components/TagRenderer/TagRenderer.tsx";
 import { twj } from "tw-to-css";
 import Achievement from "../../Components/Achievement/Achievement/Achievement.tsx";
@@ -35,7 +35,6 @@ import {
   handleError,
 } from "../../Library/utils/handleError.ts";
 import { Recogito } from "@recogito/recogito-js";
-
 import "@recogito/recogito-js/dist/recogito.min.css";
 import {
   createAnnotation,
@@ -43,6 +42,8 @@ import {
   updateAnnotation,
 } from "../../Services/annotation.ts";
 import { NotificationUtil } from "../../Library/utils/notification.ts";
+import { Annotorious } from "@recogito/annotorious";
+import "@recogito/annotorious/dist/annotorious.min.css";
 import CharacterDetails from "../../Components/Character/CharacterDetails.tsx";
 
 function ForumPost() {
@@ -51,10 +52,13 @@ function ForumPost() {
   const location = useLocation();
   const [searchParams] = useSearchParams();
   const [isAnnotationsApplied, setIsAnnotationsApplied] = useState(false);
+  const [isImageAnnotationsApplied, setIsImageAnnotationsApplied] =
+    useState(false);
   const { postId, forumId } = useParams();
   const { data: post, isLoading } = useQuery(["post", postId], () =>
     getPost(postId!)
   );
+  const pageUrl = window.location.href.replace("?back=/home", "");
 
   const isAdmin = user?.role === "ADMIN";
   const { upvote, downvote } = useVote({
@@ -69,6 +73,32 @@ function ForumPost() {
     ["comments", postId],
     () => getCommentList({ postId: postId! })
   );
+
+  const hideTagField = () => {
+    const tagField = document.querySelectorAll(".r6o-widget.r6o-tag");
+
+    if (tagField && tagField.length > 0) {
+      for (const elem of tagField) {
+        elem.style.display = "none";
+      }
+    }
+  };
+
+  useEffect(() => {
+    const textElement = document.querySelector("#textElement");
+
+    if (textElement) {
+      textElement.addEventListener("click", hideTagField);
+    }
+  }, [isLoading]);
+
+  useEffect(() => {
+    const imageElement = document.querySelector("#imageElement");
+
+    if (imageElement) {
+      imageElement.addEventListener("click", hideTagField);
+    }
+  }, [isLoading]);
 
   const [isCommenting, setCommenting] = useState(false);
 
@@ -93,14 +123,14 @@ function ForumPost() {
     if (elem && isAnnotationsApplied === false) {
       const r = new Recogito({
         content: elem,
-        readOnly: !(user.id === post.poster.id || isAdmin),
+        readOnly: !(user?.id === post.poster.id || isAdmin),
       });
       setIsAnnotationsApplied(true);
 
       r.loadAnnotations(
         `${
           import.meta.env.VITE_APP_ANNOTATION_API_URL
-        }/annotation/get-source-annotations?source=${postId}`
+        }/annotation/get-source-annotations?source=${pageUrl}`
       )
         .then(function (annotations) {})
         .catch((error) => {
@@ -110,10 +140,12 @@ function ForumPost() {
           NotificationUtil.error("Error occurred while retrieving annotations");
         });
 
-      r.on("createAnnotation", async (annotation: any, _overrideId) => {
+      r.on("createAnnotation", async (annotation: any, overrideId) => {
         try {
-          annotation.target = { ...annotation.target, source: postId };
-
+          annotation.target = { ...annotation.target, source: pageUrl };
+          const newId = pageUrl + "/" + annotation.id.replace("#", "");
+          annotation.id = newId;
+          overrideId(newId);
           await createAnnotation(annotation);
           NotificationUtil.success("You successfully create the annotation");
         } catch (error) {
@@ -131,9 +163,77 @@ function ForumPost() {
         }
       });
 
+      r.on("selectAnnotation", async function (annotation: any) {
+        hideTagField();
+      });
+
       r.on("updateAnnotation", async function (annotation, _previous) {
         try {
-          annotation.target = { ...annotation.target, source: postId };
+          annotation.target = { ...annotation.target, source: pageUrl };
+          await updateAnnotation(annotation);
+          NotificationUtil.success("You successfully update the annotation");
+        } catch (error) {
+          handleAxiosError(error);
+        }
+      });
+    }
+  };
+
+  const linkImageAnnotation = (elem: any) => {
+    if (elem && isImageAnnotationsApplied === false) {
+      const config = {
+        image: elem,
+        readOnly: !(user.id === post.poster.id || isAdmin),
+      };
+
+      const anno = new Annotorious(config);
+
+      setIsImageAnnotationsApplied(true);
+
+      anno
+        .loadAnnotations(
+          `${
+            import.meta.env.VITE_APP_ANNOTATION_API_URL
+          }/annotation/get-image-annotations?source=${pageUrl}`
+        )
+        .then(function (annotations) {})
+        .catch((error) => {
+          if (error instanceof SyntaxError) {
+            return;
+          }
+          NotificationUtil.error("Error occurred while retrieving annotations");
+        });
+
+      anno.on("createAnnotation", async (annotation: any, overrideId) => {
+        try {
+          annotation.target = { ...annotation.target, source: pageUrl };
+          const newId = pageUrl + "/" + annotation.id.replace("#", "");
+          annotation.id = newId;
+          await createAnnotation(annotation);
+          NotificationUtil.success("You successfully create the annotation");
+        } catch (error) {
+          console.log(error);
+          handleAxiosError(error);
+        }
+      });
+
+      anno.on("deleteAnnotation", async function (annotation: any) {
+        try {
+          const id = annotation.id;
+          await deleteAnnotation(id);
+          NotificationUtil.success("You successfully delete the annotation");
+        } catch (error) {
+          handleAxiosError(error);
+        }
+      });
+
+      anno.on("selectAnnotation", async function (annotation: any) {
+        hideTagField();
+      });
+
+      anno.on("updateAnnotation", async function (annotation, _previous) {
+        try {
+          annotation.target = { ...annotation.target, source: pageUrl };
           await updateAnnotation(annotation);
           NotificationUtil.success("You successfully update the annotation");
         } catch (error) {
@@ -145,11 +245,16 @@ function ForumPost() {
 
   return (
     <div className={styles.container}>
-      <div
-        className={styles.backButton}
-        onClick={() => navigate(searchParams.get("back") ?? "/")}
-      >
-        <ArrowLeftOutlined />
+      <div className={styles.topContainer}>
+        <div
+          className={styles.backButton}
+          onClick={() => navigate(searchParams.get("back") ?? "/")}
+        >
+          <ArrowLeftOutlined />
+        </div>
+        <Tooltip title="This page is annotable. If you are an admin or the owner of the post, you can add, edit, and delete annotations to image or content of the post.">
+          <InfoCircleOutlined style={{ fontSize: "20px" }} />
+        </Tooltip>
       </div>
       {!isLoading && (
         <div className={styles.postContainer}>
@@ -195,8 +300,9 @@ function ForumPost() {
             <TagRenderer tags={post.tags} />
           </div>{" "}
           {post.postImage && (
-            <div className={styles.image}>
+            <div className={styles.image} id="imageElement">
               <img
+                ref={(elem) => linkImageAnnotation(elem)}
                 height="30px"
                 src={`${import.meta.env.VITE_APP_IMG_URL}${post.postImage}`}
               />
@@ -226,7 +332,9 @@ function ForumPost() {
             </div>
           )}
           <span className={styles.body}>
-            <span ref={(elem) => linkAnnotation(elem)}>{post.postContent}</span>
+            <span id="textElement" ref={(elem) => linkAnnotation(elem)}>
+              {post.postContent}
+            </span>
             <span className={styles.postDetails}>
               <span>Poster: {post.poster?.username}</span>
               <span>Last edit: {formatDate(post.lastEditedAt)}</span>

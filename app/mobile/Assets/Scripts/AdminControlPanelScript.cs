@@ -19,6 +19,7 @@ public class AdminControlPanelScript : MonoBehaviour
     [SerializeField] private Button deleteTagButton;
     [SerializeField] private Button banUserButton;
     [SerializeField] private Button makeAdminButton;
+    [SerializeField] private Button createCharacterButton;
     private CanvasManager canvasManager;
 
     
@@ -28,6 +29,7 @@ public class AdminControlPanelScript : MonoBehaviour
         createTagButton.onClick.AddListener(OnClickedCreateTag);
         updateTagButton.onClick.AddListener(OnClickedUpdateTag);
         deleteTagButton.onClick.AddListener(OnClickedDeleteTag);
+        createCharacterButton.onClick.AddListener(OnClickedCreateCharacter);
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
     }
 
@@ -38,6 +40,7 @@ public class AdminControlPanelScript : MonoBehaviour
         createTagButton.image.color = Color.yellow;
         updateTagButton.image.color = Color.yellow;
         deleteTagButton.image.color = Color.yellow;
+        createCharacterButton.image.color = Color.yellow;
     }
 
     /*
@@ -56,6 +59,7 @@ public class AdminControlPanelScript : MonoBehaviour
         createTagButton.image.color = Color.yellow;
         updateTagButton.image.color = Color.yellow;
         deleteTagButton.image.color = Color.yellow;
+        createCharacterButton.image.color = Color.yellow;
         
         // Change the screen to CreateGame page
         canvasManager.ShowCreateGamePage();
@@ -67,6 +71,7 @@ public class AdminControlPanelScript : MonoBehaviour
         createTagButton.image.color = Color.green;
         updateTagButton.image.color = Color.yellow;
         deleteTagButton.image.color = Color.yellow;
+        createCharacterButton.image.color = Color.yellow;
         
         // Change the screen to CreateGame page
         canvasManager.ShowCreateTagPage();
@@ -79,6 +84,7 @@ public class AdminControlPanelScript : MonoBehaviour
         createTagButton.image.color = Color.yellow;
         updateTagButton.image.color = Color.green;
         deleteTagButton.image.color = Color.yellow;
+        createCharacterButton.image.color = Color.yellow;
         
         // Change the screen to CreateGame page
         canvasManager.ShowUpdateTagPage();
@@ -91,10 +97,22 @@ public class AdminControlPanelScript : MonoBehaviour
         createTagButton.image.color = Color.yellow;
         updateTagButton.image.color = Color.yellow;
         deleteTagButton.image.color = Color.green;
+        createCharacterButton.image.color = Color.yellow;
         
         // Change the screen to CreateGame page
         canvasManager.ShowDeleteTagPage();
     }
-    
+
+    private void OnClickedCreateCharacter()
+    {
+        // Set all buttons' colors yellow, and this button green
+        createGameButton.image.color = Color.yellow;
+        createTagButton.image.color = Color.yellow;
+        updateTagButton.image.color = Color.yellow;
+        deleteTagButton.image.color = Color.yellow;
+        createCharacterButton.image.color = Color.green;
+        
+        canvasManager.ShowCreateCharacterPage();
+    }
     
 }

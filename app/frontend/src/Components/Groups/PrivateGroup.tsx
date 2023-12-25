@@ -4,22 +4,12 @@ import { Button } from "antd";
 import TagRenderer from "../TagRenderer/TagRenderer";
 import { formatDate } from "../../Library/utils/formatDate";
 import { useNavigate } from "react-router-dom";
-import { applyGroup } from "../../Services/group";
-import { NotificationUtil } from "../../Library/utils/notification";
-
 
 function PrivateGroup({ group }: { group: any }) {
   const navigate = useNavigate();
 
   const handleClick = async () => {
-    try {
-      const response = await applyGroup(group.id);
-      if (response) {
-        NotificationUtil.success("You successfully applied to the group");
-      }
-    } catch (error: any) {
-      NotificationUtil.error(error.response.data);
-    }
+    navigate(`/group/apply/${group.id}`);
   };
 
   return (
