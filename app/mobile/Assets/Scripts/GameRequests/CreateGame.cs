@@ -30,6 +30,9 @@ public class CreateGame : MonoBehaviour
     [SerializeField] private Image uploadImage;
     [SerializeField] private TMP_Text infoText;
     
+    private string imageFileName;
+
+    private DateTime _dateTime;
     private void Awake()
     {
         createButton.onClick.AddListener(OnClickedCreate);
@@ -156,6 +159,8 @@ public class CreateGame : MonoBehaviour
             UnityWebRequest www = UnityWebRequest.Post($"{AppVariables.HttpServerUrl}/image/upload?folder={folder}", form);
             yield return www.SendWebRequest();
  
+            imageFileName = www.downloadHandler.text;
+            
             if(www.isNetworkError || www.isHttpError) {
                 Debug.Log(www.error);
             }
@@ -202,8 +207,8 @@ public class CreateGame : MonoBehaviour
         createGameRequest.gameDescription = gameDescription.text;
         
         // Lines below will change
-        createGameRequest.gameIcon = "gameIcon file";
-        createGameRequest.releaseDate = releaseDate.text;
+        createGameRequest.gameIcon = imageFileName;
+        createGameRequest.releaseDate = DateTime.ParseExact( releaseDate.text, "MM/dd/yy", null).ToString("yyyy-MM-dd");
         createGameRequest.playerTypes = new string[1]
         {
             playerTypesArrayID[playerTypes.value]
@@ -212,7 +217,7 @@ public class CreateGame : MonoBehaviour
         {
             genreArrayID[genre.value]
         };
-        createGameRequest.production = platformsArrayID[production.value];
+        createGameRequest.production = productionArrayID[production.value];
         createGameRequest.platforms= new string[1]
         {
             platformsArrayID[platforms.value]
@@ -263,6 +268,7 @@ public class CreateGame : MonoBehaviour
         // We can add any of the query parameters (name, color, tagType, 
         // isDeleted) in ListToQueryParams. Or we may add no query 
         // parameters.
+        imageFileName = "";
         string url = AppVariables.HttpServerUrl + "/tag/get-all";
         StartCoroutine(GetAllTags(url));
     }

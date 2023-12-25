@@ -78,6 +78,10 @@ public class CharactersPage : MonoBehaviour
 
         foreach (var character in characters)
         {
+            if (character.isDeleted)
+            {
+                continue;
+            }
             Character tagObj = Instantiate(Resources.Load<Character>("Prefabs/Character"), charObjParent);
             charObjects.Add(tagObj);
             tagObj.Init(character, characterDetailsManager);
