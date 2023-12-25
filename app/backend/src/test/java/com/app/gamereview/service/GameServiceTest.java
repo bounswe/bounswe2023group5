@@ -339,7 +339,7 @@ class GameServiceTest {
         verify(userRepository).findByEmailAndIsDeletedFalse(userEmail);
         verify(profileRepository).findByUserIdAndIsDeletedFalse(user.getId());
         verify(gameRepository).findByIdAndIsDeletedFalse(gameId);
-        verify(mongoTemplate, times(2)).find(any(Query.class), eq(Game.class));
+        verify(mongoTemplate, times(3)).find(any(Query.class), eq(Game.class));
     }
 
     @Test
