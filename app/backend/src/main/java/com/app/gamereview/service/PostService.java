@@ -211,17 +211,21 @@ public class PostService {
         return postDto;
     }
 
-    public List<GetPostCommentsResponseDto> getCommentList(String postId, User user) {
+    public List<GetPostCommentsResponseDto> getCommentList(String postId, String email) {
         Optional<Post> post = postRepository.findById(postId);
+        Optional<User> loggedInUser = userRepository.findByEmailAndIsDeletedFalse(email);
+        String loggedInUserId = loggedInUser.map(User::getId).orElse(null);
 
         if (post.isEmpty()) {
             throw new ResourceNotFoundException("The post with the given id was not found");
         }
         Optional<Forum> forum = forumRepository.findById(post.get().getForum());
         if (forum.isPresent()) {
-            List<String> bannedUsers = forum.get().getBannedUsers();
-            if (bannedUsers.contains(user.getId())) {
-                throw new ResourceNotFoundException("You cannot see the comments because you are banned from this forum.");
+            if(loggedInUserId != null){
+                List<String> bannedUsers = forum.get().getBannedUsers();
+                if (bannedUsers.contains(loggedInUserId)) {
+                    throw new ResourceNotFoundException("You cannot see the post because you are banned.");
+                }
             }
         }
         List<Comment> comments = commentRepository.findByPost(postId);
@@ -231,7 +235,7 @@ public class PostService {
 
         // First, convert all comments to DTOs and identify top-level comments
         for (Comment comment : comments) {
-            GetPostCommentsResponseDto dto = convertToCommentDto(comment, user.getId());
+            GetPostCommentsResponseDto dto = convertToCommentDto(comment, loggedInUserId);
             commentMap.put(comment.getId(), dto);
 
             if (comment.getParentComment() == null) {
@@ -244,7 +248,7 @@ public class PostService {
             if (comment.getParentComment() != null) {
                 GetPostCommentsResponseDto parentDto = commentMap.get(comment.getParentComment());
                 if (parentDto != null) {
-                    parentDto.getReplies().add(convertToReplyDto(comment, user.getId()));
+                    parentDto.getReplies().add(convertToReplyDto(comment, loggedInUserId));
                 }
             }
         }
