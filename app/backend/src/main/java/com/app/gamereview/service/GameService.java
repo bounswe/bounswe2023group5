@@ -440,13 +440,18 @@ public class GameService {
 		}
 
 		if(recommendations.size() < 10){
-			int diff = 10 - recommendations.size();
+			int diff = 10;
 			Query query = new Query();	// all games except the base game
 			query.addCriteria(Criteria.where("isDeleted").is(false));
 			query.with(Sort.by(Sort.Direction.DESC, "overallVote"));
 			query.limit(diff);
 			List<Game> extraGames = mongoTemplate.find(query, Game.class);
-			recommendations.addAll(extraGames);
+
+			for(Game game : extraGames){
+				if(!recommendations.contains(game))
+					recommendations.add(game);
+			}
+
 			return recommendations;
 		}
 
