@@ -56,7 +56,7 @@ public class ForumPost : MonoBehaviour
         commentManager = commentManagerInfo;
         editPostManager = editPostManagerInfo;
         postId = postInfo.id;
-        if (postInfo.postImage != null)
+        if (postInfo.postImage != null && !postInfo.postImage.Contains("webp"))
         {
             StartCoroutine(LoadImageFromURL(AppVariables.HttpImageUrl + postInfo.postImage, postImage));
         }
