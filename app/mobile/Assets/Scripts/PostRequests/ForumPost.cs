@@ -54,6 +54,7 @@ public class ForumPost : MonoBehaviour
         postInfoVal = postInfo;
         commentManager = commentManagerInfo;
         editPostManager = editPostManagerInfo;
+        postId = postInfo.id;
         if (postInfo.postImage != null)
         {
             StartCoroutine(LoadImageFromURL(AppVariables.HttpImageUrl + postInfo.postImage, postImage));

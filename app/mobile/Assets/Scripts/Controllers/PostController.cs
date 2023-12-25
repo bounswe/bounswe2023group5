@@ -72,6 +72,7 @@ public class PostCreateRequestBasic
 
 public class GetPostListResponse
 {
+    public string id;
     public string title;
     public string postContent;
     public string postImage;
