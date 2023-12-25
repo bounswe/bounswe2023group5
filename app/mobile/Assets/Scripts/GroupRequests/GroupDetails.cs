@@ -132,6 +132,10 @@ public class GroupDetails : MonoBehaviour
     
     public void OnClickedForumButton()
     {
+        if (String.IsNullOrEmpty(forumId))
+        {
+            return;
+        }
         descriptionButton.image.color = colors.prussianBlueLight;
         forumButton.image.color = colors.blueGreen;
         membersButton.image.color = colors.prussianBlueLight;

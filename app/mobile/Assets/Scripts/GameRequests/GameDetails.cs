@@ -115,6 +115,10 @@ public class GameDetails : MonoBehaviour
     
     public void OnClickedForumButton()
     {
+        if (String.IsNullOrEmpty(forum))
+        {
+            return;
+        }
         summaryButton.image.color = defaultColor;
         reviewsButton.image.color = defaultColor;
         forumButton.image.color = Color.black;

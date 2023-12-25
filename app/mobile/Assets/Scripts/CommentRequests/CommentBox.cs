@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -236,6 +237,11 @@ public class CommentBox : MonoBehaviour
         {
             Debug.Log("Success to delete comment detail: " + response);
             deleteText.text = "Comment is successfully deleted";
+            DOVirtual.DelayedCall(2f, () =>
+            {
+                canvasManager.postComments.GetComponent<ForumPostComments>().Refresh();
+                canvasManager.commentComments.GetComponent<CommentComments>().Refresh();
+            });
         }
         else
         {

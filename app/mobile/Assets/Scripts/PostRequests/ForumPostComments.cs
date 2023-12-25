@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
@@ -80,6 +81,14 @@ public class ForumPostComments : MonoBehaviour
         }
         
 
+    }
+
+    public void Refresh()
+    {
+        if (!String.IsNullOrEmpty(postID))
+        {
+            Init(postID);
+        }
     }
     
     private void AddTags(TagResponse[] tags)
@@ -370,6 +379,7 @@ public class ForumPostComments : MonoBehaviour
             infoText.text = "Success to create comment";
             infoText.color = Color.green;
             commentInputField.text = "";
+            Init(postID);
         }
         else
         {
@@ -389,6 +399,12 @@ public class ForumPostComments : MonoBehaviour
             infoText.text = "Success to edit comment";
             infoText.color = Color.green;
             commentInputField.text = "";
+            
+            DOVirtual.DelayedCall(2f, () =>
+            {
+                canvasManager.postComments.GetComponent<ForumPostComments>().Refresh();
+                canvasManager.commentComments.GetComponent<CommentComments>().Refresh();
+            });
             
             // If successfully edited the command, return to add command mode
             AddCommentMode();

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -191,6 +192,11 @@ public class ForumPost : MonoBehaviour
             response = request.downloadHandler.text;
             Debug.Log("Success to delete forum post detail: " + response);
             deleteText.text = "Post is successfully deleted";
+            DOVirtual.DelayedCall(2f, () =>
+            {
+                canvasManager.gameDetailsPage.GetComponent<GameDetails>().OnClickedForumButton();
+                canvasManager.groupDetailsPage.GetComponent<GroupDetails>().OnClickedForumButton();
+            });
         }
         else
         {

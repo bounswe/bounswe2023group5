@@ -96,6 +96,14 @@ public class CommentComments : MonoBehaviour
         DisplayReplies();
     }
     
+    public void Refresh()
+    {
+        if (!String.IsNullOrEmpty(commentID) && (commentInfo != null))
+        {
+            Init(commentID, commentInfo);
+        }
+    }
+    
     // Displays the reply comments
     private void DisplayReplies ()
     {
@@ -207,12 +215,14 @@ public class CommentComments : MonoBehaviour
         StartCoroutine(PostEdit(url, bodyJsonString));
     }
 
+    /*
     public void EditComment(CommentEditRequest commentEditRequest)
     {
         string url = AppVariables.HttpServerUrl + "/comment/edit";
         string bodyJsonString = JsonConvert.SerializeObject(commentEditRequest);
         StartCoroutine(Put(url, bodyJsonString));
     }
+    */
 
     // Comment creation is not done at this layer. Replying to comment in this layer is 
     // equivalent to comment creation in the upper layer
@@ -263,6 +273,7 @@ public class CommentComments : MonoBehaviour
         request.downloadHandler.Dispose();
     }
 
+    /*
     IEnumerator Put(string url, string bodyJsonString)
     {
         var request = new UnityWebRequest(url, "PUT");
@@ -278,6 +289,7 @@ public class CommentComments : MonoBehaviour
         request.uploadHandler.Dispose();
         request.downloadHandler.Dispose();
     }
+    */
 
     IEnumerator Delete(string url)
     {
