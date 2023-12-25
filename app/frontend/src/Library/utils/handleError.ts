@@ -1,4 +1,3 @@
-import { message } from "antd";
 import { NotificationUtil } from "./notification";
 
 export function handleError(error: any) {
@@ -10,8 +9,7 @@ export function handleError(error: any) {
       text =
         (error as Error).message ?? `Unknown Error: ${JSON.stringify(error)}`;
     }
-    message.error(text);
-    console.error(error as Error);
+    NotificationUtil.error(text);
   }
 }
 
