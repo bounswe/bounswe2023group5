@@ -23,7 +23,7 @@ import {
   InfoCircleOutlined,
 } from "@ant-design/icons";
 import clsx from "clsx";
-import { Button, Tooltip, message } from "antd";
+import { Button, Tooltip } from "antd";
 import { useEffect, useState } from "react";
 import TagRenderer from "../../Components/TagRenderer/TagRenderer.tsx";
 import { twj } from "tw-to-css";
@@ -183,7 +183,7 @@ function ForumPost() {
     if (elem && isImageAnnotationsApplied === false) {
       const config = {
         image: elem,
-        readOnly: !(user.id === post.poster.id || isAdmin),
+        readOnly: !(user?.id === post.poster.id || isAdmin),
       };
 
       const anno = new Annotorious(config);

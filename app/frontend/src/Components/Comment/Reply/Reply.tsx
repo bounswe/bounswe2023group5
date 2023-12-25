@@ -62,7 +62,7 @@ function Reply({ reply }: { reply: any }) {
       <div className={styles.meta}>
         <span>{reply.commenter.username}</span>
         <span>{reply.createdAt && formatDate(reply.createdAt)}</span>
-        {user.username === reply.commenter.username && (
+        {user?.username === reply.commenter.username && (
           <div className={styles.delete}>
             <Button
               type="text"
