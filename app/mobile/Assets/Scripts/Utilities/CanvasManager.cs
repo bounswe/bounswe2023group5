@@ -204,6 +204,10 @@ public class CanvasManager : MonoBehaviour
     {
         currentActivePage.SetActive(false);
         gameDetailsPage.SetActive(false);
+        if (previousActivePage == gameDetailsPage)
+        {
+            previousActivePage = gamesPage;
+        }
         previousActivePage.SetActive(true);
         currentActivePage = previousActivePage;
     }
