@@ -195,6 +195,7 @@ public class GetProfile : MonoBehaviour
     }
     public void ShowMyNotifications()
     {
+        queryParams.Clear();
         if (lastObject != null)
         {
             lastObject.SetActive(false);
