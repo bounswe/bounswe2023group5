@@ -1,5 +1,3 @@
-
-
 @import "../../colors";
 
 .container {
@@ -10,21 +8,21 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-
+  display: flex;
+  justify-content: center;
 }
 
 @media only screen and (max-width: 976px) {
-    .container {
-      flex: 0 1 100%;
-    }
+  .container {
+    flex: 0 1 100%;
   }
-  
-@media only screen and (min-width: 976px) {
-.container {
-    flex: 0 1 calc(100% * (1 / 2) - 1rem);
-}
 }
 
+@media only screen and (min-width: 976px) {
+  .container {
+    flex: 0 1 calc(100% * (1 / 2) - 1rem);
+  }
+}
 
 .header {
   display: flex;
@@ -33,10 +31,9 @@
   justify-content: center;
   background-color: $violet;
   cursor: pointer;
-  h1{
+  h1 {
     margin-left: 10px;
   }
-
 }
 
 .descriptionContainer {
@@ -45,7 +42,7 @@
   align-items: center;
   justify-content: center;
   font-weight: bold;
-    font-size: 1.2rem;
+  font-size: 1.2rem;
 }
 
 .description {
@@ -77,13 +74,13 @@
   bottom: 0.5em;
 }
 
-.promotion{
-    color: $orange-dark-60;
+.promotion {
+  color: $orange-dark-60;
 }
 
-.crown{
-    color: $yellow-dark-20;
-    font-size: 1.5rem;
-    margin-left: 20px;
-    margin-right: 20px;
+.crown {
+  color: $yellow-dark-20;
+  font-size: 1.5rem;
+  margin-left: 20px;
+  margin-right: 20px;
 }
