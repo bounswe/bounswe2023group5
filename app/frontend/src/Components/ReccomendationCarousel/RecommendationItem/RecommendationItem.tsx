@@ -28,7 +28,7 @@ function RecommendationItem({
         ></img>
       ):
       (<img
-        src={"../../../assets/images/guru.jpeg"}
+        src={"../../../assets/images/group.png"}
         alt={name}
         width={120}
         height={100}
