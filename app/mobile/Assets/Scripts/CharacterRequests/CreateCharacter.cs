@@ -25,6 +25,7 @@ public class CreateCharacter : MonoBehaviour
     [SerializeField] private TMP_InputField height;
     [SerializeField] private TMP_InputField age;
     [SerializeField] private MultySelectDopdown gamesDropdown;
+    [SerializeField] private TMP_InputField description;
     
     [SerializeField] private Button createCharacterButton;
     [SerializeField] private TMP_Text infoText;
@@ -33,6 +34,10 @@ public class CreateCharacter : MonoBehaviour
     private bool isImageUploaded;
     
     private CanvasManager canvasManager;
+
+    private string imageFileName;
+
+    [SerializeField] private Button exitButton;
     
     private void Awake()
     {
@@ -41,6 +46,7 @@ public class CreateCharacter : MonoBehaviour
         uploadImageButton.onClick.AddListener(OnClickedUploadImage);
         createCharacterButton.onClick.AddListener(OnClickedCreateCharacter);
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
+        exitButton.onClick.AddListener(exit);
     }
 
     private void Start()
@@ -51,6 +57,8 @@ public class CreateCharacter : MonoBehaviour
 
     public void Init()
     {
+        imageFileName = "";
+        ClearFields();
         PopulateMultiSelectDropdown(gamesDropdown, gamesArray);
         isImageUploaded = false;
     }
@@ -71,10 +79,51 @@ public class CreateCharacter : MonoBehaviour
     
     private void OnClickedUploadImage()
     {
-        string path = FileController.PickAnImageFile();
-        StartCoroutine(LoadImage(path));
+        RequestPermissionAsynchronously();
+        
     }
     
+    private async void RequestPermissionAsynchronously( bool readPermissionOnly = false )
+    {
+        NativeFilePicker.Permission permission = await NativeFilePicker.RequestPermissionAsync( readPermissionOnly );
+        if (permission == NativeFilePicker.Permission.Granted || permission == NativeFilePicker.Permission.ShouldAsk)
+        {
+            Debug.Log( "Permission granted" );
+            string path = PickAnImageFile();
+            infoText.text = "path 1: " + path;
+        }
+        else
+        {
+            Debug.Log("Permission denied");
+            infoText.text = "permission denied";
+        }
+    }
+    
+    public string PickAnImageFile()			
+    {
+        // Don't attempt to import/export files if the file picker is already open
+        if( NativeFilePicker.IsFilePickerBusy() )
+            return "";
+        string _path = "";
+        // Pick a PDF file
+        string permission = NativeFilePicker.PickFile( ( path ) =>
+        {
+            if (path == null)
+            {
+                _path = "null";
+                Debug.Log("Operation cancelled");
+            }
+            else
+            {
+                infoText.text = "path 2: " + path;
+                _path = path;
+                StartCoroutine(LoadImage(path));
+            }
+        }, new string[] { "image/*" } );
+        Debug.Log( "Permission result: " + permission );
+        return permission;
+    }
+    private Texture2D texture2D;
     IEnumerator LoadImage(string url)
     {
         // Load the image from the specified path
@@ -84,17 +133,75 @@ public class CreateCharacter : MonoBehaviour
         // Check for errors during image loading
         if (string.IsNullOrEmpty(www.error))
         {
+            texture2D = www.texture;
             Sprite uploadImageSprite = Sprite.Create(www.texture, new Rect(0, 0, www.texture.width, www.texture.height), new Vector2(0.5f, 0.5f));
             uploadImage.sprite = uploadImageSprite;
             Color tempColor = uploadImage.color;
             tempColor.a = 1f;
             uploadImage.color = tempColor;
-            isImageUploaded = true;
+            StartCoroutine(UploadSprite(texture2D, "character-icons"));
         }
         else
         {
             Debug.Log("Error loading image: " + www.error);
         }
+    }
+    /*
+    public class ImageUploadRequest
+    {
+        public string image;
+    }
+    
+    IEnumerator ImagePost(Texture2D texture, string folder)
+    {
+        Texture2D textureNew = texture;
+        byte[] imageBytes = textureNew.EncodeToPNG();
+        string imageString = Convert.ToBase64String(imageBytes);
+        
+        ImageUploadRequest imageUploadRequest = new ImageUploadRequest();
+        imageUploadRequest.image = imageString;
+        string bodyJsonString = JsonUtility.ToJson(imageUploadRequest);
+        var request = new UnityWebRequest($"{AppVariables.HttpServerUrl}/image/upload?folder={folder}", "POST");
+        byte[] bodyRaw = Encoding.UTF8.GetBytes(bodyJsonString);
+        request.uploadHandler = (UploadHandler) new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
+        yield return request.SendWebRequest();
+        var response = request.downloadHandler.text;
+        if (request.responseCode == 200)
+        {
+            var _CreateGameResponseData = JsonConvert.DeserializeObject<GameDetail>(response);
+            Debug.Log("Success to upload image: " + response);
+        }
+        else
+        {
+            Debug.Log("Error to upload image: " + response);
+
+        }
+        
+        request.downloadHandler.Dispose();
+        request.uploadHandler.Dispose();
+      
+    }
+    */
+    IEnumerator UploadSprite(Texture2D texture, string folder) {
+        Texture2D textureNew = texture;
+        byte[] imageBytes = textureNew.EncodeToPNG();
+        WWWForm form = new WWWForm();
+        form.AddBinaryData("image", imageBytes) ;
+
+        UnityWebRequest www = UnityWebRequest.Post($"{AppVariables.HttpServerUrl}/image/upload?folder={folder}", form);
+        yield return www.SendWebRequest();
+
+        imageFileName = www.downloadHandler.text;
+        if(www.isNetworkError || www.isHttpError) {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            isImageUploaded = true;
+            Debug.Log("Form upload complete!");
+        }
+        www.downloadHandler.Dispose();
     }
     
     private void ListGames(GetGameListRequest gameRequestData)
@@ -149,6 +256,7 @@ public class CreateCharacter : MonoBehaviour
             String.IsNullOrEmpty(race.text) || String.IsNullOrEmpty(status.text) ||
             String.IsNullOrEmpty(occupation.text) || String.IsNullOrEmpty(voiceActor.text) ||
             String.IsNullOrEmpty(height.text) || String.IsNullOrEmpty(age.text) ||
+            String.IsNullOrEmpty(description.text) ||
             !isImageUploaded || (gamesDropdown.GetSelectedItems().Count == 0))
         {
             String message = "Unable to create character: Some fields are empty";
@@ -160,6 +268,7 @@ public class CreateCharacter : MonoBehaviour
         string url = AppVariables.HttpServerUrl + "/character/create";
         var createCharacterRequest = new CharacterRequest();
         createCharacterRequest.name = name.text;
+        createCharacterRequest.icon = imageFileName;
         createCharacterRequest.birthDate = birthDate.text;
         createCharacterRequest.type = type.text;
         createCharacterRequest.gender = gender.text;
@@ -169,6 +278,16 @@ public class CreateCharacter : MonoBehaviour
         createCharacterRequest.voiceActor = voiceActor.text;
         createCharacterRequest.height = height.text;
         createCharacterRequest.age = age.text;
+        createCharacterRequest.description = description.text;
+
+        List<string> name_ids = new List<string>();
+        
+        foreach (var name_id in gamesDropdown.GetSelectedItems())
+        {
+            name_ids.Add(name_id.Item2);
+        }
+
+        createCharacterRequest.games = name_ids.ToArray();
 
         string bodyJson = JsonConvert.SerializeObject(createCharacterRequest);
 
@@ -211,5 +330,10 @@ public class CreateCharacter : MonoBehaviour
     {
         infoText.text = successText;
         infoText.color = Color.green;
+    }
+
+    private void exit()
+    {
+        canvasManager.HideCreateCharacterPage();
     }
 }
