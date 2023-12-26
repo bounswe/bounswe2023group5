@@ -298,6 +298,10 @@ public class CanvasManager : MonoBehaviour
     {
         currentActivePage.SetActive(false);
         groupDetailsPage.SetActive(false);
+        if (previousActivePage == groupDetailsPage)
+        {
+            previousActivePage = groupsPage;
+        }
         previousActivePage.SetActive(true);
         currentActivePage = previousActivePage;
     }
@@ -309,11 +313,7 @@ public class CanvasManager : MonoBehaviour
         previousActivePage = currentActivePage;
         currentActivePage = groupsPage;
     }
-
-    public void HideGroupsPage()
-    {
-        groupsPage.SetActive(false);
-    }
+    
     
     public void ShowPostComments(string id)
     {

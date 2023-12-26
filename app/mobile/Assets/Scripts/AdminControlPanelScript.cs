@@ -20,6 +20,7 @@ public class AdminControlPanelScript : MonoBehaviour
     [SerializeField] private Button banUserButton;
     [SerializeField] private Button makeAdminButton;
     [SerializeField] private Button createCharacterButton;
+    [SerializeField] private Button deleteAccountButton;
     private CanvasManager canvasManager;
 
     
@@ -30,6 +31,7 @@ public class AdminControlPanelScript : MonoBehaviour
         updateTagButton.onClick.AddListener(OnClickedUpdateTag);
         deleteTagButton.onClick.AddListener(OnClickedDeleteTag);
         createCharacterButton.onClick.AddListener(OnClickedCreateCharacter);
+        deleteAccountButton.onClick.AddListener(OnClickedDeleteAccount);
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
     }
 
@@ -113,6 +115,19 @@ public class AdminControlPanelScript : MonoBehaviour
         createCharacterButton.image.color = Color.green;
         
         canvasManager.ShowCreateCharacterPage();
+    }
+    
+    private void OnClickedDeleteAccount()
+    {
+        // Set all buttons' colors yellow, and this button green
+        createGameButton.image.color = Color.yellow;
+        createTagButton.image.color = Color.yellow;
+        updateTagButton.image.color = Color.yellow;
+        deleteTagButton.image.color = Color.yellow;
+        createCharacterButton.image.color = Color.yellow;
+        deleteAccountButton.image.color = Color.green;
+        
+        canvasManager.ShowDeleteAccountPage();
     }
     
 }
