@@ -43,7 +43,7 @@ public class ForumPost : MonoBehaviour
     {
         // commentManager = FindObjectOfType(typeof(openComment)) as openComment;
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
-        forumPostComments.onClick.AddListener(OnClickedForumPostComments);
+        forumPostComments?.onClick.AddListener(OnClickedForumPostComments);
         editPost.onClick.AddListener(OnClickedEditPost);
         deletePost.onClick.AddListener(OnClickedDeletePost);
         deletePanel.SetActive(false);

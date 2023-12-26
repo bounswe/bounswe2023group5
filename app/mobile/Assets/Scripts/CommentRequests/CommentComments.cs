@@ -68,7 +68,7 @@ public class CommentComments : MonoBehaviour
         Debug.Log("replies: "+ replies);
         
         commentContent.text = commentInfo.commentContent;
-        lastEditedAt.text = commentInfo.lastEditedAt;
+        lastEditedAt.text = commentInfo.lastEditedAt.ToString("dd/MM/yyyy");
         overallVote.text = Convert.ToString(commentInfo.overallVote);
         if (commentInfo.commenter == null)
         {
