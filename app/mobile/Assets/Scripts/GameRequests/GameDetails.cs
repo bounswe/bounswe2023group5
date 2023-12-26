@@ -16,8 +16,10 @@ public class GameDetails : MonoBehaviour
     [SerializeField] private Button summaryButton;
     [SerializeField] private Button reviewsButton;
     [SerializeField] private Button forumButton;
+    [SerializeField] private Button charactersButton;
     [SerializeField] private GameObject summaryManager;
     [SerializeField] private GetAllReviews getAllReviews;
+    [SerializeField] private CharactersPage charactersPage;
 
     [SerializeField] private ForumGetPostList forumManager;
     [SerializeField] private Button addForumPost;
@@ -54,6 +56,8 @@ public class GameDetails : MonoBehaviour
     private TagResponse[] otherTags;
     private string minSystemReq;
     
+    private Color defaultColor = Color.cyan;
+    
 
     
     private void Awake()
@@ -63,6 +67,7 @@ public class GameDetails : MonoBehaviour
         forumButton.onClick.AddListener(OnClickedForumButton);
         exitButton.onClick.AddListener(OnClickedExitButton);
         addForumPost.onClick.AddListener(OnClickedAddPost);
+        charactersButton.onClick.AddListener(OnClickedCharacters);
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
     }
 
@@ -82,15 +87,14 @@ public class GameDetails : MonoBehaviour
     
     private void OnClickedExitButton()
     {
-        canvasManager.ShowGamesPage();
         canvasManager.HideGameDetailsPage();
     }
     
     private void OnClickedSummaryButton()
     {
-        summaryButton.image.color = Color.blue;
-        reviewsButton.image.color = Color.white;
-        forumButton.image.color = Color.white;
+        summaryButton.image.color = Color.black;
+        reviewsButton.image.color = defaultColor;
+        forumButton.image.color = defaultColor;
         
         summaryManager.gameObject.SetActive(true);
         getAllReviews.gameObject.SetActive(false);
@@ -99,9 +103,9 @@ public class GameDetails : MonoBehaviour
     
     private void OnClickedReviewsButton()
     {
-        summaryButton.image.color = Color.white;
-        reviewsButton.image.color = Color.blue;
-        forumButton.image.color = Color.white;
+        summaryButton.image.color = defaultColor;
+        reviewsButton.image.color = Color.black;
+        forumButton.image.color = defaultColor;
         
         summaryManager.gameObject.SetActive(false);
         getAllReviews.gameObject.SetActive(true);
@@ -111,9 +115,9 @@ public class GameDetails : MonoBehaviour
     
     private void OnClickedForumButton()
     {
-        summaryButton.image.color = Color.white;
-        reviewsButton.image.color = Color.white;
-        forumButton.image.color = Color.blue;
+        summaryButton.image.color = defaultColor;
+        reviewsButton.image.color = defaultColor;
+        forumButton.image.color = Color.black;
         
         summaryManager.gameObject.SetActive(false);
         getAllReviews.gameObject.SetActive(false);
@@ -130,8 +134,15 @@ public class GameDetails : MonoBehaviour
 
     private void OnClickedAddPost()
     {
-        forumCreatePostManager.Init(forum);
         canvasManager.ShowCreateEditPostPage();
+        forumCreatePostManager.Init(forum, gameId);
+    }
+
+    private void OnClickedCharacters()
+    {
+        // show characters page
+        canvasManager.ShowCharactersPage();
+        charactersPage.Init(gameId);
     }
     
 

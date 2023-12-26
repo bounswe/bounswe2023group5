@@ -30,6 +30,9 @@ public class CreateGame : MonoBehaviour
     [SerializeField] private Image uploadImage;
     [SerializeField] private TMP_Text infoText;
     
+    private string imageFileName;
+
+    private DateTime _dateTime;
     private void Awake()
     {
         createButton.onClick.AddListener(OnClickedCreate);
@@ -44,10 +47,50 @@ public class CreateGame : MonoBehaviour
 
     private void OnClickedUploadImage()
     {
-        string path = FileController.PickAnImageFile();
-        StartCoroutine(LoadImage(path));
+        RequestPermissionAsynchronously();
+        
+    }
+    private async void RequestPermissionAsynchronously( bool readPermissionOnly = false )
+    {
+        NativeFilePicker.Permission permission = await NativeFilePicker.RequestPermissionAsync( readPermissionOnly );
+        if (permission == NativeFilePicker.Permission.Granted || permission == NativeFilePicker.Permission.ShouldAsk)
+        {
+            Debug.Log( "Permission granted" );
+            string path = PickAnImageFile();
+            infoText.text = "path 1: " + path;
+        }
+        else
+        {
+            Debug.Log("Permission denied");
+            infoText.text = "permission denied";
+        }
     }
     
+    public string PickAnImageFile()			
+    {
+        // Don't attempt to import/export files if the file picker is already open
+        if( NativeFilePicker.IsFilePickerBusy() )
+            return "";
+        string _path = "";
+        // Pick a PDF file
+        string permission = NativeFilePicker.PickFile( ( path ) =>
+        {
+            if (path == null)
+            {
+                _path = "null";
+                Debug.Log("Operation cancelled");
+            }
+            else
+            {
+                infoText.text = "path 2: " + path;
+                _path = path;
+                StartCoroutine(LoadImage(path));
+            }
+        }, new string[] { "image/*" } );
+        Debug.Log( "Permission result: " + permission );
+        return permission;
+    }
+    private Texture2D texture2D;
     IEnumerator LoadImage(string url)
     {
         // Load the image from the specified path
@@ -57,16 +100,39 @@ public class CreateGame : MonoBehaviour
         // Check for errors during image loading
         if (string.IsNullOrEmpty(www.error))
         {
+            texture2D = www.texture;
             Sprite uploadImageSprite = Sprite.Create(www.texture, new Rect(0, 0, www.texture.width, www.texture.height), new Vector2(0.5f, 0.5f));
             uploadImage.sprite = uploadImageSprite;
             Color tempColor = uploadImage.color;
             tempColor.a = 1f;
             uploadImage.color = tempColor;
+            StartCoroutine(UploadSprite(texture2D, "gameIcon"));
         }
         else
         {
             Debug.Log("Error loading image: " + www.error);
         }
+    }
+    
+
+    IEnumerator UploadSprite(Texture2D texture, string folder) {
+            Texture2D textureNew = texture;
+            byte[] imageBytes = textureNew.EncodeToPNG();
+            WWWForm form = new WWWForm();
+            form.AddBinaryData("image", imageBytes) ;
+
+            UnityWebRequest www = UnityWebRequest.Post($"{AppVariables.HttpServerUrl}/image/upload?folder={folder}", form);
+            yield return www.SendWebRequest();
+ 
+            imageFileName = www.downloadHandler.text;
+            
+            if(www.isNetworkError || www.isHttpError) {
+                Debug.Log(www.error);
+            }
+            else {
+                Debug.Log("Form upload complete!");
+            }
+            www.downloadHandler.Dispose();
     }
 
     private void OnClickedCreate()
@@ -78,8 +144,8 @@ public class CreateGame : MonoBehaviour
         createGameRequest.gameDescription = gameDescription.text;
         
         // Lines below will change
-        createGameRequest.gameIcon = "gameIcon file";
-        createGameRequest.releaseDate = releaseDate.text;
+        createGameRequest.gameIcon = imageFileName;
+        createGameRequest.releaseDate = DateTime.ParseExact( releaseDate.text, "MM/dd/yy", null).ToString("yyyy-MM-dd");
         createGameRequest.playerTypes = new string[1]
         {
             playerTypesArrayID[playerTypes.value]
@@ -88,7 +154,7 @@ public class CreateGame : MonoBehaviour
         {
             genreArrayID[genre.value]
         };
-        createGameRequest.production = platformsArrayID[production.value];
+        createGameRequest.production = productionArrayID[production.value];
         createGameRequest.platforms= new string[1]
         {
             platformsArrayID[platforms.value]
@@ -139,6 +205,7 @@ public class CreateGame : MonoBehaviour
         // We can add any of the query parameters (name, color, tagType, 
         // isDeleted) in ListToQueryParams. Or we may add no query 
         // parameters.
+        imageFileName = "";
         string url = AppVariables.HttpServerUrl + "/tag/get-all";
         StartCoroutine(GetAllTags(url));
     }

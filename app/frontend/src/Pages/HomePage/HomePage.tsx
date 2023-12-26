@@ -17,6 +17,8 @@ import GameReccomendation from "../../Components/ReccomendationCarousel/Recommen
 import { useElementSize } from "usehooks-ts";
 import RecommendationCarousel from "../../Components/ReccomendationCarousel/RecommendationCarousel";
 import { PacmanLoader } from "react-spinners";
+import PromotedEntities from "../../Components/PromotedEntities/PromotedEntities";
+import PromotedForumPost from "../../Components/PromotedEntities/PromotedPosts";
 const sortOptions = [
   { label: "Creation Date", value: "CREATION_DATE" },
   { label: "Overall Vote", value: "OVERALL_VOTE" },
@@ -31,6 +33,8 @@ function HomePage() {
     "DESCENDING"
   );
   const [page, setPage] = useState(1);
+  const [promotedEntities, setPromotedEntities] = useState<any[]>([]);
+  const [notPromotedgames, setNotPromotedGames] = useState<any[]>([]);
 
   const toggleSortDir = () => {
     setSortDir((currentSortDir) =>
@@ -40,9 +44,18 @@ function HomePage() {
   const { data, isLoading } = useQuery(
     ["home", user?.id],
     () => getHomePosts(sortDirection, sortBy as any),
+
     {
-      enabled: !userLoading,
+      onSuccess: (data) => {
+        // Check if the data is an array and has at least two elements
+        if (Array.isArray(data) && data?.length >= 2) {
+          // Update promotedEntities with the first two elements of the data array
+          setPromotedEntities(data.slice(0, 2));
+          setNotPromotedGames(data.slice(2));
+        }
+      },
     }
+
   );
 
   const { data: games } = useQuery(
@@ -97,9 +110,31 @@ function HomePage() {
             style={{ width: "200px" }}
           />
         </div>
+        {promotedEntities ? (
+          promotedEntities
+            ?.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+            .map((post: any) => (
+              <div className={styles.postContainer}>
+                <PromotedForumPost
+                  post={post}
+                  forumId={post.forum}
+                  gameId={post.type === "GAME" && post.typeId}
+                  redirect="/home"
+                  type={post.type}
+                  typeName={post.typeName}
+                  typeId={post.typeId}
+                  key={post.id}
+                />
+              </div>
+            ))
+        ) : (
+          <div className={styles.spinnerContainer}>
+            <PacmanLoader color="#1b4559" size={30} />
+          </div>
+        )}
 
-        {data ? (
-          data
+        {notPromotedgames ? (
+          notPromotedgames
             ?.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
             .map((post: any) => (
               <div className={styles.postContainer}>

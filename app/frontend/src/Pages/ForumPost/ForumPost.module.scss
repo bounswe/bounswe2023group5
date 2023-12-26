@@ -34,7 +34,8 @@
     grid-template-rows: 80px min-content min-content min-content 250px min-content;
     border-radius: 0.5em;
     padding: 1em;
-    background-color: $celadon;
+    background-color: $celadon-dark-20;
+    box-shadow: inset 4px -12px 60px -35px rgba(0, 0, 0, 0.36);
     position: relative;
     gap: 0.5em;
     grid-template-areas:
@@ -53,7 +54,7 @@
       display: flex;
       align-items: center;
       grid-area: a;
-      background-color: $vanilla-light-50;
+      background-color: $celadon-light-50;
       border-radius: 0.5em;
       padding: 0.5em;
       span {
@@ -69,13 +70,13 @@
       font-weight: bold;
       margin: 0em 2em;
       opacity: 80%;
-      background-color: $vanilla-light-50;
+      background-color: $celadon-light-50;
     }
     .character {
       display: flex;
       align-items: center;
       grid-area: c;
-      background-color: $vanilla-light-50;
+      background-color: $celadon-light-50;
       border-radius: 0.5em;
       padding: 0.5em;
       span {
@@ -94,6 +95,7 @@
       h2 {
         font-size: 1.5em;
         font-weight: bold;
+        color: $celadon-dark-70;
       }
       .vote {
         grid-area: v;
@@ -127,20 +129,21 @@
       width: 100%;
       display: flex;
       justify-content: center;
-      background-color: $vanilla-light-50;
       border-radius: 0.5em;
+      padding: 0.5em;
+
       img {
         height: 100%;
         width: auto;
         object-fit: contain;
-        padding: 0.5em;
+        box-shadow: 1px 1px 4px #ffffff;
       }
     }
 
     .body {
       grid-area: b;
       padding: 0.5em;
-      background-color: $celadon-light-30;
+      background-color: $celadon-light-10;
       border-radius: 0.5em;
       position: relative;
 
@@ -177,14 +180,14 @@
     position: absolute;
     margin-top: 5px;
     margin-left: 20em;
-    padding: 0.6em 0.9em; 
+    padding: 0.6em 0.9em;
     font-size: 0.8em;
     display: flex;
-    background-color: $orange-light-10  ; 
+    background-color: $orange-light-10;
     align-items: center;
-    justify-content: center ;
-    border-radius: 0.3em; 
-    color: white; 
+    justify-content: center;
+    border-radius: 0.3em;
+    color: white;
 
     right: 0.5em;
 

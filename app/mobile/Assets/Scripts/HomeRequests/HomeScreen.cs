@@ -46,6 +46,7 @@ public class HomeScreen : MonoBehaviour
         request.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
         request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
+        request.SetRequestHeader("Authorization", PersistenceManager.UserToken);
         yield return request.SendWebRequest();
         var response = request.downloadHandler.text;
         Debug.Log(response);

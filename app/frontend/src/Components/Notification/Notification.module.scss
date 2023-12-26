@@ -1,54 +1,41 @@
 @import "../../colors";
+
 .notification {
   display: flex;
   align-items: center;
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 8px;
-  transition: border-color 0.3s;
+  border-radius: 0.5rem;
+  transition-property: border-color height;
+  transition-duration: 0.2s;
   margin: 5px;
-  height: 6em;
-  background-color: $orange-light-20;
+  height: 4em;
+  overflow: hidden;
+  background-color: $blue-green-light-50;
+  position: relative;
+
+  .notification-content {
+    font-size: 15px;
+  }
+  .date {
+    color: $blue-green-dark-50;
+    font-size: 12px;
+    position: absolute;
+    bottom: -5px;
+    right: 5px;
+    opacity: 0;
+  }
+}
+
+.notification.unread {
+  background-color: $blue-green-light-10;
 }
 
 .notification:hover {
   border-color: #007bff; /* Highlight border on hover */
   height: 6em;
   opacity: 0.7;
-}
-
-
-
-.hovered .notificationTitle {
-  visibility: hidden;
-}
-.notificationTitle {
-  visibility: visible;
-  font-size: 18px;
-}
-
-.hovered .notificationGame {
-  visibility: hidden;
-}
-.notificationGame {
-  visibility: visible;
-  font-size: 14px;
-}
-
-.hovered .floatingDescription {
-  visibility: visible;
-  font-size: 18px;
-  z-index: 1;
-}
-.floatingDescription {
-  visibility: hidden;
-  position: absolute;
-  z-index: 1;
-}
-.row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  position: relative;
-  margin-left: 10px;
+  .date {
+    opacity: 1;
+  }
 }

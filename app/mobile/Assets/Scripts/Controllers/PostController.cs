@@ -1,4 +1,7 @@
-﻿public class PostController
+﻿using System;
+using Newtonsoft.Json;
+
+public class PostController
 {
     
 }
@@ -24,7 +27,31 @@ public class PostCreateRequest
     public string postImage;
     public string forum;
     public string[] tags;
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public string achievement;
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+    public string character;
+}
+
+public class PostCreateRequestAch
+{
+    public string title;
+    public string postContent;
+    public string postImage;
+    public string forum;
+    public string[] tags;
+    public string achievement;
+    // public string character;
+}
+
+public class PostCreateRequestChar
+{
+    public string title;
+    public string postContent;
+    public string postImage;
+    public string forum;
+    public string[] tags;
+    //public string achievement;
     public string character;
 }
 
@@ -45,21 +72,23 @@ public class PostCreateRequestBasic
 
 public class GetPostListResponse
 {
-    public string id;
     public string title;
     public string postContent;
-    //public string postImage;
+    public string postImage;
     public User poster;
     public string userVote;
-    public string lastEditedAt;
+    //public string postImage;
+    public string forum;
+    public AchievementResponse achievement;
+    public CharacterResponse character;
+    public DateTime lastEditedAt;
     public string createdAt;
     public bool isEdited;
     public TagResponse[] tags;
     public bool inappropriate;
+    public bool locked;
     public int overallVote;
     public int voteCount;
-    public int commentCount;
-    
 }
 
 

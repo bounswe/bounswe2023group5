@@ -19,11 +19,11 @@ import {
   CommentOutlined,
   WarningOutlined,
   ArrowLeftOutlined,
-   CheckOutlined,
+  CheckOutlined,
   InfoCircleOutlined,
 } from "@ant-design/icons";
 import clsx from "clsx";
-import { Button, Tooltip, message } from "antd";
+import { Button, Tooltip } from "antd";
 import { useEffect, useState } from "react";
 import TagRenderer from "../../Components/TagRenderer/TagRenderer.tsx";
 import { twj } from "tw-to-css";
@@ -35,12 +35,15 @@ import {
   handleError,
 } from "../../Library/utils/handleError.ts";
 import { Recogito } from "@recogito/recogito-js";
+import "@recogito/recogito-js/dist/recogito.min.css";
 import {
   createAnnotation,
   deleteAnnotation,
   updateAnnotation,
 } from "../../Services/annotation.ts";
 import { NotificationUtil } from "../../Library/utils/notification.ts";
+import { Annotorious } from "@recogito/annotorious";
+import "@recogito/annotorious/dist/annotorious.min.css";
 import CharacterDetails from "../../Components/Character/CharacterDetails.tsx";
 
 function ForumPost() {
@@ -49,6 +52,8 @@ function ForumPost() {
   const location = useLocation();
   const [searchParams] = useSearchParams();
   const [isAnnotationsApplied, setIsAnnotationsApplied] = useState(false);
+  const [isImageAnnotationsApplied, setIsImageAnnotationsApplied] =
+    useState(false);
   const { postId, forumId } = useParams();
   const { data: post, isLoading } = useQuery(["post", postId], () =>
     getPost(postId!)
@@ -70,10 +75,12 @@ function ForumPost() {
   );
 
   const hideTagField = () => {
-    const tagField = document.querySelector(".r6o-widget.r6o-tag");
+    const tagField = document.querySelectorAll(".r6o-widget.r6o-tag");
 
-    if (tagField) {
-      tagField.style.display = "none";
+    if (tagField && tagField.length > 0) {
+      for (const elem of tagField) {
+        elem.style.display = "none";
+      }
     }
   };
 
@@ -82,6 +89,14 @@ function ForumPost() {
 
     if (textElement) {
       textElement.addEventListener("click", hideTagField);
+    }
+  }, [isLoading]);
+
+  useEffect(() => {
+    const imageElement = document.querySelector("#imageElement");
+
+    if (imageElement) {
+      imageElement.addEventListener("click", hideTagField);
     }
   }, [isLoading]);
 
@@ -164,6 +179,70 @@ function ForumPost() {
     }
   };
 
+  const linkImageAnnotation = (elem: any) => {
+    if (elem && isImageAnnotationsApplied === false) {
+      const config = {
+        image: elem,
+        readOnly: !(user?.id === post.poster.id || isAdmin),
+      };
+
+      const anno = new Annotorious(config);
+
+      setIsImageAnnotationsApplied(true);
+
+      anno
+        .loadAnnotations(
+          `${
+            import.meta.env.VITE_APP_ANNOTATION_API_URL
+          }/annotation/get-image-annotations?source=${pageUrl}`
+        )
+        .then(function (annotations) {})
+        .catch((error) => {
+          if (error instanceof SyntaxError) {
+            return;
+          }
+          NotificationUtil.error("Error occurred while retrieving annotations");
+        });
+
+      anno.on("createAnnotation", async (annotation: any, overrideId) => {
+        try {
+          annotation.target = { ...annotation.target, source: pageUrl };
+          const newId = pageUrl + "/" + annotation.id.replace("#", "");
+          annotation.id = newId;
+          await createAnnotation(annotation);
+          NotificationUtil.success("You successfully create the annotation");
+        } catch (error) {
+          console.log(error);
+          handleAxiosError(error);
+        }
+      });
+
+      anno.on("deleteAnnotation", async function (annotation: any) {
+        try {
+          const id = annotation.id;
+          await deleteAnnotation(id);
+          NotificationUtil.success("You successfully delete the annotation");
+        } catch (error) {
+          handleAxiosError(error);
+        }
+      });
+
+      anno.on("selectAnnotation", async function (annotation: any) {
+        hideTagField();
+      });
+
+      anno.on("updateAnnotation", async function (annotation, _previous) {
+        try {
+          annotation.target = { ...annotation.target, source: pageUrl };
+          await updateAnnotation(annotation);
+          NotificationUtil.success("You successfully update the annotation");
+        } catch (error) {
+          handleAxiosError(error);
+        }
+      });
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.topContainer}>
@@ -221,8 +300,9 @@ function ForumPost() {
             <TagRenderer tags={post.tags} />
           </div>{" "}
           {post.postImage && (
-            <div className={styles.image}>
+            <div className={styles.image} id="imageElement">
               <img
+                ref={(elem) => linkImageAnnotation(elem)}
                 height="30px"
                 src={`${import.meta.env.VITE_APP_IMG_URL}${post.postImage}`}
               />
@@ -271,11 +351,6 @@ function ForumPost() {
               >
                 Comment{" "}
               </Button>
-              <WarningOutlined
-                style={twj("text-red-500 text-lg cursor-pointer")}
-                type="text"
-                alt="report"
-              />
             </div>
             {isCommenting && <CommentForm />}
           </div>

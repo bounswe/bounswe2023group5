@@ -18,7 +18,7 @@ public static class FileController
 			return "";
 		string _path = "";
 		// Pick a PDF file
-		NativeFilePicker.Permission permission = NativeFilePicker.PickFile( ( path ) =>
+		string permission = NativeFilePicker.PickFile( ( path ) =>
 		{
 			if( path == null )
 				Debug.Log( "Operation cancelled" );
@@ -37,7 +37,7 @@ public static class FileController
 			return;
 				
 		// Pick a PDF file
-		NativeFilePicker.Permission permission = NativeFilePicker.PickFile( ( path ) =>
+		string permission = NativeFilePicker.PickFile( ( path ) =>
 		{
 			if( path == null )
 				Debug.Log( "Operation cancelled" );

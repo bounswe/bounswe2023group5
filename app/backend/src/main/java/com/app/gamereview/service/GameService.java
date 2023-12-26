@@ -417,6 +417,10 @@ public class GameService {
 		Profile profile = findProfile.get();
 		List<String> followedGameIds = profile.getGames();
 
+		if(followedGameIds.isEmpty()){
+			return getRecommendedGames();
+		}
+
 		TreeSet<RecommendGameDto> recommendedGames = new TreeSet<>(Comparator.reverseOrder());
 
 		for(String gameId : followedGameIds){
@@ -433,6 +437,22 @@ public class GameService {
 			if(recommendations.size() >= 10){	// get only top 10 recommendations
 				break;
 			}
+		}
+
+		if(recommendations.size() < 10){
+			int diff = 10;
+			Query query = new Query();	// all games except the base game
+			query.addCriteria(Criteria.where("isDeleted").is(false));
+			query.with(Sort.by(Sort.Direction.DESC, "overallVote"));
+			query.limit(diff);
+			List<Game> extraGames = mongoTemplate.find(query, Game.class);
+
+			for(Game game : extraGames){
+				if(!recommendations.contains(game))
+					recommendations.add(game);
+			}
+
+			return recommendations;
 		}
 
 		return recommendations;

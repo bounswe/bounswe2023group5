@@ -16,8 +16,14 @@ public class HomePage : MonoBehaviour
     [SerializeField] private TMP_Text dateText;
     [SerializeField] private TMP_Text voteText;
     [SerializeField] private TMP_Text typeNameText;
+    [SerializeField] private TMP_Text userNameText;
     [SerializeField] private Button upVoteButton;
     [SerializeField] private Button downVoteButton;
+    [SerializeField] private Button typeButton;
+    [SerializeField] private Button readMoreButton;
+    [SerializeField] private Button deleteButton;
+    [SerializeField] private Button hideButton;
+    
     private CanvasManager canvasManager;
     
     private string typeId;
@@ -25,12 +31,25 @@ public class HomePage : MonoBehaviour
     private string id;
     private int overallVote;
     private int choosenVote;
+    private string type;
 
     private void Awake()
     {
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
         upVoteButton.onClick.AddListener(OnClickedUpVote);
         downVoteButton.onClick.AddListener(OnClickedDownVote);
+        typeButton.onClick.AddListener(OnClickedTypeButton);
+        readMoreButton.onClick.AddListener(OnClickedReadMoreButton);
+        deleteButton.onClick.AddListener(OnClickedDeleteButton);
+        hideButton.onClick.AddListener(OnClickedHideButton);
+        if (PersistenceManager.Role == "ADMIN")
+        {
+            deleteButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            deleteButton.gameObject.SetActive(false);
+        }
     }
 
     public void Init(HomeResponse homeInfo)
@@ -45,11 +64,18 @@ public class HomePage : MonoBehaviour
         dateText.text = homeInfo.lastEditedAt.ToString("dd/MM/yyyy");
         voteText.text = homeInfo.overallVote.ToString();
         typeNameText.text = homeInfo.typeName;
+        type = homeInfo.type;
         typeId = homeInfo.typeId;
         voteType = homeInfo.type;
         id = homeInfo.id;
         overallVote = homeInfo.overallVote;
+        userNameText.text = homeInfo.poster?.username;
+
+        upVoteButton.interactable = homeInfo.userVote != "UPVOTE";
+        downVoteButton.interactable = homeInfo.userVote != "DOWNVOTE";
         
+        
+
     }
 
     private IEnumerator LoadImageFromURL(string imageUrl, Image targetImage)
@@ -72,8 +98,8 @@ public class HomePage : MonoBehaviour
     public void OnClickedUpVote()
     {
         var achievementCreateRequest = new CreateVoteRequest();
-        achievementCreateRequest.voteType = voteType;
-        achievementCreateRequest.typeId = typeId;
+        achievementCreateRequest.voteType = "POST";
+        achievementCreateRequest.typeId = id;
         achievementCreateRequest.choice = "UPVOTE";
         string bodyJsonString = JsonUtility.ToJson(achievementCreateRequest);
         StartCoroutine(PostVote(bodyJsonString));
@@ -82,11 +108,60 @@ public class HomePage : MonoBehaviour
     public void OnClickedDownVote()
     {
         var achievementCreateRequest = new CreateVoteRequest();
-        achievementCreateRequest.voteType = voteType;
-        achievementCreateRequest.typeId = typeId;
+        achievementCreateRequest.voteType = "POST";
+        achievementCreateRequest.typeId = id;
         achievementCreateRequest.choice = "DOWNVOTE";
         string bodyJsonString = JsonUtility.ToJson(achievementCreateRequest);
         StartCoroutine(PostVote(bodyJsonString));
+    }
+    
+    public void OnClickedTypeButton()
+    {
+        switch (type)
+        {
+            case "GAME":
+                canvasManager.ShowGameDetailsPage(typeId);
+                break;
+            case "GROUP":
+                canvasManager.ShowGroupDetailsPage(typeId);
+                break;
+        }
+    }
+    
+    private void OnClickedReadMoreButton()
+    {
+        canvasManager.ShowPostComments(id);
+    }
+    
+    private void OnClickedDeleteButton()
+    {
+        StartCoroutine(DeletePost(AppVariables.HttpServerUrl + "/post/delete" + "?id=" + id));
+    }
+    
+    private void OnClickedHideButton()
+    {
+        Destroy(gameObject);
+    }
+    
+    IEnumerator DeletePost(string url)
+    {
+        var request = new UnityWebRequest(url, "DELETE");
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+        request.SetRequestHeader("Authorization", PersistenceManager.UserToken);
+        yield return request.SendWebRequest();
+        string response = "";
+        if (request.responseCode == 200)
+        {
+            response = request.downloadHandler.text;
+            Debug.Log("Success to delete post: " + response);
+            Destroy(gameObject);
+        }
+        else
+        {
+            Debug.Log("Error to delete post: " + response);
+        }
+        request.downloadHandler.Dispose();
     }
 
     IEnumerator PostVote(string bodyJsonString)
@@ -108,6 +183,7 @@ public class HomePage : MonoBehaviour
             upVoteButton.interactable = voteResponse.choice == "UPVOTE" ? false : true;
             downVoteButton.interactable = voteResponse.choice == "DOWNVOTE" ? false : true;
             Debug.Log("Success to create vote: " + response);
+            // StartCoroutine(GetVote(AppVariables.HttpServerUrl + "/vote/get" + "?id=" + voteResponse.id));
         }
         else
         {
@@ -115,6 +191,25 @@ public class HomePage : MonoBehaviour
         }
         request.downloadHandler.Dispose();
         request.uploadHandler.Dispose();
+    }
+    
+    IEnumerator GetVote(string url)
+    {
+        var request = new UnityWebRequest(url, "GET");
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+        yield return request.SendWebRequest();
+        string response = "";
+        if (request.responseCode == 200)
+        {
+            response = request.downloadHandler.text;
+            Debug.Log("Success to get vote: " + response);
+        }
+        else
+        {
+            Debug.Log("Error to get vote: " + response);
+        }
+        request.downloadHandler.Dispose();
     }
     
 }

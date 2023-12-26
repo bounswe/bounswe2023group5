@@ -5,10 +5,11 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using UnityEngine.Serialization;
 
 public class ForumPost : MonoBehaviour
 {
-    [SerializeField] private Image userImage;
+    [SerializeField] private Image postImage;
     [SerializeField] private TMP_Text poster;
     [SerializeField] private TMP_Text title;
     [SerializeField] private TMP_Text postContent;
@@ -53,12 +54,19 @@ public class ForumPost : MonoBehaviour
         postInfoVal = postInfo;
         commentManager = commentManagerInfo;
         editPostManager = editPostManagerInfo;
-        string url = "http://ec2-16-16-166-22.eu-north-1.compute.amazonaws.com/";
-        // StartCoroutine(LoadImageFromURL(url + gameInfo.gameIcon, gameImage));
+        if (postInfo.postImage != null)
+        {
+            StartCoroutine(LoadImageFromURL(AppVariables.HttpImageUrl + postInfo.postImage, postImage));
+        }
+        else
+        {
+            postImage.gameObject.SetActive(false);
+        }
+
         // poster.text = postInfo.poster;
         title.text = postInfo.title;
         postContent.text = postInfo.postContent;
-        lastEditedAt.text = postInfo.lastEditedAt;
+        lastEditedAt.text = postInfo.lastEditedAt.ToString("dd/MM/yyyy");
         overallVote.text = Convert.ToString(postInfo.overallVote);
         if (postInfo.poster == null)
         {
@@ -69,7 +77,6 @@ public class ForumPost : MonoBehaviour
             userName.text = postInfo.poster.username;
             userId = postInfo.poster.id;
         }
-        postId = postInfo.id;
         
         Debug.Log("Post id is "+ postId);
 
@@ -77,19 +84,19 @@ public class ForumPost : MonoBehaviour
         
         if (postInfo.isEdited)
         {
-            lastEditedAt.text += " (edited)";
+            // lastEditedAt.text += " (edited)";
         }
         else
         {
             // This will be deleted
-            lastEditedAt.text += " (not edited)";
+            // lastEditedAt.text += " (not edited)";
         }
         
         
         deletePanel.gameObject.SetActive(false);
 
         // User can delete and edit her own posts
-        if ( (!String.IsNullOrEmpty(userId)) && (userId == PersistenceManager.id))
+        if ( (!String.IsNullOrEmpty(userId)) && (userId == PersistenceManager.id) || (PersistenceManager.Role == "ADMIN"))
         {
             deletePost.gameObject.SetActive(true);
             editPost.gameObject.SetActive(true);
@@ -98,6 +105,12 @@ public class ForumPost : MonoBehaviour
         {
             deletePost.gameObject.SetActive(false);
             editPost.gameObject.SetActive(false);
+        }
+        
+        // Admin can delete any post
+        if ( PersistenceManager.Role == "ADMIN")
+        {
+            deletePost.gameObject.SetActive(true);
         }
     }
 
@@ -134,14 +147,13 @@ public class ForumPost : MonoBehaviour
         {
             Texture2D texture = DownloadHandlerTexture.GetContent(request);
             targetImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+            targetImage.gameObject.SetActive(true);
         }
     }
     
     private void OnClickedForumPostComments()
     {
-
-        canvasManager.ShowPostComments();
-        commentManager.Init(postId, postInfoVal);
+        canvasManager.ShowPostComments(postId);
     }
 
     private void OnClickedEditPost()

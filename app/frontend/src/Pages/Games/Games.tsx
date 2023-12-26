@@ -24,8 +24,9 @@ function Games() {
   const [activeFilters, setActiveFilters] = useState();
 
   const { data: games } = useQuery(
-    ["games", activeFilters, searchText], () =>
-    getGames(activeFilters, searchText.length <= 0 ? undefined : searchText),
+    ["games", activeFilters, searchText],
+    () =>
+      getGames(activeFilters, searchText.length <= 0 ? undefined : searchText),
 
     {
       onSuccess: (data) => {
@@ -140,8 +141,8 @@ function Games() {
               Filter
             </Button>
           </div>
-          <div style={{width: "1070px", marginBottom: "10px"}}>
-              <PromotedEntities games={promotedEntities}/>
+          <div style={{ width: "100%", marginBottom: "10px" }}>
+            <PromotedEntities games={promotedEntities} />
           </div>
           <div className={styles.games}>
             {Array.isArray(notPromotedgames) &&

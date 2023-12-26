@@ -13,6 +13,7 @@ export const createCharacter = async ({
   age,
   games,
   icon,
+  description,
 }: {
   name: string;
   type: string;
@@ -26,6 +27,7 @@ export const createCharacter = async ({
   age: string;
   games: any;
   icon: string;
+  description: string;
 }) => {
   const response = await axios.post(
     `${import.meta.env.VITE_APP_API_URL}/character/create`,
@@ -42,6 +44,7 @@ export const createCharacter = async ({
       age,
       games,
       icon,
+      description,
     }
   );
 
@@ -54,4 +57,3 @@ export async function getCharacterByGame(gameId: string) {
   );
   return response.data;
 }
-
