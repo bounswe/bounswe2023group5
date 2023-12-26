@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -42,7 +43,7 @@ public class ForumPost : MonoBehaviour
     {
         // commentManager = FindObjectOfType(typeof(openComment)) as openComment;
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
-        forumPostComments.onClick.AddListener(OnClickedForumPostComments);
+        forumPostComments?.onClick.AddListener(OnClickedForumPostComments);
         editPost.onClick.AddListener(OnClickedEditPost);
         deletePost.onClick.AddListener(OnClickedDeletePost);
         deletePanel.SetActive(false);
@@ -54,7 +55,8 @@ public class ForumPost : MonoBehaviour
         postInfoVal = postInfo;
         commentManager = commentManagerInfo;
         editPostManager = editPostManagerInfo;
-        if (postInfo.postImage != null)
+        postId = postInfo.id;
+        if (postInfo.postImage != null && !postInfo.postImage.Contains("webp"))
         {
             StartCoroutine(LoadImageFromURL(AppVariables.HttpImageUrl + postInfo.postImage, postImage));
         }
@@ -96,7 +98,7 @@ public class ForumPost : MonoBehaviour
         deletePanel.gameObject.SetActive(false);
 
         // User can delete and edit her own posts
-        if ( (!String.IsNullOrEmpty(userId)) && (userId == PersistenceManager.id) || (PersistenceManager.Role == "ADMIN"))
+        if ( (!String.IsNullOrEmpty(userId)) && (userId == PersistenceManager.id) )
         {
             deletePost.gameObject.SetActive(true);
             editPost.gameObject.SetActive(true);
@@ -190,6 +192,11 @@ public class ForumPost : MonoBehaviour
             response = request.downloadHandler.text;
             Debug.Log("Success to delete forum post detail: " + response);
             deleteText.text = "Post is successfully deleted";
+            DOVirtual.DelayedCall(2f, () =>
+            {
+                canvasManager.gameDetailsPage.GetComponent<GameDetails>().OnClickedForumButton();
+                canvasManager.groupDetailsPage.GetComponent<GroupDetails>().OnClickedForumButton();
+            });
         }
         else
         {

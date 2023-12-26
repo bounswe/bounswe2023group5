@@ -16,19 +16,19 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject profilePage;
     [SerializeField] private GameObject changePasswordPage;
     [SerializeField] private GameObject changeForgetPasswordPage;
-    [SerializeField] private GameObject gameDetailsPage;
+    public GameObject gameDetailsPage;
     [SerializeField] private GameObject deleteAccountPage;
     [SerializeField] private GameObject adminControlPanelPage;
     [SerializeField] private GameObject createGamePage;
     [SerializeField] private GameObject createTagPage;
     [SerializeField] private GameObject updateTagPage;
     [SerializeField] private GameObject deleteTagPage;
-    [SerializeField] private GameObject groupDetailsPage;
+    public GameObject groupDetailsPage;
     [SerializeField] private GameObject groupsPage;
     [SerializeField] private GameObject editProfilePage;
     [SerializeField] private GameObject createEditPostPage;
     public GameObject postComments;
-    [SerializeField] private GameObject commentComments;
+    public GameObject commentComments;
     [SerializeField] private GameObject charactersPage;
     [SerializeField] private GameObject characterDetailsPage;
     [SerializeField] private GameObject createCharacterPage;
@@ -298,6 +298,10 @@ public class CanvasManager : MonoBehaviour
     {
         currentActivePage.SetActive(false);
         groupDetailsPage.SetActive(false);
+        if (previousActivePage == groupDetailsPage)
+        {
+            previousActivePage = groupsPage;
+        }
         previousActivePage.SetActive(true);
         currentActivePage = previousActivePage;
     }
@@ -309,11 +313,7 @@ public class CanvasManager : MonoBehaviour
         previousActivePage = currentActivePage;
         currentActivePage = groupsPage;
     }
-
-    public void HideGroupsPage()
-    {
-        groupsPage.SetActive(false);
-    }
+    
     
     public void ShowPostComments(string id)
     {
@@ -370,6 +370,8 @@ public class CanvasManager : MonoBehaviour
         currentActivePage.SetActive(false);
         createEditPostPage.SetActive(false);
         previousActivePage.SetActive(true);
+        gameDetailsPage.GetComponent<GameDetails>().OnClickedForumButton();
+        groupDetailsPage.GetComponent<GroupDetails>().OnClickedForumButton();
         currentActivePage = previousActivePage;
     }
     

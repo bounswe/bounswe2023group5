@@ -72,6 +72,7 @@ public class PostCreateRequestBasic
 
 public class GetPostListResponse
 {
+    public string id;
     public string title;
     public string postContent;
     public string postImage;
@@ -139,7 +140,7 @@ public class PostComment
     public string commentContent;
     public User commenter;
     public string post;
-    public string lastEditedAt;
+    public DateTime lastEditedAt;
     public string createdAt;
     public bool isEdited;
     public bool isDeleted;
@@ -154,7 +155,7 @@ public class CommentReply
     public string commentContent;
     public User commenter;
     public string post;
-    public string lastEditedAt;
+    public DateTime lastEditedAt;
     public string createdAt;
     public bool isEdited;
     public bool isDeleted;
