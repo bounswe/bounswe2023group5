@@ -73,9 +73,11 @@ public class CharacterDetails : MonoBehaviour
         //customFields = charInfo.customFields.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public);
         customIndex = 0;
         //customLength = customFields.Length;
-        
-        StartCoroutine(LoadImageFromURL(AppVariables.HttpImageUrl + charInfo.icon, charImage));
 
+        if (!charInfo.icon.Contains("webp"))
+        {
+            StartCoroutine(LoadImageFromURL(AppVariables.HttpImageUrl + charInfo.icon, charImage));
+        }
 
         Debug.Log("charInfo is "+ customFieldsObj);
 
@@ -180,6 +182,10 @@ public class CharacterDetails : MonoBehaviour
     
     private IEnumerator LoadImageFromURL(string imageUrl, Image targetImage)
     {
+        if (imageUrl.Contains("webp"))
+        {
+            yield return null;
+        }
         UnityWebRequest request = UnityWebRequestTexture.GetTexture(imageUrl);
         yield return request.SendWebRequest();
 

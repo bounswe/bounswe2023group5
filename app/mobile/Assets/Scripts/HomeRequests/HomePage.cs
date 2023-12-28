@@ -5,6 +5,7 @@ using System.Text;
 using Newtonsoft.Json;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 
@@ -55,7 +56,7 @@ public class HomePage : MonoBehaviour
     public void Init(HomeResponse homeInfo)
     {
         string url = AppVariables.HttpImageUrl;
-        if (homeInfo.postImage != null)
+        if (homeInfo.postImage != null && !homeInfo.postImage.Contains("webp"))
         {
             StartCoroutine(LoadImageFromURL(url + homeInfo.postImage, homeImage));
         }
@@ -80,6 +81,10 @@ public class HomePage : MonoBehaviour
 
     private IEnumerator LoadImageFromURL(string imageUrl, Image targetImage)
     {
+        if (imageUrl.Contains("webp"))
+        {
+            yield return null;
+        }
         UnityWebRequest request = UnityWebRequestTexture.GetTexture(imageUrl);
         yield return request.SendWebRequest();
 

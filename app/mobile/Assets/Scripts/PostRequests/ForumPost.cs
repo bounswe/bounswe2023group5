@@ -138,6 +138,10 @@ public class ForumPost : MonoBehaviour
     
     private IEnumerator LoadImageFromURL(string imageUrl, Image targetImage)
     {
+        if (imageUrl.Contains("webp"))
+        {
+            yield return null;
+        }
         UnityWebRequest request = UnityWebRequestTexture.GetTexture(imageUrl);
         yield return request.SendWebRequest();
 

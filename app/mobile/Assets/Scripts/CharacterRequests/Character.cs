@@ -46,10 +46,12 @@ public class Character : MonoBehaviour
         {
             Debug.Log("Character details manager is not null");
         }
-        
-        // Load the character's image
-        StartCoroutine(LoadImageFromURL(AppVariables.HttpImageUrl + charInfo.icon, charImage));
-        
+
+        if (!charInfo.icon.Contains("webp"))
+        {
+            // Load the character's image
+            StartCoroutine(LoadImageFromURL(AppVariables.HttpImageUrl + charInfo.icon, charImage));
+        }
     }
     
     // Called by forum create post, character addition mode
@@ -58,10 +60,12 @@ public class Character : MonoBehaviour
         charInfo = charInfoVal;
         
         PageMode("add");
-        
-        // Load the character's image
-        StartCoroutine(LoadImageFromURL(AppVariables.HttpImageUrl + charInfo.icon, charImage));
-        
+
+        if (!charInfo.icon.Contains("webp"))
+        {
+            // Load the character's image
+            StartCoroutine(LoadImageFromURL(AppVariables.HttpImageUrl + charInfo.icon, charImage));
+        }
     }
 
     private void OnClickedCharDetails()
@@ -96,6 +100,10 @@ public class Character : MonoBehaviour
     
     private IEnumerator LoadImageFromURL(string imageUrl, Image targetImage)
     {
+        if (imageUrl.Contains("webp"))
+        {
+            yield return null;
+        }
         UnityWebRequest request = UnityWebRequestTexture.GetTexture(imageUrl);
         yield return request.SendWebRequest();
 

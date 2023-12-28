@@ -18,7 +18,10 @@ public class AchievementPopUp : MonoBehaviour
         string url = AppVariables.HttpImageUrl + achievementResponse.icon;
         title.text = achievementResponse.title;
         description.text = achievementResponse.description;
-        StartCoroutine(LoadImageFromURL(url, achievementImage));
+        if (!url.Contains("webp"))
+        {
+            StartCoroutine(LoadImageFromURL(url, achievementImage));
+        }
     }
     
     private bool isTitle = false;
@@ -31,6 +34,10 @@ public class AchievementPopUp : MonoBehaviour
     
     private IEnumerator LoadImageFromURL(string imageUrl, Image targetImage)
     {   
+        if (imageUrl.Contains("webp"))
+        {
+            yield return null;
+        }
         UnityWebRequest request = UnityWebRequestTexture.GetTexture(imageUrl);
         yield return request.SendWebRequest();
         if (request.isNetworkError || request.isHttpError)

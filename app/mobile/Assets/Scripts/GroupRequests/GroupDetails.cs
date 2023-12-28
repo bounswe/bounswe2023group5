@@ -276,9 +276,11 @@ public class GroupDetails : MonoBehaviour
             response = request.downloadHandler.text;
             var _GetGameResponseData = JsonConvert.DeserializeObject<GameDetail>(response);
 
-            StartCoroutine(LoadImageFromURL(pictureURL + 
-                                            _GetGameResponseData.gameIcon, gameImage));
-
+            if (!_GetGameResponseData.gameIcon.Contains("webp"))
+            {
+                StartCoroutine(LoadImageFromURL(pictureURL +
+                                                _GetGameResponseData.gameIcon, gameImage));
+            }
 
             Debug.Log("Success to get game: " + response);
         }
@@ -291,6 +293,10 @@ public class GroupDetails : MonoBehaviour
 
     private IEnumerator LoadImageFromURL(string imageUrl, Image targetImage)
     {
+        if (imageUrl.Contains("webp"))
+        {
+            yield return null;
+        }
         UnityWebRequest request = UnityWebRequestTexture.GetTexture(imageUrl);
         yield return request.SendWebRequest();
 

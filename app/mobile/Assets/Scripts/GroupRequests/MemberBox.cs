@@ -27,8 +27,7 @@ public class MemberBox : MonoBehaviour
     public void Init(GroupMember memberInfo, bool isMemberModerator, bool isUserModerator, bool isBanned, string gid)
     {
         string url = "http://ec2-16-16-166-22.eu-north-1.compute.amazonaws.com/";
-        // StartCoroutine(LoadImageFromURL(url + gameInfo.gameIcon, gameImage));
-        // poster.text = postInfo.poster;
+        
         userName.text = memberInfo.userName;
         groupId = gid;
         userId = memberInfo.id;
@@ -139,21 +138,6 @@ public class MemberBox : MonoBehaviour
         }
 
         request.downloadHandler.Dispose();
-    }
-    private IEnumerator LoadImageFromURL(string imageUrl, Image targetImage)
-    {
-        UnityWebRequest request = UnityWebRequestTexture.GetTexture(imageUrl);
-        yield return request.SendWebRequest();
-
-        if(request.result != UnityWebRequest.Result.Success)
-        {
-            // Debug.LogError("Failed to load image: " + request.error);
-        }
-        else
-        {
-            Texture2D texture = DownloadHandlerTexture.GetContent(request);
-            targetImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-        }
     }
     
 }

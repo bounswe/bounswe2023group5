@@ -95,8 +95,11 @@ public class GetProfile : MonoBehaviour
                 achievementObject.GetComponent<AchievementPopUp>().Init(achievement);
                 allObjects.Add(achievementObject);
             }
-            
-            StartCoroutine(LoadImageFromURL(profilUrl, userAvatarImage));
+
+            if (!profilUrl.Contains("webp"))
+            {
+                StartCoroutine(LoadImageFromURL(profilUrl, userAvatarImage));
+            }
         }
         else
         {
@@ -125,7 +128,11 @@ public class GetProfile : MonoBehaviour
     }
 
     private IEnumerator LoadImageFromURL(string imageUrl, Image targetImage)
-    {   
+    {  
+        if (imageUrl.Contains("webp"))
+        {
+            yield return null;
+        } 
         UnityWebRequest request = UnityWebRequestTexture.GetTexture(imageUrl);
         yield return request.SendWebRequest();
         if (request.isNetworkError || request.isHttpError)

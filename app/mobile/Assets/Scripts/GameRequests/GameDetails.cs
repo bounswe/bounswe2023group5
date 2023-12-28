@@ -208,9 +208,11 @@ public class GameDetails : MonoBehaviour
 
             // Set the image 
             string pictureURL = "http://ec2-16-16-166-22.eu-north-1.compute.amazonaws.com/";
-            StartCoroutine(LoadImageFromURL(pictureURL + gameIcon, gameImage));
-            
-            
+            if (!gameIcon.Contains("webp"))
+            {
+                StartCoroutine(LoadImageFromURL(pictureURL + gameIcon, gameImage));
+            }
+
             // Set the bottom text
             bottomText.text = gameDescription;
             
@@ -221,6 +223,10 @@ public class GameDetails : MonoBehaviour
     }
     private IEnumerator LoadImageFromURL(string imageUrl, Image targetImage)
     {
+        if (imageUrl.Contains("webp"))
+        {
+            yield return null;
+        }
         UnityWebRequest request = UnityWebRequestTexture.GetTexture(imageUrl);
         yield return request.SendWebRequest();
 
