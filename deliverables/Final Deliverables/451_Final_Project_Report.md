@@ -618,7 +618,7 @@ To ensure that users like John have access to a wealth of content, we developed 
 - [Ali Başaran](https://github.com/bounswe/bounswe2023group5/wiki/Contributions-of-Ali-Başaran-‐-451-Final-Milestone)
 - [Alperen Bırçak](https://github.com/bounswe/bounswe2023group5/wiki/Contributions-of-Alperen-B%C4%B1r%C3%A7ak-451)
 - [Arda Kabadayı](https://github.com/bounswe/bounswe2023group5/wiki/Contributions-of-Arda-Kabaday%C4%B1-%E2%80%90-451-Final-Milestone)
-- [Bilal Atım]()
+- [Bilal Atım](https://github.com/bounswe/bounswe2023group5/wiki/Contributions-of-Bilal-At%C4%B1m-%E2%80%90-451-Final-Milestone)
 - [Can Uzduran](https://github.com/bounswe/bounswe2023group5/wiki/Contributions-of-Can-Uzduran-%E2%80%90-451)
 - [Çisel Zümbül](https://github.com/bounswe/bounswe2023group5/wiki/Contributions-of-%C3%87isel-Z%C3%BCmb%C3%BCl-%E2%80%90-451-Final-Milestone)
 - [Deniz Ünal](https://github.com/bounswe/bounswe2023group5/wiki/Contributions-of-Deniz-%C3%9Cnal-%E2%80%90-451)
