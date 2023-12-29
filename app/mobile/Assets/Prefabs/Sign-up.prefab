@@ -1456,7 +1456,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3466085996625158613, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
       propertyPath: m_KeyboardType
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3466085996625158613, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
       propertyPath: m_CharacterLimit
@@ -1686,7 +1686,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3466085996625158613, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
       propertyPath: m_KeyboardType
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3466085996625158613, guid: 8a119a1689ce41748bac14efe960cfeb, type: 3}
       propertyPath: m_CharacterLimit
