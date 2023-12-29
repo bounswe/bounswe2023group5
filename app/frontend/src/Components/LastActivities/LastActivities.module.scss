@@ -1,0 +1,10 @@
+@import "../../colors";
+.container {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  .sub-item {
+    width: 100%;
+  }
+}

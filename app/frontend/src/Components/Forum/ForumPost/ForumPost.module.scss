@@ -3,6 +3,9 @@
 .container {
   position: relative;
   background-color: $celadon;
+  &.group {
+    background-color: $yellow-light-40;
+  }
   border-radius: 0.5em;
   display: grid;
   gap: 0.5em;
@@ -17,12 +20,20 @@
 
   .imgConatiner {
     grid-area: i;
-    aspect-ratio: 1;
     padding: 0.5em;
-    img {
+    display: flex;
+    gap: 1em;
+    & > img {
       object-fit: contain;
       height: 100%;
-      width: 100%;
+      width: auto;
+      aspect-ratio: 1;
+    }
+
+    .character {
+      height: 100%;
+      aspect-ratio: 1;
+      width: auto;
     }
   }
 
@@ -33,9 +44,13 @@
     gap: 0.5rem;
     grid-area: t;
 
+    overflow: hidden;
+
     .title {
       font-weight: bold;
       font-size: 1.2em;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
   }
 
@@ -85,6 +100,9 @@
     position: absolute;
     bottom: 0.5em;
     right: 0.5em;
+    display: flex;
+    gap: 1em;
+    align-items: center;
   }
   .edit {
     position: absolute;

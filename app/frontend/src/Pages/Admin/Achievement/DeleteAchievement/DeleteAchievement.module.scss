@@ -1,0 +1,25 @@
+@import "../../../../colors";
+
+.container {
+  padding: 4rem;
+
+  .header {
+    color: red;
+  }
+
+  .form {
+    width: 40rem;
+  }
+
+  .input {
+    margin-bottom: 2rem;
+  }
+
+  .select {
+    width: 50%;
+  }
+
+  .button {
+    width: 25%;
+  }
+}

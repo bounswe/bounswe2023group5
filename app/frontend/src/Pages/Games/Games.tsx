@@ -8,6 +8,7 @@ import MultipleSelect from "../../Components/MultipleSelect/MultipleSelect";
 import { Button, Input } from "antd";
 import { getGames } from "../../Services/games";
 import { getTags } from "../../Services/tags";
+import PromotedEntities from "../../Components/PromotedEntities/PromotedEntities";
 
 function Games() {
   const [filters, setFilters] = useState<any>({
@@ -22,10 +23,24 @@ function Games() {
   const [searchText, setSearchText] = useState("");
   const [activeFilters, setActiveFilters] = useState();
 
-  const { data: games } = useQuery(["games", activeFilters, searchText], () =>
-    getGames(activeFilters, searchText.length <= 0 ? undefined : searchText)
-  );
+  const { data: games } = useQuery(
+    ["games", activeFilters, searchText],
+    () =>
+      getGames(activeFilters, searchText.length <= 0 ? undefined : searchText),
 
+    {
+      onSuccess: (data) => {
+        // Check if the data is an array and has at least two elements
+        if (Array.isArray(data) && data.length >= 2) {
+          // Update promotedEntities with the first two elements of the data array
+          setPromotedEntities(data.slice(0, 2));
+          setNotPromotedGames(data.slice(2));
+        }
+      },
+    }
+  );
+  const [promotedEntities, setPromotedEntities] = useState<any[]>([]);
+  const [notPromotedgames, setNotPromotedGames] = useState<any[]>([]);
   const { data: tags } = useQuery(["tags"], () => getTags());
 
   const onChange = (filterKey: string, value: string[] | string) => {
@@ -61,6 +76,7 @@ function Games() {
               enterButton
               className={styles.search}
               onSearch={setSearchText}
+              style={{ width: "400px" }}
             />
           </div>
           <div className={styles.filter}>
@@ -125,9 +141,12 @@ function Games() {
               Filter
             </Button>
           </div>
+          <div style={{ width: "100%", marginBottom: "10px" }}>
+            <PromotedEntities games={promotedEntities} />
+          </div>
           <div className={styles.games}>
-            {Array.isArray(games) &&
-              games.map((game) => {
+            {Array.isArray(notPromotedgames) &&
+              notPromotedgames.map((game) => {
                 return <Game game={game} key={game.name}></Game>;
               })}
           </div>

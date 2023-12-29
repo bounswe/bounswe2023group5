@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using DG.Tweening;
 using Newtonsoft.Json;
@@ -21,6 +22,8 @@ public class GroupDetails : MonoBehaviour
     [SerializeField] private GetGroupMemberList getAllMembers;
 
     [SerializeField] private ForumGetPostList forumManager;
+    [SerializeField] private Button addForumPost;
+    [SerializeField] private ForumCreatePost forumCreatePostManager;
 
     [SerializeField] private Button exitButton;
     
@@ -47,10 +50,11 @@ public class GroupDetails : MonoBehaviour
     private string gameId;
     private string forumId;
     private int quota;
-    private string[] moderators;
-    private string[] members;
-    private string[] bannedMembers;
+    private GroupMember[] moderators;
+    private GroupMember[] members;
+    private GroupMember[] bannedMembers;
     private bool avatarOnly;
+    private bool userJoined;
     private string createdAt;
     
 
@@ -61,6 +65,7 @@ public class GroupDetails : MonoBehaviour
         forumButton.onClick.AddListener(OnClickedForumButton);
         membersButton.onClick.AddListener(OnClickedMembersButton);
         exitButton.onClick.AddListener(OnClickedExitButton);
+        addForumPost.onClick.AddListener(OnClickedAddPost);
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
 
         colors = new Colors();
@@ -90,52 +95,78 @@ public class GroupDetails : MonoBehaviour
         GetGroupDescription();
     }
 
+    public void ShowForumManager(bool b)
+    {
+        
+        forumManager.gameObject.SetActive(b);
+
+        // If it is a public group or the user is a member, she can post forum posts
+        if (membershipPolicy == "PUBLIC" ||
+            (members != null && 
+             members.Select(member => member.id).ToArray().Contains(PersistenceManager.id)))
+        {
+            addForumPost.gameObject.SetActive(b);
+        }
+        else
+        {
+            addForumPost.gameObject.SetActive(false);
+        }
+    }
     
     
     private void OnClickedExitButton()
     {
-        canvasManager.ShowGroupsPage();
         canvasManager.HideGroupDetailsPage();
     }
     
     private void OnClickedDescriptionButton()
     {
         descriptionButton.image.color = colors.blueGreen;
-        forumButton.image.color = colors.prussianBlue;
-        membersButton.image.color = colors.prussianBlue;
+        forumButton.image.color = colors.prussianBlueLight;
+        membersButton.image.color = colors.prussianBlueLight;
         
         descriptionManager.gameObject.SetActive(true);
-        forumManager.gameObject.SetActive(false);
+        ShowForumManager(false);
         getAllMembers.gameObject.SetActive(false);
     }
     
-    private void OnClickedForumButton()
+    public void OnClickedForumButton()
     {
-        descriptionButton.image.color = colors.prussianBlue;
+        if (String.IsNullOrEmpty(forumId))
+        {
+            return;
+        }
+        descriptionButton.image.color = colors.prussianBlueLight;
         forumButton.image.color = colors.blueGreen;
-        membersButton.image.color = colors.prussianBlue;
+        membersButton.image.color = colors.prussianBlueLight;
         
         descriptionManager.gameObject.SetActive(false);
-        forumManager.gameObject.SetActive(true);
+        ShowForumManager(true);
         getAllMembers.gameObject.SetActive(false);
         
         // 3 parameters are required // Will be changed
         forumManager.ListForumPosts(new [] {"forum", "sortBy", "sortDirection"},
-            new [] {forumId, "CREATION_DATE", "ASCENDING"});
+            new [] {forumId, "CREATION_DATE", "ASCENDING"}, forumCreatePostManager);
     }
     
     private void OnClickedMembersButton()
     {
-        descriptionButton.image.color = colors.prussianBlue;
-        forumButton.image.color = colors.prussianBlue;
+        descriptionButton.image.color = colors.prussianBlueLight;
+        forumButton.image.color = colors.prussianBlueLight;
         membersButton.image.color = colors.blueGreen;
         
         descriptionManager.gameObject.SetActive(false);
-        forumManager.gameObject.SetActive(false);
+        ShowForumManager(false);
         getAllMembers.gameObject.SetActive(true);
         
-        getAllMembers.GetMemberList(new []{"id"}, new []{groupId});
-        Debug.Log("Returned from GetMemberList");
+        getAllMembers.GetMemberList(moderators, members, bannedMembers, PersistenceManager.id, groupId);
+        //Debug.Log("Returned from GetMemberList");
+    }
+    
+    private void OnClickedAddPost()
+    {
+        canvasManager.ShowCreateEditPostPage();
+        forumCreatePostManager.Init(forumId, gameId);
     }
     
     
@@ -205,9 +236,11 @@ public class GroupDetails : MonoBehaviour
             quota = _groupData.quota;
             moderators = _groupData.moderators;
             members = _groupData.members;
+            Debug.Log("members: "+ members);
             bannedMembers = _groupData.bannedMembers;
             avatarOnly = _groupData.avatarOnly;
             createdAt = _groupData.createdAt;
+            userJoined = _groupData.userJoined;
 
             // Set the image via call to GetGame
             StartCoroutine(GetGameImage(gameId));

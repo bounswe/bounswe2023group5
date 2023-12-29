@@ -16,8 +16,11 @@ public class GetGroupMemberList : MonoBehaviour
     [SerializeField] private Transform memberBoxParent;
     private List<MemberBox> memberList = new List<MemberBox>();
 
-    private string[] moderators;
-    private string[] members;
+    private GroupMember[] moderators;
+    private GroupMember[] members;
+    private GroupMember[] bannedMembers;
+    private bool isModerator;
+    private string groupId;
     
     private void Awake()
     {
@@ -30,12 +33,14 @@ public class GetGroupMemberList : MonoBehaviour
     }
 
 
-    public void GetMemberList(string[] pars, string[] vals)
+    public void GetMemberList(GroupMember[] moders, GroupMember[] mems, GroupMember[] bannedMems, string userId, string gid)
     {
 
+        /*
         string url =
             $"{AppVariables.HttpServerUrl}/group/get" +
                 ListToQueryParameters.ListToQueryParams(pars, vals);
+        
         
         Debug.Log(url);
         
@@ -49,8 +54,30 @@ public class GetGroupMemberList : MonoBehaviour
             // Then for each member, get user and populate the member box
             WriteMembersToBox(baseUrl);
         }
+        */
+        
+        
+        moderators = moders;
+        members = mems;
+        bannedMembers = bannedMems;
+
+        isModerator = false;
+
+        groupId = gid;
+
+        foreach (var moderator in moderators)
+        {
+            if (moderator.id == userId)
+            {
+                isModerator = true;
+                break;
+            }
+        }
+        
+        WriteMembersToBox();
     }
 
+    /*
     private async Task<bool> GetMembers(string url)
     {
         using (HttpClient client = new HttpClient())
@@ -65,6 +92,7 @@ public class GetGroupMemberList : MonoBehaviour
                         JsonConvert.DeserializeObject<GroupResponse>(await response.Content.ReadAsStringAsync());
                     members = groupData.members;
                     moderators = groupData.moderators;
+                    bannedMembers = groupData.bannedMembers;
                     return true;
                 }
                 else
@@ -99,7 +127,8 @@ public class GetGroupMemberList : MonoBehaviour
                         JsonConvert.DeserializeObject<User[]>(responseContent);
                     GroupMember groupMember = new GroupMember();
                     groupMember.userName = userData[0].username;
-                    groupMember.userImage = "";
+                    groupMember.photoUrl = userData[0].photoUrl;
+                    
                     return groupMember;
                 }
                 else
@@ -115,8 +144,8 @@ public class GetGroupMemberList : MonoBehaviour
             }
         }
     }
-    
-    void WriteMembersToBox(string url)
+    */
+    void WriteMembersToBox()
     {
         foreach (var memberBox in memberList)
         {
@@ -131,24 +160,61 @@ public class GetGroupMemberList : MonoBehaviour
         yield return request.SendWebRequest();
         var response = request.downloadHandler.text;
         */
-        Debug.Log("Url: " + url);
+        // Debug.Log("Url: " + url);
         // var _forumData = JsonConvert.DeserializeObject<GetPostListResponse[]>(response);
-        
-        
-        foreach (var memberId in members)
-        {
-            var groupMember = Task.Run(() => GetUser(
-                url + ListToQueryParameters.ListToQueryParams(new []{"id"}, new []{memberId})
-            )).GetAwaiter().GetResult();
 
-            if (groupMember != null  && groupMember.userName != "")
+        foreach (var moderator in moderators)
+        {
+            if (moderator != null  && moderator.userName != "")
             {
                 MemberBox newMemberBox = Instantiate(Resources.Load<MemberBox>("Prefabs/MemberBox"), memberBoxParent);
                 memberList.Add(newMemberBox);
-                newMemberBox.Init(groupMember);
+                newMemberBox.Init(moderator, true, isModerator, false, groupId);
+            }
+        }
+        
+        foreach (var member in members)
+        {
+            bool check = false;
+            foreach(var moder in moderators)
+            {
+                if (moder.id == member.id)
+                {
+                    check = true;
+                    break;
+                }
+            }
+
+            if (!check &&  (member != null)  && (member.userName != ""))
+            {
+                MemberBox newMemberBox = Instantiate(Resources.Load<MemberBox>("Prefabs/MemberBox"), memberBoxParent);
+                memberList.Add(newMemberBox);
+                newMemberBox.Init(member, false, isModerator, false, groupId);
             }
             
         }
+        
+        foreach (var member in bannedMembers)
+        {
+            bool check = false;
+            foreach(var moder in moderators)
+            {
+                if (moder.id == member.id)
+                {
+                    check = true;
+                    break;
+                }
+            }
+
+            if (!check  && (member != null)  && (member.userName != ""))
+            {
+                MemberBox newMemberBox = Instantiate(Resources.Load<MemberBox>("Prefabs/MemberBox"), memberBoxParent);
+                memberList.Add(newMemberBox);
+                newMemberBox.Init(member, false, isModerator, true, groupId);
+            }
+            
+        }
+        
         Canvas.ForceUpdateCanvases();
         scrollRect.verticalNormalizedPosition = 1;
         Debug.Log("Success to list members");

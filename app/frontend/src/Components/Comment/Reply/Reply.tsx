@@ -7,6 +7,8 @@ import { useAuth } from "../../Hooks/useAuth";
 import { useMutation } from "react-query";
 import { deleteComment } from "../../../Services/comment";
 import { useQueryClient } from "react-query";
+import { NotificationUtil } from "../../../Library/utils/notification";
+import clsx from "clsx";
 
 function Reply({ reply }: { reply: any }) {
   const { upvote, downvote } = useVote({
@@ -23,6 +25,7 @@ function Reply({ reply }: { reply: any }) {
     {
       onSuccess() {
         queryClient.invalidateQueries(["comments", reply.post]);
+        NotificationUtil.success("You successfully delete the comment.");
       },
       onMutate(id: string) {
         queryClient.setQueriesData(["comments", reply.post], (prev: any) => {
@@ -40,9 +43,9 @@ function Reply({ reply }: { reply: any }) {
           shape="circle"
           size="small"
           icon={<UpOutlined />}
-          onClick={downvote}
+          onClick={upvote}
           disabled={!isLoggedIn}
-          //className={clsx(post?.userVote === "DOWNVOTE" && styles.active)}
+          className={clsx(reply?.userVote === "UPVOTE" && styles.active)}
         />
         <div style={{ fontWeight: "bold" }}>{reply.overallVote}</div>
         <Button
@@ -52,14 +55,14 @@ function Reply({ reply }: { reply: any }) {
           icon={<DownOutlined />}
           onClick={downvote}
           disabled={!isLoggedIn}
-          //className={clsx(post?.userVote === "DOWNVOTE" && styles.active)}
+          className={clsx(reply?.userVote === "DOWNVOTE" && styles.active)}
         />
       </div>
       <div className={styles.title}>{reply.commentContent}</div>
       <div className={styles.meta}>
         <span>{reply.commenter.username}</span>
         <span>{reply.createdAt && formatDate(reply.createdAt)}</span>
-        {user.username === reply.commenter.username && (
+        {user?.username === reply.commenter.username && (
           <div className={styles.delete}>
             <Button
               type="text"

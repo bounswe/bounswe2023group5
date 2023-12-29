@@ -6,7 +6,6 @@ import {
   DownOutlined,
   EditOutlined,
   UpOutlined,
-  WarningOutlined,
 } from "@ant-design/icons";
 import { useMutation } from "react-query";
 import { deletePost } from "../../../Services/forum";
@@ -17,15 +16,27 @@ import { truncateWithEllipsis } from "../../../Library/utils/truncate";
 import { useNavigate } from "react-router-dom";
 import TagRenderer from "../../TagRenderer/TagRenderer";
 import { twj } from "tw-to-css";
+import { NotificationUtil } from "../../../Library/utils/notification";
+import { handleAxiosError } from "../../../Library/utils/handleError";
+import SquareAchievement from "../../Achievement/SquareAchievement/SquareAchievement";
+import CharacterDetails from "../../Character/CharacterDetails";
 
 function ForumPost({
   post,
   forumId,
   redirect = "/",
+  gameId,
+  type = "STANDARD",
+  typeName,
+  typeId,
 }: {
   post: any;
   forumId: string;
   redirect?: string;
+  gameId?: string;
+  type?: "STANDARD" | "GROUP" | "GAME";
+  typeName?: string;
+  typeId?: string;
 }) {
   const { user, isLoggedIn } = useAuth();
   const navigate = useNavigate();
@@ -33,10 +44,10 @@ function ForumPost({
   const isAdmin = user?.role === "ADMIN";
   const deletePostMutation = useMutation(deletePost, {
     onSuccess: async () => {
-      alert("You successfully delete the post.");
+      NotificationUtil.success("You successfully delete the post.");
     },
-    onError: () => {
-      alert("Something went wrong");
+    onError: (error) => {
+      handleAxiosError(error);
     },
   });
 
@@ -52,8 +63,11 @@ function ForumPost({
       ["post", post.id],
     ],
   });
+  const typeStyle =
+    type === "GAME" ? styles.game : type === "GROUP" ? styles.group : undefined;
+
   return (
-    <div className={styles.container}>
+    <div className={clsx(styles.container, typeStyle)}>
       <div className={styles.vote}>
         <Button
           type="primary"
@@ -75,12 +89,22 @@ function ForumPost({
         />
       </div>
 
-      {post.postImage && (
+      {(post.postImage || post.achievement || post.character) && (
         <div className={styles.imgConatiner}>
-          <img
-            height="30px"
-            src={`${import.meta.env.VITE_APP_IMG_URL}${post.postImage}`}
-          />
+          {post.postImage && (
+            <img
+              height="30px"
+              src={`${import.meta.env.VITE_APP_IMG_URL}${post.postImage}`}
+            />
+          )}
+          {post.achievement && <SquareAchievement props={post.achievement} />}
+
+          {post.character && (
+            <CharacterDetails
+              character={post.character}
+              className={styles.character}
+            />
+          )}
         </div>
       )}
 
@@ -99,25 +123,41 @@ function ForumPost({
       </div>
 
       <div className={styles.meta}>
-        <span>{post.poster.username}</span>
+        <span>{post.poster?.username}</span>
         <span>{post.createdAt && formatDate(post.createdAt)}</span>
-        <WarningOutlined
-          style={twj("text-red-500 text-lg cursor-pointer")}
-          alt="report"
-          type="text"
-        />
       </div>
       <div className={styles.readMore}>
-        <Button onClick={() => navigate(`/forum/detail/${forumId}/${post.id}`)}>
+        {type !== "STANDARD" && (
+          <Button
+            onClick={() =>
+              type === "GAME"
+                ? navigate(`/game/detail/${typeId}?subPage=forum`)
+                : navigate(`/group/detail/${typeId}?subPage=forum`)
+            }
+            style={twj(
+              "bg-transparent border-2 border-white text-sm font-bold"
+            )}
+            size="small"
+          >
+            {typeName}
+          </Button>
+        )}
+        <Button
+          onClick={() =>
+            navigate(`/forum/detail/${forumId}/${post.id}?back=${redirect}`)
+          }
+        >
           Read More
         </Button>
       </div>
-      {user?.id === post.poster.id && (
+      {user?.id === post.poster?.id && (
         <div className={styles.edit}>
           <Button
             onClick={() =>
               navigate(
-                `/forum/form?forumId=${forumId}&&redirect=${redirect}&&editId=${post.id}`
+                `/forum/form?forumId=${forumId}&&redirect=${redirect}&&editId=${
+                  post.id
+                }${gameId ? `&&gameId=${gameId}` : ``}`
               )
             }
           >

@@ -16,8 +16,10 @@
     background-color: $celadon-light-20;
     border-radius: 0.5em;
     padding: 1em;
-    .game {
+    .group-image {
       flex: 1 1 0;
+      border-radius: 1rem;
+      overflow: hidden;
     }
     .meta {
       flex: 2 2 0;
@@ -50,6 +52,13 @@
         display: flex;
         justify-content: center;
         align-items: center;
+      }
+
+      .moderation {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 1rem;
       }
     }
   }

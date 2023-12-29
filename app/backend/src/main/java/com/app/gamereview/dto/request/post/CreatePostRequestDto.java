@@ -37,4 +37,8 @@ public class CreatePostRequestDto {
   @Pattern(regexp = "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
           message = "Achievement has invalid Id (UUID) format")
   private String achievement;
+
+  @Pattern(regexp = "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+          message = "Character has invalid Id (UUID) format")
+  private String character;
 }

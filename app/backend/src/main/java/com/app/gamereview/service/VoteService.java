@@ -1,7 +1,10 @@
 package com.app.gamereview.service;
 
+import com.app.gamereview.dto.request.notification.CreateNotificationRequestDto;
 import com.app.gamereview.dto.request.vote.CreateVoteRequestDto;
 import com.app.gamereview.dto.request.vote.GetAllVotesFilterRequestDto;
+import com.app.gamereview.enums.NotificationMessage;
+import com.app.gamereview.enums.NotificationParent;
 import com.app.gamereview.enums.VoteChoice;
 import com.app.gamereview.enums.VoteType;
 import com.app.gamereview.exception.ResourceNotFoundException;
@@ -15,6 +18,8 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +38,10 @@ public class VoteService {
     private final ModelMapper modelMapper;
     private final PostRepository postRepository;
     private final CommentRepository commentRepository;
+    private final NotificationRepository notificationRepository;
+    private final UserRepository userRepository;
+    private final NotificationService notificationService;
+
 
     @Autowired
     public VoteService(
@@ -40,18 +49,25 @@ public class VoteService {
             ReviewRepository reviewRepository,
             ProfileRepository profileRepository,
             AchievementRepository achievementRepository,
+            NotificationRepository notificationRepository,
+            UserRepository userRepository,
             MongoTemplate mongoTemplate,
             ModelMapper modelMapper,
             PostRepository postRepository,
-            CommentRepository commentRepository) {
+            CommentRepository commentRepository,
+            NotificationService notificationService) {
         this.voteRepository = voteRepository;
         this.reviewRepository = reviewRepository;
         this.profileRepository = profileRepository;
         this.achievementRepository = achievementRepository;
+        this.notificationRepository = notificationRepository;
         this.mongoTemplate = mongoTemplate;
         this.modelMapper = modelMapper;
         this.postRepository = postRepository;
         this.commentRepository = commentRepository;
+        this.userRepository = userRepository;
+        this.notificationService = notificationService;
+
 
         modelMapper.addMappings(new PropertyMap<CreateVoteRequestDto, Vote>() {
             @Override
@@ -110,6 +126,13 @@ public class VoteService {
                     achievementRepository.findByIdAndIsDeletedFalse("eb558639-32ca-413f-b842-c3788287dd05");
             achievement.ifPresent(value -> profile.addAchievement(value.getId()));
             profile.setIsVotedYet(true);
+            CreateNotificationRequestDto createNotificationRequestDto= new CreateNotificationRequestDto();
+            String message = NotificationMessage.FIRST_VOTE_ACHIEVEMENT.getMessageTemplate()
+                    .replace("{user_name}", user.getUsername());
+            createNotificationRequestDto.setMessage(message);
+            createNotificationRequestDto.setParentType(NotificationParent.ACHIEVEMENT);
+            createNotificationRequestDto.setUser(user.getId());
+            notificationService.createNotification(createNotificationRequestDto);
         }
 
 
@@ -235,6 +258,42 @@ public class VoteService {
                 Post post = optionalPost.get();
                 post.addVote(choice);
                 postRepository.save(post);
+
+
+                if(post.getVoteCount() == 1 && notificationRepository.findByParentAndUser(post.getId(), user.getId()).isEmpty()) {
+                    CreateNotificationRequestDto createNotificationRequestDto= new CreateNotificationRequestDto();
+                    Optional<User> optionalUser = userRepository.findById(post.getPoster());
+                    if(optionalUser.isPresent()) {
+                        User poster = optionalUser.get();
+                        String message = NotificationMessage.FIRST_VOTE_OF_THE_POST.getMessageTemplate()
+                                .replace("{user_name}", poster.getUsername())
+                                .replace("{post_title}", post.getTitle());
+                        createNotificationRequestDto.setMessage(message);
+                        createNotificationRequestDto.setParentType(NotificationParent.POST);
+                        createNotificationRequestDto.setParent(post.getId());
+                        createNotificationRequestDto.setUser(post.getPoster());
+                        notificationService.createNotification(createNotificationRequestDto);
+                    }
+                }
+
+                List<Integer> notificationVoteCounts = new ArrayList<>(Arrays.asList(5, 10, 15));
+                if(notificationVoteCounts.contains(post.getOverallVote())) {
+                    CreateNotificationRequestDto createNotificationRequestDto= new CreateNotificationRequestDto();
+                    Optional<User> optionalUser = userRepository.findById(post.getPoster());
+                    if(optionalUser.isPresent()) {
+                        User poster = optionalUser.get();
+                        String message = NotificationMessage.NTH_VOTE_OF_THE_POST.getMessageTemplate()
+                                .replace("{user_name}", poster.getUsername())
+                                .replace("{post_title}", post.getTitle())
+                                .replace("{overall_vote}", String.valueOf(post.getOverallVote()));
+                        createNotificationRequestDto.setMessage(message);
+                        createNotificationRequestDto.setParentType(NotificationParent.POST);
+                        createNotificationRequestDto.setParent(post.getId());
+                        createNotificationRequestDto.setUser(post.getPoster());
+                        notificationService.createNotification(createNotificationRequestDto);
+                    }
+                }
+
                 return voteRepository.save(voteToCreate);
             } else if (requestDto.getVoteType().equals(VoteType.COMMENT.name())) {
                 // delete previous vote

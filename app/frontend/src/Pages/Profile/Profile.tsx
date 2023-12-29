@@ -1,15 +1,20 @@
 import { PacmanLoader } from "react-spinners";
 import { useAuth } from "../../Components/Hooks/useAuth";
 import styles from "./Profile.module.scss";
-import { useQueryClient } from "react-query";
-import { Popover } from "antd";
+import { Button, Popover } from "antd";
 import { useState } from "react";
 import EditProfile from "../../Components/Profile/EditProfile";
 import ProfileIcon from "../../Components/Icons/ProfileIcon";
-const subPages = ["Activities", "Games", "Eklenir Daha"];
+import ProfileAchievements from "../../Components/Profile/ProfileAchievements/ProfileAchievements";
+import LastActivities from "../../Components/LastActivities/LastActivities";
+import { SyncOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
+const subPages = ["Achievements", "Last Activities"];
 function Profile() {
   const { user, isLoading, profile } = useAuth();
   const [subPage, setSubPage] = useState(subPages[0]);
+
+  const navigate = useNavigate();
   return (
     <div className={styles.profilePage}>
       {isLoading ? (
@@ -19,9 +24,6 @@ function Profile() {
       ) : (
         <>
           <div className={styles.profileCard}>
-            <div className={styles.edit}>
-              <EditProfile profile={profile} key={profile?.id} />
-            </div>
             <div className={styles.profilePicture}>
               {profile.profilePhoto ? (
                 <img
@@ -34,6 +36,19 @@ function Profile() {
               )}
             </div>
             <div className={styles.profileDetails}>
+              <div className={styles.settings}>
+                <EditProfile profile={profile} key={profile?.id} />
+
+                <Button
+                  icon={<SyncOutlined />}
+                  type="primary"
+                  onClick={() => navigate("/change-password")}
+                  size="small"
+                >
+                  Change Password
+                </Button>
+              </div>
+
               <div className={styles.profileName}>
                 <h1>{user.username}</h1>
                 <span>{user.email}</span>
@@ -104,10 +119,20 @@ function Profile() {
           </div>
           <div className={styles.profileMenu}>
             {subPages.map((item) => (
-              <button onClick={() => setSubPage(item)}>{item}</button>
+              <button
+                onClick={() => setSubPage(item)}
+                className={subPage === item ? styles.active : ""}
+              >
+                {item}
+              </button>
             ))}
           </div>
-          <div className={styles.profileContent}>{subPage}</div>
+          <div className={styles.profileContent}>
+            {subPage === "Achievements" && (
+              <ProfileAchievements achievements={profile.achievements} />
+            )}
+            {subPage === "Last Activities" && <LastActivities />}
+          </div>
         </>
       )}
     </div>

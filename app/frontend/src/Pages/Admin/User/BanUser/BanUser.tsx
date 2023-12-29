@@ -3,16 +3,20 @@ import styles from "./BanUser.module.scss";
 import { useState } from "react";
 import { useMutation } from "react-query";
 import { banUser } from "../../../../Services/user";
+import { NotificationUtil } from "../../../../Library/utils/notification";
+import { handleAxiosError } from "../../../../Library/utils/handleError";
 
 function BanUser() {
   const [username, setUsername] = useState("");
 
   const banUserMutation = useMutation(banUser, {
     onSuccess: async () => {
-      alert(`You successfully banned the user with username ${username}.`);
+      NotificationUtil.success(
+        `You successfully banned the user with username ${username}.`
+      );
     },
-    onError: () => {
-      alert("Something went wrong");
+    onError: (error) => {
+      handleAxiosError(error);
     },
   });
 

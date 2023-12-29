@@ -1,59 +1,56 @@
 package com.app.gamereview.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import com.app.gamereview.dto.request.game.CreateGameRequestDto;
-import com.app.gamereview.dto.request.game.AddGameTagRequestDto;
-import com.app.gamereview.dto.request.game.RemoveGameTagRequestDto;
-import com.app.gamereview.dto.response.group.GetGroupResponseDto;
+import com.app.gamereview.dto.request.game.*;
+import com.app.gamereview.dto.response.game.GameDetailResponseDto;
+import com.app.gamereview.dto.response.game.GetGameListResponseDto;
 import com.app.gamereview.dto.response.tag.AddGameTagResponseDto;
 import com.app.gamereview.dto.response.tag.GetAllTagsOfGameResponseDto;
 import com.app.gamereview.enums.ForumType;
 import com.app.gamereview.enums.TagType;
 import com.app.gamereview.exception.BadRequestException;
 import com.app.gamereview.exception.ResourceNotFoundException;
-import com.app.gamereview.model.Forum;
-import com.app.gamereview.model.Group;
-import com.app.gamereview.model.Tag;
-import com.app.gamereview.repository.ForumRepository;
-import com.app.gamereview.repository.TagRepository;
+import com.app.gamereview.model.*;
+import com.app.gamereview.repository.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.MatchOperation;
+import org.springframework.data.mongodb.core.aggregation.SampleOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import com.app.gamereview.dto.request.game.GetGameListRequestDto;
-import com.app.gamereview.dto.response.game.GetGameListResponseDto;
-import com.app.gamereview.model.Game;
-import com.app.gamereview.repository.GameRepository;
-import com.app.gamereview.dto.response.game.GameDetailResponseDto;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class GameService {
 
 	private final GameRepository gameRepository;
+	private final UserRepository userRepository;
 	private final TagRepository tagRepository;
 
 	private final ForumRepository forumRepository;
+
+	private final ProfileRepository profileRepository;
 
 	private final MongoTemplate mongoTemplate;
 	private final ModelMapper modelMapper;
 
 	@Autowired
 	public GameService(
-			GameRepository gameRepository,
-			MongoTemplate mongoTemplate,
-			TagRepository tagRepository, ForumRepository forumRepository, ModelMapper modelMapper) {
+			GameRepository gameRepository, UserRepository userRepository,
+			MongoTemplate mongoTemplate, TagRepository tagRepository, ForumRepository forumRepository,
+			ProfileRepository profileRepository, ModelMapper modelMapper) {
 		this.gameRepository = gameRepository;
+		this.userRepository = userRepository;
 		this.tagRepository = tagRepository;
 		this.mongoTemplate = mongoTemplate;
 		this.forumRepository = forumRepository;
+		this.profileRepository = profileRepository;
 		this.modelMapper = modelMapper;
 
 		modelMapper.addMappings(new PropertyMap<Game, GameDetailResponseDto>() {
@@ -71,8 +68,20 @@ public class GameService {
 		});
 	}
 
-	public List<Game> getGames(GetGameListRequestDto filter) {
+	public List<GetGameListResponseDto> getGames(GetGameListRequestDto filter) {
+
+		MatchOperation matchStage = Aggregation.match(Criteria.where("isPromoted").is(true));
+		SampleOperation sampleStage = Aggregation.sample(2);
+
+		Aggregation aggregation = Aggregation.newAggregation(matchStage, sampleStage);
+
+		List<Game> randomPromotedGames = new ArrayList<>(mongoTemplate.aggregate(aggregation, "Game", Game.class).getMappedResults());
+		List<String> randomPromotedGamesIds = randomPromotedGames.stream().map(Game::getId).collect(Collectors.toList());
+
 		Query query = new Query();
+
+		query.addCriteria(Criteria.where("_id").nin(randomPromotedGamesIds));
+
 		if(filter != null) {
 			if (filter.getFindDeleted() == null || !filter.getFindDeleted()) {
 				query.addCriteria(Criteria.where("isDeleted").is(false));
@@ -97,11 +106,26 @@ public class GameService {
 			}
 		}
 
-		return mongoTemplate.find(query, Game.class);
+		List<Game> gamesList = mongoTemplate.find(query, Game.class);
+
+		randomPromotedGames.addAll(gamesList);
+
+		return randomPromotedGames.stream().map(this::mapToGetGameListResponseDto).collect(Collectors.toList());
+
 	}
 
 	public List<GetGameListResponseDto> getAllGames(GetGameListRequestDto filter) {
+		MatchOperation matchStage = Aggregation.match(Criteria.where("isPromoted").is(true));
+		SampleOperation sampleStage = Aggregation.sample(2);
+
+		Aggregation aggregation = Aggregation.newAggregation(matchStage, sampleStage);
+
+		List<Game> randomPromotedGames = new ArrayList<>(mongoTemplate.aggregate(aggregation, "Game", Game.class).getMappedResults());
+		List<String> randomPromotedGamesIds = randomPromotedGames.stream().map(Game::getId).collect(Collectors.toList());
+
 		Query query = new Query();
+
+		query.addCriteria(Criteria.where("_id").nin(randomPromotedGamesIds));
 		if(filter != null) {
 			if (filter.getFindDeleted() == null || !filter.getFindDeleted()) {
 				query.addCriteria(Criteria.where("isDeleted").is(false));
@@ -131,7 +155,9 @@ public class GameService {
 
 		List<Game> gamesList = mongoTemplate.find(query, Game.class);
 
-		return gamesList.stream().map(this::mapToGetGameListResponseDto).collect(Collectors.toList());
+		randomPromotedGames.addAll(gamesList);
+
+		return randomPromotedGames.stream().map(this::mapToGetGameListResponseDto).collect(Collectors.toList());
 	}
 
 	private GetGameListResponseDto mapToGetGameListResponseDto(Game game) {
@@ -330,5 +356,193 @@ public class GameService {
 		return gameRepository.save(gameToCreate);
 	}
 
+	public Game editGame(String id, UpdateGameRequestDto request){
+		Optional<Game> findGame = gameRepository.findByIdAndIsDeletedFalse(id);
 
+		if(findGame.isEmpty()){
+			throw new ResourceNotFoundException("Game is not found");
+		}
+
+		Game gameToUpdate = findGame.get();
+		gameToUpdate.setGameName(request.getGameName());
+		gameToUpdate.setGameDescription(request.getGameDescription());
+		gameToUpdate.setGameIcon(request.getGameIcon());
+		gameToUpdate.setReleaseDate(request.getReleaseDate());
+		gameToUpdate.setMinSystemReq(request.getMinSystemReq());
+		gameRepository.save(gameToUpdate);
+
+		return gameToUpdate;
+	}
+
+	public Boolean deleteGame(String id){
+		Optional<Game> findGame = gameRepository.findByIdAndIsDeletedFalse(id);
+
+		if(findGame.isEmpty()){
+			throw new ResourceNotFoundException("Game is not found");
+		}
+
+		Game gameToDelete = findGame.get();
+		gameToDelete.setIsDeleted(true);
+		gameRepository.save(gameToDelete);
+
+		return true;
+	}
+
+	public List<Game> getRecommendedGames(){
+		Query query = new Query();	// all games except the base game
+		query.addCriteria(Criteria.where("isDeleted").is(false));
+		query.with(Sort.by(Sort.Direction.DESC, "overallVote"));
+		query.limit(10);
+
+		return mongoTemplate.find(query, Game.class);
+	}
+
+	public List<Game> getRecommendedGames(String email){
+
+		if(email == null) throw new ResourceNotFoundException("User's token couldn't be validated");
+
+		Optional<User> findUser = userRepository.findByEmailAndIsDeletedFalse(email);
+
+		if(findUser.isEmpty()) throw new ResourceNotFoundException(
+				"User with the token/email information couldn't be found");
+
+		User user = findUser.get();
+
+		Optional<Profile> findProfile = profileRepository.findByUserIdAndIsDeletedFalse(user.getId());
+
+		if(findProfile.isEmpty()){
+			throw new ResourceNotFoundException("Profile of the user is not found, unexpected error has occurred");
+		}
+
+		Profile profile = findProfile.get();
+		List<String> followedGameIds = profile.getGames();
+
+		if(followedGameIds.isEmpty()){
+			return getRecommendedGames();
+		}
+
+		TreeSet<RecommendGameDto> recommendedGames = new TreeSet<>(Comparator.reverseOrder());
+
+		for(String gameId : followedGameIds){
+			recommendedGames.addAll(recommendationByGameId(gameId));
+		}
+
+		List<Game> recommendations = new ArrayList<>();
+
+		for(RecommendGameDto gameDto : recommendedGames){
+			Game gameToRecommend = gameDto.getGame();
+			if(!followedGameIds.contains(gameToRecommend.getId())){
+				recommendations.add(gameToRecommend);
+			}
+			if(recommendations.size() >= 10){	// get only top 10 recommendations
+				break;
+			}
+		}
+
+		if(recommendations.size() < 10){
+			int diff = 10;
+			Query query = new Query();	// all games except the base game
+			query.addCriteria(Criteria.where("isDeleted").is(false));
+			query.with(Sort.by(Sort.Direction.DESC, "overallVote"));
+			query.limit(diff);
+			List<Game> extraGames = mongoTemplate.find(query, Game.class);
+
+			for(Game game : extraGames){
+				if(!recommendations.contains(game))
+					recommendations.add(game);
+			}
+
+			return recommendations;
+		}
+
+		return recommendations;
+	}
+
+	public TreeSet<RecommendGameDto> recommendationByGameId(String gameId){
+		Optional<Game> findGame = gameRepository.findByIdAndIsDeletedFalse(gameId);
+
+		Set<String> idList = new HashSet<>();
+
+		if(findGame.isEmpty()){
+			throw new ResourceNotFoundException("Game is not found");
+		}
+
+		Game game = findGame.get();
+		idList.add(game.getId());
+
+		TreeSet<RecommendGameDto> scoreSet = new TreeSet<>(Comparator.reverseOrder());
+
+		String[] words = game.getGameName().split(" ",-2);
+		for(String word : words){
+			if(word.length() > 3){
+				String regexPattern = ".*" + word + ".*";
+				Query query = new Query();
+				query.addCriteria(Criteria.where("gameName").regex(regexPattern, "i"));
+				query.addCriteria(Criteria.where("_id").ne(game.getId()));
+				List<Game> similarNames = mongoTemplate.find(query, Game.class);
+				for(Game i : similarNames){
+					RecommendGameDto dto = new RecommendGameDto();
+					dto.setGame(i);
+					scoreSet.add(dto);
+					idList.add(dto.getGame().getId());
+				}
+			}
+		}
+
+		// List<Game> recommendations = new ArrayList<>();
+
+		Query allGamesQuery = new Query();	// all games except the base game
+		allGamesQuery.addCriteria(Criteria.where("isDeleted").is(false));
+		allGamesQuery.addCriteria(Criteria.where("_id").nin(idList));
+
+		List<Game> allGames = mongoTemplate.find(allGamesQuery, Game.class);
+
+		for(Game candidateGame : allGames){
+			int score = calculateSimilarityScore(game, candidateGame);
+			if(score != 0){
+				RecommendGameDto dto = new RecommendGameDto();
+				dto.setGame(candidateGame);
+				dto.setScore(score);
+				scoreSet.add(dto);
+			}
+		}
+
+		return scoreSet;
+	}
+
+	public int calculateSimilarityScore(Game based, Game candidate){
+		int score = 0;
+
+		List<String> baseTags = based.getAllTags();
+		baseTags.retainAll(candidate.getAllTags());
+
+		for(String tagId : baseTags){
+			Optional<Tag> findTag = tagRepository.findByIdAndIsDeletedFalse(tagId);
+			if(findTag.isPresent()){
+				score++;
+				if(findTag.get().getTagType().equals(TagType.PRODUCTION)){
+					score += 2;
+				}
+				else if(findTag.get().getTagType().equals(TagType.GENRE)){
+					score += 4;
+				}
+			}
+		}
+		return score;
+	}
+
+	public Game changePromotionStatusOfGame(String id){
+		Optional<Game> findGame = gameRepository.findByIdAndIsDeletedFalse(id);
+
+		if(findGame.isEmpty()) {
+			throw new ResourceNotFoundException("Game is not found");
+		}
+
+		Game game = findGame.get();
+		game.setIsPromoted(!game.getIsPromoted());
+		gameRepository.save(game);
+		return game;
+	}
 }
+
+

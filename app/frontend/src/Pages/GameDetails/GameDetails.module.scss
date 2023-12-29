@@ -1,4 +1,9 @@
 @import "../../colors";
+@import "@recogito/annotorious/dist/annotorious.min.css";
+
+.r6o-widget.r6o-tag {
+  display: none !important;
+}
 
 .container {
   display: flex;
@@ -25,9 +30,12 @@
     padding: 0.5em;
 
     .pictureContainer {
-      flex: 1 1 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
       aspect-ratio: 1.8;
-      overflow: hidden;
+      width: 40%;
+
       border-radius: 0.5em;
 
       img {
@@ -38,7 +46,14 @@
     }
 
     .titleContainer {
-      flex: 2 2 0;
+      width: 60%;
+      position: relative;
+
+      .followButton {
+        position: absolute;
+        top: 1em;
+        right: 1em;
+      }
 
       .name {
         height: 50%;
@@ -65,8 +80,8 @@
         justify-content: center;
         align-items: center;
         gap: 20px;
-        font-size: 50px;
         color: $yellow;
+        font-size: 17px;
       }
     }
   }

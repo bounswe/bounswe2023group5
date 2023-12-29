@@ -1,0 +1,18 @@
+@import "../../colors";
+
+.recommendationCarouselContainer {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: $prussian-blue;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  height: auto;
+
+  h2 {
+    color: $blue-green-light-80;
+    margin: 0;
+    margin-bottom: 0.75em;
+  }
+}

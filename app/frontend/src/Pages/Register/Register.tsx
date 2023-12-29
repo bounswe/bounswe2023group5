@@ -13,6 +13,8 @@ import { useMutation } from "react-query";
 import postRegister from "../../Services/Register";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 import { userAgreementText } from "./Register.const";
+import { NotificationUtil } from "../../Library/utils/notification";
+import { handleAxiosError } from "../../Library/utils/handleError";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -27,16 +29,15 @@ function Register() {
   const registerMutation = useMutation(postRegister, {
     onSuccess: async (data) => {
       if (data.status === 500) {
-        alert("Something went wrong.");
+        NotificationUtil.error("Something went wrong");
         return;
       }
-
-      alert("You registered successfully.");
+      NotificationUtil.success("You registered successfully.");
 
       navigate("/login");
     },
-    onError: () => {
-      alert("You cannot be registered.");
+    onError: (error: any) => {
+      handleAxiosError(error);
     },
   });
 
@@ -44,11 +45,11 @@ function Register() {
     // check whether email is valid email address
     // check whether passwords are match
     if (email.indexOf("@") === -1) {
-      alert("Please enter a valid email address!");
+      NotificationUtil.error("Please enter a valid email address!");
     } else if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+      NotificationUtil.error("Passwords do not match!");
     } else if (agreeTerm === false) {
-      alert("Please agree with our user agreement!");
+      NotificationUtil.error("Please agree with our user agreement!");
     } else {
       registerMutation.mutate({ username, email, password });
     }
@@ -70,101 +71,109 @@ function Register() {
   return (
     <div className={styles.outerContainer}>
       <div className={styles.innerContainer}>
-        <h2 className={styles.registerHeader}>Register</h2>
-        <h5 className={styles.registerInfo}>
-          Join the Adventure: Register Today!
-        </h5>
-        <div className={styles.registerForm}>
-          <form onSubmit={(event) => handleRegister(event)}>
-            <Input
-              size="large"
-              placeholder="Username"
-              className={styles.formElem}
-              prefix={
-                <UserOutlined
-                  style={{ fontSize: "1.2rem", marginRight: "0.4rem" }}
-                />
-              }
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-            />
-            <Input
-              size="large"
-              placeholder="Email"
-              className={styles.formElem}
-              prefix={
-                <MailOutlined
-                  style={{ fontSize: "1.2rem", marginRight: "0.4rem" }}
-                />
-              }
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-            />
-            <Input.Password
-              placeholder="Password"
-              prefix={
-                <LockOutlined
-                  style={{ fontSize: "1.2rem", marginRight: "0.4rem" }}
-                />
-              }
-              iconRender={(visible) =>
-                visible ? (
-                  <EyeTwoTone style={{ fontSize: "1rem" }} />
-                ) : (
-                  <EyeInvisibleOutlined style={{ fontSize: "1rem" }} />
-                )
-              }
-              className={styles.formElem}
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-            />
-            <Input.Password
-              placeholder="Confirm Password"
-              prefix={
-                <LockOutlined
-                  style={{ fontSize: "1.2rem", marginRight: "0.4rem" }}
-                />
-              }
-              iconRender={(visible) =>
-                visible ? (
-                  <EyeTwoTone style={{ fontSize: "1rem" }} />
-                ) : (
-                  <EyeInvisibleOutlined style={{ fontSize: "1rem" }} />
-                )
-              }
-              className={styles.formElem}
-              value={confirmPassword}
-              onChange={(event) => setConfirmPassword(event.target.value)}
-            />
-            <Checkbox
-              onChange={handleAgreeTerm}
-              value={agreeTerm}
-              className={styles.agreeCheckbox}
-              disabled={isModalOpen}
-            >
-              I agree to the{" "}
-              <span className={styles.userAgreementLink} onClick={showModal}>
-                Game Guru User Agreement
-              </span>
-            </Checkbox>
+        <div className={styles.infoContainer}>
+          <img
+            className={styles.image}
+            src="../../../assets/images/guru.jpeg"
+          ></img>
+          <h5 className={styles.registerInfo}>
+            Join the Adventure: Register Today!
+          </h5>
+        </div>
+        <div className={styles.formContainer}>
+          <h2 className={styles.registerHeader}>Register</h2>
+          <div className={styles.registerForm}>
+            <form onSubmit={(event) => handleRegister(event)}>
+              <Input
+                size="large"
+                placeholder="Username"
+                className={styles.formElem}
+                prefix={
+                  <UserOutlined
+                    style={{ fontSize: "1.2rem", marginRight: "0.4rem" }}
+                  />
+                }
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
+              />
+              <Input
+                size="large"
+                placeholder="Email"
+                className={styles.formElem}
+                prefix={
+                  <MailOutlined
+                    style={{ fontSize: "1.2rem", marginRight: "0.4rem" }}
+                  />
+                }
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+              />
+              <Input.Password
+                placeholder="Password"
+                prefix={
+                  <LockOutlined
+                    style={{ fontSize: "1.2rem", marginRight: "0.4rem" }}
+                  />
+                }
+                iconRender={(visible) =>
+                  visible ? (
+                    <EyeTwoTone style={{ fontSize: "1rem" }} />
+                  ) : (
+                    <EyeInvisibleOutlined style={{ fontSize: "1rem" }} />
+                  )
+                }
+                className={styles.formElem}
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+              />
+              <Input.Password
+                placeholder="Confirm Password"
+                prefix={
+                  <LockOutlined
+                    style={{ fontSize: "1.2rem", marginRight: "0.4rem" }}
+                  />
+                }
+                iconRender={(visible) =>
+                  visible ? (
+                    <EyeTwoTone style={{ fontSize: "1rem" }} />
+                  ) : (
+                    <EyeInvisibleOutlined style={{ fontSize: "1rem" }} />
+                  )
+                }
+                className={styles.formElem}
+                value={confirmPassword}
+                onChange={(event) => setConfirmPassword(event.target.value)}
+              />
+              <Checkbox
+                onChange={handleAgreeTerm}
+                checked={agreeTerm}
+                className={styles.agreeCheckbox}
+                disabled={isModalOpen}
+              >
+                I agree to the{" "}
+                <span className={styles.userAgreementLink} onClick={showModal}>
+                  Game Guru User Agreement
+                </span>
+              </Checkbox>
 
-            <div className={styles.buttonContainer}>
-              <Button
-                type="primary"
-                htmlType="submit"
-                style={{ width: "100%" }}
-              >
-                Register
-              </Button>
-              <Button
-                type="link"
-                className={styles.navigationLink}
-                onClick={() => navigate("/login")}
-              >
-                Do you have an account? Login
-              </Button>
-            </div>
-          </form>
+              <div className={styles.buttonContainer}>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  style={{ width: "100%" }}
+                >
+                  Register
+                </Button>
+                <Button
+                  type="link"
+                  className={styles.navigationLink}
+                  onClick={() => navigate("/login")}
+                >
+                  Do you have an account? Login
+                </Button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
       <Modal

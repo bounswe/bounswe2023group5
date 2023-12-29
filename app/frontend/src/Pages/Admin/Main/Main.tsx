@@ -1,68 +1,98 @@
 import { Button } from "antd";
 import styles from "./Main.module.scss";
 import { useNavigate } from "react-router-dom";
+import { Table } from "antd";
 
 function Main() {
   const navigate = useNavigate();
+
+  const DeleteButton = (text: string, link: string) => {
+    return (
+      <Button type="primary" danger onClick={() => navigate(link)}>
+        {text}
+      </Button>
+    );
+  };
+
+  const EditButton = (text: string, link: string) => {
+    return (
+      <Button type="primary" onClick={() => navigate(link)}>
+        {text}
+      </Button>
+    );
+  };
+
+  const AddButton = (text: string, link: string) => {
+    return (
+      <Button
+        type="primary"
+        style={{ backgroundColor: "green" }}
+        onClick={() => navigate(link)}
+      >
+        {text}
+      </Button>
+    );
+  };
+
+  const columns = [
+    {
+      title: "Game",
+      dataIndex: "game",
+      key: "game",
+    },
+    {
+      title: "Tag",
+      dataIndex: "tag",
+      key: "tag",
+    },
+    {
+      title: "User",
+      dataIndex: "user",
+      key: "user",
+    },
+    {
+      title: "Achievement",
+      key: "achievement",
+      dataIndex: "achievement",
+    },
+    {
+      title: "Character",
+      key: "character",
+      dataIndex: "character",
+    },
+  ];
+
+  const data = [
+    {
+      key: "1",
+      game: AddButton("Create Game", "/create-game"),
+      tag: AddButton("Create Tag", "/create-tag"),
+      user: DeleteButton("Ban User", "/ban-user"),
+      achievement: AddButton("Create Achievement", "/create-achievement"),
+      character: AddButton("Add Character", "/add-character"),
+    },
+    {
+      key: "2",
+      game: EditButton("Update Game", "/update-game"),
+      tag: EditButton("Update Tag", "/update-tag"),
+      user: EditButton("Give Admin Permission", "/admin-permission"),
+      achievement: DeleteButton("Delete Achievement", "/delete-achievement"),
+    },
+    {
+      key: "3",
+      game: DeleteButton("Delete Game", "/delete-game"),
+      tag: DeleteButton("Delete Tag", "/delete-tag"),
+    },
+  ];
+
   return (
     <div className={styles.container}>
-      <h1 className={styles.header}>Welcome Admin!</h1>
-
-      <div>
-        <h3 className={styles.itemHeader}>1) Game</h3>
-        <ul>
-          <li>
-            <Button type="link" onClick={() => navigate("/create-game")}>
-              Create Game
-            </Button>
-          </li>
-        </ul>
-      </div>
-      <div>
-        <h3 className={styles.itemHeader}>2) Tag</h3>
-        <ul>
-          <li>
-            <Button type="link" onClick={() => navigate("/create-tag")}>
-              Create Tag
-            </Button>
-          </li>
-          <li>
-            <Button type="link" onClick={() => navigate("/update-tag")}>
-              Update Tag
-            </Button>
-          </li>
-          <li>
-            <Button type="link" onClick={() => navigate("/delete-tag")}>
-              Delete Tag
-            </Button>
-          </li>
-        </ul>
-      </div>
-      <div>
-        <h3 className={styles.itemHeader}>3) User</h3>
-        <ul>
-          <li>
-            <Button type="link" onClick={() => navigate("/ban-user")}>
-              Ban User
-            </Button>
-          </li>
-          <li>
-            <Button type="link" onClick={() => navigate("/admin-permission")}>
-              Give Admin Permission to User
-            </Button>
-          </li>
-        </ul>
-      </div>
-      <div>
-        <h3 className={styles.itemHeader}>4) Achievement</h3>
-        <ul>
-          <li>
-            <Button type="link" onClick={() => navigate("/create-achievement")}>
-              Create Achievement
-            </Button>
-          </li>
-        </ul>
-      </div>
+      <Table
+        dataSource={data}
+        columns={columns}
+        pagination={false}
+        bordered={true}
+      />
     </div>
   );
 }

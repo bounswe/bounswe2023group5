@@ -27,6 +27,8 @@ public class GetGroupDetailResponseDto {
 
     private String forumId;       // id of the forum of the group
 
+    private String groupIcon;
+
     private int quota;
 
     private List<MemberInfo> moderators = new ArrayList<>();    // userIds of the moderators

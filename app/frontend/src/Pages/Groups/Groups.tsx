@@ -14,9 +14,11 @@ import {
 } from "@ant-design/icons";
 import { getTags } from "../../Services/tags";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../Components/Hooks/useAuth";
 
 function Groups() {
   const navigate = useNavigate();
+  const { isLoggedIn } = useAuth();
 
   const membershipOptions = [
     { value: "PRIVATE", label: "Private" },
@@ -47,8 +49,6 @@ function Groups() {
   const [sortDir, setSortDir] = useState<"ASCENDING" | "DESCENDING">(
     "DESCENDING"
   );
-
-  console.log("tags here: ", tags);
 
   const { data: groups } = useQuery(
     ["groups", title, gameName, tags, membershipPolicy, sortBy, sortDir],
@@ -112,13 +112,15 @@ function Groups() {
           />
         </div>
         <div style={{ alignSelf: "flex-end" }}>
-          <Button
-            icon={<PlusOutlined />}
-            onClick={() => navigate("/group/create")}
-            style={{ backgroundColor: "#ff824d" }}
-          >
-            Create Group
-          </Button>
+          {isLoggedIn && (
+            <Button
+              icon={<PlusOutlined />}
+              onClick={() => navigate("/group/create")}
+              style={{ backgroundColor: "#ff824d" }}
+            >
+              Create Group
+            </Button>
+          )}
         </div>
         {groups &&
           groups.map((group: any) =>

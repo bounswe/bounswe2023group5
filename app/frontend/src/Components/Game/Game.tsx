@@ -2,6 +2,7 @@ import styles from "./Game.module.scss";
 import GameConsole from "../../../assets/images/game-console.png";
 import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
+import { truncateWithEllipsis } from "../../Library/utils/truncate";
 
 function Game(props: any) {
   const game = props.game;
@@ -29,14 +30,11 @@ function Game(props: any) {
         ></img>
         <div className={styles.descriptionContainer}>
           <p className={styles.description}>
-            {game.gameDescription.length > 104
-              ? `${game.gameDescription.substring(0, 104)}...`
-              : game.gameDescription}
+            {truncateWithEllipsis(game.gameDescription, 200)}
           </p>
-          <Button
-            onClick={() => navigate(`/game/${game.id}`)}
-            className={styles.button}
-          >
+        </div>
+        <div className={styles.button}>
+          <Button onClick={() => navigate(`/game/detail/${game.id}`)}>
             Details
           </Button>
         </div>

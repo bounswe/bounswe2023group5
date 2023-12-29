@@ -5,7 +5,7 @@ import { editProfile } from "../../Services/profile";
 import UploadArea from "../UploadArea/UploadArea";
 import { useForm } from "antd/es/form/Form";
 import { useMutation, useQueryClient } from "react-query";
-import { message } from "antd";
+import { handleAxiosError } from "../../Library/utils/handleError";
 
 function EditProfile({ profile }: { profile: any }) {
   const profileId = profile.id;
@@ -19,7 +19,7 @@ function EditProfile({ profile }: { profile: any }) {
     form.setFieldsValue(profile);
     form.setFieldValue("username", profile?.user?.username);
     setImageUrl(profile?.profilePhoto);
-  }, [profile]);
+  }, [profile, form]);
 
   const showModal = () => {
     setOpen(true);
@@ -28,13 +28,16 @@ function EditProfile({ profile }: { profile: any }) {
   const { mutate: edit } = useMutation(
     (data: any) => editProfile(data, profileId),
     {
-      onSuccess() {
+      onSuccess(_, data: any) {
+        if (data.username) {
+          location.reload();
+        }
         queryClient.invalidateQueries(["profile", profile.user.id]);
         setConfirmLoading(false);
         setOpen(false);
       },
       onError(error: any) {
-        message.error(error.message);
+        handleAxiosError(error);
         setConfirmLoading(false);
       },
     }
@@ -43,7 +46,7 @@ function EditProfile({ profile }: { profile: any }) {
   const handleConfirm = async (data: any) => {
     setConfirmLoading(true);
     const newdata = { ...data, ...{ profilePhoto: imageUrl } };
-    console.log(newdata);
+
     edit(newdata);
   };
 
@@ -57,7 +60,12 @@ function EditProfile({ profile }: { profile: any }) {
 
   return (
     <>
-      <Button icon={<EditFilled />} type="primary" onClick={showModal}>
+      <Button
+        size="small"
+        icon={<EditFilled />}
+        type="primary"
+        onClick={showModal}
+      >
         Edit Profile
       </Button>
       <Modal

@@ -1,0 +1,20 @@
+@import "../../colors";
+.notification-page {
+  display: block;
+
+  .notification-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    margin: 20px 20px 0px 20px;
+    background-color: $vanilla-light-70;
+    .notificationTitle {
+      font-size: 1.6em;
+      font-weight: bold;
+      margin-bottom: 0.5em;
+      margin-top: 1em;
+      margin-left: 5px;
+    }
+  }
+}

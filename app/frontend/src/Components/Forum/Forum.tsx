@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./Forum.module.scss";
 import { useQuery } from "react-query";
 import { getPostList } from "../../Services/forum";
-import { Button, Input, Select } from "antd";
+import { Button, Input, Select, Spin } from "antd";
 import {
   FilterOutlined,
   PlusCircleOutlined,
@@ -15,6 +15,8 @@ import ForumPost from "./ForumPost/ForumPost";
 import { useState } from "react";
 import { useDebounce } from "usehooks-ts";
 import { getTags } from "../../Services/tags";
+import { PacmanLoader } from "react-spinners";
+import { twj } from "tw-to-css";
 const sortOptions = [
   { label: "Creation Date", value: "CREATION_DATE" },
   { label: "Edit Date", value: "EDIT_DATE" },
@@ -25,9 +27,11 @@ const sortOptions = [
 function Forum({
   forumId,
   redirect = "/",
+  gameId,
 }: {
   forumId: string;
   redirect?: string;
+  gameId?: string;
 }) {
   const { isLoggedIn } = useAuth();
   const [filterTags, setFilterTags] = useState([]);
@@ -73,7 +77,11 @@ function Forum({
         {isLoggedIn && (
           <Button
             onClick={() =>
-              navigate(`/forum/form?forumId=${forumId}&&redirect=${redirect}`)
+              navigate(
+                `/forum/form?forumId=${forumId}&&redirect=${redirect}${
+                  gameId ? `&&gameId=${gameId}` : ``
+                }`
+              )
             }
           >
             <PlusCircleOutlined /> Add Post
@@ -120,8 +128,13 @@ function Forum({
             post={post}
             forumId={forumId}
             redirect={redirect}
+            gameId={gameId}
           />
-        ))}
+        )) ?? (
+          <div style={twj("flex justify-center items-center p-10")}>
+            <PacmanLoader color="#1b4559" />
+          </div>
+        )}
       </div>
     </div>
   );

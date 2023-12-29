@@ -8,6 +8,11 @@ import { useEffect, useState } from "react";
 import { useForm } from "antd/es/form/Form";
 import { getTags } from "../../Services/tags";
 import UploadArea from "../../Components/UploadArea/UploadArea";
+import { getGameAchievements } from "../../Services/achievement";
+import SquareAchievement from "../../Components/Achievement/SquareAchievement/SquareAchievement";
+import clsx from "clsx";
+import { getCharacterByGame } from "../../Services/character";
+import Character from "../../Components/Character/Character";
 
 function ForumPostForm() {
   const [form] = useForm();
@@ -16,6 +21,24 @@ function ForumPostForm() {
   const editId = searchParams.get("editId");
   const queryClient = useQueryClient();
   const [imageUrl, setImageUrl] = useState<string | undefined>();
+  const [achievement, setAchievement] = useState<any>(null);
+  const [character, setCharacter] = useState<any>(null);
+
+  const gameId = searchParams.get("gameId");
+
+  const { data: achievements } = useQuery(
+    ["achievement", gameId],
+    () => getGameAchievements(gameId!),
+    { enabled: !!gameId }
+  );
+
+  const { data: characters, isLoading: isLoadingCharacters } = useQuery(
+    ["characters", gameId],
+    () => getCharacterByGame(gameId!),
+    {
+      enabled: !!gameId,
+    }
+  );
 
   const { data: editedPost, isLoading: editLoading } = useQuery(
     ["post", editId],
@@ -59,6 +82,8 @@ function ForumPostForm() {
           postContent,
           tags,
           postImage: imageUrl,
+          achievement: achievement || undefined,
+          character: character || undefined,
         });
       } else {
         return editPost({ id: editId!, title, postContent });
@@ -92,6 +117,55 @@ function ForumPostForm() {
                 onUpload={setImageUrl}
               />
             </Form.Item>
+
+            {gameId && (
+              <Form.Item label="Achievements">
+                <div className={styles.achievements}>
+                  {achievements?.map((a: any) => (
+                    <div
+                      className={clsx(achievement === a.id && styles.active)}
+                      key={a?.id}
+                    >
+                      <SquareAchievement
+                        props={a}
+                        onClick={() => {
+                          if (achievement === a.id) {
+                            setAchievement(null);
+                          } else {
+                            setAchievement(a.id);
+                          }
+                        }}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </Form.Item>
+            )}
+
+            {gameId && (
+              <Form.Item label="Characters">
+                <div className={styles.achievements}>
+                  {characters?.map((a: any) => (
+                    <div
+                      className={clsx(character === a.id && styles.active)}
+                      key={a?.id}
+                    >
+                      <Character
+                        imgUrl={`${import.meta.env.VITE_APP_IMG_URL}${a?.icon}`}
+                        name={a?.name}
+                        onClick={() => {
+                          if (character === a.id) {
+                            setCharacter(null);
+                          } else {
+                            setCharacter(a.id);
+                          }
+                        }}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </Form.Item>
+            )}
 
             <Form.Item name="tags" label="Tags">
               <Select

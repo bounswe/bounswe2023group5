@@ -1,24 +1,26 @@
 package com.app.gamereview.controller;
 
-import com.app.gamereview.dto.request.game.CreateGameRequestDto;
-import com.app.gamereview.dto.request.game.GetGameListRequestDto;
-import com.app.gamereview.dto.request.game.AddGameTagRequestDto;
-import com.app.gamereview.dto.request.game.RemoveGameTagRequestDto;
+import com.app.gamereview.dto.request.game.*;
 import com.app.gamereview.dto.response.game.GameDetailResponseDto;
 import com.app.gamereview.dto.response.game.GetGameListResponseDto;
 import com.app.gamereview.dto.response.tag.AddGameTagResponseDto;
 import com.app.gamereview.dto.response.tag.GetAllTagsOfGameResponseDto;
 import com.app.gamereview.model.Game;
+import com.app.gamereview.model.User;
 import com.app.gamereview.service.GameService;
+import com.app.gamereview.util.JwtUtil;
 import com.app.gamereview.util.validation.annotation.AdminRequired;
 import com.app.gamereview.util.validation.annotation.AuthorizationRequired;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
 
 @RestController
@@ -41,8 +43,8 @@ public class GameController {
 	}
 
 	@GetMapping("get-game-list")
-	public ResponseEntity<List<Game>> getGames(@ParameterObject GetGameListRequestDto filter) {
-		List<Game> gameList = gameService.getGames(filter);
+	public ResponseEntity<List<GetGameListResponseDto>> getGames(@ParameterObject GetGameListRequestDto filter) {
+		List<GetGameListResponseDto> gameList = gameService.getGames(filter);
 		return ResponseEntity.ok(gameList);
 	}
 
@@ -87,5 +89,45 @@ public class GameController {
 										   @RequestHeader String Authorization) {
 		Game gameToCreate = gameService.createGame(createGameRequestDto);
 		return ResponseEntity.ok(gameToCreate);
+	}
+
+	@AuthorizationRequired
+	@PutMapping("/update")
+	public ResponseEntity<Game> editGame(@RequestParam String id,
+										   @Valid @RequestBody UpdateGameRequestDto updateGameRequestDto,
+										   @RequestHeader String Authorization, HttpServletRequest request) {
+		Game updatedGame = gameService.editGame(id, updateGameRequestDto);
+		return ResponseEntity.ok(updatedGame);
+	}
+
+	@AuthorizationRequired
+	@AdminRequired
+	@DeleteMapping("/delete")
+	public ResponseEntity<Boolean> deleteGame(@RequestParam String id, @RequestHeader String Authorization,
+											  HttpServletRequest request) {
+		Boolean isDeleted = gameService.deleteGame(id);
+		return ResponseEntity.ok(isDeleted);
+	}
+
+	@GetMapping("/get-recommendations")
+	public ResponseEntity<List<Game>> getRecommendedGames(@RequestHeader(name = HttpHeaders.AUTHORIZATION,
+			required = false) String Authorization) {
+		if(Authorization == null){
+			return ResponseEntity.ok(gameService.getRecommendedGames());
+		}
+		String email = null;
+		if (JwtUtil.validateToken(Authorization))
+			email = JwtUtil.extractSubject(Authorization);
+		List<Game> games = gameService.getRecommendedGames(email);
+		return ResponseEntity.ok(games);
+	}
+
+	@AuthorizationRequired
+	@AdminRequired
+	@PostMapping("/promote")
+	public ResponseEntity<Game> changePromotionStatus(@RequestParam String id,@RequestHeader String Authorization,
+											HttpServletRequest request){
+		Game gameToPromote = gameService.changePromotionStatusOfGame(id);
+		return ResponseEntity.ok(gameToPromote);
 	}
 }

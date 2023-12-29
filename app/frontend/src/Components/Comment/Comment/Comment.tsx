@@ -20,9 +20,10 @@ import { useQueryClient } from "react-query";
 import { useState } from "react";
 import ReplyForm from "../ReplyForm/ReplyForm";
 import Reply from "../Reply/Reply";
-import { useNavigate } from "react-router-dom";
 import CommentEditForm from "../CommentForm/CommentEditForm";
 import { twj } from "tw-to-css";
+import { NotificationUtil } from "../../../Library/utils/notification";
+import clsx from "clsx";
 
 function Comment({ comment, postId }: { comment: any; postId: string }) {
   const { upvote, downvote } = useVote({
@@ -32,13 +33,13 @@ function Comment({ comment, postId }: { comment: any; postId: string }) {
   });
 
   const { user, isLoggedIn } = useAuth();
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { mutate: removeComment } = useMutation(
     (id: string) => deleteComment(id),
     {
       onSuccess() {
         queryClient.invalidateQueries(["comments", postId]);
+        NotificationUtil.success("You successfully delete the comment.");
       },
       onMutate(id: string) {
         queryClient.setQueriesData(["comments", postId], (prev: any) => {
@@ -69,7 +70,7 @@ function Comment({ comment, postId }: { comment: any; postId: string }) {
             icon={<UpOutlined />}
             onClick={upvote}
             disabled={!isLoggedIn}
-            //className={clsx(post?.userVote === "UPVOTE" && styles.active)}
+            className={clsx(comment?.userVote === "UPVOTE" && styles.active)}
           />
           <div className={styles.title}>{comment.overallVote}</div>
 
@@ -80,7 +81,7 @@ function Comment({ comment, postId }: { comment: any; postId: string }) {
             icon={<DownOutlined />}
             onClick={downvote}
             disabled={!isLoggedIn}
-            //className={clsx(post?.userVote === "DOWNVOTE" && styles.active)}
+            className={clsx(comment?.userVote === "DOWNVOTE" && styles.active)}
           />
         </div>
 
@@ -106,7 +107,7 @@ function Comment({ comment, postId }: { comment: any; postId: string }) {
             type="text"
             alt="report"
           />
-          {(user.username === comment.commenter.username || user.isAdmin) && (
+          {(user?.username === comment.commenter.username || user?.isAdmin) && (
             <div className={styles.delete}>
               <Button
                 type="text"
@@ -122,7 +123,7 @@ function Comment({ comment, postId }: { comment: any; postId: string }) {
               </Button>
             </div>
           )}
-          {user.id === comment.commenter.id && (
+          {user?.id === comment.commenter.id && (
             <div className={styles.edit}>
               <Button onClick={() => toggleEditing()}>
                 <EditOutlined />

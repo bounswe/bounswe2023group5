@@ -1,11 +1,12 @@
 import { TeamOutlined, UserOutlined } from "@ant-design/icons";
 import styles from "./PublicGroup.module.scss";
-import { Button, message } from "antd";
+import { Button } from "antd";
 import TagRenderer from "../TagRenderer/TagRenderer";
 import { formatDate } from "../../Library/utils/formatDate";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
 import { joinGroup, leaveGroup } from "../../Services/group";
+import { handleAxiosError } from "../../Library/utils/handleError";
 
 function PublicGroup({ group }: { group: any }) {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ function PublicGroup({ group }: { group: any }) {
         queryClient.invalidateQueries(["groups"]);
       },
       onError(error: any) {
-        message.error(error.response.data);
+        handleAxiosError(error);
       },
     }
   );
@@ -30,7 +31,7 @@ function PublicGroup({ group }: { group: any }) {
         queryClient.invalidateQueries(["groups"]);
       },
       onError(error: any) {
-        message.error(error.response.data);
+        handleAxiosError(error);
       },
     }
   );
@@ -54,7 +55,13 @@ function PublicGroup({ group }: { group: any }) {
       </div>
       <div className={styles.body}>
         <div className={styles.imgContainer}>
-          <img src="../../../assets/images/guru.jpeg"></img>
+          <img
+            src={
+              group?.groupIcon
+                ? `${import.meta.env.VITE_APP_IMG_URL}${group.groupIcon}`
+                : "../../../assets/images/group.png"
+            }
+          ></img>
         </div>
         <div className={styles.content}>
           <div className={styles.description}>

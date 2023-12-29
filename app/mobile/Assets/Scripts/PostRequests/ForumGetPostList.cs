@@ -13,10 +13,15 @@ public class ForumGetPostList : MonoBehaviour
     [SerializeField] private ScrollRect scrollRect;
     [SerializeField] private Transform forumPageParent;
     private List<ForumPost> forumPosts = new List<ForumPost>();
+    [SerializeField] private ForumPostComments commentManager;
+    [SerializeField] private ForumCreatePost editPostManager;
+    //[SerializeField] private CommentComments lcommentManager;
+    
     
     private void Awake()
     {
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
+        // editPostManager = FindObjectOfType(typeof(ForumCreatePost)) as ForumCreatePost;
     }
 
     private void OnEnable()
@@ -25,8 +30,9 @@ public class ForumGetPostList : MonoBehaviour
     }
 
 
-    public void ListForumPosts(string[] pars, string[] vals)
+    public void ListForumPosts(string[] pars, string[] vals, ForumCreatePost forumCreatePostManager)
     {
+        editPostManager = forumCreatePostManager;
 
         string url =
             $"{AppVariables.HttpServerUrl}/post/get-post-list" +
@@ -64,9 +70,27 @@ public class ForumGetPostList : MonoBehaviour
         {
             foreach (var postData in _forumData)
             {
-                ForumPost newForumPost = Instantiate(Resources.Load<ForumPost>("Prefabs/ForumPost"), forumPageParent);
+                ForumPost newForumPost = Instantiate(Resources.Load<ForumPost>("Prefabs/ForumPostNew"), forumPageParent);
                 forumPosts.Add(newForumPost);
-                newForumPost.Init(postData);
+                if (commentManager == null)
+                {
+                    Debug.Log("comment manager is null");
+                }
+                else
+                {
+                    Debug.Log("comment manager is not null");
+                }
+                
+                if (editPostManager == null)
+                {
+                    Debug.Log("edit post manager is null");
+                }
+                else
+                {
+                    Debug.Log("edit post manager is not null");
+                }
+                
+                newForumPost.Init(postData, commentManager, editPostManager);
             }
             Canvas.ForceUpdateCanvases();
             scrollRect.verticalNormalizedPosition = 1;

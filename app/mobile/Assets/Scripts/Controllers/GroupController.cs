@@ -32,10 +32,29 @@ public class GroupResponse{
     public string gameId;
     public string forumId;
     public int quota;
+    public GroupMember[]  moderators;
+    public GroupMember[] members;
+    public GroupMember[] bannedMembers;
+    public bool avatarOnly;
+    public bool userJoined;
+}
+
+public class GroupGetAllResponse{
+    public string id;
+    public string createdAt;
+    public string title;
+    public string description;
+    public string membershipPolicy;
+    public TagResponse[]  tags;
+    public string gameId;
+    public string forumId;
+    public string groupIcon;
+    public int quota;
     public string[]  moderators;
     public string[] members;
     public string[] bannedMembers;
     public bool avatarOnly;
+    public bool userJoined;
 }
 
 // Header parameters:
@@ -97,6 +116,7 @@ public class GroupRemoveTagRequest
 
 public class GroupMember
 {
+    public string id;
     public string userName;
-    public string userImage;
+    public string photoUrl;
 }

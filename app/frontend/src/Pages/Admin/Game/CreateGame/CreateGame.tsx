@@ -11,12 +11,14 @@ import SingleSelect from "../../../../Components/SingleSelect/SingleSelect";
 import { createGame } from "../../../../Services/games";
 import { InboxOutlined } from "@ant-design/icons";
 import { uploadImage } from "../../../../Services/image";
+import { NotificationUtil } from "../../../../Library/utils/notification";
+import { handleAxiosError } from "../../../../Library/utils/handleError";
 
 function CreateGame() {
-  // add gameIcon, duration, min system, developer and othertags req field
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [releaseDate, setReleaseDate] = useState<Date | null>(new Date());
+  const [minReq, setMinReq] = useState("");
   const [selectedTags, setSelectedTags] = useState<any>({
     playerTypes: [],
     genre: [],
@@ -51,18 +53,18 @@ function CreateGame() {
 
   const addGameMutation = useMutation(createGame, {
     onSuccess: async () => {
-      alert("You successfully create game.");
+      NotificationUtil.success("You successfully create game.");
     },
-    onError: () => {
-      alert("Something went wrong");
+    onError: (error) => {
+      handleAxiosError(error);
     },
   });
 
   const uploadImageMutation = useMutation(
     (i: any) => uploadImage(i, "game-icons"),
     {
-      onError: () => {
-        alert("We cannot upload the image");
+      onError: (error) => {
+        handleAxiosError(error);
       },
     }
   );
@@ -76,6 +78,7 @@ function CreateGame() {
       description,
       releaseDate,
       gameIcon,
+      minReq,
       ...selectedTags,
     });
   };
@@ -92,7 +95,7 @@ function CreateGame() {
 
     fileList.map((file) => {
       if (file.type.indexOf("image") === -1) {
-        alert("You can only upload image files!");
+        NotificationUtil.error("You can only upload image files!");
         setFileList([]);
       } else {
         setFileList([file]);
@@ -143,6 +146,12 @@ function CreateGame() {
           className={styles.datePicker}
         />
         <br></br>
+        <Input
+          placeholder="Min System Requirements"
+          value={minReq}
+          className={styles.input}
+          onChange={(event) => setMinReq(event.target.value)}
+        />
         <MultipleSelect
           title="Player Types"
           filterKey="playerTypes"

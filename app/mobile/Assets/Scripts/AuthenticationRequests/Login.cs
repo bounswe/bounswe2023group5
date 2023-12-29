@@ -18,7 +18,7 @@ public class Login : MonoBehaviour
     [SerializeField] private Button signupButton;
     [SerializeField] private TMP_Text infoText;
     
-    private void Awake()
+    private void Start()
     {
         loginButton.onClick.AddListener(OnClickedLogin);
         forgetPasswordButton.onClick.AddListener(OnClickedForgetPassword);
@@ -94,7 +94,7 @@ public class Login : MonoBehaviour
             DOVirtual.DelayedCall(2f, () =>
             {
                 canvasManager.HideLogInPage();
-                canvasManager.ShowHomePage();
+                canvasManager.ShowGamesPage();
             });
             
         }

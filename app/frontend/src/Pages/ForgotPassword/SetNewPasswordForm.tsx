@@ -4,6 +4,8 @@ import { Form, Input, Button } from "antd";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { postPassword } from "../../Services/ForgotPassword";
+import { NotificationUtil } from "../../Library/utils/notification";
+import { handleAxiosError } from "../../Library/utils/handleError";
 
 interface SetNewPasswordFormProps {
   isVerified: boolean;
@@ -17,13 +19,15 @@ const SetNewPasswordForm: React.FC<SetNewPasswordFormProps> = ({
   const passwordMutation = useMutation(postPassword, {
     onSuccess: (data) => {
       if (data.status === 500) {
-        alert("Something went wrong.");
+        NotificationUtil.success("Something went wrong.");
         return;
       }
-      alert("Password is successfully set");
+      NotificationUtil.success("Password is successfully set");
       navigate("/login");
     },
-    onError: () => {},
+    onError: (error) => {
+      handleAxiosError(error);
+    },
   });
 
   const onFinish = (data: any) => {
