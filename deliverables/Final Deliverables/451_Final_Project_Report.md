@@ -73,107 +73,103 @@
 
 - Compliance with W3C WADM: While creating the data models in our annotation backend we took the W3C model as our primary reference point and used a complient library for our frontend. We didn't fully cover all of the model but the functionalities that we have included are complient with the W3C model.
 
-- Implementation: 
-    
-    In the backend we have created an annotation model with the following properties from the W3C model: id, target, body, type, motivation, created and creator. However we don't use the last two in our frontend. 
-    
-    For the body model we have only implemented the textual body with the folllowing properties: type, id, purpose, value, format and language. However we don't use the last two for the body as well in our frontend.
+- Implementation:
 
-    We have created the target model with the following properties: id, source, selector, type, format, textDirection. This time the last three is not used in our frontend.
+  In the backend we have created an annotation model with the following properties from the W3C model: id, target, body, type, motivation, created and creator. However we don't use the last two in our frontend.
 
-    For selectors, we have implemented three: TextPositionSelector, TextQuoteSelector and Fragment Selector. The first two is used together for textual annotation, while the second one is used for image annotations in our application. All three selectors are fully implemented and are not lacking any properties.
+  For the body model we have only implemented the textual body with the folllowing properties: type, id, purpose, value, format and language. However we don't use the last two for the body as well in our frontend.
 
-    The purpose for the fact that we added additional fields that we did not use in front end is that the usability of the annotation backend for other frontends. Thus we have implemented some additional fields that we thought that can be important for other use cases that isn't in our application.
+  We have created the target model with the following properties: id, source, selector, type, format, textDirection. This time the last three is not used in our frontend.
 
-    For creating new annotations we have added a single endpoint POST /api/annotation/create . It can be used for both creating image and textual annotations. 
-    
-    The same is valid for updating and deleting annotations. They can be done by PUT /api/annotation/update and DELETE /api/annotation/delete regardless of their types. However we have separated the get endpoints for different kind of annotations. 
-    
-    In order to get the textual annotations for a source, we have implemented the GET /api/annotation/get-source-annotations and for the image annotations, we have implemented /api/annotation/get-image-annotations
- 
+  For selectors, we have implemented three: TextPositionSelector, TextQuoteSelector and Fragment Selector. The first two is used together for textual annotation, while the second one is used for image annotations in our application. All three selectors are fully implemented and are not lacking any properties.
+
+  The purpose for the fact that we added additional fields that we did not use in front end is that the usability of the annotation backend for other frontends. Thus we have implemented some additional fields that we thought that can be important for other use cases that isn't in our application.
+
+  For creating new annotations we have added a single endpoint POST /api/annotation/create . It can be used for both creating image and textual annotations.
+
+  The same is valid for updating and deleting annotations. They can be done by PUT /api/annotation/update and DELETE /api/annotation/delete regardless of their types. However we have separated the get endpoints for different kind of annotations.
+
+  In order to get the textual annotations for a source, we have implemented the GET /api/annotation/get-source-annotations and for the image annotations, we have implemented /api/annotation/get-image-annotations
+
 - API Calls to the annotation server:
-    - Textual annotation creation & retrieval:
-    
-        To create new textual annotation first POST /api/annotation/create endpoint should be used with its request body in the following format:
 
-        ```json
+  - Textual annotation creation & retrieval:
+
+    To create new textual annotation first POST /api/annotation/create endpoint should be used with its request body in the following format:
+
+    ```json
+    {
+      "@context": "http://www.w3.org/ns/anno.jsonld",
+      "type": "Annotation",
+      "body": [
         {
-            "@context": "http://www.w3.org/ns/anno.jsonld",
-            "type": "Annotation",
-            "body": 
-            [
-                {
-                    "type": "TextualBody",
-                    "value": "selam",
-                    "purpose": "commenting"
-                }
-            ],
-            "target":
-            {
-                "source": "http://localhost:5173/forum/detail/1583937f-687a-4122-af3b-ca1185cb0c4c/7671c222-3ebb-44a7-99a8-67b832095859",
-                "selector":
-                [
-                    {
-                        "type": "TextQuoteSelector",
-                        "exact": "dragonborn"
-                    },
-                    {
-                        "type": "TextPositionSelector",
-                        "start": 26,
-                        "end": 36
-                    }
-
-                ]
-            },
-            "id": "http://localhost:5173/forum/detail/1583937f-687a-4122-af3b-ca1185cb0c4c/7671c222-3ebb-44a7-99a8-67b832095859/#6e90b961-5541-428a-a030-287636cc94ea"
+          "type": "TextualBody",
+          "value": "selam",
+          "purpose": "commenting"
         }
-        ```
-        
+      ],
+      "target": {
+        "source": "http://localhost:5173/forum/detail/1583937f-687a-4122-af3b-ca1185cb0c4c/7671c222-3ebb-44a7-99a8-67b832095859",
+        "selector": [
+          {
+            "type": "TextQuoteSelector",
+            "exact": "dragonborn"
+          },
+          {
+            "type": "TextPositionSelector",
+            "start": 26,
+            "end": 36
+          }
+        ]
+      },
+      "id": "http://localhost:5173/forum/detail/1583937f-687a-4122-af3b-ca1185cb0c4c/7671c222-3ebb-44a7-99a8-67b832095859/#6e90b961-5541-428a-a030-287636cc94ea"
+    }
+    ```
 
-        In order to retrieve the textual annotations we can search for them using source id in the GET /api/annotation/get-source-annotations endpoint with the parameter source as in the example below:
+    In order to retrieve the textual annotations we can search for them using source id in the GET /api/annotation/get-source-annotations endpoint with the parameter source as in the example below:
 
-        http://localhost:3002/api/annotation/get-source-annotations?source=http://localhost:5173/forum/detail/1583937f-687a-4122-af3b-ca1185cb0c4c/7671c222-3ebb-44a7-99a8-67b832095859
+    http://localhost:3002/api/annotation/get-source-annotations?source=http://localhost:5173/forum/detail/1583937f-687a-4122-af3b-ca1185cb0c4c/7671c222-3ebb-44a7-99a8-67b832095859
 
-    - Image annotation creation & retrieval:
+  - Image annotation creation & retrieval:
 
-        To create new image annotation, same POST /api/annotation/create endpoint should be used with its request body in the following format:
+    To create new image annotation, same POST /api/annotation/create endpoint should be used with its request body in the following format:
 
-        ```json
+    ```json
+    {
+      "@context": "http://www.w3.org/ns/anno.jsonld",
+      "type": "Annotation",
+      "body": [
         {
-            "@context": "http://www.w3.org/ns/anno.jsonld",
-            "type": "Annotation",
-            "body": 
-            [
-                {
-                    "type": "TextualBody",
-                    "value": "selam",
-                    "purpose": "commenting"
-                }
-            ],
-            "target":
-            {
-                "source": "http://localhost:5173/forum/detail/1583937f-687a-4122-af3b-ca1185cb0c4c/7671c222-3ebb-44a7-99a8-67b832095859",
-                "selector":
-                {
-                    "type": "FragmentSelector",
-                    "conformsTo": "http://www.w3.org/TR/media-frags/","value": "xywh=pixel:99.46521759033203,147.68984985351562,94.94408416748047,84.39472961425781"
-                }
-            },
-            "id": "http://localhost:5173/forum/detail/1583937f-687a-4122-af3b-ca1185cb0c4c/7671c222-3ebb-44a7-99a8-67b832095859/#6e90b961-5541-428a-a030-287636cc94ea"
+          "type": "TextualBody",
+          "value": "selam",
+          "purpose": "commenting"
         }
-        ```
+      ],
+      "target": {
+        "source": "http://localhost:5173/forum/detail/1583937f-687a-4122-af3b-ca1185cb0c4c/7671c222-3ebb-44a7-99a8-67b832095859",
+        "selector": {
+          "type": "FragmentSelector",
+          "conformsTo": "http://www.w3.org/TR/media-frags/",
+          "value": "xywh=pixel:99.46521759033203,147.68984985351562,94.94408416748047,84.39472961425781"
+        }
+      },
+      "id": "http://localhost:5173/forum/detail/1583937f-687a-4122-af3b-ca1185cb0c4c/7671c222-3ebb-44a7-99a8-67b832095859/#6e90b961-5541-428a-a030-287636cc94ea"
+    }
+    ```
 
-        In order to retrieve the image annotations we can search for them using source id in the GET /api/annotation/get-image-annotations endpoint with the parameter source as in the example below:
+    In order to retrieve the image annotations we can search for them using source id in the GET /api/annotation/get-image-annotations endpoint with the parameter source as in the example below:
 
-        http://localhost:3002/api/annotation/get-image-annotations?source=http://localhost:5173/forum/detail/1583937f-687a-4122-af3b-ca1185cb0c4c/7671c222-3ebb-44a7-99a8-67b832095859
+    http://localhost:3002/api/annotation/get-image-annotations?source=http://localhost:5173/forum/detail/1583937f-687a-4122-af3b-ca1185cb0c4c/7671c222-3ebb-44a7-99a8-67b832095859
 
-        Note that even though both retrieval endpoints share the same source, they will only return the related annotations (image annotations for get-image-annotations and textual annotations for get-source annotations)
+    Note that even though both retrieval endpoints share the same source, they will only return the related annotations (image annotations for get-image-annotations and textual annotations for get-source annotations)
 
-        Also note that while creating annotations only difference is in the selector part and all other fields are same.
+    Also note that while creating annotations only difference is in the selector part and all other fields are same.
 
 ### 8. Scenario
 
 #### Persona
+
+<img align="left" src="https://user-images.githubusercontent.com/68641237/230743155-bb4e3f71-b1a8-47e6-9001-0aca8996332a.jpeg" width=300 height=150 alt="Reset Password">
 
 - Name: Josh Radnor
 - Age: 21
