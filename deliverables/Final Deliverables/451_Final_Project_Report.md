@@ -61,6 +61,32 @@
 
 ### 3. Status Of Deliverables
 
+| Deliverable Name | Delivery Status | Notes |
+| --- | --- | --- |
+| Project Video | Completed  | 
+| Executive Summary | Completed | 
+| Summary of Your Project Status in Terms of Requirements| Completed | 
+| Status of Deliverables | Completed |
+| Final Release Notes | Completed |
+| Management Related Parts of Report | Completed |
+| Summary of Work Performed by Team Members |  Completed |
+| API Endpoints | Completed |
+| Status of Requirements| Completed |
+| Status of Annotations | Completed |
+| Scenarios | Completed |
+| User Manual | Completed |
+| System Manual |  Completed |
+| Emulator Instructions | Completed |
+| Software Requirements Specification | Completed  |
+| Software design documents | Completed  |
+| User scenarios and mockups | Completed  |
+| Research | Completed |
+| Project plan | Completed |
+| Generated Unit Test Reports | Completed |
+| Release of Software | Completed |
+| Individual Contributions | Completed |
+
+
 ### 4. Requirements Coverage
 
 ### 5. API Endpoints
