@@ -45,6 +45,20 @@
 ### 1. Executive Summary
 
 ### 2. Final Release Notes
+Covered Requirements Since Milestone 2:
+
+- Text Annotation requirements
+- Image Annotation requirements
+- Promotion requirements
+- Recommendation requirements
+- Private Group requirements
+- Group Application requirements
+- Game Character requirements
+- Notification requirements
+- Homepage requirements
+
+There are some requirements we cannot cover such as reporting feature. You can access the frontend with this [link](http://ec2-51-20-78-40.eu-north-1.compute.amazonaws.com/games). You can access the backend of the application with this [link](http://ec2-16-16-166-22.eu-north-1.compute.amazonaws.com/)
+
 
 ### 3. Status Of Deliverables
 
