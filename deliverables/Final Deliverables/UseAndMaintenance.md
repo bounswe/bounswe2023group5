@@ -31,6 +31,10 @@ On the mobile side, we used multiple different devices from different vendors to
 - [Sign Up Scenario](https://github.com/bounswe/bounswe2023group5/wiki/Unregistered-User-Scenario:-Sign-Up)
   
 ### Research
+- [Frontend Tech Research](https://github.com/bounswe/bounswe2023group5/wiki/Frontend-Tech-Research)
+- [Mobile Tech Research](https://github.com/bounswe/bounswe2023group5/wiki/Mobile-Tech-Research)
+- [Backend Tech Research](https://github.com/bounswe/bounswe2023group5/wiki/Backend-Tech-Research)
+
 
 ### Project Plan
 - [Project Plan](https://github.com/orgs/bounswe/projects/21)
