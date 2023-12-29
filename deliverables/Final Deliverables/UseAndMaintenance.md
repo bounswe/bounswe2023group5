@@ -9,6 +9,7 @@ On the mobile side, we used multiple different devices from different vendors to
 
 - Frontend: http://ec2-51-20-78-40.eu-north-1.compute.amazonaws.com/home
 - Backend: http://ec2-16-16-166-22.eu-north-1.compute.amazonaws.com/swagger-ui/index.html#/
+- Annotation: http://ec2-3-72-52-0.eu-central-1.compute.amazonaws.com/swagger-ui/index.html#/
 
 ### Building the docker image
 There will be three different env files for the project. They should be first placed on the corresponding folders:
