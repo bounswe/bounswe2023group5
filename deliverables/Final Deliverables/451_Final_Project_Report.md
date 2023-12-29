@@ -91,6 +91,8 @@ There are some requirements we could not cover such as reporting feature. You ca
 
 ### 4. Requirements Coverage
 
+- [Progress According to Requirements](https://github.com/bounswe/bounswe2023group5/wiki/Progress-According-to-Requirements-%E2%80%90-Final-Milestone)
+
 ### 5. API Endpoints
 - [API Documentation](https://github.com/bounswe/bounswe2023group5/wiki/API-Documentation)
 - [Link to the API](http://ec2-16-16-166-22.eu-north-1.compute.amazonaws.com/swagger-ui/index.html#/)
