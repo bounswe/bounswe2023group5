@@ -27,6 +27,8 @@
 - [Zeynep Baydemir](https://github.com/bounswe/bounswe2023group5/wiki/Zeynep-Baydemir)
 
 ### Video :
+* Drive Link: https://drive.google.com/file/d/1lQjfpDQA6K0UYWI7J6qeSMLgM8lqzOQm/view?usp=sharing
+* Youtube Link: https://youtu.be/kKTJaSUGkjQ
 
 ## List Of Contents
 
