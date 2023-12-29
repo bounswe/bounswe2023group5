@@ -659,7 +659,7 @@ This scenario will also be demonstrated through the video we provide.
 27. Creates a welcome post for the incoming members and starts to wait for first members of his group.
 28. He remembers the achievement he saw in game Baldur's Gate 3. He just won that.
 29. He posts an achievement request post in the game’s forum
-30. He gets notification when his achievement is granted.
+30. He goes to his profile, sees his achievements.
 31. He is happy knowing that he found a new game he really liked and he is good at it, he leaves the website.
 
 #### Works Done To Realize This Scenario
