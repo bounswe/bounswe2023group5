@@ -673,7 +673,7 @@ To ensure that users like John have access to a wealth of content, we developed 
 
 ## 10. Individual Contribution Reports
 
-- [Ali Başaran]()
+- [Ali Başaran](https://github.com/bounswe/bounswe2023group5/wiki/Contributions-of-Ali-Başaran-‐-451-Final-Milestone)
 - [Alperen Bırçak]()
 - [Arda Kabadayı](https://github.com/bounswe/bounswe2023group5/wiki/Contributions-of-Arda-Kabaday%C4%B1-%E2%80%90-451-Final-Milestone)
 - [Bilal Atım]()
