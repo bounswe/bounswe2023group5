@@ -1,14 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using UnityEngine.Serialization;
 
 public class ForumPost : MonoBehaviour
 {
-    [SerializeField] private Image userImage;
+    [SerializeField] private Image postImage;
     [SerializeField] private TMP_Text poster;
     [SerializeField] private TMP_Text title;
     [SerializeField] private TMP_Text postContent;
@@ -41,7 +43,7 @@ public class ForumPost : MonoBehaviour
     {
         // commentManager = FindObjectOfType(typeof(openComment)) as openComment;
         canvasManager = FindObjectOfType(typeof(CanvasManager)) as CanvasManager;
-        forumPostComments.onClick.AddListener(OnClickedForumPostComments);
+        forumPostComments?.onClick.AddListener(OnClickedForumPostComments);
         editPost.onClick.AddListener(OnClickedEditPost);
         deletePost.onClick.AddListener(OnClickedDeletePost);
         deletePanel.SetActive(false);
@@ -53,12 +55,20 @@ public class ForumPost : MonoBehaviour
         postInfoVal = postInfo;
         commentManager = commentManagerInfo;
         editPostManager = editPostManagerInfo;
-        string url = "http://ec2-16-16-166-22.eu-north-1.compute.amazonaws.com/";
-        // StartCoroutine(LoadImageFromURL(url + gameInfo.gameIcon, gameImage));
+        postId = postInfo.id;
+        if (postInfo.postImage != null && !postInfo.postImage.Contains("webp"))
+        {
+            StartCoroutine(LoadImageFromURL(AppVariables.HttpImageUrl + postInfo.postImage, postImage));
+        }
+        else
+        {
+            postImage.gameObject.SetActive(false);
+        }
+
         // poster.text = postInfo.poster;
         title.text = postInfo.title;
         postContent.text = postInfo.postContent;
-        lastEditedAt.text = postInfo.lastEditedAt;
+        lastEditedAt.text = postInfo.lastEditedAt.ToString("dd/MM/yyyy");
         overallVote.text = Convert.ToString(postInfo.overallVote);
         if (postInfo.poster == null)
         {
@@ -76,19 +86,19 @@ public class ForumPost : MonoBehaviour
         
         if (postInfo.isEdited)
         {
-            lastEditedAt.text += " (edited)";
+            // lastEditedAt.text += " (edited)";
         }
         else
         {
             // This will be deleted
-            lastEditedAt.text += " (not edited)";
+            // lastEditedAt.text += " (not edited)";
         }
         
         
         deletePanel.gameObject.SetActive(false);
 
         // User can delete and edit her own posts
-        if ( (!String.IsNullOrEmpty(userId)) && (userId == PersistenceManager.id))
+        if ( (!String.IsNullOrEmpty(userId)) && (userId == PersistenceManager.id) )
         {
             deletePost.gameObject.SetActive(true);
             editPost.gameObject.SetActive(true);
@@ -97,6 +107,12 @@ public class ForumPost : MonoBehaviour
         {
             deletePost.gameObject.SetActive(false);
             editPost.gameObject.SetActive(false);
+        }
+        
+        // Admin can delete any post
+        if ( PersistenceManager.Role == "ADMIN")
+        {
+            deletePost.gameObject.SetActive(true);
         }
     }
 
@@ -133,6 +149,7 @@ public class ForumPost : MonoBehaviour
         {
             Texture2D texture = DownloadHandlerTexture.GetContent(request);
             targetImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+            targetImage.gameObject.SetActive(true);
         }
     }
     
@@ -175,6 +192,11 @@ public class ForumPost : MonoBehaviour
             response = request.downloadHandler.text;
             Debug.Log("Success to delete forum post detail: " + response);
             deleteText.text = "Post is successfully deleted";
+            DOVirtual.DelayedCall(2f, () =>
+            {
+                canvasManager.gameDetailsPage.GetComponent<GameDetails>().OnClickedForumButton();
+                canvasManager.groupDetailsPage.GetComponent<GroupDetails>().OnClickedForumButton();
+            });
         }
         else
         {

@@ -65,7 +65,7 @@ public class ForumPostDetail : MonoBehaviour
             var postInfo = JsonConvert.DeserializeObject<GetPostListResponse>(response);
             title.text = postInfo.title;
             postContent.text = postInfo.postContent;
-            lastEditedAt.text = postInfo.lastEditedAt;
+            lastEditedAt.text = postInfo.lastEditedAt.ToString("dd/MM/yyyy");
             overallVote.text = Convert.ToString(postInfo.overallVote);
             if (postInfo.poster == null)
             {

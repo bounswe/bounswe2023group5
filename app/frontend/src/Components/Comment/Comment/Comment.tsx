@@ -20,7 +20,6 @@ import { useQueryClient } from "react-query";
 import { useState } from "react";
 import ReplyForm from "../ReplyForm/ReplyForm";
 import Reply from "../Reply/Reply";
-import { useNavigate } from "react-router-dom";
 import CommentEditForm from "../CommentForm/CommentEditForm";
 import { twj } from "tw-to-css";
 import { NotificationUtil } from "../../../Library/utils/notification";
@@ -108,7 +107,7 @@ function Comment({ comment, postId }: { comment: any; postId: string }) {
             type="text"
             alt="report"
           />
-          {(user.username === comment.commenter.username || user.isAdmin) && (
+          {(user?.username === comment.commenter.username || user?.isAdmin) && (
             <div className={styles.delete}>
               <Button
                 type="text"
@@ -124,7 +123,7 @@ function Comment({ comment, postId }: { comment: any; postId: string }) {
               </Button>
             </div>
           )}
-          {user.id === comment.commenter.id && (
+          {user?.id === comment.commenter.id && (
             <div className={styles.edit}>
               <Button onClick={() => toggleEditing()}>
                 <EditOutlined />

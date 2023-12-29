@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -64,7 +65,7 @@ public class CommentBox : MonoBehaviour
         deletePanel.SetActive(false);
         
         commentContent.text = PostCommentInfoVal.commentContent;
-        // lastEditedAt.text = postInfo.lastEditedAt;
+        lastEditedAt.text = PostCommentInfoVal.lastEditedAt.ToString("dd/MM/yyyy");
         overallVote.text = Convert.ToString(PostCommentInfoVal.overallVote);
         if (PostCommentInfoVal.commenter == null)
         {
@@ -94,6 +95,17 @@ public class CommentBox : MonoBehaviour
             editButton.gameObject.SetActive(false);
         }
         
+        // Admin can delete any comment
+        if ( PersistenceManager.Role == "ADMIN")
+        {
+            Debug.Log("I am an admin");
+            deleteButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("I am not an admin");
+        }
+        
         Debug.Log("Comment id is "+ commentId);
        
     }
@@ -111,7 +123,7 @@ public class CommentBox : MonoBehaviour
         deletePanel.SetActive(false);
         
         commentContent.text = commentInfoVal.commentContent;
-        // lastEditedAt.text = postInfo.lastEditedAt;
+        lastEditedAt.text = commentInfoVal.lastEditedAt.ToString("dd/MM/yyyy");
         overallVote.text = Convert.ToString(commentInfoVal.overallVote);
         if (commentInfoVal.commenter == null)
         {
@@ -139,6 +151,17 @@ public class CommentBox : MonoBehaviour
         {
             deleteButton.gameObject.SetActive(false);
             editButton.gameObject.SetActive(false);
+        }
+        
+        // Admin can delete any comment
+        if ( PersistenceManager.Role == "ADMIN")
+        {
+            Debug.Log("I am an admin");
+            deleteButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("I am not an admin");
         }
         
         Debug.Log("Comment id is "+ commentId);
@@ -214,6 +237,11 @@ public class CommentBox : MonoBehaviour
         {
             Debug.Log("Success to delete comment detail: " + response);
             deleteText.text = "Comment is successfully deleted";
+            DOVirtual.DelayedCall(2f, () =>
+            {
+                canvasManager.postComments.GetComponent<ForumPostComments>().Refresh();
+                canvasManager.commentComments.GetComponent<CommentComments>().Refresh();
+            });
         }
         else
         {

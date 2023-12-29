@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
@@ -26,7 +27,7 @@ public class ForumPostComments : MonoBehaviour
     [SerializeField] private Button exitButton;
     [SerializeField] private TMP_Text infoText;
     private GetPostListResponse postInfo;
-    [SerializeField] private Image userImage;
+    [SerializeField] private Image postImage;
     
     [SerializeField] private TMP_Text title;
     [SerializeField] private TMP_Text postContent;
@@ -81,6 +82,14 @@ public class ForumPostComments : MonoBehaviour
         
 
     }
+
+    public void Refresh()
+    {
+        if (!String.IsNullOrEmpty(postID))
+        {
+            Init(postID);
+        }
+    }
     
     private void AddTags(TagResponse[] tags)
     {
@@ -121,7 +130,7 @@ public class ForumPostComments : MonoBehaviour
             // forumPost.Init(postID);
             title.text = postInfo.title;
             postContent.text = postInfo.postContent;
-            lastEditedAt.text = postInfo.lastEditedAt;
+            lastEditedAt.text = postInfo.lastEditedAt.ToString("dd/MM/yyyy");
             overallVote.text = Convert.ToString(postInfo.overallVote);
             if (postInfo.poster == null)
             {
@@ -131,24 +140,37 @@ public class ForumPostComments : MonoBehaviour
             {
                 userName.text = postInfo.poster.username;
             }
+            
+            if (postInfo.postImage != null && !postInfo.postImage.Contains("webp"))
+            {
+                StartCoroutine(LoadImageFromURL(AppVariables.HttpImageUrl + postInfo.postImage, postImage));
+            }
+            else
+            {
+                postImage.gameObject.SetActive(false);
+            }
 
             AddTags(postInfo.tags);
-            character.gameObject.SetActive(false);
+            
             if (postInfo.character != null)
             {
                 character.gameObject.SetActive(true);
                 character.Init(postInfo.character, characterDetailsManager);
             }
-
-            if (postInfo.isEdited)
-            {
-                lastEditedAt.text += " (edited)";
-            }
             else
             {
-                // This will be deleted
-                lastEditedAt.text += " (not edited)";
+                character.gameObject.SetActive(false);
             }
+
+            // if (postInfo.isEdited)
+            // {
+            //     lastEditedAt.text += " (edited)";
+            // }
+            // else
+            // {
+            //     // This will be deleted
+            //     lastEditedAt.text += " (not edited)";
+            // }
         
             //GameObject postComments = GameObject.Find("PostComments");
             //postComments.SetActive(true);
@@ -158,7 +180,7 @@ public class ForumPostComments : MonoBehaviour
             {
                 Debug.Log("Id must be specified");
             }
-        
+
             string url = AppVariables.HttpServerUrl + "/post/get-post-comments" + 
                          ListToQueryParameters.ListToQueryParams(new []{"id"}, new []{postID});
             StartCoroutine(Get(url));
@@ -170,6 +192,23 @@ public class ForumPostComments : MonoBehaviour
             Debug.Log("Error to get forum post data: " + response);
         }
         request.downloadHandler.Dispose();
+    }
+    
+    private IEnumerator LoadImageFromURL(string imageUrl, Image targetImage)
+    {
+        UnityWebRequest request = UnityWebRequestTexture.GetTexture(imageUrl);
+        yield return request.SendWebRequest();
+
+        if(request.result != UnityWebRequest.Result.Success)
+        {
+            // Debug.LogError("Failed to load image: " + request.error);
+        }
+        else
+        {
+            Texture2D texture = DownloadHandlerTexture.GetContent(request);
+            targetImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+            targetImage.gameObject.SetActive(true);
+        }
     }
     
     IEnumerator Get(string url)
@@ -370,6 +409,7 @@ public class ForumPostComments : MonoBehaviour
             infoText.text = "Success to create comment";
             infoText.color = Color.green;
             commentInputField.text = "";
+            Init(postID);
         }
         else
         {
@@ -389,6 +429,12 @@ public class ForumPostComments : MonoBehaviour
             infoText.text = "Success to edit comment";
             infoText.color = Color.green;
             commentInputField.text = "";
+            
+            DOVirtual.DelayedCall(2f, () =>
+            {
+                canvasManager.postComments.GetComponent<ForumPostComments>().Refresh();
+                canvasManager.commentComments.GetComponent<CommentComments>().Refresh();
+            });
             
             // If successfully edited the command, return to add command mode
             AddCommentMode();

@@ -25,7 +25,6 @@ public class GameScreen : MonoBehaviour
     private List<GamePage> gamePages = new List<GamePage>();
     // private List<(string,string)> queryParams = new List<(string, string)>();
 
-
     private void Awake()
     {
         filterButton.onClick.AddListener(OnClickedFilter);
@@ -33,8 +32,8 @@ public class GameScreen : MonoBehaviour
 
     private void Start()
     {
-        ListGames(null);
         StartCoroutine(GetAllTags(AppVariables.HttpServerUrl + "/tag/get-all"));
+        OnClickedFilter();
     }
     
 
@@ -58,6 +57,7 @@ public class GameScreen : MonoBehaviour
     private GetGameListRequest ChangeFilterParameter()
     {
         GetGameListRequest gameRequestData = new GetGameListRequest();
+        gameRequestData.findDeleted = false;
         var playerTypesList = playerTypes.GetSelectedItems();
         var genreList = genre.GetSelectedItems();
         var platformsList = platforms.GetSelectedItems();

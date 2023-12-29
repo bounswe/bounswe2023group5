@@ -28,7 +28,7 @@ function RecommendationCarousel({
       {!loading ? (
         <Carousel
           autoplay
-          slidesToShow={Math.floor(width / 150)}
+          slidesToShow={Math.min(Math.floor(width / 150), items.length)}
           style={{ width: `${width - 20}px` }}
         >
           {items?.map((item, index) => (

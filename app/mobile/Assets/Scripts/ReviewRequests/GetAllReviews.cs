@@ -59,7 +59,7 @@ public class GetAllReviews : MonoBehaviour
         {
             foreach (var reviewData in _reviewData)
             {
-                GameReview newGamePage = Instantiate(Resources.Load<GameReview>("Prefabs/GameReview"),reviewPageParent);
+                GameReview newGamePage = Instantiate(Resources.Load<GameReview>("Prefabs/GameReviewNew"),reviewPageParent);
                 gameReviews.Add(newGamePage);
                 newGamePage.Init(reviewData);
             }
