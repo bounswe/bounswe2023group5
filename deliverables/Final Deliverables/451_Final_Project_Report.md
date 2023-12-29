@@ -74,7 +74,7 @@ Covered Requirements Since Milestone 2:
 - Notification requirements
 - Homepage requirements
 
-There are some requirements we could not cover such as reporting feature. You can access the frontend with this [link](http://ec2-51-20-78-40.eu-north-1.compute.amazonaws.com/games). You can access the backend of the application with this [link](http://ec2-16-16-166-22.eu-north-1.compute.amazonaws.com/)
+There are some requirements we could not cover such as reporting feature. You can access the frontend with this [link](http://ec2-51-20-78-40.eu-north-1.compute.amazonaws.com/games). You can access the backend of the application with this [link](http://ec2-16-16-166-22.eu-north-1.compute.amazonaws.com/). You can access the mobile application with this [link](https://github.com/bounswe/bounswe2023group5/releases/tag/final-submission-g5).
 
 
 ### 3. Status Of Deliverables
