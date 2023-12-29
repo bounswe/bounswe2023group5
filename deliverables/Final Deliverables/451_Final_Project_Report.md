@@ -190,6 +190,8 @@ Josh Radnor is a junior computer engineering student at Stanford University. He 
 
 #### Scenario
 
+This scenario will also be demonstrated through the video we provide.
+
 1. Josh checks out the home page and finds compelling content, including Fallout-related posts.
 2. Spots the register button in the top navigation bar, Josh clicks it and gets redirected to the registration page.
 3. On the registration page, he provides a username, email, and password. He accepts the Game Guru User Agreement and completes the registration.
