@@ -92,6 +92,7 @@ There are some requirements we could not cover such as reporting feature. You ca
 ### 4. Requirements Coverage
 
 - [Progress According to Requirements](https://github.com/bounswe/bounswe2023group5/wiki/Progress-According-to-Requirements-%E2%80%90-Final-Milestone)
+- [Summary of Work](https://github.com/bounswe/bounswe2023group5/wiki/Summary-Of-Work)
 
 ### 5. API Endpoints
 - [API Documentation](https://github.com/bounswe/bounswe2023group5/wiki/API-Documentation)
