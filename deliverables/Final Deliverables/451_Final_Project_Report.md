@@ -55,20 +55,92 @@
   - [Mehmet Said Yolcu]()
   - [Zeynep Baydemir]()
 
-  ### 1. Executive Summary
+### 1. Executive Summary
 
-  ### 2. Final Release Notes
+### 2. Final Release Notes
 
-  ### 3. Status Of Deliverables
+### 3. Status Of Deliverables
 
-  ### 4. Requirements Coverage
+### 4. Requirements Coverage
 
-  ### 5. API Endpoints
+### 5. API Endpoints
 
-  ### 6. User Interface & User Experience
+### 6. User Interface & User Experience
 
-  ### 7. Annotations
+### 7. Annotations
 
-  ### 8. Scenario
+### 8. Scenario
 
-  ### 9. Management
+#### Persona
+
+- Name: Josh Radnor
+- Age: 21
+- Nationality: American
+- Personality: Patient, Friendly, Strict
+- Interests: Video Games, Basketball, Teni
+
+#### User Story
+
+Josh Radnor is a junior computer engineering student at Stanford University. He loves playing videogames and interacting with other gamers. In his free time, he plays basketball and tenis other thanplaying video games. He loves playing RPG games however he is very picky about them, he likes toresearch a lot before commiting a game. He is a real Fallout fan. He heard this platform from hisfriends and wanted to give it a go.
+
+#### Goals
+
+- Engaging with new gamers
+- Being aware of new games
+- Joining online communities, participate in forums or chat rooms, or play multiplayer games with friends or strangers.
+- Having a detailed information about the games
+
+#### Scenario
+
+1. Josh checks out the home page and finds compelling content, including Fallout-related posts.
+2. Spots the register button in the top navigation bar, Josh clicks it and gets redirected to the registration page.
+3. On the registration page, he provides a username, email, and password. He accepts the Game Guru User Agreement and completes the registration.
+4. After successful registration, Josh is redirected to the home page.
+5. Using the top navigation bar, he goes to his profile and clicks the "edit profile" button.
+6. Josh adds his picture and links his Steam account in modal form.
+7. Heading to the games page, he searches for Fallout.
+8. Among the search results, Josh chooses Fallout 4. He briefly checks the description, annotations, and characters from the game’s details page.
+9. Impressed, he follows the game.
+10. He navigates to the reviews section, gives 5-star rating, and writes a detailed review about why he likes Fallout 4.
+11. After having a look to the other reviews, upvotes some reviews, downvotes some others based on his preferences.
+12. He checks out the Fallout 4 forum, writes a comment on a post he likes, and creates a post about Fallout 4.
+13. Following this, he goes back to home page for some other content
+14. Seeing a recommended Fallout 4 group on the home page, Josh checks out the group.
+15. He likes it and decides to join. He applies for the group.
+16. He writes a detailed message explaining why he wants to join.
+17. After a while, Josh click notification section on the side bar .
+18. He finds out achievements related to reviews and posts. He also sees that his group application is accepted.
+19. He goes to the group's page by clicking the related notification.
+20. He posts a group post.
+21. Going back to home page, Josh sees a recommendation for ‘Baldur's Gate 3.’
+22. He goes and checks out the game with the characters, annotation, description.
+23. He gets really exited, he follows the game with intentions of playing.
+24. After playing ‘Baldur's Gate 3’ and enjoying it, he searches for existing groups from Groups page by game name ‘Baldur’s Gate 3’
+25. Josh decides to create a new group of this game, he swithches to Groups page.
+26. Clicking the "create group" button, he adds an image, description, and sets quota and membership policies for the new Baldur's Gate 3 group.
+27. Creates a welcome post for the incoming members and starts to wait for first members of his group.
+28. He remembers the achievement he saw in game Baldur's Gate 3. He just won that.
+29. He posts an achievement request post in the game’s forum
+30. He gets notification when his achievement is granted.
+31. He is happy knowing that he found a new game he really liked and he is good at it, he leaves the website.
+
+#### Works Done To Realize This Scenario
+
+To realize the scenario above in the application, we focused on several key aspects. Initially, we implemented a secure login and registration functionality using token-based authentication, laying the foundation for user identity and security.
+
+The application is built on two fundamental pillars: domain specificity and community engagement. For the community engagement aspect, we developed robust features like reviews, forums, comments, and groups.
+
+Reviews and all kinds of forum content encompasses posting, editing, deleting, and voting capabilities, integrated across the backend, frontend, and mobile platforms. On the backend, CRUD (Create, Read, Update, Delete) endpoints were implemented to manage these interactions efficiently. Forums were designed to allow users to create individual posts, comment on these posts, and even comment on other comments, facilitating rich community interactions.
+
+Regarding groups, we introduced two types of membership policies to represent different group types and motivations, enhancing the social dynamics within the application. This feature allows users to connect and engage with like-minded individuals, creating a sense of community and shared interest.
+For domain specificity, a key focus was on enriching the gaming experience. For users like John who seek in-depth information about games, we enriched our platform with comprehensive game details incorporating features like characters, annotations, and game-specific tags. These elements differentiate our platform from typical gaming platforms by providing deeper insights into each game.
+
+Additionally, we introduced an achievements system to boost user engagement, tapping into the competitive spirit of gamers. To seamlessly blend domain specificity with social networking, these domain-specific elements - characters, achievements, annotations - were integrated into the posts and social features of the application.
+
+A significant addition was the implementation of a recommendation algorithm. By tracking user activities on the backend, such as games followed and group participation, the algorithm suggests games, and groups that align with the user's interests.
+
+Furthermore, related pages for games, characters, and groups were developed, with backend support for managing and presenting this data effectively. To further enhance the user experience, we added search, filter, and sort functionalities with a wide range of options across nearly all sections of our user interfaces.
+
+To ensure that users like John have access to a wealth of content, we developed an admin panel. This panel empowers our administrators to effectively manage the platform's content. Through this panel, admins have the capability to create, delete, and edit various elements such as games, achievements, and tags. Additionally, it provides them with the functionality to add annotations, enriching the game descriptions and providing deeper insights.
+
+### 9. Management
