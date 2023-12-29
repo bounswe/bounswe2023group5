@@ -40,20 +40,7 @@
 - [8. Scenario](#8-scenario)
 - [9. Management](#9-management)
 
-- [10. Individual Contribution Reports](#3-individual-contribution-reports)
-
-  - [Ali Başaran]()
-  - [Alperen Bırçak]()
-  - [Arda Kabadayı]()
-  - [Bilal Atım]()
-  - [Can Uzduran]()
-  - [Çisel Zümbül]()
-  - [Deniz Ünal]()
-  - [Ege Ekşi]()
-  - [Halis Bal]()
-  - [Harun Sami Çelik]()
-  - [Mehmet Said Yolcu]()
-  - [Zeynep Baydemir]()
+- [10. Individual Contribution Reports](#10-individual-contribution-reports)
 
 ### 1. Executive Summary
 
@@ -61,31 +48,30 @@
 
 ### 3. Status Of Deliverables
 
-| Deliverable Name | Delivery Status | Notes |
-| --- | --- | --- |
-| Project Video | Completed  | 
-| Executive Summary | Completed | 
-| Summary of Your Project Status in Terms of Requirements| Completed | 
-| Status of Deliverables | Completed |
-| Final Release Notes | Completed |
-| Management Related Parts of Report | Completed |
-| Summary of Work Performed by Team Members |  Completed |
-| API Endpoints | Completed |
-| Status of Requirements| Completed |
-| Status of Annotations | Completed |
-| Scenarios | Completed |
-| User Manual | Completed |
-| System Manual |  Completed |
-| Emulator Instructions | Completed |
-| Software Requirements Specification | Completed  |
-| Software design documents | Completed  |
-| User scenarios and mockups | Completed  |
-| Research | Completed |
-| Project plan | Completed |
-| Generated Unit Test Reports | Completed |
-| Release of Software | Completed |
-| Individual Contributions | Completed |
-
+| Deliverable Name                                        | Delivery Status | Notes |
+| ------------------------------------------------------- | --------------- | ----- |
+| Project Video                                           | Completed       |
+| Executive Summary                                       | Completed       |
+| Summary of Your Project Status in Terms of Requirements | Completed       |
+| Status of Deliverables                                  | Completed       |
+| Final Release Notes                                     | Completed       |
+| Management Related Parts of Report                      | Completed       |
+| Summary of Work Performed by Team Members               | Completed       |
+| API Endpoints                                           | Completed       |
+| Status of Requirements                                  | Completed       |
+| Status of Annotations                                   | Completed       |
+| Scenarios                                               | Completed       |
+| User Manual                                             | Completed       |
+| System Manual                                           | Completed       |
+| Emulator Instructions                                   | Completed       |
+| Software Requirements Specification                     | Completed       |
+| Software design documents                               | Completed       |
+| User scenarios and mockups                              | Completed       |
+| Research                                                | Completed       |
+| Project plan                                            | Completed       |
+| Generated Unit Test Reports                             | Completed       |
+| Release of Software                                     | Completed       |
+| Individual Contributions                                | Completed       |
 
 ### 4. Requirements Coverage
 
@@ -275,3 +261,18 @@ To ensure that users like John have access to a wealth of content, we developed 
 - Secondly, in this milestone, we paid more attention to reviews. For example we changed the styling of the login/register page in frontend and make some coloring adjustments based on the given feedbacks. This created a better UI and gave us a opportunity to see our mistakes.
 - Also, by experiencing first two milestone we learned how to create a realistic and detailed scenario. So, in this milestone I think we created a better scenario. In this way we affect our customers more easily and make them more satisfied.
 - In the final milestone demo, we realized that the objective of the annotation feature is to provide all users with the opportunity to annotate content on the page. We had thought that there might be constraints to this opportunity, but the demo demonstrated that such limitations were unnecessary.
+
+## 10. Individual Contribution Reports
+
+- [Ali Başaran]()
+- [Alperen Bırçak]()
+- [Arda Kabadayı]()
+- [Bilal Atım]()
+- [Can Uzduran]()
+- [Çisel Zümbül](https://github.com/bounswe/bounswe2023group5/wiki/Contributions-of-%C3%87isel-Z%C3%BCmb%C3%BCl-%E2%80%90-451-Final-Milestone)
+- [Deniz Ünal]()
+- [Ege Ekşi]()
+- [Halis Bal]()
+- [Harun Sami Çelik]()
+- [Mehmet Said Yolcu]()
+- [Zeynep Baydemir]()
