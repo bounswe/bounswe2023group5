@@ -58,6 +58,8 @@
 | Management Related Parts of Report                      | Completed       |
 | Summary of Work Performed by Team Members               | Completed       |
 | API Endpoints                                           | Completed       |
+| User Interface Designs Mobile                           | Completed       |
+| User Interface Designs Web                              | Completed       |
 | Status of Requirements                                  | Completed       |
 | Status of Annotations                                   | Completed       |
 | Scenarios                                               | Completed       |
