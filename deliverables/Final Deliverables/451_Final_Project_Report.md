@@ -78,6 +78,9 @@
 ### 4. Requirements Coverage
 
 ### 5. API Endpoints
+- [API Documentation](https://github.com/bounswe/bounswe2023group5/wiki/API-Documentation)
+- [Link to the API](http://ec2-16-16-166-22.eu-north-1.compute.amazonaws.com/swagger-ui/index.html#/)
+- [Example API Calls and Postman Collection](https://github.com/bounswe/bounswe2023group5/wiki/Example-API-Calls)
 
 ### 6. User Interface & User Experience
 
