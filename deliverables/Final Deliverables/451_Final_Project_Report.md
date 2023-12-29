@@ -623,5 +623,5 @@ To ensure that users like John have access to a wealth of content, we developed 
 - [Ege Ekşi](https://github.com/bounswe/bounswe2023group5/wiki/Contributions-of-Ege-Ek%C5%9Fi-%E2%80%90-451-Final-Milestone)
 - [Halis Bal](https://github.com/bounswe/bounswe2023group5/wiki/Contributions-of-Halis-Bal-451)
 - [Harun Sami Çelik]()
-- [Mehmet Said Yolcu]()
+- [Mehmet Said Yolcu](https://github.com/bounswe/bounswe2023group5/wiki/Contributions-of-Mehmet-Said-Yolcu-%E2%80%90-451-Final-Milestone)
 - [Zeynep Baydemir](https://github.com/bounswe/bounswe2023group5/wiki/Contributions-of-Zeynep-Baydemir-%E2%80%90-451-%E2%80%90-Final-Milestone)
