@@ -33,3 +33,9 @@ After we have done with our application, we can stop it by running the following
      docker compose down
 
 Disclaimer: Running the app on local machine will have few limitations. Firstly, since all images are stored in our AWS server, there won't be any images to show on local, only the images that are uploaded from the backend that run in your local will show up (you should create some posts/games etc.). Secondly since the url will be different from our frontend, the annotations from our frontend can not be seen, since the source field will not match. Instead you can add your own annotations and see them.
+
+
+
+### Unit Test Reports
+- [Unit Test Reports](https://github.com/bounswe/bounswe2023group5/wiki/Unit-Test-Reports)
+
