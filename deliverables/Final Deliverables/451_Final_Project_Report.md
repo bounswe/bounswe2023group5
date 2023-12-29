@@ -43,6 +43,21 @@
 - [10. Individual Contribution Reports](#10-individual-contribution-reports)
 
 ### 1. Executive Summary
+At the final milestone, we have largely completed our requirements in our game review application. We have released the pre-release versions of our mobile application and web application.
+
+Since the second mileton, we have created the UI designs and backend logic of our home pages on web and mobile. We have established a system that makes game and group recommendations to our users based on their likes and interests. Although the game recommendation section works very well on the web side, there are still unfinished points on the mobile section.
+
+We added new features to the profile section of each of our users. We enabled users to be more informed within the application and be informed of new news by seeing their notifications. We have successfully completed the mobile and web section by allowing users to access the relevant sections by clicking on our notifications.
+
+We have included the character feature, which is one of the most basic features that distinguishes our application from other forums and applications. We aimed to make our users feel closer to the games and our application by using game-specific characters.
+
+In this milestone, we helped people create their own communities by adding features such as private group and ban user to the group feature we had previously implemented.
+
+Another important feature we added to our application is the annotation system. We have established our annotation system that allows all our users to make text and image annotation. The annotation system, which works very well on the web side, has not yet been implemented on the mobile side due to some restrictions provided by Unity.
+
+We tried to distance our users who are eager to have fun in the game world from the boring UI experience by improving the UI design of our application and displaying it in a more cartoon style.
+
+In summary, we have largely successfully reached the anticipated development milestone for our platform.
 
 ### 2. Final Release Notes
 Covered Requirements Since Milestone 2:
