@@ -79,32 +79,31 @@ There are some requirements we could not cover such as reporting feature. You ca
 
 ### 3. Status Of Deliverables
 
-| Deliverable Name                                        | Delivery Status | Notes |
-| ------------------------------------------------------- | --------------- | ----- |
-| Project Video                                           | Completed       |
-| Executive Summary                                       | Completed       |
-| Summary of Your Project Status in Terms of Requirements | Completed       |
-| Status of Deliverables                                  | Completed       |
-| Final Release Notes                                     | Completed       |
-| Management Related Parts of Report                      | Completed       |
-| Summary of Work Performed by Team Members               | Completed       |
-| API Endpoints                                           | Completed       |
-| User Interface Designs Mobile                           | Completed       |
-| User Interface Designs Web                              | Completed       |
-| Status of Requirements                                  | Completed       |
-| Status of Annotations                                   | Completed       |
-| Scenarios                                               | Completed       |
-| User Manual                                             | Completed       |
-| System Manual                                           | Completed       |
-| Emulator Instructions                                   | Completed       |
-| Software Requirements Specification                     | Completed       |
-| Software design documents                               | Completed       |
-| User scenarios and mockups                              | Completed       |
-| Research                                                | Completed       |
-| Project plan                                            | Completed       |
-| Generated Unit Test Reports                             | Completed       |
-| Release of Software                                     | Completed       |
-| Individual Contributions                                | Completed       |
+| Deliverable Name | Delivery Status | Notes |
+| --- | --- | --- |
+| [Project Video](https://youtu.be/kKTJaSUGkjQ) | Completed  | 
+| [Executive Summary](#1-executive-summary) | Completed | 
+| [Summary of Your Project Status in Terms of Requirements](#4-requirements-coverage) | Completed | 
+| [Status of Deliverables](#3-status-of-deliverables) | Completed |
+| [Final Release Notes](#2-final-release-notes) | Completed |
+| [Management Related Parts of Report](#9-management)| Completed |
+| [Summary of Work Performed by Team Members](https://github.com/bounswe/bounswe2023group5/wiki/Summary-Of-Work) |  Completed |
+| [API Endpoints](https://github.com/bounswe/bounswe2023group5/blob/final-report/deliverables/Final%20Deliverables/APIEndpoints.md)| Completed |
+| [Status of Requirements](https://github.com/bounswe/bounswe2023group5/wiki/Progress-According-to-Requirements-‐-Final-Milestone)| Completed |
+| [Status of Annotations](https://github.com/bounswe/bounswe2023group5/wiki/Annotations) | Completed |
+| [Scenarios](#8-scenario) | Completed |
+| [User Manual](https://github.com/bounswe/bounswe2023group5/blob/final-report/deliverables/Final%20Deliverables/UseAndMaintenance.md#user-manual) | Completed |
+| [System Manual](https://github.com/bounswe/bounswe2023group5/blob/final-report/deliverables/Final%20Deliverables/UseAndMaintenance.md#system-manual) |  Completed |
+| [Emulator Instructions](https://github.com/bounswe/bounswe2023group5/wiki/System-Manual#mobile) | Completed | Unity has its own emulator. Run the program in Unity with specified instructions|
+| [Software Requirements Specification](https://github.com/bounswe/bounswe2023group5/blob/final-report/deliverables/Final%20Deliverables/UseAndMaintenance.md#software-requirements-specification-srs) | Completed  |
+| [Software design documents](https://github.com/bounswe/bounswe2023group5/blob/final-report/deliverables/Final%20Deliverables/UIUX.md)| Completed  |
+| [User scenarios and mockups](https://github.com/bounswe/bounswe2023group5/blob/final-report/deliverables/Final%20Deliverables/UseAndMaintenance.md#user-scenarios-and-mockups) | Completed  |
+| [Research](https://github.com/bounswe/bounswe2023group5/blob/final-report/deliverables/Final%20Deliverables/UseAndMaintenance.md#research) | Completed |
+| [Project plan](https://github.com/orgs/bounswe/projects/21/views/1) | Completed |
+| [Generated Unit Test Reports](https://github.com/bounswe/bounswe2023group5/blob/final-report/deliverables/Final%20Deliverables/UseAndMaintenance.md#unit-test-reports) | Completed |
+| [Release of Software](https://github.com/bounswe/bounswe2023group5/releases/tag/final-submission-g5) | Completed |
+| [Individual Contributions](#10-individual-contribution-reports) | Completed |
+
 
 ### 4. Requirements Coverage
 
