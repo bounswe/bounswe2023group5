@@ -6,7 +6,7 @@ On the mobile side, we used multiple different devices from different vendors to
 ## Project Artifacts
 ### User Manual
 - [User Manual-Web](https://github.com/bounswe/bounswe2023group5/wiki/User-Manual#annotation)
-- [User Manual-Mobile]()
+- [User Manual-Mobile](https://github.com/bounswe/bounswe2023group5/wiki/User-Manual-%E2%80%90-Mobile)
 
 ### System Manual
 - [System Manual](https://github.com/bounswe/bounswe2023group5/wiki/System-Manual)
